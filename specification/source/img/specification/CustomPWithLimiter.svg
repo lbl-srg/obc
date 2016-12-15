@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 1045.3335 564.1405"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="CustomPWithLimiter.svg"
+   width="1045.3335"
+   height="564.1405">
+  <metadata
+     id="metadata58">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs56" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1305"
+     inkscape:window-height="778"
+     id="namedview54"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.80739783"
+     inkscape:cx="522.66675"
+     inkscape:cy="286.06504"
+     inkscape:window-x="60"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <rect
+     style="fill:#ffffff;stroke:#00007f;stroke-width:0.99999994;stroke-opacity:1"
+     id="rect3386"
+     height="563.1405"
+     width="861.63025"
+     y="0.49999997"
+     x="122.32724" />
+  <polygon
+     points="2424.6,375.95 2510.9,419.1 2424.6,462.25 2424.6,462.25 "
+     id="polygon4"
+     style="fill:#ffffff;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <text
+     x="336.75122"
+     y="515.73938"
+     dominant-baseline="central"
+     font-size="17"
+     id="text6"
+     style="font-size:17px;font-family:helvetica;text-anchor:middle;fill:#000000">k=k</text>
+  <text
+     x="336.75122"
+     y="412.17935"
+     dominant-baseline="central"
+     font-size="17"
+     id="text8"
+     style="font-size:17px;font-family:helvetica;text-anchor:middle;fill:#0000ff">gain</text>
+  <rect
+     x="638.80127"
+     y="248.20934"
+     width="86.300003"
+     height="86.300003"
+     id="rect10"
+     style="fill:#ffffff;stroke:#00007f;stroke-opacity:1" />
+  <text
+     x="681.95117"
+     y="235.26433"
+     dominant-baseline="central"
+     font-size="17"
+     id="text12"
+     style="font-size:17px;font-family:helvetica;text-anchor:middle;fill:#0000ff">min</text>
+  <text
+     x="681.95117"
+     y="291.35934"
+     dominant-baseline="central"
+     font-size="31"
+     id="text14"
+     style="font-size:31px;font-family:helvetica;text-anchor:middle;fill:#a0a0a4">min()</text>
+  <polyline
+     points="2165.700000,73.900000 2165.700000,73.900000 2597.200000,73.900000 2597.200000,220.610000 2761.170000,220.610000"
+     id="polyline16"
+     style="fill:none;stroke:#ffffff;stroke-width:5;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2165.700000,73.900000 2165.700000,73.900000 2597.200000,73.900000 2597.200000,220.610000 2761.170000,220.610000"
+     id="polyline18"
+     style="fill:none;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2165.700000,419.100000 2286.520000,419.100000 2415.970000,419.100000"
+     id="polyline20"
+     style="fill:none;stroke:#ffffff;stroke-width:5;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2165.700000,419.100000 2286.520000,419.100000 2415.970000,419.100000"
+     id="polyline22"
+     style="fill:none;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2515.215000,419.100000 2597.200000,419.100000 2597.200000,272.390000 2761.170000,272.390000"
+     id="polyline24"
+     style="fill:none;stroke:#ffffff;stroke-width:5;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2515.215000,419.100000 2597.200000,419.100000 2597.200000,272.390000 2761.170000,272.390000"
+     id="polyline26"
+     style="fill:none;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2860.415000,246.500000 3158.150000,246.500000"
+     id="polyline28"
+     style="fill:none;stroke:#ffffff;stroke-width:5;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polyline
+     points="2860.415000,246.500000 3158.150000,246.500000"
+     id="polyline30"
+     style="fill:none;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polygon
+     points="2252,73.9 2165.7,117.05 2165.7,30.75 2165.7,30.75 "
+     id="polygon32"
+     style="fill:#00007f;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <text
+     x="26.071289"
+     y="56.191837"
+     dominant-baseline="central"
+     font-size="22"
+     id="text34"
+     style="font-size:22px;font-family:helvetica;text-anchor:middle;fill:#00007f">yMax</text>
+  <polygon
+     points="3158.15,246.5 3115,268.075 3115,224.925 3115,224.925 "
+     id="polygon36"
+     style="fill:#ffffff;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <text
+     x="1040.0913"
+     y="254.68134"
+     dominant-baseline="central"
+     font-size="22"
+     id="text38"
+     style="font-size:22px;font-family:helvetica;text-anchor:middle;fill:#00007f">y</text>
+  <polygon
+     points="2252,419.1 2165.7,462.25 2165.7,375.95 2165.7,375.95 "
+     id="polygon40"
+     style="fill:#00007f;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <text
+     x="26.071289"
+     y="401.39233"
+     dominant-baseline="central"
+     font-size="22"
+     id="text42"
+     style="font-size:22px;font-family:helvetica;text-anchor:middle;fill:#00007f">e</text>
+  <polygon
+     points="2424.6,419.1 2407.34,427.73 2407.34,410.47 2407.34,410.47 "
+     id="polygon44"
+     style="fill:#00007f;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polygon
+     points="2519.53,419.1 2510.9,423.415 2510.9,414.785 2510.9,414.785 "
+     id="polygon46"
+     style="fill:#ffffff;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polygon
+     points="2769.8,220.61 2752.54,229.24 2752.54,211.98 2752.54,211.98 "
+     id="polygon48"
+     style="fill:#00007f;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polygon
+     points="2769.8,272.39 2752.54,281.02 2752.54,263.76 2752.54,263.76 "
+     id="polygon50"
+     style="fill:#00007f;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+  <polygon
+     points="2864.73,246.5 2856.1,250.815 2856.1,242.185 2856.1,242.185 "
+     id="polygon52"
+     style="fill:#ffffff;stroke:#00007f;stroke-opacity:1"
+     transform="translate(-2130.9988,44.859337)" />
+</svg>
