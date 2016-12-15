@@ -53,10 +53,10 @@ clean:
 	-rm -rf $(BUILDDIR)/*
 
 html:   
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ../docs
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py
 	@echo
-	@echo "Build finished. The HTML pages are in ../docs"
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
 
 latex:	test_installation 
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
