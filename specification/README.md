@@ -24,3 +24,8 @@ plantuml requires graphviz, which can be installed on OS X using
 ```
 brew install graphviz
 ```
+and on Ubuntu using
+
+```
+sudo apt-get install graphviz
+```
