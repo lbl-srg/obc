@@ -1,0 +1,23 @@
+CHAPTER 2
+- Throughout the document, the word "must" is also used.  To be strict, should it be "shall", or include the use of "must" in 1.? 
+
+CHAPTER 3
+- Would be helpful to label on Fig 3.1 the Controls Design Tool and Commissioning and Functional Verification Tool.  Not sure the convention for doing so on such a diagram though.
+- Fig 3.1 is too small to read in the pdf created by latex.
+
+CHAPTER 4
+- In the VAV use case table, I have trouble understanding the meaning of Action 5.  Similarly in Fig. 4.1 the meaning of "Expand top-level of sequence."
+
+CHAPTER 5
+- In Controls Design Tool 5., what about cost?  For instance, I think E+ allows for specification of utility rate structures.
+- In CDL 1., just double checking you meant should, and not shall, for machine-to-machine translation.
+- In CDL 3., Chapter 6 often references Modelica 3.3, not 3.2 as written.  Just want to double check which is true.
+
+CHAPTER 6
+- ToDo about myGain(k=10*60) - I think this does make it easier for a user.
+- ToDo about if useGain - I think this does make it easier for an end user of the block, but I don't know the tradeoff with extra effort in translation/compilation.  
+- In Connections, "each input block needs to be connected to exactly one output of another block."  This just brings up in my mind if anything needs to be said anywhere about the handling (or not) of arrays.
+- Fig 6.1 is too small to read in the pdf created by latex.
+
+
+
