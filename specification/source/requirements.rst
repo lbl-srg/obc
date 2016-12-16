@@ -38,13 +38,10 @@ CDL
 #. CDL shall be a proper subset of Modelica 3.2 :cite:`Modelica2012:1`.
    [Section :ref:`sec_specification` specifies what subset shall be supported. This will allow visualizing, editing and simulating
    CDL with Modelica tools rather than requiring a separate tool.
-   It will also simplify CDL as there are no specification that
-   contradict with Modelica, which is used by the design tool
-   and verification tool.]
-#. It shall be possible to simulate in an open-source free available
-   Modelica environment CDL-compliant control sequences.
-#. It shall be possible to simulate in the Spawn of EnergyPlus
-   CDL-compliant control sequences.
+   It will also simplify the integration of CDL with the design and verification tools, since they use Modelica.]
+#. It shall be possible to simulate CDL-compliant control sequences in an open-source, freely available
+   Modelica environment.
+#. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
 
 
 Commissioning and Functional Verification Tool
