@@ -18,7 +18,7 @@ The CDL constists of the following elements:
   * how to document blocks.
   * how to add annotations such as for graphical rendering of blocks
     and their connections.
-  * How to specify composite blocks.
+  * how to specify composite blocks.
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
@@ -65,7 +65,7 @@ Permissible data types
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The basic data types are, in addition to the elementary building blocks,
-`Real`, `Integer`, `Boolean`, `String`, and enumeration types.
+`Real`, `Integer`, `Boolean`, `String`, and `enumeration` types.
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL must be blocks or parameters.
 Variables are not allowed [they are used however in the elementary building blocks].
@@ -94,7 +94,7 @@ Also, the following Modelica language features are not supported in CDL:
 Instantiation
 ^^^^^^^^^^^^^
 
-Instantiation is identical as in Modelica.
+Instantiation is identical to Modelica.
 
 [For example, to instantiate a gain, one would write
 
@@ -149,7 +149,7 @@ Signals must be connected using `connect` statement;
 direct assigning the values of signals when instantiating
 signals is not allowed.
 
-[This ensures that all control sequences are expressed as a block diagrams.
+[This ensures that all control sequences are expressed as block diagrams.
 For example, the following model is valid
 
 .. literalinclude:: img/specification/MyAdderValid.mo
@@ -177,8 +177,8 @@ Modelica 3.3 Specification
 
 * 18.8 Annotations for Version Handling
 
-[For CDL, annotations are primarily used for graphical layout of blocks, their connections
-and of input signal and output signal connectors, and to declare
+[For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
+input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
 Composite blocks
@@ -214,7 +214,7 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
    :language: modelica
    :linenos:
 
-Composite blocks are need to preserve grouping of control blocks and their connections,
+Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
 
 Model of computations
