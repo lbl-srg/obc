@@ -3,13 +3,13 @@
 Use Cases
 ---------
 
-This section describes use cases for end-users that interact with
+This section describes use cases for end-user interaction, including:
 
-* the control design tool to design a control sequence and export
+* use the controls design tool to design a control sequence and export
   it as a CDL-compliant specification,
 * use the CDL to bid on a project and, when selected for the project,
   implement the control sequence in a building automation system, and
-* use the CDL during commissioning.
+* use the commissioning and functional verification tool during commissioning.
 
 
 Controls design
@@ -44,7 +44,7 @@ Successful End Condition     Implemented VAV sequence with customized control,
 ---------------------------  ---------------------------------------------------
 Failed End Condition         n/a
 ---------------------------  ---------------------------------------------------
-Primary Actors               An mechanical engineer.
+Primary Actors               A mechanical engineer.
 ---------------------------  ---------------------------------------------------
 Secondary Actors             The controls design tool with template control
                              sequences and a package with elementary CDL blocks.
@@ -55,8 +55,7 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
-1                            The user opens in OpenStudio the controls design
-                             tool.
+1                            The user opens the controls design tool in OpenStudio
 ---------------------------  ---------------------------------------------------
 2                            The user opens the HVAC model and building model
                              in the controls design tool.
@@ -71,7 +70,7 @@ Trigger                      n/a
                              of the instantiated control sequence and store
                              it in the project.
 ---------------------------  ---------------------------------------------------
-6                            The controls design tool "explodes" to top-level
+6                            The controls design tool "explodes" the top-level
                              sequence and stores it as a new composite
                              control block in the project.
 ---------------------------  ---------------------------------------------------
