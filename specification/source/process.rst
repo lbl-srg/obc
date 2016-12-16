@@ -3,7 +3,7 @@
 Process Workflow
 ----------------
 
-The actual process work flow need to be refined by the project team
+The actual process work flow needs to be refined by the project team
 with input from the Technical Advisory Group.
 :numref:`fig_process` shows the proposed process:
 First, given regulations and efficiency targets (1),
@@ -26,7 +26,8 @@ by running functional tests against the electronic, executable specification
 in the Commissioning and Functional Verification Tool (9).
 If the verification tests fail, the implementation needs to be corrected.
 
-For closed-loop performance assessment and verification,
+For closed-loop performance assessment and verification in the Controls Design Tool
+and Commissioning and Functional Verification Tool,
 `Modelica models <http://simulationresearch.lbl.gov/modelica/>`_
 of the HVAC systems and controls will be linked to
 a Modelica envelope model or to
