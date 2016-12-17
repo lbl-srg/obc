@@ -4,7 +4,7 @@ import glob, os
 
 # This section fixes wrong formating as plantuml seems to write a wrong
 # formatting if used together with numfig
-for fil in glob.glob("../docs/*.html"):
+for fil in glob.glob("build/html/*.html"):
     lines = []
     with open(fil, 'r') as infile:
         for line in infile:
@@ -18,6 +18,3 @@ for fil in glob.glob("../docs/*.html"):
     with open(fil, 'w') as outfile:
         for line in lines:
             outfile.write(line)
-
-
-
