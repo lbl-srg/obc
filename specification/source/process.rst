@@ -42,8 +42,8 @@ for the given climate and use patterns.
 
 .. _fig_process:
 
-.. figure:: img/ControlsDesignVerficationFlow.png
-   :scale: 20 %
+.. figure:: img/ControlsDesignVerficationFlow.*
+   :width: 800px
 
    Process workflow for controls design, specification and
    functional verification.

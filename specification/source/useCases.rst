@@ -66,15 +66,16 @@ Trigger                      n/a
 4                            The user drags and drops from the Buildings library
                              a pre-configured VAV control sequence.
 ---------------------------  ---------------------------------------------------
-5                            The user selects to expand one hierarchical level
-                             of the instantiated control sequence and store
-                             it in the project.
+5                            The user clicks on the pre-configured VAV control
+                             sequence and selects in the tool a function that
+                             will store the sequence in the project library
+                             to allow further editing.
 ---------------------------  ---------------------------------------------------
-6                            The controls design tool "explodes" the top-level
-                             sequence and stores it as a new composite
-                             control block in the project.
+6                            The controls design tool stores the
+                             sequence in the project library.
 ---------------------------  ---------------------------------------------------
-7                            The user opens the new composite control block.
+7                            The user opens in the project library
+                             the new composite control block.
 ---------------------------  ---------------------------------------------------
 8                            The user adds and connects additional control blocks
                              from the elementary CDL-block library.
@@ -100,9 +101,9 @@ Trigger                      n/a
    "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
    "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
    "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-   "User" -> "Control Design Tool" : Expand top-level of sequence.
-   "Control Design Tool" -> "Control Design Tool" : Explode and write top-level sequence to new file.
-   "User" -> "Control Design Tool" : Open new composite control block.
+   "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
+   "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
+   "User" -> "Control Design Tool" : Open new composite control block in the project library.
    "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
    "User" -> "Control Design Tool" : Check model.
    "OpenStudio" <- "Control Design Tool" : Invoke model check.

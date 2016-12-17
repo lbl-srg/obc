@@ -67,8 +67,18 @@ Permissible data types
 The basic data types are, in addition to the elementary building blocks,
 `Real`, `Integer`, `Boolean`, `String`, and `enumeration` types.
 See also the Modelica 3.3 specification, Chapter 3.
-All specifications in CDL must be blocks or parameters.
+All specifications in CDL shall be blocks or parameters.
 Variables are not allowed [they are used however in the elementary building blocks].
+
+Each of these data types, including the elementary building blocks,
+can be a single instance or one-dimensional array.
+Array indices shall be of type `Integer` only.
+The first element of an array has index `1`.
+An array of size `0` is an empty array.
+See the Modelica 3.3 specification Chapter 10 for array notation.
+
+[`enumeration` or `Boolean` data types are not permitted as array indices.]
+
 
 Syntax
 ^^^^^^
@@ -111,15 +121,30 @@ for the graphical positioning of the instance in a block-diagram.
 
    We need to clarify whether
 
-   #. We allow operations such as `Continuous.Gain myGain(k=10*60);`?
+   #. We allow operations such as
+
+      .. code-block:: modelica
+
+         parameter Real p = 10;
+         Continuous.Gain myGain(k=2*p);
+
    #. We allow conditional removal of blocks, such as
-      such as `Continuous.Gain myGain(k=10*60) if useGain;`?
+      such as
+
+      .. code-block:: modelica
+
+         parameter Boolean useGain = false;
+         Continuous.Gain myGain(k=10*60) if useGain;
+
+      [This would allow removing certain blocks and all their connections
+      based on a boolean parameter.]
 
 
 Connections
 ^^^^^^^^^^^
 
-Each input of a block needs to be connected to exactly one output of another block.
+Each input connector of a block needs to be connected to exactly
+one output connector of a block.
 Connections are listed after the instantiation of the blocks in an equation
 section. The syntax is
 
@@ -143,9 +168,10 @@ The order of the connections and the order of the arguments in the
    equation
      connect(gain.u, timer.y);
    // fixme: need to replace signals with signals from OpenBuildingControl
+
 ]
 
-Signals must be connected using `connect` statement;
+Signals shall be connected using a `connect` statement;
 direct assigning the values of signals when instantiating
 signals is not allowed.
 
@@ -162,6 +188,7 @@ whereas the following model is not valid in CDL, although it is valid in Modelic
    :language: modelica
    :linenos:
    :emphasize-lines: 4
+
 ]
 
 Annotations
@@ -189,20 +216,21 @@ CDL allows building composite blocks such as shown in
 
 .. _fig_custom_control_block:
 
-.. figure:: img/specification/CustomPWithLimiter.png
-   :scale: 10 %
+.. figure:: img/specification/CustomPWithLimiter.*
+   :width: 500px
 
    Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
    where :math:`k` is a constant.
 
+
 Composite blocks can contain other composite blocks.
 
-Each composite block must be stored on the file system under the name of the composite block
+Each composite block shall be stored on the file system under the name of the composite block
 with the file extension `.mo`, and with each package name being a directory.
-The name must be an allowed Modelica class name.
+The name shall be an allowed Modelica class name.
 
 [For example, if a user specifies a new composite block `MyController.MyAdder`, then it
-must be stored in the file `MyController/MyAdder.mo` on Linux or OS X, or `MyController\\MyAdder.mo`
+shall be stored in the file `MyController/MyAdder.mo` on Linux or OS X, or `MyController\\MyAdder.mo`
 on Windows.]
 
 
@@ -227,10 +255,10 @@ which are defined below. [The definition is adopted from and consistent with the
    are explicitly changed. Variable values can be accessed at any time instant.
 #. Computation and communication at an event instant does not take time.
    [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
-#. Every input connector must be connected to exactly one output connector.
+#. Every input connector shall be connected to exactly one output connector.
 
 In addition, the dependency graph from inputs to outputs that directly depend
-on inputs must be directed and acyclic.
+on inputs shall be directed and acyclic.
 I.e., connections that form an algebraic loop are not allowed.
 [To break an algebraic loop, one could place a delay block or an integrator
 in the loop, because the outputs of a delay or integrator does *not* depend
