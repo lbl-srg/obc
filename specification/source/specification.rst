@@ -30,21 +30,29 @@ List of elementary building blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The CDL contains elementary building blocks that are used to compose
-control sequences. The list of elementary building blocks is as shown
-on [fixme: add link to web site, that will show a list with block such as]
+control sequences. The elementary building blocks can be
+browsed at the `CDL blocks <cdl/latest/help/CDL.html>`_.
+An actual implementation looks as follows, where we omitted
+annotations used for graphical rendering:
 
 .. code-block:: modelica
 
    block AddParameter "Outputs the sum of a parameter and a signal"
      parameter Real p "Value to be added to input";
-     RealInput u "Input signal";
-     RealOuput y "Output signal";
+     Interfaces.RealInput u "Connector for Real input signal";
+     RealOuput y "Connector for Real output signal";
 
      annotation(Documentation(info(
      <p>
-     Block that outputs <code>y = p + u</code>.
+     Block that outputs <code>y = k u + p</code>,
+     where <code>k</code> and <code>p</code> are
+     parameters and <code>u</code> is an input.
      </p>));
    end AddParameter;
+
+For the complete implementation, see
+the
+`github repository <https://github.com/lbl-srg/modelica-buildings/tree/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL>`_.
 
 .. todo::
 
@@ -140,9 +148,35 @@ for the graphical positioning of the instance in a block-diagram.
       based on a boolean parameter.]
 
 
+.. _sec_connectors:
+
+Connectors
+^^^^^^^^^^
+
+Blocks expose their inputs and outputs through input and output
+connectors. The permissible connectors are defined in the
+`CDL.Intefaces package <cdl/latest/help/CDL_Interfaces.html>`_.
+
+Connectors can only carry scalar variables.
+For arrays, the connectors need to be explicitly declared as an array.
+
+[ For example, to declare an array of `nin` input signals, use
+
+.. code-block:: modelica
+
+   parameter Integer nin(min=1) "Number of inputs";
+
+   Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
+
+Hence, unlike in Modelica 3.2, we do not allow for automatic vectorization
+of input signals.
+]
+
+
 Connections
 ^^^^^^^^^^^
 
+Connections connect input to output connectors_.
 Each input connector of a block needs to be connected to exactly
 one output connector of a block.
 Connections are listed after the instantiation of the blocks in an equation

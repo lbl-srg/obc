@@ -10,6 +10,8 @@ TMP          := $(shell mktemp -u /tmp/sphinx.XXXXXX)
 # Bitbucket user name
 BITUSR        = $(USER)
 
+TEMPDIR := $(shell mktemp -d)
+
 found=${shell java -jar source/plantuml.jar -testdot | grep -c 'Installation seems OK. File generation OK'}
 
 #PYTHONPATH=`pwd`/..
@@ -51,6 +53,10 @@ cleanModels:
 	-rm -rf source/models/binaries
 clean:
 	-rm -rf $(BUILDDIR)/*
+
+generate_cdl_from_modelica:
+	./generate_cdl_from_modelica.py
+#	rm -r $(TEMPDIR)
 
 html:   
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
