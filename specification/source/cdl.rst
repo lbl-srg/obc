@@ -1,10 +1,10 @@
 .. _sec_cdl:
 
-CDL Specification
------------------
+Control Description Language
+----------------------------
 
 This section specifies
-the Control Description Language CDL.
+the Control Description Language (CDL).
 
 The CDL constists of the following elements:
 
