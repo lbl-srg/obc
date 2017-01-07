@@ -9,6 +9,9 @@ OpenBuildingControl (Working Draft)
 
    The document is work in progress, used as a discussion basis,
    and any of the design may change.
+   To edit the document, go to
+   https://github.com/lbl-srg/obc/tree/master/specification.
+          
 
 .. only:: html
 
