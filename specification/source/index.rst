@@ -25,7 +25,7 @@ OpenBuildingControl (Working Draft)
    process
    useCases
    requirements
-   specification
+   cdl
    acknowledgments
    references
 

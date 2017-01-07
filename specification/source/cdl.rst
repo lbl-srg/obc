@@ -1,9 +1,9 @@
-.. _sec_specification:
+.. _sec_cdl:
 
 CDL Specification
 -----------------
 
-This section gives a high-level specification of
+This section specifies
 the Control Description Language CDL.
 
 The CDL constists of the following elements:
@@ -233,13 +233,13 @@ signals is not allowed.
 [This ensures that all control sequences are expressed as block diagrams.
 For example, the following model is valid
 
-.. literalinclude:: img/specification/MyAdderValid.mo
+.. literalinclude:: img/cdl/MyAdderValid.mo
    :language: modelica
    :linenos:
 
 whereas the following model is not valid in CDL, although it is valid in Modelica
 
-.. literalinclude:: img/specification/MyAdderInvalid.mo
+.. literalinclude:: img/cdl/MyAdderInvalid.mo
    :language: modelica
    :linenos:
    :emphasize-lines: 4
@@ -273,7 +273,7 @@ CDL allows building composite blocks such as shown in
 
 .. _fig_custom_control_block:
 
-.. figure:: img/specification/CustomPWithLimiter.*
+.. figure:: img/cdl/CustomPWithLimiter.*
    :width: 500px
 
    Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
@@ -295,7 +295,7 @@ on Windows.]
 declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 
-.. literalinclude:: img/specification/CustomPWithLimiter.mo
+.. literalinclude:: img/cdl/CustomPWithLimiter.mo
    :language: modelica
    :linenos:
 
