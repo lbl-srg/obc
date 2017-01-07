@@ -119,17 +119,21 @@ the
 
 .. todo::
 
-   The following blocks are missing in the current Modelica library:
+   Various blocks still need to be added, see
+   https://github.com/lbl-srg/modelica-buildings/issues/610.
+   For example, the following blocks are missing
+   in the current Modelica library:
 
-   * Block that adds a parameter to a signal.
-   * Temperature setback for heating.
-   * Counter
+   * Block that outputs the day of the week.
+   * Block that outputs the temperature setback for heating.
+
 
 .. todo::
 
    Should a GPC 36 sequence also be an elementary building block so
    that manufacturers can implement them in a library, or should
-   they be only composed of smaller blocks?
+   they be only composed of smaller blocks and stored using
+   `composite blocks`_?
 
 
 Instantiation
