@@ -91,7 +91,7 @@
      dominant-baseline="central"
      font-size="17"
      id="text12"
-     style="font-size:17px;font-family:helvetica;text-anchor:middle;fill:#0000ff">min</text>
+     style="font-size:17px;font-family:helvetica;text-anchor:middle;fill:#0000ff">minValue</text>
   <text
      x="681.95117"
      y="291.35934"

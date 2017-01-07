@@ -10,6 +10,7 @@ The CDL constists of the following elements:
 
 * A list of elementary control blocks, such as a block that adds two signals and outputs the sum,
   or a block that represents a PID controller.
+* Connectors through which these blocks receive values and output values.
 * Permissible data types.
 * Syntax to specify
 
@@ -23,11 +24,73 @@ The CDL constists of the following elements:
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
 
-In order to easily process CDL, we will use a subset of the Modelica specification
-for the implementation of CDL. The next sections explain this subset.
+The next sections explain the elements of CDL.
 
-List of elementary building blocks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Syntax
+^^^^^^
+
+In order to easily process CDL, we will use a subset of the Modelica specification
+for the implementation of CDL.
+The syntax is a minimum subset of Modelica as needed to instantiate
+classes, assign parameters, connect objects and document classes.
+This subset is fully compatible with Modelica, e.g., no other information that
+violates the Modelica Standard is added.
+
+To simplify the implementation, the following Modelica keywords are not supported in CDL:
+
+#. `redeclare`
+#. `constrainedby`
+#. `inner` and `outer`
+
+Also, the following Modelica language features are not supported in CDL:
+
+#. Clocks [which are used in Modelica for hybrid system modeling].
+#. `algorithm` sections. [As the elementary building blocks are black-box
+   models as far as CDL is concerned and thus CDL compliant tools need
+   not parse the `algorithm` section.]
+#. `initial equation` and `initial algorithm` sections
+#. package-level declaration of `constant`
+
+   
+Permissible data types
+^^^^^^^^^^^^^^^^^^^^^^
+
+The basic data types are, in addition to the elementary building blocks,
+parameters of type
+`Real`, `Integer`, `Boolean`, `String`, and `enumeration`.
+[Parameters do not change their value as time progress.]
+See also the Modelica 3.3 specification, Chapter 3.
+All specifications in CDL shall be blocks or parameters.
+Variables are not allowed [they are used however in the elementary building blocks].
+
+Each of these data types, including the elementary building blocks,
+can be a single instance or one-dimensional array.
+Array indices shall be of type `Integer` only.
+The first element of an array has index `1`.
+An array of size `0` is an empty array.
+See the Modelica 3.3 specification Chapter 10 for array notation.
+
+[`enumeration` or `Boolean` data types are not permitted as array indices.]
+
+
+
+Encapsulation of functionality
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All computations are encapsulated in a `block`.
+Blocks exposes parameters (used to configure
+the block, such as a control gain), and they
+expose inputs and outputs using connectors_.
+
+Blocks are either `elementary building blocks`_
+or `composite blocks`_.
+
+
+.. _sec_ele_bui_blo:
+   
+Elementary building blocks
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The CDL contains elementary building blocks that are used to compose
 control sequences. The elementary building blocks can be
@@ -68,46 +131,6 @@ the
    that manufacturers can implement them in a library, or should
    they be only composed of smaller blocks?
 
-
-Permissible data types
-^^^^^^^^^^^^^^^^^^^^^^
-
-The basic data types are, in addition to the elementary building blocks,
-`Real`, `Integer`, `Boolean`, `String`, and `enumeration` types.
-See also the Modelica 3.3 specification, Chapter 3.
-All specifications in CDL shall be blocks or parameters.
-Variables are not allowed [they are used however in the elementary building blocks].
-
-Each of these data types, including the elementary building blocks,
-can be a single instance or one-dimensional array.
-Array indices shall be of type `Integer` only.
-The first element of an array has index `1`.
-An array of size `0` is an empty array.
-See the Modelica 3.3 specification Chapter 10 for array notation.
-
-[`enumeration` or `Boolean` data types are not permitted as array indices.]
-
-
-Syntax
-^^^^^^
-
-The syntax is a proper subset of Modelica as needed to instantiate
-classes, assign parameters, connect objects and document classes.
-
-The following Modelica keywords are not supported in CDL:
-
-#. `redeclare`
-#. `constrainedby`
-#. `inner` and `outer`
-
-Also, the following Modelica language features are not supported in CDL:
-
-#. Clocks [which are used in Modelica for hybrid system modeling].
-#. `algorithm` sections. [As the elementary building blocks are black-box
-   models as far as CDL is concerned and thus CDL compliant tools need
-   not parse the `algorithm` section.]
-#. `initial equation` and `initial algorithm` sections
-#. package-level declaration of `constant`
 
 Instantiation
 ^^^^^^^^^^^^^
@@ -196,13 +219,11 @@ The order of the connections and the order of the arguments in the
 
 .. code-block:: modelica
 
-   Continuous.Timer timer "Timer";
+   Continuous.Max maxValue "Output maximum value";
    Continous.Gain gain(k=60) "Gain";
 
    equation
-     connect(gain.u, timer.y);
-   // fixme: need to replace signals with signals from OpenBuildingControl
-
+     connect(gain.u, maxValue.y);
 ]
 
 Signals shall be connected using a `connect` statement;
@@ -241,6 +262,8 @@ Modelica 3.3 Specification
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
 input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
+
+.. _sec_com_blo:
 
 Composite blocks
 ^^^^^^^^^^^^^^^^
