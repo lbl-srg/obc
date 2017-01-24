@@ -47,4 +47,12 @@ CDL
 Commissioning and Functional Verification Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-xxx
+#. The CDL tool shall import verfication tests expressed in CDL, and a list
+   of control points that are used for monitoring and active functional testing.
+#. The commissioning and functional verification tool shall be able to
+   read data from, and send data to, BACnet, possibly using a middleware such as
+   VOLTTRON or the BCVTB.
+#. It shall be possible to run the tool in batch mode as part of a real-time
+   application that continuously monitors the functional verification tests.
+#. The commissioning and functional verification tool shall work
+   on Windows, Linux Ubuntu and Mac OS X.
