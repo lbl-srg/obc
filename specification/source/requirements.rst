@@ -42,6 +42,13 @@ CDL
 #. It shall be possible to simulate CDL-compliant control sequences in an open-source, freely available
    Modelica environment.
 #. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
+#. The CDL shall encompass (at least) actions and objects.  The HVAC system shall be described in terms of objects.  Actions operate on objects and/or use data from objects to produce the desired control effects.
+#. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique object.
+#. The object model must be extensible.
+#. The object model must be relational, ineherently defining connections between different objects.  The system must support many-to-many relationships - simple heirarchy is not sufficient.
+#. The object model must be rigorous but flexible.  Common object types shall be predefined so that adding a device to the database prompt the user to provide necessary information.  For example, the object representing an air handler should include fan, filter, and optional coil and damper elements (each of which is itself an object).  When setting up an AHU object, the user should be prompted to define which of these objects exist.
+#. To the extent feasible, mutually exclusive options should be excluded by the object model.  For example, an air handler can have a dedicated minmum outside air intake, or it can have a combined economizer/minimum OA intake, but it cannot have both.
+#. The complexity of the object model shall be hidden from the end user.
 
 
 Commissioning and Functional Verification Tool
