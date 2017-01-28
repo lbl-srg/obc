@@ -10,6 +10,13 @@ This section describes use cases for end-user interaction, including:
 * use the CDL to bid on a project and, when selected for the project,
   implement the control sequence in a building automation system, and
 * use the commissioning and functional verification tool during commissioning.
+* Use control design tool to create control diagrams in addition to control sequences 
+  and automatically produce a points list with a standard naming convention and/or tagging 
+  convention, a plain language SOO, and verification that the control diagram includes 
+  all instrumentation required to complete the control sequence.
+* Use control design tool during construction to assist the controls integration process by 
+  identifying network protocol, communication protocol and points list discrepancies between 
+  systems and equipment.   
 
 
 Controls design
