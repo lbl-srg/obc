@@ -25,6 +25,9 @@ Controls Design Tool
 #. The controls design tool shall integrate with OpenStudio.
 #. The controls design tool shall work on Windows, Linux Ubuntu
    and Mac OS X.
+#. A design engineer should be able to easily modify the library of predefined 
+   control sequences by adding or removing sub-blocks, limiting the need to 
+   modify the elemental blocks that make up the visual programming language. 
 
 
 CDL
