@@ -23,7 +23,7 @@ Controls design
 ^^^^^^^^^^^^^^^
 
 
-Customizing a control sequence for a VAV system
+Use Case 1: Customizing a control sequence for a VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to customize a control sequence
@@ -127,9 +127,6 @@ in the controls design tool.
 
 xxx.
 
-
-
-
 Export of the control sequence in CDL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -144,6 +141,291 @@ Importing a CDL for trouble shooting an existing building
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 xxxx
+
+**Use Case 2: As-Built Sequence Generator, Gerry Hamilton, Stanford**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This use case describes how to customize a control sequence
+for a VAV system.
+
+===========================  ===================================================
+**Use case name**            **Customizing a control sequence for a VAV system**
+===========================  ===================================================
+**Use case name**            **As-Built Sequence Generator**
+===========================  ===================================================
+Related Requirements         Tool can translate sequence logic to controls programming
+                             logic. Below would do this in reverse.
+---------------------------  ---------------------------------------------------
+Goal in Context              An owner’s facilities engineer wishes to confirm the
+                             actual installed controls sequences in an existing
+                             building.  This could be done as a Q/C step for new 
+                             construction or to periodically document as-operating
+                             conditions.
+---------------------------  ---------------------------------------------------
+Preconditions                Installed control system must be capable of communication
+                             with Tool. Translation protocol must be established.
+---------------------------  ---------------------------------------------------
+Successful End Condition      
+---------------------------  ---------------------------------------------------
+Failed End Condition
+---------------------------  ---------------------------------------------------
+Primary Actors               Owners facilities engineers
+---------------------------  ---------------------------------------------------
+Secondary Actors             Owners HVAC technicians, new construction PMs
+---------------------------  ---------------------------------------------------
+Trigger                      Need for investigation of building performance.
+                             Or, periodic snap-shot documentation of as-installed
+                             controls sequences.
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens Tool interface.
+---------------------------  ---------------------------------------------------
+2                            User configures Tool to connect with desired control
+                             system. 
+---------------------------  ---------------------------------------------------
+3                            User initiates translation of installed control logic
+                             to sequence documentation.
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            xxxx
+---------------------------  ---------------------------------------------------
+2                            xxxx
+===========================  ===================================================
+
+
+**Use Case 3: Controls Programming Status Verification, by Gerry Hamilton, Stanford**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+===========================  ===================================================
+**Use case name**            **Controls Programming Status Verification**
+===========================  ===================================================
+Related Requirements          Tool can interpret as-installed programming.
+---------------------------  ---------------------------------------------------
+Goal in Context              An engineer wishes to confirm that the control logic
+                             is ready for commissioning.  The Tool will identify
+                             Improper sequences, logic errors, missing code/pts.
+---------------------------  ---------------------------------------------------
+Preconditions                Installed control system must be capable of communication
+                             with Tool.  Translation protocol must be established.
+---------------------------  ---------------------------------------------------
+Successful End Condition      
+---------------------------  ---------------------------------------------------
+Failed End Condition
+---------------------------  ---------------------------------------------------
+Primary Actors               New construction PM, Owner’s representative
+---------------------------  ---------------------------------------------------
+Secondary Actors             Cx agent, engineer of record
+---------------------------  ---------------------------------------------------
+Trigger                      Contractor notifies owner or PM that system is ready
+                             for Cx.
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens Tool interface.
+---------------------------  ---------------------------------------------------
+2                            User configures Tool to connect with desired control
+                             system. 
+---------------------------  ---------------------------------------------------
+3                            User initiates translation of installed control logic
+                             to sequence documentation.
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            xxxx
+---------------------------  ---------------------------------------------------
+2                            xxxx
+===========================  ===================================================
+
+**Use Case 4: Loading a standard sequence from Guideline 36, by Amy Shen, Arup**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+===========================  ===================================================
+**Use case name**            **Loading a standard sequence from Guideline 36**
+===========================  ===================================================
+Related Requirements         Direct reference/selection from Guideline 36’s corresponding chapter and narrative sequence to convert to CDL.
+                             User able to change the pre-set elements within the standard sequence, with automatic download of associated CDL/visual block diagram of any new elements.
+---------------------------  ---------------------------------------------------
+Goal in Context              Enable fast adaptation of Guideline 36
+---------------------------  ---------------------------------------------------
+Preconditions                All Guideline 36 sequences need to be pre-programmed into visual block diagrams and CDL.  
+                             CDL and block diagrams need to be  modular so that CDL can be easily updated when key elements are changed/deleted/added.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to daownload the CDL/block diagrams using a specific reference to Guideline 36 sequences. 
+                             User is able to change/delete/add key elements in CDL.
+---------------------------  ---------------------------------------------------
+Failed End Condition         Missing Guideline 36 sequence in library. When a user changes/deleted/adds elements to CDL/visual block diagram, 
+                             no associated CDL/visual block diagram appears/disappears accordingly.
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors             Maintenance Engineer for retrofitting redesign
+---------------------------  ---------------------------------------------------
+Trigger                      Designing control system using Guideline 36 as default sequence or a starting point, 
+                             then needs to change key elements as the system is different to Guideline 36 presumed system configuration.
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens Guideline 36 library and see a contents menu of the standard sequences for selection
+---------------------------  ---------------------------------------------------
+2                            User selects a sequence
+---------------------------  ---------------------------------------------------
+3                            The corresponding CDL and visual block diagram appears in Tool, key control elements 
+                             (e.g. fan, cooling coil valve, control damper) within the standard sequence is also displayed.
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            User deletes/adds a key control element.
+---------------------------  ---------------------------------------------------
+2                            The corresponding CDL gets added or deleted from the standard sequence.
+===========================  ===================================================
+
+
+**Use Case 5: Defining integration with non-HVAC systems such as lighting, façade and presence detection etc.**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+===========================  ===================================================
+**Use case name**            **Defining integration with non-HVAC systems such as lighting, façade and presence detection etc.**
+===========================  ===================================================
+Related Requirements         Representing non-HVAC systems and their associated control blocks within CDL
+---------------------------  ---------------------------------------------------
+Goal in Context              Integration actions between HVAC and non-HVAC systems can be defined in CDL.
+                             Optional goal - Tool to also configure and verify HVAC to non-HVAC integration
+---------------------------  ---------------------------------------------------
+Preconditions                Examples of HVAC and non-HVAC integrations available for adaptation into CDL, non-HVAC systems can be façade louvre control, 
+                             lighting on/off, presence detection status.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User able to use CDL to define common HVAC and non-HVAC integrations
+---------------------------  ---------------------------------------------------
+Failed End Condition         Failure to include HVAC and Façade/lighting/Presence detection interactions in CDL.
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors             Maintenance Engineer for retrofitting redesign
+---------------------------  ---------------------------------------------------
+Trigger
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens a menu of the non-HVAC systems for selection
+---------------------------  ---------------------------------------------------
+2                            User selects the non-HVAC object and the visual block diagram and associated CDL appears.
+---------------------------  ---------------------------------------------------
+3                            User clicks on a non-HVAC object and a menu of status and actions pops up.
+---------------------------  ---------------------------------------------------
+4                            User selects the integration status or action of the non-HVAC system, and links it to HVAC system’s status or action block
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            xxxx
+---------------------------  ---------------------------------------------------
+2                            xxxx
+===========================  ===================================================
+
+
+**Use Case 6: CDL tool to have capability to generate controls points schedule from sequences**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+===========================  ===================================================
+**Use case name**            **CDL tool to have capability to generate controls points schedule from sequences**
+===========================  ===================================================
+Related Requirements         Optional - The points schedule can also be used by third party software for specification generation.
+---------------------------  ---------------------------------------------------
+Goal in Context              The same CDL can be used to generate controls points schedule
+---------------------------  ---------------------------------------------------
+Preconditions                Each control points needs to be defined under AI/AO/DI/DO/Network interface types and consistent tagging/naming
+---------------------------  ---------------------------------------------------
+Successful End Condition     Control points schedule can be automatically produced by extracting from the sequences, including tagging (AHU/TDX/1), 
+                             point name, point type and comments (such as differential pressure to be installed at 2/3 down index leg)
+---------------------------  ---------------------------------------------------
+Failed End Condition         Control points schedule is inaccurate or doesn’t contain sufficient information.
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors             Controls contractor
+---------------------------  ---------------------------------------------------
+Trigger
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            When a user adds a control point in CDL, the tool provides default values and allows the user to 
+                             change the values for tagging/point name/point type/comments
+---------------------------  ---------------------------------------------------
+2                            User clicks on a button to generate Points Schedule, an Excel file is then generated listing all the points and their details,
+                             and also counts the total number of different type of points.
+---------------------------  ---------------------------------------------------
+3                            User clicks on a button to generate a tag list of unique control devices within the project in Excel, so that the associated spec 
+                             section can be extracted and populated within third party software.
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            xxxx
+---------------------------  ---------------------------------------------------
+2                            xxxx
+===========================  ===================================================
+
+
+**Use Case 7: Conducting verfification test of a VAV Cooling-Only Terminal Unit**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+===========================  ===================================================
+**Use case name**            **Conducting verfification test of a VAV Cooling-Only Terminal Unit**
+===========================  ===================================================
+Related Requirements            
+---------------------------  ---------------------------------------------------
+Goal in Context              A commissioning agent wants to verify on site that the controller operates in accordance with the SOP
+---------------------------  ---------------------------------------------------
+Preconditions                CDL code in vendor software is correct. Field instrumentation is per spec. Installation of field equipment is correct
+                             Point-point testing from point in field through to graphic is correct
+---------------------------  ---------------------------------------------------
+Successful End Condition     Control devices carry out the right sequence of actions, and the tool recognizes compliance to CDL/design intent
+                             Control devices carry out wrong sequence of actions, and the tool recognizes incompliance to CDL/design intent
+---------------------------  ---------------------------------------------------
+Failed End Condition         The tool fails to recognize verification success/failure.
+---------------------------  ---------------------------------------------------
+Primary Actors               Commissioning agent
+---------------------------  ---------------------------------------------------
+Secondary Actors             BMS engineer (optional)
+                             Approved vendor software which replicates uploaded CDL code
+---------------------------  ---------------------------------------------------
+Trigger                      The tool is connected to the BMS and receives the following signals from the VAV box controller:
+                             - occupied mode, unoccupied mode
+                             - Vmin, Vcool-max etc.
+                             - setpoints and timers
+                             The control parameters of the VAV box are configured and the results are compared to the output of the CDL code in the tool.
+---------------------------  ---------------------------------------------------
+**Main Flow1**              **Automatic Control Functionality Checks**
+---------------------------  ---------------------------------------------------
+1                            Set VAV box to unoccupied
+---------------------------  ---------------------------------------------------
+2                            Set VAV box to occupied
+---------------------------  ---------------------------------------------------
+3                            Continue through sequence, commissioning agent will get a report of control actions and whether they were compliant with CDL/design intent.
+---------------------------  ---------------------------------------------------
+**Main Flow2**              **Commissioning Override Checks**
+---------------------------  ---------------------------------------------------
+1                            Force zone airflow setpoint to zero
+---------------------------  ---------------------------------------------------
+2                            Force zone airflow setpoint to Vmin
+---------------------------  ---------------------------------------------------
+3                            Force damper full closed/open
+---------------------------  ---------------------------------------------------
+4                            Reset request-hours accumulator point to zero (provide one point for each reset type listed below)
+---------------------------  ---------------------------------------------------
+
+
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            xxxx
+---------------------------  ---------------------------------------------------
+2                            xxxx
+===========================  ===================================================
+
 
 
 CDL processing for bidding and implementation in building automation system
