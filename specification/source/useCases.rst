@@ -142,14 +142,10 @@ Importing a CDL for trouble shooting an existing building
 
 xxxx
 
-**Use Case 2: As-Built Sequence Generator, Gerry Hamilton, Stanford**
+**Use Case 2: As-Built Sequence Generator, by Gerry Hamilton, Stanford**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This use case describes how to customize a control sequence
-for a VAV system.
 
-===========================  ===================================================
-**Use case name**            **Customizing a control sequence for a VAV system**
 ===========================  ===================================================
 **Use case name**            **As-Built Sequence Generator**
 ===========================  ===================================================
@@ -163,7 +159,7 @@ Goal in Context              An owner’s facilities engineer wishes to confirm 
                              conditions.
 ---------------------------  ---------------------------------------------------
 Preconditions                Installed control system must be capable of communication
-                             with Tool. Translation protocol must be established.
+                             with Tool.  Translation protocol must be established.
 ---------------------------  ---------------------------------------------------
 Successful End Condition      
 ---------------------------  ---------------------------------------------------
@@ -195,9 +191,8 @@ Trigger                      Need for investigation of building performance.
 ===========================  ===================================================
 
 
-**Use Case 3: Controls Programming Status Verification, by Gerry Hamilton, Stanford**
+Use Case 3: Controls Programming Status Verification, by Gerry Hamilton, Stanford
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 ===========================  ===================================================
 **Use case name**            **Controls Programming Status Verification**
@@ -209,7 +204,7 @@ Goal in Context              An engineer wishes to confirm that the control logi
                              Improper sequences, logic errors, missing code/pts.
 ---------------------------  ---------------------------------------------------
 Preconditions                Installed control system must be capable of communication
-                             with Tool.  Translation protocol must be established.
+                             with Tool. Translation protocol must be established.
 ---------------------------  ---------------------------------------------------
 Successful End Condition      
 ---------------------------  ---------------------------------------------------
@@ -239,6 +234,7 @@ Trigger                      Contractor notifies owner or PM that system is read
 2                            xxxx
 ===========================  ===================================================
 
+
 **Use Case 4: Loading a standard sequence from Guideline 36, by Amy Shen, Arup**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -247,7 +243,7 @@ Trigger                      Contractor notifies owner or PM that system is read
 **Use case name**            **Loading a standard sequence from Guideline 36**
 ===========================  ===================================================
 Related Requirements         Direct reference/selection from Guideline 36’s corresponding chapter and narrative sequence to convert to CDL.
-                             User able to change the pre-set elements within the standard sequence, with automatic download of associated CDL/visual block diagram of any new elements.
+                             User able to change the pre-set elements within the standard sequence, with automatic download of                                        associated CDL/visual block diagram of any new elements.
 ---------------------------  ---------------------------------------------------
 Goal in Context              Enable fast adaptation of Guideline 36
 ---------------------------  ---------------------------------------------------
@@ -284,7 +280,7 @@ Trigger                      Designing control system using Guideline 36 as defa
 ===========================  ===================================================
 
 
-**Use Case 5: Defining integration with non-HVAC systems such as lighting, façade and presence detection etc.**
+**Use Case 5: Defining integration with non-HVAC systems such as lighting, façade and presence detection etc., by: Amy Shen, Arup**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -327,7 +323,7 @@ Trigger
 ===========================  ===================================================
 
 
-**Use Case 6: CDL tool to have capability to generate controls points schedule from sequences**
+**Use Case 6: CDL tool to have capability to generate controls points schedule from sequences, by: Amy Shen, Arup**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
@@ -370,7 +366,7 @@ Trigger
 ===========================  ===================================================
 
 
-**Use Case 7: Conducting verfification test of a VAV Cooling-Only Terminal Unit**
+**Use Case 7: Conducting verfification test of a VAV Cooling-Only Terminal Unit, by David Pritchard, Arup**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ===========================  ===================================================
@@ -397,17 +393,17 @@ Trigger                      The tool is connected to the BMS and receives the f
                              - occupied mode, unoccupied mode
                              - Vmin, Vcool-max etc.
                              - setpoints and timers
-                             The control parameters of the VAV box are configured and the results are compared to the output of the CDL code in the tool.
+                             The control parameters of the VAV box are configured and the results are compared to the output of the CDL                              code in the tool.
 ---------------------------  ---------------------------------------------------
-**Main Flow1**              **Automatic Control Functionality Checks**
+**Main Flow1**               **Automatic Control Functionality Checks**
 ---------------------------  ---------------------------------------------------
 1                            Set VAV box to unoccupied
 ---------------------------  ---------------------------------------------------
 2                            Set VAV box to occupied
 ---------------------------  ---------------------------------------------------
-3                            Continue through sequence, commissioning agent will get a report of control actions and whether they were compliant with CDL/design intent.
+3                            Continue through sequence, commissioning agent will get a report of control actions and whether they were                                compliant with CDL/design intent.
 ---------------------------  ---------------------------------------------------
-**Main Flow2**              **Commissioning Override Checks**
+**Main Flow2**               **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
 1                            Force zone airflow setpoint to zero
 ---------------------------  ---------------------------------------------------
