@@ -23,7 +23,7 @@ Controls design
 ^^^^^^^^^^^^^^^
 
 
-Use Case 1: Customizing a control sequence for a VAV system
+**Use Case 1: Customizing a control sequence for a VAV system**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to customize a control sequence
@@ -191,16 +191,16 @@ Trigger                      Need for investigation of building performance.
 ===========================  ===================================================
 
 
-Use Case 3: Controls Programming Status Verification, by Gerry Hamilton, Stanford
+**Use Case 3: Controls Programming Status Verification, by Gerry Hamilton, Stanford**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ===========================  ===================================================
 **Use case name**            **Controls Programming Status Verification**
 ===========================  ===================================================
-Related Requirements          Tool can interpret as-installed programming.
+Related Requirements         Tool can interpret as-installed programming.
 ---------------------------  ---------------------------------------------------
 Goal in Context              An engineer wishes to confirm that the control logic
-                             is ready for commissioning.  The Tool will identify
+                             is ready for commissioning. The Tool will identify
                              Improper sequences, logic errors, missing code/pts.
 ---------------------------  ---------------------------------------------------
 Preconditions                Installed control system must be capable of communication
