@@ -366,11 +366,11 @@ Trigger
 ===========================  ===================================================
 
 
-**Use Case 7: Conducting verfification test of a VAV Cooling-Only Terminal Unit, by David Pritchard, Arup**
+**Use Case 7: Conducting verification test of a VAV Cooling-Only Terminal Unit, by David Pritchard, Arup**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ===========================  ===================================================
-**Use case name**            **Conducting verfification test of a VAV Cooling-Only Terminal Unit**
+**Use case name**            **Conducting verification test of a VAV Cooling-Only Terminal Unit**
 ===========================  ===================================================
 Related Requirements            
 ---------------------------  ---------------------------------------------------
