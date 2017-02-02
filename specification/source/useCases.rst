@@ -41,7 +41,7 @@ Goal in Context              A mechanical engineer wants to customize a control
                              sequence, starting with a template.
 ---------------------------  ---------------------------------------------------
 Preconditions                HVAC system model connected to building model.
-                              (Brent: What is the "system model"?  What is the "building model"?  Where do each of them reside?  In what format is the data held?)
+                             Brent: What is the "system model"?  What is the "building model"?  Where do each of them reside?  In what format is the data held?
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
 
