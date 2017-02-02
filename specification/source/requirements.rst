@@ -23,8 +23,11 @@ Controls Design Tool
 #. The controls design tool shall allow testing energy, peak demand,
    energy cost, and comfort of control sequences when connected to a building
    system model.
-#. The design tool shall be able to prompt
-   the user to provide necessary information, based on the object model (see CDL below).
+#. The controls design tool shall allow (require) users to define the equipment that constitutes their HVAC system via the CDL's object model.
+#. The controls design tool shall allow (require) users to define the dynamic and thermodynamic relationships between different peices of equipment in the object model.  For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.
+#. The control design tool shall include templates for common objects.
+#. The controls design tool shall prompt
+   the user to provide necessary information when populating the object database.
    For example, the object representing an air handler should include fan, filter,
    and optional coil and damper elements (each of which is itself an object).
    When setting up an AHU instance, the user should be prompted to define
@@ -64,7 +67,6 @@ CDL
    The system must support many-to-many relationships - simple hierarchy is not sufficient.
 #. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique
    instance.
-#. Common objects shall be predefined (e.g. with a template) so that the design tool can know to prompt the user for input.
 
 
 
