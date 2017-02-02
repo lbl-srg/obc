@@ -23,24 +23,20 @@ Controls Design Tool
 #. The controls design tool shall allow testing energy, peak demand,
    energy cost, and comfort of control sequences when connected to a building
    system model.
-#. The object model must be rigorous, extensible and flexible.
-#. Common objects shall be predefined so that adding a device to the system model prompts
-   the user to provide necessary information.
+#. The design tool shall be able to prompt
+   the user to provide necessary information, based on the object model (see CDL below).
    For example, the object representing an air handler should include fan, filter,
    and optional coil and damper elements (each of which is itself an object).
    When setting up an AHU instance, the user should be prompted to define
    which of these objects exist.
-#. To the extent feasible, mutually exclusive options should be excluded.
+#. To the extent feasible, the control design tool shall prevent mutually exclusive options or conflicts in the description of the physical equipment.
    For example, an air handler can have a dedicated minimum outside air intake,
    or it can have a combined economizer/minimum OA intake, but it cannot have both.
-#. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique
-   instance.
-#. The object model must be relational, inherently defining connections between different objects.
-   The system must support many-to-many relationships - simple hierarchy is not sufficient.
-#. The complexity of the object model shall be hidden from the end user.
+#. The controls design tool shall hide the complexity of the object model from the end user.
 #. The controls design tool shall integrate with OpenStudio.
 #. The controls design tool shall work on Windows, Linux Ubuntu
    and Mac OS X.
+#. The controls design tool shall either run as a webtool (i.e. in a browser) or via a standalone executable.  It shall not require the installation/configuration of a full version of Modelica.  (Brent: I believe this is essential to adoption.  Engineers typically do not have the patience or the time to install a new software ecosystem.  Look how long it took Revit to penetrate, and that was being pushed by big dog Autodesk.  I realize this may be an issue technically; this is a topic for discussion.)  
 #. A design engineer should be able to easily modify the library of predefined
    control sequences by adding or removing sub-blocks, limiting the need to
    modify the elemental blocks that make up the visual programming language.
@@ -49,11 +45,12 @@ Controls Design Tool
 CDL
 ^^^
 
+#. The CDL shall be declarative in nature.  It shall (at minimum) be able to express both control sequences and an object model which represents the physical HVAC system. 
 #. It shall be possible to translate control sequences that
    are expressed in the CDL
    to implementation of major control vendors.
-#. It shall be possible to render in a visual editor and in a textual
-   editor CDL-compliant control sequences.
+#. It shall be possible to render CDL-compliant control sequences in a visual editor and in a textual
+   editor.
 #. CDL shall be a proper subset of Modelica 3.3 :cite:`Modelica2012:1`.
    [Section :ref:`sec_cdl` specifies what subset shall be supported. This will allow visualizing, editing and simulating
    CDL with Modelica tools rather than requiring a separate tool.
@@ -61,10 +58,14 @@ CDL
 #. It shall be possible to simulate CDL-compliant control sequences in an open-source, freely available
    Modelica environment.
 #. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
-#. The CDL shall encompass (at least) actions and objects.  The HVAC system shall be described in terms of objects.
-   Actions operate on objects and/or use data from objects to produce the desired control effects.
-   [Comment mwetter: We need to discuss as actions are part of a tool that uses CDL,
-   but CDL is declarative and does not need any actions defined.]
+#. The physical equipment of HVAC system shall be described in terms of objects which are expressed in the CDL.
+#. The object model must be rigorous, extensible and flexible.
+#. The object model must be relational, inherently defining connections between different objects.
+   The system must support many-to-many relationships - simple hierarchy is not sufficient.
+#. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique
+   instance.
+#. Common objects shall be predefined (e.g. with a template) so that the design tool can know to prompt the user for input.
+
 
 
 Commissioning and Functional Verification Tool
