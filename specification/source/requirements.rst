@@ -39,7 +39,7 @@ Controls Design Tool
 #. The controls design tool shall integrate with OpenStudio.
 #. The controls design tool shall work on Windows, Linux Ubuntu
    and Mac OS X.
-#. The controls design tool shall either run as a webtool (i.e. in a browser) or via a standalone executable.  It shall not require the installation/configuration of a full version of Modelica.  (Brent: I believe this is essential to adoption.  Engineers typically do not have the patience or the time to install a new software ecosystem.  Look how long it took Revit to penetrate, and that was being pushed by big dog Autodesk.  I realize this may be an issue technically; this is a topic for discussion.)  
+#. The controls design tool shall either run as a webtool (i.e. in a browser) or via a standalone executable.  It shall not require the installation/configuration of a full version of Modelica.  (Brent: I believe this is essential to adoption.  Engineers typically do not have the patience or the time to install a new software ecosystem.  Look how long it took Revit to penetrate, and that was being pushed by big dog Autodesk.  I realize this may be an issue technically; this is a topic for discussion.)
 #. A design engineer should be able to easily modify the library of predefined
    control sequences by adding or removing sub-blocks, limiting the need to
    modify the elemental blocks that make up the visual programming language.
@@ -48,13 +48,21 @@ Controls Design Tool
 CDL
 ^^^
 
-#. The CDL shall be declarative in nature.  It shall (at minimum) be able to express both control sequences and an object model which represents the physical HVAC system. 
+#. The CDL shall be declarative in nature.  It shall (at minimum) be able to express both control sequences and an object model which represents the physical HVAC system.
 #. CDL shall represent control sequences as a set of functional logic blocks and sub-blocks ("bricks"?).
 #. Each sequence shall be a functional logic block consisting of other functional logic blocks and sub-blocks connected via specified inputs and outputs.
 #. The "brick" shall be the most elemental sub-block, which contains line-code programming and is typically hidden from the specifying engineer (see design tool above).
-#. Each functional block shall have tags that provide information about its general function/application (e.g. this is an AHU control block) and its specific application (e.g. this particular block controls AHU 2)  
-#. Each input and output to a functional block shall be tagged.  This tag shall identify expected characteristics for that point, including (at least): input or output; analog or digital; units; physical sensor or data input (from another logic block); for physical sensors, the type of sensor (e.g. temperature, pressure); for physical sensors, the application of the sensor (e.g. return air temperature, supply air temperature)
-(Brent: these items should be formatted as a sub-list but I couldn't figure out how to do so.)
+#. Each functional block shall have tags that provide information about its general function/application (e.g. this is an AHU control block) and its specific application (e.g. this particular block controls AHU 2)
+#. Each input and output to a functional block shall be tagged.  This tag shall identify expected characteristics for that point, including (at least):
+
+   #. input or output;
+   #. analog or digital;
+   #. units;
+   #. physical sensor or data input (from another logic block);
+   #. for physical sensors, the type of sensor (e.g. temperature, pressure);
+   #. for physical sensors, the application of the sensor
+      (e.g. return air temperature, supply air temperature)
+
 #. It shall be possible to translate control sequences that
    are expressed in the CDL
    to implementation of major control vendors.
