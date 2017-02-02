@@ -26,6 +26,7 @@ Controls design
 
 Customizing a control sequence for a VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(Brent: this example appears to be "how to attach a VAV control sequence to a specific VAV box", as opposed to "how to modify/customize the pre-defined VAV control sequence".  I argue that they are distinct use cases and we need to consider both.
 
 *Provided by Michael Wetter, LBNL.*
 
@@ -74,6 +75,8 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 3                            The user connects sensors and actuators to
                              control inputs and outputs.
+                             
+                             (Brent: Is this not already pre-defined in the library sequence?  The library sequence already has inputs and outputs defined.  The library sequence should define what types of input/output are expected/acceptable to each of its I/O points.  The engineer merely needs to note which ones do or do not apply. e.g. not all VAV boxes have a heating coil or a discharge air temp sensor)  
 ---------------------------  ---------------------------------------------------
 4                            The user drags and drops from the Buildings library
                              a pre-configured VAV control sequence.
@@ -97,6 +100,7 @@ Trigger                      n/a
                              specification.
 ===========================  ===================================================
 
+(Brent: Is the engineer expected to go through this process for every VAV box?  That might be OK for e.g. AHU or chillers, but there can be thousands of VAV boxes in a project)
 
 :numref:`fig_use_case_custom_vav` shows the sequence diagram for this use case.
 
