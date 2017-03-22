@@ -267,6 +267,37 @@ Modelica 3.3 Specification
 input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
+Fixme Vendor annotations
+
+CDL shall contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator.
+
+Each input and output to a functional block shall be tagged. This tag shall identify expected characteristics for that point, including (at least):
+
+#. Hardware or software point (physical sensor or a logic block)
+#. Input or output
+#. Analog or digital
+#. Units
+#. For physical sensor, the type of sensor (e.g. temperature, pressure);
+#. For physical sensors, the application of the sensor (e.g. return air temperature, supply air temperature)
+#. Other: based on feedback from project partners
+Optional
+#. Range of expected values
+#. Alarm threshold
+#. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
+#. Location
+#. Thermodynamic relationships (e.g. indicate heating or cooling source in case that there are multiple)
+
+In addition, CDL shall provide tagging for composite blocks representing a single control sequence. These tags should contain:
+#. Block function, e.g. air handler
+#. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
+
+Other tagging standards worth considering in development of the CDL tagging strategy:
+
+#. ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
+#. Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
+#. Project Haystack
+#. In progress: BSR/ASHRAE Standard 223P
+
 .. _sec_com_blo:
 
 Composite blocks
