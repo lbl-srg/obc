@@ -280,7 +280,9 @@ Each input and output to a functional block shall be tagged. This tag shall iden
 #. For physical sensor, the type of sensor (e.g. temperature, pressure);
 #. For physical sensors, the application of the sensor (e.g. return air temperature, supply air temperature)
 #. Other: based on feedback from project partners
-Optional
+
+Optional:
+
 #. Range of expected values
 #. Alarm threshold
 #. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
@@ -288,6 +290,7 @@ Optional
 #. Thermodynamic relationships (e.g. indicate heating or cooling source in case that there are multiple)
 
 In addition, CDL shall provide tagging for composite blocks representing a single control sequence. These tags should contain:
+
 #. Block function, e.g. air handler
 #. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
 
