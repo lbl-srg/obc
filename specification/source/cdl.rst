@@ -267,23 +267,25 @@ Modelica 3.3 Specification
 input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
-Fixme Vendor annotations
+Fixme (convert into a subtitle) **Vendor annotations**
 
-CDL shall contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator.
-
-Each input and output to a functional block shall be tagged. This tag shall identify expected characteristics for that point, including (at least):
+CDL shall contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator. Each input and output to a functional block shall be tagged. This tag shall identify expected characteristics for that point. CDL tagging shall provide the following information:
 
 #. Hardware or software point (physical sensor or a logic block)
 #. Input or output
 #. Analog or digital
+
+For hardware points
+
+4. The type of sensor (e.g. temperature, pressure)
+#. Output voltage (e.g. 8V, 16V)
+#. The application of the sensor (e.g. return air temperature, supply air temperature)
 #. Units
-#. For physical sensor, the type of sensor (e.g. temperature, pressure);
-#. For physical sensors, the application of the sensor (e.g. return air temperature, supply air temperature)
-#. Other: based on feedback from project partners
+#. Other, based on feedback from project partners
 
 Optional:
 
-#. Range of expected values
+9. Range of expected values
 #. Alarm threshold
 #. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
 #. Location
