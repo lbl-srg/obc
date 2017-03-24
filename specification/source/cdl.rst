@@ -291,7 +291,7 @@ For hardware points
 
 Optional:
 
-9. Range of expected values
+13. Range of expected values
 #. Alarm threshold
 #. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
 #. Thermodynamic relationships (e.g. indicate heating or cooling source in case that there are multiple)
