@@ -267,20 +267,26 @@ Modelica 3.3 Specification
 input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
-Fixme (convert into a subtitle) **Vendor annotations**
+[Fixme (convert into a subtitle)] **Vendor annotations**
 
-CDL shall contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator. Each input and output to a functional block shall be tagged. This tag shall identify expected characteristics for that point. CDL tagging shall provide the following information:
+CDL should contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator. Each input and output to a functional block should be tagged. If implemented, this tag shall identify expected characteristics for that point. CDL tagging should provide the following information:
 
-#. Hardware or software point (physical sensor or a logic block)
+Point type identifiers:
+
+#. Hardware or software point (physical sensor or a logic block) [where hardware point is likely always AI or AO, software DI or DO]
 #. Input or output
 #. Analog or digital
 
 For hardware points
 
-4. The type of sensor (e.g. temperature, pressure)
-#. Output voltage (e.g. 8V, 16V)
-#. The application of the sensor (e.g. return air temperature, supply air temperature)
-#. Units
+4. Category (HVAC, non-HVAC)
+#. Measured value (temperature, pressure, airflow, humidity, CO2, dewpoint)
+#. Sensor output (power, voltage, current)
+#. Action (command, enable, open, position, lead/lag, mode, reset [from https://drive.google.com/drive/u/1/folders/0B5uTCWD1J6MGclhjVjdWdldjUUU])
+#. System (chilled water, hot water, multi-zone) [this needs a full list]
+#. Device (fan, damper, valve, freezer, pump, filter)
+#. Application (return air temperature, supply air temperature, outside air temperature, return air temperature, economizer airflow, minimum outdoor airflow, static pressure)
+#. Units (on/off, Watts, Volts, Amps, %open, °F/°C/K, %RH, Psig, cfm, Btu, %, Hz)
 #. Other, based on feedback from project partners
 
 Optional:
@@ -288,15 +294,14 @@ Optional:
 9. Range of expected values
 #. Alarm threshold
 #. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
-#. Location
 #. Thermodynamic relationships (e.g. indicate heating or cooling source in case that there are multiple)
 
-In addition, CDL shall provide tagging for composite blocks representing a single control sequence. These tags should contain:
+In addition, CDL should provide tagging for composite blocks representing a single control sequence. These tags should contain:
 
 #. Block function, e.g. air handler
 #. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
 
-Other tagging standards worth considering in development of the CDL tagging strategy:
+.. notes:: Other tagging standards worth considering in development of the CDL tagging strategy:
 
 #. ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
 #. Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
