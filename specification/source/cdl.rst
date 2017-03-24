@@ -30,8 +30,9 @@ The next sections explain the elements of CDL.
 Syntax
 ^^^^^^
 
-In order to easily process CDL, we will use a subset of the Modelica specification
-for the implementation of CDL.
+In order to easily process CDL, we will use
+a subset of the Modelica 3.3 specification
+for the implementation of CDL :cite:`Modelica2012:1`.
 The syntax is a minimum subset of Modelica as needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
@@ -52,7 +53,7 @@ Also, the following Modelica language features are not supported in CDL:
 #. `initial equation` and `initial algorithm` sections
 #. package-level declaration of `constant`
 
-   
+
 Permissible data types
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -88,7 +89,7 @@ or `composite blocks`_.
 
 
 .. _sec_ele_bui_blo:
-   
+
 Elementary building blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -228,6 +229,7 @@ The order of the connections and the order of the arguments in the
 
    equation
      connect(gain.u, maxValue.y);
+
 ]
 
 Signals shall be connected using a `connect` statement;

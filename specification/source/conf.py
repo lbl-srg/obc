@@ -20,7 +20,9 @@ sys.path.append(os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
-extensions = ['sphinx.ext.autodoc', 'mathjax', 'sphinxcontrib.bibtex', 'numfig', 'sphinxcontrib.plantuml', 'sphinx.ext.todo']
+extensions = ['sphinxcontrib.bibtex', \
+              'sphinx.ext.autodoc', 'mathjax', \
+              'sphinxcontrib.plantuml', 'sphinx.ext.todo']
 
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
 mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
@@ -76,7 +78,7 @@ release = '1.0'
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
 exclude_trees = []
-
+exclude_patterns = ['templates']
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
 
@@ -127,7 +129,7 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Home", "http://obc.lbl.gov", True),        
+        ("Home", "http://obc.lbl.gov", True),
         ("Table of Contents", "index"),
 #        ("Download", "download"),
 #        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
@@ -267,9 +269,6 @@ latex_additional_files = ['_static/latex-note.png', '_static/latex-warning.png']
 # The paper size ('letter' or 'a4').
 #latex_paper_size = 'letter'
 
-# The font size ('10pt', '11pt' or '12pt').
-latex_font_size = '11pt'
-
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
@@ -300,7 +299,7 @@ latex_logo = '_static/cdl-logo.png'
 latex_use_parts = False
 
 # Additional stuff for the LaTeX preamble.
-latex_preamble = '''
+latex_elements['preamble'] = '''
 % Format of chapter fonts
 \\makeatletter
 \\ChNameVar{\\raggedleft\\sf\\bfseries\\Large} % sets the style for name

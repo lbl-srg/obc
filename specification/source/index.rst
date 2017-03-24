@@ -28,10 +28,7 @@ OpenBuildingControl (Working Draft)
    process
    useCases
    requirements
+   softwareArchitecture           
    cdl
    acknowledgments
-   references
-
-.. only:: html
-
-   .. rubric:: References
+   bibliography
