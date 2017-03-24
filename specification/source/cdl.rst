@@ -303,10 +303,10 @@ In addition, CDL should provide tagging for composite blocks representing a sing
 
 .. notes:: Other tagging standards worth considering in development of the CDL tagging strategy:
 
-.. notes:: #. ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
-.. notes:: #. Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
-.. notes:: #. Project Haystack
-.. notes:: #. In progress: BSR/ASHRAE Standard 223P
+      ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
+      Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
+      Project Haystack
+      In progress: BSR/ASHRAE Standard 223P
 
 .. _sec_com_blo:
 
