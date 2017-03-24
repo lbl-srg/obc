@@ -267,7 +267,7 @@ Modelica 3.3 Specification
 input and output signal connections, and declare
 vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
-[Fixme (convert into a subtitle)] **Vendor annotations**
+[Fixme: convert into a subtitle] **Vendor annotations**
 
 CDL should contain tags to provide information equivalent to building controls points list. Points list is a list of all the hardwired and, optionaly, software, input and output points associated with a piece of equipment. The purpose of tags in CDL is to enable communication with the conventional buidling controls, for example to serve as CDL-to-BAS-product translator. Each input and output to a functional block should be tagged. If implemented, this tag shall identify expected characteristics for that point. CDL tagging should provide the following information:
 
@@ -303,10 +303,10 @@ In addition, CDL should provide tagging for composite blocks representing a sing
 
 .. notes:: Other tagging standards worth considering in development of the CDL tagging strategy:
 
-#. ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
-#. Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
-#. Project Haystack
-#. In progress: BSR/ASHRAE Standard 223P
+.. notes:: #. ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
+.. notes:: #. Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
+.. notes:: #. Project Haystack
+.. notes:: #. In progress: BSR/ASHRAE Standard 223P
 
 .. _sec_com_blo:
 
