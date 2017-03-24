@@ -30,8 +30,9 @@ The next sections explain the elements of CDL.
 Syntax
 ^^^^^^
 
-In order to easily process CDL, we will use a subset of the Modelica specification
-for the implementation of CDL.
+In order to easily process CDL, we will use
+a subset of the Modelica 3.3 specification
+for the implementation of CDL :cite:`Modelica2012:1`.
 The syntax is a minimum subset of Modelica as needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
