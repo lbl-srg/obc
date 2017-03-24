@@ -52,7 +52,7 @@ Also, the following Modelica language features are not supported in CDL:
 #. `initial equation` and `initial algorithm` sections
 #. package-level declaration of `constant`
 
-   
+
 Permissible data types
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -88,7 +88,7 @@ or `composite blocks`_.
 
 
 .. _sec_ele_bui_blo:
-   
+
 Elementary building blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -228,6 +228,7 @@ The order of the connections and the order of the arguments in the
 
    equation
      connect(gain.u, maxValue.y);
+
 ]
 
 Signals shall be connected using a `connect` statement;
