@@ -302,9 +302,9 @@ In addition, CDL should provide tagging for composite blocks representing a sing
 
 #. Block function, e.g. air handler
 #. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
-[Should we mention atomic and sequences here?]
+   [Should we mention atomic and sequences here?]
 
-.. notes:: Other tagging standards worth considering in development of the CDL tagging strategy:
+.. note:: Other tagging standards worth considering in development of the CDL tagging strategy:
 
       - ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
       - Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
