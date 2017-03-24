@@ -50,9 +50,11 @@ Also, the following Modelica language features are not supported in CDL:
 #. `algorithm` sections. [As the elementary building blocks are black-box
    models as far as CDL is concerned and thus CDL compliant tools need
    not parse the `algorithm` section.]
-#. `initial equation` and `initial algorithm` sections
-#. package-level declaration of `constant`
+#. `initial equation` and `initial algorithm` sections.
+#. package-level declaration of `constant` data types.
 
+
+.. _sec_cld_per_typ:
 
 Permissible data types
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -64,6 +66,12 @@ parameters of type
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be blocks or parameters.
 Variables are not allowed [they are used however in the elementary building blocks].
+
+The declaration of such types is identical to the declaration
+in Modelica, e.g., the keyword ``parameter`` is used
+before the type declaration.
+[For example, to declare a real-valued parameter,
+use ``parameter Real k = 1 "A parameter with value 1";``.]
 
 Each of these data types, including the elementary building blocks,
 can be a single instance or one-dimensional array.
@@ -95,7 +103,9 @@ Elementary building blocks
 
 The CDL contains elementary building blocks that are used to compose
 control sequences. The elementary building blocks can be
-browsed at the `CDL blocks <cdl/latest/help/CDL.html>`_.
+browsed at the CDL blocks web page
+http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+
 An actual implementation looks as follows, where we omitted
 annotations used for graphical rendering:
 
@@ -307,6 +317,172 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
+
+
+Tags
+^^^^
+
+CDL allows to tag declaration that instantiate
+
+* parameters (:numref:`sec_cld_per_typ`),
+* elementary building blocks (:numref:`sec_ele_bui_blo`), and
+* composite blocks (:numref:`sec_com_blo`).
+
+
+[Tags can for example be used to specify in CDL where sensor signals
+are read from, and where control signals should be sent to.
+CDL does not declare any tagging scheme, but rather declares a syntax
+that allows use of (certain) tagging schemes. Initially, we will
+use Project Haystack (http://project-haystack.org/),
+but others may be added later.]
+
+To implement tags, Modelica vendor annotations are used.
+The syntax is as follows:
+
+The vendor annotations have the syntax
+
+.. code:: modelica
+
+   annotation :
+     annotation "(" [annotations ","]
+        __lbnl (" [ __lbnl_annotation ] ")" ["," annotations] ")"
+
+where ``__lbln__annotation`` is the annotation for CDL.
+Hence, annotations need to be at the top-level,
+and can be part of other annotation declarations.
+[The requirement to be at the top-level
+could be relaxed if needed for a specific annotation.]
+
+Point to point mapping
+......................
+
+For point to point mapping,
+instances of ``CDL.Interfaces.*Input`` and
+instances of ``CDL.Interfaces.*Output`` can have
+the following annotation:
+
+.. code:: modelica
+
+   point_annotation:
+      __lbnl "(" analog   [ "(" voltage "=" 8 | 16  ")" ] |
+                 digital  [ "(" address "=" address ")" ] ")"
+
+   address:
+      todo: specify how to declare the address. Is it only an IP address, or
+      something else (in addition?)
+
+Note that the specification of the voltage and the address is optional,
+as these information may not yet be known at the design stage.
+
+[For example, an 8 Volt input signal may be declared as
+
+.. code:: modelica
+
+   Interfaces.RealInput u "Outdoor temperature" annotation(__lbnl(analog=8));
+
+]
+
+Tagging using project Haystack (or similar)
+...........................................
+
+As there are different tagging scheme, we now declare syntax
+that allows use of such tagging schemes. Currently, we
+support Project Haystack. [Others may be added if need is identified
+and resources allow.]
+
+Project Haystack allows tagging of various objects. It is hiearchical
+with the three entities *Site*, *Equip* and *Point*, see
+http://project-haystack.org/doc/Structure.
+These entities are linked to each other through references,
+which allows that each instance (of an equipment *Equip*, for example)
+can have a self-contained list of tags. Hence, for CDL, we
+allow the following tagging to be applied to
+instances of
+*parameters* (:numref:`sec_cld_per_typ`),
+*elementary building blocks* (:numref:`sec_ele_bui_blo`), and
+*composite blocks* (:numref:`sec_com_blo`).
+
+
+.. code:: modelica
+
+   haystack_annotation:
+      __lbnl "(" haystack "=" JSON ")"
+
+where ``JSON`` is the JSON encoding of the Haystack object.
+
+[For example, the AHU discharge air temperature setpoint of the example
+in http://project-haystack.org/tag/sensor, which is in Haystack declared as
+
+.. code::
+
+   id: @whitehouse.ahu3.dat
+   dis: "White House AHU-3 DischargeAirTemp"
+   point
+   siteRef: @whitehouse
+   equipRef: @whitehouse.ahu3
+   discharge
+   air
+   temp
+   sensor
+   kind: "Number"
+   unit: "°F"]
+
+can be declared in CDL as
+
+.. code:: modelica
+
+   Interfaces.RealInput u(unit="K") "Discharge air temperature"
+     annotation(__lbnl( haystack =
+     {"id"        : ""@whitehouse.ahu3.dat",
+      "dis"       : "White House AHU-3 DischargeAirTemp",
+      "point"     : "m:",
+      "siteRef"   : "@whitehouse",
+      "equipRef'  : "@whitehouse.ahu3",
+      "discharge" : "m:",
+      "air"       : "m:",
+      "temp"      : "m:",
+      "sensor"    : "m:",
+      "kind       : "Number"
+      "unit       : "°F"} ));
+
+Tools that process CDL can interpret the ``haystack`` annotation,
+but CDL will ignore it. [This avoid potential conflict for entities that
+are declared differently in Haystack and CDL.]
+
+.. todo:: Check if we should use tags for alarms, or use an CDL block for this.
+
+.. For hardware points
+
+.. 4. Category (HVAC, non-HVAC)
+   #. Measured value (temperature, pressure, airflow, humidity, CO2, dewpoint)
+   #. Sensor output (power, voltage, current)
+   #. Action (command, enable, open, position, lead/lag, mode, reset [from       https://drive.google.com/drive/u/1/folders/0B5uTCWD1J6MGclhjVjdWdldjUUU])
+   #. System (chilled water, hot water, multi-zone) [this needs a full list]
+   #. Device (fan, damper, valve, freezer, pump, filter)
+   #. Application (return air temperature, supply air temperature, outside air temperature, return air       temperature, economizer airflow, minimum outdoor airflow, static pressure)
+   #. Units (on/off, Watts, Volts, Amps, %open, °F/°C/K, %RH, Psig, cfm, Btu, %, Hz)
+   #. Other, based on feedback from project partners
+
+   Optional:
+
+   13. Range of expected values
+   #. Alarm threshold
+   #. Other fault suppression related tags (e.g. idenftify proper connections between blocks)
+   #. Thermodynamic relationships (e.g. indicate heating or cooling source in case that there are multiple)
+
+   In addition, CDL should provide tagging for composite blocks representing a single control sequence. These    tags should contain:
+
+   #. Block function, e.g. air handler
+   #. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
+      [Should we mention atomic and sequences here?]
+
+  .. note:: Other tagging standards worth considering in development of the CDL tagging strategy:
+
+        - ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
+        - Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
+        - Project Haystack
+        - In progress: BSR/ASHRAE Standard 223P
+
 
 Model of computations
 ^^^^^^^^^^^^^^^^^^^^^
