@@ -300,6 +300,7 @@ In addition, CDL should provide tagging for composite blocks representing a sing
 
 #. Block function, e.g. air handler
 #. Sequence application, e.g. single-zone AHU or a multiple-zone AHU
+[Should we mention atomic and sequences here?]
 
 .. notes:: Other tagging standards worth considering in development of the CDL tagging strategy:
 
