@@ -31,8 +31,4 @@ OpenBuildingControl (Working Draft)
    softwareArchitecture           
    cdl
    acknowledgments
-   references
-
-.. only:: html
-
-   .. rubric:: References
+   bibliography
