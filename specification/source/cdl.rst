@@ -353,10 +353,10 @@ and can be part of other annotation declarations.
 [The requirement to be at the top-level
 could be relaxed if needed for a specific annotation.]
 
-Point to point mapping
-......................
+Point list
+..........
 
-For point to point mapping,
+To allow point mapping,
 instances of ``CDL.Interfaces.*Input`` and
 instances of ``CDL.Interfaces.*Output`` can have
 the following annotation:
