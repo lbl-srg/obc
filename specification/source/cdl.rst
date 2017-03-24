@@ -431,7 +431,7 @@ can be declared in CDL as
 
 .. code:: modelica
 
-   Interfaces.RealInput u(unit="K") "Discharge air temperature"
+   Interfaces.RealInput TSup(unit="K") "Discharge air temperature"
      annotation(__lbnl( haystack =
      {"id"        : ""@whitehouse.ahu3.dat",
       "dis"       : "White House AHU-3 DischargeAirTemp",
@@ -446,8 +446,15 @@ can be declared in CDL as
       "unit       : "°F"} ));
 
 Tools that process CDL can interpret the ``haystack`` annotation,
-but CDL will ignore it. [This avoid potential conflict for entities that
-are declared differently in Haystack and CDL.]
+but CDL will ignore it. [This avoids potential conflict for entities that
+are declared differently in Haystack and CDL, and may be conflicting.
+For example, the above sensor input declares in Haystack that it belongs
+to an ahu3. CDL, however, has a different syntax to declare such dependencies:
+In CDL, the instance that declares this sensor
+input already unambiguously declares to what entity it belongs to, and the
+sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
+Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
+a tool can infer what upstream component sends the input signal.]
 
 .. todo:: Check if we should use tags for alarms, or use an CDL block for this.
 
