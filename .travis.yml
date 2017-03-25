@@ -12,15 +12,15 @@ git:
 
 # Install dependencies
 # graphviz is required by plantuml
-before_install:
- - sudo apt-get -qq update
- - sudo apt-get install -y graphviz
+addons:
+  apt:
+    packages:
+    - graphviz
 
 # For sphinx, we need to install specific package versions, otherwise
 # the html output may have small formatting differences which causes
 # the test to fail
 install:
-  - apt-get install graphviz
   - pip install --upgrade pip setuptools wheel
   - pip install sphinx==1.5.1 sphinx-bootstrap-theme==0.4.13 \
       sphinxcontrib-bibtex==0.3.4 sphinxcontrib-plantuml==0.8.1 \
