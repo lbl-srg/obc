@@ -368,8 +368,11 @@ the following annotation:
                  digital  [ "(" address "=" address ")" ] ")"
 
    address:
-      todo: specify how to declare the address. Is it only an IP address, or
-      something else (in addition?)
+      todo: Specify how to declare the address. Optionally, we
+      should also add BACnet specification such as implemented
+      in
+      http://simulationresearch.lbl.gov/bcvtb/releases/latest/doc/manual/ch05s12.xhtml
+      and add the option of BACnet over IP.
 
 Note that the specification of the voltage and the address is optional,
 as these information may not yet be known at the design stage.
