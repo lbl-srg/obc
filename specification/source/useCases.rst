@@ -134,7 +134,108 @@ Performance assessment of a control sequence
 This use case describes how to assess the performance of a control sequence
 in the controls design tool.
 
-xxx.
+===========================  ===================================================
+**Use case name**            **Customizing a control sequence for a VAV system**
+===========================  ===================================================
+Related Requirements         n/a
+---------------------------  ---------------------------------------------------
+Goal in Context              Evaluate the performance of a specific control 
+                             sequence in the context of a particular design 
+                             project.
+---------------------------  ---------------------------------------------------
+Preconditions                Either 
+                             a) whole building or system model for the particular 
+                             design project, or 
+                             b) sufficient information about the current state of 
+                             the design, to enable the configuration of a model 
+                             template based on a generic design for the 
+                             appropriate building type. The model must be complete 
+                             down to the required sensors and actuation points, 
+                             which may be actual actuators, if the sequence 
+                             includes local loop control, or set-points for local 
+                             loop control, if the sequence only performs supervisory 
+                             control.
+
+                             Control sequence to be assessed must match, or be 
+                             capable of being configured to match, the building/system 
+                             model in terms of sensing and actuation points and modes 
+                             of operation.
+                             
+                             Relevant statutory requirements and design performance 
+                             targets. Performance metrics derived from these 
+                             requirements and targets.
+                            
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to 
+                             (i) compare the performance of different control 
+                             sequences in terms of selected pre-defined criteria, and 
+                             (ii) evaluate the ability of a selected control sequence 
+                             to enable the building/system to meet or exceed 
+                             externally-defined performance criteria.
+---------------------------  ---------------------------------------------------
+Failed End Condition         Building/system model or configuration information for 
+                             generic model template is incomplete.
+                             
+                             Performance requirements or targets are incomplete or 
+                             inconsistent wrt the specific control sequence
+                             
+                             Simulation fails to run to completion or fails convergence 
+                             tests.
+
+---------------------------  ---------------------------------------------------
+Primary Actors               A mechanical engineer.
+---------------------------  ---------------------------------------------------
+Secondary Actors             
+---------------------------  ---------------------------------------------------
+Trigger                      Need to select or improve a control sequence for a 
+                             building or system
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User loads the building/system model for the project 
+                             or uses design information to configure a model template
+---------------------------  ---------------------------------------------------
+2                            User selects and loads weather data and operation 
+                             schedules.
+---------------------------  ---------------------------------------------------
+3                            User configures control sequence with project-specific 
+                             information, e.g. number of terminal units on an air 
+                             loop, and connects to building/system modeL
+---------------------------  ---------------------------------------------------
+4                            User selects short periods for initial testing and
+                             performs predefined tests to verify basic functionality
+                             (equivalent ot commissioning).
+---------------------------  ---------------------------------------------------
+5                            User initiates simulation of building/system 
+                             controlled performance over full reference year or 
+                             statistically-selected short reference year that 
+                             reports output variables required to evaluate 
+                             performance according to pre-defined metrics.
+---------------------------  ---------------------------------------------------
+6                            Compare metric values to requirements and/or targets
+                             and determine whether acceptable as is, needs 
+                             modification or appears fundamentally flawed.
+===========================  ===================================================
+
+
+
+:numref:`fig_use_case_perf_assess` shows the sequence diagram for this use case.
+
+.. _fig_use_case_perf_assess:
+
+.. uml::
+   :caption: Performance assessment of a control sequence.
+
+   title Performance assessment of a control sequence
+
+   "User" -> "OpenStudio" : Open control design tool.
+   "OpenStudio" -> "Control Design Tool" : open()
+   "User" -> "Control Design Tool" : Open HVAC and building model.
+   "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
+   "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
+   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
+   (to be completed)
+
 
 Export of the control sequence in CDL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
