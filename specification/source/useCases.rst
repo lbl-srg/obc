@@ -26,6 +26,7 @@ Controls design
 
 Customizing a control sequence for a VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 (Brent: this example appears to be "how to attach a VAV control sequence to a specific VAV box", as opposed to "how to modify/customize the pre-defined VAV control sequence".  I argue that they are distinct use cases and we need to consider both.
 
 *Provided by Michael Wetter, LBNL.*
@@ -44,7 +45,7 @@ Goal in Context              A mechanical engineer wants to customize a control
 Preconditions                HVAC system model connected to building model.
 
                              (Brent: What is the "system model"?  What is the "building model"?  Where do each of them reside?  In what format is the data held?)
-                             
+
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
 
@@ -75,8 +76,8 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 3                            The user connects sensors and actuators to
                              control inputs and outputs.
-                             
-                             (Brent: Is this not already pre-defined in the library sequence?  The library sequence already has inputs and outputs defined.  The library sequence should define what types of input/output are expected/acceptable to each of its I/O points.  The engineer merely needs to note which ones do or do not apply. e.g. not all VAV boxes have a heating coil or a discharge air temp sensor)  
+
+                             (Brent: Is this not already pre-defined in the library sequence?  The library sequence already has inputs and outputs defined.  The library sequence should define what types of input/output are expected/acceptable to each of its I/O points.  The engineer merely needs to note which ones do or do not apply. e.g. not all VAV boxes have a heating coil or a discharge air temp sensor)
 ---------------------------  ---------------------------------------------------
 4                            The user drags and drops from the Buildings library
                              a pre-configured VAV control sequence.
@@ -139,81 +140,81 @@ in the controls design tool.
 ===========================  ===================================================
 Related Requirements         n/a
 ---------------------------  ---------------------------------------------------
-Goal in Context              Evaluate the performance of a specific control 
-                             sequence in the context of a particular design 
+Goal in Context              Evaluate the performance of a specific control
+                             sequence in the context of a particular design
                              project.
 ---------------------------  ---------------------------------------------------
-Preconditions                Either 
-                             a) whole building or system model for the particular 
-                             design project, or 
-                             b) sufficient information about the current state of 
-                             the design, to enable the configuration of a model 
-                             template based on a generic design for the 
-                             appropriate building type. The model must be complete 
-                             down to the required sensors and actuation points, 
-                             which may be actual actuators, if the sequence 
-                             includes local loop control, or set-points for local 
-                             loop control, if the sequence only performs supervisory 
+Preconditions                Either
+                             a) whole building or system model for the particular
+                             design project, or
+                             b) sufficient information about the current state of
+                             the design, to enable the configuration of a model
+                             template based on a generic design for the
+                             appropriate building type. The model must be complete
+                             down to the required sensors and actuation points,
+                             which may be actual actuators, if the sequence
+                             includes local loop control, or set-points for local
+                             loop control, if the sequence only performs supervisory
                              control.
 
-                             Control sequence to be assessed must match, or be 
-                             capable of being configured to match, the building/system 
-                             model in terms of sensing and actuation points and modes 
+                             Control sequence to be assessed must match, or be
+                             capable of being configured to match, the building/system
+                             model in terms of sensing and actuation points and modes
                              of operation.
-                             
-                             Relevant statutory requirements and design performance 
-                             targets. Performance metrics derived from these 
+
+                             Relevant statutory requirements and design performance
+                             targets. Performance metrics derived from these
                              requirements and targets.
-                            
+
 ---------------------------  ---------------------------------------------------
-Successful End Condition     User is able to 
-                             (i) compare the performance of different control 
-                             sequences in terms of selected pre-defined criteria, and 
-                             (ii) evaluate the ability of a selected control sequence 
-                             to enable the building/system to meet or exceed 
+Successful End Condition     User is able to
+                             (i) compare the performance of different control
+                             sequences in terms of selected pre-defined criteria, and
+                             (ii) evaluate the ability of a selected control sequence
+                             to enable the building/system to meet or exceed
                              externally-defined performance criteria.
 ---------------------------  ---------------------------------------------------
-Failed End Condition         Building/system model or configuration information for 
+Failed End Condition         Building/system model or configuration information for
                              generic model template is incomplete.
-                             
-                             Performance requirements or targets are incomplete or 
+
+                             Performance requirements or targets are incomplete or
                              inconsistent wrt the specific control sequence
-                             
-                             Simulation fails to run to completion or fails convergence 
+
+                             Simulation fails to run to completion or fails convergence
                              tests.
 
 ---------------------------  ---------------------------------------------------
 Primary Actors               A mechanical engineer.
 ---------------------------  ---------------------------------------------------
-Secondary Actors             
+Secondary Actors
 ---------------------------  ---------------------------------------------------
-Trigger                      Need to select or improve a control sequence for a 
+Trigger                      Need to select or improve a control sequence for a
                              building or system
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
-1                            User loads the building/system model for the project 
+1                            User loads the building/system model for the project
                              or uses design information to configure a model template
 ---------------------------  ---------------------------------------------------
-2                            User selects and loads weather data and operation 
+2                            User selects and loads weather data and operation
                              schedules.
 ---------------------------  ---------------------------------------------------
-3                            User configures control sequence with project-specific 
-                             information, e.g. number of terminal units on an air 
+3                            User configures control sequence with project-specific
+                             information, e.g. number of terminal units on an air
                              loop, and connects to building/system modeL
 ---------------------------  ---------------------------------------------------
 4                            User selects short periods for initial testing and
                              performs predefined tests to verify basic functionality
                              (equivalent ot commissioning).
 ---------------------------  ---------------------------------------------------
-5                            User initiates simulation of building/system 
-                             controlled performance over full reference year or 
-                             statistically-selected short reference year that 
-                             reports output variables required to evaluate 
+5                            User initiates simulation of building/system
+                             controlled performance over full reference year or
+                             statistically-selected short reference year that
+                             reports output variables required to evaluate
                              performance according to pre-defined metrics.
 ---------------------------  ---------------------------------------------------
 6                            Compare metric values to requirements and/or targets
-                             and determine whether acceptable as is, needs 
+                             and determine whether acceptable as is, needs
                              modification or appears fundamentally flawed.
 ===========================  ===================================================
 
@@ -226,7 +227,7 @@ Trigger                      Need to select or improve a control sequence for a
 .. uml::
    :caption: Performance assessment of a control sequence.
 
-   title Performance assessment of a control sequence
+   title Performance assessment of a control sequence (to be completed)
 
    "User" -> "OpenStudio" : Open control design tool.
    "OpenStudio" -> "Control Design Tool" : open()
@@ -234,7 +235,7 @@ Trigger                      Need to select or improve a control sequence for a
    "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
    "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
    "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-   (to be completed)
+
 
 
 Export of the control sequence in CDL
@@ -602,7 +603,18 @@ Primary Actors               New construction project manager, owner’s represe
 Secondary Actors             Cx agent, engineer of record
 ---------------------------  ---------------------------------------------------
 Trigger                      Contractor notifies owner or PM that system is ready
-
+                             for Cx.
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens tool interface.
+---------------------------  ---------------------------------------------------
+2                            User configures tool to connect with desired
+                             control system.
+---------------------------  ---------------------------------------------------
+3                            User initiates translation of installed control
+                             logic to sequence documentation.
+===========================  ===================================================
 
 
 Template Use Case
@@ -615,40 +627,30 @@ This use case will tell you how to fill out the table form with a new use case.
 ===========================  ===================================================
 **Use case name**            **Name**
 ===========================  ===================================================
-Related Requirements         ...
+Related Requirements         xxx
 ---------------------------  ---------------------------------------------------
-Goal in Context              ...
-                             ...
-                             ...
+Goal in Context              xxx
+                             xxx
+                             xxx
 ---------------------------  ---------------------------------------------------
-Preconditions                ...
-                             ...
+Preconditions                xxx
+                             xxx
 ---------------------------  ---------------------------------------------------
-Successful End Condition     ...
+Successful End Condition     xxx
 ---------------------------  ---------------------------------------------------
-Failed End Condition         ...
+Failed End Condition         xxx
 ---------------------------  ---------------------------------------------------
-Primary Actors               ...
+Primary Actors               xxx
 ---------------------------  ---------------------------------------------------
-Secondary Actors             ...
+Secondary Actors             xxx
 ---------------------------  ---------------------------------------------------
-Trigger                      ...
----------------------------  ---------------------------------------------------
-**Main Flow**                **Action**
----------------------------  ---------------------------------------------------
-1                            ... 
----------------------------  ---------------------------------------------------
-2                            ...
----------------------------  ---------------------------------------------------
-3                            ...
-===========================  ===================================================
-                             
+Trigger                      xxx
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
-1                            ...
+1                            xxx
 ---------------------------  ---------------------------------------------------
-2                            ...
+2                            xxx
 ---------------------------  ---------------------------------------------------
-3                            ...
+3                            xxx
 ===========================  ===================================================
