@@ -6,7 +6,7 @@ Requirements
 This section describes the functional, mathematical and software requirements.
 The requirements are currently in discussion and revision with the team.
 
-Below, by *plant*, we mean the controlled system, which may be a chiller plant,
+In these discussion, by *plant*, we mean the controlled system, which may be a chiller plant,
 an HVAC system, an active facade, a model of the building etc.
 
 Controls Design Tool
@@ -55,16 +55,25 @@ CDL
 #. CDL shall represent control sequences as a set of functional blocks which can be connected through their inputs and outputs, and be composed hierarchically to form new functional blocks.
 #. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs. The actual implementation is not part of the standard [as this is language dependent].
 #. Each functional block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
-#. Inputs, outputs, and functional blocks shall be allowed to contain tags. The tags shall identify expected characteristics, including but not limited to:
+#. Functional blocks shall identify whether they are a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
+#. Inputs, outputs, and functional blocks shall be allowed to contain metadata.
+   The metadata shall identify expected characteristics, including but not limited to the following.
+   For inputs and outputs:
 
-   #. input or output; [*delete as this can be inferred*]
-   #. analog or digital input or output;
-   #. physical sensor or data input (from another logic block);
-   #. for physical sensors, the type of sensor (e.g. temperature, pressure); [*delete as this can be inferred from its output*]
+   #. whether they are input or output,
+   #. units,
+   #. a quantity [such as "return air temperature" or "heating requests" or "cooling requests"],
+   #. analog or digital input or output, and
    #. for physical sensors or data input, the application
-      (e.g. return air temperature, supply air temperature)
+      (e.g. return air temperature, supply air temperature).
 
-   [Note that units of inputs and outputs can be inferred from CDL.]
+   For functional blocks:
+
+   #. an equipment tag [e.g., air handler control],
+   #. a location [e.g., 1st-floor-office-south], and
+   #. if they represent a sensor or actuator, whether they are a physical device
+      or a software point. [For physical sensors, the signal is read by
+      a sensor element, which converts the physical signal into a software point.]
 
 #. It shall be possible to translate control sequences that
    are expressed in the CDL
@@ -81,9 +90,10 @@ CDL
 #. The physical equipment of HVAC system shall be described in terms of objects which are expressed in the CDL.
 #. The object model must be rigorous, extensible and flexible.
 #. The object model must be relational, inherently defining connections between different objects.
-   The system must support many-to-many relationships [*mw: let's discuss what this means as outputs can be sent to multiple inputs, but each input can only be connected to one output*] - simple hierarchy is not sufficient.
-#. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique
-   instance.
+#. The system must support many-to-many relationships [For example, two parallel chilled water pumps
+   can serve three parallel chillers (see also Brick's "isPartOf" and "feeds").]
+#. Each distinct piece of equipment [e.g. return air temperature sensor]
+   shall be represented by a unique instance.
 
 
 Commissioning and Functional Verification Tool
