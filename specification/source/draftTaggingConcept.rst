@@ -9,8 +9,9 @@ Address the following doc sections
 Goals and constraints
 ----------------------
 CDL
+
 #. Utilize Modelica capabilities | evaluate development cost
-#. Make it easier for the control designer to use the tool/learn how to use the tool [think education]
+#. Make it easier for the control designer to use the tool/learn how to use the tool [think education]/[side idea: what are the savings achieved in design/commissioning]
 #. Reduce error rate by disallowing connections between values which are not compatible
 #. Generate default tags and prompt/allow/encourage user to customize them for a specific project
 #. Allow user to add optional taggs that might be required by a specific project
@@ -19,6 +20,7 @@ CDL
 #. address both HVAC and non-HVAC equipments
 
 Controls Design tool
+
 #. Plant - levels - hierarchy - tool navigation, see section from below
 +++++
 
@@ -45,6 +47,10 @@ Tagging: proposed design
 ----------------------
 
 
+Writte up from the paper schetches 
+
+
+Explain what becomes mandatory and what preset optional and user can add optional
 
 
 Benefits
