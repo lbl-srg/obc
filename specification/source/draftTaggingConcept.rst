@@ -3,7 +3,7 @@
 Tagging Concept
 ------------
 
-Address the following doc sections
+
 
 
 Goals and constraints
@@ -69,6 +69,9 @@ Evaluate CDL 4, 5, 6, 7
 
 
 
+Refs
+-----
+http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
 
 
 
