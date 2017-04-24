@@ -22,6 +22,8 @@ CDL
 Controls Design tool
 
 #. Plant - levels - hierarchy - tool navigation, see section from below
+
+Focusing on CLD having the brick and related ontologies in mind, see references. Integration with the higher level systems should include some further reading to enable integration with the current SOA of bui sys tagging.
 +++++
 
 
@@ -72,6 +74,11 @@ Evaluate CDL 4, 5, 6, 7
 Refs
 -----
 http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
+L. Daniele, F. den Hartog, and J. Roes. Study on semantic
+assets for smart appliances interoperability: D-S4: Final
+report. Technical report, European Union, 2015.
+On meta-data in Modelica
+http://www.ep.liu.se/ecp/096/018/ecp14096018.pdf
 
 
 
