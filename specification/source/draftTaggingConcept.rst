@@ -1,4 +1,4 @@
-[mg disclamer: Incorporate this into cdl.rst under annotations once we develop the concept. Language is occasionally loose since it serves as a base for discussion and should get combed through before moving to cdl.rst.]
+[fixme mg disclamer: Incorporate this into cdl.rst under annotations once we develop the concept. Language is occasionally loose since it serves as a base for discussion and should get combed through before moving to cdl.rst.]
 
 Tagging Concept
 ------------
@@ -49,25 +49,50 @@ Categories of tagged objects and categories of tags in CDL.
 
 Let's focus on Controls Design. Note that in CDL physical system elements are present in the form of inputs and outputs. For instance, there are no coils and dampers in CDL, but these elements are represented by damper enable/disable status, damper position, cooling and heating signal. CDL is agnostic of the performance of the actual damper motor and the thermodynamics of coils and only cares about the sensor/setpoint inputs.
 
-Inputs can be analogue and digital
+Relational tags, such as isControlledBy or isLocatedIn, are copied over from Brick.
 
-Project--------------------------
+[fixme: add an exhaustive list of mandatory and optional tags]
+
+
+**Level: Project**-------------------------------------
+
+Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language]
 
 Purpose in CDL:
-*. Overarching project for which the user designs the control sequences
+*.
 
-Mandatory tags
-*. 'Location' (e.g. "Oakland West")
-*. 'Name' (e.g. "High Efficiency Low Cost Housing")
+Mandatory tags *used to refer to the project
+*. name (e.g. "High Efficiency Low Cost Housing")
 *.
 
 Optional tags
-*. 'Project ID'
-*. ''
+*. isLocatedIn (e.g. "Oakland West")
 *.
 
+Additional tags
+*. projectID (e.g. "02-5165B")
+*. deadline (e.g. "Nov_2019")
+*.
 
-Plants----------------------------
+**Level: Plants**-------------------------------------
+
+Definition: A plant is such a representation of the physical system controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks.
+
+Interface blocks [this needs further thinking]:
+*. Are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
+*. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
+
+Mandatory tags
+*. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
+*. isControlledBy
+
+Optional tags
+*. isLocatedIn (e.g. "FirstFloor")
+*.
+
+Additional tags
+*. special
+*.
 
 *. Refers to physical system (AHU: Coils, Fans, Dampers, VAV Boxes: Fans, [Coils])
   *.
@@ -76,13 +101,12 @@ Plants----------------------------
 
 *. Plants can only contain interface blocks that send inputs and receive outputs from CDL.
 
-*. Interface blocks:
-  *. should be configured to output CDL readable values and, conversely, receive values from CDL and have "placeholders" to translate the values to a format required by actuators.
+
   *. should
 
 
 
-Control System
+**Level: Control System**-------------------------------
 
 -
 
