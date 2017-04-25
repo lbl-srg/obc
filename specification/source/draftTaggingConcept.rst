@@ -1,12 +1,22 @@
 Next steps
+
 - units and quantities go into attribute section of inputs outputs and parameters
+
 - brick labels (relational tags): hierarchy commes from the CDL Control Design Tool component structure
+
 - hardware/software | analog/digital
+
 With Michael
+
 - explain how having quntities in the type category is usefull for us and for the user - user, if addind a temerature, would need to know to add the quantity to its genaral real input.
+
 - add a sketch for internal CDL CDT structure [plant[full sequence[composit block[atomic block]]]]
+
 - move to rst.cdl
+
 - Amy's use case on points says "Each control points needs to be defined under AI/AO/DI/DO/Network interface types and consistent tagging/naming": how do we make this happen - is this only a part of interface blocks?
+
+- What about the point schedule, also from Amys use case 
 
 [fixme mg disclamer: Incorporate this into cdl.rst under annotations once we develop the concept. Language is occasionally loose since it serves as a base for discussion and should get combed through before moving to cdl.rst.]
 
