@@ -83,19 +83,19 @@ Purpose in CDL: Referencing and documentation
 
 Mandatory tags #used to refer to the project:
 
-#. name (e.g. "High Efficiency Low Cost Housing")
-#.
+#. name (e.g. "Green Building")
+#. bla
 
 Optional tags:
 
 #. isLocatedIn (e.g. "Oakland West")
-#.
+#. bla
 
 Additional tags:
 
 #. projectID (e.g. "02-5165B")
 #. deadline (e.g. "Nov_2019")
-#.
+#. bla
 
 **Level10: Plants**
 
