@@ -31,13 +31,23 @@ General
 #. Make use of the Brick ontology [see references]
 #. Enable extensions and future connectivity
 
-Quote From the Requirements - check if satisfied
+**Check if satisfied**
+
+[mg - skip this for the first read]
+
+From the Requirements -
 
 7. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
 
 10. The controls design tool shall prompt the user to provide necessary information when instantiating objects. For example, the object representing an air handler should include fan, filter, and optional coil and damper elements (each of which is itself an object). When setting up an AHU instance, the user should be prompted to define which of these objects exist.
 
-[Amy's list should be covered with this example]
+From Software Architecture - check if satisfied
+
+The Controls Design Tool will use a CDL Parser that parses the CDL library and CDL-compliant specifications. The Sequence Generator will guide the user through a series of questions about the plant and control, and then generates a Control Model that contains the open-loop control sequence. Using the HVAC System Editor, the user will then connect it to a plant model (which consist of the HVAC and building model with exposed control inputs and sensor outputs). This connection will allow testing and modification of the Control Model as needed. Hence, using the HVAC System Editor, the user can manipulate the sequence to adapt it to the actual project.
+
+See CDL under 4, 5, 6, 7
+
+[mg Amy's list should be covered with this proposed implementation.]
 
 Types of tags
 ----------------
@@ -226,7 +236,7 @@ This section discusses the software implementation. Modelica capabilities we can
 
 Tag categories conveyed using Modelica interfaces (inputs, outputs and connectors)
 
-Interface Types
+**Interface Types**
 
 The idea is to have most of the obvious tags built in within the interface. For example, the temperature is always analog and its unit/displayUnit are fixed, so that should be a part of the interface block by default, but one should be able to parse the block and get the information if need be [for documentation]).
 
@@ -245,7 +255,7 @@ There should be an Input, Output, and a Connector for each of the listed:
 #. HardwareFanSpeed
 #. SoftwareFanSpeed
 
-Enumeration types
+**Enumeration types**
 
 #. FreezeProtectionStage
 #. ZoneState
@@ -253,8 +263,7 @@ Enumeration types
 #. AlarmStatus
 #. [mg - I think there were more categories in G36]
 
-
-Generic Interfaces for extensions:
+**Generic Interfaces for extensions**
 
 #. HardwareDigital [mg set it up with boolean]
 #. SoftwareDigital [mg set it up with real]
@@ -263,31 +272,6 @@ Generic Interfaces for extensions:
 #. SoftwareStatus [mg boolean]
 #. CustomEnumeration [mg or similar]
 
-
-
-
-
-Enumerated types (as required by the Guidline and recommended by practitioners):
-- inputs
-
-
-
-We should add a template enumerated type or two for custom sequences.
-
-
-
-
-
-
-
-
-Example Usage and Test against notes captured in requirements.rst under CDL
-----------------------
-From Software Architecture
-
-The Controls Design Tool will use a CDL Parser that parses the CDL library and CDL-compliant specifications. The Sequence Generator will guide the user through a series of questions about the plant and control, and then generates a Control Model that contains the open-loop control sequence. Using the HVAC System Editor, the user will then connect it to a plant model (which consist of the HVAC and building model with exposed control inputs and sensor outputs). This connection will allow testing and modification of the Control Model as needed. Hence, using the HVAC System Editor, the user can manipulate the sequence to adapt it to the actual project.
-
-Evaluate CDL 4, 5, 6, 7
 
 Discussion points [optional read, this is was mostly to help me out with the above schema]
 ----------------------
