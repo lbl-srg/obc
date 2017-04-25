@@ -114,17 +114,14 @@ Mandatory tags:
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
-#.
 
 Optional tags:
 
 #. isLocatedIn (e.g. "First Floor")
-#.
 
 Additional tags:
 
 #. special
-#.
 
 **Level11: InterfaceBlocks**
 
@@ -133,17 +130,14 @@ Mandatory tags:
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
-#.
 
 Optional tags:
 
 #. isLocatedIn (e.g. "First Floor")
-#.
 
 Additional tags:
 
 #. special
-#.
 
 
 Plants can only contain interface blocks that send inputs to and receive outputs from CDL.
@@ -166,54 +160,54 @@ Definition:
 
 Mandatory tags:
 
-#.
-#.
+#. a
+#. b
 
 Optional tags:
 
-#.
-#.
+#. a
+#. b
 
 Additional tags:
 
-#.
-#.
+#. a
+#. b
 
 
 **Level21: Composite block**
 
 Mandatory tags:
 
-#.
-#.
+#. a
+#. b
 
 Optional tags:
 
-#.
-#.
+#. a
+#. b
 
 Additional tags:
 
-#.
-#.
+#. a
+#. b
 
 
 **Level22: Composite block**
 
 Mandatory tags:
 
-#.
-#.
+#. a
+#. b
 
 Optional tags:
 
-#.
-#.
+#. a
+#. b
 
 Additional tags:
 
-#.
-#.
+#. a
+#. b
 
 
 - include tag that renders sequence G36 compliant, since Paul says people use other - it's a guideline
