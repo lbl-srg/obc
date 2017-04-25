@@ -76,6 +76,7 @@ List of Brick tags that we should allocate to applicable elements, where meaning
 
 
 **Level00: Project**
+--------------------
 
 Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language]
 
@@ -98,6 +99,7 @@ Additional tags:
 #. bla
 
 **Level10: Plants**
+--------------------
 
 Definition: A plant is such a representation of the physical system (AHU: Coils, Fans, Dampers, VAV: Fans, [Coils]) controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks (Level11).
 
@@ -106,8 +108,6 @@ Level11: Interface blocks [this needs further thinking]:
 
 Definition: Interface blocks are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
 #. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
-
-**Level10: Plants**
 
 Mandatory tags:
 
@@ -144,6 +144,7 @@ Plants can only contain interface blocks that send inputs to and receive outputs
 
 
 **Level20: Control System**
+--------------------
 
 Definition:
 
@@ -175,6 +176,7 @@ Additional tags:
 
 
 **Level21: Composite block**
+--------------------
 
 Mandatory tags:
 
@@ -193,6 +195,7 @@ Additional tags:
 
 
 **Level22: Composite block**
+--------------------
 
 Mandatory tags:
 
