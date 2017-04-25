@@ -16,7 +16,7 @@ With Michael
 
 - Amy's use case on points says "Each control points needs to be defined under AI/AO/DI/DO/Network interface types and consistent tagging/naming": how do we make this happen - is this only a part of interface blocks?
 
-- What about the point schedule, also from Amys use case 
+- What about the point schedule, also from Amys use case - should these be a part of interface blocks?
 
 [fixme mg disclamer: Incorporate this into cdl.rst under annotations once we develop the concept. Language is occasionally loose since it serves as a base for discussion and should get combed through before moving to cdl.rst.]
 
