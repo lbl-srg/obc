@@ -275,7 +275,7 @@ There should be an Input, Output, and a Connector for each of the listed:
 
 Discussion points [optional read, this was mostly to help me out with the above schema]
 ----------------------
-#. Should we have standardized unique identifiers for each block in CDL? To develop the schema below, I've used the following
+Should we have standardized unique identifiers for each block in CDL? To develop the schema below, I've used the following
 
 xy_f_n_s_ab
 
@@ -287,7 +287,7 @@ f - the function (interface-[input, output, connector], controller, logic, atomi
 
 n - block has 0:no parameters, 1:only protected parameters, 2: parameters user can edit, 3: both 1 and 2
 
-I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store something like that internally, if we can make use of it. e.g. pull all tagging info from a block that feeds into a block that we are observing.
+I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store some unique identifier internally, if we can make use of it [e.g. pull all tagging info from a block that feeds into a block that we are observing and have that be a parameter value placed under "isFedBy" parameter [if parameter used as a tag]]
 
 s - serial number
 
@@ -295,11 +295,10 @@ ab - unique identifier [integer]
 
 References
 ---------
-#. http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
 
+#. http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
 #. L. Daniele, F. den Hartog, and J. Roes. Study on semantic
 assets for smart appliances interoperability: D-S4: Final
 report. Technical report, European Union, 2015.
-
 #. On meta-data in Modelica
 http://www.ep.liu.se/ecp/096/018/ecp14096018.pdf
