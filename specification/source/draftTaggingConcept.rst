@@ -5,14 +5,14 @@
 Tagging Concept
 ------------
 
-
-
+Before diving into tagging, let's get reminded that the tool, which we are developing in Modelica CDL, designs controls. In CDL physical system elements are present in the form of inputs and outputs, whereas the only physical component is the controller. For instance, there are no coils and dampers in CDL, instead these elements are represented by damper enable/disable status, damper position, cooling and heating signal, etc. CDL is agnostic of the performance of the actual damper motor and the thermodynamics of coils and only responds to the sensor/setpoint inputs.
 
 Goals and constraints
 ----------------------
+
 CDL
 
-#. Utilize Modelica capabilities | evaluate development cost
+#. Utilize Modelica capabilities and consider constraints | evaluate development cost
 #. Make it easier for the control designer to use the tool/learn how to use the tool [think education]/[side idea: what are the savings achieved in design/commissioning]
 #. Reduce error rate by disallowing connections between values which are not compatible
 #. Generate default tags and prompt/allow/encourage user to customize them for a specific project
@@ -21,22 +21,23 @@ CDL
 #. Parsing?
 #. address both HVAC and non-HVAC equipments
 
-Controls Design tool
+Controls Design Tool
 
-#. Plant - levels - hierarchy - tool navigation, see section from below
+#. Introduce hierarchy and guidance for the user by the means of tags
+#. Make it easier to navigate different parts of the control system
 
-Focusing on CLD having the brick and related ontologies in mind, see references. Integration with the higher level systems should include some further reading to enable integration with the current SOA of bui sys tagging.
-+++++
+General
 
+#. Make use of the Brick ontology [see references]
+#. Enable extensions and future connectivity
 
-From Requirements
-
-Plant: controlled system, which may be a chiller plant, an HVAC system, an active facade, a model of the building etc.
+Quote From the Requirements - check if satisfied
 
 7. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
 
 10. The controls design tool shall prompt the user to provide necessary information when instantiating objects. For example, the object representing an air handler should include fan, filter, and optional coil and damper elements (each of which is itself an object). When setting up an AHU instance, the user should be prompted to define which of these objects exist.
-++++++
+
+[Amy's list should be covered with this example]
 
 Types of tags
 ----------------
@@ -45,23 +46,37 @@ Mandatory - required by the tool to process, populated by default values if omit
 Optional - preprogrammed tags that user may or may not populate. If not populated these tags will remain empty
 Additional - tags that user can add and populate if required
 
-Tagging: functional requirement
+
+Tagging: Functional requirement
 ----------------------
-Categories of tagged objects and categories of tags in CDL.
 
-Let's focus on Controls Design. Note that in CDL physical system elements are present in the form of inputs and outputs. For instance, there are no coils and dampers in CDL, but these elements are represented by damper enable/disable status, damper position, cooling and heating signal. CDL is agnostic of the performance of the actual damper motor and the thermodynamics of coils and only cares about the sensor/setpoint inputs.
+Hierarchy: All blocks apart from the basic blocks are tagged with a level that corresponds to the Control Design Tool hierarchy and helps guide/navigate the user while creating the control design
 
-Relational tags, such as isControlledBy or isLocatedIn, are copied over from Brick.
+The only non-hierarchical elements are the basic blocks [inputs, outputs, logic, controller], etc. They inherit the level from the first composite block to which they belong.
+
+List of basic block tag categories [note that these are categories, see proposed design section for actual tags and proposed implementation, it is somewhat simpler]:
+*. Hardware | Software [includes Network, proposing no separate tag for that]
+*. Analog | Digital
+*. Mode [fixme: needs an another run through G36]: FreezeProtectionStage | AHUMode | ZoneState | Alarm | BoilerRequest | ChillerRequest
+*. Physical value: Temperature | Pressure | DamperPosition | Humidity | Speed | Status (or Command or Request)
+
+List of Brick tags that we should allocate to applicable elements, where meaningful:
+
+*. contains/isLocatedIn
+*. controls/isControlledBy
+*. hasPart/isPartOf
+*. feeds/isFedBy
+*. hasInput/isInputOf
+*. hasOutput/isOutputOf
 
 [fixme: add an exhaustive list of mandatory and optional tags]
 
 
-**Level: Project**-------------------------------------
+**Level00: Project**-------------------------------------
 
 Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language]
 
-Purpose in CDL:
-*.
+Purpose in CDL: Referencing and documentation
 
 Mandatory tags *used to refer to the project
 *. name (e.g. "High Efficiency Low Cost Housing")
@@ -76,13 +91,17 @@ Additional tags
 *. deadline (e.g. "Nov_2019")
 *.
 
-**Level: Plants**-------------------------------------
+**Level10: Plants**-------------------------------------
 
-Definition: A plant is such a representation of the physical system controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks.
+Definition: A plant is such a representation of the physical system (AHU: Coils, Fans, Dampers, VAV: Fans, [Coils]) controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks (Level11).
 
-Interface blocks [this needs further thinking]:
-*. Are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
+Contains sub-elements:
+Level11: Interface blocks [this needs further thinking]:
+
+Definition: Interface blocks are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
 *. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
+
+Level10: Plants
 
 Mandatory tags
 *. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
@@ -98,7 +117,23 @@ Additional tags
 *. special
 *.
 
-*. Refers to physical system (AHU: Coils, Fans, Dampers, VAV Boxes: Fans, [Coils])
+Level11: InterfaceBlocks
+
+Mandatory tags
+*. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
+*. isControlledBy (populate by all Control Systems within the given plant)
+*. isPartOf (populate by project name)
+*.
+
+Optional tags
+*. isLocatedIn (e.g. "First Floor")
+*.
+
+Additional tags
+*. special
+*.
+
+*.
   *.
   *.
   *.
@@ -110,12 +145,62 @@ Additional tags
 
 
 
-**Level: Control System**-------------------------------
+**Level20: Control System**-------------------------------
 
--
+Definition:
+
+Contains sub-elements:
+
+Level21: Composite block
+
+Definition:
+
+Level22: Atomic block
+
+Definition:
 
 
+Mandatory tags
+*.
+*.
 
+Optional tags
+*.
+*.
+
+Additional tags
+*.
+*.
+
+
+Level21: Composite block
+
+Mandatory tags
+*.
+*.
+
+Optional tags
+*.
+*.
+
+Additional tags
+*.
+*.
+
+
+Level22: Composite block
+
+Mandatory tags
+*.
+*.
+
+Optional tags
+*.
+*.
+
+Additional tags
+*.
+*.
 
 
 - include tag that renders sequence G36 compliant, since Paul says people use other - it's a guideline
@@ -129,7 +214,7 @@ Tag categories conveyed using Modelica interfaces (inputs, outputs and connector
 Enumerated types
 - inputs
 
-Use Modelica meta-data capabilities, parameters and annotations to program the remainder of the tags
+Use Modelica meta-data capabilities, parameters and/or annotations to program the remainder of the tags
 http://www.ep.liu.se/ecp/096/018/ecp14096018.pdf
 
 
@@ -152,19 +237,21 @@ Discussion points [optional read, this is was mostly to help me out with the abo
 ----------------------
 #. Should we have standardized unique identifiers for each block in CDL? To develop the schema below, I've used the following
 
-xy_f_ab_n
+xy_f_n_s_ab
 
 where:
 
-x is the top down level to which the element belongs (level 0 - basic block, level 1 - atomic block, level 2 - composite block, level 3 - plant block, level 4 - project block)
-
-y is the bottom up level to which the element belongs (not sure we even need this)
+xy is the top down level to which the element belongs (level20 - control system, level21 - atomic block, level22 - composite block, level10 - plant block, level11 - interface block, level00 - project block)
 
 f is the function (interface-[input, output, connector], controller, logic, atomicBlock, compositeBlock, interfaceBlock, plantBlock, projectBlock)
 
 n - block has 0:no parameters, 1:only protected parameters, 2: parameters user can edit, 3: both 1 and 2
 
 I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store something like that internally, if we can make use of it. e.g. pull all tagging info from a block that feeds into a block that we are observing.]
+
+s - serial number
+
+ab - unique identifier [integer]
 
 Refs
 -----
