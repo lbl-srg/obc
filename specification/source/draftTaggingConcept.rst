@@ -8,6 +8,8 @@ Next steps
 
 With Michael
 
+- should we add a building/zone block?
+
 - explain how having quntities in the type category is usefull for us and for the user - user, if addind a temerature, would need to know to add the quantity to its genaral real input.
 
 - add a sketch for internal CDL CDT structure [plant[full sequence[composit block[atomic block]]]]
