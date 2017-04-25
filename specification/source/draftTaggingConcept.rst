@@ -203,7 +203,7 @@ Additional tags:
 #. b
 
 
-**Level22: Composite block**
+**Level22: Atomic block**
 
 Mandatory tags:
 
@@ -296,9 +296,11 @@ ab - unique identifier [integer]
 References
 ---------
 
-#. http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
-#. L. Daniele, F. den Hartog, and J. Roes. Study on semantic
+1. http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
+
+2. L. Daniele, F. den Hartog, and J. Roes. Study on semantic
 assets for smart appliances interoperability: D-S4: Final
 report. Technical report, European Union, 2015.
-#. On meta-data in Modelica
+
+3. On meta-data in Modelica
 http://www.ep.liu.se/ecp/096/018/ecp14096018.pdf
