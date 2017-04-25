@@ -1,5 +1,7 @@
 [fixme mg disclamer: Incorporate this into cdl.rst under annotations once we develop the concept. Language is occasionally loose since it serves as a base for discussion and should get combed through before moving to cdl.rst.]
 
+
+
 Tagging Concept
 ------------
 
@@ -84,10 +86,12 @@ Interface blocks [this needs further thinking]:
 
 Mandatory tags
 *. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
-*. isControlledBy
+*. isControlledBy (populate by all Control Systems within the given plant)
+*. isPartOf (populate by project name)
+*.
 
 Optional tags
-*. isLocatedIn (e.g. "FirstFloor")
+*. isLocatedIn (e.g. "First Floor")
 *.
 
 Additional tags
@@ -144,7 +148,23 @@ The Controls Design Tool will use a CDL Parser that parses the CDL library and C
 
 Evaluate CDL 4, 5, 6, 7
 
+Discussion points [optional read, this is was mostly to help me out with the above schema]
+----------------------
+#. Should we have standardized unique identifiers for each block in CDL? To develop the schema below, I've used the following
 
+xy_f_ab_n
+
+where:
+
+x is the top down level to which the element belongs (level 0 - basic block, level 1 - atomic block, level 2 - composite block, level 3 - plant block, level 4 - project block)
+
+y is the bottom up level to which the element belongs (not sure we even need this)
+
+f is the function (interface-[input, output, connector], controller, logic, atomicBlock, compositeBlock, interfaceBlock, plantBlock, projectBlock)
+
+n - block has 0:no parameters, 1:only protected parameters, 2: parameters user can edit, 3: both 1 and 2
+
+I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store something like that internally, if we can make use of it. e.g. pull all tagging info from a block that feeds into a block that we are observing.]
 
 Refs
 -----
