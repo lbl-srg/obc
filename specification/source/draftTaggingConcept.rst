@@ -7,7 +7,7 @@ Tagging Concept
 
 Before diving into tagging, let's get reminded that the tool, which we are developing in Modelica CDL, designs controls. In CDL physical system elements are present in the form of inputs and outputs, whereas the only physical component is the controller. For instance, there are no coils and dampers in CDL, instead these elements are represented by damper enable/disable status, damper position, cooling and heating signal, etc. CDL is agnostic of the performance of the actual damper motor and the thermodynamics of coils and only responds to the sensor/setpoint inputs.
 
-Goals and constraints
+Goals, Constraints, Benefits
 ----------------------
 
 CDL
@@ -72,27 +72,32 @@ List of Brick tags that we should allocate to applicable elements, where meaning
 
 [fixme: add an exhaustive list of mandatory and optional tags]
 
+[modelica types and connector will take care of the units]
 
-**Level00: Project**-------------------------------------
+
+**Level00: Project**
 
 Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language]
 
 Purpose in CDL: Referencing and documentation
 
 Mandatory tags #used to refer to the project
+
 #. name (e.g. "High Efficiency Low Cost Housing")
 #.
 
 Optional tags
+
 #. isLocatedIn (e.g. "Oakland West")
 #.
 
 Additional tags
+
 #. projectID (e.g. "02-5165B")
 #. deadline (e.g. "Nov_2019")
 #.
 
-**Level10: Plants**-------------------------------------
+**Level10: Plants**
 
 Definition: A plant is such a representation of the physical system (AHU: Coils, Fans, Dampers, VAV: Fans, [Coils]) controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks (Level11).
 
@@ -105,48 +110,46 @@ Definition: Interface blocks are blocks that are able to receive sensor output f
 **Level10: Plants**
 
 Mandatory tags
+
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
 #.
 
 Optional tags
+
 #. isLocatedIn (e.g. "First Floor")
 #.
 
 Additional tags
+
 #. special
 #.
 
 **Level11: InterfaceBlocks**
 
 Mandatory tags
+
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
 #.
 
 Optional tags
+
 #. isLocatedIn (e.g. "First Floor")
 #.
 
 Additional tags
+
 #. special
 #.
 
-#.
-  #.
-  #.
-  #.
 
-#. Plants can only contain interface blocks that send inputs and receive outputs from CDL.
+Plants can only contain interface blocks that send inputs to and receive outputs from CDL.
 
 
-  #. should
-
-
-
-**Level20: Control System**-------------------------------
+**Level20: Control System**
 
 Definition:
 
@@ -207,21 +210,46 @@ Additional tags
 - include tag that renders sequence G36 compliant, since Paul says people use other - it's a guideline
 
 
-Tagging: proposed design (actual software implementation)
+Tagging: Proposed Design
 ----------------------
+
+This section discusses the software implementation. Modelica capabilities we can utilize to implement the tagging are:
+
+#. Interfaces: inputs, outputs, and connectors (that carry type, unit, customize connectivity)
+#. Block parameters
+#. Block annotations
+#. Further Modelica meta-data capabilities [see Refs 3]
 
 Tag categories conveyed using Modelica interfaces (inputs, outputs and connectors)
 
-Enumerated types
+Interface Types
+
+The idea is to have most of the obvious tags built in within the interface. For example, the temperature is always analog and its unit/displayUnit are fixed, so that should be a part of the interface block by default, but one should be able to parse the block and get the information if need be [for documentation])
+
+Interfaces are customized to have predefined units and types (e.g. type Temperature). We might be able to limit the interface selection to only those listed below, redefine real to Analog, boolean to Digital, and replace integer with enumerated types. [mg Remove any unused interfaces, not sure about integer, once we've covered all sequences)
+
+There should be an Input, Output, and a Connector for each of the listed:
+
+#. HardwareTemperature
+#. SoftwareTemperature
+#. 
+#.
+#.
+
+
+
+
+
+Enumerated types (as required by the Guidline and recommended by practitioners):
 - inputs
 
-Use Modelica meta-data capabilities, parameters and/or annotations to program the remainder of the tags
-http://www.ep.liu.se/ecp/096/018/ecp14096018.pdf
+
+
+We should add a template enumerated type or two for custom sequences.
 
 
 
-Benefits
-----------------------
+
 
 
 
