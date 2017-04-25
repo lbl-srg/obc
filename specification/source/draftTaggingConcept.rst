@@ -176,7 +176,6 @@ Additional tags:
 
 
 **Level21: Composite block**
---------------------
 
 Mandatory tags:
 
@@ -195,7 +194,6 @@ Additional tags:
 
 
 **Level22: Composite block**
---------------------
 
 Mandatory tags:
 
