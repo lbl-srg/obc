@@ -42,32 +42,33 @@ Quote From the Requirements - check if satisfied
 Types of tags
 ----------------
 
-Mandatory - required by the tool to process, populated by default values if omitted
-Optional - preprogrammed tags that user may or may not populate. If not populated these tags will remain empty
-Additional - tags that user can add and populate if required
+#. Mandatory - required by the tool to process, populated by default values if omitted
+#. Optional - preprogrammed tags that user may or may not populate. If not populated these tags will remain empty
+#. Additional - tags that user can add and populate if required
 
 
 Tagging: Functional requirement
 ----------------------
 
-Hierarchy: All blocks apart from the basic blocks are tagged with a level that corresponds to the Control Design Tool hierarchy and helps guide/navigate the user while creating the control design
+Hierarchy: All blocks apart from the basic blocks are tagged with a level that corresponds to the Control Design Tool hierarchy and helps guide the user/navigate the design while creating the control design for a project.
 
 The only non-hierarchical elements are the basic blocks [inputs, outputs, logic, controller], etc. They inherit the level from the first composite block to which they belong.
 
 List of basic block tag categories [note that these are categories, see proposed design section for actual tags and proposed implementation, it is somewhat simpler]:
-*. Hardware | Software [includes Network, proposing no separate tag for that]
-*. Analog | Digital
-*. Mode [fixme: needs an another run through G36]: FreezeProtectionStage | AHUMode | ZoneState | Alarm | BoilerRequest | ChillerRequest
-*. Physical value: Temperature | Pressure | DamperPosition | Humidity | Speed | Status (or Command or Request)
+
+#. Hardware | Software [includes Network, proposing no separate tag for that]
+#. Analog | Digital
+#. Mode [fixme: needs an another run through G36]: FreezeProtectionStage | AHUMode | ZoneState | Alarm | BoilerRequest | ChillerRequest
+#. Physical value: Temperature | Pressure | DamperPosition | Humidity | Speed | Status (or Command or Request)
 
 List of Brick tags that we should allocate to applicable elements, where meaningful:
 
-*. contains/isLocatedIn
-*. controls/isControlledBy
-*. hasPart/isPartOf
-*. feeds/isFedBy
-*. hasInput/isInputOf
-*. hasOutput/isOutputOf
+#. contains/isLocatedIn
+#. controls/isControlledBy
+#. hasPart/isPartOf
+#. feeds/isFedBy
+#. hasInput/isInputOf
+#. hasOutput/isOutputOf
 
 [fixme: add an exhaustive list of mandatory and optional tags]
 
@@ -78,18 +79,18 @@ Definition: Overarching project for which the user designs the control sequences
 
 Purpose in CDL: Referencing and documentation
 
-Mandatory tags *used to refer to the project
-*. name (e.g. "High Efficiency Low Cost Housing")
-*.
+Mandatory tags #used to refer to the project
+#. name (e.g. "High Efficiency Low Cost Housing")
+#.
 
 Optional tags
-*. isLocatedIn (e.g. "Oakland West")
-*.
+#. isLocatedIn (e.g. "Oakland West")
+#.
 
 Additional tags
-*. projectID (e.g. "02-5165B")
-*. deadline (e.g. "Nov_2019")
-*.
+#. projectID (e.g. "02-5165B")
+#. deadline (e.g. "Nov_2019")
+#.
 
 **Level10: Plants**-------------------------------------
 
@@ -99,49 +100,49 @@ Contains sub-elements:
 Level11: Interface blocks [this needs further thinking]:
 
 Definition: Interface blocks are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
-*. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
+#. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
 
-Level10: Plants
-
-Mandatory tags
-*. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
-*. isControlledBy (populate by all Control Systems within the given plant)
-*. isPartOf (populate by project name)
-*.
-
-Optional tags
-*. isLocatedIn (e.g. "First Floor")
-*.
-
-Additional tags
-*. special
-*.
-
-Level11: InterfaceBlocks
+**Level10: Plants**
 
 Mandatory tags
-*. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
-*. isControlledBy (populate by all Control Systems within the given plant)
-*. isPartOf (populate by project name)
-*.
+#. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
+#. isControlledBy (populate by all Control Systems within the given plant)
+#. isPartOf (populate by project name)
+#.
 
 Optional tags
-*. isLocatedIn (e.g. "First Floor")
-*.
+#. isLocatedIn (e.g. "First Floor")
+#.
 
 Additional tags
-*. special
-*.
+#. special
+#.
 
-*.
-  *.
-  *.
-  *.
+**Level11: InterfaceBlocks**
 
-*. Plants can only contain interface blocks that send inputs and receive outputs from CDL.
+Mandatory tags
+#. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
+#. isControlledBy (populate by all Control Systems within the given plant)
+#. isPartOf (populate by project name)
+#.
+
+Optional tags
+#. isLocatedIn (e.g. "First Floor")
+#.
+
+Additional tags
+#. special
+#.
+
+#.
+  #.
+  #.
+  #.
+
+#. Plants can only contain interface blocks that send inputs and receive outputs from CDL.
 
 
-  *. should
+  #. should
 
 
 
@@ -161,46 +162,46 @@ Definition:
 
 
 Mandatory tags
-*.
-*.
+#.
+#.
 
 Optional tags
-*.
-*.
+#.
+#.
 
 Additional tags
-*.
-*.
+#.
+#.
 
 
-Level21: Composite block
+**Level21: Composite block**
 
 Mandatory tags
-*.
-*.
+#.
+#.
 
 Optional tags
-*.
-*.
+#.
+#.
 
 Additional tags
-*.
-*.
+#.
+#.
 
 
-Level22: Composite block
+**Level22: Composite block**
 
 Mandatory tags
-*.
-*.
+#.
+#.
 
 Optional tags
-*.
-*.
+#.
+#.
 
 Additional tags
-*.
-*.
+#.
+#.
 
 
 - include tag that renders sequence G36 compliant, since Paul says people use other - it's a guideline
