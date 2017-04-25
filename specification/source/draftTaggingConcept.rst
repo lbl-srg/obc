@@ -13,13 +13,13 @@ Goals, Constraints, Benefits
 CDL
 
 #. Utilize Modelica capabilities and consider constraints | evaluate development cost
-#. Make it easier for the control designer to use the tool/learn how to use the tool [think education]/[side idea: what are the savings achieved in design/commissioning]
+#. Make it easier for the control designer to use the tool/learn how to use the tool [think education]
 #. Reduce error rate by disallowing connections between values which are not compatible
 #. Generate default tags and prompt/allow/encourage user to customize them for a specific project
 #. Allow user to add optional tags that might be required by a specific project
-#. Reduce design and commissioning workload/achieve savings
-#. Parsing?
-#. address both HVAC and non-HVAC equipments
+#. Reduce design and commissioning workload/achieve savings [side idea: what are the savings achieved in design/commissioning]
+#. Parsing - use tags to help translate sequence from CDL to english [let's just put this here]
+#. Address both HVAC and non-HVAC equipments / extendability
 
 Controls Design Tool
 
@@ -29,7 +29,7 @@ Controls Design Tool
 General
 
 #. Make use of the Brick ontology [see references]
-#. Enable extensions and future connectivity
+#. Enable extensions for future connectivity with third party tools/semantics
 
 **Check if satisfied**
 
@@ -52,33 +52,33 @@ See CDL under 4, 5, 6, 7
 Types of tags
 ----------------
 
-#. Mandatory - required by the tool to process, populated by default values if omitted
+#. Mandatory - preprogrammed tags required by the tool, populated by default values and customizable
 #. Optional - preprogrammed tags that user may or may not populate. If not populated these tags will remain empty
 #. Additional - tags that user can add and populate if required
 
 
-Tagging: Functional requirement
+Tagging: Functional Requirement
 ----------------------
 
-Hierarchy: All blocks apart from the basic blocks are tagged with a level that corresponds to the Control Design Tool hierarchy and helps guide the user/navigate the design while creating the control design for a project.
+Hierarchy: All blocks apart from the basic blocks are tagged with a level that corresponds to the Control Design Tool hierarchy (explained in following sections).
 
-The only non-hierarchical elements are the basic blocks [inputs, outputs, logic, controller], etc. They inherit the level from the first composite block to which they belong.
+The only non-hierarchical elements are the basic blocks [inputs, outputs, logic, controller], etc. They inherit the level from the first composite block to which they belong. It would be beneficial to enable code parsing in order to pull all tags pertaining to a particular basic block.
 
-List of basic block tag categories [note that these are categories, see proposed design section for actual tags and proposed implementation, it is somewhat simpler]:
+**Basic block tag categories** are [note that these are categories, see proposed design section for actual tags and proposed implementation]:
 
-#. Hardware | Software [includes Network, proposing no separate tag for that]
+#. Hardware | Software [includes Network, proposing no separate tag]
 #. Analog | Digital
-#. Mode [fixme: needs an another run through G36]: FreezeProtectionStage | AHUMode | ZoneState | Alarm | BoilerRequest | ChillerRequest
+#. Mode [fixme: to complete the list check G36]: FreezeProtectionStage | AHUMode | ZoneState | Alarm | BoilerRequest | ChillerRequest
 #. Physical value: Temperature | Pressure | DamperPosition | Humidity | Speed | Status (or Command or Request)
 
-List of Brick tags that we should allocate to applicable elements, where meaningful:
+List of **relational tags** copied over from Brick [see ref] that we should allocate to applicable elements, where meaningful:
 
-#. contains/isLocatedIn
-#. controls/isControlledBy
-#. hasPart/isPartOf
-#. feeds/isFedBy
-#. hasInput/isInputOf
-#. hasOutput/isOutputOf
+#. contains/isLocatedIn [physical location]
+#. controls/isControlledBy [use for relations between Plant (Interface block) and Sequence block]
+#. hasPart/isPartOf [this we could probably get rid of if we opt to keep the "Level" tags]
+#. feeds/isFedBy [each basic block and connector, do we need unique IDs to populate these tags - see section before References]
+#. hasInput/isInputOf [all non-basic blocks below project level and input blocks]
+#. hasOutput/isOutputOf [all non-basic blocks below project level and output blocks]
 
 [fixme: add an exhaustive list of mandatory and optional tags]
 
@@ -88,57 +88,57 @@ List of Brick tags that we should allocate to applicable elements, where meaning
 **Level00: Project**
 --------------------
 
-Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language]
+Definition: Overarching project for which the user designs the control sequences. It can scale from a small AHU control design to a complex multiple plant control system. [harmonize language with Paul/Brent/Steve]
 
 Purpose in CDL: Referencing and documentation
 
 Mandatory tags #used to refer to the project:
 
 #. name (e.g. "Green Building")
-#. bla
 
 Optional tags:
 
 #. isLocatedIn (e.g. "Oakland West")
-#. bla
+#. designedBy (e.g. "Brent Eubanks")
 
 Additional tags:
 
 #. projectID (e.g. "02-5165B")
 #. deadline (e.g. "Nov_2019")
-#. bla
+#. commissionedBy
 
 **Level10: Plants**
 --------------------
 
-Definition: A plant is such a representation of the physical system (AHU: Coils, Fans, Dampers, VAV: Fans, [Coils]) controlled by a CDL sequence which is relevant for CDL. The plant is represented by InterfaceBlocks (Level11).
+Definition: A plant is a CDL related model of the physical system (AHU: Coils, Fans, Dampers, VAV: Fans, [Coils]) controlled by a CDL sequence. There are no physical elements in the plant model and the plant is represented by sensors, actuators and averaging blocks packaged in InterfaceBlocks (Level11).
 
 Contains sub-elements:
-Level11: Interface blocks [this needs further thinking]:
+Level11: Interface blocks [mg this is a fresh idea which needs some thought]:
 
-Definition: Interface blocks are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we should have placeholders for input/output format translation required to convert the values into CDL format.
-#. e.g. outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which is an input to a number of CDL sequences.
+Definition: Interface blocks are blocks that are able to receive sensor output from the plant sensors and convert [and if needed average] the plant signals into CDL format, so that the values can be passed on to the CDL control system. In the first version of CDL we could have placeholder blocks that could handle any tag/format conversion between CDL and third party tools. For example, outdoor air temperature is an average over 3 temperature sensor outputs. InterfaceBlock can receive the three inputs, convert to CDL type, average, and output a CDL type averaged temperature, which can then be used as input to a number of CDL sequences. InterfaceBlock could hold all inputs and ouputs for a single plant.
 
 Mandatory tags:
 
+#. name (e.g. "Yellow AHU")
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
-#. isControlledBy (populate by all Control Systems within the given plant)
+#. isControlledBy (e.g. "Control System 1" - a name tag of the Control System which controls the plant)
 #. isPartOf (populate by project name)
 
 Optional tags:
 
 #. isLocatedIn (e.g. "First Floor")
+#. feeds (e.g. "First Floor")
 
 Additional tags:
 
-#. special
+#. brand (e.g. "noAddsHere")
 
 **Level11: InterfaceBlocks**
 
 Mandatory tags:
 
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
-#. isControlledBy (populate by all Control Systems within the given plant)
+#. isControlledBy (populate by the name of the Control System that controls the given plant)
 #. isPartOf (populate by project name)
 
 Optional tags:
@@ -147,8 +147,8 @@ Optional tags:
 
 Additional tags:
 
-#. special
-
+#. protocol (e.g. "BACnet")
+#. network (e.g. "First Floor Network")
 
 Plants can only contain interface blocks that send inputs to and receive outputs from CDL.
 
@@ -156,18 +156,41 @@ Plants can only contain interface blocks that send inputs to and receive outputs
 **Level20: Control System**
 --------------------
 
-Definition:
+Definition: Control System is a compilation of control sequences programmed in CDL, which provides all the required control signals to maintain desired plant operation. 
 
-Contains sub-elements:
+Contains the following sub-levels [mg These definitions are not the best. This can evolve as we develop the sequences]:
 
-Level21: Composite block
+Level21: Full Sequence
 
-Definition:
+Definition: A full G36 sequence or an equivalent custom sequence. For simpler sequences this could be the same as the composite sequence.
 
-Level22: Atomic block
+Level22: Composite Sequence
 
-Definition:
+Definition: A sequence that comprises several atomic sequences and traditionally controls one or more physical variables [damper position].
 
+Level23: Atomic Sequence
+
+Definition: Smallest control sequence which likely contains one controller or some on/off logic to control a variable/setpoint.
+
+Level 20
+
+Mandatory tags:
+
+#. name (e.g. "")
+#. b
+
+Optional tags:
+
+#. a
+#. b
+
+Additional tags:
+
+#. a
+#. b
+
+
+**Level21: Full Sequence** [G36 or custom]
 
 Mandatory tags:
 
@@ -185,7 +208,7 @@ Additional tags:
 #. b
 
 
-**Level21: Composite block**
+**Level22: Composite sequence**
 
 Mandatory tags:
 
@@ -203,7 +226,7 @@ Additional tags:
 #. b
 
 
-**Level22: Atomic block**
+**Level23: Atomic sequence**
 
 Mandatory tags:
 
