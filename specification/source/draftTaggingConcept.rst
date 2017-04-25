@@ -160,7 +160,7 @@ Definition: Control System is a compilation of control sequences programmed in C
 
 Contains the following sub-levels [mg These definitions are not the best. This can evolve as we develop the sequences]:
 
-Level21: Full Sequence
+Level21: Full Sequence [this might be obsolete given the two levels below (22, 23)]
 
 Definition: A full G36 sequence or an equivalent custom sequence. For simpler sequences this could be the same as the composite sequence.
 
@@ -176,36 +176,35 @@ Level 20
 
 Mandatory tags:
 
-#. name (e.g. "")
-#. b
+#. name (e.g. "Single Zone VAV 1", or use this for composite sequence and inherit plant name here)
+#. feeds (inherit name of the plant controlled by this control system)
+#. isPartOf (project name)
+#. isInputOf (name of the plant interface block)
+#. hasOutput (name of the plant interface block)
 
 Optional tags:
 
-#. a
-#. b
+#. contains (inherit names of Full, composite and atomic sequences?)
+#. isLocatedIn (inherit location from the plant) [this tag could be just location, but make sure to use one or the other]
 
 Additional tags:
 
-#. a
-#. b
+#. implementation (e.g. "G36" [this could be mandatory for all G36 compliant sequences], "someCompany")
 
 
 **Level21: Full Sequence** [G36 or custom]
 
 Mandatory tags:
 
-#. a
-#. b
+#. 
 
 Optional tags:
 
-#. a
-#. b
+#. 
 
 Additional tags:
 
-#. a
-#. b
+#. 
 
 
 **Level22: Composite sequence**
@@ -213,36 +212,28 @@ Additional tags:
 Mandatory tags:
 
 #. a
-#. b
 
 Optional tags:
 
 #. a
-#. b
 
 Additional tags:
 
 #. a
-#. b
-
 
 **Level23: Atomic sequence**
 
 Mandatory tags:
 
 #. a
-#. b
 
 Optional tags:
 
 #. a
-#. b
 
 Additional tags:
 
 #. a
-#. b
-
 
 - include tag that renders sequence G36 compliant, since Paul says people use other - it's a guideline
 
