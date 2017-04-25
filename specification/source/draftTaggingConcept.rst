@@ -232,9 +232,32 @@ There should be an Input, Output, and a Connector for each of the listed:
 
 #. HardwareTemperature
 #. SoftwareTemperature
-#. 
-#.
-#.
+#. HardwarePressure
+#. SoftwarePressure
+#. HardwareDamperPosition
+#. SoftwareDamperPosition
+#. HardwareHumidity
+#. SoftwareHumidity
+#. HardwareFanSpeed
+#. SoftwareFanSpeed
+
+Enumeration types
+
+#. FreezeProtectionStage
+#. ZoneState
+#. AHUMode
+#. AlarmStatus
+#. [mg - I think there were more categories in G36]
+
+
+Generic Interfaces for extensions:
+
+#. HardwareDigital [mg set it up with boolean]
+#. SoftwareDigital [mg set it up with real]
+#. HardwareAnalog
+#. SoftwareAnalog
+#. SoftwareStatus [mg boolean]
+#. CustomEnumeration [mg or similar]
 
 
 
@@ -276,14 +299,14 @@ f is the function (interface-[input, output, connector], controller, logic, atom
 
 n - block has 0:no parameters, 1:only protected parameters, 2: parameters user can edit, 3: both 1 and 2
 
-I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store something like that internally, if we can make use of it. e.g. pull all tagging info from a block that feeds into a block that we are observing.]
+I'm inclined to hide this "old school" standardized schema, since it might limit the ease of use and extendability. However we might want to store something like that internally, if we can make use of it. e.g. pull all tagging info from a block that feeds into a block that we are observing.
 
 s - serial number
 
 ab - unique identifier [integer]
 
-Refs
------
+References
+---------
 #. http://www.synergylabs.org/yuvraj/docs/Balaji_BuildSys16_Brick.pdf
 
 #. L. Daniele, F. den Hartog, and J. Roes. Study on semantic
