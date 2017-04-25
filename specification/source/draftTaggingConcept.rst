@@ -81,17 +81,17 @@ Definition: Overarching project for which the user designs the control sequences
 
 Purpose in CDL: Referencing and documentation
 
-Mandatory tags #used to refer to the project
+Mandatory tags #used to refer to the project:
 
 #. name (e.g. "High Efficiency Low Cost Housing")
 #.
 
-Optional tags
+Optional tags:
 
 #. isLocatedIn (e.g. "Oakland West")
 #.
 
-Additional tags
+Additional tags:
 
 #. projectID (e.g. "02-5165B")
 #. deadline (e.g. "Nov_2019")
@@ -109,38 +109,38 @@ Definition: Interface blocks are blocks that are able to receive sensor output f
 
 **Level10: Plants**
 
-Mandatory tags
+Mandatory tags:
 
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
 #.
 
-Optional tags
+Optional tags:
 
 #. isLocatedIn (e.g. "First Floor")
 #.
 
-Additional tags
+Additional tags:
 
 #. special
 #.
 
 **Level11: InterfaceBlocks**
 
-Mandatory tags
+Mandatory tags:
 
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (populate by all Control Systems within the given plant)
 #. isPartOf (populate by project name)
 #.
 
-Optional tags
+Optional tags:
 
 #. isLocatedIn (e.g. "First Floor")
 #.
 
-Additional tags
+Additional tags:
 
 #. special
 #.
@@ -164,45 +164,54 @@ Level22: Atomic block
 Definition:
 
 
-Mandatory tags
+Mandatory tags:
+
 #.
 #.
 
-Optional tags
+Optional tags:
+
 #.
 #.
 
-Additional tags
+Additional tags:
+
 #.
 #.
 
 
 **Level21: Composite block**
 
-Mandatory tags
+Mandatory tags:
+
 #.
 #.
 
-Optional tags
+Optional tags:
+
 #.
 #.
 
-Additional tags
+Additional tags:
+
 #.
 #.
 
 
 **Level22: Composite block**
 
-Mandatory tags
+Mandatory tags:
+
 #.
 #.
 
-Optional tags
+Optional tags:
+
 #.
 #.
 
-Additional tags
+Additional tags:
+
 #.
 #.
 
@@ -224,7 +233,7 @@ Tag categories conveyed using Modelica interfaces (inputs, outputs and connector
 
 Interface Types
 
-The idea is to have most of the obvious tags built in within the interface. For example, the temperature is always analog and its unit/displayUnit are fixed, so that should be a part of the interface block by default, but one should be able to parse the block and get the information if need be [for documentation])
+The idea is to have most of the obvious tags built in within the interface. For example, the temperature is always analog and its unit/displayUnit are fixed, so that should be a part of the interface block by default, but one should be able to parse the block and get the information if need be [for documentation]).
 
 Interfaces are customized to have predefined units and types (e.g. type Temperature). We might be able to limit the interface selection to only those listed below, redefine real to Analog, boolean to Digital, and replace integer with enumerated types. [mg Remove any unused interfaces, not sure about integer, once we've covered all sequences)
 
