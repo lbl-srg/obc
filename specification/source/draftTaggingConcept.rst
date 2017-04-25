@@ -76,7 +76,7 @@ List of **relational tags** copied over from Brick [see ref] that we should allo
 #. contains/isLocatedIn [physical location]
 #. controls/isControlledBy [use for relations between Plant (Interface block) and Sequence block]
 #. hasPart/isPartOf [this we could probably get rid of if we opt to keep the "Level" tags]
-#. feeds/isFedBy [each basic block and connector, do we need unique IDs to populate these tags - see section before References]
+#. feeds/isFedBy [each basic block and connector, **do we need unique IDs to populate these tags - see section before References. at this point a name replaces a unique id, so if one added a simple serial number to mandatory tags, that would remove the ambiguity**]
 #. hasInput/isInputOf [all non-basic blocks below project level and input blocks]
 #. hasOutput/isOutputOf [all non-basic blocks below project level and output blocks]
 
@@ -95,6 +95,7 @@ Purpose in CDL: Referencing and documentation
 Mandatory tags #used to refer to the project:
 
 #. name (e.g. "Green Building")
+#. cdl_serial (e.g. 0 or 00, generate automatically. This is only so that user can give same names to two different control systems without causing trouble, since they might do so anyhow.)
 
 Optional tags:
 
@@ -120,6 +121,7 @@ Definition: Interface blocks are blocks that are able to receive sensor output f
 Mandatory tags:
 
 #. name (e.g. "Yellow AHU")
+#. cdl_serial (e.g. 0 or 00)
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
 #. isControlledBy (e.g. "Control System 1" - a name tag of the Control System which controls the plant)
 #. isPartOf (populate by project name)
@@ -138,6 +140,7 @@ Additional tags:
 Mandatory tags:
 
 #. equipment (e.g. "AHU", "VAV", "Lighting", "Facade", "Fire Safety", "Water")
+#. cdl_serial (e.g. 0 or 00)
 #. isControlledBy (populate by the name of the Control System that controls the given plant)
 #. isPartOf (populate by project name)
 
@@ -160,7 +163,7 @@ Definition: Control System is a compilation of control sequences programmed in C
 
 Contains the following sub-levels [mg These definitions are not the best. This can evolve as we develop the sequences]:
 
-Level21: Full Sequence [this might be obsolete given the two levels below (22, 23)]
+Level21: Full Sequence [this might be obsolete given the two levels below (22, 23), but I have a feeling we might need it, development will show]
 
 Definition: A full G36 sequence or an equivalent custom sequence. For simpler sequences this could be the same as the composite sequence.
 
@@ -176,9 +179,10 @@ Level 20
 
 Mandatory tags:
 
-#. name (e.g. "Single Zone VAV 1", or use this for composite sequence and inherit plant name here)
-#. feeds (inherit name of the plant controlled by this control system)
-#. isPartOf (project name)
+#. name (e.g. "Single Zone VAV HVAC")
+#. cdl_serial (e.g. O or OO)
+#. feeds (inherit name of the plant controlled by this control system - maybe a serial as well)
+#. isPartOf (inherit project name)
 #. isInputOf (name of the plant interface block)
 #. hasOutput (name of the plant interface block)
 
@@ -196,11 +200,16 @@ Additional tags:
 
 Mandatory tags:
 
-#. 
+#. name (e.g. "Minimum Outdoor air and Economizer Control")
+#. cdl_serial (e.g. 0 or 00)
+#. isPartOf (name [and serial, maybe CDL should keep this for itself, how do we benefit from this knowledge] of its level21)
+#. controls (inherit from InterfaceBlock that it feeds | harmonize with the level above)
+#. hasInputOf (populate automatically, this can be more that 1 block)
+#. hasOutputOf ( - || -)
 
 Optional tags:
 
-#. 
+#. isLocatedIn
 
 Additional tags:
 
@@ -211,7 +220,8 @@ Additional tags:
 
 Mandatory tags:
 
-#. a
+#. name ("Economizer Control")
+#. cdl_serial (e.g. 0 or 00)
 
 Optional tags:
 
@@ -226,6 +236,7 @@ Additional tags:
 Mandatory tags:
 
 #. a
+#. cdl_serial (e.g. 0 or 00)
 
 Optional tags:
 
@@ -279,12 +290,12 @@ There should be an Input, Output, and a Connector for each of the listed:
 
 **Generic Interfaces for extensions**
 
-#. HardwareDigital [mg set it up with boolean]
-#. SoftwareDigital [mg set it up with real]
-#. HardwareAnalog
-#. SoftwareAnalog
-#. SoftwareStatus [mg boolean]
-#. CustomEnumeration [mg or similar]
+#. HardwareDigital [set it up with type boolean]
+#. SoftwarDigital [boolean]
+#. HardwareAnalog [real]
+#. SoftwareAnalog [real]
+#. SoftwareStatus [boolean]
+#. CustomEnumeration [or similar name]
 
 
 Discussion points [optional read, this was mostly to help me out with the above schema]
