@@ -107,7 +107,7 @@ browsed at the CDL blocks web page
 http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
 
 An actual implementation looks as follows, where we omitted
-annotations used for graphical rendering:
+is used for graphical rendering:
 
 .. code-block:: modelica
 
@@ -322,7 +322,7 @@ and are needed for hierarchical composition of control sequences.]
 Tags
 ^^^^
 
-CDL allows to tag declaration that instantiate
+CDL allows to tag declaration that instantiate [mg this seems usefull, I'd like to see the actual code to confirm that I'm understanding the fuctionality correctly. Is this a tag that varries for different instances of the same block in the same project?]
 
 * parameters (:numref:`sec_cld_per_typ`),
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
@@ -334,7 +334,17 @@ are read from, and where control signals should be sent to.
 CDL does not declare any tagging scheme, but rather declares a syntax
 that allows use of (certain) tagging schemes. Initially, we will
 use Project Haystack (http://project-haystack.org/),
-but others may be added later.]
+but others may be added later.
+
+Haystack can be used for the functional tags:
+``
+sensor: input, AI/BI, sensor
+cmd: output, AO/BO, actuator, command
+sp: setpoint, internal control variable, schedule
+``
+
+
+]
 
 To implement tags, Modelica vendor annotations are used.
 The syntax is as follows:
