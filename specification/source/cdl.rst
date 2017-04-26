@@ -329,7 +329,7 @@ CDL allows to tag declaration that instantiate [mg this seems usefull, I'd like 
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
 
-The CDL structure (basic block, atomic sequence, composite sequence, [plant, project mg - should we specify this or should we leave it open until we've created the library?]) introduces the tagging hierarchy, so one should not repeat the tag (e.g. `` annotation(__cdl(brick ={"isLocatedIn":"Cyclotron Road 1"}))``.)
+The CDL structure (basic block, atomic sequence, composite sequence, [plant, project mg - should we specify this or should we leave it open until we've created the library?]) introduces the tagging hierarchy, so one should not repeat the tag (e.g.: annotation(__cdl(brick ={"isLocatedIn":"Cyclotron Road 1"})).)
 
 Functional and relational tags
 .................................
