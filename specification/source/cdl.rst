@@ -321,6 +321,7 @@ and are needed for hierarchical composition of control sequences.]
 
 Tags
 ^^^^
+[mg I am leaving your writeup and code examples here, since they explain the software implementation. I'm adding ``brick`` for relational tags, whereas ``haystack`` can be used for functionl tags. We'll need a section on how to use them and what the capabilities are, since this is likely hard to understand for non-coder control designers]
 
 CDL allows to tag declaration that instantiate [mg this seems usefull, I'd like to see the actual code to confirm that I'm understanding the fuctionality correctly. Is this a tag that varries for different instances of the same block in the same project?]
 
@@ -328,23 +329,39 @@ CDL allows to tag declaration that instantiate [mg this seems usefull, I'd like 
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
 
+The CDL structure (basic block, atomic sequence, composite sequence, [plant, project mg - should we specify this or should we leave it open until we've created the library?]) introduces the tagging hierarchy, so one should not repeat the tag (e.g. `` annotation(__cdl(brick ={"isLocatedIn":"Cyclotron Road 1"}))``.)
+
+Functional and relational tags
+.................................
+
+[mg add: Which CDL elements have functional and relational tags? Which are mandatory and which optional for each of the elements? Should we allow additional tags?]
 
 [Tags can for example be used to specify in CDL where sensor signals
 are read from, and where control signals should be sent to.
 CDL does not declare any tagging scheme, but rather declares a syntax
 that allows use of (certain) tagging schemes. Initially, we will
-use Project Haystack (http://project-haystack.org/),
+use Project Haystack http://project-haystack.org/ and Brick http://brickschema.org/download/,
 but others may be added later.
 
 Haystack can be used for the functional tags:
-``
-sensor: input, AI/BI, sensor
-cmd: output, AO/BO, actuator, command
-sp: setpoint, internal control variable, schedule
-``
 
+.. code::
+   
+   Haystack uses the following 3 tags:
+   sensor: input, AI/BI, sensor
+   cmd: output, AO/BO, actuator, command
+   sp: setpoint, internal control variable, schedule
+   
+Brick can be used for relational tags:
 
-]
+.. code:
+  
+  contains/isLocatedIn
+  controls/isControlledBy
+  hasPart/isPartOf
+  feeds/isFedBy
+  hasInput/isInputOf
+  hasOutput/isOutputOf
 
 To implement tags, Modelica vendor annotations are used.
 The syntax is as follows:
@@ -355,26 +372,42 @@ The vendor annotations have the syntax
 
    annotation :
      annotation "(" [annotations ","]
-        __lbnl (" [ __lbnl_annotation ] ")" ["," annotations] ")"
+        __cdl (" [ __cdl_annotation ] ")" ["," annotations] ")"
 
-where ``__lbln__annotation`` is the annotation for CDL.
+where ``__cdl__annotation`` is the annotation for CDL.
 Hence, annotations need to be at the top-level,
 and can be part of other annotation declarations.
 [The requirement to be at the top-level
 could be relaxed if needed for a specific annotation.]
 
-Point to point mapping
+Point Tags 
 ......................
 
-For point to point mapping,
-instances of ``CDL.Interfaces.*Input`` and
-instances of ``CDL.Interfaces.*Output`` can have
+All instances of ``CDL.Interfaces.*Input`` and instances of ``CDL.Interfaces.*Output`` must have
+the following tags deffined using ``attributes``:
+
+.. code:: modelica
+
+  CDL.Interfaces.RealInput TSetZon(unit="K", displayUnit="degC", quantity="Temperature")
+  
+  quantity can be:
+    Temperature
+    Pressure
+    Humidity
+    Speed
+    Command/Request/Status
+  
+  Each quantity has units that remain fixed for that quantity.
+
+
+All instances of ``CDL.Interfaces.*Input`` and instances of ``CDL.Interfaces.*Output`` can have
 the following annotation:
+[mg we could add and/or modify tags for these optional point tags]
 
 .. code:: modelica
 
    point_annotation:
-      __lbnl "(" analog   [ "(" voltage "=" 8 | 16  ")" ] |
+      __cdl "(" analog   [ "(" voltage "=" 8 | 16  ")" ] |
                  digital  [ "(" address "=" address ")" ] ")"
 
    address:
@@ -388,11 +421,20 @@ as these information may not yet be known at the design stage.
 
 .. code:: modelica
 
-   Interfaces.RealInput u "Outdoor temperature" annotation(__lbnl(analog=8));
+   Interfaces.RealInput u "Outdoor temperature" annotation(__cdl(analog=8));
 
 ]
 
-Tagging using project Haystack (or similar)
+Enumeration type points
+.................
+
+Any quantities that can take only one value from a predefined set CDL defines as a separate interface type. For example Alarms, Stages and System Modes.
+
+.. code:
+  connector FreezeProtectionStage = input Types.FreezeProtectionStage
+                      "Input connector for a value of type FreezeProtectionStage."
+
+Tagging using project Haystack (or similar, e.g. Brick)
 ...........................................
 
 As there are different tagging scheme, we now declare syntax
@@ -416,7 +458,7 @@ instances of
 .. code:: modelica
 
    haystack_annotation:
-      __lbnl "(" haystack "=" JSON ")"
+      __cdl "(" haystack "=" JSON ")"
 
 where ``JSON`` is the JSON encoding of the Haystack object.
 
@@ -442,7 +484,7 @@ can be declared in CDL as
 .. code:: modelica
 
    Interfaces.RealInput u(unit="K") "Discharge air temperature"
-     annotation(__lbnl( haystack =
+     annotation(__cdl( haystack =
      {"id"        : ""@whitehouse.ahu3.dat",
       "dis"       : "White House AHU-3 DischargeAirTemp",
       "point"     : "m:",
