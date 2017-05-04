@@ -326,11 +326,11 @@ Tags
 
 CDL shall introduce tags as: [fixme: not perfectly happy with the classification, but seems as a good starting point]
 
-* Internal (or CDL) tags as a part of the CDL syntax (e.g. any output connector type ```Real``` coming from a ```*.Sources.Hardware.*``` block is a hardware input to a CDL sequence.)
-* External tags provided in the ```annotation``` section of a block (e.g. an outdoor air damper position output from an economizer sequence shall have a tag ```controls```:```{outdoorAirDamper1Actuator}```)
+* Internal (or CDL) tags as a part of the CDL syntax (e.g. any output connector type ``Real`` coming from a ``*.Sources.Hardware.*`` block is a hardware input to a CDL sequence.)
+* External tags provided in the ``annotation`` section of a block (e.g. an outdoor air damper position output from an economizer sequence shall have a tag ``controls``:``{outdoorAirDamper1Actuator}``)
 * Optional external third party tagging scheme (any appliable tagging scheme such as Project Haystack http://project-haystack.org/, Brick http://brickschema.org/, or as provided by a vendor).
 
-CDL allows to tag declaration that instantiate
+CDL allows to tag declarations that instantiate
 
 * parameters (:numref:`sec_cld_per_typ`),
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
@@ -355,7 +355,9 @@ CDL tags convey the following information about control points:
 Numerical value:
 
 * CDL declares an analog value as type ``Real`` (e.g. any instance of ``CDL.Interfaces.RealInput`` is an analog value)
+
 * CDL declares a binary value as type ``Boolean`` (e.g. any instance of ``CDL.Interfaces.BooleanInput`` is a binary (O or 1) value)
+
 * CDL declares a Mode using type ``Integer`` by assigning an integer value for each of the status or mode values required (e.g. according to ASHRAE Guidline 36 Freeze Protection has 4 stages, so if the output of the ``FreezeProtection`` block equals 2, the freeze protection stage 2 is active)
 
 Source:
@@ -389,7 +391,7 @@ CDL shall provide the following tags:
 
 [fixme: add to the list above as we go along]
 
-To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user created it or edit it as he instantates the AHU plant block?]:
+To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user create it or edit it as he instantates the AHU plant block?]:
 
 .. code:: modelica
    AtomicSequences.EconEnableDisable econEnableDisable
@@ -431,7 +433,7 @@ Optional External Tags
 CDL shall declare a syntax that allows use of (certain) tagging schemes, such as Project Haystack (http://project-haystack.org/) and Brick http://brickschema.org/.
 
 
-Project Haystack allows tagging of various objects. It is hiearchical
+Project Haystack allows tagging of various objects. It is hierarchical
 with the three entities *Site*, *Equip* and *Point*, see
 http://project-haystack.org/doc/Structure.
 These entities are linked to each other through references,
@@ -493,13 +495,10 @@ Brick, developed by UC Berkeley, is a uniform metadata schema for buildings. Quo
 * A minimal, principled set of relationships for connecting these entities together into a directed graph representing a building
 * A method of encapsulation for composing complex components from a set of lower-level ones"
 
-CDL is interested in the latter two components of the Brick schema.
-
 [fixme: add a set of examples which would explain how a Control Design hierarchy gets encapsulated using Brick relational tags.]
 
 Tools that process CDL can interpret optional external annotations, such as ``haystack`` and ``brick``, but CDL will ignore it at runtime. [This avoids potential conflict for entities that
 are declared differently in Haystack/Brick/{other schema} and CDL.]
-
 
 [fixme
 
