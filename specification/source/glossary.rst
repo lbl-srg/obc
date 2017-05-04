@@ -18,12 +18,12 @@ This section provides definitions for abbreviations and terms introduced in OBC.
       Controls Design Tool is an implementation of OBC software in OpenStudio. The tool can be used to design, generate and export a control sequence.
 
    G36 Sequence
-      A control sequence specified by ASHRAE Guidline 36.
+      A control sequence specified by ASHRAE Guideline 36.
 
    Functional Verification Tool
       The Functional Verification Tool is a software that takes as an input the control sequence in CDL, requirements expressed in CDL, a list of I/O connections, and a configuration file, and then tests whether the measured control signals satisfy the requirements, violate them, or whether some requirements remain untested.
 
-   Requirements expressed in CDL
+   Requirements Expressed in CDL
       [fixme How are these diferent from the control sequence in CDL?]
 
    Configuration File
