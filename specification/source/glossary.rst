@@ -21,5 +21,6 @@ This section provides definitions for abbreviations and terms introduced in OBC.
       fixme: should satisfy requrements arising from any of the validation use cases
 
    G36 Sequence
+      A control sequence specified by ASHRAE Guidline 36
 
 
