@@ -1,34 +1,50 @@
 .. _sec_glossary:
 
-Glossary of Terms
-----------------------
+Glossary
+--------
 
-This section provides definitions for abbreviations and terms introduced in OBC.
+This section provides definitions for abbreviations and terms introduced in
+the Open Building Controls project.
 
+.. If you add new entries, keep the alphabetical sorting.
 
 .. glossary::
 
-   OBC
-      Open Building Controls (OBC) is an open source building controls software under development at LBNL.
+   Controls Description Language
+     The Control Description Language (CDL) is the language
+     that is used to express control sequences and requirements.
+     It is a declarative language based on a subset of the
+     Modelica language and specified at :ref:`sec_cdl`.
 
    CDL
-      Control Description Language (CDL) is a graphical programming language based on Modelica used to program control logic in OBC.
+     See :term:`Controls Description Language`.
 
    Controls Design Tool
-      Controls Design Tool is an implementation of OBC software in OpenStudio. The tool can be used to design, generate and export a control sequence.
+     The Controls Design Tool is a software that can be used to
+
+     * design control sequences,
+     * declare formal, executable requirements,
+     * test the control sequences and the requirements with a model
+       of the HVAC system and the building in the loop, and
+     * export the control sequence and the verification test
+       in the :term:`Controls Description Language`.
+
+   Functional Verification Tool
+     The Functional Verification Tool is a software that takes
+     as an input the control sequence in CDL, requirements expressed in CDL,
+     a list of I/O connections, and a configuration file,
+     and then tests whether the measured control signals
+     satisfy the requirements, violate them, or
+     whether some requirements remain untested.
 
    G36 Sequence
       A control sequence specified by ASHRAE Guideline 36.
 
-   Functional Verification Tool
-      The Functional Verification Tool is a software that takes as an input the control sequence in CDL, requirements expressed in CDL, a list of I/O connections, and a configuration file, and then tests whether the measured control signals satisfy the requirements, violate them, or whether some requirements remain untested.
+   Open Building Controls
+     Open Building Controls (OBC) is the name of project that develops
+     open source software for building control sequences and for testing
+     of requirements.
 
-   Requirements Expressed in CDL
-      [fixme How are these diferent from the control sequence in CDL?]
-
-   Configuration File
-      [fixme]
-
-
-
+   OBC
+     See :term:`Open Building Controls`.
 
