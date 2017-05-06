@@ -6,7 +6,7 @@ Control Description Language
 This section specifies
 the Control Description Language (CDL).
 
-The CDL constists of the following elements:
+The CDL consists of the following elements:
 
 * A list of elementary control blocks, such as a block that adds two signals and outputs the sum,
   or a block that represents a PID controller.
