@@ -29,6 +29,9 @@ the Open Building Controls project.
      * export the control sequence and the verification test
        in the :term:`Controls Description Language`.
 
+   Control Sequence Requirement
+     A control sequence requirement is a condition against which an actual control sequence gets tested. It is expressed as a predefined CDL control sequence and a set of tolerances.
+
    Functional Verification Tool
      The Functional Verification Tool is a software that takes
      as an input the control sequence in CDL, requirements expressed in CDL,
@@ -47,4 +50,3 @@ the Open Building Controls project.
 
    OBC
      See :term:`Open Building Controls`.
-
