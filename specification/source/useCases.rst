@@ -655,7 +655,8 @@ Failed End Condition         1. Building/system model or
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
 
-                             3. Simulation fails to run to completion or fails convergence tests
+                             3. Simulation fails to run to completion or fails
+                             convergence tests
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
 ---------------------------  ---------------------------------------------------
@@ -712,14 +713,20 @@ Performance assessment of a control sequence (no local loop)
 Related Requirements
 ---------------------------  ---------------------------------------------------
 Goal in Context              Evaluate the performance of a specific supervisory
-                             control sequence in the context of a particular design project.
+                             control sequence in the context of a particular
+                             design project.
 ---------------------------  ---------------------------------------------------
 Preconditions                1. Either a) whole building or system model for
-                             the particular design project, or b) sufficient information about the current state of the design, to enable the configuration of a model template based on a generic design for the appropriate building type. The model must be complete down to the required sensors and actuation points, which may be set-points for idealized local loop control, since the sequence only performs supervisory control.
+                             the particular design project, or b) sufficient information about the current state of the design, to enable the configuration of a model template
+                             based on a generic design for the appropriate building type. The model must be complete down to the required sensors and actuation points, which may be set-points for idealized local loop control, since the sequence only performs
+                             supervisory control.
 
-                             2. Control sequence to be assessed must match, or be capable of being configured to match, the building/system model in terms of sensors, set-points for idealized local loop control and modes of operation.
+                             2. Control sequence to be assessed must match, or be capable of being configured to match, the
+                             building/system model in terms of sensors, set-points for idealized local loop control and
+                             modes of operation.
 
-                             3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and targets.
+                             3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and
+                             targets.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     User is able to (i) compare the performance of
                              different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
@@ -727,10 +734,11 @@ Successful End Condition     User is able to (i) compare the performance of
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
 
-                            2. Performance requirements or targets are incomplete or inconsistent wrt the specific
+                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
 
-                            3. Simulation fails to run to completion or fails convergence tests.
+                             3. Simulation fails to run to completion or fails
+                             convergence tests.
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
 ---------------------------  ---------------------------------------------------
