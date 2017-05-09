@@ -722,7 +722,7 @@ Preconditions                1. Either a) whole building or system model for
                              3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and targets.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     User is able to (i) compare the performance of
-                             different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria
+                             different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
 ---------------------------  ---------------------------------------------------
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
@@ -730,7 +730,7 @@ Failed End Condition         1. Building/system model or
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
 
-                             3. Simulation fails to run to completion or fails convergence tests
+                             3. Simulation fails to run to completion or fails convergence tests.
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
 ---------------------------  ---------------------------------------------------
@@ -759,7 +759,7 @@ Trigger                      Need to select or improve a control sequence for a
                              controlled performance over full reference year or statistically-selected short reference year that reports output variables required to evaluate performance according to pre-defined metrics.
 ---------------------------  ---------------------------------------------------
 7                            User compare metric values to requirements and/or
-                             targets
+                             targets.
 ---------------------------  ---------------------------------------------------
 **Main Flow 2**              **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
