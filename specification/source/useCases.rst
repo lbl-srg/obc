@@ -635,9 +635,11 @@ Preconditions                1. Either a) whole building or system model for the
                              to enable the configuration of a model template based on a generic design
                              for the appropriate building type. The model must be complete down to the
                              required sensors and actuators.
+
                              2. Control sequence to be assessed must match, or be capable of being configured
                              to match, the building/system model in terms of sensing and actuation points
                              and modes of operation.
+
                              3. Relevant statutory requirements and design performance targets. Performance
                              metrics derived from these requirements and targets.
 ---------------------------  ---------------------------------------------------
@@ -649,8 +651,10 @@ Successful End Condition     User is able to (i) compare the performance
 ---------------------------  ---------------------------------------------------
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
+
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
+                             
                              3. Simulation fails to run to completion or fails convergence tests
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
