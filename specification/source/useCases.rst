@@ -651,8 +651,10 @@ Successful End Condition     User is able to (i) compare the performance
 ---------------------------  ---------------------------------------------------
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
+
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
+
                              3. Simulation fails to run to completion or fails convergence tests
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
@@ -714,7 +716,9 @@ Goal in Context              Evaluate the performance of a specific supervisory
 ---------------------------  ---------------------------------------------------
 Preconditions                1. Either a) whole building or system model for
                              the particular design project, or b) sufficient information about the current state of the design, to enable the configuration of a model template based on a generic design for the appropriate building type. The model must be complete down to the required sensors and actuation points, which may be set-points for idealized local loop control, since the sequence only performs supervisory control.
+
                              2. Control sequence to be assessed must match, or be capable of being configured to match, the building/system model in terms of sensors, set-points for idealized local loop control and modes of operation.
+
                              3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and targets.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     User is able to (i) compare the performance of
@@ -722,8 +726,10 @@ Successful End Condition     User is able to (i) compare the performance of
 ---------------------------  ---------------------------------------------------
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
+
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
+                             
                              3. Simulation fails to run to completion or fails convergence tests.
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
