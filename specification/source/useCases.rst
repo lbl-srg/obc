@@ -727,10 +727,10 @@ Successful End Condition     User is able to (i) compare the performance of
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
 
-                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
+                            2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
-                             
-                             3. Simulation fails to run to completion or fails convergence tests.
+
+                            3. Simulation fails to run to completion or fails convergence tests.
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
 ---------------------------  ---------------------------------------------------
