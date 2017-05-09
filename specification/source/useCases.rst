@@ -616,83 +616,86 @@ Trigger                      Contractor notifies owner or PM that system is read
                              logic to sequence documentation.
 ===========================  ===================================================
 
-
 Performance assessment of a control sequence, including local loops
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Provided by Philip Haves, LBNL.*
 
 ===========================  ===================================================
-**Use case name**            **Performance assessment of a control sequence, including local loops**
+**Use case name**            **Performance assessment of a control sequence,
+                             including local loops**
 ===========================  ===================================================
 Related Requirements
 ---------------------------  ---------------------------------------------------
-Goal in Context              Evaluate the performance of a specific control sequence in the context 
-                             of a particular design project.
+Goal in Context              Evaluate the performance of a specific control sequence
+                             in the context of a particular design project.
 ---------------------------  ---------------------------------------------------
-Preconditions                1. Either a) whole building or system model for the particular design 
-                             project, or b) sufficient information about the current state of the design, 
-                             to enable the configuration of a model template based on a generic design 
-                             for the appropriate building type. The model must be complete down to the 
+Preconditions                1. Either a) whole building or system model for the particular design
+                             project, or b) sufficient information about the current state of the design,
+                             to enable the configuration of a model template based on a generic design
+                             for the appropriate building type. The model must be complete down to the
                              required sensors and actuators.
-                             2. Control sequence to be assessed must match, or be capable of being configured 
-                             to match, the building/system model in terms of sensing and actuation points 
+                             2. Control sequence to be assessed must match, or be capable of being configured
+                             to match, the building/system model in terms of sensing and actuation points
                              and modes of operation.
-                             3. Relevant statutory requirements and design performance targets. Performance 
+                             3. Relevant statutory requirements and design performance targets. Performance
                              metrics derived from these requirements and targets.
 ---------------------------  ---------------------------------------------------
-Successful End Condition     User is able to (i) compare the performance of different control sequences in 
-                             terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected 
-                             control sequence to enable the building/system to meet or exceed externally-defined 
+Successful End Condition     User is able to (i) compare the performance
+                             of different control sequences in
+                             terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected
+                             control sequence to enable the building/system to meet or exceed externally-defined
                              performance criteria.
 ---------------------------  ---------------------------------------------------
-Failed End Condition         1. Building/system model or configuration information for generic model template is 
-                             incomplete.
-                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific 
+Failed End Condition         1. Building/system model or
+                             configuration information for generic model template is incomplete.
+                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
                              3. Simulation fails to run to completion or fails convergence tests
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
 ---------------------------  ---------------------------------------------------
-Secondary Actors             
+Secondary Actors
 ---------------------------  ---------------------------------------------------
-Trigger                      Need to select or improve a control sequence for a building or system
+Trigger                      Need to select or improve a control sequence for a
+                             building or system
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
-1                            User loads the building/system model for the project or uses design information 
+1                            User loads the building/system model for the
+                             project or uses design information
                              to configure a model template: building type, system type(s), size …(?).
 ---------------------------  ---------------------------------------------------
-2                            User selects and loads weather data and operation schedules.
+2                            User selects and loads weather data and operation
+                             schedules.
 ---------------------------  ---------------------------------------------------
-3                            User configures control sequence with project-specific information, e.g. number 
+3                            User configures control sequence with
+                             project-specific information, e.g. number
                              of terminal units on an air loop, and connects to building/system model.
----------------------------  --------------------------------------------------
-4                            User uses design information to identify operating ranges at which the control 
-                             sequence must function and identifies operating conditions/ranges for tuning of 
-                             individual feedback control loops in the sequence.
 ---------------------------  ---------------------------------------------------
-5                            User  selects initial values for supervisory controller parameters and tunes 
-                             the individual feedback control loops or initiates autotuning.
+4                            User uses design information to identify operating
+                             ranges at which the control sequence must function and identifies operating conditions/ranges for tuning of individual feedback control loops in the sequence.
 ---------------------------  ---------------------------------------------------
-6                            User selects short periods for initial testing of control loop stability and 
-                             responsiveness to disturbances and set-point changes and changes controller 
-                             parameters as necessary.
+5                            User  selects initial values for supervisory
+                             controller parameters and tunes the individual feedback control loops or initiates autotuning.
 ---------------------------  ---------------------------------------------------
-7                            User initiates simulation of building/system controlled performance over full 
-                             reference year or statistically-selected short reference year that reports 
+6                            User selects short periods for initial testing
+                             of control loop stability and responsiveness to disturbances and set-point changes and changes controller parameters as necessary.
+---------------------------  ---------------------------------------------------
+7                            User initiates simulation of building/system
+                             controlled performance over full
+                             reference year or statistically-selected short reference year that reports
                              output variables required to evaluate performance according to pre-defined metrics.
 ---------------------------  ---------------------------------------------------
-8                            Compare metric values to requirements and/or targets.
+8                            Compare metric values to requirements and/or
+                             targets.
 ---------------------------  ---------------------------------------------------
 **Main Flow 2**              **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
-1                            
+1
 ---------------------------  ---------------------------------------------------
-2                            
+2
 ===========================  ===================================================
-
-
 
 Template Use Case
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
