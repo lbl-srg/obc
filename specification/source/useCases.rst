@@ -654,7 +654,7 @@ Failed End Condition         1. Building/system model or
 
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
                              control sequence.
-                             
+
                              3. Simulation fails to run to completion or fails convergence tests
 ---------------------------  ---------------------------------------------------
 Primary Actors               Mechanical Designer/Consultant
@@ -693,6 +693,73 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 8                            Compare metric values to requirements and/or
                              targets.
+---------------------------  ---------------------------------------------------
+**Main Flow 2**              **Commissioning Override Checks**
+---------------------------  ---------------------------------------------------
+1
+---------------------------  ---------------------------------------------------
+2
+===========================  ===================================================
+
+Performance assessment of a control sequence (no local loop)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Provided by Philip Haves, LBNL.*
+
+===========================  ===================================================
+**Use case name**            **Performance assessment of a control sequence (no local loop)**
+===========================  ===================================================
+Related Requirements
+---------------------------  ---------------------------------------------------
+Goal in Context              Evaluate the performance of a specific supervisory
+                             control sequence in the context of a particular design project.
+---------------------------  ---------------------------------------------------
+Preconditions                1. Either a) whole building or system model for
+                             the particular design project, or b) sufficient information about the current state of the design, to enable the configuration of a model template based on a generic design for the appropriate building type. The model must be complete down to the required sensors and actuation points, which may be set-points for idealized local loop control, since the sequence only performs supervisory control.
+
+                             2. Control sequence to be assessed must match, or be capable of being configured to match, the building/system model in terms of sensors, set-points for idealized local loop control and modes of operation.
+
+                             3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and targets.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to (i) compare the performance of
+                             different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria
+---------------------------  ---------------------------------------------------
+Failed End Condition         1. Building/system model or
+                             configuration information for generic model template is incomplete.
+
+                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
+                             control sequence.
+
+                             3. Simulation fails to run to completion or fails convergence tests
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors
+---------------------------  ---------------------------------------------------
+Trigger                      Need to select or improve a control sequence for a
+                             building or system
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User loads the building/system model for the
+                             project or uses design information to configure a model template: building type, system type(s), size …(?).
+---------------------------  ---------------------------------------------------
+2                            User selects and loads weather data and operation schedules.
+---------------------------  ---------------------------------------------------
+3                            User manually replaces real local loop controllers
+                             with ideal local loop controllers or initiates (semi-)automated replacement
+---------------------------  ---------------------------------------------------
+4                            User configures control sequence with
+                             project-specific information, e.g. number of terminal units on an air loop, and connects to building/system model.
+---------------------------  ---------------------------------------------------
+5                            User  selects initial values for supervisory
+                             controller parameters.
+---------------------------  ---------------------------------------------------
+6                            User initiates simulation of building/system
+                             controlled performance over full reference year or statistically-selected short reference year that reports output variables required to evaluate performance according to pre-defined metrics.
+---------------------------  ---------------------------------------------------
+7                            User compare metric values to requirements and/or
+                             targets
 ---------------------------  ---------------------------------------------------
 **Main Flow 2**              **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
