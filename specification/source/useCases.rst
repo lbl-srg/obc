@@ -189,23 +189,23 @@ Primary Actors               A mechanical engineer.
 Secondary Actors
 ---------------------------  ---------------------------------------------------
 Trigger                      Need to select or improve a control sequence for a
-                             building or system
+                             building or system.
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
 1                            User loads the building/system model for the project
-                             or uses design information to configure a model template
+                             or uses design information to configure a model template.
 ---------------------------  ---------------------------------------------------
 2                            User selects and loads weather data and operation
                              schedules.
 ---------------------------  ---------------------------------------------------
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
-                             loop, and connects to building/system modeL
+                             loop, and connects to building/system modeL.
 ---------------------------  ---------------------------------------------------
 4                            User selects short periods for initial testing and
-                             performs predefined tests to verify basic functionality
-                             (equivalent ot commissioning).
+                             performs predefined tests to verify basic functionality,
+                             similar to commissioning.
 ---------------------------  ---------------------------------------------------
 5                            User initiates simulation of building/system
                              controlled performance over full reference year or
@@ -213,8 +213,8 @@ Trigger                      Need to select or improve a control sequence for a
                              reports output variables required to evaluate
                              performance according to pre-defined metrics.
 ---------------------------  ---------------------------------------------------
-6                            Compare metric values to requirements and/or targets
-                             and determine whether acceptable as is, needs
+6                            Users compares metric values to requirements and/or targets
+                             and determines whether acceptable as is, needs
                              modification or appears fundamentally flawed.
 ===========================  ===================================================
 
@@ -506,9 +506,9 @@ Trigger                      The verification tool is connected to the BMS and r
 ---------------------------  ---------------------------------------------------
 **Main Flow 1**              **Automatic Control Functionality Checks**
 ---------------------------  ---------------------------------------------------
-1                            Set VAV box to unoccupied
+1                            Set VAV box to unoccupied.
 ---------------------------  ---------------------------------------------------
-2                            Set VAV box to occupied
+2                            Set VAV box to occupied.
 ---------------------------  ---------------------------------------------------
 3                            Continue through sequence, commissioning agent
                              will get a report of control actions and
@@ -516,14 +516,14 @@ Trigger                      The verification tool is connected to the BMS and r
 ---------------------------  ---------------------------------------------------
 **Main Flow 2**              **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
-1                            Force zone airflow setpoint to zero
+1                            Force zone airflow setpoint to zero.
 ---------------------------  ---------------------------------------------------
-2                            Force zone airflow setpoint to Vmin
+2                            Force zone airflow setpoint to minimum flow.
 ---------------------------  ---------------------------------------------------
-3                            Force damper full closed/open
+3                            Force damper full closed/open.
 ---------------------------  ---------------------------------------------------
 4                            Reset request-hours accumulator point to zero
-                             (provide one point for each reset type)
+                             (provide one point for each reset type).
 ===========================  ===================================================
 
 As-Built Sequence Generator
@@ -616,8 +616,9 @@ Trigger                      Contractor notifies owner or PM that system is read
                              logic to sequence documentation.
 ===========================  ===================================================
 
+
 Performance assessment of a control sequence, including local loops
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Provided by Philip Haves, LBNL.*
 
@@ -652,7 +653,8 @@ Successful End Condition     User is able to (i) compare the performance
 Failed End Condition         1. Building/system model or
                              configuration information for generic model template is incomplete.
 
-                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
+                             2. Performance requirements or targets are incomplete
+                             or inconsistent with respect to the specific
                              control sequence.
 
                              3. Simulation fails to run to completion or fails
@@ -669,7 +671,8 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 1                            User loads the building/system model for the
                              project or uses design information
-                             to configure a model template: building type, system type(s), size …(?).
+                             to configure a model template for the building type
+                             and system type.
 ---------------------------  ---------------------------------------------------
 2                            User selects and loads weather data and operation
                              schedules.
@@ -694,16 +697,11 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 8                            Compare metric values to requirements and/or
                              targets.
----------------------------  ---------------------------------------------------
-**Main Flow 2**              **Commissioning Override Checks**
----------------------------  ---------------------------------------------------
-1
----------------------------  ---------------------------------------------------
-2
 ===========================  ===================================================
 
+
 Performance assessment of a control sequence (no local loop)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Provided by Philip Haves, LBNL.*
 
