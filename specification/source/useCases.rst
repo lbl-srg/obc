@@ -189,23 +189,23 @@ Primary Actors               A mechanical engineer.
 Secondary Actors
 ---------------------------  ---------------------------------------------------
 Trigger                      Need to select or improve a control sequence for a
-                             building or system
+                             building or system.
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
 1                            User loads the building/system model for the project
-                             or uses design information to configure a model template
+                             or uses design information to configure a model template.
 ---------------------------  ---------------------------------------------------
 2                            User selects and loads weather data and operation
                              schedules.
 ---------------------------  ---------------------------------------------------
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
-                             loop, and connects to building/system modeL
+                             loop, and connects to building/system modeL.
 ---------------------------  ---------------------------------------------------
 4                            User selects short periods for initial testing and
-                             performs predefined tests to verify basic functionality
-                             (equivalent ot commissioning).
+                             performs predefined tests to verify basic functionality,
+                             similar to commissioning.
 ---------------------------  ---------------------------------------------------
 5                            User initiates simulation of building/system
                              controlled performance over full reference year or
@@ -213,8 +213,8 @@ Trigger                      Need to select or improve a control sequence for a
                              reports output variables required to evaluate
                              performance according to pre-defined metrics.
 ---------------------------  ---------------------------------------------------
-6                            Compare metric values to requirements and/or targets
-                             and determine whether acceptable as is, needs
+6                            Users compares metric values to requirements and/or targets
+                             and determines whether acceptable as is, needs
                              modification or appears fundamentally flawed.
 ===========================  ===================================================
 
@@ -506,9 +506,9 @@ Trigger                      The verification tool is connected to the BMS and r
 ---------------------------  ---------------------------------------------------
 **Main Flow 1**              **Automatic Control Functionality Checks**
 ---------------------------  ---------------------------------------------------
-1                            Set VAV box to unoccupied
+1                            Set VAV box to unoccupied.
 ---------------------------  ---------------------------------------------------
-2                            Set VAV box to occupied
+2                            Set VAV box to occupied.
 ---------------------------  ---------------------------------------------------
 3                            Continue through sequence, commissioning agent
                              will get a report of control actions and
@@ -516,14 +516,14 @@ Trigger                      The verification tool is connected to the BMS and r
 ---------------------------  ---------------------------------------------------
 **Main Flow 2**              **Commissioning Override Checks**
 ---------------------------  ---------------------------------------------------
-1                            Force zone airflow setpoint to zero
+1                            Force zone airflow setpoint to zero.
 ---------------------------  ---------------------------------------------------
-2                            Force zone airflow setpoint to Vmin
+2                            Force zone airflow setpoint to minimum flow.
 ---------------------------  ---------------------------------------------------
-3                            Force damper full closed/open
+3                            Force damper full closed/open.
 ---------------------------  ---------------------------------------------------
 4                            Reset request-hours accumulator point to zero
-                             (provide one point for each reset type)
+                             (provide one point for each reset type).
 ===========================  ===================================================
 
 As-Built Sequence Generator
@@ -616,6 +616,163 @@ Trigger                      Contractor notifies owner or PM that system is read
                              logic to sequence documentation.
 ===========================  ===================================================
 
+
+Performance assessment of a control sequence, including local loops
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Provided by Philip Haves, LBNL.*
+
+===========================  ===================================================
+**Use case name**            **Performance assessment of a control sequence,
+                             including local loops**
+===========================  ===================================================
+Related Requirements
+---------------------------  ---------------------------------------------------
+Goal in Context              Evaluate the performance of a specific control sequence
+                             in the context of a particular design project.
+---------------------------  ---------------------------------------------------
+Preconditions                1. Either a) whole building or system model for the particular design
+                             project, or b) sufficient information about the current state of the design,
+                             to enable the configuration of a model template based on a generic design
+                             for the appropriate building type. The model must be complete down to the
+                             required sensors and actuators.
+
+                             2. Control sequence to be assessed must match, or be capable of being configured
+                             to match, the building/system model in terms of sensing and actuation points
+                             and modes of operation.
+
+                             3. Relevant statutory requirements and design performance targets. Performance
+                             metrics derived from these requirements and targets.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to (i) compare the performance
+                             of different control sequences in
+                             terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected
+                             control sequence to enable the building/system to meet or exceed externally-defined
+                             performance criteria.
+---------------------------  ---------------------------------------------------
+Failed End Condition         1. Building/system model or
+                             configuration information for generic model template is incomplete.
+
+                             2. Performance requirements or targets are incomplete
+                             or inconsistent with respect to the specific
+                             control sequence.
+
+                             3. Simulation fails to run to completion or fails
+                             convergence tests
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors
+---------------------------  ---------------------------------------------------
+Trigger                      Need to select or improve a control sequence for a
+                             building or system
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User loads the building/system model for the
+                             project or uses design information
+                             to configure a model template for the building type
+                             and system type.
+---------------------------  ---------------------------------------------------
+2                            User selects and loads weather data and operation
+                             schedules.
+---------------------------  ---------------------------------------------------
+3                            User configures control sequence with
+                             project-specific information, e.g. number
+                             of terminal units on an air loop, and connects to building/system model.
+---------------------------  ---------------------------------------------------
+4                            User uses design information to identify operating
+                             ranges at which the control sequence must function and identifies operating conditions/ranges for tuning of individual feedback control loops in the sequence.
+---------------------------  ---------------------------------------------------
+5                            User  selects initial values for supervisory
+                             controller parameters and tunes the individual feedback control loops or initiates autotuning.
+---------------------------  ---------------------------------------------------
+6                            User selects short periods for initial testing
+                             of control loop stability and responsiveness to disturbances and set-point changes and changes controller parameters as necessary.
+---------------------------  ---------------------------------------------------
+7                            User initiates simulation of building/system
+                             controlled performance over full
+                             reference year or statistically-selected short reference year that reports
+                             output variables required to evaluate performance according to pre-defined metrics.
+---------------------------  ---------------------------------------------------
+8                            Compare metric values to requirements and/or
+                             targets.
+===========================  ===================================================
+
+
+Performance assessment of a control sequence (no local loop)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Provided by Philip Haves, LBNL.*
+
+===========================  ===================================================
+**Use case name**            **Performance assessment of a control sequence (no local loop)**
+===========================  ===================================================
+Related Requirements
+---------------------------  ---------------------------------------------------
+Goal in Context              Evaluate the performance of a specific supervisory
+                             control sequence in the context of a particular
+                             design project.
+---------------------------  ---------------------------------------------------
+Preconditions                1. Either a) whole building or system model for
+                             the particular design project, or b) sufficient information about the current state of the design, to enable the configuration of a model template
+                             based on a generic design for the appropriate building type. The model must be complete down to the required sensors and actuation points, which may be set-points for idealized local loop control, since the sequence only performs
+                             supervisory control.
+
+                             2. Control sequence to be assessed must match, or be capable of being configured to match, the
+                             building/system model in terms of sensors, set-points for idealized local loop control and
+                             modes of operation.
+
+                             3. Relevant statutory requirements and design performance targets, together with performance metrics derived from these requirements and
+                             targets.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to (i) compare the performance of
+                             different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
+---------------------------  ---------------------------------------------------
+Failed End Condition         1. Building/system model or
+                             configuration information for generic model template is incomplete.
+
+                             2. Performance requirements or targets are incomplete or inconsistent wrt the specific
+                             control sequence.
+
+                             3. Simulation fails to run to completion or fails
+                             convergence tests.
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors
+---------------------------  ---------------------------------------------------
+Trigger                      Need to select or improve a control sequence for a
+                             building or system
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User loads the building/system model for the
+                             project or uses design information to configure a model template: building type, system type(s), size …(?).
+---------------------------  ---------------------------------------------------
+2                            User selects and loads weather data and operation schedules.
+---------------------------  ---------------------------------------------------
+3                            User manually replaces real local loop controllers
+                             with ideal local loop controllers or initiates (semi-)automated replacement
+---------------------------  ---------------------------------------------------
+4                            User configures control sequence with
+                             project-specific information, e.g. number of terminal units on an air loop, and connects to building/system model.
+---------------------------  ---------------------------------------------------
+5                            User  selects initial values for supervisory
+                             controller parameters.
+---------------------------  ---------------------------------------------------
+6                            User initiates simulation of building/system
+                             controlled performance over full reference year or statistically-selected short reference year that reports output variables required to evaluate performance according to pre-defined metrics.
+---------------------------  ---------------------------------------------------
+7                            User compare metric values to requirements and/or
+                             targets.
+---------------------------  ---------------------------------------------------
+**Main Flow 2**              **Commissioning Override Checks**
+---------------------------  ---------------------------------------------------
+1
+---------------------------  ---------------------------------------------------
+2
+===========================  ===================================================
 
 Template Use Case
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
