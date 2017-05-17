@@ -3,7 +3,7 @@
 Use Cases
 ---------
 
-This section describes use cases for end-user interaction, including:
+This section describes use cases for end-user interaction, including the following:
 
 * use the controls design tool to design a control sequence and export
   it as a CDL-compliant specification,
@@ -17,7 +17,7 @@ This section describes use cases for end-user interaction, including:
 * use the control design tool during construction to assist the controls integration process by
   identifying network protocol, communication protocol and points list discrepancies between
   systems and equipment,
-* use the commissioning and functional verification tool during commissioning.
+* use the commissioning and functional verification tool during commissioning
 
 
 Controls design
