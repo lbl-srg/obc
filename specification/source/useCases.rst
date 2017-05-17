@@ -23,6 +23,67 @@ This section describes use cases for end-user interaction, including the followi
 Controls design
 ^^^^^^^^^^^^^^^
 
+Loading a standard sequence from Guideline 36
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Provided by Amy Shen, Arup.*
+
+This use case describes how to load, edit and store a control
+sequence based on a Guideline 36 sequence.
+
+===========================  ===================================================
+**Use case name**            **Loading a standard sequence from Guideline 36**
+===========================  ===================================================
+Related Requirements         Direct reference/selection from Guideline 36’s
+                             corresponding chapter and narrative sequence to convert to CDL.
+                             User able to change the pre-set elements within
+                             the standard sequence, with automatic download of
+                             associated CDL/visual block diagram of any new elements.
+---------------------------  ---------------------------------------------------
+Goal in Context              Enable fast adaptation of Guideline 36
+---------------------------  ---------------------------------------------------
+Preconditions                All Guideline 36 sequences need to be pre-programmed
+                             into visual block diagrams using CDL.
+                             CDL and block diagrams need to be modular so that
+                             they can be easily updated when key elements are changed/deleted/added.
+---------------------------  ---------------------------------------------------
+Successful End Condition     User is able to download the CDL/block diagrams
+                             using a specific reference to Guideline 36 sequences.
+                             User is able to change/delete/add key elements using CDL.
+---------------------------  ---------------------------------------------------
+Failed End Condition         Missing Guideline 36 sequence in library.
+
+                             When a user changes/deletes/adds elements to CDL/visual block diagram,
+                             no associated CDL/visual block diagram appears/disappears.
+---------------------------  ---------------------------------------------------
+Primary Actors               Mechanical Designer/Consultant
+---------------------------  ---------------------------------------------------
+Secondary Actors             Maintenance Engineer for retrofitting redesign
+---------------------------  ---------------------------------------------------
+Trigger                      Designing control system using Guideline 36 as
+                             default sequence or a starting point,
+                             then needs to change key elements as the system
+                             is different to Guideline 36 presumed system configuration.
+---------------------------  ---------------------------------------------------
+**Main Flow**                **Action**
+---------------------------  ---------------------------------------------------
+1                            User opens Guideline 36 library and sees a contents
+                             menu of the standard sequences for selection.
+---------------------------  ---------------------------------------------------
+2                            User selects a sequence
+---------------------------  ---------------------------------------------------
+3                            The corresponding CDL and visual block diagram appears
+                             in the controls design tool, key mechanical elements
+                             (e.g. fan, cooling coil valve, control damper)
+                             controlled by the standard sequence are also displayed.
+---------------------------  ---------------------------------------------------
+**Extensions**
+---------------------------  ---------------------------------------------------
+1                            User deletes/adds a key control element.
+---------------------------  ---------------------------------------------------
+2                            The corresponding sequence modification gets stored
+                             in the original sequence.
+===========================  ===================================================
 
 Customizing a control sequence for a VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,86 +298,6 @@ Trigger                      Need to select or improve a control sequence for a
    "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
 
 
-
-Export of the control sequence in CDL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-xxxx
-
-Saving the control sequence in a library for use in future projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-xxxx
-
-Importing a CDL for trouble shooting an existing building
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-xxxx
-
-
-Loading a standard sequence from Guideline 36
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Provided by Amy Shen, Arup.*
-
-This use case describes how to load, edit and store a control
-sequence based on a Guideline 36 sequence.
-
-===========================  ===================================================
-**Use case name**            **Loading a standard sequence from Guideline 36**
-===========================  ===================================================
-Related Requirements         Direct reference/selection from Guideline 36’s
-                             corresponding chapter and narrative sequence to convert to CDL.
-                             User able to change the pre-set elements within
-                             the standard sequence, with automatic download of
-                             associated CDL/visual block diagram of any new elements.
----------------------------  ---------------------------------------------------
-Goal in Context              Enable fast adaptation of Guideline 36
----------------------------  ---------------------------------------------------
-Preconditions                All Guideline 36 sequences need to be pre-programmed
-                             into visual block diagrams using CDL.
-                             CDL and block diagrams need to be modular so that
-                             they can be easily updated when key elements are changed/deleted/added.
----------------------------  ---------------------------------------------------
-Successful End Condition     User is able to download the CDL/block diagrams
-                             using a specific reference to Guideline 36 sequences.
-                             User is able to change/delete/add key elements using CDL.
----------------------------  ---------------------------------------------------
-Failed End Condition         Missing Guideline 36 sequence in library.
-
-                             When a user changes/deletes/adds elements to CDL/visual block diagram,
-                             no associated CDL/visual block diagram appears/disappears.
----------------------------  ---------------------------------------------------
-Primary Actors               Mechanical Designer/Consultant
----------------------------  ---------------------------------------------------
-Secondary Actors             Maintenance Engineer for retrofitting redesign
----------------------------  ---------------------------------------------------
-Trigger                      Designing control system using Guideline 36 as
-                             default sequence or a starting point,
-                             then needs to change key elements as the system
-                             is different to Guideline 36 presumed system configuration.
----------------------------  ---------------------------------------------------
-**Main Flow**                **Action**
----------------------------  ---------------------------------------------------
-1                            User opens Guideline 36 library and sees a contents
-                             menu of the standard sequences for selection.
----------------------------  ---------------------------------------------------
-2                            User selects a sequence
----------------------------  ---------------------------------------------------
-3                            The corresponding CDL and visual block diagram appears
-                             in the controls design tool, key mechanical elements
-                             (e.g. fan, cooling coil valve, control damper)
-                             controlled by the standard sequence are also displayed.
----------------------------  ---------------------------------------------------
-**Extensions**
----------------------------  ---------------------------------------------------
-1                            User deletes/adds a key control element.
----------------------------  ---------------------------------------------------
-2                            The corresponding sequence modification gets stored
-                             in the original sequence.
-===========================  ===================================================
-
-
 Defining integration with non-HVAC systems such as lighting, façade and presence detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -369,6 +350,18 @@ Trigger
                              of the non-HVAC system, and links it to HVAC
                              system status or action block
 ===========================  ===================================================
+
+
+Export of the control sequence in CDL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[add if none of the listed use cases above cover this topic]
+
+Saving the control sequence in a library for use in future projects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[add if none of the listed use cases above cover this topic]
+
 
 
 
@@ -433,25 +426,21 @@ Trigger
 Processing the CDL for cost-estimation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-xxxx
+[add if none of the listed use cases above cover this topic]
 
 Processing the CDL for implementation in building automation system using code translation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-xxxx
+[add if none of the listed use cases above cover this topic]
 
 Processing the CDL for implementation in building automation system using manual implementation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-xxxx
+[add if none of the listed use cases above cover this topic]
 
-Commissioning
-^^^^^^^^^^^^^
 
-Verification of requirements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-xxxx
+Commissioning and Operation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Conducting verification test of a VAV Cooling-Only Terminal Unit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -773,6 +762,19 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 2
 ===========================  ===================================================
+
+
+Importing a CDL for trouble shooting an existing building
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[add if none of the listed use cases above cover this topic]
+
+
+Verification of requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[add if none of the listed use cases above cover this topic]
+
 
 Template Use Case
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
