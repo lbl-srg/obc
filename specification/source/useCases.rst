@@ -20,7 +20,7 @@ This section describes use cases for end-user interaction, including the followi
 * use the commissioning and functional verification tool during commissioning
 
 
-Controls design
+Controls Design
 ^^^^^^^^^^^^^^^
 
 Loading a standard sequence from Guideline 36
@@ -363,10 +363,8 @@ Saving the control sequence in a library for use in future projects
 [add if none of the listed use cases above cover this topic]
 
 
-
-
-CDL processing for bidding and implementation in building automation system
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Bidding and BAS Implementation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Generate control point schedule from sequences
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -439,8 +437,8 @@ Processing the CDL for implementation in building automation system using manual
 [add if none of the listed use cases above cover this topic]
 
 
-Commissioning and Operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Commissioning, Operation, and Maintenance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Conducting verification test of a VAV Cooling-Only Terminal Unit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
