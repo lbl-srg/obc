@@ -6,6 +6,9 @@ Requirements
 This section describes the functional, mathematical and software requirements.
 The requirements are currently in discussion and revision with the team.
 
+In these discussion, by *plant*, we mean the controlled system, which may be a chiller plant,
+an HVAC system, an active facade, a model of the building etc.
+
 Controls Design Tool
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -23,45 +26,54 @@ Controls Design Tool
 #. The controls design tool shall allow testing energy, peak demand,
    energy cost, and comfort of control sequences when connected to a building
    system model.
-#. The controls design tool shall allow (require) users to define the equipment that constitutes their HVAC system via the CDL's object model.
-#. The controls design tool shall allow (require) users to define the dynamic and thermodynamic relationships between different peices of equipment in the object model.  For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.
+#. The controls design tool shall allow users to test control sequences coupled to the equipment that constitutes their HVAC system.
+#. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
 #. The control design tool shall include templates for common objects.
+#. A design engineer should be able to easily modify the library of predefined
+   control sequences by adding or removing sub-blocks, limiting the need to
+   modify the elemental blocks that make up the visual programming language.
 #. The controls design tool shall prompt
-   the user to provide necessary information when populating the object database.
+   the user to provide necessary information when instantiating objects.
    For example, the object representing an air handler should include fan, filter,
    and optional coil and damper elements (each of which is itself an object).
    When setting up an AHU instance, the user should be prompted to define
    which of these objects exist.
-#. To the extent feasible, the control design tool shall prevent mutually exclusive options or conflicts in the description of the physical equipment.
-   For example, an air handler can have a dedicated minimum outside air intake,
-   or it can have a combined economizer/minimum OA intake, but it cannot have both.
+#. To the extent feasible, the control design tool shall prevent mutually exclusive options in the description of the physical equipment.
+   [For example, an air handler can have a dedicated minimum outside air intake,
+   or it can have a combined economizer/minimum OA intake, but it cannot have both.]
 #. The controls design tool shall hide the complexity of the object model from the end user.
 #. The controls design tool shall integrate with OpenStudio.
 #. The controls design tool shall work on Windows, Linux Ubuntu
    and Mac OS X.
-#. The controls design tool shall either run as a webtool (i.e. in a browser) or via a standalone executable.  It shall not require the installation/configuration of a full version of Modelica.  (Brent: I believe this is essential to adoption.  Engineers typically do not have the patience or the time to install a new software ecosystem.  Look how long it took Revit to penetrate, and that was being pushed by big dog Autodesk.  I realize this may be an issue technically; this is a topic for discussion.)
-#. A design engineer should be able to easily modify the library of predefined
-   control sequences by adding or removing sub-blocks, limiting the need to
-   modify the elemental blocks that make up the visual programming language.
+#. The controls design tool shall either run as a webtool (i.e. in a browser) or via a standalone executable that can be installed including all its dependencies.
 
 
 CDL
 ^^^
 
-#. The CDL shall be declarative in nature.  It shall (at minimum) be able to express both control sequences and an object model which represents the physical HVAC system.
-#. CDL shall represent control sequences as a set of functional logic blocks and sub-blocks ("bricks"?).
-#. Each sequence shall be a functional logic block consisting of other functional logic blocks and sub-blocks connected via specified inputs and outputs.
-#. The "brick" shall be the most elemental sub-block, which contains line-code programming and is typically hidden from the specifying engineer (see design tool above).
-#. Each functional block shall have tags that provide information about its general function/application (e.g. this is an AHU control block) and its specific application (e.g. this particular block controls AHU 2)
-#. Each input and output to a functional block shall be tagged.  This tag shall identify expected characteristics for that point, including (at least):
+#. The CDL shall be declarative in nature. It shall be able to express control sequences and their linkage to an object model which represents the plant.
+#. CDL shall represent control sequences as a set of functional blocks which can be connected through their inputs and outputs, and be composed hierarchically to form new functional blocks.
+#. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs. The actual implementation is not part of the standard [as this is language dependent].
+#. Each functional block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
+#. Functional blocks shall identify whether they are a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
+#. Inputs, outputs, and functional blocks shall be allowed to contain metadata.
+   The metadata shall identify expected characteristics, including but not limited to the following.
+   For inputs and outputs:
 
-   #. input or output;
-   #. analog or digital;
-   #. units;
-   #. physical sensor or data input (from another logic block);
-   #. for physical sensors, the type of sensor (e.g. temperature, pressure);
-   #. for physical sensors, the application of the sensor
-      (e.g. return air temperature, supply air temperature)
+   #. whether they are input or output,
+   #. units,
+   #. a quantity [such as "return air temperature" or "heating requests" or "cooling requests"],
+   #. analog or digital input or output, and
+   #. for physical sensors or data input, the application
+      (e.g. return air temperature, supply air temperature).
+
+   For functional blocks:
+
+   #. an equipment tag [e.g., air handler control],
+   #. a location [e.g., 1st-floor-office-south], and
+   #. if they represent a sensor or actuator, whether they are a physical device
+      or a software point. [For physical sensors, the signal is read by
+      a sensor element, which converts the physical signal into a software point.]
 
 #. It shall be possible to translate control sequences that
    are expressed in the CDL
@@ -78,15 +90,16 @@ CDL
 #. The physical equipment of HVAC system shall be described in terms of objects which are expressed in the CDL.
 #. The object model must be rigorous, extensible and flexible.
 #. The object model must be relational, inherently defining connections between different objects.
-   The system must support many-to-many relationships - simple hierarchy is not sufficient.
-#. Each distinct piece of equipment (e.g. return air temperature sensor) shall be represented by a unique
-   instance.
+#. The system must support many-to-many relationships [For example, two parallel chilled water pumps
+   can serve three parallel chillers (see also Brick's "isPartOf" and "feeds").]
+#. Each distinct piece of equipment [e.g. return air temperature sensor]
+   shall be represented by a unique instance.
 
 
 Commissioning and Functional Verification Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-#. The CDL tool shall import verfication tests expressed in CDL, and a list
+#. The CDL tool shall import verification tests expressed in CDL, and a list
    of control points that are used for monitoring and active functional testing.
 #. The commissioning and functional verification tool shall be able to
    read data from, and send data to, BACnet, possibly using a middleware such as

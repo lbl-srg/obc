@@ -6,7 +6,7 @@ Control Description Language
 This section specifies
 the Control Description Language (CDL).
 
-The CDL constists of the following elements:
+The CDL consists of the following elements:
 
 * A list of elementary control blocks, such as a block that adds two signals and outputs the sum,
   or a block that represents a PID controller.
@@ -358,11 +358,27 @@ Numerical value:
 
 * CDL declares a binary value as type ``Boolean`` (e.g. any instance of ``CDL.Interfaces.BooleanInput`` is a binary (O or 1) value)
 
+
+Point list
+..........
+
+To allow point mapping,
+instances of ``CDL.Interfaces.*Input`` and
+instances of ``CDL.Interfaces.*Output`` can have
+the following annotation:
+
 * CDL declares a Mode using type ``Integer`` by assigning an integer value for each of the status or mode values required (e.g. according to ASHRAE Guidline 36 Freeze Protection has 4 stages, so if the output of the ``FreezeProtection`` block equals 2, the freeze protection stage 2 is active)
 
 Source:
 
 * CDL provides hardware and software source blocks under ``CDL.Sources.{Hardware | Software.*}`` [fixme: this should be updated with real block names after we add the blocks]
+
+   address:
+      todo: Specify how to declare the address. Optionally, we
+      should also add BACnet specification such as implemented
+      in
+      http://simulationresearch.lbl.gov/bcvtb/releases/latest/doc/manual/ch05s12.xhtml
+      and add the option of BACnet over IP.
 
 Quantity and Unit:
 
@@ -379,40 +395,41 @@ CDL shall provide certain relational tags using a syntax which is not essencial 
 
 CDL shall provide the following tags:
 
-.. code:
+.. code::
 
-  name/ID
-  contains/isLocatedIn
-  controls/isControlledBy
-  hasPart/isPartOf
-  feeds/isFedBy
-  hasInput/isInputOf
-  hasOutput/isOutputOf
+   name/ID
+   contains/isLocatedIn
+   controls/isControlledBy
+   hasPart/isPartOf
+   feeds/isFedBy
+   hasInput/isInputOf
+   hasOutput/isOutputOf
 
 [fixme: add to the list above as we go along]
 
 To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user create it or edit it as he instantates the AHU plant block?]:
 
-.. code:: modelica
+.. code-block:: modelica
+
    AtomicSequences.EconEnableDisable econEnableDisable
    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})),
-                __cdl( {cdl_tags_name} =
-               {"Name/ID"    : "Economizer Enable-Disable 1",
-                "isLocatedIn": {inherit from AHU-1},
-                "isPartOf"   : "AHU-1",
-                "contains"   : "", [fixme: do we want to keep empty tags, seems easier to automate]
-                "hasPart"    : "",
-                "hasInput"   : "TOut",
-                "hasInput"   : "FreezeProtectionStage",
-                "hasInput"   : "@whitehouse.ahu3",
-                "hasOutput"  : "EcoOnOffSta"));
+    __cdl( {cdl_tags_name} =
+      {"Name/ID"    : "Economizer Enable-Disable 1",
+    "isLocatedIn": {inherit from AHU-1},
+    "isPartOf"   : "AHU-1",
+    "contains"   : "", [fixme: do we want to keep empty tags, seems easier to automate]
+    "hasPart"    : "",
+    "hasInput"   : "TOut",
+    "hasInput"   : "FreezeProtectionStage",
+    "hasInput"   : "@whitehouse.ahu3",
+    "hasOutput"  : "EcoOnOffSta"));
 
 [fixme: do we still need to leave this in:
 The syntax is as follows:
 
 The vendor annotations have the syntax
 
-.. code:: modelica
+.. code-block:: modelica
 
    annotation :
      annotation "(" [annotations ","]
@@ -468,11 +485,11 @@ in http://project-haystack.org/tag/sensor, which is in Haystack declared as
    temp
    sensor
    kind: "Number"
-   unit: "°F"]
+   unit: "degF"]
 
 can be declared in CDL as
 
-.. code:: modelica
+.. code-block:: modelica
 
    Interfaces.RealInput u(unit="K") "Discharge air temperature"
      annotation(__cdl( haystack =
@@ -486,8 +503,21 @@ can be declared in CDL as
       "temp"      : "m:",
       "sensor"    : "m:",
       "kind       : "Number"
-      "unit       : "°F"} ));
+      "unit       : "degF"} ));
 
+
+Tools that process CDL can interpret the ``haystack`` annotation,
+but CDL will ignore it. [This avoids potential conflict for entities that
+are declared differently in Haystack and CDL, and may be conflicting.
+For example, the above sensor input declares in Haystack that it belongs
+to an ahu3. CDL, however, has a different syntax to declare such dependencies:
+In CDL, the instance that declares this sensor
+input already unambiguously declares to what entity it belongs to, and the
+sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
+Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
+a tool can infer what upstream component sends the input signal.]
+
+.. todo:: Check if we should use tags for alarms, or use a CDL block for this.
 
 Brick, developed by UC Berkeley, is a uniform metadata schema for buildings. Quoting their website, "Brick is an open-source, BSD-licensed development effort to create a uniform schema for representing metadata in buildings. Brick has three components:
 
