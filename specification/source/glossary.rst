@@ -10,6 +10,18 @@ the Open Building Controls project.
 
 .. glossary::
 
+   Analog Value
+     In CDL, we say a value is analog if it represents a continuous
+     number. The value may be presented by an analog signal such as
+     voltage, or by a digital signal.
+
+   Binary Value
+     In CDL, we say a value is binary if it can take on the values
+     0 and 1. The value may however be presented by an analog signal
+     that can take on two values (within some tolerance) in order
+     to communicate the binary value.
+
+
    Controls Description Language
      The Control Description Language (CDL) is the language
      that is used to express control sequences and requirements.
@@ -30,10 +42,10 @@ the Open Building Controls project.
        in the :term:`Controls Description Language`.
 
    Control Sequence Requirement
-      A requirement is a condition that is tested and either passes, fails, 
-      or is untested. For example, a requirement would be that the actual 
-      actuation signal is within 2% of the signal computed using the CDL 
-      representation of a sequence, provided that they both receive the same 
+      A requirement is a condition that is tested and either passes, fails,
+      or is untested. For example, a requirement would be that the actual
+      actuation signal is within 2% of the signal computed using the CDL
+      representation of a sequence, provided that they both receive the same
       input data.
 
    Functional Verification Tool
@@ -54,3 +66,7 @@ the Open Building Controls project.
 
    OBC
      See :term:`Open Building Controls`.
+
+   Mode
+     In CDL, by mode we mean a signal that can take on multiple distinct
+     values, such as ``On``, ``Off``, ``PreCool``.

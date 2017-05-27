@@ -82,6 +82,10 @@ See the Modelica 3.3 specification Chapter 10 for array notation.
 
 [`enumeration` or `Boolean` data types are not permitted as array indices.]
 
+.. note::
+
+   We still need to define the allowed values for `quantity`, for example
+   ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
 Encapsulation of functionality
@@ -324,11 +328,58 @@ and are needed for hierarchical composition of control sequences.]
 Tags
 ^^^^
 
-CDL shall introduce tags as: [fixme: not perfectly happy with the classification, but seems as a good starting point]
+CDL has sufficient information for tools that process CDL to
+generate for example point lists that list all analog temperature sensors,
+or to verify that a pressure control signal is not connected to a temperature
+input of a controller.
+Some of the required properties need to be tagged, for which we will
+use vendor annotations, while other properties
+can be inferred from the Modelica declarations.
+Next, we explain the properties that can be inferred.
 
-* Internal (or CDL) tags as a part of the CDL syntax (e.g. any output connector type ``Real`` coming from a ``*.Sources.Hardware.*`` block is a hardware input to a CDL sequence.)
-* External tags provided in the ``annotation`` section of a block (e.g. an outdoor air damper position output from an economizer sequence shall have a tag ``controls``:``{outdoorAirDamper1Actuator}``)
-* Optional external third party tagging scheme (any appliable tagging scheme such as Project Haystack http://project-haystack.org/, Brick http://brickschema.org/, or as provided by a vendor).
+Inferred Properties
+...................
+
+In order to infer whether a signal is a hardware or a software point,
+all input signals and output signals shall be retrieved from
+the packages ``IO.Hardware`` and ``IO.Software``
+
+.. note:: This package still needs to be implemented.
+
+[Note that a differential pressure input signal with name ``u``
+can be declared as
+
+.. code-block:: modelica
+
+   Interfaces.RealInput u(
+     type="PressureDifference",
+     unit="Pa") "Differential pressure signal" annotation (...);
+
+Hence, tools can verify that the ``PressureDifference`` is not connected
+to ``AbsolutePressure``, and they can infer that the input has units of Pascal.
+
+Hence, tools that process CDL can infer the following information:
+
+* Numerical value:
+  :term:`Binary value <Binary Value>`
+  (which in CDL are represented by a ``Boolean`` data types),
+  :term:`analog value <Analog Value>`,
+  (which in CDL are represented by a ``Real`` data type)
+  :term:`mode <Mode>`
+  (which in CDL are presented by an ``Integer`` data type or an enumeration,
+  which allow for example encoding of the
+  ASHRAE Guidline 36 Freeze Protection which has 4 stages).
+* Source: Hardware point or software point.
+* Quantity: such as Temperature, Pressure, Humidity, Speed or Command/Request/Status
+* Unit: Unit and preferred display unit. (Th display unit
+  can be overwritten by a tool. This allows for example a control vendor
+  to use the same sequences in North America displaying IP units, and in
+  the rest of the world displaying SI units.)
+
+]
+
+Tagged Properties
+.................
 
 CDL allows to tag declarations that instantiate
 
@@ -336,98 +387,16 @@ CDL allows to tag declarations that instantiate
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
 
+The buildings industry uses different tagging schemes such as
+Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
+CDL shall allow, but not require, users to use their tagging scheme of choice.
+In support of this, it provides syntax to allow optionally to add such tags so that they can
+be carried from a CDL representation to tools that process such a tagging
+scheme.
 
-Internal or CDL Tags
-....................
+To implement such tags, vendor annotations with the following syntax are used:
 
-[fixme: the language is targeting control designers and a lack of precission has been bothering me in the section text below]
-
-[fixme - Provide more precise explanation: The values are not explicitly tagged within the CDL control design, but explicite tags (e.g. if based on Haydstack schema: "sensor":"BI" or "command":"BO") can be provided in postprocessing.]
-
-CDL tags are used for compatibility checks. CDL disallows connections between incompatible values. (e.g. ``BO`` cannot be connected to a ``DI``, or an output of a temperature sensor output cannot be connected to an input that requires an airflow sensor value, etc.). Any CDL library elements shall have applicable CDL tags.
-
-CDL tags convey the following information about control points:
-* Numerical value: Binary, Analog, Mode/Status
-* Source: Hardware or Software
-* Quantity: Temperature, Pressure, Humidity, Speed or Command/Request/Status
-* Unit: Unit and Display Unit
-
-Numerical value:
-
-* CDL declares an analog value as type ``Real`` (e.g. any instance of ``CDL.Interfaces.RealInput`` is an analog value)
-
-* CDL declares a binary value as type ``Boolean`` (e.g. any instance of ``CDL.Interfaces.BooleanInput`` is a binary (O or 1) value)
-
-
-Point list
-..........
-
-To allow point mapping,
-instances of ``CDL.Interfaces.*Input`` and
-instances of ``CDL.Interfaces.*Output`` can have
-the following annotation:
-
-* CDL declares a Mode using type ``Integer`` by assigning an integer value for each of the status or mode values required (e.g. according to ASHRAE Guidline 36 Freeze Protection has 4 stages, so if the output of the ``FreezeProtection`` block equals 2, the freeze protection stage 2 is active)
-
-Source:
-
-* CDL provides hardware and software source blocks under ``CDL.Sources.{Hardware | Software.*}`` [fixme: this should be updated with real block names after we add the blocks]
-
-   address:
-      todo: Specify how to declare the address. Optionally, we
-      should also add BACnet specification such as implemented
-      in
-      http://simulationresearch.lbl.gov/bcvtb/releases/latest/doc/manual/ch05s12.xhtml
-      and add the option of BACnet over IP.
-
-Quantity and Unit:
-
-* CDL implements quantities and units as Modelica attibutes (e.g. a zone setpoint input is ``CDL.Interfaces.RealInput TSetZon(unit="K", displayUnit="degC")``)
-
-
-
-External tags
-.............
-
-[fixme: Which CDL elements have which relational tags? Which are mandatory? Should we allow additional tags?]
-
-CDL shall provide certain relational tags using a syntax which is not essencial to run the control software. CDL uses tag labels as defined by http://brickschema.org/ (see a full description of the Brick schema in the section on Optional External Tags). The function of these tags is to describe the hierarchy and define relations between CDL blocks and the controlled plant.
-
-CDL shall provide the following tags:
-
-.. code::
-
-   name/ID
-   contains/isLocatedIn
-   controls/isControlledBy
-   hasPart/isPartOf
-   feeds/isFedBy
-   hasInput/isInputOf
-   hasOutput/isOutputOf
-
-[fixme: add to the list above as we go along]
-
-To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user create it or edit it as he instantates the AHU plant block?]:
-
-.. code-block:: modelica
-
-   AtomicSequences.EconEnableDisable econEnableDisable
-   annotation (Placement(transformation(extent={{-20,-60},{0,-40}})),
-    __cdl( {cdl_tags_name} =
-      {"Name/ID"    : "Economizer Enable-Disable 1",
-    "isLocatedIn": {inherit from AHU-1},
-    "isPartOf"   : "AHU-1",
-    "contains"   : "", [fixme: do we want to keep empty tags, seems easier to automate]
-    "hasPart"    : "",
-    "hasInput"   : "TOut",
-    "hasInput"   : "FreezeProtectionStage",
-    "hasInput"   : "@whitehouse.ahu3",
-    "hasOutput"  : "EcoOnOffSta"));
-
-[fixme: do we still need to leave this in:
-The syntax is as follows:
-
-The vendor annotations have the syntax
+**LEFT OFF HERE**
 
 .. code-block:: modelica
 
@@ -440,27 +409,6 @@ Hence, annotations need to be at the top-level,
 and can be part of other annotation declarations.
 [The requirement to be at the top-level
 could be relaxed if needed for a specific annotation.]
-
-]
-
-
-Optional External Tags
-......................
-
-CDL shall declare a syntax that allows use of (certain) tagging schemes, such as Project Haystack (http://project-haystack.org/) and Brick http://brickschema.org/.
-
-
-Project Haystack allows tagging of various objects. It is hierarchical
-with the three entities *Site*, *Equip* and *Point*, see
-http://project-haystack.org/doc/Structure.
-These entities are linked to each other through references,
-which allows that each instance (of an equipment *Equip*, for example)
-can have a self-contained list of tags. Hence, for CDL, we
-allow the following tagging to be applied to
-instances of
-*parameters* (:numref:`sec_cld_per_typ`),
-*elementary building blocks* (:numref:`sec_ele_bui_blo`), and
-*composite blocks* (:numref:`sec_com_blo`).
 
 
 .. code:: modelica
@@ -516,6 +464,70 @@ input already unambiguously declares to what entity it belongs to, and the
 sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
 Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
+
+
+
+CDL shall provide certain relational tags using a syntax which is not essencial to run the control software. CDL uses tag labels as defined by http://brickschema.org/ (see a full description of the Brick schema in the section on Optional External Tags). The function of these tags is to describe the hierarchy and define relations between CDL blocks and the controlled plant.
+
+CDL shall provide the following tags:
+
+.. code::
+
+   name/ID
+   contains/isLocatedIn
+   controls/isControlledBy
+   hasPart/isPartOf
+   feeds/isFedBy
+   hasInput/isInputOf
+   hasOutput/isOutputOf
+
+[fixme: add to the list above as we go along]
+
+To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user create it or edit it as he instantates the AHU plant block?]:
+
+.. code-block:: modelica
+
+   AtomicSequences.EconEnableDisable econEnableDisable
+   annotation (Placement(transformation(extent={{-20,-60},{0,-40}})),
+    __cdl( {cdl_tags_name} =
+      {"Name/ID"    : "Economizer Enable-Disable 1",
+    "isLocatedIn": {inherit from AHU-1},
+    "isPartOf"   : "AHU-1",
+    "contains"   : "", [fixme: do we want to keep empty tags, seems easier to automate]
+    "hasPart"    : "",
+    "hasInput"   : "TOut",
+    "hasInput"   : "FreezeProtectionStage",
+    "hasInput"   : "@whitehouse.ahu3",
+    "hasOutput"  : "EcoOnOffSta"));
+
+[fixme: do we still need to leave this in:
+The syntax is as follows:
+
+
+
+]
+
+
+Optional External Tags
+......................
+
+CDL shall declare a syntax that allows use of (certain) tagging schemes, such as Project Haystack (http://project-haystack.org/) and Brick http://brickschema.org/.
+
+
+Project Haystack allows tagging of various objects. It is hierarchical
+with the three entities *Site*, *Equip* and *Point*, see
+http://project-haystack.org/doc/Structure.
+These entities are linked to each other through references,
+which allows that each instance (of an equipment *Equip*, for example)
+can have a self-contained list of tags. Hence, for CDL, we
+allow the following tagging to be applied to
+instances of
+*parameters* (:numref:`sec_cld_per_typ`),
+*elementary building blocks* (:numref:`sec_ele_bui_blo`), and
+*composite blocks* (:numref:`sec_com_blo`).
+
+
+
 
 .. todo:: Check if we should use tags for alarms, or use a CDL block for this.
 
