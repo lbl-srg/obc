@@ -23,12 +23,12 @@ Controls Design Tool
    libraries of custom control sequences.
 #. The controls design tool shall allow users to add
    libraries of custom functional and performance requirement tests.
-#. The controls design tool shall allow testing energy, peak demand,
+#. The controls design tool shall allow assessment of energy consumption, peak demand,
    energy cost, and comfort of control sequences when connected to a building
    system model.
-#. The controls design tool shall allow users to test control sequences coupled to the equipment that constitutes their HVAC system.
-#. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
-#. The control design tool shall include templates for common objects.
+#. The controls design tool shall allow users to assess the performance of control sequences coupled to the equipment that constitutes their HVAC system.
+#. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. (For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.)  [FIXME: we need section on tool outputs]
+#. The control design tool shall include templates for common objects. [FIXME: explain function/scope of templates, what is a "common object" in this context]
 #. A design engineer should be able to easily modify the library of predefined
    control sequences by adding or removing sub-blocks, limiting the need to
    modify the elemental blocks that make up the visual programming language.
