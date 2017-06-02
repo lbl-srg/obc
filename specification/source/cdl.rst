@@ -143,14 +143,6 @@ the
    * Block that outputs the temperature setback for heating.
 
 
-.. todo::
-
-   Should a GPC 36 sequence also be an elementary building block so
-   that manufacturers can implement them in a library, or should
-   they be only composed of smaller blocks and stored using
-   `composite blocks`_?
-
-
 Instantiation
 ^^^^^^^^^^^^^
 
@@ -335,7 +327,11 @@ input of a controller.
 Some of the required properties need to be tagged, for which we will
 use vendor annotations, while other properties
 can be inferred from the Modelica declarations.
-Next, we explain the properties that can be inferred.
+In :numref:`sec_inf_pro`, we will explain the properties that can be inferred,
+and in :numref:`sec_tag_pro`, we will explain how to use
+tagging schemes in CDL.
+
+.. _sec_inf_pro:
 
 Inferred Properties
 ...................
@@ -371,50 +367,86 @@ Hence, tools that process CDL can infer the following information:
   ASHRAE Guidline 36 Freeze Protection which has 4 stages).
 * Source: Hardware point or software point.
 * Quantity: such as Temperature, Pressure, Humidity, Speed or Command/Request/Status
-* Unit: Unit and preferred display unit. (Th display unit
+* Unit: Unit and preferred display unit. (The display unit
   can be overwritten by a tool. This allows for example a control vendor
   to use the same sequences in North America displaying IP units, and in
   the rest of the world displaying SI units.)
 
 ]
 
+.. _sec_tag_pro:
+
 Tagged Properties
 .................
 
+The buildings industry uses different tagging schemes such as
+Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
+CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
+
 CDL allows to tag declarations that instantiate
 
-* parameters (:numref:`sec_cld_per_typ`),
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
 
-The buildings industry uses different tagging schemes such as
-Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
-CDL shall allow, but not require, users to use their tagging scheme of choice.
-In support of this, it provides syntax to allow optionally to add such tags so that they can
-be carried from a CDL representation to tools that process such a tagging
-scheme.
+[We currently do not see a use case that would require
+adding a tag to a ``parameter`` declaration.]
 
-To implement such tags, vendor annotations with the following syntax are used:
 
-**LEFT OFF HERE**
+To implement such tags, CDL blocks can contain
+vendor annotations with the following syntax:
 
 .. code-block:: modelica
 
    annotation :
      annotation "(" [annotations ","]
-        __cdl (" [ __cdl_annotation ] ")" ["," annotations] ")"
+        __cdl "(" [ __cdl_annotation ] ")" ["," annotations] ")"
 
 where ``__cdl__annotation`` is the annotation for CDL.
-Hence, annotations need to be at the top-level,
-and can be part of other annotation declarations.
-[The requirement to be at the top-level
-could be relaxed if needed for a specific annotation.]
 
+For Brick, the ``__cdl_annotation`` is
 
-.. code:: modelica
+.. code-block:: modelica
+
+   brick_annotation:
+      brick "(" RDF ")"
+
+where ``RDF`` is the RDF 1.1 Turtle
+(https://www.w3.org/TR/turtle/) specification of the Brick object.
+
+[Note that, for example
+for a controller with two output signals :math:`y_1` and :math:`y_2`,
+Brick seems to have no means to specify
+that :math:`y_1` ``controls`` a fan speed and :math:`y_2` ``controls``
+a heating valve, where ``controls`` is the Brick relationship.
+Therefore, we allow the ``brick_annotation`` to only be at the
+block level, but not at the level of instances of input or output
+signals.
+
+For example, the Brick specification
+
+.. code-block:: modelica
+
+   soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor ;
+      bf:hasTag brick:Average ;
+      bf:isLocatedIn soda_hall:floor_1 .
+
+can be declared in CDL as
+
+.. code-block:: modelica
+
+   annotation(__cdl(brick(
+     soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor ;
+        bf:hasTag brick:Average ;
+        bf:isLocatedIn soda_hall:floor_1 . )))
+
+]
+
+For Haystack, the ``__cdl_annotation`` is
+
+.. code-block:: modelica
 
    haystack_annotation:
-      __cdl "(" haystack "=" JSON ")"
+      haystack "(" JSON ")"
 
 where ``JSON`` is the JSON encoding of the Haystack object.
 
@@ -437,10 +469,9 @@ in http://project-haystack.org/tag/sensor, which is in Haystack declared as
 
 can be declared in CDL as
 
-.. code-block:: modelica
+.. code::
 
-   Interfaces.RealInput u(unit="K") "Discharge air temperature"
-     annotation(__cdl( haystack =
+   annotation(__cdl( haystack(
      {"id"        : ""@whitehouse.ahu3.dat",
       "dis"       : "White House AHU-3 DischargeAirTemp",
       "point"     : "m:",
@@ -451,12 +482,12 @@ can be declared in CDL as
       "temp"      : "m:",
       "sensor"    : "m:",
       "kind       : "Number"
-      "unit       : "degF"} ));
+      "unit       : "degF"} )));
 
 
-Tools that process CDL can interpret the ``haystack`` annotation,
+Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
 but CDL will ignore it. [This avoids potential conflict for entities that
-are declared differently in Haystack and CDL, and may be conflicting.
+are declared differently in Brick (or Haystack) and CDL, and may be conflicting.
 For example, the above sensor input declares in Haystack that it belongs
 to an ahu3. CDL, however, has a different syntax to declare such dependencies:
 In CDL, the instance that declares this sensor
@@ -464,116 +495,6 @@ input already unambiguously declares to what entity it belongs to, and the
 sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
 Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
-
-
-
-CDL shall provide certain relational tags using a syntax which is not essencial to run the control software. CDL uses tag labels as defined by http://brickschema.org/ (see a full description of the Brick schema in the section on Optional External Tags). The function of these tags is to describe the hierarchy and define relations between CDL blocks and the controlled plant.
-
-CDL shall provide the following tags:
-
-.. code::
-
-   name/ID
-   contains/isLocatedIn
-   controls/isControlledBy
-   hasPart/isPartOf
-   feeds/isFedBy
-   hasInput/isInputOf
-   hasOutput/isOutputOf
-
-[fixme: add to the list above as we go along]
-
-To implement the tags, Modelica vendor annotations are used. For example, an economizer enable/disable block is a part of the economizer sequence for "AHU-1" plant [fixme: how do we assign the plant name? Should the user create it or edit it as he instantates the AHU plant block?]:
-
-.. code-block:: modelica
-
-   AtomicSequences.EconEnableDisable econEnableDisable
-   annotation (Placement(transformation(extent={{-20,-60},{0,-40}})),
-    __cdl( {cdl_tags_name} =
-      {"Name/ID"    : "Economizer Enable-Disable 1",
-    "isLocatedIn": {inherit from AHU-1},
-    "isPartOf"   : "AHU-1",
-    "contains"   : "", [fixme: do we want to keep empty tags, seems easier to automate]
-    "hasPart"    : "",
-    "hasInput"   : "TOut",
-    "hasInput"   : "FreezeProtectionStage",
-    "hasInput"   : "@whitehouse.ahu3",
-    "hasOutput"  : "EcoOnOffSta"));
-
-[fixme: do we still need to leave this in:
-The syntax is as follows:
-
-
-
-]
-
-
-Optional External Tags
-......................
-
-CDL shall declare a syntax that allows use of (certain) tagging schemes, such as Project Haystack (http://project-haystack.org/) and Brick http://brickschema.org/.
-
-
-Project Haystack allows tagging of various objects. It is hierarchical
-with the three entities *Site*, *Equip* and *Point*, see
-http://project-haystack.org/doc/Structure.
-These entities are linked to each other through references,
-which allows that each instance (of an equipment *Equip*, for example)
-can have a self-contained list of tags. Hence, for CDL, we
-allow the following tagging to be applied to
-instances of
-*parameters* (:numref:`sec_cld_per_typ`),
-*elementary building blocks* (:numref:`sec_ele_bui_blo`), and
-*composite blocks* (:numref:`sec_com_blo`).
-
-
-
-
-.. todo:: Check if we should use tags for alarms, or use a CDL block for this.
-
-Brick, developed by UC Berkeley, is a uniform metadata schema for buildings. Quoting their website, "Brick is an open-source, BSD-licensed development effort to create a uniform schema for representing metadata in buildings. Brick has three components:
-
-* An RDF class hierarchy describing the various building subsystems and the entities and equipment therein
-* A minimal, principled set of relationships for connecting these entities together into a directed graph representing a building
-* A method of encapsulation for composing complex components from a set of lower-level ones"
-
-[fixme: add a set of examples which would explain how a Control Design hierarchy gets encapsulated using Brick relational tags.]
-
-Tools that process CDL can interpret optional external annotations, such as ``haystack`` and ``brick``, but CDL will ignore it at runtime. [This avoids potential conflict for entities that
-are declared differently in Haystack/Brick/{other schema} and CDL.]
-
-[fixme
-
-  .. note:: Other tagging standards worth considering in development of the CDL tagging strategy:
-
-        - ASHRAE Guidline 13 Specifying Direct Digital Control (DDC) Systems
-        - Manufacturer specific point tagging conventions, such as Taylor Engineering and Schneider Electric
-        - Project Haystack
-        - In progress: BSR/ASHRAE Standard 223P
-
-]
-
-
-[fixme: the following paragraphs are Michael's from an older version, do we want/need to keep them?
-
-All instances of ``CDL.Interfaces.*Input`` and instances of ``CDL.Interfaces.*Output`` can have
-the following annotation:
-[mg we could add and/or modify tags for these optional point tags]
-
-.. code:: modelica
-
-   point_annotation:
-      __cdl "(" analog   [ "(" voltage "=" 8 | 16  ")" ] |
-                 digital  [ "(" address "=" address ")" ] ")"
-
-   address:
-      todo: specify how to declare the address. Is it only an IP address, or
-      something else (in addition?)
-
-Note that the specification of the voltage and the address is optional,
-as these information may not yet be known at the design stage.
-
-]
 
 
 Model of computations
