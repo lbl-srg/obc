@@ -348,7 +348,7 @@ can be declared as
 .. code-block:: modelica
 
    Interfaces.RealInput u(
-     type="PressureDifference",
+     quantity="PressureDifference",
      unit="Pa") "Differential pressure signal" annotation (...);
 
 Hence, tools can verify that the ``PressureDifference`` is not connected
