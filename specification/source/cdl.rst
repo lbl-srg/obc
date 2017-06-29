@@ -132,16 +132,6 @@ For the complete implementation, see
 the
 `github repository <https://github.com/lbl-srg/modelica-buildings/tree/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL>`_.
 
-.. todo::
-
-   Various blocks still need to be added, see
-   https://github.com/lbl-srg/modelica-buildings/issues/610.
-   For example, the following blocks are missing
-   in the current Modelica library:
-
-   * Block that outputs the day of the week.
-   * Block that outputs the temperature setback for heating.
-
 
 Instantiation
 ^^^^^^^^^^^^^
@@ -170,7 +160,7 @@ for the graphical positioning of the instance in a block-diagram.
          parameter Real p = 10;
          Continuous.Gain myGain(k=2*p);
 
-   #. We allow conditional removal of blocks, such as
+   #. We require conditional removal of blocks and connectors, such as
       such as
 
       .. code-block:: modelica
@@ -497,8 +487,8 @@ Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
 
 
-Model of computations
-^^^^^^^^^^^^^^^^^^^^^
+Model of computation
+^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,
 which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
@@ -522,6 +512,6 @@ directly on the input.]
    In simulation, we likely need to use discrete event or discrete time semantics
    for reasons of computing speed, but actual control systems use discrete time
    sampled systems. We need to address how to sample the control blocks in
-   simulation, in the actual implementation, and in the verification tool [as
-   they all have different needs on performance, predictability of computing time,
+   the actual implementation and in the verification tool [as
+   they have different needs on performance, predictability of computing time,
    and scheduling of execution].
