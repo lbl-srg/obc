@@ -64,14 +64,24 @@ parameters of type
 `Real`, `Integer`, `Boolean`, `String`, and `enumeration`.
 [Parameters do not change their value as time progress.]
 See also the Modelica 3.3 specification, Chapter 3.
-All specifications in CDL shall be blocks or parameters.
+All specifications in CDL shall be declaration of blocks,
+instances of blocks, or declarations of type `parameter`
+or type `constant`.
 Variables are not allowed [they are used however in the elementary building blocks].
 
 The declaration of such types is identical to the declaration
-in Modelica, e.g., the keyword ``parameter`` is used
-before the type declaration.
-[For example, to declare a real-valued parameter,
-use ``parameter Real k = 1 "A parameter with value 1";``.]
+in Modelica.
+[The keyword ``parameter`` is used
+before the type declaration, and typically a graphical user interface
+allows users to change the value of a parameter when the simulation
+or control sequence is not running.
+For example, to declare a real-valued parameter,
+use ``parameter Real k = 1 "A parameter with value 1";``.
+In contract, a `constant` cannot be changed after the software is
+compiled, and is typically not shown in a graphical user interface menu.
+For example, a `constant` is used to define latent heat of evaporation
+if used in a controller.
+]
 
 Each of these data types, including the elementary building blocks,
 can be a single instance or one-dimensional array.
@@ -109,16 +119,33 @@ The CDL contains elementary building blocks that are used to compose
 control sequences. The elementary building blocks can be
 browsed at the CDL blocks web page
 http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+The functionality of elementary building blocks, but not their implementation,
+is part of the CDL specification. Hence, users are not allowed to add
+new elementary building blocks. Rather, users can use them to implement
+`composite blocks`_.
+
+[CDL implementations are allowed to use a different implementation of the elementary
+building blocks, because the implementation is language specific. However,
+implementations shall have the same inputs, outputs and parameters, and
+they shall compute the same response for the same value of inputs and state variables.]
 
 An actual implementation looks as follows, where we omitted
 is used for graphical rendering:
 
 .. code-block:: modelica
 
-   block AddParameter "Outputs the sum of a parameter and a signal"
-     parameter Real p "Value to be added to input";
-     Interfaces.RealInput u "Connector for Real input signal";
-     RealOuput y "Connector for Real output signal";
+   block AddParameter "Output the sum of an input plus a parameter"
+
+     parameter Real p "Value to be added";
+
+     parameter Real k "Gain of input";
+
+     Interfaces.RealInput u "Connector of Real input signal";
+
+     Interfaces.RealOutput y "Connector of Real output signal";
+
+   equation
+     y = k*u + p;
 
      annotation(Documentation(info(
      <p>
@@ -130,7 +157,7 @@ is used for graphical rendering:
 
 For the complete implementation, see
 the
-`github repository <https://github.com/lbl-srg/modelica-buildings/tree/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL>`_.
+`github repository <https://github.com/lbl-srg/modelica-buildings/blob/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL/Continuous/AddParameter.mo>`_.
 
 
 Instantiation
@@ -149,27 +176,31 @@ The optional annotations is typically used
 for the graphical positioning of the instance in a block-diagram.
 ]
 
+In the assignment of `parameters`, calculations are allowed.
+
+[For example, a hysteresis block could be configured as follows
+
+.. code-block:: modelica
+
+   parameter Real pRel(unit="Pa") = 50 "Static pressure difference at damper";
+
+   CDL.Logical.Hysteresis hys(
+     uLow  = pRel-25,
+     uHigh = pRel+25) "Hysteresis for fan control";
+]
+
 .. todo::
 
    We need to clarify whether
+   we allow conditional removal of blocks and connectors, such as
 
-   #. We allow operations such as
+   .. code-block:: modelica
 
-      .. code-block:: modelica
+      parameter Boolean useGain = false;
+      Continuous.Gain myGain(k=10*60) if useGain;
 
-         parameter Real p = 10;
-         Continuous.Gain myGain(k=2*p);
-
-   #. We require conditional removal of blocks and connectors, such as
-      such as
-
-      .. code-block:: modelica
-
-         parameter Boolean useGain = false;
-         Continuous.Gain myGain(k=10*60) if useGain;
-
-      [This would allow removing certain blocks and all their connections
-      based on a boolean parameter.]
+   [This would allow removing certain blocks and all their connections
+   based on a boolean parameter.]
 
 
 .. _sec_connectors:
