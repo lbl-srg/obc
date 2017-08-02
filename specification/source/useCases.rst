@@ -267,7 +267,7 @@ Trigger                      n/a
 8                            The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-9                            If necessary, the user executes the reference model and inspects the resulting performance to identify
+9                          If necessary, the user executes the reference model and inspects the resulting performance to identify
                              potential modifications
 ---------------------------  ---------------------------------------------------
 10                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
