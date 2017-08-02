@@ -60,7 +60,7 @@ the Open Building Controls project.
      whether some requirements remain untested.
 
    G36 Sequence
-     A control sequence specified by ASHRAE Guideline 36.
+     A control sequence specified by ASHRAE Guideline 36. See also control sequence.
 
    HVAC System
      Any HVAC plant coupled with the control system.
@@ -86,3 +86,6 @@ the Open Building Controls project.
    Plant
      The term plant can be used for any controlled system, such as primary HVAC system (chiller/boiler plant),
      secondary HVAC system (AHU, terminal boxes), lighting system, an active facade, etc. A plant can be both HVAC and non-HVAC.
+
+   Standard control sequence
+     A control sequence defined in the CDL control sequence library based on a standard document.
