@@ -267,7 +267,7 @@ Trigger                      n/a
 8                            The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-9                           If necessary, the user executes the reference model and inspects the resulting performance to identify
+9                            If necessary, the user executes the reference model and inspects the resulting performance to identify
                              potential modifications
 ---------------------------  ---------------------------------------------------
 10                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
@@ -275,7 +275,6 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 11                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
                              blocks from the elementary CDL-block library
-
 ---------------------------  ---------------------------------------------------
 12                           The user selects "Check model" to verify whether
                              the implemented sequence complies with the CDL
@@ -287,6 +286,8 @@ Trigger                      n/a
 15                           The user assesses the relative performance of the modified and unmodified sequences using the procedure
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
+
+// This section to be completed following review of the above
 
 :numref:`fig_use_case_custom_single-zone_vav` shows the sequence diagram for this use case.
 
@@ -402,7 +403,6 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 16                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
                              blocks from the elementary CDL-block library
-
 ---------------------------  ---------------------------------------------------
 17                           The user selects "Check model" to verify whether
                              the implemented sequence complies with the CDL
@@ -415,6 +415,8 @@ Trigger                      n/a
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
 
+// This section to be completed following review of the above
+
 :numref:`fig_use_case_custom_multi-zone_vav` shows the sequence diagram for this use case.
 
 .. _fig_use_case_custom_multi-zone_vav:
@@ -424,7 +426,6 @@ Trigger                      n/a
 
    title Customizing a control sequence for a multi-zone VAV system
 
-// This section to be completed following review of the above
    "User" -> "OpenStudio" : Open control design tool.
    "OpenStudio" -> "Control Design Tool" : open()
    "User" -> "Control Design Tool" : Open HVAC and building model.
@@ -519,7 +520,7 @@ Trigger                      Need to select or improve a control sequence for a
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
                              loop, and connects to building/system modeL.
----------------------------  ---------------------------------------------------                             
+---------------------------  ---------------------------------------------------
 3a                           If the sequence contains feedback loops that are to be included in the evaluation,
                              these loops must be tuned, either automatically or manually.
 ---------------------------  ---------------------------------------------------
