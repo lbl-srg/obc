@@ -48,7 +48,7 @@ Preconditions                All Guideline 36 sequences need to be pre-programme
                              into visual block diagrams using CDL.
                              CDL and block diagrams need to be modular so that
                              they can be easily updated when key elements are changed/deleted/added.
-                             
+
                              (Phil:implementation of Guideline 36 sequences needs to be prioritized
                              along with sequences from other sources, including UNC Chapel Hill, TBD.)
 ---------------------------  ---------------------------------------------------
@@ -96,7 +96,7 @@ Customizing a control sequence for a VAV system
 
 (Brent: this example appears to be "how to attach a VAV control sequence to a specific VAV box", as opposed to "how to modify/customize the pre-defined VAV control sequence".  I argue that they are distinct use cases and we need to consider both.
 
-(Phil: See below for my 'Customizing a control sequence for a multi-zone VAV system', which includes both customization and configuration for multi-zone systems. See just above it for my 'Customizing a control sequence for a single zone VAV system' - a 
+(Phil: See below for my 'Customizing a control sequence for a multi-zone VAV system', which includes both customization and configuration for multi-zone systems. See just above it for my 'Customizing a control sequence for a single zone VAV system' - a
 poential replacement for 'Customizing a control sequence for a VAV system')
 
 *Provided by Michael Wetter, LBNL.*
@@ -118,7 +118,7 @@ Preconditions                HVAC system model connected to building model.
                              (Phil: HVAC system model (components + connections, including sensors and actuators) connected to building model (envelope/fabric, internal gains and occupancy schedules.
 
                              (Phil: we have a naming problem: we need a concise way of refering to the combination of the HVAC 'system' model, the 'building' model and the control sequence(s).)
-                             
+
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
 
@@ -218,15 +218,15 @@ Goal in Context              A mechanical engineer wants to customize a control
                              sequence, starting with a template.
 ---------------------------  ---------------------------------------------------
 Preconditions                HVAC system model connected to building model.
-                                                         
-                             (Phil: HVAC system model = components + connections, including sensors and actuators; 
+
+                             (Phil: HVAC system model = components + connections, including sensors and actuators;
                              building model = envelope/fabric, internal gains and occupancy schedules.)
 
-                             (Phil: we have a naming problem: we need a concise way of refering to the combination of 
+                             (Phil: we have a naming problem: we need a concise way of refering to the combination of
                              the HVAC 'system' model, the 'building' model and the control sequence(s).)
 
                              Preconfigured control sequence, stored in an OpenBuildingControls-compatible library.
-                                                          
+
                              A set of performance requirements.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     Implemented single zone VAV sequence with customized control,
@@ -255,36 +255,36 @@ Trigger                      n/a
 3                            The user drags and drops a single-zone VAV control sequence from the Buildings library
                              into the tool
 ---------------------------  ---------------------------------------------------
-4                            The user clicks on the pre-defined single-zone VAV control sequence and selects a function 
-                             that will store a copy of the sequence in the project library to allow further editing.                         
+4                            The user clicks on the pre-defined single-zone VAV control sequence and selects a function
+                             that will store a copy of the sequence in the project library to allow further editing.
 ---------------------------  ---------------------------------------------------
 5                            The controls design tool stores a copy of the sequence in the project library.
 ---------------------------  ---------------------------------------------------
 6                            The user loads a copy of the sequence into the sequence editor.
 ---------------------------  ---------------------------------------------------
-7                            The user specifies the mapping of the control points to HVAC system sensors and actuators, e.g. AHU                                
+7                            The user specifies the mapping of the control points to HVAC system sensors and actuators, e.g. AHU
 ---------------------------  ---------------------------------------------------
 8                            The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-9                           If necessary, the user executes the reference model and inspects the resulting performance to identify 
-                             potential modifications  
+9                           If necessary, the user executes the reference model and inspects the resulting performance to identify
+                             potential modifications
 ---------------------------  ---------------------------------------------------
 10                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
                              editor.
 ---------------------------  ---------------------------------------------------
-11                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control 
+11                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
                              blocks from the elementary CDL-block library
 
 ---------------------------  ---------------------------------------------------
-12                           The user selects "Check model" to verify whether 
+12                           The user selects "Check model" to verify whether
                              the implemented sequence complies with the CDL
                              specification, editing and re-checking as necessary.
 ---------------------------  ---------------------------------------------------
 13                           The user connects the modified sequence to the HVAC system and building models, using Step 7, and saves
                              the resulting composite model
----------------------------  ---------------------------------------------------                             
-15                           The user assesses the relative performance of the modified and unmodified sequences using the procedure 
+---------------------------  ---------------------------------------------------
+15                           The user assesses the relative performance of the modified and unmodified sequences using the procedure
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
 
@@ -297,7 +297,6 @@ Trigger                      n/a
 
    title Customizing a control sequence for a multi-zone VAV system
 
-// This section to be completed following review of the above
    "User" -> "OpenStudio" : Open control design tool.
    "OpenStudio" -> "Control Design Tool" : open()
    "User" -> "Control Design Tool" : Open HVAC and building model.
@@ -311,7 +310,8 @@ Trigger                      n/a
    "User" -> "Control Design Tool" : Check model.
    "OpenStudio" <- "Control Design Tool" : Invoke model check.
    "User" <- "Control Design Tool" : Report info, warning and error.
-//
+
+
 Customizing and configuring a control sequence for a multizone VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -330,17 +330,17 @@ Goal in Context              A mechanical engineer wants to customize a control
 ---------------------------  ---------------------------------------------------
 Preconditions                HVAC system model connected to building model.
                              The repeated elements in the HVAC system model (i.e. the terminal boxes) must be tagged and numbered.
-                            
-                             (Phil: HVAC system model = components + connections, including sensors and actuators; 
+
+                             (Phil: HVAC system model = components + connections, including sensors and actuators;
                              building model = envelope/fabric, internal gains and occupancy schedules.)
 
-                             (Phil: we have a naming problem: we need a concise way of refering to the combination of 
+                             (Phil: we have a naming problem: we need a concise way of refering to the combination of
                              the HVAC 'system' model, the 'building' model and the control sequence(s).)
 
                              Preconfigured control sequence, stored in an OpenBuildingControls-compatible library.
                              The terminal boxes control blocks must be tagged to indicate that they can be replicated by a predefined
                              function in the editor.
-                             
+
                              A set of performance requirements.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     Implemented multi-zone VAV sequence with customized control,
@@ -377,41 +377,41 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 7                            The user loads a copy of the sequence into the sequence editor.
 ---------------------------  ---------------------------------------------------
-8                            The user specifies the number of zones (NZi) with each type of terminal box and selects a function that 
-                             will replicate and instantiate sets of NZi terminal box control blocks for each type of terminal box 
+8                            The user specifies the number of zones (NZi) with each type of terminal box and selects a function that
+                             will replicate and instantiate sets of NZi terminal box control blocks for each type of terminal box
 ---------------------------  ---------------------------------------------------
 9                            The tool replicates and instantiates NZi terminal box control blocks of each type
 ---------------------------  ---------------------------------------------------
-10                           The user initiates a tool function that maps zones with specific types of terminal box to the corresponding 
-                             terminal box control blocks and then applies a user-defined mapping of zone-level control points to                             
+10                           The user initiates a tool function that maps zones with specific types of terminal box to the corresponding
+                             terminal box control blocks and then applies a user-defined mapping of zone-level control points to
                              terminal box sensors and actuators and zone temperature and occupancy sensors
 ---------------------------  ---------------------------------------------------
-11                           The tool executes the actions described in Step 10 
+11                           The tool executes the actions described in Step 10
 ---------------------------  ---------------------------------------------------
-12                           The user specifies the mapping of the remaining control points to HVAC system sensors and actuators, e.g.                                      
+12                           The user specifies the mapping of the remaining control points to HVAC system sensors and actuators, e.g.
                              AHU
 ---------------------------  ---------------------------------------------------
 13                           The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-14                           If necessary, the user executes the reference model and inspects the resulting performance to identify 
-                             potential modifications  
+14                           If necessary, the user executes the reference model and inspects the resulting performance to identify
+                             potential modifications
 ---------------------------  ---------------------------------------------------
 15                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
                              editor.
 ---------------------------  ---------------------------------------------------
-16                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control 
+16                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
                              blocks from the elementary CDL-block library
 
 ---------------------------  ---------------------------------------------------
-17                           The user selects "Check model" to verify whether 
+17                           The user selects "Check model" to verify whether
                              the implemented sequence complies with the CDL
                              specification, editing and re-checking as necessary.
 ---------------------------  ---------------------------------------------------
 18                           The user connects the modified sequence to the HVAC system and building models, using Steps 8-12, and saves
                              the resulting composite model
----------------------------  ---------------------------------------------------                             
-19                           The user assesses the relative performance of the modified and unmodified sequences using the procedure 
+---------------------------  ---------------------------------------------------
+19                           The user assesses the relative performance of the modified and unmodified sequences using the procedure
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
 
@@ -438,9 +438,9 @@ Trigger                      n/a
    "User" -> "Control Design Tool" : Check model.
    "OpenStudio" <- "Control Design Tool" : Invoke model check.
    "User" <- "Control Design Tool" : Report info, warning and error.
-//
 
 .. _use_case_per_ass:
+
 
 Performance assessment of a control sequence
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -518,8 +518,9 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
-                             loop, and connects to building/system modeL.---------------------------  ---------------------------------------------------
-3a                           If the sequence contains feedback loops that are to be included in the evaluation, 
+                             loop, and connects to building/system modeL.
+---------------------------  ---------------------------------------------------                             
+3a                           If the sequence contains feedback loops that are to be included in the evaluation,
                              these loops must be tuned, either automatically or manually.
 ---------------------------  ---------------------------------------------------
 4                            User selects short periods for initial testing and
@@ -579,7 +580,7 @@ Goal in Context              Integration actions between HVAC and non-HVAC syste
 ---------------------------  ---------------------------------------------------
 Preconditions                Examples of HVAC and non-HVAC integrations available
                              for adaptation using CDL, non-HVAC systems can be
-                             façade louvre control, lighting on/off or 
+                             façade louvre control, lighting on/off or
                              presence detection status.
 ---------------------------  ---------------------------------------------------
 Successful End Condition     User able to use CDL to define common HVAC
