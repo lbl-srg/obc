@@ -120,7 +120,7 @@ Preconditions                HVAC system model connected to building model.
                              (Phil: we have a naming problem: we need a concise way of refering to the combination of the HVAC 'system' model, the 'building' model and the control sequence(s).)
 
                              (mg: I added terms to the glossary, please review the descriptions, edit as needed
-                             and remove the comments.)
+                             and remove the comments. Same goes for the single zone and multizone sequences below, where applicable.)
 
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
@@ -139,7 +139,7 @@ Primary Actors               A mechanical engineer.
 Secondary Actors             The controls design tool with template control
                              sequences and a package with elementary CDL blocks.
 
-                             The HVAC and controls library.
+                             The HVAC plant and control sequence library.
 ---------------------------  ---------------------------------------------------
 Trigger                      n/a
 ---------------------------  ---------------------------------------------------
@@ -147,7 +147,7 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 1                            The user opens the controls design tool in OpenStudio
 ---------------------------  ---------------------------------------------------
-2                            The user opens the HVAC model and building model
+2                            The user opens the HVAC system model and building model
                              in the controls design tool.
 ---------------------------  ---------------------------------------------------
 3                            The user connects sensors and actuators to
@@ -270,7 +270,7 @@ Trigger                      n/a
 8                            The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-9                           If necessary, the user executes the reference model and inspects the resulting performance to identify
+9                            If necessary, the user executes the reference model and inspects the resulting performance to identify
                              potential modifications
 ---------------------------  ---------------------------------------------------
 10                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
@@ -521,7 +521,7 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
-                             loop, and connects to building/system modeL.---------------------------  ---------------------------------------------------
+                             loop, and connects to building and HVAC/non-HVAC system modeL.---------------------------  ---------------------------------------------------
 3a                           If the sequence contains feedback loops that are to be included in the evaluation,
                              these loops must be tuned, either automatically or manually.
 ---------------------------  ---------------------------------------------------
@@ -932,7 +932,7 @@ Trigger                      Need to select or improve a control sequence for a
 4                            User uses design information to identify operating
                              ranges at which the control sequence must function and identifies operating conditions/ranges for tuning of individual feedback control loops in the sequence.
 ---------------------------  ---------------------------------------------------
-5                            User  selects initial values for supervisory
+5                            User selects initial values for supervisory
                              controller parameters and tunes the individual feedback control loops or initiates autotuning.
 ---------------------------  ---------------------------------------------------
 6                            User selects short periods for initial testing
@@ -977,7 +977,7 @@ Preconditions                1. Either a) whole building or system model for
 Successful End Condition     User is able to (i) compare the performance of
                              different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
 ---------------------------  ---------------------------------------------------
-Failed End Condition         1. Building/system model or
+Failed End Condition         1. Building or plant model or
                              configuration information for generic model template is incomplete.
 
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific
