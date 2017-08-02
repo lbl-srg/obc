@@ -21,6 +21,12 @@ the Open Building Controls project.
      that can take on two values (within some tolerance) in order
      to communicate the binary value.
 
+   Building Model
+     Digital model of the physical behavior of a given building over time,
+     which accounts for any elements of the building envelope and includes a
+     representation of internal gains and occupancy. Building model has connectors
+     to be coupled with an environment model and any HVAC and non-HVAC system models
+     pertaining to the building.
 
    Controls Description Language
      The Control Description Language (CDL) is the language
@@ -88,4 +94,4 @@ the Open Building Controls project.
      secondary HVAC system (AHU, terminal boxes), lighting system, an active facade, etc. A plant can be both HVAC and non-HVAC.
 
    Standard control sequence
-     A control sequence defined in the CDL control sequence library based on a standard document.
+     A control sequence defined in the CDL control sequence library based on a standard or any other document which contains a full English language description of the implemented sequence.
