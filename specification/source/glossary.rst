@@ -42,11 +42,14 @@ the Open Building Controls project.
        in the :term:`Controls Description Language`.
 
    Control Sequence Requirement
-      A requirement is a condition that is tested and either passes, fails,
-      or is untested. For example, a requirement would be that the actual
-      actuation signal is within 2% of the signal computed using the CDL
-      representation of a sequence, provided that they both receive the same
-      input data.
+     A requirement is a condition that is tested and either passes, fails,
+     or is untested. For example, a requirement would be that the actual
+     actuation signal is within 2% of the signal computed using the CDL
+     representation of a sequence, provided that they both receive the same
+     input data.
+
+   Control System
+     Any software and hardware required to perform the control function for a plant.
 
    Functional Verification Tool
      The Functional Verification Tool is a software that takes
@@ -57,7 +60,13 @@ the Open Building Controls project.
      whether some requirements remain untested.
 
    G36 Sequence
-      A control sequence specified by ASHRAE Guideline 36.
+     A control sequence specified by ASHRAE Guideline 36.
+
+   HVAC System
+     Any HVAC plant coupled with the control system.
+
+   HVAC System Model
+     Consists of all components and connections used to model the behavior of an HVAC System.
 
    Open Building Controls
      Open Building Controls (OBC) is the name of project that develops
@@ -70,3 +79,10 @@ the Open Building Controls project.
    Mode
      In CDL, by mode we mean a signal that can take on multiple distinct
      values, such as ``On``, ``Off``, ``PreCool``.
+
+   Non-HVAC System
+     Any non-HVAC plant coupled with the control system.
+
+   Plant
+     The term plant can be used for any controlled system, such as primary HVAC system (chiller/boiler plant),
+     secondary HVAC system (AHU, terminal boxes), lighting system, an active facade, etc. A plant can be both HVAC and non-HVAC.
