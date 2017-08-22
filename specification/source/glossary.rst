@@ -27,15 +27,15 @@ the Open Building Controls project.
      representation of internal gains and occupancy. Building model has connectors
      to be coupled with an environment model and any HVAC and non-HVAC system models
      pertaining to the building.
+     
+   CDL
+     See :term:`Controls Description Language`.
 
    Controls Description Language
      The Control Description Language (CDL) is the language
      that is used to express control sequences and requirements.
      It is a declarative language based on a subset of the
      Modelica language and specified at :ref:`sec_cdl`.
-
-   CDL
-     See :term:`Controls Description Language`.
 
    Controls Design Tool
      The Controls Design Tool is a software that can be used to
@@ -56,6 +56,12 @@ the Open Building Controls project.
 
    Control System
      Any software and hardware required to perform the control function for a plant.
+     
+   Controller
+      A controller, or a compensator is an additional system that is added to the 
+      plant to control the operation of the  plant. The system can have multiple 
+      compensators, and they can appear anywhere in the system: Before the pick-off node, 
+      after the summer, before or after the plant, and in the feedback loop. 
 
    Functional Verification Tool
      The Functional Verification Tool is a software that takes
@@ -90,8 +96,12 @@ the Open Building Controls project.
      Any non-HVAC plant coupled with the control system.
 
    Plant
-     The term plant can be used for any controlled system, such as primary HVAC system (chiller/boiler plant),
-     secondary HVAC system (AHU, terminal boxes), lighting system, an active facade, etc. A plant can be both HVAC and non-HVAC.
+     The term Plant is a carry-over term from chemical engineering to refer to the main 
+     system process. The plant is the preexisting system that does not (without the aid of 
+     a controller or a compensator) meet the given specifications. Plants are usually given 
+     "as is", and are not changeable.
 
    Standard control sequence
-     A control sequence defined in the CDL control sequence library based on a standard or any other document which contains a full English language description of the implemented sequence.
+     A control sequence defined in the CDL control sequence library based on a standard or 
+     any other document which contains a full English language description of the 
+     implemented sequence.
