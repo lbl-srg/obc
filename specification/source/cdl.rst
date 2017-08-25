@@ -95,7 +95,7 @@ See the Modelica 3.3 specification Chapter 10 for array notation.
 .. note::
 
    We still need to define the allowed values for `quantity`, for example
-   ``ThermodynamicTemperature`` rather than ``Temp``.
+   `ThermodynamicTemperature` rather than `Temp`.
 
 
 Encapsulation of functionality
@@ -187,20 +187,25 @@ In the assignment of `parameters`, calculations are allowed.
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
      uHigh = pRel+25) "Hysteresis for fan control";
+
 ]
 
-.. todo::
+Instances can conditionally be removed by using an `if` clause.
 
-   We need to clarify whether
-   we allow conditional removal of blocks and connectors, such as
+[This allows to have one implementation for an economizer control sequence
+that can be configured to take into account enthalpy rather than
+temperature. A statement would be
 
-   .. code-block:: modelica
+.. code-block:: modelica
 
-      parameter Boolean useGain = false;
-      Continuous.Gain myGain(k=10*60) if useGain;
+   parameter Boolean use_enthalpy = true
+     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
 
-   [This would allow removing certain blocks and all their connections
-   based on a boolean parameter.]
+   CDL.Interfaces.RealInput hOut if use_enthalpy
+      "Outdoor air enthalpy";
+
+By the Modelica language definition, all connections (:numref:`sec_connections`)
+to `hOut` will be removed if `use_enthalpy = false`.]
 
 
 .. _sec_connectors:
@@ -210,7 +215,7 @@ Connectors
 
 Blocks expose their inputs and outputs through input and output
 connectors. The permissible connectors are defined in the
-`CDL.Intefaces package <cdl/latest/help/CDL_Interfaces.html>`_.
+`CDL.Interfaces package <cdl/latest/help/CDL_Interfaces.html>`_.
 
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
@@ -227,11 +232,12 @@ Hence, unlike in Modelica 3.2, we do not allow for automatic vectorization
 of input signals.
 ]
 
+.. _sec_connections:
 
 Connections
 ^^^^^^^^^^^
 
-Connections connect input to output connectors_.
+Connections connect input to output connector (:numref:`sec_connectors`).
 Each input connector of a block needs to be connected to exactly
 one output connector of a block.
 Connections are listed after the instantiation of the blocks in an equation
@@ -536,13 +542,3 @@ I.e., connections that form an algebraic loop are not allowed.
 [To break an algebraic loop, one could place a delay block or an integrator
 in the loop, because the outputs of a delay or integrator does *not* depend
 directly on the input.]
-
-
-.. todo::
-
-   In simulation, we likely need to use discrete event or discrete time semantics
-   for reasons of computing speed, but actual control systems use discrete time
-   sampled systems. We need to address how to sample the control blocks in
-   the actual implementation and in the verification tool [as
-   they have different needs on performance, predictability of computing time,
-   and scheduling of execution].
