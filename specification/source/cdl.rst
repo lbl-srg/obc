@@ -106,8 +106,8 @@ Blocks exposes parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
 
-Blocks are either `elementary building blocks`_
-or `composite blocks`_.
+Blocks are either *elementary building blocks* (:numref:`sec_ele_bui_blo`)
+or *composite blocks* (:numref:`sec_com_blo`).
 
 
 .. _sec_ele_bui_blo:
@@ -122,7 +122,7 @@ http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
 The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification. Hence, users are not allowed to add
 new elementary building blocks. Rather, users can use them to implement
-`composite blocks`_.
+composite blocks (:numref:`sec_com_blo`).
 
 [CDL implementations are allowed to use a different implementation of the elementary
 building blocks, because the implementation is language specific. However,
