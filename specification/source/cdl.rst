@@ -40,18 +40,18 @@ violates the Modelica Standard is added.
 
 To simplify the implementation, the following Modelica keywords are not supported in CDL:
 
-#. `redeclare`
-#. `constrainedby`
-#. `inner` and `outer`
+#. ``redeclare``
+#. ``constrainedby``
+#. ``inner`` and ``outer``
 
 Also, the following Modelica language features are not supported in CDL:
 
 #. Clocks [which are used in Modelica for hybrid system modeling].
-#. `algorithm` sections. [As the elementary building blocks are black-box
+#. ``algorithm`` sections. [As the elementary building blocks are black-box
    models as far as CDL is concerned and thus CDL compliant tools need
-   not parse the `algorithm` section.]
-#. `initial equation` and `initial algorithm` sections.
-#. package-level declaration of `constant` data types.
+   not parse the ``algorithm`` section.]
+#. ``initial equation`` and ``initial algorithm`` sections.
+#. package-level declaration of ``constant`` data types.
 
 
 .. _sec_cld_per_typ:
@@ -61,12 +61,12 @@ Permissible data types
 
 The basic data types are, in addition to the elementary building blocks,
 parameters of type
-`Real`, `Integer`, `Boolean`, `String`, and `enumeration`.
+``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
 [Parameters do not change their value as time progress.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type `parameter`
-or type `constant`.
+instances of blocks, or declarations of type ``parameter``
+or type ``constant``.
 Variables are not allowed [they are used however in the elementary building blocks].
 
 The declaration of such types is identical to the declaration
@@ -77,31 +77,31 @@ allows users to change the value of a parameter when the simulation
 or control sequence is not running.
 For example, to declare a real-valued parameter,
 use ``parameter Real k = 1 "A parameter with value 1";``.
-In contract, a `constant` cannot be changed after the software is
+In contract, a ``constant`` cannot be changed after the software is
 compiled, and is typically not shown in a graphical user interface menu.
-For example, a `constant` is used to define latent heat of evaporation
+For example, a ``constant`` is used to define latent heat of evaporation
 if used in a controller.
 ]
 
 Each of these data types, including the elementary building blocks,
 can be a single instance or one-dimensional array.
-Array indices shall be of type `Integer` only.
-The first element of an array has index `1`.
-An array of size `0` is an empty array.
+Array indices shall be of type ``Integer`` only.
+The first element of an array has index ``1``.
+An array of size ``0`` is an empty array.
 See the Modelica 3.3 specification Chapter 10 for array notation.
 
-[`enumeration` or `Boolean` data types are not permitted as array indices.]
+[``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
 
 .. note::
 
-   We still need to define the allowed values for `quantity`, for example
-   `ThermodynamicTemperature` rather than `Temp`.
+   We still need to define the allowed values for ``quantity``, for example
+   ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
 Encapsulation of functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All computations are encapsulated in a `block`.
+All computations are encapsulated in a ``block``.
 Blocks exposes parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
@@ -176,7 +176,7 @@ The optional annotations is typically used
 for the graphical positioning of the instance in a block-diagram.
 ]
 
-In the assignment of `parameters`, calculations are allowed.
+In the assignment of ``parameters``, calculations are allowed.
 
 [For example, a hysteresis block could be configured as follows
 
@@ -190,7 +190,7 @@ In the assignment of `parameters`, calculations are allowed.
 
 ]
 
-Instances can conditionally be removed by using an `if` clause.
+Instances can conditionally be removed by using an ``if`` clause.
 
 [This allows to have one implementation for an economizer control sequence
 that can be configured to take into account enthalpy rather than
@@ -205,7 +205,7 @@ temperature. A statement would be
       "Outdoor air enthalpy";
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
-to `hOut` will be removed if `use_enthalpy = false`.]
+to ``hOut`` will be removed if ``use_enthalpy = false``.]
 
 
 .. _sec_connectors:
@@ -220,7 +220,7 @@ connectors. The permissible connectors are defined in the
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
 
-[ For example, to declare an array of `nin` input signals, use
+[ For example, to declare an array of ``nin`` input signals, use
 
 .. code-block:: modelica
 
@@ -247,13 +247,13 @@ section. The syntax is
 
    connect(port_a, port_b) annotation(...);
 
-where `annotation(...)` is optional and may be used to declare
+where ``annotation(...)`` is optional and may be used to declare
 the graphical rendering of the connection.
 The order of the connections and the order of the arguments in the
-`connect` statement does not matter.
+``connect`` statement does not matter.
 
-[For example, to connect an input `u` of an instance `gain` to the output
-`y` of an instance `timer`, one would declare
+[For example, to connect an input ``u`` of an instance ``gain`` to the output
+``y`` of an instance ``timer``, one would declare
 
 .. code-block:: modelica
 
@@ -265,7 +265,7 @@ The order of the connections and the order of the arguments in the
 
 ]
 
-Signals shall be connected using a `connect` statement;
+Signals shall be connected using a ``connect`` statement;
 direct assigning the values of signals when instantiating
 signals is not allowed.
 
@@ -322,15 +322,15 @@ CDL allows building composite blocks such as shown in
 Composite blocks can contain other composite blocks.
 
 Each composite block shall be stored on the file system under the name of the composite block
-with the file extension `.mo`, and with each package name being a directory.
+with the file extension ``.mo``, and with each package name being a directory.
 The name shall be an allowed Modelica class name.
 
-[For example, if a user specifies a new composite block `MyController.MyAdder`, then it
-shall be stored in the file `MyController/MyAdder.mo` on Linux or OS X, or `MyController\\MyAdder.mo`
+[For example, if a user specifies a new composite block ``MyController.MyAdder``, then it
+shall be stored in the file ``MyController/MyAdder.mo`` on Linux or OS X, or ``MyController\\MyAdder.mo``
 on Windows.]
 
 
-[ The following statement, when saved as `CustomPWithLimiter.mo`, is the
+[ The following statement, when saved as ``CustomPWithLimiter.mo``, is the
 declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 
