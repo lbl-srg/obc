@@ -603,17 +603,6 @@ Trigger
 ===========================  ===================================================
 
 
-Export of the control sequence in CDL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Saving the control sequence in a library for use in future projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-
 Bidding and BAS Implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -670,22 +659,6 @@ Trigger
                              so that the associated specification
                              section can be extracted and populated within third party software.
 ===========================  ===================================================
-
-
-Processing the CDL for cost-estimation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Processing the CDL for implementation in building automation system using code translation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Processing the CDL for implementation in building automation system using manual implementation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
 
 
 Commissioning, Operation, and Maintenance
@@ -1004,61 +977,4 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 7                            User compare metric values to requirements and/or
                              targets.
----------------------------  ---------------------------------------------------
-**Main Flow 2**              **Commissioning Override Checks**
----------------------------  ---------------------------------------------------
-1
----------------------------  ---------------------------------------------------
-2
-===========================  ===================================================
-
-
-Importing a CDL for trouble shooting an existing building
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-
-Verification of requirements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-
-Template Use Case
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Provided by mg, lbnl.*
-
-This use case will tell you how to fill out the table form with a new use case.
-
-===========================  ===================================================
-**Use case name**            **Name**
-===========================  ===================================================
-Related Requirements         xxx
----------------------------  ---------------------------------------------------
-Goal in Context              xxx
-                             xxx
-                             xxx
----------------------------  ---------------------------------------------------
-Preconditions                xxx
-                             xxx
----------------------------  ---------------------------------------------------
-Successful End Condition     xxx
----------------------------  ---------------------------------------------------
-Failed End Condition         xxx
----------------------------  ---------------------------------------------------
-Primary Actors               xxx
----------------------------  ---------------------------------------------------
-Secondary Actors             xxx
----------------------------  ---------------------------------------------------
-Trigger                      xxx
----------------------------  ---------------------------------------------------
-**Main Flow**                **Action**
----------------------------  ---------------------------------------------------
-1                            xxx
----------------------------  ---------------------------------------------------
-2                            xxx
----------------------------  ---------------------------------------------------
-3                            xxx
 ===========================  ===================================================
