@@ -341,7 +341,26 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
 
-[fixme: This might be a good spot to list the block hierarchically. Any blocks contained by the composite blocks can inherit appropriate relational tags from any higher level (details and example provided under Tags section)]
+
+
+Model of computation
+^^^^^^^^^^^^^^^^^^^^
+
+CDL uses the synchronous data flow principle and the single assignment rule,
+which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
+
+#. All variables keep their actual values until these values
+   are explicitly changed. Variable values can be accessed at any time instant.
+#. Computation and communication at an event instant does not take time.
+   [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
+#. Every input connector shall be connected to exactly one output connector.
+
+In addition, the dependency graph from inputs to outputs that directly depend
+on inputs shall be directed and acyclic.
+I.e., connections that form an algebraic loop are not allowed.
+[To break an algebraic loop, one could place a delay block or an integrator
+in the loop, because the outputs of a delay or integrator does *not* depend
+directly on the input.]
 
 
 Tags
@@ -351,12 +370,16 @@ CDL has sufficient information for tools that process CDL to
 generate for example point lists that list all analog temperature sensors,
 or to verify that a pressure control signal is not connected to a temperature
 input of a controller.
-Some of the required properties need to be tagged, for which we will
-use vendor annotations, while other properties
-can be inferred from the Modelica declarations.
+Some, but not all, of these information can be inferred from the CDL language described above.
+We will use tags, implemented through Modelica vendor annotations,
+to provide this additional information.
 In :numref:`sec_inf_pro`, we will explain the properties that can be inferred,
 and in :numref:`sec_tag_pro`, we will explain how to use
 tagging schemes in CDL.
+
+.. note:: None of these information affects the computation of a control signal.
+          Rather, it can be used for example to facilitate the implementation of cost estimation tools,
+          or to detect incorrect connections between outputs and inputs.
 
 .. _sec_inf_pro:
 
@@ -523,22 +546,3 @@ sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
 Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
 
-
-Model of computation
-^^^^^^^^^^^^^^^^^^^^
-
-CDL uses the synchronous data flow principle and the single assignment rule,
-which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
-
-#. All variables keep their actual values until these values
-   are explicitly changed. Variable values can be accessed at any time instant.
-#. Computation and communication at an event instant does not take time.
-   [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
-#. Every input connector shall be connected to exactly one output connector.
-
-In addition, the dependency graph from inputs to outputs that directly depend
-on inputs shall be directed and acyclic.
-I.e., connections that form an algebraic loop are not allowed.
-[To break an algebraic loop, one could place a delay block or an integrator
-in the loop, because the outputs of a delay or integrator does *not* depend
-directly on the input.]
