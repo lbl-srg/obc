@@ -48,6 +48,28 @@ the Open Building Controls project.
       representation of a sequence, provided that they both receive the same
       input data.
 
+   co-simulation
+     Co-simulation refers to a simulation in which different simulation programs
+     exchange run-time data at certain synchronization time points.
+     A master algorithm sets the current time, input and states,
+     and request the simulator to advance time, after which the
+     master will retrieve the new values for the state.
+     Each simulator is responsible for integrating in time its
+     differential equation. See also :term:`model-exchange`.
+
+   Functional Mockup Interface
+     The Functional Mockup Interface (FMI) standard defines an open interface
+     to be implemented by an executable called :term:`Functional Mockup Unit` (FMU).
+     The FMI functions are called by a simulator to create one or more instances of the FMU,
+     called models, and to run these models, typically together with other models.
+     An FMU may either be self-integrating (:term:`co-simulation`) or require the simulator
+     to perform the numerical integration (:term:`model-exchange`).
+     See further http://fmi-standard.org/.
+
+   Functional Mockup Unit
+     Compiled code or source code that can be executed using the
+     application programming interface defined in the :term:`Functional Mockup Interface` standard.
+
    Functional Verification Tool
      The Functional Verification Tool is a software that takes
      as an input the control sequence in CDL, requirements expressed in CDL,
@@ -70,3 +92,11 @@ the Open Building Controls project.
    Mode
      In CDL, by mode we mean a signal that can take on multiple distinct
      values, such as ``On``, ``Off``, ``PreCool``.
+
+   model-exchange
+     Model-exchange refers to a simulation in which different simulation programs
+     exchange run-time data.
+     A master algorithm sets time, inputs and states, and requests
+     from the simulator the time derivative. The master algorithm
+     integrates the differential equations in time.
+     See also :term:`co-simulation`.
