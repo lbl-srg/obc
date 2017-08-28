@@ -150,6 +150,59 @@ models in CDL can be manipulated and reused upstream as the
 downstream processing only.
 
 
+.. _fig_cdl_export_formats:
+
+.. uml::
+   :caption: Export formats for CDL. Note that not all formats will
+             be supported in this project.
+
+   skinparam componentStyle uml2
+
+   @startuml
+
+   interface "CDL-compliant sequence" as CDL
+   interface "Cost estimation" as CE
+   interface "Tridium Niagara" as TN
+   interface "ALC Eikon" as AE
+   interface "JSON" as json
+   interface "FMU-ME" as FMU
+   interface "others" as optional
+
+   CDL --> [exporter]
+   [exporter] --> json
+   [exporter] --> FMU
+   [exporter] --> C
+   [exporter] --> JavaScript
+   json --> [translator to target applications]
+   [translator to target applications] --> CE
+   [translator to target applications] --> AE
+   [translator to target applications] --> TN
+   [translator to target applications] --> optional
+   @enduml
+
+:numref:`fig_cdl_export_formats` shows export formats for CDL-compliant control sequences.
+Using an export program, the CDL-compliant control sequence
+can be converted to JSON for easier
+processing by other applications. We anticipate that JSON will
+be used as input to translators that will generate code for different
+building automation systems, as well as for cost-estimation tools.
+In addition, as CDL is a subset of Modelica, it can be exported with
+a variety of tools, such as with JModelica, as a :term:`Functional Mockup Unit`
+for Model Exchange (FMU-ME) or as ANSI C code.
+For example, the following code would export a CDL-compliant control sequence
+called ``EconomizerControl`` as an FMU-ME, using ``pymodelica`` which is part of
+JModelica:
+
+.. code:: python
+
+   from pymodelica import compile_fmu
+   model_name = "mySequences.EconomizerControl"
+   compile_fmu(model_name)
+
+Also not scope of this project, CDL could be exported as JavaScript
+to run in a browser or other secure environment. See for
+example the experimental code of OpenModelica at https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/emscripten.html
+
 Functional Verification Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -168,16 +221,16 @@ Functional Verification Tool
    [CDL Parser]
    [JModelica]
    database "Modelica\nControl\nModel" as mod_ctl
-   [FMU]
+   [FMU-ME]
    [Reports] <<htlm, json>>
    [HIL Module]
 
    vt -r-> [CDL Parser]: uses
    [I/O\nConfiguration] -> mod_ctl : updates point list
-   [Engine] -> [FMU] : inserts point list
-   [Engine] -> [JModelica] : invokes FMU export
+   [Engine] -> [FMU-ME] : inserts point list
+   [Engine] -> [JModelica] : invokes FMU-ME export
    [JModelica] -l-> mod_ctl: imports
-   [JModelica] -> [FMU] : exports
+   [JModelica] -> [FMU-ME] : exports
    [Engine] -> [HIL Module]: connect
    [Engine] -> [Reports]: writes
    [Viewer] -> [Reports]: imports
@@ -195,11 +248,11 @@ The `I/O Configuration` module will allow users (such as a
 commissioning agent) to update the point list.
 This is needed as not all
 point mappings may be known during the design phase.
-The `Engine` invokes `JModelica` to export an FMU of the control
+The `Engine` invokes `JModelica` to export an FMU-ME of the control
 blocks. As `JModelica` does not parse CDL information
 that is stored in vendor annotations (such as the point mapping),
 the `Engine` will insert point lists into the ``Resources`` directory
-of the `FMU`.
+of the `FMU-ME`.
 To conduct the verification, the `Engine` will connect to a
 `HIL Module`, such as Volttron or the BCVTB, and set up a
 closed loop model, using the point list from the FMU's ``Resources``
