@@ -345,7 +345,7 @@ shall be stored in the file ``MyController/MyAdder.mo`` on Linux or OS X, or ``M
 on Windows.]
 
 
-[ The following statement, when saved as ``CustomPWithLimiter.mo``, is the
+[The following statement, when saved as ``CustomPWithLimiter.mo``, is the
 declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 
