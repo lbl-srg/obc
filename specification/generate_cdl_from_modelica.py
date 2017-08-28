@@ -7,7 +7,7 @@ import fnmatch
 
 
 REPO="git@github.com:lbl-srg/modelica-buildings.git"
-BASE_BRANCH="issue609_cdl"
+BASE_BRANCH="master"
 
 html_output_dir = os.path.join("build", "html", "cdl", "latest")
 
