@@ -164,5 +164,9 @@ table.citation{
 .page-content{
   margin: 10px;
 }
+
+div.figure p{
+    text-align: center;
+}
 /* End stylesheet from main web site -------------------- */
 /* ------------------------------------------------------ */

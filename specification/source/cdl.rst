@@ -115,14 +115,29 @@ or *composite blocks* (:numref:`sec_com_blo`).
 Elementary building blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. figure:: img/cdl/cdl_screen_shot.*
+   :width: 300px
+
+   Screenshot of CDL library.
+
 The CDL contains elementary building blocks that are used to compose
-control sequences. The elementary building blocks can be
-browsed at the CDL blocks web page
-http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+control sequences.
 The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification. Hence, users are not allowed to add
 new elementary building blocks. Rather, users can use them to implement
 composite blocks (:numref:`sec_com_blo`).
+
+.. note::
+
+   The elementary building blocks can be browsed in any of these ways:
+
+     * Open a web browser at http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+     * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
+       and open ``Buildings/package.mo`` in the graphical model editor of
+       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
+       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
+       All models in the `Examples` and `Validation` packages can be simulated with these tools.
+       They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
 
 [CDL implementations are allowed to use a different implementation of the elementary
 building blocks, because the implementation is language specific. However,
@@ -157,7 +172,7 @@ is used for graphical rendering:
 
 For the complete implementation, see
 the
-`github repository <https://github.com/lbl-srg/modelica-buildings/blob/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL/Continuous/AddParameter.mo>`_.
+`github repository <https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/Controls/OBC/CDL/Continuous/AddParameter.mo>`_.
 
 
 Instantiation
