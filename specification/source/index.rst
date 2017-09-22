@@ -30,6 +30,7 @@ OpenBuildingControl (Working Draft)
    requirements
    softwareArchitecture
    cdl
+   example           
    glossary
    acknowledgments
    bibliography
