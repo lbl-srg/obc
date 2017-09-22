@@ -102,6 +102,14 @@ if __name__=='__main__':
          "start_time": 0,
          "stop_time":  2})
 
+    # Simulate a model from the Buildings library
+    cases.append( \
+        {'model': "Buildings.Controls.Continuous.Examples.OffTimer",
+         "output_directory": "case3",
+         "start_time": 0,
+         "stop_time":  2})
+
+
     # Number of parallel processes
     nPro = 10
     po = Pool(nPro)
