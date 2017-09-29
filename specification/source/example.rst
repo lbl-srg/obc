@@ -116,13 +116,26 @@ using a finite state machine.
 
 For the detailed implementation of the control logic,
 see the model ``Buildings.Examples.VAVReheat.ClosedLoop``,
-which is also shown in xxxx
+which is also shown in xxxx.
 
 
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
 
 xxx
+
+
+Improvement to Guideline 36 specification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This section describes improvements that we recommend for the Guideline 36
+specification, based on the first public review draft :cite:`ASHRAE2016`.
+
+
+
+The sequences have no freeze protection for the mixed air temperature.
+For our simulation, we saw on the first day of January a mixed air temperature
+of around :math:`-2^\circ`C entering the heating coil, which may freeze the coil.
 
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
