@@ -4,7 +4,7 @@
 # with your model
 #############################################################
 import os
-BRANCH="master"
+BRANCH="issue967_VAVReheat_CDL"
 CWD = os.getcwd()
 
 
@@ -89,26 +89,9 @@ def _simulate(spec):
 if __name__=='__main__':
     from multiprocessing import Pool
     import shutil
+    import cases
 
-    cases = list()
-    cases.append( \
-        {'model': "VAVMultiZone.Example.SimpleTest",
-         "output_directory": "case1",
-         "start_time": 0,
-         "stop_time":  1})
-    cases.append( \
-        {'model': "VAVMultiZone.Example.SimpleTest",
-         "output_directory": "case2",
-         "start_time": 0,
-         "stop_time":  2})
-
-    # Simulate a model from the Buildings library
-    cases.append( \
-        {'model': "Buildings.Controls.Continuous.Examples.OffTimer",
-         "output_directory": "case3",
-         "start_time": 0,
-         "stop_time":  2})
-
+    list_of_cases = cases.get_cases()
 
     # Number of parallel processes
     nPro = 10
@@ -117,7 +100,7 @@ if __name__=='__main__':
     lib_dir = create_working_directory()
     checkout_repository(lib_dir)
     # Add the directory where the library has been checked out
-    for case in cases:
+    for case in list_of_cases:
         case['lib_dir'] = lib_dir
 
     # Run all cases

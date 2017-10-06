@@ -137,6 +137,8 @@ The sequences have no freeze protection for the mixed air temperature.
 For our simulation, we saw on the first day of January a mixed air temperature
 of around :math:`-2^\circ`C entering the heating coil, which may freeze the coil.
 
+Describe issues with `uHea` in reheat box.
+
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
