@@ -28,23 +28,23 @@ def get_cases():
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.ASHRAE2006",
          "name": "summer_base",
-         "start_time": 150*24*3600,
-         "stop_time":  164*24*3600})
+         "start_time": 190*24*3600,
+         "stop_time":  204*24*3600})
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.Guideline36",
          "name": "summer_g36",
-         "start_time": 150*24*3600,
-         "stop_time":  164*24*3600})
+         "start_time": 190*24*3600,
+         "stop_time":  204*24*3600})
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.ASHRAE2006",
          "name": "spring_base",
-         "start_time": 70*24*3600,
-         "stop_time":  84*24*3600})
+         "start_time": 80*24*3600,
+         "stop_time":  94*24*3600})
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.Guideline36",
          "name": "spring_g36",
-         "start_time": 70*24*3600,
-         "stop_time":  84*24*3600})
+         "start_time": 80*24*3600,
+         "stop_time":  94*24*3600})
     return cases
 
 def get_case(name):
@@ -61,6 +61,5 @@ def get_result_file_name(name):
     import os.path
     case = get_case(name)
     model_name = (os.path.splitext(case['model'])[1])[1:]
-    print("**** {}".format(model_name))
     mat_name = "{}.mat".format( model_name )
     return os.path.join(name, mat_name)

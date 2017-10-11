@@ -48,10 +48,7 @@ def _simulate(spec):
 
     wor_dir = create_working_directory()
 
-    model = spec["model"]
-    out_dir = os.path.join(wor_dir, spec["output_directory"])
-    start_time = spec["start_time"]
-    stop_time   = spec["stop_time"]
+    out_dir = os.path.join(wor_dir, spec["name"])
 
     # Update MODELICAPATH to get the right library version
     os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
@@ -64,19 +61,20 @@ def _simulate(spec):
     # Change the working directory so that the right checkout is loaded
     os.chdir(os.path.join(wor_dir, "VAVMultiZone"))
 
-    s=Simulator(model, "dymola", outputDirectory=out_dir)
+    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
-    s.setSolver("radau")
-    s.setStartTime(start_time)
-    s.setStopTime(stop_time)
+    if not 'solver' in spec:
+        s.setSolver("radau")
+    s.setStartTime(spec["start_time"])
+    s.setStopTime(spec["stop_time"])
     s.setTolerance(1E-6)
     s.showGUI(False)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()
 
     # Copy results back
-    res_des = os.path.join(CWD, spec["output_directory"])
+    res_des = os.path.join(CWD, spec["name"])
     if os.path.isdir(res_des):
        shutil.rmtree(res_des)
     print("Copying results to {}".format(res_des))
@@ -104,7 +102,7 @@ if __name__=='__main__':
         case['lib_dir'] = lib_dir
 
     # Run all cases
-    po.map(_simulate, cases)
+    po.map(_simulate, list_of_cases)
     #shutil.rmtree(lib_dir)
 
     # Delete the checked out repository
