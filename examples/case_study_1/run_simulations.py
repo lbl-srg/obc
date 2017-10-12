@@ -64,6 +64,7 @@ def _simulate(spec):
     s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
+    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
         s.setSolver("radau")
     s.setStartTime(spec["start_time"])
@@ -92,7 +93,7 @@ if __name__=='__main__':
     list_of_cases = cases.get_cases()
 
     # Number of parallel processes
-    nPro = 10
+    nPro = 2
     po = Pool(nPro)
 
     lib_dir = create_working_directory()
