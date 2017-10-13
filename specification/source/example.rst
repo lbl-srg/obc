@@ -16,7 +16,10 @@ Method
 All models are implemented in Modelica, using models from
 the Buildings library :cite:`WetterZuoNouiduiPang2014`.
 
-.. todo:: add version of library, and where models can be accessed.
+The models are available from the branch
+https://github.com/lbl-srg/modelica-buildings/tree/issue967_VAVReheat_CDL
+
+.. todo:: Move models to the master branch.
 
 As a test case, we used a simulation model that consists
 of five thermal zones that are representative of one floor of the
@@ -42,7 +45,7 @@ inlet branches.
 
 .. _fig_vav_schematics:
 
-.. figure:: img/examples/vavSchematics.*
+.. figure:: img/case_study1/vavSchematics.*
 
    Schematic diagram of the HVAC system.
 
@@ -71,16 +74,15 @@ has a dynamic equation for the moisture content.
 Multi-zone air exchange
 .......................
 
-Each thermal zone can have air flow from the HVAC system,
+Each thermal zone has air flow from the HVAC system,
 through leakages of the building envelope (except for the core zone)
 and through bi-directional air exchange through open doors that connect adjacent zones.
 The bi-directional air exchange is modeled based on the differences
 in static pressure between adjacent rooms at a reference height
 plus the difference in static pressure across the door height
 as a function of the difference in air density.
-There is also wind pressure acting on each facade. The wind pressure is a function
-of the wind speed and wind direction. Therefore, infiltration is a function of the
-flow imbalance of the HVAC system and of the wind conditions.
+Air infiltration is a function of the
+flow imbalance of the HVAC system.
 The multizone airflow models are further described in
 :cite:`Wetter2006:2`.
 
@@ -122,7 +124,91 @@ which is also shown in xxxx.
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
 
-xxx
+.. _fig_cas_stu1_energy:
+
+.. figure:: img/case_study1/results/energy.*
+
+   Comparison of energy use.
+
+:numref:`fig_cas_stu1_energy` compares the energy use between 
+the annual simulations with the base case control
+and the Guideline 36 control.
+The Guideline 36 control saves :math:`xxxx \mathrm{kWh/(m^2 \, a)}`
+energy.
+
+.. todo:: Add conversion between heating, cooling and electricity.
+
+
+.. _fig_TRoom_base:
+
+.. figure:: img/case_study1/results/TRoom_base.*
+
+   Room air temperatures for the base case.
+
+.. _fig_TRoom_g36:
+
+.. figure:: img/case_study1/results/TRoom_g36.*
+
+   Room air temperatures for guideline 36.
+
+
+.. _fig_vav_base:
+
+.. figure:: img/case_study1/results/vav_base.*
+
+   VAV control signals for the base case.
+
+
+.. _fig_vav_g36:
+
+.. figure:: img/case_study1/results/vav_g36.*
+
+   VAV control signals for guideline 36.
+
+
+.. _fig_TAHU_base:
+
+.. figure:: img/case_study1/results/TAHU_base.*
+
+   AHU temperatures for the base case.
+
+
+.. _fig_TAHU_g36:
+
+.. figure:: img/case_study1/results/TAHU_g36.*
+
+   AHU temperatures for guideline 36.
+
+
+.. _fig_flow_signals_base:
+
+.. figure:: img/case_study1/results/flow_signals_base.*
+
+   Control signals for the base case.
+
+
+.. _fig_flow_signals_g36:
+
+.. figure:: img/case_study1/results/flow_signals_g36.*
+
+   Control signals for guideline 36.
+
+
+.. _fig_normalized_flow_base:
+
+.. figure:: img/case_study1/results/normalized_flow_base.*
+
+   Mass flow rates, normalized by the design flow rate, for the base case.
+
+
+.. _fig_normalized_flow_g36:
+
+.. figure:: img/case_study1/results/normalized_flow_g36.*
+
+   Mass flow rates, normalized by the design flow rate, for guideline 36.
+
+
+
 
 
 Improvement to Guideline 36 specification
