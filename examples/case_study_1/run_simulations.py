@@ -87,13 +87,14 @@ def _simulate(spec):
 ################################################################################
 if __name__=='__main__':
     from multiprocessing import Pool
+    import multiprocessing
     import shutil
     import cases
 
     list_of_cases = cases.get_cases()
 
     # Number of parallel processes
-    nPro = 2
+    nPro = multiprocessing.cpu_count()
     po = Pool(nPro)
 
     lib_dir = create_working_directory()
