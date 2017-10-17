@@ -130,7 +130,7 @@ Performance comparison
 
    Comparison of energy use.
 
-:numref:`fig_cas_stu1_energy` compares the energy use between 
+:numref:`fig_cas_stu1_energy` compares the energy use between
 the annual simulations with the base case control
 and the Guideline 36 control.
 The Guideline 36 control saves :math:`xxxx \mathrm{kWh/(m^2 \, a)}`
@@ -218,10 +218,31 @@ This section describes improvements that we recommend for the Guideline 36
 specification, based on the first public review draft :cite:`ASHRAE2016`.
 
 
+Freeze protection for mixed air temperature
+...........................................
 
 The sequences have no freeze protection for the mixed air temperature.
 For our simulation, we saw on the first day of January a mixed air temperature
 of around :math:`-2^\circ`C entering the heating coil, which may freeze the coil.
+
+The guideline states (emphasis added)
+
+   If the supply air temperature drops below 4.4°C (40°F) for 5 minutes, send two
+   (or more, as required to ensure that heating plant is active) Boiler Plant
+   Requests, override the outdoor air damper to the minimum position, and
+   *modulate the heating coil to maintain a supply air temperature of at least 5.6°C
+   (42°F)*. Disable this function when supply air temperature rises above 7.2°C
+   (45°F) for 5 minutes.
+
+As shown in xxxx In our simulations, the supply air temperature was controlled by the heating coil
+to around :math:`18^\circ \mathrm C`. Hence, this control would not have been active.
+In plants with an oversized coil that has variable water mass flow rate, there
+is a risk of freezing the coil. Hence we recommend controlling the heating coil
+also for the mixed air temperature of around :math:`4^\circ \mathrm C`.
+
+.. todo:: Add figure with mixed air setpoint set to -50 degC to disable the new loop
+          and show the problem.
+
 
 Describe issues with `uHea` in reheat box.
 
