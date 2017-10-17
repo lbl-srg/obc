@@ -31,14 +31,20 @@ def create_working_directory():
 #    print("Created directory {}".format(worDir))
     return worDir
 
-def checkout_repository(working_directory):
+def checkout_repository(working_directory, from_git_hub):
     import os
     from git import Repo
     import git
-    git_url = "https://github.com/lbl-srg/modelica-buildings"
-    Repo.clone_from(git_url, working_directory)
-    g = git.Git(working_directory)
-    g.checkout(BRANCH)
+    if from_git_hub:
+        git_url = "https://github.com/lbl-srg/modelica-buildings"
+        Repo.clone_from(git_url, working_directory)
+        g = git.Git(working_directory)
+        g.checkout(BRANCH)
+    else:
+        # This is a hack to get the local copy of the repository
+        des = os.path.join(working_directory, "Buildings")
+        print("*** Copying Buildings library to {}".format(des))
+        shutil.copytree("/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings", des)
 
 
 def _simulate(spec):
@@ -98,7 +104,7 @@ if __name__=='__main__':
     po = Pool(nPro)
 
     lib_dir = create_working_directory()
-    checkout_repository(lib_dir)
+    checkout_repository(lib_dir, from_git_hub = True)
     # Add the directory where the library has been checked out
     for case in list_of_cases:
         case['lib_dir'] = lib_dir
