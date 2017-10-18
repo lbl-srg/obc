@@ -117,9 +117,64 @@ controllers, while the supervisory control is implemented
 using a finite state machine.
 
 For the detailed implementation of the control logic,
-see the model ``Buildings.Examples.VAVReheat.ClosedLoop``,
+see the model ``Buildings.Examples.VAVReheat.ASHRAE2006``,
 which is also shown in xxxx.
 
+
+Site electricity use
+....................
+
+To convert cooling and heating energy as transfered by the coil to site electricity
+use, we apply the conversion factors from EnergyStar :cite:`EnergyStar2013`.
+Therefore, for an electric chiller, we assume an average coefficient of performance (COP) of
+:math:`3.2` and for a geothermal heat pump, we assume a COP of :math:`4.0`.
+
+
+Simulations
+...........
+
+All simulations were done with Dymola 2018 FD01 beta3 using Ubuntu 16.04 64 bit.
+We used the Radau solver with a tolerance of :math:`10^{-6}`.
+
+The base case and the guideline 36 case use the same HVAC and building model,
+which is implemented in the base class 
+``Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop``.
+The two cases differ in their implementation of the control sequence only,
+which is implemented in the models
+``Buildings.Examples.VAVReheat.BaseClasses.ASHRAE2006`` and
+``Buildings.Examples.VAVReheat.BaseClasses.Guideline36``.
+
+:numref:`tab_mod_sta` shows an overview of the model and simulation statistics.
+The differences in the number of variables and in the number of time varying
+variables reflect that the guideline 36 control is significantly more
+detailed than what may otherwise be used for simulation of what the author
+believe represents a realistic implementation of a feedback control sequence.
+The entry approximate number of control I/O connections
+counts the number of input and ouput connections among the
+control blocks of the two implementations. For example,
+If a P controller receives one set point, one measured quantity
+and sends it signal to a limiter and the limiter output is
+connected to a valve, then this would count as four connections.
+Any connections inside the PI controller would not be counted,
+as the PI controller is an elementary building block
+(see :numref:`sec_ele_bui_blo`) of CDL.
+
+.. _tab_mod_sta:
+   
+.. table:: Model and simulation statistics.
+
+   ============================================== ========= ============
+                                                  Base case Guideline 36
+   ============================================== ========= ============
+   Number of components                                2826         4400
+   Number of variables (prior to translation)        33,700       40,400
+   Number of continuous states                          178          190
+   Number of time-varying variables                    3400         4800
+   Approximate number of control I/O connections        TBD          TBD
+   Time for annual simulation in minutes                100          180
+   ============================================== ========= ============
+
+.. todo:: Add number of connections.
 
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -208,8 +263,15 @@ energy.
    Mass flow rates, normalized by the design flow rate, for guideline 36.
 
 
+:numref:`tab_site_energy` shows that the control sequence of guideline 36
+significantly reduces site electricity.
+We believe that some of the savings can be attributed to the more sophisticated
+set point reset algorithm in guideline 36, which in turn yields the more
+complex sequence as reflected in the model statistics of :numref:`tab_mod_sta`.
 
+.. _tab_site_energy:
 
+.. include:: img/case_study1/results/site_energy.rst
 
 Improvement to Guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -223,16 +285,16 @@ Freeze protection for mixed air temperature
 
 The sequences have no freeze protection for the mixed air temperature.
 For our simulation, we saw on the first day of January a mixed air temperature
-of around :math:`-2^\circ`C entering the heating coil, which may freeze the coil.
+of around :math:`-2^\circ` C entering the heating coil, which may freeze the coil.
 
-The guideline states (emphasis added)
-
-   If the supply air temperature drops below 4.4°C (40°F) for 5 minutes, send two
+The guideline states (emphasis added):
+      
+   If the supply air temperature drops below :math:`4.4^\circ \mathrm C` (:math:`40^\circ \mathrm F`) for :math:`5` minutes, send two
    (or more, as required to ensure that heating plant is active) Boiler Plant
    Requests, override the outdoor air damper to the minimum position, and
-   *modulate the heating coil to maintain a supply air temperature of at least 5.6°C
-   (42°F)*. Disable this function when supply air temperature rises above 7.2°C
-   (45°F) for 5 minutes.
+   *modulate the heating coil to maintain a supply air temperature* of at least :math:`5.6^\circ` C
+   (:math:`42^\circ \mathrm F`). Disable this function when supply air temperature rises above :math:`7.2^\circ \mathrm C`
+   (:math:`45^\circ \mathrm F`) for 5 minutes.
 
 As shown in xxxx In our simulations, the supply air temperature was controlled by the heating coil
 to around :math:`18^\circ \mathrm C`. Hence, this control would not have been active.
