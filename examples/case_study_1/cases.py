@@ -45,6 +45,12 @@ def get_cases():
          "name": "spring_g36",
          "start_time": 80*24*3600,
          "stop_time":  94*24*3600})
+    cases.append( \
+        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+         "name": "winter_g36_noFreezeControl",
+         "start_time": 0,
+         "stop_time":  14*24*3600,
+         "parameters": {'conAHU.TFreSet': 173.15}})
     return cases
 
 def get_case(name):
