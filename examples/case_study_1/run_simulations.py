@@ -73,6 +73,8 @@ def _simulate(spec):
     s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
         s.setSolver("radau")
+    if 'parameters' in spec:
+        s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
     s.setTolerance(1E-6)
