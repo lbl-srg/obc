@@ -10,8 +10,8 @@ demonstrate the setup for closed loop performance assessment and
 demonstrate how to compare the control performance.
 
 
-Method
-^^^^^^
+Methodology
+^^^^^^^^^^^
 
 All models are implemented in Modelica, using models from
 the Buildings library :cite:`WetterZuoNouiduiPang2014`.
@@ -121,6 +121,31 @@ see the model ``Buildings.Examples.VAVReheat.ASHRAE2006``,
 which is also shown in xxxx.
 
 
+For the guideline 36 case, we implemented the multi-zone VAV control sequence.
+xxxx shows the sequence diagram.
+
+.. todo:: Add figure after fixing svg file.
+
+
+
+Our implementation differs from guideline 36 in the following points:
+
+* Guideline 36 prescribes "To avoid abrupt changes in equipment operation,
+  the output of every control loop shall be capable of being limited
+  by a user adjustable maximum rate of change, with
+  a default of 25% per minute."
+
+  We did not implement this limitation of the output as it leads to delays
+  which can make control loop tuning more difficult.
+
+* Not all alarms are included.
+
+* Where guideline 36 prescribes that equipment is enabled if a controlled quantity
+  is above or below a setpoint, we added a hysteresis. In real systems, this
+  avoids short-cycling due to measurement noise, in simulation, this is needed
+  to guard against numerical noise that may be introduced by a solver.
+
+
 Site electricity use
 ....................
 
@@ -133,11 +158,43 @@ Therefore, for an electric chiller, we assume an average coefficient of performa
 Simulations
 ...........
 
+:numref:`fig_model_top_base` shows the top-level of the system model of the base case, and
+:numref:`fig_model_top_guideline` shows the same view for the guideline 36 model.
+
+.. _fig_model_top_base:
+
+.. figure:: img/case_study1/ASHRAE2006.*
+
+   Top level view of Modelica model for the base case.
+
+.. _fig_model_top_guideline:
+
+.. figure:: img/case_study1/Guideline36.*
+
+   Top level view of Modelica model for the guideline 36 case.
+
+To illustrate the complexity of the control sequence for the guideline 36 case,
+we show in :numref:`fig_model_zone_temperatures` the implementation
+of the control sequence that computes the
+zone air temperature setpoints for heating and cooling based on
+occupancy, window status, setpoint adjustment, air handler unit operation mode
+and cooling or heating demand limit signal. The implementation is
+according to guideline 36, part 5.B.3.
+
+.. _fig_model_zone_temperatures:
+
+.. figure:: img/case_study1/ZoneTemperatures.*
+   :scale: 50%
+
+   Composite block that computes the zone air temperature setpoints
+   for heating and cooling.
+
+
 All simulations were done with Dymola 2018 FD01 beta3 using Ubuntu 16.04 64 bit.
 We used the Radau solver with a tolerance of :math:`10^{-6}`.
 
 The base case and the guideline 36 case use the same HVAC and building model,
-which is implemented in the base class 
+which is implemented in the base class
 ``Buildings.Examples.VAVReheat.BaseClasses.PartialOpenLoop``.
 The two cases differ in their implementation of the control sequence only,
 which is implemented in the models
@@ -147,7 +204,7 @@ which is implemented in the models
 :numref:`tab_mod_sta` shows an overview of the model and simulation statistics.
 The differences in the number of variables and in the number of time varying
 variables reflect that the guideline 36 control is significantly more
-detailed than what may otherwise be used for simulation of what the author
+detailed than what may otherwise be used for simulation of what the authors
 believe represents a realistic implementation of a feedback control sequence.
 The entry approximate number of control I/O connections
 counts the number of input and ouput connections among the
@@ -160,7 +217,7 @@ as the PI controller is an elementary building block
 (see :numref:`sec_ele_bui_blo`) of CDL.
 
 .. _tab_mod_sta:
-   
+
 .. table:: Model and simulation statistics.
 
    ============================================== ========= ============
@@ -185,14 +242,30 @@ Performance comparison
 
    Comparison of energy use.
 
-:numref:`fig_cas_stu1_energy` compares the energy use between
+:numref:`fig_cas_stu1_energy` compares the annual
+site electricity use between
 the annual simulations with the base case control
 and the Guideline 36 control.
-The Guideline 36 control saves :math:`xxxx \mathrm{kWh/(m^2 \, a)}`
-energy.
+The Guideline 36 control saves around :math:`25\%`
+site electrical energy. These are signficant savings
+that can be achieved through software only, without the need
+for additional hardware or equipment.
+It therefore is worthwhile to provide robust, validated
+implementations of the sequence that encapsulates the complexity for the
+energy modeller and the control provider, as interpreting and implementing
+the sequence based on the English language description was rather
+involved and led to some errors that were only discovered during
+closed loop simulations.
 
-.. todo:: Add conversion between heating, cooling and electricity.
 
+:numref:`fig_TRoom_base` to :numref:`fig_normalized_flow_g36`
+compare time trajectories of various quantities for
+a period in winter, spring and summer. The horizontal axis
+is the day of the year. 
+The figures show that the room air temperatures are controlled
+within the setpoints for both cases. Small set point violations
+have been observed due to the dynamic nature of the control sequence
+and the controlled process.
 
 .. _fig_TRoom_base:
 
@@ -288,7 +361,7 @@ For our simulation, we saw on the first day of January a mixed air temperature
 of around :math:`-2^\circ` C entering the heating coil, which may freeze the coil.
 
 The guideline states (emphasis added):
-      
+
    If the supply air temperature drops below :math:`4.4^\circ \mathrm C` (:math:`40^\circ \mathrm F`) for :math:`5` minutes, send two
    (or more, as required to ensure that heating plant is active) Boiler Plant
    Requests, override the outdoor air damper to the minimum position, and
@@ -296,17 +369,54 @@ The guideline states (emphasis added):
    (:math:`42^\circ \mathrm F`). Disable this function when supply air temperature rises above :math:`7.2^\circ \mathrm C`
    (:math:`45^\circ \mathrm F`) for 5 minutes.
 
-As shown in xxxx In our simulations, the supply air temperature was controlled by the heating coil
-to around :math:`18^\circ \mathrm C`. Hence, this control would not have been active.
+As shown in :numref:`fig_freeze_protection`, in our simulations, the supply air temperature :math:`T_{sup}`
+was controlled by the heating coil
+to around :math:`18^\circ \mathrm C`, but the mixed air temperature :math:`T_{mix}` was below freezing.
+Hence, this control would not have been active.
+Adding a feedback control that regulates the economizer outdoor air damper such that the mixed air temperature
+is above :math:`4^\circ \mathrm C` yields the trajectory labelled :math:`T_{mix,with}`.
 In plants with an oversized coil that has variable water mass flow rate, there
-is a risk of freezing the coil. Hence we recommend controlling the heating coil
-also for the mixed air temperature of around :math:`4^\circ \mathrm C`.
+is a risk of freezing the coil. Hence we recommend controlling the outdoor air damper
+also for the mixed air temperature of :math:`4^\circ \mathrm C`.
 
-.. todo:: Add figure with mixed air setpoint set to -50 degC to disable the new loop
-          and show the problem.
+.. _fig_freeze_protection:
+
+.. figure:: img/case_study1/results/TMixFre.*
+
+   Mixed air temperature and economizer control signal for guideline 36 case with
+   and without freeze protection.
 
 
-Describe issues with `uHea` in reheat box.
+
+Deadbands for hard switches
+...........................
+
+There are various sequences in which the set point changes as a step function of
+the control signal, such as shown in :numref:`fig_dam_val_reh`.
+
+.. _fig_dam_val_reh:
+
+.. figure:: img/case_study1/DamperValveRehBox.*
+   :scale: 50%
+
+   Control sequence for VAV terminal unit.
+
+In our simulations of the VAV terminal boxes, the switch in air flow rate caused
+chattering. We circumvented the problem by checking if the heating control signal
+remains bigger than :math:`0.05` for :math:`5` minutes. If it falls below :math:`0.01`,
+the timer was switched off. This avoided the chattering.
+We therefore recommend to be more explicit for when such mode switches are triggered.
+
+
+Minor editorial revision
+........................
+
+The guideline states:
+
+   When a control loop is enabled or re-enabled, it and all its constituents (such as the
+   proportional and integral terms) shall be set initially to a Neutral value.
+
+The proportional term should be removed as this cannot be reset.
 
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
