@@ -261,7 +261,7 @@ closed loop simulations.
 :numref:`fig_TRoom_base` to :numref:`fig_normalized_flow_g36`
 compare time trajectories of various quantities for
 a period in winter, spring and summer. The horizontal axis
-is the day of the year. 
+is the day of the year.
 The figures show that the room air temperatures are controlled
 within the setpoints for both cases. Small set point violations
 have been observed due to the dynamic nature of the control sequence
