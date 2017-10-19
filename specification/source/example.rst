@@ -137,6 +137,10 @@ Our implementation differs from guideline 36 in the following points:
 
   We did not implement this limitation of the output as it leads to delays
   which can make control loop tuning more difficult.
+  We did however add a first order hold at the trim and response logic
+  that outputs the duct static pressure setpoint for the fan speed
+  *In progress: We are now running tests with a slew rate limiter
+  for the VAV damper and reheat valve position in the terminal box.*
 
 * Not all alarms are included.
 
@@ -242,7 +246,13 @@ Performance comparison
 
    Comparison of energy use.
 
-:numref:`fig_cas_stu1_energy` compares the annual
+.. _tab_site_energy:
+
+.. include:: img/case_study1/results/site_energy.rst
+
+
+:numref:`fig_cas_stu1_energy` and
+:numref:`tab_site_energy` compare the annual
 site electricity use between
 the annual simulations with the base case control
 and the Guideline 36 control.
@@ -250,22 +260,20 @@ The Guideline 36 control saves around :math:`25\%`
 site electrical energy. These are signficant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
-It therefore is worthwhile to provide robust, validated
+Our experience, however, was that it is rather challenging to
+program guideline 36 sequence due to their complex logic
+that contains various mode changes, interlocks and timers.
+Various programming errors and misinterpretations or ambiguities
+of the standard were only discovered in closed loop simulations.
+We therefore believe it is important to provide robust, validated
 implementations of the sequence that encapsulates the complexity for the
-energy modeller and the control provider, as interpreting and implementing
-the sequence based on the English language description was rather
-involved and led to some errors that were only discovered during
-closed loop simulations.
+energy modeller and the control provider.
 
 
 :numref:`fig_TRoom_base` to :numref:`fig_normalized_flow_g36`
 compare time trajectories of various quantities for
 a period in winter, spring and summer. The horizontal axis
 is the day of the year.
-The figures show that the room air temperatures are controlled
-within the setpoints for both cases. Small set point violations
-have been observed due to the dynamic nature of the control sequence
-and the controlled process.
 
 .. _fig_TRoom_base:
 
@@ -279,6 +287,12 @@ and the controlled process.
 
    Room air temperatures for guideline 36.
 
+:numref:`fig_TRoom_base` to
+:numref:`fig_TRoom_g36`
+show that the room air temperatures are controlled
+within the setpoints for both cases. Small set point violations
+have been observed due to the dynamic nature of the control sequence
+and the controlled process.
 
 .. _fig_vav_base:
 
@@ -292,6 +306,13 @@ and the controlled process.
 .. figure:: img/case_study1/results/vav_g36.*
 
    VAV control signals for guideline 36.
+
+:numref:`fig_vav_base` to
+:numref:`fig_vav_g36`
+show for the north and south zones the
+control signal for the heating valve of the terminal boxes
+:math:`y_{hea}` and the control signal for the VAV damper
+:math:`y_{vav}`.
 
 
 .. _fig_TAHU_base:
@@ -308,6 +329,17 @@ and the controlled process.
    AHU temperatures for guideline 36.
 
 
+:numref:`fig_TAHU_base` to
+:numref:`fig_TAHU_g36`
+show for the air handler unit
+the supply air temperature after the fan :math:`T_{sup}`,
+the mixed air temperature after the economizer :math:`T_{mix}`
+and the return air temperature from the building :math:`T_{ret}`.
+A notable difference that can be seen is that guideline 36 resets
+the supply air temperature whereas the base case is controlled
+for a supply air temperature of :math:`10^\circ \mathrm C`
+for heating and :math:`12^\circ \mathrm C` for cooling.
+
 .. _fig_flow_signals_base:
 
 .. figure:: img/case_study1/results/flow_signals_base.*
@@ -321,6 +353,9 @@ and the controlled process.
 
    Control signals for guideline 36.
 
+:numref:`fig_flow_signals_base` to
+:numref:`fig_flow_signals_g36`
+show reasonable fan speeds and economizer operation
 
 .. _fig_normalized_flow_base:
 
@@ -335,16 +370,16 @@ and the controlled process.
 
    Mass flow rates, normalized by the design flow rate, for guideline 36.
 
+:numref:`fig_normalized_flow_base` to
+:numref:`fig_normalized_flow_g36`
+show the air changes per hour (normalized by the building volume)
+for the supply fan and the outdoor air intake.
+The system has relatively low air changes per hour. As fan
+energy is low for this building, it may be more efficient to increase
+flow rates and use higher cooling and lower heating temperatures,
+in particular if heating and cooling is provided by a heat pump and chiller.
+We have however not further analyzed this trade-off.
 
-:numref:`tab_site_energy` shows that the control sequence of guideline 36
-significantly reduces site electricity.
-We believe that some of the savings can be attributed to the more sophisticated
-set point reset algorithm in guideline 36, which in turn yields the more
-complex sequence as reflected in the model statistics of :numref:`tab_mod_sta`.
-
-.. _tab_site_energy:
-
-.. include:: img/case_study1/results/site_energy.rst
 
 Improvement to Guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
