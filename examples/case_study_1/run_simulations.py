@@ -31,14 +31,21 @@ def create_working_directory():
 #    print("Created directory {}".format(worDir))
     return worDir
 
-def checkout_repository(working_directory):
+def checkout_repository(working_directory, from_git_hub):
     import os
     from git import Repo
     import git
-    git_url = "https://github.com/lbl-srg/modelica-buildings"
-    Repo.clone_from(git_url, working_directory)
-    g = git.Git(working_directory)
-    g.checkout(BRANCH)
+    if from_git_hub:
+        print("Checking out repository branch {}".format(BRANCH))
+        git_url = "https://github.com/lbl-srg/modelica-buildings"
+        Repo.clone_from(git_url, working_directory)
+        g = git.Git(working_directory)
+        g.checkout(BRANCH)
+    else:
+        # This is a hack to get the local copy of the repository
+        des = os.path.join(working_directory, "Buildings")
+        print("*** Copying Buildings library to {}".format(des))
+        shutil.copytree("/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings", des)
 
 
 def _simulate(spec):
@@ -67,6 +74,8 @@ def _simulate(spec):
     s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
         s.setSolver("radau")
+    if 'parameters' in spec:
+        s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
     s.setTolerance(1E-6)
@@ -87,17 +96,18 @@ def _simulate(spec):
 ################################################################################
 if __name__=='__main__':
     from multiprocessing import Pool
+    import multiprocessing
     import shutil
     import cases
 
     list_of_cases = cases.get_cases()
 
     # Number of parallel processes
-    nPro = 2
+    nPro = multiprocessing.cpu_count()
     po = Pool(nPro)
 
     lib_dir = create_working_directory()
-    checkout_repository(lib_dir)
+    checkout_repository(lib_dir, from_git_hub = True)
     # Add the directory where the library has been checked out
     for case in list_of_cases:
         case['lib_dir'] = lib_dir

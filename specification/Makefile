@@ -58,6 +58,9 @@ generate_cdl_from_modelica:
 	./generate_cdl_from_modelica.py
 #	rm -r $(TEMPDIR)
 
+copy_case_study1_results:
+	cp ../examples/case_study_1/img/* source/img/case_study1/results/
+
 html:   
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py

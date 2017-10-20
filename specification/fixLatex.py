@@ -35,5 +35,3 @@ freplace('\\begin{thebibliography}{1}',
 freplace('\\begin{Verbatim}[',
         '\\begin{Verbatim}[fontsize=\\footnotesize, ')
 
-##replace('\\begin{tabular}', '\\begin{longtable}')
-##replace('\\end{tabular}', '\\end{longtable}')
