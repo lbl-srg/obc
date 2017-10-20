@@ -53,8 +53,8 @@ In the VAV model, all air flows are computed based on the
 duct static pressure distribution and the performance curves of the fans.
 The fans are modeled as described in :cite:`Wetter2013:1`.
 
-Envelop heat transfer
-.....................
+Envelope heat transfer
+......................
 
 The thermal room model computes transient heat conduction through
 walls, floors and ceilings and long-wave radiative heat exchange between
@@ -442,6 +442,16 @@ remains bigger than :math:`0.05` for :math:`5` minutes. If it falls below :math:
 the timer was switched off. This avoided the chattering.
 We therefore recommend to be more explicit for when such mode switches are triggered.
 
+Averaging air flow measurements
+...............................
+
+The guideline 36 does not seem to prescribe that outdoor airflow rate
+measurements need to be time averaged. As such measurements can
+fluctuate due to turbulence, we recommend to consider averaging
+this measurement. In the simulations, we averaged the outdoor airflow
+measurement over a :math:`2` minute moving window (in the simulation,
+this was not to filter noise, but rather to avoid an algebraic system
+of equations).
 
 Minor editorial revision
 ........................
