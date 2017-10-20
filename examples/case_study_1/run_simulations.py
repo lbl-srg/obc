@@ -36,6 +36,7 @@ def checkout_repository(working_directory, from_git_hub):
     from git import Repo
     import git
     if from_git_hub:
+        print("Checking out repository branch {}".format(BRANCH))
         git_url = "https://github.com/lbl-srg/modelica-buildings"
         Repo.clone_from(git_url, working_directory)
         g = git.Git(working_directory)
