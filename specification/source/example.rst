@@ -99,8 +99,7 @@ For the base case, we implemented the control sequence
 Common HVAC Systems :cite:`ASHRAESeq2006:1`.
 In this control sequence, the
 supply fan speed is regulated based on the duct static pressure.
-The return fan controller tracks the supply fan air flow rate
-reduced by a fixed offset. The duct static pressure is adjusted
+The duct static pressure is adjusted
 so that at least one VAV damper is 90% open. The economizer dampers
 are modulated to track the setpoint for the mixed air dry bulb temperature.
 Priority is given to maintain a minimum outside air volume flow rate.
@@ -118,13 +117,28 @@ using a finite state machine.
 
 For the detailed implementation of the control logic,
 see the model ``Buildings.Examples.VAVReheat.ASHRAE2006``,
-which is also shown in xxxx.
+which is also shown in :numref:`fig_model_top_base`.
+
+Our implementation differs from VAV 2A2-21232 in the following points:
+
+* We removed the return air fan as the building static pressure is sufficiently
+  large. With the return fan, building static pressure was not adequate.
+
+* In order to have the identical mechanical system as for guideline 36,
+  we do not have a minimum outdoor air damper, but rather controlled
+  the outdoor air damper to allow sufficient outdoor air
+  if the mixed air temperature control loop would yield too little outdoor
+  air.
 
 
 For the guideline 36 case, we implemented the multi-zone VAV control sequence.
-xxxx shows the sequence diagram.
+:numref:`fig_vav_con_sch` shows the sequence diagram.
 
-.. todo:: Add figure after fixing svg file.
+.. _fig_vav_con_sch:
+
+.. figure:: img/case_study1/vavControlSchematics.*
+
+   Control schematics of guideline 36 case.
 
 
 
@@ -136,11 +150,10 @@ Our implementation differs from guideline 36 in the following points:
   a default of 25% per minute."
 
   We did not implement this limitation of the output as it leads to delays
-  which can make control loop tuning more difficult.
+  which can make control loop tuning more difficult if the output limitation
+  is slower than the dynamics of the controlled process.
   We did however add a first order hold at the trim and response logic
-  that outputs the duct static pressure setpoint for the fan speed
-  *In progress: We are now running tests with a slew rate limiter
-  for the VAV damper and reheat valve position in the terminal box.*
+  that outputs the duct static pressure setpoint for the fan speed.
 
 * Not all alarms are included.
 
