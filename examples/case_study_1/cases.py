@@ -4,6 +4,8 @@ def get_cases():
         The cases are stored in this function as they are used
         for the simulation and for the post processing.
     '''
+    import copy
+
     cases = list()
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.ASHRAE2006",
@@ -45,6 +47,16 @@ def get_cases():
          "name": "spring_g36",
          "start_time": 80*24*3600,
          "stop_time":  94*24*3600})
+
+    # Add load diversity
+    cases_load_diversity = copy.deepcopy(cases)
+    for ele in cases_load_diversity:
+        ele['name'] = "{}_diverse_loads".format(ele["name"])
+        ele['parameters'] = {'flo.kIntNor': 0.75}
+
+    cases = cases + cases_load_diversity
+
+    # Freeze protection disabled
     cases.append( \
         {'model': "Buildings.Examples.VAVReheat.Guideline36",
          "name": "winter_g36_noFreezeControl",
