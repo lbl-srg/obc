@@ -70,6 +70,24 @@ The physics implemented in the building model is further described in
 There is no moisture buffering in the envelope, but the room volume
 has a dynamic equation for the moisture content.
 
+.. _sec_int_gai:
+
+Internal loads
+..............
+
+.. _fig_internal_loads:
+
+.. figure:: img/case_study1/results/internal_loads.*
+   :scale: 80%
+
+   Internal load schedule.
+
+We use an internal load schedule as shown in
+:numref:`fig_internal_loads`, of which
+:math:`20\%` is radiant,
+:math:`40\%` is convective sensible and
+:math:`40\%` is latent.
+Each zone has the same internal load per floor area.
 
 Multi-zone air exchange
 .......................
@@ -85,6 +103,7 @@ Air infiltration is a function of the
 flow imbalance of the HVAC system.
 The multizone airflow models are further described in
 :cite:`Wetter2006:2`.
+
 
 
 Control sequences
@@ -166,7 +185,7 @@ Our implementation differs from guideline 36 in the following points:
 Site electricity use
 ....................
 
-To convert cooling and heating energy as transfered by the coil to site electricity
+To convert cooling and heating energy as transferred by the coil to site electricity
 use, we apply the conversion factors from EnergyStar :cite:`EnergyStar2013`.
 Therefore, for an electric chiller, we assume an average coefficient of performance (COP) of
 :math:`3.2` and for a geothermal heat pump, we assume a COP of :math:`4.0`.
@@ -206,9 +225,11 @@ according to guideline 36, part 5.B.3.
    Composite block that computes the zone air temperature setpoints
    for heating and cooling.
 
-
 All simulations were done with Dymola 2018 FD01 beta3 using Ubuntu 16.04 64 bit.
 We used the Radau solver with a tolerance of :math:`10^{-6}`.
+This solver adaptively changes the time step to control the integration error.
+Also, the time step is adapted to properly simulate :term:`time events<time event>`
+and :term:`state events<state event>`.
 
 The base case and the guideline 36 case use the same HVAC and building model,
 which is implemented in the base class
@@ -224,7 +245,7 @@ variables reflect that the guideline 36 control is significantly more
 detailed than what may otherwise be used for simulation of what the authors
 believe represents a realistic implementation of a feedback control sequence.
 The entry approximate number of control I/O connections
-counts the number of input and ouput connections among the
+counts the number of input and output connections among the
 control blocks of the two implementations. For example,
 If a P controller receives one set point, one measured quantity
 and sends it signal to a limiter and the limiter output is
@@ -232,6 +253,7 @@ connected to a valve, then this would count as four connections.
 Any connections inside the PI controller would not be counted,
 as the PI controller is an elementary building block
 (see :numref:`sec_ele_bui_blo`) of CDL.
+
 
 .. _tab_mod_sta:
 
@@ -244,20 +266,20 @@ as the PI controller is an elementary building block
    Number of variables (prior to translation)        33,700       40,400
    Number of continuous states                          178          190
    Number of time-varying variables                    3400         4800
-   Approximate number of control I/O connections        TBD          TBD
    Time for annual simulation in minutes                100          180
    ============================================== ========= ============
 
-.. todo:: Add number of connections.
 
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. _fig_cas_stu1_energy:
 
-.. figure:: img/case_study1/results/energy.*
+.. figure:: img/case_study1/results/energy_all.*
+   :scale: 80%
 
-   Comparison of energy use.
+   Comparison of energy use. For the cases labeled :math:`\pm 50\%`, the internal gains
+   have been increased and decreased as described in :numref:`sec_int_gai`.
 
 .. _tab_site_energy:
 
@@ -269,24 +291,33 @@ Performance comparison
 site electricity use between
 the annual simulations with the base case control
 and the Guideline 36 control.
+The bars labeled "div. gains" were obtained with simulations in which we
+changed the diversity of the internal loads.
+Specifically, we reduced the internal loads for the north zone by :math:`50\%`
+and increased them for the south zone by the same amount.
+
 The Guideline 36 control saves around :math:`25\%`
-site electrical energy. These are signficant savings
+site electrical energy. These are significant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
 Our experience, however, was that it is rather challenging to
 program guideline 36 sequence due to their complex logic
 that contains various mode changes, interlocks and timers.
 Various programming errors and misinterpretations or ambiguities
-of the standard were only discovered in closed loop simulations.
+of the guideline were only discovered in closed loop simulations.
 We therefore believe it is important to provide robust, validated
-implementations of the sequence that encapsulates the complexity for the
-energy modeller and the control provider.
+implementations of guideline 36 that encapsulates the complexity for the
+energy modeler and the control provider.
 
 
-:numref:`fig_TRoom_base` to :numref:`fig_normalized_flow_g36`
-compare time trajectories of various quantities for
-a period in winter, spring and summer. The horizontal axis
-is the day of the year.
+:numref:`fig_TRoom_base` to :numref:`fig_TRoom_g36`
+compare time trajectories of the room air temperatures for
+a period in winter, spring and summer for the base case and
+guideline 36.
+The figures show that the room air temperatures are controlled
+within the setpoints for both cases. Small set point violations
+have been observed due to the dynamic nature of the control sequence
+and the controlled process.
 
 .. _fig_TRoom_base:
 
@@ -300,93 +331,53 @@ is the day of the year.
 
    Room air temperatures for guideline 36.
 
-:numref:`fig_TRoom_base` to
-:numref:`fig_TRoom_g36`
-show that the room air temperatures are controlled
-within the setpoints for both cases. Small set point violations
-have been observed due to the dynamic nature of the control sequence
-and the controlled process.
+.. _fig_vav_all:
 
-.. _fig_vav_base:
+.. figure:: img/case_study1/results/vav_all.*
 
-.. figure:: img/case_study1/results/vav_base.*
+   VAV control signals for the north and south zones.
 
-   VAV control signals for the base case.
+:numref:`fig_vav_all` shows the control signals of the reheat coils :math:`y_{hea}`
+and the VAV damper :math:`y_{vav}`
+for the north and south zones.
 
+.. _fig_TAHU_all:
 
-.. _fig_vav_g36:
+.. figure:: img/case_study1/results/TAHU_all.*
 
-.. figure:: img/case_study1/results/vav_g36.*
+   AHU temperatures.
 
-   VAV control signals for guideline 36.
-
-:numref:`fig_vav_base` to
-:numref:`fig_vav_g36`
-show for the north and south zones the
-control signal for the heating valve of the terminal boxes
-:math:`y_{hea}` and the control signal for the VAV damper
-:math:`y_{vav}`.
-
-
-.. _fig_TAHU_base:
-
-.. figure:: img/case_study1/results/TAHU_base.*
-
-   AHU temperatures for the base case.
-
-
-.. _fig_TAHU_g36:
-
-.. figure:: img/case_study1/results/TAHU_g36.*
-
-   AHU temperatures for guideline 36.
-
-
-:numref:`fig_TAHU_base` to
-:numref:`fig_TAHU_g36`
-show for the air handler unit
+:numref:`fig_TAHU_all` shows the temperatures of the air handler unit.
+The figure shows the outside air temperature temperature :math:`T_{out}`,
 the supply air temperature after the fan :math:`T_{sup}`,
 the mixed air temperature after the economizer :math:`T_{mix}`
 and the return air temperature from the building :math:`T_{ret}`.
-A notable difference that can be seen is that guideline 36 resets
-the supply air temperature whereas the base case is controlled
+A notable difference is that guideline 36 resets
+the supply air temperature, whereas the base case is controlled
 for a supply air temperature of :math:`10^\circ \mathrm C`
 for heating and :math:`12^\circ \mathrm C` for cooling.
 
-.. _fig_flow_signals_base:
+.. _fig_flow_signals_all:
 
-.. figure:: img/case_study1/results/flow_signals_base.*
+.. figure:: img/case_study1/results/flow_signals_all.*
 
-   Control signals for the base case.
+   Control signals for the supply fan, outside air damper and return air damper.
 
+:numref:`fig_flow_signals_all` show reasonable fan speeds and economizer operation.
+Note that during the winter days 5, 6 and 7, the outdoor air damper opens. However,
+this is only to track the setpoint for the minimum outside air flow rate as the fan
+speed is at its minimum.
 
-.. _fig_flow_signals_g36:
+.. _fig_normalized_flow_all:
 
-.. figure:: img/case_study1/results/flow_signals_g36.*
+.. figure:: img/case_study1/results/normalized_flow_all.*
 
-   Control signals for guideline 36.
+   Fan and outside air volume flow rates, normalized by the room air volume.
 
-:numref:`fig_flow_signals_base` to
-:numref:`fig_flow_signals_g36`
-show reasonable fan speeds and economizer operation
-
-.. _fig_normalized_flow_base:
-
-.. figure:: img/case_study1/results/normalized_flow_base.*
-
-   Mass flow rates, normalized by the design flow rate, for the base case.
-
-
-.. _fig_normalized_flow_g36:
-
-.. figure:: img/case_study1/results/normalized_flow_g36.*
-
-   Mass flow rates, normalized by the design flow rate, for guideline 36.
-
-:numref:`fig_normalized_flow_base` to
-:numref:`fig_normalized_flow_g36`
-show the air changes per hour (normalized by the building volume)
-for the supply fan and the outdoor air intake.
+:numref:`fig_normalized_flow_all` shows the volume flow rate of the fan
+:math:`\dot V_{fan,sup}/V_{bui}`, where :math:`V_{bui}` is the volume of the building,
+and of the outside air intake of the economizer :math:`\dot V_{eco,out}/V_{bui}`, expressed in air changes per hour.
+Note that guideline 36 has smaller outside air flow rates in cold winter and hot summer days.
 The system has relatively low air changes per hour. As fan
 energy is low for this building, it may be more efficient to increase
 flow rates and use higher cooling and lower heating temperatures,
@@ -394,12 +385,35 @@ in particular if heating and cooling is provided by a heat pump and chiller.
 We have however not further analyzed this trade-off.
 
 
+
+.. _fig_TRoom_load_diversity:
+
+.. figure:: img/case_study1/results/TRoom_with_without_div_IHG.*
+
+   Outdoor air and room air temperatures for the north and south zone with
+   equal internal loads, and with diversity added to the internal loads.
+
+:numref:`fig_TRoom_load_diversity` compares the room air temperatures for the
+north and south zone for the standard internal loads, and the case where we
+reduced the internal loads in the north zone by :math:`50\%` and increased it
+by the same amount in the south zone.
+The trajectories with subscript :math:`\pm 50\%` are the simulations with
+the internal heat gains reduced or increased by :math:`50\%`.
+The room air temperature trajectories
+are practically on top of each other for winter and spring, but
+the guideline 36 sequence shows somewhat better setpoint tracking
+during summer.
+Both control sequences are comparable in terms of compensating for this
+diversity, and as we saw in :numref:`fig_cas_stu1_energy`,
+their energy consumption is not noticeably affected.
+
 Improvement to Guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes improvements that we recommend for the Guideline 36
 specification, based on the first public review draft :cite:`ASHRAE2016`.
 
+.. _sec_fre_pro:
 
 Freeze protection for mixed air temperature
 ...........................................
@@ -422,7 +436,7 @@ was controlled by the heating coil
 to around :math:`18^\circ \mathrm C`, but the mixed air temperature :math:`T_{mix}` was below freezing.
 Hence, this control would not have been active.
 Adding a feedback control that regulates the economizer outdoor air damper such that the mixed air temperature
-is above :math:`4^\circ \mathrm C` yields the trajectory labelled :math:`T_{mix,with}`.
+is above :math:`4^\circ \mathrm C` yields the trajectory labeled :math:`T_{mix,with}`.
 In plants with an oversized coil that has variable water mass flow rate, there
 is a risk of freezing the coil. Hence we recommend controlling the outdoor air damper
 also for the mixed air temperature of :math:`4^\circ \mathrm C`.
@@ -435,6 +449,7 @@ also for the mixed air temperature of :math:`4^\circ \mathrm C`.
    and without freeze protection.
 
 
+.. _sec_dea_har_swi:
 
 Deadbands for hard switches
 ...........................
@@ -474,9 +489,79 @@ The guideline states:
    When a control loop is enabled or re-enabled, it and all its constituents (such as the
    proportional and integral terms) shall be set initially to a Neutral value.
 
-The proportional term should be removed as this cannot be reset.
+This should be changed to "...such as the integral terms..." because the
+proportional term cannot be reset.
+
+
+Cross-referencing and modularization
+....................................
+
+For citing individual sections or blocks of the guideline,
+it would be helpful if the guideline where available at a permanent web site
+as html, with a unique url and anchor to each section.
+This would allow cross-referencing the guideline from a particular implementation
+in a way that allows the user to quickly see the original specification.
+
+As part of such a restructuring, it would be helpful for the reader
+to clearly state what are the input signals, what are configurable parameters,
+such as the control gain, and what are the output signals.
+This in turn would structure the guideline into distinct modules,
+for which one could also provide a reference implementation
+in software.
 
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-xxx
+The guideline 36 sequence reduced annual site energy by :math:`25\%`
+compared to the baseline implementation, by comparable thermal comfort.
+Such savings are significant, and have been achieved by software only
+that can relatively easy be deployed to buildings.
+
+Implementing the sequence was however rather challenging due to its
+complexity caused by the various mode changes, interlocks and timers.
+As a consequence, various programming errors and misinterpretations or ambiguities
+of the guideline were only discovered in closed loop simulations,
+despite of having implemented open-loop test cases for each block of the sequence.
+We therefore believe it is important to provide robust, validated
+implementations of the sequences published in guideline 36.
+Such implementations would encapsulate the complexity and provide
+assurances that energy modeler and control providers have correct implementations.
+With the implementation in
+the Modelica package `Buildings.Controls.OBC.ASHRAE.G36_PR1`, we made a start
+for such an implementation and laid out the structure and conventions,
+but have not covered all of the standard yet. Furthermore, conducting field validations
+would be useful too.
+
+A key short-coming from an implementer point of view was that the
+sequence was only available in English language, and as an implementation
+in ALC EIKON of sequences that are "close to the currently used version of the
+guideline". Neither allowed a validation of the CDL implementation
+because the English language version leaves room for interpretation (and cannot
+be executed) and because EIKON has quite limited simulation support
+that is cumbersome to use for testing the dynamic response of
+control sequences for different input
+trajectories. Therefore, a benefit of the Modelica implementation is that
+such reference trajectories can now easily be generated to validate alternate
+implementations.
+
+A benefit of the simulation based assessment was that it allowed
+detecting potential issues such as a mixed air temperature below the
+freezing point (:numref:`sec_fre_pro`) and chattering due to hard switches
+(:numref:`sec_dea_har_swi`).
+Having a simulation model of the controlled process also allowed
+verification of work-arounds for these issues.
+
+One can, correctly, argue that the magnitude of the energy savings
+are higher the worse the baseline control is. However, the baseline control was
+carefully implemented, following the author's interpretation of
+ASHRAE's Sequences of Operation for
+Common HVAC Systems :cite:`ASHRAESeq2006:1`. While higher efficiency
+of the baseline may be achieved through supply air temperature reset
+or different economizer control, such potential improvements were only
+recognized after seeing the results of the guideline 36 sequence.
+Thus, regardless of whether a building is using guideline 36,
+having a baseline control against which alternative implementations
+can be compared and benchmarked is an immensely valuable feature
+of a library of standardized control sequences. Without a benchmark,
+one can easily claim to have a good control, while not recognizing what
+potential savings one may miss.

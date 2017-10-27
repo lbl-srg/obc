@@ -273,7 +273,7 @@ latex_additional_files = ['_static/latex-note.png', '_static/latex-warning.png']
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index',
-   'cdl_specification.tex',
+   'cdl_report.tex',
    u'Control Description Language',
    '', 'manual'),
 ]
@@ -284,9 +284,12 @@ latex_documents = [
 #'classoptions': ',openany'                        : remove blank pages in PDF.
 #'babel': '\\usepackage[english]{babel}'           : suppress error message caused by undefined language.
 #'maketitle': '\\pagenumbering{gobble}\\maketitle' : switch off the page numbering in the tile and the index.
+release = ''
 latex_elements = {'classoptions': ', openany',         # remove blank pages in PDF.
-                   'releasename': 'Version',
+                   'releasename': '',
                   'babel': '\\usepackage[english]{babel}'}
+
+
 
 #                 'fontpkg': '\\usepackage[scaled]{helvet}'
 
@@ -440,7 +443,19 @@ latex_elements['preamble'] = r'''
 \belowcaptionskip=5pt
 
 
-\pagestyle{fancy}
+\pagestyle{normal}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\fancypagestyle{plain}{%
+   \fancyhead{} % get rid of headers
+   \renewcommand{\headrulewidth}{0pt} % and the line
+}
+
+
 %%\fancyhf{}
 %%\rhead[LE,RO]{\thechapter .}
 %\lhead{Guides and tutorials}
