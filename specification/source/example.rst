@@ -291,7 +291,7 @@ Performance comparison
 site electricity use between
 the annual simulations with the base case control
 and the Guideline 36 control.
-The bars labeled "div. gains" were obtained with simulations in which we
+The bars labeled :math:`\pm 50\%` were obtained with simulations in which we
 changed the diversity of the internal loads.
 Specifically, we reduced the internal loads for the north zone by :math:`50\%`
 and increased them for the south zone by the same amount.
