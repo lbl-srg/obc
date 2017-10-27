@@ -70,6 +70,21 @@ The physics implemented in the building model is further described in
 There is no moisture buffering in the envelope, but the room volume
 has a dynamic equation for the moisture content.
 
+Internal loads
+..............
+
+.. _fig_internal_loads:
+
+.. figure:: img/case_study1/results/internal_loads.*
+
+   Internal load schedule.
+
+We use an internal load schedule as shown in
+:numref:`fig_internal_loads`, of which
+:math:`20\%` is radiant,
+:math:`40\%` is convective sensible and
+:math:`40\%` is latent.
+Each zone has the same internal load per floor area.
 
 Multi-zone air exchange
 .......................
@@ -244,18 +259,16 @@ as the PI controller is an elementary building block
    Number of variables (prior to translation)        33,700       40,400
    Number of continuous states                          178          190
    Number of time-varying variables                    3400         4800
-   Approximate number of control I/O connections        TBD          TBD
    Time for annual simulation in minutes                100          180
    ============================================== ========= ============
 
-.. todo:: Add number of connections.
 
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. _fig_cas_stu1_energy:
 
-.. figure:: img/case_study1/results/energy.*
+.. figure:: img/case_study1/results/energy_all.*
 
    Comparison of energy use.
 
@@ -269,6 +282,11 @@ Performance comparison
 site electricity use between
 the annual simulations with the base case control
 and the Guideline 36 control.
+The bars labeled "div. gains" were obtained with simulations in which we
+changed the diversity of the internal loads.
+Specifically, we reduced the internal loads for the north zone by :math:`25\%`
+and increased them for the south zone by the same amount.
+
 The Guideline 36 control saves around :math:`25\%`
 site electrical energy. These are signficant savings
 that can be achieved through software only, without the need
@@ -283,10 +301,16 @@ implementations of the sequence that encapsulates the complexity for the
 energy modeller and the control provider.
 
 
-:numref:`fig_TRoom_base` to :numref:`fig_normalized_flow_g36`
-compare time trajectories of various quantities for
-a period in winter, spring and summer. The horizontal axis
-is the day of the year.
+:numref:`fig_TRoom_base` to :numref:`fig_TRoom_g36`
+compare time trajectories of the room air temperatures for
+a period in winter, spring and summer. These periods will also
+be used in other plots below.
+The horizontal axis is the day of the year.
+
+The figures show that the room air temperatures are controlled
+within the setpoints for both cases. Small set point violations
+have been observed due to the dynamic nature of the control sequence
+and the controlled process.
 
 .. _fig_TRoom_base:
 
@@ -300,51 +324,28 @@ is the day of the year.
 
    Room air temperatures for guideline 36.
 
-:numref:`fig_TRoom_base` to
-:numref:`fig_TRoom_g36`
-show that the room air temperatures are controlled
-within the setpoints for both cases. Small set point violations
-have been observed due to the dynamic nature of the control sequence
-and the controlled process.
 
-.. _fig_vav_base:
+**Next, in xxx to xxx, we show**
 
-.. figure:: img/case_study1/results/vav_base.*
+.. _fig_vav_all:
 
-   VAV control signals for the base case.
+.. figure:: img/case_study1/results/vav_all.*
 
+   VAV control signals for the north and south zones.
 
-.. _fig_vav_g36:
-
-.. figure:: img/case_study1/results/vav_g36.*
-
-   VAV control signals for guideline 36.
-
-:numref:`fig_vav_base` to
-:numref:`fig_vav_g36`
-show for the north and south zones the
-control signal for the heating valve of the terminal boxes
-:math:`y_{hea}` and the control signal for the VAV damper
-:math:`y_{vav}`.
+:numref:`fig_vav_all` shows the control signals of the reheat coils :math:`y_{hea}`
+and the VAV damper :math:`y_{vav}`
+for the north and south zones.
 
 
-.. _fig_TAHU_base:
+.. _fig_TAHU_all:
 
-.. figure:: img/case_study1/results/TAHU_base.*
+.. figure:: img/case_study1/results/TAHU_all.*
 
-   AHU temperatures for the base case.
+   AHU temperatures.
 
-
-.. _fig_TAHU_g36:
-
-.. figure:: img/case_study1/results/TAHU_g36.*
-
-   AHU temperatures for guideline 36.
-
-
-:numref:`fig_TAHU_base` to
-:numref:`fig_TAHU_g36`
-show for the air handler unit
+:numref:`fig_TAHU_all` shows the temperatures of the air handler unit.
+The figure shows the outside air temperature temperature :math:`T_{out}`,
 the supply air temperature after the fan :math:`T_{sup}`,
 the mixed air temperature after the economizer :math:`T_{mix}`
 and the return air temperature from the building :math:`T_{ret}`.
@@ -353,46 +354,51 @@ the supply air temperature whereas the base case is controlled
 for a supply air temperature of :math:`10^\circ \mathrm C`
 for heating and :math:`12^\circ \mathrm C` for cooling.
 
-.. _fig_flow_signals_base:
+.. _fig_flow_signals_all:
 
-.. figure:: img/case_study1/results/flow_signals_base.*
+.. figure:: img/case_study1/results/flow_signals_all.*
 
-   Control signals for the base case.
+   Control signals for the supply fan, outside air damper and return air damper.
 
+:numref:`fig_flow_signals_all` show reasonable fan speeds and economizer operation.
+Note that during the winter days 5, 6 and 7, the outdoor air damper opens. However,
+this is only to track the setpoint for the minimum outside air flow rate as the fan
+speed is at its minimum.
 
-.. _fig_flow_signals_g36:
+.. _fig_normalized_flow_all:
 
-.. figure:: img/case_study1/results/flow_signals_g36.*
+.. figure:: img/case_study1/results/normalized_flow_all.*
 
-   Control signals for guideline 36.
+   Fan and outside air volumen flow rates, normalized by the room air volume.
 
-:numref:`fig_flow_signals_base` to
-:numref:`fig_flow_signals_g36`
-show reasonable fan speeds and economizer operation
-
-.. _fig_normalized_flow_base:
-
-.. figure:: img/case_study1/results/normalized_flow_base.*
-
-   Mass flow rates, normalized by the design flow rate, for the base case.
-
-
-.. _fig_normalized_flow_g36:
-
-.. figure:: img/case_study1/results/normalized_flow_g36.*
-
-   Mass flow rates, normalized by the design flow rate, for guideline 36.
-
-:numref:`fig_normalized_flow_base` to
-:numref:`fig_normalized_flow_g36`
-show the air changes per hour (normalized by the building volume)
-for the supply fan and the outdoor air intake.
+:numref:`fig_normalized_flow_all` shows the volume flow rate of the fan
+:math:`\dot V_{fan,sup}/V_{bui}`, where :math:`V_{bui}` is the volume of the building,
+and of the outside air intake of the economizer :math:`\dot V_{eco,out}/V_{bui}`, expressed in air changes per hour.
+Note that guideline 36 has smaller outside air flow rates in cold winter and hot summer days.
 The system has relatively low air changes per hour. As fan
 energy is low for this building, it may be more efficient to increase
 flow rates and use higher cooling and lower heating temperatures,
 in particular if heating and cooling is provided by a heat pump and chiller.
 We have however not further analyzed this trade-off.
 
+
+
+.. _fig_TRoom_load_diversity:
+
+.. figure:: img/case_study1/results/TRoom_with_without_div_IHG.pdf
+
+   Outdoor air and room air temperatures for the north and south zone with
+   equal internal loads, and with diversity added to the internal loads.
+
+:numref:`fig_TRoom_load_diversity` compares the room air temperatures for the
+north and south zone for the standard internal loads, and the case where we
+reduced the internal loads in the north zone by :math:`25\%` and increased it
+by the same amount in the south zone. The room air temperature trajectories
+are practically on top of each other, except for a few hours such as for the
+base case in the afternoon of day 198.
+Both control sequences are comparable in terms of compensating for this
+diversity, and as we saw in :math:`fig_cas_stu1_energy`,
+their energy consumption is not noticeably affected.
 
 Improvement to Guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
