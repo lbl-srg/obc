@@ -55,7 +55,7 @@ def _simulate(spec):
 
     wor_dir = create_working_directory()
 
-    out_dir = os.path.join(wor_dir, spec["name"])
+    out_dir = os.path.join(wor_dir, "simulations", spec["name"])
 
     # Update MODELICAPATH to get the right library version
     os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
@@ -84,7 +84,7 @@ def _simulate(spec):
     s.simulate()
 
     # Copy results back
-    res_des = os.path.join(CWD, spec["name"])
+    res_des = os.path.join(CWD, "simulations", spec["name"])
     if os.path.isdir(res_des):
        shutil.rmtree(res_des)
     print("Copying results to {}".format(res_des))

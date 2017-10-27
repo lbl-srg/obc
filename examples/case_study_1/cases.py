@@ -52,7 +52,7 @@ def get_cases():
     cases_load_diversity = copy.deepcopy(cases)
     for ele in cases_load_diversity:
         ele['name'] = "{}_diverse_loads".format(ele["name"])
-        ele['parameters'] = {'flo.kIntNor': 0.75}
+        ele['parameters'] = {'flo.kIntNor': 0.5}
 
     cases = cases + cases_load_diversity
 
@@ -80,4 +80,4 @@ def get_result_file_name(name):
     case = get_case(name)
     model_name = (os.path.splitext(case['model'])[1])[1:]
     mat_name = "{}.mat".format( model_name )
-    return os.path.join(name, mat_name)
+    return os.path.join("simulations", name, mat_name)
