@@ -57,6 +57,10 @@ the Open Building Controls project.
      Each simulator is responsible for integrating in time its
      differential equation. See also :term:`model-exchange`.
 
+   events
+     An event is either a :term:`time event` if time triggers the change,
+     or a :term:`state event` if a test on the state triggers the change.
+
    Functional Mockup Interface
      The Functional Mockup Interface (FMI) standard defines an open interface
      to be implemented by an executable called :term:`Functional Mockup Unit` (FMU).
@@ -100,3 +104,31 @@ the Open Building Controls project.
      from the simulator the time derivative. The master algorithm
      integrates the differential equations in time.
      See also :term:`co-simulation`.
+
+   state event
+     We say that a simulation has a state event if its model changes based on a test
+     that depends on a state variable. For example, for some initial condition :math:`x(0)=x_0`,
+
+     .. math::
+
+        \frac{dx}{dt} =
+        \begin{cases}
+          1,  & \text{if } x < 1, \\
+          0,  & \text{otherwise,}
+        \end{cases}
+
+     has a state event when :math:`x=1`.
+
+   time event
+     We say that a simulation has a time event if its model changes based on a test
+     that only depends on time. For example,
+
+     .. math::
+
+        y =
+        \begin{cases}
+          0, & \text{if } t < 1, \\
+          1, & \text{otherwise,}
+         \end{cases}
+
+     has a time event at :math:`t=1`.
