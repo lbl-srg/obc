@@ -6,7 +6,7 @@ Requirements
 This section describes the functional, mathematical and software requirements.
 The requirements are currently in discussion and revision with the team.
 
-In these discussion, by *plant*, we mean the controlled system, which may be a chiller plant,
+In these discussion, by :term:`plant`, we mean the controlled system, which may be a chiller plant,
 an HVAC system, an active facade, a model of the building etc.
 
 Controls Design Tool
@@ -24,8 +24,8 @@ Controls Design Tool
 #. The controls design tool shall allow users to add
    libraries of custom functional and performance requirement tests.
 #. The controls design tool shall allow testing energy, peak demand,
-   energy cost, and comfort of control sequences when connected to a building
-   system model.
+   energy cost, and comfort (for each instant of the simulation)
+   of control sequences when connected to a building system model.
 #. The controls design tool shall allow users to test control sequences coupled to the equipment that constitutes their HVAC system.
 #. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
 #. The control design tool shall include templates for common objects.
@@ -52,11 +52,12 @@ CDL
 ^^^
 
 #. The CDL shall be declarative in nature. It shall be able to express control sequences and their linkage to an object model which represents the plant.
-#. CDL shall represent control sequences as a set of functional blocks which can be connected through their inputs and outputs, and be composed hierarchically to form new functional blocks.
+#. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`)
+   which can be connected through their inputs and outputs, and be composed hierarchically to form new blocks.
 #. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs. The actual implementation is not part of the standard [as this is language dependent].
-#. Each functional block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
-#. Functional blocks shall identify whether they are a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
-#. Inputs, outputs, and functional blocks shall be allowed to contain metadata.
+#. Each block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
+#. Blocks shall identify whether they are a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
+#. Blocks and their inputs and outputs shall be allowed to contain metadata.
    The metadata shall identify expected characteristics, including but not limited to the following.
    For inputs and outputs:
 
@@ -67,7 +68,7 @@ CDL
    #. for physical sensors or data input, the application
       (e.g. return air temperature, supply air temperature).
 
-   For functional blocks:
+   For blocks:
 
    #. an equipment tag [e.g., air handler control],
    #. a location [e.g., 1st-floor-office-south], and

@@ -6,9 +6,9 @@ Process Workflow
 The actual process work flow needs to be refined by the project team
 with input from the Technical Advisory Group.
 :numref:`fig_process` shows the proposed process:
-First, given regulations and efficiency targets (1),
+First, given regulations and efficiency targets, labeled as (1) in :numref:`fig_process`,
 a design engineer selects, configures, tests and evaluates the performance of a control sequence
-within the Controls Design Tool (2),
+within the Controls Design Tool to be developed within this project (2),
 starting from a control sequence library that contains ASHRAE GPC 36 sequences,
 as well as user-added sequences (3),
 linked to a model of the mechanical system and the building (4).

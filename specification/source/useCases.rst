@@ -48,9 +48,6 @@ Preconditions                All Guideline 36 sequences need to be pre-programme
                              into visual block diagrams using CDL.
                              CDL and block diagrams need to be modular so that
                              they can be easily updated when key elements are changed/deleted/added.
-
-                             (Phil:implementation of Guideline 36 sequences needs to be prioritized
-                             along with sequences from other sources, including UNC Chapel Hill, TBD.)
 ---------------------------  ---------------------------------------------------
 Successful End Condition     User is able to download the CDL/block diagrams
                              using a specific reference to Guideline 36 sequences.
@@ -94,15 +91,10 @@ Trigger                      Designing control system using Guideline 36 as
 Customizing a control sequence for a VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-(Brent: this example appears to be "how to attach a VAV control sequence to a specific VAV box", as opposed to "how to modify/customize the pre-defined VAV control sequence".  I argue that they are distinct use cases and we need to consider both.
-
-(Phil: See below for my 'Customizing a control sequence for a multi-zone VAV system', which includes both customization and configuration for multi-zone systems. See just above it for my 'Customizing a control sequence for a single zone VAV system' - a
-poential replacement for 'Customizing a control sequence for a VAV system')
-
 *Provided by Michael Wetter, LBNL.*
 
-This use case describes how to customize a control sequence
-for a VAV system.
+This use case describes how to connect a control sequence
+to a VAV system and then customize the control sequence.
 
 ===========================  ===================================================
 **Use case name**            **Customizing a control sequence for a VAV system**
@@ -112,12 +104,8 @@ Related Requirements         n/a
 Goal in Context              A mechanical engineer wants to customize a control
                              sequence, starting with a template.
 ---------------------------  ---------------------------------------------------
-Preconditions                HVAC system model connected to building model.
-
-                             (Brent: What is the "system model"?  What is the "building model"?  Where do each of them reside?  In what format is the data held?)
-                             (Phil: HVAC system model (components + connections, including sensors and actuators) connected to building model (envelope/fabric, internal gains and occupancy schedules.
-
-                             (Phil: we have a naming problem: we need a concise way of refering to the combination of the HVAC 'system' model, the 'building' model and the control sequence(s).)
+Preconditions                System model of the HVAC and building, with sensor
+                             output signals and actuator input signals exposed.
 
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
@@ -144,25 +132,26 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 1                            The user opens the controls design tool in OpenStudio
 ---------------------------  ---------------------------------------------------
-2                            The user opens the HVAC system model and building model
-                             in the controls design tool.
----------------------------  ---------------------------------------------------
-3                            The user connects sensors and actuators to
-                             control inputs and outputs.
-
-                             (Brent: Is this not already pre-defined in the library sequence?  The library sequence already has inputs and outputs defined.  The library sequence should define what types of input/output are expected/acceptable to each of its I/O points.  The engineer merely needs to note which ones do or do not apply. e.g. not all VAV boxes have a heating coil or a discharge air temp sensor)
-                             (Phil: Shouldn't this be done after Step 4 for an (optional) reference case and after Step 9?)
----------------------------  ---------------------------------------------------
-4                            The user drags and drops from the Buildings library
+2                            The user drags and drops from the Buildings library
                              a pre-configured VAV control sequence.
 ---------------------------  ---------------------------------------------------
-5                            The user clicks on the pre-configured VAV control
+3                            The user clicks on the pre-configured VAV control
                              sequence and selects in the tool a function that
                              will store the sequence in the project library
                              to allow further editing.
 ---------------------------  ---------------------------------------------------
-6                            The controls design tool stores the
+4                            The controls design tool stores the
                              sequence in the project library.
+---------------------------  ---------------------------------------------------
+5                            The user connects sensors and actuators of the
+                             :term:`plant` model to
+                             control inputs and outputs of the :term:`controller`
+                             model.
+
+---------------------------  ---------------------------------------------------
+6                            The user opens the system model that is composed
+                             of controls, HVAC system model and building envelope
+                             in the controls design tool.
 ---------------------------  ---------------------------------------------------
 7                            The user opens in the project library
                              the new composite control block.
@@ -175,7 +164,6 @@ Trigger                      n/a
                              specification.
 ===========================  ===================================================
 
-(Brent: Is the engineer expected to go through this process for every VAV box?  That might be OK for e.g. AHU or chillers, but there can be thousands of VAV boxes in a project)
 
 :numref:`fig_use_case_custom_vav` shows the sequence diagram for this use case.
 
@@ -191,9 +179,9 @@ Trigger                      n/a
    "User" -> "Control Design Tool" : Open HVAC and building model.
    "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
    "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
    "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
    "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
+   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
    "User" -> "Control Design Tool" : Open new composite control block in the project library.
    "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
    "User" -> "Control Design Tool" : Check model.
@@ -217,13 +205,8 @@ Related Requirements         n/a
 Goal in Context              A mechanical engineer wants to customize a control
                              sequence, starting with a template.
 ---------------------------  ---------------------------------------------------
-Preconditions                HVAC system model connected to building model.
-
-                             (Phil: HVAC system model = components + connections, including sensors and actuators;
-                             building model = envelope/fabric, internal gains and occupancy schedules.)
-
-                             (Phil: we have a naming problem: we need a concise way of refering to the combination of
-                             the HVAC 'system' model, the 'building' model and the control sequence(s).)
+Preconditions                A model of the :term:`plant` (consisting of HVAC and
+                             building model).
 
                              Preconfigured control sequence, stored in an OpenBuildingControls-compatible library.
 
@@ -298,31 +281,6 @@ Trigger                      n/a
                              sequence' use case below.
 ===========================  ===================================================
 
-..
-   .. :numref:`fig_use_case_custom_single-zone_vav` shows the sequence diagram for this use case.
-
-   .. _fig_use_case_custom_multi-zone_vav:
-
-   .. uml::
-      :caption: Customizing a control sequence for a multi-zone VAV system.
-
-      title Customizing a control sequence for a multi-zone VAV system
-
-      This section to be completed following review of the above
-
-      "User" -> "OpenStudio" : Open control design tool.
-      "OpenStudio" -> "Control Design Tool" : open()
-      "User" -> "Control Design Tool" : Open HVAC and building model.
-      "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-      "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-      "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-      "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
-      "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
-      "User" -> "Control Design Tool" : Open new composite control block in the project library.
-      "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
-      "User" -> "Control Design Tool" : Check model.
-      "OpenStudio" <- "Control Design Tool" : Invoke model check.
-      "User" <- "Control Design Tool" : Report info, warning and error.
 
 
 Customizing and configuring a control sequence for a multizone VAV system
@@ -343,12 +301,6 @@ Goal in Context              A mechanical engineer wants to customize a control
 ---------------------------  ---------------------------------------------------
 Preconditions                HVAC system model connected to building model.
                              The repeated elements in the HVAC system model (i.e. the terminal boxes) must be tagged and numbered.
-
-                             (Phil: HVAC system model = components + connections, including sensors and actuators;
-                             building model = envelope/fabric, internal gains and occupancy schedules.)
-
-                             (Phil: we have a naming problem: we need a concise way of refering to the combination of
-                             the HVAC 'system' model, the 'building' model and the control sequence(s).)
 
                              Preconfigured control sequence, stored in an OpenBuildingControls-compatible library.
                              The terminal boxes control blocks must be tagged to indicate that they can be replicated by a predefined
@@ -427,31 +379,6 @@ Trigger                      n/a
 19                           The user assesses the relative performance of the modified and unmodified sequences using the procedure
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
-
-..
-   :numref:`fig_use_case_custom_multi-zone_vav` shows the sequence diagram for this use case.
-
-   .. _fig_use_case_custom_multi-zone_vav:
-
-   .. uml::
-      :caption: Customizing a control sequence for a multi-zone VAV system.
-
-      title Customizing a control sequence for a multi-zone VAV system
-
-   // This section to be completed following review of the above
-      "User" -> "OpenStudio" : Open control design tool.
-      "OpenStudio" -> "Control Design Tool" : open()
-      "User" -> "Control Design Tool" : Open HVAC and building model.
-      "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-      "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-      "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-      "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
-      "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
-      "User" -> "Control Design Tool" : Open new composite control block in the project library.
-      "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
-      "User" -> "Control Design Tool" : Check model.
-      "OpenStudio" <- "Control Design Tool" : Invoke model check.
-      "User" <- "Control Design Tool" : Report info, warning and error.
 
 
 .. _use_case_per_ass:

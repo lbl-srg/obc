@@ -10,3 +10,4 @@ Conventions
    to the system working, but is still desirable.
 #. Text in bracket such as "[ ... ]" denotes informative text that is
    not part of the specification.
+#. Courier font names such as ``input`` denote variables or statements used in computer code.

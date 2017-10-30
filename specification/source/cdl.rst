@@ -98,6 +98,8 @@ See the Modelica 3.3 specification Chapter 10 for array notation.
    ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
+.. _sec_enc_block:
+
 Encapsulation of functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -560,4 +562,3 @@ input already unambiguously declares to what entity it belongs to, and the
 sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
 Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
-

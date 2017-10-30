@@ -307,7 +307,6 @@ Performance comparison
 .. _fig_cas_stu1_energy:
 
 .. figure:: img/case_study1/results/energy_all.*
-   :scale: 80%
 
    Comparison of energy use. For the cases labeled :math:`\pm 50\%`, the internal gains
    have been increased and decreased as described in :numref:`sec_int_gai`.

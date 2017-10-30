@@ -37,7 +37,7 @@ sending setpoints to PICs.
    [CDL Parser] -d-> [JModelica]: uses
 
 :numref:`fig_architecture_overall_obc` shows the overall
-system with the `Contorls Design Tool` and the
+system with the `Controls Design Tool` and the
 `Functional Verification Tool`. Both use
 a `CDL Parser` which parses the CDL language,
 using `JModelica` to parse the AST.
@@ -103,7 +103,7 @@ performance. This will also allow accessing the
 `HVAC System Editor` that is being developed
 for SOEP.
 
-The `Controls Design Tool` will be contain two main modules:
+The `Controls Design Tool` will contain two main modules:
 
  * A `Sequence Generator` that generates an initial control
    sequence that may later be adapted to a specific project, and
