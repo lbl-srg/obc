@@ -136,7 +136,7 @@ Primary Actors               A mechanical engineer.
 Secondary Actors             The controls design tool with template control
                              sequences and a package with elementary CDL blocks.
 
-                             The HVAC and controls library.
+                             The HVAC plant and control sequence library.
 ---------------------------  ---------------------------------------------------
 Trigger                      n/a
 ---------------------------  ---------------------------------------------------
@@ -144,7 +144,7 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 1                            The user opens the controls design tool in OpenStudio
 ---------------------------  ---------------------------------------------------
-2                            The user opens the HVAC model and building model
+2                            The user opens the HVAC system model and building model
                              in the controls design tool.
 ---------------------------  ---------------------------------------------------
 3                            The user connects sensors and actuators to
@@ -217,11 +217,15 @@ Related Requirements         n/a
 Goal in Context              A mechanical engineer wants to customize a control
                              sequence, starting with a template.
 ---------------------------  ---------------------------------------------------
-Preconditions                HVAC system model (including sensors and actuatore)
-                             connected to building model.
+Preconditions                HVAC system model connected to building model.
 
-                             Preconfigured control sequence, stored in an
-                             CDL-compatible library.
+                             (Phil: HVAC system model = components + connections, including sensors and actuators;
+                             building model = envelope/fabric, internal gains and occupancy schedules.)
+
+                             (Phil: we have a naming problem: we need a concise way of refering to the combination of
+                             the HVAC 'system' model, the 'building' model and the control sequence(s).)
+
+                             Preconfigured control sequence, stored in an OpenBuildingControls-compatible library.
 
                              A set of performance requirements.
 ---------------------------  ---------------------------------------------------
@@ -895,7 +899,7 @@ Trigger                      Need to select or improve a control sequence for a
 4                            User uses design information to identify operating
                              ranges at which the control sequence must function and identifies operating conditions/ranges for tuning of individual feedback control loops in the sequence.
 ---------------------------  ---------------------------------------------------
-5                            User  selects initial values for supervisory
+5                            User selects initial values for supervisory
                              controller parameters and tunes the individual feedback control loops or initiates autotuning.
 ---------------------------  ---------------------------------------------------
 6                            User selects short periods for initial testing
@@ -940,7 +944,7 @@ Preconditions                1. Either a) whole building or system model for
 Successful End Condition     User is able to (i) compare the performance of
                              different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
 ---------------------------  ---------------------------------------------------
-Failed End Condition         1. Building/system model or
+Failed End Condition         1. Building or plant model or
                              configuration information for generic model template is incomplete.
 
                              2. Performance requirements or targets are incomplete or inconsistent wrt the specific

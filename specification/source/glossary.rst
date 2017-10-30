@@ -21,15 +21,21 @@ the Open Building Controls project.
      that can take on two values (within some tolerance) in order
      to communicate the binary value.
 
+   Building Model
+     Digital model of the physical behavior of a given building over time,
+     which accounts for any elements of the building envelope and includes a
+     representation of internal gains and occupancy. Building model has connectors
+     to be coupled with an environment model and any HVAC and non-HVAC system models
+     pertaining to the building.
+     
+   CDL
+     See :term:`Controls Description Language`.
 
    Controls Description Language
      The Control Description Language (CDL) is the language
      that is used to express control sequences and requirements.
      It is a declarative language based on a subset of the
      Modelica language and specified at :ref:`sec_cdl`.
-
-   CDL
-     See :term:`Controls Description Language`.
 
    Controls Design Tool
      The Controls Design Tool is a software that can be used to
@@ -42,13 +48,22 @@ the Open Building Controls project.
        in the :term:`Controls Description Language`.
 
    Control Sequence Requirement
-      A requirement is a condition that is tested and either passes, fails,
-      or is untested. For example, a requirement would be that the actual
-      actuation signal is within 2% of the signal computed using the CDL
-      representation of a sequence, provided that they both receive the same
-      input data.
+     A requirement is a condition that is tested and either passes, fails,
+     or is untested. For example, a requirement would be that the actual
+     actuation signal is within 2% of the signal computed using the CDL
+     representation of a sequence, provided that they both receive the same
+     input data.
 
-   co-simulation
+   Control System
+     Any software and hardware required to perform the control function for a plant.
+     
+   Controller
+      A controller, or a compensator is an additional system that is added to the 
+      plant to control the operation of the  plant. The system can have multiple 
+      compensators, and they can appear anywhere in the system: Before the pick-off node, 
+      after the summer, before or after the plant, and in the feedback loop. 
+
+   Co-simulation
      Co-simulation refers to a simulation in which different simulation programs
      exchange run-time data at certain synchronization time points.
      A master algorithm sets the current time, input and states,
@@ -57,7 +72,7 @@ the Open Building Controls project.
      Each simulator is responsible for integrating in time its
      differential equation. See also :term:`model-exchange`.
 
-   events
+   Events
      An event is either a :term:`time event` if time triggers the change,
      or a :term:`state event` if a test on the state triggers the change.
 
@@ -83,7 +98,13 @@ the Open Building Controls project.
      whether some requirements remain untested.
 
    G36 Sequence
-      A control sequence specified by ASHRAE Guideline 36.
+     A control sequence specified by ASHRAE Guideline 36. See also control sequence.
+
+   HVAC System
+     Any HVAC plant coupled with the control system.
+
+   HVAC System Model
+     Consists of all components and connections used to model the behavior of an HVAC System.
 
    Open Building Controls
      Open Building Controls (OBC) is the name of project that develops
@@ -96,8 +117,8 @@ the Open Building Controls project.
    Mode
      In CDL, by mode we mean a signal that can take on multiple distinct
      values, such as ``On``, ``Off``, ``PreCool``.
-
-   model-exchange
+     
+   Model-exchange
      Model-exchange refers to a simulation in which different simulation programs
      exchange run-time data.
      A master algorithm sets time, inputs and states, and requests
@@ -105,7 +126,21 @@ the Open Building Controls project.
      integrates the differential equations in time.
      See also :term:`co-simulation`.
 
-   state event
+   Non-HVAC System
+     Any non-HVAC plant coupled with the control system.
+
+   Plant
+     The term Plant is a carry-over term from chemical engineering to refer to the main 
+     system process. The plant is the preexisting system that does not (without the aid of 
+     a controller or a compensator) meet the given specifications. Plants are usually given 
+     "as is", and are not changeable.
+
+   Standard control sequence
+     A control sequence defined in the CDL control sequence library based on a standard or 
+     any other document which contains a full English language description of the 
+     implemented sequence.
+
+   State event
      We say that a simulation has a state event if its model changes based on a test
      that depends on a state variable. For example, for some initial condition :math:`x(0)=x_0`,
 
@@ -119,7 +154,7 @@ the Open Building Controls project.
 
      has a state event when :math:`x=1`.
 
-   time event
+   Time event
      We say that a simulation has a time event if its model changes based on a test
      that only depends on time. For example,
 
