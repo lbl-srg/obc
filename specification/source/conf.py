@@ -452,29 +452,21 @@ latex_elements['preamble'] = r'''
 \fancyhead[LO]{\rightmark}
 \fancypagestyle{plain}{%
    \fancyhead{} % get rid of headers
-   \renewcommand{\headrulewidth}{0pt} % and the line
+   \fancyhead[R]{\leftmark}
+   \fancyfoot[R]{\thepage}
+   \fancyfoot[L]{}
+   \renewcommand{\headrulewidth}{0.5pt} % and the line
 }
 
-
-%%\fancyhf{}
-%%\rhead[LE,RO]{\thechapter .}
-%\lhead{Guides and tutorials}
 %%\rfoot[LE,RO]{\thepage}
 %%\renewcommand{\headrulewidth}{0.4pt}
 %%\renewcommand{\footrulewidth}{0.4pt}
 
-%%\addtolength{\headwidth}{\marginparsep}
-%%\addtolength{\headwidth}{\marginparwidth}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
-\fancypagestyle{plain}{%
-   \fancyhead{} % get rid of headers
-   \renewcommand{\headrulewidth}{0pt} % and the line
-}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 
 %\hypersetup{hidelinks = true} % Makefile enables this for the 2 page printout
 

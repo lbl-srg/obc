@@ -17,9 +17,8 @@ All models are implemented in Modelica, using models from
 the Buildings library :cite:`WetterZuoNouiduiPang2014`.
 
 The models are available from the branch
-https://github.com/lbl-srg/modelica-buildings/tree/issue967_VAVReheat_CDL
-
-.. todo:: Move models to the master branch.
+https://github.com/lbl-srg/modelica-buildings/tree/master
+commit 363a27433c263236e14244830d05a1df8973f68c.
 
 As a test case, we used a simulation model that consists
 of five thermal zones that are representative of one floor of the
@@ -119,8 +118,11 @@ Common HVAC Systems :cite:`ASHRAESeq2006:1`.
 In this control sequence, the
 supply fan speed is regulated based on the duct static pressure.
 The duct static pressure is adjusted
-so that at least one VAV damper is 90% open. The economizer dampers
+so that at least one VAV damper is 90% open.
+The economizer dampers
 are modulated to track the setpoint for the mixed air dry bulb temperature.
+The supply air temperature setpoints for heating and cooling are constant
+during occupied hours, which may not comply with some energy codes.
 Priority is given to maintain a minimum outside air volume flow rate.
 In each zone, the VAV damper is adjusted to meet the room temperature
 setpoint for cooling, or fully opened during heating.
@@ -152,6 +154,46 @@ Our implementation differs from VAV 2A2-21232 in the following points:
 
 For the guideline 36 case, we implemented the multi-zone VAV control sequence.
 :numref:`fig_vav_con_sch` shows the sequence diagram.
+
+In the guideline 36 sequence, the duct static pressure is reset using trim and respond
+logic based on zone pressure reset requests, which are issued from the terminal box
+controller based on whether the measured flow rate tracks the set point.
+The implementation of the controller that issues these system requests
+is shown in xxxx.
+The economizer dampers are modulated based on a control signal for the supply
+air temperature set point, which is also used to control the heating and cooling coil valve
+in the air handler unit.
+Priority is given to maintain a minimum outside air volume flow rate.
+The supply air temperature setpoints for heating and cooling at the air handler unit
+are reset based on outdoor air temperature, zone temperature reset requests from
+the terminal boxes and operation mode.
+
+In each zone, the VAV damper and the reheat coil is controlled using the
+sequence shown in :numref:`fig_dam_val_reh`, where
+``THeaSet`` is the set point temperature for heating,
+``dTDisMax`` is the maximum temperature difference for the discharge temperature above ``THeaSet``,
+``TSup`` is the supply air temperature,
+``VAct*`` are the active airflow rates for heating (``Hea``), cooling (``Coo``)
+with their minimum and maximum values denoted by ``Min`` and ``Max``.
+
+
+.. _fig_sys_req:
+
+
+.. figure:: img/case_study1/SystemRequests.*
+   :scale: 30%
+
+   Composite block that implements the sequence for the VAV terminal units that output the system requests.
+
+
+.. _fig_dam_val_reh:
+
+.. figure:: img/case_study1/DamperValve.*
+   :scale: 50%
+
+   Control sequence for VAV terminal unit.
+
+
 
 .. _fig_vav_con_sch:
 
@@ -209,21 +251,10 @@ Simulations
 
    Top level view of Modelica model for the guideline 36 case.
 
-To illustrate the complexity of the control sequence for the guideline 36 case,
-we show in :numref:`fig_model_zone_temperatures` the implementation
-of the control sequence that computes the
-zone air temperature setpoints for heating and cooling based on
-occupancy, window status, setpoint adjustment, air handler unit operation mode
-and cooling or heating demand limit signal. The implementation is
-according to guideline 36, part 5.B.3.
+The complexity of the control implementation is visible
+in :numref:`fig_sys_req` which computes the temperature and pressure
+requests of each terminal box that is sent to the air handler unit control.
 
-.. _fig_model_zone_temperatures:
-
-.. figure:: img/case_study1/ZoneTemperatures.*
-   :scale: 50%
-
-   Composite block that computes the zone air temperature setpoints
-   for heating and cooling.
 
 All simulations were done with Dymola 2018 FD01 beta3 using Ubuntu 16.04 64 bit.
 We used the Radau solver with a tolerance of :math:`10^{-6}`.
@@ -259,15 +290,15 @@ as the PI controller is an elementary building block
 
 .. table:: Model and simulation statistics.
 
-   ============================================== ========= ============
-                                                  Base case Guideline 36
-   ============================================== ========= ============
-   Number of components                                2826         4400
-   Number of variables (prior to translation)        33,700       40,400
-   Number of continuous states                          178          190
-   Number of time-varying variables                    3400         4800
-   Time for annual simulation in minutes                100          180
-   ============================================== ========= ============
+   ============================================== =========== =============
+   Quantity                                         Base case  Guideline 36
+   ============================================== =========== =============
+   Number of components                                2826            4400
+   Number of variables (prior to translation)        33,700          40,400
+   Number of continuous states                          178             190
+   Number of time-varying variables                    3400            4800
+   Time for annual simulation in minutes                 70             100
+   ============================================== =========== =============
 
 
 Performance comparison
@@ -456,14 +487,6 @@ Deadbands for hard switches
 
 There are various sequences in which the set point changes as a step function of
 the control signal, such as shown in :numref:`fig_dam_val_reh`.
-
-.. _fig_dam_val_reh:
-
-.. figure:: img/case_study1/DamperValveRehBox.*
-   :scale: 50%
-
-   Control sequence for VAV terminal unit.
-
 In our simulations of the VAV terminal boxes, the switch in air flow rate caused
 chattering. We circumvented the problem by checking if the heating control signal
 remains bigger than :math:`0.05` for :math:`5` minutes. If it falls below :math:`0.01`,

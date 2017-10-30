@@ -1,3 +1,7 @@
+.. raw:: latex
+
+   \pagestyle{plain}
+
 Preample
 --------
 
