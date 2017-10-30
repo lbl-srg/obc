@@ -4,7 +4,7 @@
 # with your model
 #############################################################
 import os
-BRANCH="issue967_VAVReheat_CDL"
+BRANCH="master"
 CWD = os.getcwd()
 
 
