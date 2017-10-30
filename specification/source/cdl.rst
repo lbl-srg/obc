@@ -40,18 +40,18 @@ violates the Modelica Standard is added.
 
 To simplify the implementation, the following Modelica keywords are not supported in CDL:
 
-#. `redeclare`
-#. `constrainedby`
-#. `inner` and `outer`
+#. ``redeclare``
+#. ``constrainedby``
+#. ``inner`` and ``outer``
 
 Also, the following Modelica language features are not supported in CDL:
 
 #. Clocks [which are used in Modelica for hybrid system modeling].
-#. `algorithm` sections. [As the elementary building blocks are black-box
+#. ``algorithm`` sections. [As the elementary building blocks are black-box
    models as far as CDL is concerned and thus CDL compliant tools need
-   not parse the `algorithm` section.]
-#. `initial equation` and `initial algorithm` sections.
-#. package-level declaration of `constant` data types.
+   not parse the ``algorithm`` section.]
+#. ``initial equation`` and ``initial algorithm`` sections.
+#. package-level declaration of ``constant`` data types.
 
 
 .. _sec_cld_per_typ:
@@ -61,12 +61,12 @@ Permissible data types
 
 The basic data types are, in addition to the elementary building blocks,
 parameters of type
-`Real`, `Integer`, `Boolean`, `String`, and `enumeration`.
+``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
 [Parameters do not change their value as time progress.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type `parameter`
-or type `constant`.
+instances of blocks, or declarations of type ``parameter``
+or type ``constant``.
 Variables are not allowed [they are used however in the elementary building blocks].
 
 The declaration of such types is identical to the declaration
@@ -77,37 +77,37 @@ allows users to change the value of a parameter when the simulation
 or control sequence is not running.
 For example, to declare a real-valued parameter,
 use ``parameter Real k = 1 "A parameter with value 1";``.
-In contract, a `constant` cannot be changed after the software is
+In contract, a ``constant`` cannot be changed after the software is
 compiled, and is typically not shown in a graphical user interface menu.
-For example, a `constant` is used to define latent heat of evaporation
+For example, a ``constant`` is used to define latent heat of evaporation
 if used in a controller.
 ]
 
 Each of these data types, including the elementary building blocks,
 can be a single instance or one-dimensional array.
-Array indices shall be of type `Integer` only.
-The first element of an array has index `1`.
-An array of size `0` is an empty array.
+Array indices shall be of type ``Integer`` only.
+The first element of an array has index ``1``.
+An array of size ``0`` is an empty array.
 See the Modelica 3.3 specification Chapter 10 for array notation.
 
-[`enumeration` or `Boolean` data types are not permitted as array indices.]
+[``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
 
 .. note::
 
-   We still need to define the allowed values for `quantity`, for example
+   We still need to define the allowed values for ``quantity``, for example
    ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
 Encapsulation of functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All computations are encapsulated in a `block`.
+All computations are encapsulated in a ``block``.
 Blocks exposes parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
 
-Blocks are either `elementary building blocks`_
-or `composite blocks`_.
+Blocks are either *elementary building blocks* (:numref:`sec_ele_bui_blo`)
+or *composite blocks* (:numref:`sec_com_blo`).
 
 
 .. _sec_ele_bui_blo:
@@ -115,14 +115,29 @@ or `composite blocks`_.
 Elementary building blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. figure:: img/cdl/cdl_screen_shot.*
+   :width: 300px
+
+   Screenshot of CDL library.
+
 The CDL contains elementary building blocks that are used to compose
-control sequences. The elementary building blocks can be
-browsed at the CDL blocks web page
-http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+control sequences.
 The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification. Hence, users are not allowed to add
 new elementary building blocks. Rather, users can use them to implement
-`composite blocks`_.
+composite blocks (:numref:`sec_com_blo`).
+
+.. note::
+
+   The elementary building blocks can be browsed in any of these ways:
+
+     * Open a web browser at http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+     * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
+       and open ``Buildings/package.mo`` in the graphical model editor of
+       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
+       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
+       All models in the `Examples` and `Validation` packages can be simulated with these tools.
+       They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
 
 [CDL implementations are allowed to use a different implementation of the elementary
 building blocks, because the implementation is language specific. However,
@@ -157,7 +172,7 @@ is used for graphical rendering:
 
 For the complete implementation, see
 the
-`github repository <https://github.com/lbl-srg/modelica-buildings/blob/issue609_cdl/Buildings/Experimental/OpenBuildingControl/CDL/Continuous/AddParameter.mo>`_.
+`github repository <https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/Controls/OBC/CDL/Continuous/AddParameter.mo>`_.
 
 
 Instantiation
@@ -176,7 +191,7 @@ The optional annotations is typically used
 for the graphical positioning of the instance in a block-diagram.
 ]
 
-In the assignment of `parameters`, calculations are allowed.
+In the assignment of ``parameters``, calculations are allowed.
 
 [For example, a hysteresis block could be configured as follows
 
@@ -187,20 +202,25 @@ In the assignment of `parameters`, calculations are allowed.
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
      uHigh = pRel+25) "Hysteresis for fan control";
+
 ]
 
-.. todo::
+Instances can conditionally be removed by using an ``if`` clause.
 
-   We need to clarify whether
-   we allow conditional removal of blocks and connectors, such as
+[This allows to have one implementation for an economizer control sequence
+that can be configured to take into account enthalpy rather than
+temperature. A statement would be
 
-   .. code-block:: modelica
+.. code-block:: modelica
 
-      parameter Boolean useGain = false;
-      Continuous.Gain myGain(k=10*60) if useGain;
+   parameter Boolean use_enthalpy = true
+     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
 
-   [This would allow removing certain blocks and all their connections
-   based on a boolean parameter.]
+   CDL.Interfaces.RealInput hOut if use_enthalpy
+      "Outdoor air enthalpy";
+
+By the Modelica language definition, all connections (:numref:`sec_connections`)
+to ``hOut`` will be removed if ``use_enthalpy = false``.]
 
 
 .. _sec_connectors:
@@ -210,12 +230,12 @@ Connectors
 
 Blocks expose their inputs and outputs through input and output
 connectors. The permissible connectors are defined in the
-`CDL.Intefaces package <cdl/latest/help/CDL_Interfaces.html>`_.
+`CDL.Interfaces package <cdl/latest/help/CDL_Interfaces.html>`_.
 
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
 
-[ For example, to declare an array of `nin` input signals, use
+[ For example, to declare an array of ``nin`` input signals, use
 
 .. code-block:: modelica
 
@@ -227,11 +247,12 @@ Hence, unlike in Modelica 3.2, we do not allow for automatic vectorization
 of input signals.
 ]
 
+.. _sec_connections:
 
 Connections
 ^^^^^^^^^^^
 
-Connections connect input to output connectors_.
+Connections connect input to output connector (:numref:`sec_connectors`).
 Each input connector of a block needs to be connected to exactly
 one output connector of a block.
 Connections are listed after the instantiation of the blocks in an equation
@@ -241,13 +262,13 @@ section. The syntax is
 
    connect(port_a, port_b) annotation(...);
 
-where `annotation(...)` is optional and may be used to declare
+where ``annotation(...)`` is optional and may be used to declare
 the graphical rendering of the connection.
 The order of the connections and the order of the arguments in the
-`connect` statement does not matter.
+``connect`` statement does not matter.
 
-[For example, to connect an input `u` of an instance `gain` to the output
-`y` of an instance `timer`, one would declare
+[For example, to connect an input ``u`` of an instance ``gain`` to the output
+``y`` of an instance ``timer``, one would declare
 
 .. code-block:: modelica
 
@@ -259,7 +280,7 @@ The order of the connections and the order of the arguments in the
 
 ]
 
-Signals shall be connected using a `connect` statement;
+Signals shall be connected using a ``connect`` statement;
 direct assigning the values of signals when instantiating
 signals is not allowed.
 
@@ -316,15 +337,15 @@ CDL allows building composite blocks such as shown in
 Composite blocks can contain other composite blocks.
 
 Each composite block shall be stored on the file system under the name of the composite block
-with the file extension `.mo`, and with each package name being a directory.
+with the file extension ``.mo``, and with each package name being a directory.
 The name shall be an allowed Modelica class name.
 
-[For example, if a user specifies a new composite block `MyController.MyAdder`, then it
-shall be stored in the file `MyController/MyAdder.mo` on Linux or OS X, or `MyController\\MyAdder.mo`
+[For example, if a user specifies a new composite block ``MyController.MyAdder``, then it
+shall be stored in the file ``MyController/MyAdder.mo`` on Linux or OS X, or ``MyController\\MyAdder.mo``
 on Windows.]
 
 
-[ The following statement, when saved as `CustomPWithLimiter.mo`, is the
+[The following statement, when saved as ``CustomPWithLimiter.mo``, is the
 declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 
@@ -335,7 +356,26 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
 
-[fixme: This might be a good spot to list the block hierarchically. Any blocks contained by the composite blocks can inherit appropriate relational tags from any higher level (details and example provided under Tags section)]
+
+
+Model of computation
+^^^^^^^^^^^^^^^^^^^^
+
+CDL uses the synchronous data flow principle and the single assignment rule,
+which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
+
+#. All variables keep their actual values until these values
+   are explicitly changed. Variable values can be accessed at any time instant.
+#. Computation and communication at an event instant does not take time.
+   [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
+#. Every input connector shall be connected to exactly one output connector.
+
+In addition, the dependency graph from inputs to outputs that directly depend
+on inputs shall be directed and acyclic.
+I.e., connections that form an algebraic loop are not allowed.
+[To break an algebraic loop, one could place a delay block or an integrator
+in the loop, because the outputs of a delay or integrator does *not* depend
+directly on the input.]
 
 
 Tags
@@ -345,12 +385,16 @@ CDL has sufficient information for tools that process CDL to
 generate for example point lists that list all analog temperature sensors,
 or to verify that a pressure control signal is not connected to a temperature
 input of a controller.
-Some of the required properties need to be tagged, for which we will
-use vendor annotations, while other properties
-can be inferred from the Modelica declarations.
+Some, but not all, of these information can be inferred from the CDL language described above.
+We will use tags, implemented through Modelica vendor annotations,
+to provide this additional information.
 In :numref:`sec_inf_pro`, we will explain the properties that can be inferred,
 and in :numref:`sec_tag_pro`, we will explain how to use
 tagging schemes in CDL.
+
+.. note:: None of these information affects the computation of a control signal.
+          Rather, it can be used for example to facilitate the implementation of cost estimation tools,
+          or to detect incorrect connections between outputs and inputs.
 
 .. _sec_inf_pro:
 
@@ -517,32 +561,3 @@ sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
 Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
 
-
-Model of computation
-^^^^^^^^^^^^^^^^^^^^
-
-CDL uses the synchronous data flow principle and the single assignment rule,
-which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
-
-#. All variables keep their actual values until these values
-   are explicitly changed. Variable values can be accessed at any time instant.
-#. Computation and communication at an event instant does not take time.
-   [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
-#. Every input connector shall be connected to exactly one output connector.
-
-In addition, the dependency graph from inputs to outputs that directly depend
-on inputs shall be directed and acyclic.
-I.e., connections that form an algebraic loop are not allowed.
-[To break an algebraic loop, one could place a delay block or an integrator
-in the loop, because the outputs of a delay or integrator does *not* depend
-directly on the input.]
-
-
-.. todo::
-
-   In simulation, we likely need to use discrete event or discrete time semantics
-   for reasons of computing speed, but actual control systems use discrete time
-   sampled systems. We need to address how to sample the control blocks in
-   the actual implementation and in the verification tool [as
-   they have different needs on performance, predictability of computing time,
-   and scheduling of execution].

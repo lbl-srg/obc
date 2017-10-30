@@ -4,8 +4,8 @@ import os, sys
 from io import open
 print(sys.version)
 
-oldFil=os.path.join("build", "latex", "cdl_specification.tex")
-newFil=os.path.join("build", "latex", "cdl_specification.tex-new")
+oldFil=os.path.join("build", "latex", "cdl_report.tex")
+newFil=os.path.join("build", "latex", "cdl_report.tex-new")
 
 def freplace(old, new):
     with open(oldFil, mode="rt", encoding="utf-8") as fin, open(newFil, mode="wt", encoding="utf-8") as fout:
@@ -34,6 +34,3 @@ freplace('\\begin{thebibliography}{1}',
 
 freplace('\\begin{Verbatim}[',
         '\\begin{Verbatim}[fontsize=\\footnotesize, ')
-
-##replace('\\begin{tabular}', '\\begin{longtable}')
-##replace('\\end{tabular}', '\\end{longtable}')

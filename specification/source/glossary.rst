@@ -63,6 +63,32 @@ the Open Building Controls project.
       compensators, and they can appear anywhere in the system: Before the pick-off node, 
       after the summer, before or after the plant, and in the feedback loop. 
 
+   Co-simulation
+     Co-simulation refers to a simulation in which different simulation programs
+     exchange run-time data at certain synchronization time points.
+     A master algorithm sets the current time, input and states,
+     and request the simulator to advance time, after which the
+     master will retrieve the new values for the state.
+     Each simulator is responsible for integrating in time its
+     differential equation. See also :term:`model-exchange`.
+
+   Events
+     An event is either a :term:`time event` if time triggers the change,
+     or a :term:`state event` if a test on the state triggers the change.
+
+   Functional Mockup Interface
+     The Functional Mockup Interface (FMI) standard defines an open interface
+     to be implemented by an executable called :term:`Functional Mockup Unit` (FMU).
+     The FMI functions are called by a simulator to create one or more instances of the FMU,
+     called models, and to run these models, typically together with other models.
+     An FMU may either be self-integrating (:term:`co-simulation`) or require the simulator
+     to perform the numerical integration (:term:`model-exchange`).
+     See further http://fmi-standard.org/.
+
+   Functional Mockup Unit
+     Compiled code or source code that can be executed using the
+     application programming interface defined in the :term:`Functional Mockup Interface` standard.
+
    Functional Verification Tool
      The Functional Verification Tool is a software that takes
      as an input the control sequence in CDL, requirements expressed in CDL,
@@ -91,6 +117,14 @@ the Open Building Controls project.
    Mode
      In CDL, by mode we mean a signal that can take on multiple distinct
      values, such as ``On``, ``Off``, ``PreCool``.
+     
+   Model-exchange
+     Model-exchange refers to a simulation in which different simulation programs
+     exchange run-time data.
+     A master algorithm sets time, inputs and states, and requests
+     from the simulator the time derivative. The master algorithm
+     integrates the differential equations in time.
+     See also :term:`co-simulation`.
 
    Non-HVAC System
      Any non-HVAC plant coupled with the control system.
@@ -105,3 +139,31 @@ the Open Building Controls project.
      A control sequence defined in the CDL control sequence library based on a standard or 
      any other document which contains a full English language description of the 
      implemented sequence.
+
+   State event
+     We say that a simulation has a state event if its model changes based on a test
+     that depends on a state variable. For example, for some initial condition :math:`x(0)=x_0`,
+
+     .. math::
+
+        \frac{dx}{dt} =
+        \begin{cases}
+          1,  & \text{if } x < 1, \\
+          0,  & \text{otherwise,}
+        \end{cases}
+
+     has a state event when :math:`x=1`.
+
+   Time event
+     We say that a simulation has a time event if its model changes based on a test
+     that only depends on time. For example,
+
+     .. math::
+
+        y =
+        \begin{cases}
+          0, & \text{if } t < 1, \\
+          1, & \text{otherwise,}
+         \end{cases}
+
+     has a time event at :math:`t=1`.

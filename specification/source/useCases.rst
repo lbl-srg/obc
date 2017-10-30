@@ -119,9 +119,6 @@ Preconditions                HVAC system model connected to building model.
 
                              (Phil: we have a naming problem: we need a concise way of refering to the combination of the HVAC 'system' model, the 'building' model and the control sequence(s).)
 
-                             (mg: I added terms to the glossary, please review the descriptions, edit as needed
-                             and remove the comments. Same goes for the single zone and multizone sequences below, where applicable.)
-
                              Preconfigured control sequence, stored in the
                              OpenBuildingControls library.
 
@@ -205,7 +202,7 @@ Trigger                      n/a
 
 
 Customizing and configuring a control sequence for a single-zone VAV system
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Provided by Philip Haves, LBNL.*
 
@@ -250,71 +247,84 @@ Trigger                      n/a
 ---------------------------  ---------------------------------------------------
 **Main Flow**                **Action**
 ---------------------------  ---------------------------------------------------
-1                            The user opens the controls design tool in OpenStudio
+1                            The user opens the controls design tool in OpenStudio.
 ---------------------------  ---------------------------------------------------
 2                            The user opens the HVAC model and building model
                              in the controls design tool.
 ---------------------------  ---------------------------------------------------
-3                            The user drags and drops a single-zone VAV control sequence from the Buildings library
-                             into the tool
+3                            The user drags and drops a single-zone VAV control sequence
+                             from the Buildings library
+                             into the tool.
 ---------------------------  ---------------------------------------------------
-4                            The user clicks on the pre-defined single-zone VAV control sequence and selects a function
-                             that will store a copy of the sequence in the project library to allow further editing.
+4                            The user clicks on the pre-defined single-zone
+                             VAV control sequence and selects a function
+                             that will store a copy of the sequence
+                             in the project library to allow further editing.
 ---------------------------  ---------------------------------------------------
 5                            The controls design tool stores a copy of the sequence in the project library.
 ---------------------------  ---------------------------------------------------
 6                            The user loads a copy of the sequence into the sequence editor.
 ---------------------------  ---------------------------------------------------
-7                            The user specifies the mapping of the control points to HVAC system sensors and actuators, e.g. AHU
+7                            The user specifies the mapping of the control points
+                             to HVAC system sensors and actuators, e.g. AHU
 ---------------------------  ---------------------------------------------------
-8                            The user initiates the saving of the composite HVAC+building+control model, for use as a reference model
+8                            The user initiates the saving of the composite
+                             HVAC+building+control model, for use as a reference model
                              against which to compare alternative control sequences
 ---------------------------  ---------------------------------------------------
-9                            If necessary, the user executes the reference model and inspects the resulting performance to identify
+9                            If necessary, the user executes the reference model and
+                             inspects the resulting performance to identify
                              potential modifications
 ---------------------------  ---------------------------------------------------
-10                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
+10                           The user makes a copy of the sequence prior to replication
+                             and loads it into the sequence
                              editor.
 ---------------------------  ---------------------------------------------------
-11                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
+11                           The user edits the sequence by deleting and/or moving atomic
+                             and composite blocks and/or adding control
                              blocks from the elementary CDL-block library
-
 ---------------------------  ---------------------------------------------------
 12                           The user selects "Check model" to verify whether
                              the implemented sequence complies with the CDL
                              specification, editing and re-checking as necessary.
 ---------------------------  ---------------------------------------------------
-13                           The user connects the modified sequence to the HVAC system and building models, using Step 7, and saves
+13                           The user connects the modified sequence to the HVAC
+                             system and building models, using Step 7, and saves
                              the resulting composite model
 ---------------------------  ---------------------------------------------------
-15                           The user assesses the relative performance of the modified and unmodified sequences using the procedure
-                             defined in the 'Performance assessment of a control sequence' use case below.
+15                           The user assesses the relative performance of the
+                             modified and unmodified sequences using the procedure
+                             defined in the 'Performance assessment of a control
+                             sequence' use case below.
 ===========================  ===================================================
 
-:numref:`fig_use_case_custom_single-zone_vav` shows the sequence diagram for this use case.
+..
+   .. :numref:`fig_use_case_custom_single-zone_vav` shows the sequence diagram for this use case.
 
-.. _fig_use_case_custom_multi-zone_vav:
+   .. _fig_use_case_custom_multi-zone_vav:
 
-.. uml::
-   :caption: Customizing a control sequence for a multi-zone VAV system.
+   .. uml::
+      :caption: Customizing a control sequence for a multi-zone VAV system.
 
-   title Customizing a control sequence for a multi-zone VAV system
+      title Customizing a control sequence for a multi-zone VAV system
 
-// This section to be completed following review of the above
-   "User" -> "OpenStudio" : Open control design tool.
-   "OpenStudio" -> "Control Design Tool" : open()
-   "User" -> "Control Design Tool" : Open HVAC and building model.
-   "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-   "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-   "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
-   "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
-   "User" -> "Control Design Tool" : Open new composite control block in the project library.
-   "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
-   "User" -> "Control Design Tool" : Check model.
-   "OpenStudio" <- "Control Design Tool" : Invoke model check.
-   "User" <- "Control Design Tool" : Report info, warning and error.
-//
+      This section to be completed following review of the above
+
+      "User" -> "OpenStudio" : Open control design tool.
+      "OpenStudio" -> "Control Design Tool" : open()
+      "User" -> "Control Design Tool" : Open HVAC and building model.
+      "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
+      "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
+      "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
+      "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
+      "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
+      "User" -> "Control Design Tool" : Open new composite control block in the project library.
+      "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
+      "User" -> "Control Design Tool" : Check model.
+      "OpenStudio" <- "Control Design Tool" : Invoke model check.
+      "User" <- "Control Design Tool" : Report info, warning and error.
+
+
 Customizing and configuring a control sequence for a multizone VAV system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -418,30 +428,31 @@ Trigger                      n/a
                              defined in the 'Performance assessment of a control sequence' use case below.
 ===========================  ===================================================
 
-:numref:`fig_use_case_custom_multi-zone_vav` shows the sequence diagram for this use case.
+..
+   :numref:`fig_use_case_custom_multi-zone_vav` shows the sequence diagram for this use case.
 
-.. _fig_use_case_custom_multi-zone_vav:
+   .. _fig_use_case_custom_multi-zone_vav:
 
-.. uml::
-   :caption: Customizing a control sequence for a multi-zone VAV system.
+   .. uml::
+      :caption: Customizing a control sequence for a multi-zone VAV system.
 
-   title Customizing a control sequence for a multi-zone VAV system
+      title Customizing a control sequence for a multi-zone VAV system
 
-// This section to be completed following review of the above
-   "User" -> "OpenStudio" : Open control design tool.
-   "OpenStudio" -> "Control Design Tool" : open()
-   "User" -> "Control Design Tool" : Open HVAC and building model.
-   "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-   "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-   "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
-   "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
-   "User" -> "Control Design Tool" : Open new composite control block in the project library.
-   "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
-   "User" -> "Control Design Tool" : Check model.
-   "OpenStudio" <- "Control Design Tool" : Invoke model check.
-   "User" <- "Control Design Tool" : Report info, warning and error.
-//
+   // This section to be completed following review of the above
+      "User" -> "OpenStudio" : Open control design tool.
+      "OpenStudio" -> "Control Design Tool" : open()
+      "User" -> "Control Design Tool" : Open HVAC and building model.
+      "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
+      "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
+      "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
+      "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
+      "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
+      "User" -> "Control Design Tool" : Open new composite control block in the project library.
+      "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
+      "User" -> "Control Design Tool" : Check model.
+      "OpenStudio" <- "Control Design Tool" : Invoke model check.
+      "User" <- "Control Design Tool" : Report info, warning and error.
+
 
 .. _use_case_per_ass:
 
@@ -521,7 +532,8 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 3                            User configures control sequence with project-specific
                              information, e.g. number of terminal units on an air
-                             loop, and connects to building and HVAC/non-HVAC system modeL.---------------------------  ---------------------------------------------------
+                             loop, and connects to building/system model.
+---------------------------  ---------------------------------------------------
 3a                           If the sequence contains feedback loops that are to be included in the evaluation,
                              these loops must be tuned, either automatically or manually.
 ---------------------------  ---------------------------------------------------
@@ -539,24 +551,6 @@ Trigger                      Need to select or improve a control sequence for a
                              and determines whether the sequence is acceptable as is, needs
                              modification or appears fundamentally flawed.
 ===========================  ===================================================
-
-
-
-:numref:`fig_use_case_perf_assess` shows the sequence diagram for this use case.
-
-.. _fig_use_case_perf_assess:
-
-.. uml::
-   :caption: Performance assessment of a control sequence.
-
-   title Performance assessment of a control sequence (to be completed)
-
-   "User" -> "OpenStudio" : Open control design tool.
-   "OpenStudio" -> "Control Design Tool" : open()
-   "User" -> "Control Design Tool" : Open HVAC and building model.
-   "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-   "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
 
 
 Defining integration with non-HVAC systems such as lighting, façade and presence detection
@@ -611,17 +605,6 @@ Trigger
                              of the non-HVAC system, and links it to HVAC
                              system status or action block
 ===========================  ===================================================
-
-
-Export of the control sequence in CDL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Saving the control sequence in a library for use in future projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
 
 
 Bidding and BAS Implementation
@@ -680,22 +663,6 @@ Trigger
                              so that the associated specification
                              section can be extracted and populated within third party software.
 ===========================  ===================================================
-
-
-Processing the CDL for cost-estimation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Processing the CDL for implementation in building automation system using code translation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-Processing the CDL for implementation in building automation system using manual implementation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
 
 
 Commissioning, Operation, and Maintenance
@@ -1014,61 +981,4 @@ Trigger                      Need to select or improve a control sequence for a
 ---------------------------  ---------------------------------------------------
 7                            User compare metric values to requirements and/or
                              targets.
----------------------------  ---------------------------------------------------
-**Main Flow 2**              **Commissioning Override Checks**
----------------------------  ---------------------------------------------------
-1
----------------------------  ---------------------------------------------------
-2
-===========================  ===================================================
-
-
-Importing a CDL for trouble shooting an existing building
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-
-Verification of requirements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-[add if none of the listed use cases above cover this topic]
-
-
-Template Use Case
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-*Provided by mg, lbnl.*
-
-This use case will tell you how to fill out the table form with a new use case.
-
-===========================  ===================================================
-**Use case name**            **Name**
-===========================  ===================================================
-Related Requirements         xxx
----------------------------  ---------------------------------------------------
-Goal in Context              xxx
-                             xxx
-                             xxx
----------------------------  ---------------------------------------------------
-Preconditions                xxx
-                             xxx
----------------------------  ---------------------------------------------------
-Successful End Condition     xxx
----------------------------  ---------------------------------------------------
-Failed End Condition         xxx
----------------------------  ---------------------------------------------------
-Primary Actors               xxx
----------------------------  ---------------------------------------------------
-Secondary Actors             xxx
----------------------------  ---------------------------------------------------
-Trigger                      xxx
----------------------------  ---------------------------------------------------
-**Main Flow**                **Action**
----------------------------  ---------------------------------------------------
-1                            xxx
----------------------------  ---------------------------------------------------
-2                            xxx
----------------------------  ---------------------------------------------------
-3                            xxx
 ===========================  ===================================================

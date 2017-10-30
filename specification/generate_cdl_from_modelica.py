@@ -7,7 +7,7 @@ import fnmatch
 
 
 REPO="git@github.com:lbl-srg/modelica-buildings.git"
-BASE_BRANCH="issue609_cdl"
+BASE_BRANCH="master"
 
 html_output_dir = os.path.join("build", "html", "cdl", "latest")
 
@@ -70,9 +70,9 @@ print("----- {}".format(TMP))
 sh(cmd = ['git', 'clone', "--single-branch", '-b', BASE_BRANCH, REPO], path = TMP)
 
 
-shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Experimental", "OpenBuildingControl", "CDL"), \
+shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Controls", "OBC", "CDL"), \
                 os.path.join(TMP, "CDL"))
-shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Resources", "Images", "Experimental", "OpenBuildingControl", "CDL"), \
+shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Resources", "Images", "Controls", "OBC", "CDL"), \
                 os.path.join(TMP, "CDL", "Resources", "Images"))
 shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Resources", "www"), \
                 os.path.join(TMP, "CDL", "Resources", "www"))
@@ -88,9 +88,9 @@ for root, dirnames, filenames in os.walk(os.path.join(TMP, "CDL")):
             with open(fil, 'r') as infile:
                 for line in infile:
                     # This fixes wrong formatting for the use cases
-                    line = re.sub(r'Buildings.Experimental.OpenBuildingControl\.*', '', line)
+                    line = re.sub(r'Buildings.Controls.OBC\.*', '', line)
                     # Update link to images
-                    line = line.replace('Buildings/Resources/Images/Experimental/OpenBuildingControl/CDL', \
+                    line = line.replace('Buildings/Resources/Images/Controls/OBC/CDL', \
                                         'CDL/Resources/Images')
                     lines.append(line)
 
