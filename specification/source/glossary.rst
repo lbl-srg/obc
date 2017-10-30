@@ -27,7 +27,7 @@ the Open Building Controls project.
      representation of internal gains and occupancy. Building model has connectors
      to be coupled with an environment model and any HVAC and non-HVAC system models
      pertaining to the building.
-     
+
    CDL
      See :term:`Controls Description Language`.
 
@@ -56,12 +56,9 @@ the Open Building Controls project.
 
    Control System
      Any software and hardware required to perform the control function for a plant.
-     
+
    Controller
-      A controller, or a compensator is an additional system that is added to the 
-      plant to control the operation of the  plant. The system can have multiple 
-      compensators, and they can appear anywhere in the system: Before the pick-off node, 
-      after the summer, before or after the plant, and in the feedback loop. 
+      A controller is a device that computes control signals for a plant.
 
    Co-simulation
      Co-simulation refers to a simulation in which different simulation programs
@@ -117,7 +114,7 @@ the Open Building Controls project.
    Mode
      In CDL, by mode we mean a signal that can take on multiple distinct
      values, such as ``On``, ``Off``, ``PreCool``.
-     
+
    Model-exchange
      Model-exchange refers to a simulation in which different simulation programs
      exchange run-time data.
@@ -130,14 +127,13 @@ the Open Building Controls project.
      Any non-HVAC plant coupled with the control system.
 
    Plant
-     The term Plant is a carry-over term from chemical engineering to refer to the main 
-     system process. The plant is the preexisting system that does not (without the aid of 
-     a controller or a compensator) meet the given specifications. Plants are usually given 
-     "as is", and are not changeable.
+     A plant is the physical system that is being controlled by a :term:`controller`.
+     In our context, plant is not only used for example a chiller plant, but also
+     for an HVAC system or an actuated shade.
 
    Standard control sequence
-     A control sequence defined in the CDL control sequence library based on a standard or 
-     any other document which contains a full English language description of the 
+     A control sequence defined in the CDL control sequence library based on a standard or
+     any other document which contains a full English language description of the
      implemented sequence.
 
    State event
