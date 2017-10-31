@@ -340,26 +340,35 @@ implementations of guideline 36 that encapsulates the complexity for the
 energy modeler and the control provider.
 
 
-:numref:`fig_TRoom_base` to :numref:`fig_TRoom_g36`
-compare time trajectories of the room air temperatures for
-a period in winter, spring and summer for the base case and
-guideline 36.
+.. _fig_outside:
+
+.. figure:: img/case_study1/results/outside.*
+
+   Outside air temperature and global horizontal irradiation for the
+   three periods that will be further used in the analysis.
+
+
+:numref:`fig_outside`
+shows the outside air temperature temperature :math:`T_{out}` and
+the global horizontal irradiation :math:`H_{glo,hor}` for
+a period in winter, spring and summer. These days will
+be used to compare the trajectories of various quantities of the baseline
+and of guideline 36.
+
+.. _fig_TRoom_all:
+
+.. figure:: img/case_study1/results/TRoom_all.*
+
+   Room air temperatures.
+
+:numref:`fig_TRoom_all`
+compares the time trajectories of the room air temperatures.
 The figures show that the room air temperatures are controlled
 within the setpoints for both cases. Small set point violations
 have been observed due to the dynamic nature of the control sequence
 and the controlled process.
 
-.. _fig_TRoom_base:
 
-.. figure:: img/case_study1/results/TRoom_base.*
-
-   Room air temperatures for the base case.
-
-.. _fig_TRoom_g36:
-
-.. figure:: img/case_study1/results/TRoom_g36.*
-
-   Room air temperatures for guideline 36.
 
 .. _fig_vav_all:
 
@@ -378,7 +387,7 @@ for the north and south zones.
    AHU temperatures.
 
 :numref:`fig_TAHU_all` shows the temperatures of the air handler unit.
-The figure shows the outside air temperature temperature :math:`T_{out}`,
+The figure shows
 the supply air temperature after the fan :math:`T_{sup}`,
 the mixed air temperature after the economizer :math:`T_{mix}`
 and the return air temperature from the building :math:`T_{ret}`.
