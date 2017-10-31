@@ -159,7 +159,7 @@ In the guideline 36 sequence, the duct static pressure is reset using trim and r
 logic based on zone pressure reset requests, which are issued from the terminal box
 controller based on whether the measured flow rate tracks the set point.
 The implementation of the controller that issues these system requests
-is shown in xxxx.
+is shown in :numref:`fig_sys_req`.
 The economizer dampers are modulated based on a control signal for the supply
 air temperature set point, which is also used to control the heating and cooling coil valve
 in the air handler unit.
@@ -177,8 +177,14 @@ sequence shown in :numref:`fig_dam_val_reh`, where
 with their minimum and maximum values denoted by ``Min`` and ``Max``.
 
 
-.. _fig_sys_req:
+.. _fig_vav_con_sch:
 
+.. figure:: img/case_study1/vavControlSchematics.*
+
+   Control schematics of guideline 36 case.
+
+
+.. _fig_sys_req:
 
 .. figure:: img/case_study1/SystemRequests.*
    :scale: 30%
@@ -192,15 +198,6 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
    :scale: 50%
 
    Control sequence for VAV terminal unit.
-
-
-
-.. _fig_vav_con_sch:
-
-.. figure:: img/case_study1/vavControlSchematics.*
-
-   Control schematics of guideline 36 case.
-
 
 
 Our implementation differs from guideline 36 in the following points:
