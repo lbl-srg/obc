@@ -356,7 +356,7 @@ and of guideline 36.
 
 .. figure:: img/case_study1/results/TRoom_all.*
 
-   Room air temperatures.
+   Room air temperatures. The white area indicates the region between the heating and cooling setpoint temperatures.
 
 :numref:`fig_TRoom_all`
 compares the time trajectories of the room air temperatures.
@@ -372,6 +372,7 @@ and the controlled process.
 .. figure:: img/case_study1/results/vav_all.*
 
    VAV control signals for the north and south zones.
+   The white areas indicate the day-time operation.
 
 :numref:`fig_vav_all` shows the control signals of the reheat coils :math:`y_{hea}`
 and the VAV damper :math:`y_{vav}`
@@ -428,6 +429,7 @@ We have however not further analyzed this trade-off.
 
    Outdoor air and room air temperatures for the north and south zone with
    equal internal loads, and with diversity added to the internal loads.
+   The white area indicates the region between the heating and cooling setpoint temperatures.
 
 :numref:`fig_TRoom_load_diversity` compares the room air temperatures for the
 north and south zone for the standard internal loads, and the case where we
