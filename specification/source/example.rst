@@ -18,7 +18,7 @@ the Buildings library :cite:`WetterZuoNouiduiPang2014`.
 
 The models are available from the branch
 https://github.com/lbl-srg/modelica-buildings/tree/master
-commit 363a27433c263236e14244830d05a1df8973f68c.
+commit 7fca6ebc1cab297e23d36ec3925128014ac55dd2.
 
 As a test case, we used a simulation model that consists
 of five thermal zones that are representative of one floor of the
@@ -323,7 +323,7 @@ changed the diversity of the internal loads.
 Specifically, we reduced the internal loads for the north zone by :math:`50\%`
 and increased them for the south zone by the same amount.
 
-The Guideline 36 control saves around :math:`25\%`
+The Guideline 36 control saves around :math:`30\%`
 site electrical energy. These are significant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
@@ -387,6 +387,7 @@ for the north and south zones.
 :numref:`fig_TAHU_all` shows the temperatures of the air handler unit.
 The figure shows
 the supply air temperature after the fan :math:`T_{sup}`,
+its control error relative to its set point :math:`T_{set,sup}`,
 the mixed air temperature after the economizer :math:`T_{mix}`
 and the return air temperature from the building :math:`T_{ret}`.
 A notable difference is that guideline 36 resets
@@ -445,6 +446,11 @@ Both control sequences are comparable in terms of compensating for this
 diversity, and as we saw in :numref:`fig_cas_stu1_energy`,
 their energy consumption is not noticeably affected.
 
+.. raw:: latex
+
+   \clearpage
+
+
 Improvement to Guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -457,8 +463,6 @@ Freeze protection for mixed air temperature
 ...........................................
 
 The sequences have no freeze protection for the mixed air temperature.
-For our simulation, we saw on the first day of January a mixed air temperature
-of around :math:`-2^\circ` C entering the heating coil, which may freeze the coil.
 
 The guideline states (emphasis added):
 
@@ -469,22 +473,66 @@ The guideline states (emphasis added):
    (:math:`42^\circ \mathrm F`). Disable this function when supply air temperature rises above :math:`7.2^\circ \mathrm C`
    (:math:`45^\circ \mathrm F`) for 5 minutes.
 
-As shown in :numref:`fig_freeze_protection`, in our simulations, the supply air temperature :math:`T_{sup}`
-was controlled by the heating coil
-to around :math:`18^\circ \mathrm C`, but the mixed air temperature :math:`T_{mix}` was below freezing.
+Depending on the outdoor air requirements, the mixed air temperature :math:`T_{mix}` may be below freezing,
+which could freeze the heating coil if it has low water flow rate.
+Note that Guideline 36 controls based on the supply air temperature and not the mixed air temperature.
 Hence, this control would not have been active.
-Adding a feedback control that regulates the economizer outdoor air damper such that the mixed air temperature
-is above :math:`4^\circ \mathrm C` yields the trajectory labeled :math:`T_{mix,with}`.
-In plants with an oversized coil that has variable water mass flow rate, there
-is a risk of freezing the coil. Hence we recommend controlling the outdoor air damper
-also for the mixed air temperature of :math:`4^\circ \mathrm C`.
 
-.. _fig_freeze_protection:
+
+:numref:`fig_fre_pro` shows the mixed air temperature and the economizer control
+signal for cold climate.
+The trajectories whose subscripts end in *no* are without freeze protection control based
+on the mixed air temperture, as is the case for guideline 36,
+whereas for the trajectories that end in *with*, we added freeze
+protection that adjusts the economizer to limit the mixed air temperature.
+For these simulations, we reduced the outdoor air temperture by
+:math:`10` Kelvin (:math:`18` Fahrenheit) below the values obtained from the TMY3 weather data.
+This caused in day 6 and 7 in :numref:`fig_fre_pro` sub-freezing mixed air temperatures
+during day-time, as the outdoor air damper was open to provide sufficient fresh air.
+We also observed that outside air is infiltrated through the AHU when the fan
+is switched off.
+This is because
+the wind pressure on the building causes the building to be slightly below
+the ambient pressure, thereby infiltrating air through the economizers closed
+air dampers (that have some leakage).
+This causes a mixed air temperatures below freezing at night when the fan is off.
+Note that these temperatures are qualitative rather than quantitative results
+as the model is quite simplified at these small flow rates, which are about
+:math:`0.01\%` of the air flow rate that the model has when the fan is operating.
+
+.. _fig_fre_pro:
 
 .. figure:: img/case_study1/results/TMixFre.*
 
    Mixed air temperature and economizer control signal for guideline 36 case with
    and without freeze protection.
+
+
+We therefore recommend adding either of the following wording to Guideline 36,
+which is translated from :cite:`SteuernRegeln1986`:
+Use a capillary sensor installed after the heating coil. If the temperature after the heating coil is below
+:math:`4^\circ C`,
+
+1. enable frost protection by opening the heating coil valve,
+2. send frost alarm,
+3. switch on pump of the heating coil.
+
+The frost alarm requires manual confirmation.
+
+If the temperature at the capillary sensor exceeds :math:`6^\circ C`,
+close the valve but keep the pump running until the frost alarm is manually reset.
+(Closing the valve avoids overheating).
+
+
+Recknagel :cite:`Recknagel2005` adds further:
+
+1. Add bypass at valve to ensure :math:`5\%` water flow.
+2. In winter, keep bypass always open, possibly with thermostatically actuated valve.
+3. If the HVAC system is off, keep the heating coil valve open to allow water flow
+   if there is a risk of frost in the AHU room.
+4. If the heating coil is closed,
+   open the outdoor air damper with a time delay when fan switches on to allow heating coil valve to open.
+5. For pre-heat coil, install a circulation pump to ensure full water flow rate through the coil.
 
 
 .. _sec_dea_har_swi:
@@ -497,8 +545,9 @@ the control signal, such as shown in :numref:`fig_dam_val_reh`.
 In our simulations of the VAV terminal boxes, the switch in air flow rate caused
 chattering. We circumvented the problem by checking if the heating control signal
 remains bigger than :math:`0.05` for :math:`5` minutes. If it falls below :math:`0.01`,
-the timer was switched off. This avoided the chattering.
-We therefore recommend to be more explicit for when such mode switches are triggered.
+the timer was switched off. This avoids chattering.
+We therefore recommend to be more explicit for
+where to add hysteresis or time delays.
 
 Averaging air flow measurements
 ...............................
@@ -507,9 +556,9 @@ The guideline 36 does not seem to prescribe that outdoor airflow rate
 measurements need to be time averaged. As such measurements can
 fluctuate due to turbulence, we recommend to consider averaging
 this measurement. In the simulations, we averaged the outdoor airflow
-measurement over a :math:`2` minute moving window (in the simulation,
-this was not to filter noise, but rather to avoid an algebraic system
-of equations).
+measurement over a :math:`5` second moving window (in the simulation,
+this was done to avoid an algebraic system of equations,
+but in practice, this would filter measurement noise).
 
 Minor editorial revision
 ........................
@@ -539,10 +588,62 @@ This in turn would structure the guideline into distinct modules,
 for which one could also provide a reference implementation
 in software.
 
+
+Lessons learned regarding the simulations
+.........................................
+
+This is probably the most detailed building control simulation that
+has been done with the Modelica Buildings library. A few lessons
+have been learned and are reported here. Note that related best-practices
+are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestPractice.html
+
+* *Fan with prescribed mass flow rate:* In earlier implementations, we
+  converted the control signal for the fan to a mass flow rate, and used a fan
+  model whose mass flow rate is equal to its control input, regardless of the pressure head.
+  During start of the system, this caused a unrealistic large fan head
+  of :math:`4000` Pa (:math:`16` inch of water) because
+  VAV dampers opened slowly.
+  The large pressure drop also lead to large power consumption and hence unrealistic
+  temperature increase across the fan.
+
+* *Fan with prescribed presssure head:* We also tried to use a fan with prescribed pressure head.
+  Similarly as above, the fan maintains the presssure head as obtained from its
+  control signal, regardless of the volume flow rate.
+  This caused unrealistic large flow rates in the return duct
+  which has very small pressure drops. (Subsequently, we removed the return fan
+  as it is not needed for this system.)
+
+* *Time sampling certain physical calculations:* Dymola 2018FD01 uses the same
+  time step for all continuous-time equations. Depending on the dynamics, this
+  can be smaller than a second. Since some of the control samples every
+  :math:`2` minutes, it has shown to be favorable to also time sample the long-wave
+  radiation network, whose solution is time consuming.
+  We expect further speed up can be achieved by time
+  sampling other slow physical processes.
+
+* *Non-convergence:* In earlier simulations, sometimes the solver failed to converge.
+  This was due to errors in the control implementation that caused event iterations
+  for discrete equations that seemed to have no solution.
+  In another case, division by zero in the control implementation caused a problem.
+  The solver found a way to work around this division by zero
+  (using heuristics) but then failed to converge.
+  Since we corrected these issues, the simulations are stable.
+
+* *Too fast dynamics of coil:* The cooling coil is implemented using a finite volume model.
+  Heat conduction across the water and air flow used to be neglected as the
+  mode of heat transfer is dominated by forced convection if the fan and pump are operating.
+  However, during night when the system is off, the small infiltration due to wind pressure caused in
+  earlier simulations the water in the coil to freeze. Adding diffusion
+  circumvented this problem, and the coil model in the library includes now by default
+  a small diffusive term.
+
+
+
+
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The guideline 36 sequence reduced annual site energy by :math:`25\%`
+The guideline 36 sequence reduced annual site energy by :math:`30\%`
 compared to the baseline implementation, by comparable thermal comfort.
 Such savings are significant, and have been achieved by software only
 that can relatively easy be deployed to buildings.

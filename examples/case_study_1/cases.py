@@ -58,11 +58,18 @@ def get_cases():
 
     # Freeze protection disabled
     cases.append( \
-        {'model': "Buildings.Examples.VAVReheat.Guideline36",
-         "name": "winter_g36_noFreezeControl",
+        {'model': "VAVMultiZone.Example.FreezeProtection",
+         "name": "winterCold_g36_freezeControl_no",
          "start_time": 0,
          "stop_time":  14*24*3600,
-         "parameters": {'conAHU.TFreSet': 173.15}})
+         "parameters": {'conAHU.use_TMix': False}})
+    cases.append( \
+        {'model': "VAVMultiZone.Example.FreezeProtection",
+         "name": "winterCold_g36_freezeControl_with",
+         "start_time": 0,
+         "stop_time":  14*24*3600,
+         "parameters": {'conAHU.use_TMix': True}})
+
     return cases
 
 def get_case(name):
