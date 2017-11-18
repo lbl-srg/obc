@@ -133,7 +133,8 @@ composite blocks (:numref:`sec_com_blo`).
 
    The elementary building blocks can be browsed in any of these ways:
 
-     * Open a web browser at http://obc.lbl.gov/specification/cdl/latest/help/CDL.html.
+     * Open a web browser at
+       http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
      * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
        and open ``Buildings/package.mo`` in the graphical model editor of
        `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
@@ -232,7 +233,8 @@ Connectors
 
 Blocks expose their inputs and outputs through input and output
 connectors. The permissible connectors are defined in the
-`CDL.Interfaces package <cdl/latest/help/CDL_Interfaces.html>`_.
+`CDL.Interfaces package
+<http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Interfaces.html#Buildings.Controls.OBC.CDL.Interfaces>`_.
 
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
