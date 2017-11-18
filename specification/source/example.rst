@@ -16,9 +16,8 @@ Methodology
 All models are implemented in Modelica, using models from
 the Buildings library :cite:`WetterZuoNouiduiPang2014`.
 
-The models are available from the branch
-https://github.com/lbl-srg/modelica-buildings/tree/master
-commit 7fca6ebc1cab297e23d36ec3925128014ac55dd2.
+The models are available from
+https://github.com/lbl-srg/modelica-buildings/releases/tag/v5.0.0
 
 As a test case, we used a simulation model that consists
 of five thermal zones that are representative of one floor of the
@@ -137,7 +136,8 @@ controllers, while the supervisory control is implemented
 using a finite state machine.
 
 For the detailed implementation of the control logic,
-see the model ``Buildings.Examples.VAVReheat.ASHRAE2006``,
+see the model `Buildings.Examples.VAVReheat.ASHRAE2006
+<http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.ASHRAE2006>`_,
 which is also shown in :numref:`fig_model_top_base`.
 
 Our implementation differs from VAV 2A2-21232 in the following points:
@@ -153,7 +153,8 @@ Our implementation differs from VAV 2A2-21232 in the following points:
 
 
 For the guideline 36 case, we implemented the multi-zone VAV control sequence.
-:numref:`fig_vav_con_sch` shows the sequence diagram.
+:numref:`fig_vav_con_sch` shows the sequence diagram, and the detailed implementation
+is available in the model `Buildings.Examples.VAVReheat.Guideline36 <http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.Guideline36>`_.
 
 In the guideline 36 sequence, the duct static pressure is reset using trim and respond
 logic based on zone pressure reset requests, which are issued from the terminal box
@@ -190,6 +191,7 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
    :scale: 30%
 
    Composite block that implements the sequence for the VAV terminal units that output the system requests.
+   (`Browsable version <http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)
 
 
 .. _fig_dam_val_reh:
