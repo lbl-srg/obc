@@ -432,12 +432,7 @@ latex_elements['preamble'] = r'''
     extends, parameter}, emphstyle=\color{blue},
 }
 
-
-% Set format to 6x9 inches for report to be printed as a book.
-%\usepackage[margin=0.75in, paperwidth=6in, paperheight=9in, includehead, includefoot, centering]{geometry}
 \usepackage[margin=0.75in, includehead, includefoot, centering]{geometry}
-%\geometry{margin=0.75in, includehead, includefoot, centering}
-
 
 % Replace the threeparttable as it causes the caption to
 % be no wider than the table, which looks quite bad.

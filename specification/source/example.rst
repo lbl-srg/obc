@@ -5,10 +5,49 @@ Example application
 
 In this section, we compare the performance of two different
 control sequences, applied to a floor of a prototypical office building.
-The objective is to
-demonstrate the setup for closed loop performance assessment and
-demonstrate how to compare the control performance.
+The objectives are
+to demonstrate the setup for closed loop performance assessment,
+to demonstrate how to compare the control performance, and
+to assess the difference in annual energy consumption.
+For the basecase, we implemented a control sequence published in
+ASHRAE's Sequences of Operation for
+Common HVAC Systems :cite:`ASHRAESeq2006:1`.
+For the other case, we implemented the control sequence
+published in ASHRAE Guideline 36 :cite:`ASHRAE2016`.
+The main conceptual differences between the two control sequences,
+which are described in more detail in :numref:`sec_con_seq_des`,
+are as follows:
 
+* The base case uses constant supply air temperature setpoints
+  for heating and cooling during occupied hours,
+  whereas the guideline 36 uses one supply air
+  temperature setpoint, which is reset based on outdoor air temperature
+  and zone cooling requests, as obtained from the VAV terminal unit controllers.
+  The reset is dynamic using the trim and respond logic.
+* The base case resets the supply fan static pressure setpoint based
+  on the VAV damper position, which is only modulated during cooling,
+  whereas the guideline 36 resets the fan static pressure setpoint based
+  on zone pressure requests from the VAV terminal controllers.
+  The reset is dynamic using the trim and respond logic.
+* The base case controls the economizer to track a mixed air
+  temperature setpoint, whereas guideline 36 controls the economizer
+  based on supply air temperature control loop signal.
+* The base case controls the VAV dampers based on the zone's cooling
+  temperature setpoint, whereas guideline 36 uses the heating and cooling
+  loop signal to control the VAV dampers.
+
+
+The next sections are as follows:
+In :numref:`sec_met_cas1` we describe the methodology,
+the models and the performance metrics,
+in :numref:`sec_per_com_cas1` we compare the performance,
+in :numref:`sec_imp_spe_cas1` we recommend improvements to the
+guideline 36 and
+in :numref:`sec_dis_con_cas1` we discuss the main findings and present
+concluding remarks.
+
+
+.. _sec_met_cas1:
 
 Methodology
 ^^^^^^^^^^^
@@ -104,6 +143,8 @@ The multizone airflow models are further described in
 
 
 
+.. _sec_con_seq_des:
+
 Control sequences
 .................
 
@@ -152,7 +193,8 @@ Our implementation differs from VAV 2A2-21232 in the following points:
   air.
 
 
-For the guideline 36 case, we implemented the multi-zone VAV control sequence.
+For the guideline 36 case, we implemented the multi-zone VAV control sequence
+based on :cite:`ASHRAE2016`.
 :numref:`fig_vav_con_sch` shows the sequence diagram, and the detailed implementation
 is available in the model `Buildings.Examples.VAVReheat.Guideline36 <http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.Guideline36>`_.
 
@@ -174,7 +216,7 @@ sequence shown in :numref:`fig_dam_val_reh`, where
 ``THeaSet`` is the set point temperature for heating,
 ``dTDisMax`` is the maximum temperature difference for the discharge temperature above ``THeaSet``,
 ``TSup`` is the supply air temperature,
-``VAct*`` are the active airflow rates for heating (``Hea``), cooling (``Coo``)
+``VAct*`` are the active airflow rates for heating (``Hea``) and cooling (``Coo``),
 with their minimum and maximum values denoted by ``Min`` and ``Max``.
 
 
@@ -299,6 +341,7 @@ as the PI controller is an elementary building block
    Time for annual simulation in minutes                 70             100
    ============================================== =========== =============
 
+.. _sec_per_com_cas1:
 
 Performance comparison
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -319,13 +362,13 @@ Performance comparison
 :numref:`tab_site_energy` compare the annual
 site electricity use between
 the annual simulations with the base case control
-and the Guideline 36 control.
+and the guideline 36 control.
 The bars labeled :math:`\pm 50\%` were obtained with simulations in which we
 changed the diversity of the internal loads.
 Specifically, we reduced the internal loads for the north zone by :math:`50\%`
 and increased them for the south zone by the same amount.
 
-The Guideline 36 control saves around :math:`30\%`
+The guideline 36 control saves around :math:`30\%`
 site electrical energy. These are significant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
@@ -453,10 +496,12 @@ their energy consumption is not noticeably affected.
    \clearpage
 
 
-Improvement to Guideline 36 specification
+.. _sec_imp_spe_cas1:
+
+Improvement to guideline 36 specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section describes improvements that we recommend for the Guideline 36
+This section describes improvements that we recommend for the guideline 36
 specification, based on the first public review draft :cite:`ASHRAE2016`.
 
 .. _sec_fre_pro:
@@ -477,7 +522,7 @@ The guideline states (emphasis added):
 
 Depending on the outdoor air requirements, the mixed air temperature :math:`T_{mix}` may be below freezing,
 which could freeze the heating coil if it has low water flow rate.
-Note that Guideline 36 controls based on the supply air temperature and not the mixed air temperature.
+Note that guideline 36 controls based on the supply air temperature and not the mixed air temperature.
 Hence, this control would not have been active.
 
 
@@ -510,7 +555,7 @@ as the model is quite simplified at these small flow rates, which are about
    and without freeze protection.
 
 
-We therefore recommend adding either of the following wording to Guideline 36,
+We therefore recommend adding either of the following wording to guideline 36,
 which is translated from :cite:`SteuernRegeln1986`:
 Use a capillary sensor installed after the heating coil. If the temperature after the heating coil is below
 :math:`4^\circ C`,
@@ -640,7 +685,7 @@ are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestP
   a small diffusive term.
 
 
-
+.. _sec_dis_con_cas1:
 
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -651,7 +696,9 @@ Such savings are significant, and have been achieved by software only
 that can relatively easy be deployed to buildings.
 
 Implementing the sequence was however rather challenging due to its
-complexity caused by the various mode changes, interlocks and timers.
+complexity caused by the various mode changes, interlocks, timers and cascading control loops.
+These mode changes, interlocks and dynamic dependencies
+made verification of the correctness through inspection of the control signals difficult.
 As a consequence, various programming errors and misinterpretations or ambiguities
 of the guideline were only discovered in closed loop simulations,
 despite of having implemented open-loop test cases for each block of the sequence.
@@ -662,8 +709,8 @@ assurances that energy modeler and control providers have correct implementation
 With the implementation in
 the Modelica package `Buildings.Controls.OBC.ASHRAE.G36_PR1`, we made a start
 for such an implementation and laid out the structure and conventions,
-but have not covered all of the standard yet. Furthermore, conducting field validations
-would be useful too.
+but have not covered all of the guideline yet.
+Furthermore, conducting field validations would be useful too.
 
 A key short-coming from an implementer point of view was that the
 sequence was only available in English language, and as an implementation
@@ -695,6 +742,6 @@ recognized after seeing the results of the guideline 36 sequence.
 Thus, regardless of whether a building is using guideline 36,
 having a baseline control against which alternative implementations
 can be compared and benchmarked is an immensely valuable feature
-of a library of standardized control sequences. Without a benchmark,
+enabled by a library of standardized control sequences. Without a benchmark,
 one can easily claim to have a good control, while not recognizing what
 potential savings one may miss.
