@@ -39,8 +39,10 @@ sending setpoints to PICs.
 :numref:`fig_architecture_overall_obc` shows the overall
 system with the `Controls Design Tool` and the
 `Functional Verification Tool`. Both use
-a `CDL Parser` which parses the CDL language,
-using `JModelica` to parse the AST.
+a `CDL Parser` which parses the CDL language.
+The figure shows that `JModelica` is used to parse the AST,
+but to provide a more lightweight implementation, a parser
+that only requires Java is being developed and may be used instead. [#parser]_
 All these components will be made available through OpenStudio.
 This allows using the OpenStudio model authoring
 and simulation capability that is being developed
@@ -60,95 +62,102 @@ Controls Design Tool
 
    skinparam componentStyle uml2
 
+
    package OpenStudio {
-     [HVAC System Editor]
-     package "Controls Design Tool" as ctl_des {
-       [Sequence Generator]
-       [CDL Exporter]
-     }
    }
 
-   database "Modelica\nSystem\nModel" as sys_mod {
-      database "Control\nModel" as ol_ctr
-      database "Plant\nModel" as plt
+   package "HVAC/controls tool" as edi {
+     [Web-based GUI]
    }
 
-   database "CDL\nLibrary"
+   interface json as mod_jso_par
 
-   [CDL Parser]
-   ctl_des -r-> [CDL Parser]: uses
+   database "Modelica libraries" as mod_lib
 
-   [HVAC System Editor] -> sys_mod: manipulates
-   [Sequence Generator] -> ol_ctr: generates initial\nblock diagram
-   [CDL Exporter] -> [JModelica]: parses AST
+   edi <-> mod_jso_par : reads/writes json
 
-   [JModelica] -> [CDL\nLibrary]: imports
+   mod_jso_par <-> mod_lib
 
-   [CDL Exporter] -> [CDL-Compliant\nSpecification]: exports
-   [CDL Exporter] -> [ol_ctr]: imports
+   package JModelica {
+   }
 
-   note "E.g., add point lists, connect control to plant, etc." as ex_use
-   [ol_ctr] .. ex_use
-   ex_use .. [HVAC System Editor]
+   OpenStudio -d-> edi : invokes
+   OpenStudio -d-> JModelica : invokes
 
+   JModelica -u-> mod_lib: loads
+
+   interface FMUs
+
+   JModelica -d-> FMUs : generates
+
+   package "Buildings Operating System" as BOS {
+     database "I/O drivers" as dri2
+     database "runtime environment" as rte2
+     database "operator interface" as opi2
+   }
+
+   package "Buildings Automation System" as BAS {
+     database "I/O drivers" as dri1
+     database "runtime environment" as rte1
+     database "operator interface" as opi1
+   }
+
+   BAS -u-> mod_jso_par : converts
+
+   BOS -u-> FMUs : imports
+
+   interface Hardware
+
+   BOS -d-> Hardware : I/O
+   BAS -d-> Hardware : I/O
 
 :numref:`fig_architecture_overall_ctrl_design`
 shows the overall
 software architecture of the controls design tool.
-The `OpenStudio` container indicates that the
-`Controls Design Tool` will be part of OpenStudio,
-thereby using the OpenStudio Modelica run-time
-to evaluate the open-loop and closed-loop control
-performance. This will also allow accessing the
-`HVAC System Editor` that is being developed
-for SOEP.
+The `OpenStudio` invokes a Modelica to json parser which
+parses the Modelica libraries to `json`, and it invokes the `HVAC/controls tool`.
+The `HVAC/controls tool` reads the json representation of the
+Modelica libraries that are used.
+The `HVAC/controls tool` updates the json reprensentation of the model,
+and these changes will be merged into the Modelica model or Modelica package
+that has been edited.
+For exporting the sequence for simulation or for operation, `OpenStudio`
+invokes `JModelica` which generates an FMU of the sequence, or multiple FMUs
+if the sequence is to be distributed to different field devices.
+The `Building Operating System` then imports these FMUs.
 
-The `Controls Design Tool` will contain two main modules:
+If a `Building Automation System` prefers not to run FMUs to compute the control
+signals, then it could convert the json format to a native implementation
+of the control sequence.
 
- * A `Sequence Generator` that generates an initial control
-   sequence that may later be adapted to a specific project, and
- * A `CDL Exporter` that exports a CDL-compliant specification.
-
-The `Controls Design Tool` will use a `CDL Parser` that
-parses the CDL library and CDL-compliant specifications.
+Optionally, to aid the user in customizing sequences, a `Sequence Generator`
+could be generated. This is currently not shown in
+:numref:`fig_architecture_overall_ctrl_design`.
 The `Sequence Generator` will guide the user
 through a series of questions about the plant and control,
 and then generates a `Control Model` that contains
-the open-loop control sequence.
-Using the `HVAC System Editor`, the user will then connect
+the open-loop control sequence. This `Control Model` uses the CDL
+language, and can be stored in the `Custom or Manufacturer Modelica Library`.
+Using the `HVAC/controls tool`, the user will then connect
 it to a plant model (which consist of the HVAC and building model
 with exposed control inputs and sensor outputs).
 This connection will allow testing
 and modification of the `Control Model` as needed. Hence,
-using the `HVAC System Editor`, the user can manipulate
+using the `Schematic editor`, the user can manipulate
 the sequence to adapt it to the actual project.
 
-.. note:: The `Modelica System Model` will appear to OpenStudio
-          as any other Modelica model.
-          This will allow using
-          the OpenStudio SDK and OpenStudio measures. In fact,
-          the `Sequence Generator` may use OpenStudio measures
-          to instantiate the `Control Model`.
+
 
 We will now explain how a `CDL-Compliant Specification` is exported.
-The user (or a call from the OpenStudio SDK to the `Controls Design API`)
+The user (or a call from the OpenStudio SDK to the `HVAC/controls tool`)
 will invoke export of a `CDL-Compliant Specification`, to be
 used for bidding, software implementation and verification testing.
-Then, the `CDL Exporter` will import the `Control Model` and
-parse its AST using JModelica. It will then export a
-`CDL-Compliant Specification` that consists of
-
- * the Modelica models in CDL (see :numref:`sec_cdl`),
- * an English language description in HTML, and
- * a point lists in JSON (used for downstream
-   applications, and optionally generated if the `Control Model`
-   contains point list)
-
-Note that from the `CDL-Compliant Specification`, only the
-models in CDL can be manipulated and reused upstream as the
-`Control Model`. The HTML and JSON are for information or further
-downstream processing only.
-
+To do so, the `HVAC/controls tool` will invoke the `Modelica to json parser`,
+which import a control sequence
+from the `Custom or Manfuacturer Modelica Library`, or from the `Buildings Library`,
+and exports it in json format.
+This json representation can then be converted to various formats
+as shown in :numref:`fig_cdl_export_formats`
 
 .. _fig_cdl_export_formats:
 
@@ -259,3 +268,10 @@ closed loop model, using the point list from the FMU's ``Resources``
 directory.
 During the verification, the `Engine` will write reports
 that are displayed by the `Viewer`.
+
+
+.. rubric:: Footnotes
+
+.. [#parser] Using a parser that only requires Java has the advantage
+             that it can be used in other applications that may not have
+             access to a JModelica installation.
