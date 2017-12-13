@@ -7,14 +7,14 @@ import java.util.Collection;
  */
 public class Logical_expression {
 	private Logical_term logical_term;
-    private Collection<String> logical_relation;
+    private String logical_relation;
     private Collection<Logical_term> logical_terms;
 
     public Logical_expression(Logical_term logical_term_1,
     						  Collection<String> or_dec,
     		                  Collection<Logical_term> logical_term_2) {
       this.logical_term = logical_term_1;
-      this.logical_relation = (or_dec.size()>0 ? or_dec : null);
+      this.logical_relation = (or_dec.size()>0 ? "or" : null);
       this.logical_terms = (logical_term_2 != null ? logical_term_2 : null);
     }
 

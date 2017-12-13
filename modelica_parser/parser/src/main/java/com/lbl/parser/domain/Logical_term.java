@@ -7,14 +7,14 @@ import java.util.Collection;
  */
 public class Logical_term {
 	private Logical_factor logical_factor;
-    private Collection<String> logical_relation;
+    private String logical_relation;
     private Collection<Logical_factor> logical_factors;
 
     public Logical_term(Logical_factor logical_factor_1,
     					Collection<String> and_decs,
                         Collection<Logical_factor> logical_factor_2) {
       this.logical_factor = logical_factor_1;
-      this.logical_relation = (and_decs.size()>0 ? and_decs : null);
+      this.logical_relation = (and_decs.size()>0 ? "and" : null);
       this.logical_factors = (logical_factor_2 != null ? logical_factor_2 : null);
     }
 

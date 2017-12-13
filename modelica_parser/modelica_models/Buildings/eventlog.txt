@@ -1,0 +1,553 @@
+Event iteration details;;;;Time;Type(s) logged in dslog
+Iteration;Event type;Expression;Result
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled < 1.7976931348623157E+308;true
+1;4;multiZone.portsIn[1, 1].p >= 0.0;true
+1;4;multiZone.portsIn[1, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[1, 1].Xi_outflow[1] <= 1.00001;true
+1;4;weaDat.TDryBul_in_internal > weaDat.cheTemDryBul.TMin;true
+1;4;weaDat.TDryBul_in_internal < weaDat.cheTemDryBul.TMax;true
+1;4;weaDat.TDryBul_in_internal >= 200.0;true
+1;4;weaDat.TDryBul_in_internal <= 423.15;true
+1;4;weaDat.TDewPoi_in_internal > weaDat.cheTemDewPoi.TMin;true
+1;4;weaDat.TDewPoi_in_internal < weaDat.cheTemDewPoi.TMax;true
+1;4;weaDat.TBlaSky_in_internal > weaDat.cheTemBlaSky.TMin;true
+1;4;weaDat.TBlaSky_in_internal < weaDat.cheTemBlaSky.TMax;true
+1;4;multiZone.theZon[1, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[1, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.portsIn[2, 1].p >= 0.0;true
+1;4;multiZone.portsIn[2, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[2, 1].Xi_outflow[1] <= 1.00001;true
+1;4;multiZone.theZon[2, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[2, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.portsIn[3, 1].p >= 0.0;true
+1;4;multiZone.portsIn[3, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[3, 1].Xi_outflow[1] <= 1.00001;true
+1;4;multiZone.theZon[3, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[3, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.portsIn[4, 1].p >= 0.0;true
+1;4;multiZone.portsIn[4, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[4, 1].Xi_outflow[1] <= 1.00001;true
+1;4;multiZone.theZon[4, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[4, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.portsIn[5, 1].p >= 0.0;true
+1;4;multiZone.portsIn[5, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[5, 1].Xi_outflow[1] <= 1.00001;true
+1;4;multiZone.theZon[5, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[5, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.portsIn[6, 1].p >= 0.0;true
+1;4;multiZone.portsIn[6, 1].Xi_outflow[1] >= -1E-05;true
+1;4;multiZone.portsIn[6, 1].Xi_outflow[1] <= 1.00001;true
+1;4;multiZone.theZon[6, 1].roo.air.vol.dynBal.medium.T >= 200.0;true
+1;4;multiZone.theZon[6, 1].roo.air.vol.dynBal.medium.T <= 423.15;true
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;29912.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;29912.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;28112.46125314218
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;28112.46125314218
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;28112.46106966126
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;28112.46106966126
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;29912.46108903185
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;29912.46108903185
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;30600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;30600
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;29912.46131582674
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;29912.46131582674
+1;4;weaDat.modTim.y-pre(weaDat.conTim.tStart) > 31536000;false
+1;4;multiZone.theZon[1, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[1, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;weaDat.add.y-pre(weaDat.conTim1.tStart) > 31536000;false
+1;4;multiZone.theZon[2, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[2, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;multiZone.theZon[3, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[3, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;multiZone.theZon[4, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[4, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;multiZone.theZon[5, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[5, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;multiZone.theZon[6, 1].sinInf.medium.X[1] >= -1E-05;true
+1;4;multiZone.theZon[6, 1].sinInf.medium.X[1] <= 1.00001;true
+1;4;abs(multiZone.theZon[1, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[1, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[1, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;abs(multiZone.theZon[2, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[2, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[2, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;abs(multiZone.theZon[3, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[3, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[3, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;abs(multiZone.theZon[4, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[4, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[4, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;abs(multiZone.theZon[5, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[5, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[5, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;abs(multiZone.theZon[6, 1].roo.irRadExc.sumEBal) < 0.1;true
+1;4;multiZone.theZon[6, 1].sinInf.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[6, 1].sinInf.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[1, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[1, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[2, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[2, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[3, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[3, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[4, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[4, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[5, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[5, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[6, 1].roo.air.vol.dynBal.medium.X[2] >= -1E-05;true
+1;4;multiZone.theZon[6, 1].roo.air.vol.dynBal.medium.X[2] <= 1.00001;true
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;29912.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;29912.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;28112.46125314218
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;28112.46125314218
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;28112.46106966126
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;28112.46106966126
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;29912.46108903185
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;29912.46108903185
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;30600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;30600
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;29912.46131582674
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;29912.46131582674
+;;;;0;Initialization
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;64112.46106966126
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;64112.46106966126
+;;;;28112.46106966126;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;64112.46125314218
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;64112.46125314218
+;;;;28112.46125314218;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;65912.46108903186
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;65912.46108903186
+;;;;29912.46108903185;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;65912.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;65912.4612024293
+;;;;29912.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;65912.46131582673
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;65912.46131582673
+;;;;29912.46131582674;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;66600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;66600
+;;;;30600;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;86400
+;;;;64112.46106966126;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;86400
+;;;;64112.46125314218;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;86400
+;;;;65912.46108903186;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;86400
+;;;;65912.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;86400
+;;;;65912.46131582673;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;86400
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;86400
+;;;;66600;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;116312.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;116312.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;114512.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;114512.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;114512.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;114512.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;116312.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;116312.4610890319
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;117000
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;117000
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;116312.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;116312.4613158267
+;;;;86400;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;150512.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;150512.4610696613
+;;;;114512.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;150512.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;150512.4612531422
+;;;;114512.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;152312.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;152312.4610890319
+;;;;116312.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;152312.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;152312.4612024293
+;;;;116312.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;152312.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;152312.4613158267
+;;;;116312.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;153000
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;153000
+;;;;117000;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;172800
+;;;;150512.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;172800
+;;;;150512.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;172800
+;;;;152312.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;172800
+;;;;152312.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;172800
+;;;;152312.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;172800
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;172800
+;;;;153000;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;202712.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;202712.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;200912.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;200912.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;200912.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;200912.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;202712.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;202712.4610890319
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;203400
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;203400
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;202712.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;202712.4613158267
+;;;;172800;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;236912.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;236912.4610696613
+;;;;200912.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;236912.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;236912.4612531422
+;;;;200912.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;238712.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;238712.4610890319
+;;;;202712.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;238712.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;238712.4612024293
+;;;;202712.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;238712.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;238712.4613158267
+;;;;202712.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;239400
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;239400
+;;;;203400;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;259200
+;;;;236912.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;259200
+;;;;236912.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;259200
+;;;;238712.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;259200
+;;;;238712.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;259200
+;;;;238712.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;259200
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;259200
+;;;;239400;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;289112.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;289112.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;287312.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;287312.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;287312.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;287312.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;289112.4610890318
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;289112.4610890318
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;289800
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;289800
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;289112.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;289112.4613158267
+;;;;259200;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;323312.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;323312.4610696613
+;;;;287312.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;323312.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;323312.4612531422
+;;;;287312.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;325112.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;325112.4610890319
+;;;;289112.4610890318;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;325112.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;325112.4612024293
+;;;;289112.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;325112.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;325112.4613158267
+;;;;289112.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;325800
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;325800
+;;;;289800;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;345600
+;;;;323312.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;345600
+;;;;323312.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;345600
+;;;;325112.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;345600
+;;;;325112.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;345600
+;;;;325112.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;345600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;345600
+;;;;325800;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;375512.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;375512.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;373712.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;373712.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;373712.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;373712.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;375512.4610890318
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;375512.4610890318
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;376200
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;376200
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;375512.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;375512.4613158267
+;;;;345600;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;409712.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;409712.4610696613
+;;;;373712.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;409712.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;409712.4612531422
+;;;;373712.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;411512.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;411512.4610890319
+;;;;375512.4610890318;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;411512.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;411512.4612024293
+;;;;375512.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;411512.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;411512.4613158267
+;;;;375512.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;412200
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;412200
+;;;;376200;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;432000
+;;;;409712.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;432000
+;;;;409712.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;432000
+;;;;411512.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;432000
+;;;;411512.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;432000
+;;;;411512.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;432000
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;432000
+;;;;412200;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;461912.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;461912.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;460112.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;460112.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;460112.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;460112.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;461912.4610890318
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;461912.4610890318
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;462600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;462600
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;461912.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;461912.4613158267
+;;;;432000;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;496112.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;496112.4610696613
+;;;;460112.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;496112.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;496112.4612531422
+;;;;460112.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;497912.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;497912.4610890319
+;;;;461912.4610890318;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;497912.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;497912.4612024293
+;;;;461912.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;497912.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;497912.4613158267
+;;;;461912.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;498600
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;498600
+;;;;462600;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;518400
+;;;;496112.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;518400
+;;;;496112.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;518400
+;;;;497912.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;518400
+;;;;497912.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;518400
+;;;;497912.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;518400
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;518400
+;;;;498600;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;548312.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;548312.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;546512.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;546512.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;546512.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;546512.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;548312.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;548312.4610890319
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;549000
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;549000
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;548312.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;548312.4613158267
+;;;;518400;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;582512.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;582512.4610696613
+;;;;546512.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;582512.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;582512.4612531422
+;;;;546512.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;584312.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;584312.4610890319
+;;;;548312.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;584312.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;584312.4612024293
+;;;;548312.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;584312.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;584312.4613158267
+;;;;548312.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;585000
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;585000
+;;;;549000;1
+
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;604800
+;;;;582512.4610696613;1
+
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;604800
+;;;;582512.4612531422;1
+
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;604800
+;;;;584312.4610890319;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;604800
+;;;;584312.4612024293;1
+
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;604800
+;;;;584312.4613158267;1
+
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;604800
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;604800
+;;;;585000;1
+
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEvent;634712.4612024293
+1;4;multiZone.theZon[1, 1].intLoad.nextTimeEventScaled;634712.4612024293
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEvent;632912.4612531422
+1;4;multiZone.theZon[2, 1].intLoad.nextTimeEventScaled;632912.4612531422
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEvent;632912.4610696613
+1;4;multiZone.theZon[3, 1].intLoad.nextTimeEventScaled;632912.4610696613
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEvent;634712.4610890319
+1;4;multiZone.theZon[4, 1].intLoad.nextTimeEventScaled;634712.4610890319
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEvent;635400
+1;4;multiZone.theZon[5, 1].intLoad.nextTimeEventScaled;635400
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEvent;634712.4613158267
+1;4;multiZone.theZon[6, 1].intLoad.nextTimeEventScaled;634712.4613158267
+;;;;604800;1
+
+;;;;604800;Termination
+

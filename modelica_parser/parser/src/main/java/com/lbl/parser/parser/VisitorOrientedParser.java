@@ -1066,7 +1066,6 @@ public class VisitorOrientedParser implements Parser {
     // ========= need further refinements to specify the expression3 and expression4 =========
     // ========= should be aware of using ".add" function =========
     private static class ExpressionVisitor extends modelicaBaseVisitor<Expression> {
-	@SuppressWarnings("null")
 	@Override
       public Expression visitExpression(@NotNull modelicaParser.ExpressionContext ctx) {
         Simple_expressionVisitor simple_expressionVisitor = new Simple_expressionVisitor();
@@ -1217,7 +1216,7 @@ public class VisitorOrientedParser implements Parser {
         		.map(term -> term.accept(termVisitor))
         		.collect(toList());
         Add_op add_op1 = null;
-        List<Add_op> add_op2 = new ArrayList<>();
+        List<Add_op> add_op2 = null; // new ArrayList<>();
         if (terms.size()>1) {
         	if (terms.size() == add_ops.size()) {
         		add_op1 = add_ops.get(0);

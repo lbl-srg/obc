@@ -1,0 +1,1 @@
+{"within":[{"name":"Buildings.Examples.VAVReheat.Controls"}],"class_definition":[{"class_prefixes":{"prefix":"package"},"class_specifier":{"long_class_specifier":{"name":"Examples","comment":{"string":"\"Example models to test the components\""},"composition":{"element_list":{"element":[{"extends_clause":{"name":{"name":"Modelica.Icons.ExamplesPackage"}}}]}}}}}]}

@@ -16,9 +16,9 @@ public class When_statement {
                           Collection<Expression> expression2,
                           Collection<Statement> statement2) {
       this.when = expression1;
-      this.when_then = (statement1.size()>0 ? statement1 : null);
-      this.else_when = (expression2.size()>0 ? expression2 : null);
-      this.else_then = (statement2.size()>0 ? statement2 : null);
+      this.when_then = (statement1 != null ? statement1 : null);
+      this.else_when = (expression2 != null ? expression2 : null);
+      this.else_then = (statement2 != null ? statement2 : null);
     }
 
     @Override

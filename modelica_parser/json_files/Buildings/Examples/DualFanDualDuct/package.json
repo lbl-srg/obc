@@ -1,0 +1,1 @@
+{"within":[{"name":"Buildings.Examples"}],"class_definition":[{"class_prefixes":{"prefix":"package"},"class_specifier":{"long_class_specifier":{"name":"DualFanDualDuct","comment":{"string":"\"Dual fan dual duct HVAC system with five thermal zones\""},"composition":{"element_list":{"element":[{"extends_clause":{"name":{"name":"Modelica.Icons.ExamplesPackage"}}}]}}}}}]}

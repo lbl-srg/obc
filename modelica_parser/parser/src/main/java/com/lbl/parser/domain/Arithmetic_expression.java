@@ -15,7 +15,7 @@ public class Arithmetic_expression {
                                  Collection<Add_op> add_op2) {
       this.add_pre = add_op1;
       this.terms = (terms.size() > 0 ? terms : null);
-      this.adds = (add_op2 != null ? add_op2 : null);
+      this.adds = (add_op2 != null? add_op2 : null);
     }
 
     @Override

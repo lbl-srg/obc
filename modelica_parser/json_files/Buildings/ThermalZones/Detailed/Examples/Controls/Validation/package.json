@@ -1,0 +1,1 @@
+{"within":[{"name":"Buildings.ThermalZones.Detailed.Examples.Controls"}],"class_definition":[{"class_prefixes":{"prefix":"package"},"class_specifier":{"long_class_specifier":{"name":"Validation","comment":{"string":"\"Package with validation models\""},"composition":{"element_list":{"element":[{"extends_clause":{"name":{"name":"Modelica.Icons.ExamplesPackage"}}}]}}}}}]}

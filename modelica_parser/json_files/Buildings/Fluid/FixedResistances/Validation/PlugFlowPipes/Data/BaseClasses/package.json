@@ -1,0 +1,1 @@
+{"within":[{"name":"Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.Data"}],"class_definition":[{"class_prefixes":{"prefix":"package"},"class_specifier":{"long_class_specifier":{"name":"BaseClasses","comment":{"string":"\"BaseClasses for data records\""},"composition":{"element_list":{"element":[{"extends_clause":{"name":{"name":"Modelica.Icons.BasesPackage"}}}]}}}}}]}
