@@ -17,10 +17,9 @@ Discussion of Different Translation Approaches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section compares different approaches for translation of control
-sequences, and possibly verification tests, to execute them either
-on a building automation system, for the case of a control sequence,
-or on a computer that is connected to a building automation system,
-for the case of a verification test.
+sequences, and possibly verification tests, to execute them
+for the case of a control sequence on a building automation system, or
+to execute them for the case of a verification test on a computer that is connected to a building automation system.
 
 First, we note that the translation will for most, if not all,
 systems only be possible from CDL to a building automation system,
@@ -28,10 +27,10 @@ but not vice versa. For example,
 if Sedona were the target platform, then
 translating from Sedona to CDL will not be possible
 because Sedona allows, boolean variables
-to have values ``true``, ``false`` and ``null``, but
+to have values ``true``, ``false`` and ``null`` but
 CDL has no ``null`` value.
 
-Second, we note that most building automation product lines are based on very
+Second, we note that most building automation product lines are based on
 old computing technologies. One may argue that to meet future process
 requirements and user-friendliness, these may be updated in the near future.
 Relatively recent or new product lines are
@@ -53,8 +52,9 @@ Although Sedona "is designed to make it easy to build smart, networked embedded 
 and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/),
 developing block diagrams requires Tridium NiagaraAX, a commercial
 product which is not free.
-We therefore provide in
-:numref:`tab_cod_gen_ove_sys` an overview of different paths for
+
+To contrast the different approaches,
+:numref:`tab_cod_gen_ove_sys` provides an overview of different approaches for
 implementation of a code generator. Here, we only included open-source
 implementations, and for this purpose, also considered Sedona to be open-source,
 although it seems to require proprietary software.
@@ -78,9 +78,10 @@ the communication layer, but not the implementation of control sequences.
 Therefore, the Modelica/FMI/JavaScript does not deal with how to link the sequences
 with hardware, but rather will use efforts such as xbos to provide this functionality.
 For execution of control sequences, the FMI standard can be used,
-for which bindings in C, Python and Java exists, and hence interfacing with
+for which bindings in C, Python and Java exists.
+These bindings simplify interfacing with
 software such as developed through xbos, or interfacing with any control system
-that can call C, is possible.
+that can call C.
 If, for example, JavaScript would be the preferred run-time language, such as due
 to cyber-security concerns, then Modelica code could be converted to JavaScript
 as demonstrated in https://github.com/tshort/openmodelica-javascript.
@@ -147,6 +148,7 @@ of the following steps:
 :numref:`fig_cod_exp` shows the process of exporting and importing
 control sequences or verification tests.
 The intermediate format that is used are FMU-ME, as these
+are governed by an open standard, and because they
 can easily be integrated into tools for controls or verification
 using a variety of languages. Also possible, but outside of the scope
 of this project, is the generation of JavaScript, which could then
@@ -166,7 +168,6 @@ For JModelica, this can be accomplished using a Python script such as
 .. code-block:: python
 
    from pymodelica import compile_fmu
-
    compile_fmu("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller")
 
 This will generate an FMU-ME.
@@ -175,22 +176,22 @@ For step 3, to import the FMU-ME in a runtime environment, various tools can be 
 
 * Tools based on Python, which could be used to interface with
   sMAP (http://people.eecs.berkeley.edu/~stevedh/smap2/intro.html) or
-  Volttron (https://energy.gov/eere/buildings/volttron)
+  Volttron (https://energy.gov/eere/buildings/volttron):
 
-  * PyFMI (https://pypi.python.org/pypi/PyFMI),
+  * PyFMI (https://pypi.python.org/pypi/PyFMI)
 
-* Tools based on Java
+* Tools based on Java:
 
   * Building Controls Virtual Test Bed (http://simulationresearch.lbl.gov/bcvtb)
   * JFMI (https://ptolemy.eecs.berkeley.edu/java/jfmi/)
   * JavaFMI (https://bitbucket.org/siani/javafmi/wiki/Home)
 
-* Tools based on C
+* Tools based on C:
 
   * FMI Library (http://www.jmodelica.org/FMILibrary)
 
 * Modelica tools, of which many if not all provide
-  functionality for real-time simulation
+  functionality for real-time simulation:
 
   * JModelica (http://www.jmodelica.org)
   * OpenModelica (https://openmodelica.org/)
@@ -200,7 +201,3 @@ For step 3, to import the FMU-ME in a runtime environment, various tools can be 
   * SystemModeler (http://www.wolfram.com/system-modeler/index.html)
 
 See also http://fmi-standard.org/tools/ for other tools.
-Using the FMI standard as an intermediate format has the advantage
-that it is governed by a standard, and can be executed by any program
-that can call C code. For this task, however, packages exists in
-Java, C and Python, as :numref:`fig_cod_exp` shows.

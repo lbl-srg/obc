@@ -547,7 +547,8 @@ Bidding and BAS Implementation
 Generate control point schedule from sequences
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This use case describes how to generate control points from a sequence specification.
+This use case describes how to generate control points
+from a sequence specification.
 
 
 .. table::
@@ -556,9 +557,6 @@ This use case describes how to generate control points from a sequence specifica
    ===========================  ===================================================
    **Use case name**            **Generate control points schedule from sequences**
    ===========================  ===================================================
-   Related Requirements         Optional - The points schedule can also be used by
-                                third party software for specification generation.
-   ---------------------------  ---------------------------------------------------
    Goal in Context              The same control specification can be used to
                                 generate controls points schedule
    ---------------------------  ---------------------------------------------------
@@ -566,11 +564,13 @@ This use case describes how to generate control points from a sequence specifica
                                 AI/AO/DI/DO/Network interface types
                                 and consistent tagging/naming
    ---------------------------  ---------------------------------------------------
-   Successful End Condition     Control points schedule can be automatically produced
+   Successful End Condition     Control points schedule can be automatically
+                                produced
                                 by extracting from the sequences,
                                 including tagging (AHU/TDX/1),
                                 point name, point type and comments
-                                (such as differential pressure to be installed at 2/3 down index leg)
+                                (such as differential pressure to be installed
+                                at 2/3 down index leg)
    ---------------------------  ---------------------------------------------------
    Failed End Condition         Control points schedule is inaccurate or
                                 doesn’t contain sufficient information.
@@ -585,18 +585,23 @@ This use case describes how to generate control points from a sequence specifica
    ---------------------------  ---------------------------------------------------
    1                            When a user adds a control point in the controls
                                 design tool,
-                                the tool provides default values and allows the user to
-                                change the values for tagging/point name/point type/comments
+                                the tool provides default values and allows
+                                the user to
+                                change the values for tagging/point
+                                name/point type/comments
    ---------------------------  ---------------------------------------------------
    2                            User clicks on a button to generate Points Schedule,
                                 an Excel file is then generated listing all the
                                 points and their details,
-                                and also counts the total number of different type of points.
+                                and also counts the total number of different
+                                type of points.
    ---------------------------  ---------------------------------------------------
    3                            User clicks on a button to generate a tag list
-                                of unique control devices within the project in Excel,
+                                of unique control devices within the project
+                                in Excel,
                                 so that the associated specification
-                                section can be extracted and populated within third party software.
+                                section can be extracted and populated
+                                within third party software.
    ===========================  ===================================================
 
 

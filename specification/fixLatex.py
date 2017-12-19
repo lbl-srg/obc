@@ -35,3 +35,6 @@ freplace('\\begin{thebibliography}{1}',
 
 freplace('\\begin{Verbatim}[',
         '\\begin{Verbatim}[fontsize=\\footnotesize, ')
+
+freplace('\\begin{longtable}{|l|l|}',
+         '\\begin{longtable}{|*{2}{p{\\dimexpr(\\linewidth-\\arrayrulewidth)/2-2\\tabcolsep-\\arrayrulewidth\\relax}|}}')
