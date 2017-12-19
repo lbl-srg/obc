@@ -208,7 +208,7 @@ JModelica:
    model_name = "mySequences.EconomizerControl"
    compile_fmu(model_name)
 
-Also not scope of this project, CDL could be exported as JavaScript
+Although not in the scope of this project, CDL could be exported as JavaScript
 to run in a browser or other secure environment. See for
 example the experimental code of OpenModelica at https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/emscripten.html
 

@@ -409,7 +409,9 @@ In order to infer whether a signal is a hardware or a software point,
 all input signals and output signals shall be retrieved from
 the packages ``IO.Hardware`` and ``IO.Software``
 
-.. note:: This package still needs to be implemented.
+.. note:: It is not clear whether this package need to be implemented,
+          or whether vendor annotations would be better suited
+          to declare this information.
 
 [Note that a differential pressure input signal with name ``u``
 can be declared as

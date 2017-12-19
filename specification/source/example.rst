@@ -1,6 +1,6 @@
 .. _sec_example:
 
-Example application
+Example Application
 -------------------
 
 In this section, we compare the performance of two different
