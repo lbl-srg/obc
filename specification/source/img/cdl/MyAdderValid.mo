@@ -1,4 +1,4 @@
-model MyAdderValid
+block MyAdderValid
   Interfaces.RealInput u1;
   RealInput u2;
   Interfaces.RealOutput y;
