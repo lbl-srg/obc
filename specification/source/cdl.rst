@@ -38,8 +38,10 @@ classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
 violates the Modelica Standard is added.
 
-To simplify the implementation, the following Modelica keywords are not supported in CDL:
+To simplify the support of CDL for tools and control systems,
+the following Modelica keywords are not supported in CDL:
 
+#. ``extends``
 #. ``redeclare``
 #. ``constrainedby``
 #. ``inner`` and ``outer``
@@ -165,12 +167,14 @@ is used for graphical rendering:
    equation
      y = k*u + p;
 
-     annotation(Documentation(info(
+     annotation(Documentation(info("
+     <html>
      <p>
      Block that outputs <code>y = k u + p</code>,
      where <code>k</code> and <code>p</code> are
      parameters and <code>u</code> is an input.
-     </p>));
+     </p>
+     </html>"));
    end AddParameter;
 
 For the complete implementation, see
@@ -295,7 +299,7 @@ For example, the following model is valid
    :language: modelica
    :linenos:
 
-whereas the following model is not valid in CDL, although it is valid in Modelica
+whereas the following implementation is not valid in CDL, although it is valid in Modelica
 
 .. literalinclude:: img/cdl/MyAdderInvalid.mo
    :language: modelica
@@ -335,7 +339,7 @@ CDL allows building composite blocks such as shown in
    :width: 500px
 
    Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
-   where :math:`k` is a constant.
+   where :math:`k` is a parameter.
 
 
 Composite blocks can contain other composite blocks.
