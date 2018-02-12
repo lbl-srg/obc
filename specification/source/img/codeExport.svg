@@ -350,18 +350,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0034517"
-     inkscape:cx="411.0947"
-     inkscape:cy="309.93021"
+     inkscape:zoom="1.419095"
+     inkscape:cx="186.15074"
+     inkscape:cy="300.80493"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:snap-global="true"
      showguides="true"
-     inkscape:window-width="1370"
-     inkscape:window-height="824"
-     inkscape:window-x="48"
-     inkscape:window-y="2"
+     inkscape:window-width="2449"
+     inkscape:window-height="1554"
+     inkscape:window-x="1007"
+     inkscape:window-y="124"
      inkscape:window-maximized="0"
      guidetolerance="10000"
      objecttolerance="10000"
@@ -399,7 +399,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -819,17 +819,13 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:125%;font-family:'Bitstream Vera Sans';-inkscape-font-specification:'Bitstream Vera Sans, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="610.3941"
-       y="52.485928"
+       y="62.485928"
        id="text8782"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          x="610.3941"
-         y="52.485928"
-         id="tspan8784">other BAS</tspan><tspan
-         sodipodi:role="line"
-         x="610.3941"
-         y="71.235931"
-         id="tspan8786">(using JavaScript)</tspan></text>
+         y="62.485928"
+         id="tspan8786">other BAS</tspan></text>
     <rect
        id="rect8788"
        width="137.99855"
@@ -861,7 +857,7 @@
            sodipodi:role="line"
            id="tspan8802"
            x="230.79189"
-           y="312.69672">JavaScript</tspan></text>
+           y="312.69672">JSON</tspan></text>
       <rect
          id="rect8804"
          width="110.15264"

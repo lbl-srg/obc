@@ -58,7 +58,7 @@ To contrast the different approaches,
 implementation of a code generator. Here, we only included open-source
 implementations, and for this purpose, also considered Sedona to be open-source,
 although it seems to require proprietary software.
-The entry Modelica/FMI/JavaScript consists of
+The entry Modelica/FMI/JSON consists of
 
 * a block diagram editor based on CDL, which has to be developed for the
   Spawn of EnergyPlus and for the control design tool,
@@ -67,15 +67,15 @@ The entry Modelica/FMI/JavaScript consists of
 * a JavaScript-based GUI that visualizes the actual operation of the system
   for a building operator.
 
-The Modelica/FMI/JavaScript approach has various synergies:
+The Modelica/FMI/JSON approach has various synergies:
 Regarding the design phase, it directly integrates with the
 redesign of EnergyPlus, called SOEP, and described at https://lbl-srg.github.io/soep/index.html.
-Regarding the operation phase, the Modelica/FMI/JavaScript will
+Regarding the operation phase, the Modelica/FMI/JSON will
 demonstrate how to add a control layer to efforts
 that are targeted towards open-source building operating systems,
 such as `xbos <https://docs.xbos.io/>`_. Such systems typically cover
 the communication layer, but not the implementation of control sequences.
-Therefore, the Modelica/FMI/JavaScript does not deal with how to link the sequences
+Therefore, the Modelica/FMI/JSON does not deal with how to link the sequences
 with hardware, but rather will use efforts such as xbos to provide this functionality.
 For execution of control sequences, the FMI standard can be used,
 for which bindings in C, Python and Java exists.
@@ -95,7 +95,7 @@ project (2017-20, Euro 14M) could be used.
 .. table:: Overview of different implementation possibilities for code-translation. The entry with TBD requires further investigation.
 
    +------------------------------------------+-----------------------------------+---------------------------------------+--------------------------------------+------------------------------------------------------------------+
-   | Functionality                            | Sedona                            | BCVTB/Ptolemy II                      | Volttron                             | Modelica/FMI/JavaScript                                          |
+   | Functionality                            | Sedona                            | BCVTB/Ptolemy II                      | Volttron                             | Modelica/FMI/JSON                                                |
    +==========================================+===================================+=======================================+======================================+==================================================================+
    | Hierarchical graphical components        | TBD                               | yes                                   | n/a (not a graphical modeling tool)  | yes                                                              |
    +------------------------------------------+-----------------------------------+---------------------------------------+--------------------------------------+------------------------------------------------------------------+
@@ -120,7 +120,7 @@ project (2017-20, Euro 14M) could be used.
 
 
 Due to the synergies with SOEP, we will export
-control sequences and verification tests using the Modelica/FMI/JavaScript approach.
+control sequences and verification tests using the Modelica/FMI/JSON approach.
 The software architecture of this approach is shown in :numref:`fig_architecture_overall_ctrl_design`.
 
 Use of Control Sequences or Verification Tests in Realtime Applications
