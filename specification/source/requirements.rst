@@ -51,17 +51,19 @@ Controls Design Tool
 CDL
 ^^^
 
-#. The CDL shall be declarative in nature. It shall be able to express control sequences and their linkage to an object model which represents the plant.
-#. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`)
-   which can be connected through their inputs and outputs, and be composed hierarchically to form new blocks.
-#. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs. The actual implementation is not part of the standard [as this is language dependent].
+#. The CDL shall be declarative.
+#. CDL shall be able to express control sequences and their linkage to an object model which represents the plant.
+#. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`) with inputs and outputs
+   through which blocks can be connnected.
+#. It shall be possible to compose blocks hierarchically to form new blocks.
+#. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs.
+   The actual implementation is not part of the standard [as this is language dependent].
 #. Each block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
-#. Blocks shall identify whether they are a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
+#. It shall be possible to identify whether a block represents a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
 #. Blocks and their inputs and outputs shall be allowed to contain metadata.
    The metadata shall identify expected characteristics, including but not limited to the following.
    For inputs and outputs:
 
-   #. whether they are input or output,
    #. units,
    #. a quantity [such as "return air temperature" or "heating requests" or "cooling requests"],
    #. analog or digital input or output, and
@@ -88,7 +90,6 @@ CDL
 #. It shall be possible to simulate CDL-compliant control sequences in an open-source, freely available
    Modelica environment.
 #. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
-#. The physical equipment of HVAC system shall be described in terms of objects which are expressed in the CDL.
 #. The object model must be rigorous, extensible and flexible.
 #. The object model must be relational, inherently defining connections between different objects.
 #. The system must support many-to-many relationships [For example, two parallel chilled water pumps
