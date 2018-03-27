@@ -4,30 +4,29 @@ Code Generation
 ---------------
 
 This section describes the development of a proof-of-concept
-translator from CDL to a building
-automation system.
-Translating CDL to a building automation system only needs to be done when
+translator from CDL to a building automation system.
+Translating the *CDL library* to a building automation system needs to be done only when
 the CDL library is updated, and hence only developers need
 to perform this step.
-Translation of CDL-conforming control sequences, as well as translation
-of verification tests, will need
-to be done for each building project.
+However, translation of a *CDL-conforming control sequence*, as well as translation
+of verification tests, will need to be done for each building project.
 
 Discussion of Different Translation Approaches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section compares different approaches for translation of control
-sequences, and possibly verification tests, to execute them
-for the case of a control sequence on a building automation system, or
-to execute them for the case of a verification test on a computer that is connected to a building automation system.
+This section compares different approaches for translation of CDL-conforming control
+sequences, to execute them on a building automation system.
+The section also describes how to translate verification tests
+to execute them on a computer to conduct a formal verification of
+the control implementation relative to its CDL-conformant specification.
 
 First, we note that the translation will for most, if not all,
 systems only be possible from CDL to a building automation system,
 but not vice versa. For example,
 if Sedona were the target platform, then
 translating from Sedona to CDL will not be possible
-because Sedona allows, boolean variables
-to have values ``true``, ``false`` and ``null`` but
+because Sedona allows boolean variables
+to take on the values ``true``, ``false`` and ``null``, but
 CDL has no ``null`` value.
 
 Second, we note that most building automation product lines are based on
@@ -47,15 +46,12 @@ For example, detailed developer documentation that describe
 * the model of computation, and
 * how to simulate open loop control responses and implement regression testing,
 
-are difficult to find, or maybe not even exist.
+are difficult to find, or may not exist.
 Although Sedona "is designed to make it easy to build smart, networked embedded devices"
 and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/),
 developing block diagrams requires Tridium NiagaraAX, a commercial
 product which is not free.
 
-Due to the synergies with SOEP, we will export
-control sequences and verification tests using the Modelica/FMI/JSON approach.
-The software architecture of this approach is shown in :numref:`fig_architecture_overall_ctrl_design`.
 
 Use of Control Sequences or Verification Tests in Realtime Applications
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -89,9 +85,10 @@ We will now describe three different approaches that can be used by control vend
 to translate CDL to their product line:
 
 1. Export of the whole CDL-compliant sequence to one FMU (:numref:`sec_cdl_to_fmi`),
-2. Translation of the CDL-compliant sequence to a json intermediate format, and
+2. Translation of the CDL-compliant sequence to a JSON intermediate format, and
    form this format to the format used by the control platform (:numref:`sec_cdl_to_json_simp`), and
-3. Translation of the CDL-compliant sequence to a standard called SSP which
+3. Translation of the CDL-compliant sequence to an xml-based standard called
+   System Structure and Parameterization (SSP), which
    is then used to parameterize, link and execute pre-compiled elementary CDL blocks
    (:numref:`sec_cdl_ssp`).
 
@@ -105,27 +102,24 @@ Export of the whole control sequence using the FMI standard
 This section describes how to export a control sequence, or a verification test,
 using the :term:`FMI standard<Functional Mockup Interface>`.
 In this workflow, the intermediate format
-that is used is FMU-ME, as these
-are governed by an open standard, and because they
-can easily be integrated into tools for controls or verification
+that is used is FMI for model exchange, as it is an open standard, and because FMI
+can easily be integrated into tools for controls or verification,
 using a variety of languages.
 
 .. note:: Also possible, but outside of the scope
-          of this project, is the generation of JavaScript, which could then
-          be executed in a building automation system.
-          For a Modelica to JavasScript converter, see https://github.com/tshort/openmodelica-javascript.
+          of this project, is the translation of the control sequences to
+          JavaScript, which could then be executed in a building automation system.
+          For a Modelica to JavasScript converter,
+          see https://github.com/tshort/openmodelica-javascript.
 
 
-For step 1, to implement control sequences,
-blocks from the
+To implement control sequences, blocks from the
 CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
-to the CDL language specification described in
-:numref:`sec_cdl`.
+to the CDL language specification described in :numref:`sec_cdl`.
 For verification tests, any Modelica block can be used.
-
-For step 2, to export the Modelica model, a Modelica tool such as JModelica, OpenModelica
+Next, to export the Modelica model, a Modelica tool such as JModelica, OpenModelica
 or Dymola can be used.
-For JModelica, this can be accomplished using a Python script such as
+For example, with JModelica a control sequence can be exported using the Python commands
 
 .. code-block:: python
 
@@ -133,8 +127,7 @@ For JModelica, this can be accomplished using a Python script such as
    compile_fmu("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller")
 
 This will generate an FMU-ME.
-
-For step 3, to import the FMU-ME in a runtime environment, various tools can be used, including:
+Finally, to import the FMU-ME in a runtime environment, various tools can be used, including:
 
 * Tools based on Python, which could be used to interface with
   sMAP (http://people.eecs.berkeley.edu/~stevedh/smap2/intro.html) or
@@ -166,8 +159,9 @@ See also http://fmi-standard.org/tools/ for other tools.
 
 Note that directly compiling Modelica models to building automation systems
 also allows leveraging the ongoing `EMPHYSIS <https://itea3.org/project/emphysis.html>`_
-project (2017-20, Euro 14M) project that develops technologies
-for running physical models the production code software.
+project (2017-20, Euro 14M) that develops technologies
+for running dynamic models on electronic control units (ECU),
+micro controllers or other embedded systems.
 This may be attractive for FDD and some advanced control sequences.
 
 .. _sec_cdl_to_json_simp:
@@ -184,14 +178,14 @@ This translator parses CDL-compliant control sequences to a JSON format.
 The parser generates the following output formats:
 
 1. A JSON representation of the control sequence,
-2. A simplified version of this JSON representation, and
+2. a simplified version of this JSON representation, and
 3. an html-formated documentation of the control sequence.
 
 To translate CDL-compliant control sequences to the language that is used
 by the respective building automation system, the simplified JSON representation
 is most suited.
 
-Consider for example the composite control block shown in
+As an illustrative example, consider the composite control block shown in
 :numref:`fig_exp_custom_control_block`.
 
 .. _fig_exp_custom_control_block:
@@ -205,12 +199,12 @@ Consider for example the composite control block shown in
 In CDL, this would be specified as
 
 .. literalinclude:: img/codeGeneration/CustomPWithLimiter/CustomPWithLimiter.mo
+   :language: modelica
    :linenos:
 
-This specification can be converted with the program
-`modelica-json <https://github.com/lbl-srg/modelica-json>`_
-to produce the following json format.
-Running a command such as
+This specification can be converted to JSON using the program
+`modelica-json <https://github.com/lbl-srg/modelica-json>`_.
+Executing the command
 
 .. code-block:: bash
 
@@ -220,6 +214,7 @@ will produce a file called ``CustomPWithLimiter-simplified.json`` that
 looks as follows:
 
 .. literalinclude:: img/codeGeneration/CustomPWithLimiter/CustomPWithLimiter-simplified.json
+   :language: json
    :linenos:
 
 Note that the graphical annotations are not shown.
@@ -301,8 +296,7 @@ the FMUs from the FMU repository.
 .. note:: In this workflow, all key representations are based on standards:
           The CDL-specification uses a subset of the Modelica standard,
           the elementary CDL blocks are converted to the FMI standard,
-          and finally the system structure and the parameterization uses
-          the SSP standard.
+          and finally the runtime environment uses the SSP standard.
 
 
 Replacement of CDL blocks during translation
@@ -310,11 +304,11 @@ Replacement of CDL blocks during translation
 
 When translating CDL to a control product lines, a translator may want to
 conduct certain substitutions. Some of these substitutions can change the
-control response, in which case the verification that checks whether the
-actual implementation conforms to the specification may fail.
+control response, which can cause the verification that checks whether the
+actual implementation conforms to the specification to fail.
 
 This section therefore explains how certain substitutions can be performed
-in a way that allows passing the certification tests.
+in a way that allows passing the formal verification.
 (How verification tests will be conducted will be specified later in 2018, but
 essentially we will require that the control response from the actual control
 implementation is within a certain tolerance of the control response
@@ -329,10 +323,13 @@ uses different names for the inputs, outputs and parameters, then they can
 be replaced.
 
 Moreover, certain transformations that do not change the
-response of the block are permissible: For example, consider the PID controller in
-CDL. The implementation has a parameter called ``Ti`` for the time constant of the integrator block.
+response of the block are permissible: For example, consider the
+`PID controller in the CDL library <http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
+The implementation has a parameter
+for the time constant of the integrator block.
 If a control vendor requires the specification of an integrator gain rather than
-the time constant, then such a parameter transformation can be done during the translation.
+the integrator time constant, then such a parameter transformation can be done during
+the translation, as both implementations yield an identical response.
 
 .. _sec_cha_sub_cha:
 
@@ -340,15 +337,16 @@ Substitutions that change the response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a control vendor likes to use for example a different implementation of
-the anti-windup in a PID controller, then such a substitutions may result in a failure during the
-verification test because the control response may differ between the CDL-compliant
-specification and the vendor's implementation.
+the anti-windup in a PID controller, then such a substitution
+will cause the verification to fail if the control responses differ
+between the CDL-compliant specification and the vendor's implementation.
 
-Therefore, if a customer requires that the control complies
-to the specification, then the workflow shall be to provide an executable
-implementation of the vendor's controller, and ask the customer to replace
-in the control specification the PID controller from the CDL-library with the PID controller
-provided by the vendor. Afterwards, verification can be conducted as usual.
+Therefore, if a customer requires that the implemented control sequence complies
+with the specification, then the workflow shall be such that
+the control provider provides an executable implementation of its controller,
+and the control provider shall ask the customer to replace
+in the control specification the PID controller from the CDL library with the PID controller
+provided by the control provider. Afterwards, verification can be conducted as usual.
 
 .. note:: Such an executable implementation of a vendor's PID controller can
           be made available by publishing the controller
