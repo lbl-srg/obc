@@ -14,15 +14,17 @@ of verification tests, will need to be done for each building project.
 Discussion of Different Translation Approaches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section compares different approaches for translation of CDL-conforming control
-sequences, to execute them on a building automation system.
+This section compares different approaches
+for translating CDL-conforming control
+sequences to executable code on a building automation system.
 The section also describes how to translate verification tests
 to execute them on a computer to conduct a formal verification of
 the control implementation relative to its CDL-conformant specification.
 
 First, we note that the translation will for most, if not all,
 systems only be possible from CDL to a building automation system,
-but not vice versa. For example,
+but not vice versa. This is due to specific constructs that may exist
+in building automation systems but not in CDL.  For example,
 if Sedona were the target platform, then
 translating from Sedona to CDL will not be possible
 because Sedona allows boolean variables
@@ -40,13 +42,13 @@ Relatively recent or new product lines include
 
 While Sedona has been designed for 3rd party developers to add
 new functionality, the others seem rather closed.
-For example, detailed developer documentation that describe
+For example, detailed developer documentation that describes the following 
+is difficult to find, or may not exist:
 
 * the language specification for implementation of block diagrams,
 * the model of computation, and
 * how to simulate open loop control responses and implement regression testing,
 
-are difficult to find, or may not exist.
 Although Sedona "is designed to make it easy to build smart, networked embedded devices"
 and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/),
 developing block diagrams requires Tridium NiagaraAX, a commercial
@@ -85,14 +87,14 @@ We will now describe three different approaches that can be used by control vend
 to translate CDL to their product line:
 
 1. Export of the whole CDL-compliant sequence to one FMU (:numref:`sec_cdl_to_fmi`),
-2. Translation of the CDL-compliant sequence to a JSON intermediate format, and
-   form this format to the format used by the control platform (:numref:`sec_cdl_to_json_simp`), and
+2. Translation of the CDL-compliant sequence to a JSON intermediate format, which can be translated
+   to the format used by the control platform (:numref:`sec_cdl_to_json_simp`), and
 3. Translation of the CDL-compliant sequence to an xml-based standard called
    System Structure and Parameterization (SSP), which
    is then used to parameterize, link and execute pre-compiled elementary CDL blocks
    (:numref:`sec_cdl_ssp`).
 
-Which approach is best suited will depend on the control platform.
+The best approach will depend on the control platform.
 
 .. _sec_cdl_to_fmi:
 
@@ -103,7 +105,7 @@ This section describes how to export a control sequence, or a verification test,
 using the :term:`FMI standard<Functional Mockup Interface>`.
 In this workflow, the intermediate format
 that is used is FMI for model exchange, as it is an open standard, and because FMI
-can easily be integrated into tools for controls or verification,
+can easily be integrated into tools for controls or verification
 using a variety of languages.
 
 .. note:: Also possible, but outside of the scope
@@ -218,7 +220,7 @@ looks as follows:
    :linenos:
 
 Note that the graphical annotations are not shown.
-The JSON representation can then parsed and converted to another block-diagram
+The JSON representation can then be parsed and converted to another block-diagram
 language.
 Note that ``CDL.Continuous.Gain`` is an elementary CDL block
 (see :numref:`sec_ele_bui_blo`).
@@ -240,7 +242,7 @@ In early 2018, a new standard called System Structure and Parameterization (SSP)
 will be released. The standard provides an xml scheme for the
 specification of FMU parameter values, their input and output connections,
 and their graphical layout. The SSP standard allows
-to transport complex networks of FMUs between different platforms for
+for transporting complex networks of FMUs between different platforms for
 simulation, hardware-in-the-loop and model-in-the-loop :cite:`KoehlerEtAl2016:1`.
 Various tools that can simulate systems specified using the SSP standard
 are in development, with
@@ -282,7 +284,7 @@ in :numref:`fig_cdl_ssp`.
 
 In such a workflow, a control vendor would translate the elementary CDL blocks
 (:numref:`sec_ele_bui_blo`)
-to FMU-ME. These blocks will then be used during operation.
+to a repository of FMU-ME blocks. These blocks will then be used during operation.
 For each project, its CDL-compliant control sequence could be translated
 to the simplified JSON format, as described in Section :numref:`sec_cdl_to_json_simp`.
 Using a template engine (similar as is used
@@ -291,7 +293,7 @@ the simplified JSON representation could then be converted to the xml syntax
 specified in the SSP standard.
 Finally, a tool such as the FMI Composer could import the
 SSP-compliant specification, and execute the control sequence using
-the FMUs from the FMU repository.
+the elementary CDL block FMUs from the FMU repository.
 
 .. note:: In this workflow, all key representations are based on standards:
           The CDL-specification uses a subset of the Modelica standard,
@@ -308,7 +310,7 @@ control response, which can cause the verification that checks whether the
 actual implementation conforms to the specification to fail.
 
 This section therefore explains how certain substitutions can be performed
-in a way that allows passing the formal verification.
+in a way that allows formal verification to pass.
 (How verification tests will be conducted will be specified later in 2018, but
 essentially we will require that the control response from the actual control
 implementation is within a certain tolerance of the control response
@@ -341,7 +343,7 @@ the anti-windup in a PID controller, then such a substitution
 will cause the verification to fail if the control responses differ
 between the CDL-compliant specification and the vendor's implementation.
 
-Therefore, if a customer requires that the implemented control sequence complies
+Therefore, if a customer requires the implemented control sequence to comply
 with the specification, then the workflow shall be such that
 the control provider provides an executable implementation of its controller,
 and the control provider shall ask the customer to replace
@@ -366,5 +368,5 @@ Adding blocks that are not in the CDL library
 If a control vendor likes to use a block that is not in the CDL library,
 such as a block that uses machine learning to schedule optimal warm-up,
 then such an addition must be approved by the customer.
-If the customer requires to verify the part of the control sequence that contains this
-block, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
+If the customer requires the part of the control sequence that contains this
+block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
