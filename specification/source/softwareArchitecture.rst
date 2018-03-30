@@ -151,7 +151,7 @@ using the `Schematic editor`, the user can manipulate
 the sequence to adapt it to the actual project.
 
 How sequences can be exported to control systems is described
-in :numref:`sec_code_gen`_.
+in :numref:`sec_code_gen`.
 
 
 
