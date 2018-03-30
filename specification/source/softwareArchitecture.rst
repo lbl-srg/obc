@@ -30,19 +30,23 @@ sending setpoints to PICs.
        [Engine]
      }
      [CDL Parser]
-     [JModelica]
+     [CDL-compliant Control Sequence]
+     [CDL Library]
 
    ctl_des -d-> [CDL Parser]: uses
    vt -d-> [CDL Parser]: uses
-   [CDL Parser] -d-> [JModelica]: uses
+   [CDL Parser] -d-> [CDL-compliant Control Sequences]: reads
+   [CDL Parser] -d-> [CDL Library]: reads
 
 :numref:`fig_architecture_overall_obc` shows the overall
 system with the `Controls Design Tool` and the
 `Functional Verification Tool`. Both use
 a `CDL Parser` which parses the CDL language.
-The figure shows that `JModelica` is used to parse the AST,
-but to provide a more lightweight implementation, a parser
-that only requires Java is being developed and may be used instead. [#parser]_
+This parser is currently in development at https://github.com/lbl-srg/modelica-json. [#parser]_
+The CDL parser reads a `CDL-compliant Control Sequence`,
+which may be provided by the user or taken from
+http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE.html
+and the `CDL Library`, see http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL.html
 All these components will be made available through OpenStudio.
 This allows using the OpenStudio model authoring
 and simulation capability that is being developed
@@ -146,71 +150,10 @@ and modification of the `Control Model` as needed. Hence,
 using the `Schematic editor`, the user can manipulate
 the sequence to adapt it to the actual project.
 
+How sequences can be exported to control systems is described
+in :numref:`sec_code_gen`_.
 
 
-We will now explain how a `CDL-Compliant Specification` is exported.
-The user (or a call from the OpenStudio SDK to the `HVAC/controls tool`)
-will invoke export of a `CDL-Compliant Specification`, to be
-used for bidding, software implementation and verification testing.
-To do so, the `HVAC/controls tool` will invoke the `Modelica to json parser`,
-which import a control sequence
-from the `Custom or Manfuacturer Modelica Library`, or from the `Buildings Library`,
-and exports it in json format.
-This json representation can then be converted to various formats
-as shown in :numref:`fig_cdl_export_formats`
-
-.. _fig_cdl_export_formats:
-
-.. uml::
-   :caption: Export formats for CDL. Note that not all formats will
-             be supported in this project.
-
-   skinparam componentStyle uml2
-
-   @startuml
-
-   interface "CDL-compliant sequence" as CDL
-   interface "Cost estimation" as CE
-   interface "Tridium Niagara" as TN
-   interface "ALC Eikon" as AE
-   interface "JSON" as json
-   interface "FMU-ME" as FMU
-   interface "others" as optional
-
-   CDL --> [exporter]
-   [exporter] --> json
-   [exporter] --> FMU
-   [exporter] --> C
-   [exporter] --> JavaScript
-   json --> [translator to target applications]
-   [translator to target applications] --> CE
-   [translator to target applications] --> AE
-   [translator to target applications] --> TN
-   [translator to target applications] --> optional
-   @enduml
-
-:numref:`fig_cdl_export_formats` shows export formats for CDL-compliant control sequences.
-Using an export program, the CDL-compliant control sequence
-can be converted to JSON for easier
-processing by other applications. We anticipate that JSON will
-be used as input to translators that will generate code for different
-building automation systems, as well as for cost-estimation tools.
-In addition, as CDL is a subset of Modelica, it can be exported with
-a variety of tools, such as with JModelica, as a :term:`Functional Mockup Unit`
-for Model Exchange (FMU-ME) or as ANSI C code.
-For example, the following code would export a CDL-compliant control sequence
-called ``EconomizerControl`` as an FMU-ME, using ``pymodelica`` which is part of
-JModelica:
-
-.. code:: python
-
-   from pymodelica import compile_fmu
-   model_name = "mySequences.EconomizerControl"
-   compile_fmu(model_name)
-
-Although not in the scope of this project, CDL could be exported as JavaScript
-to run in a browser or other secure environment. See for
-example the experimental code of OpenModelica at https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/emscripten.html
 
 Functional Verification Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
