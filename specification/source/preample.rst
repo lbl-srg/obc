@@ -2,7 +2,7 @@
 
    \pagestyle{plain}
 
-Preample
+Preamble
 --------
 
 Purpose of the Document
