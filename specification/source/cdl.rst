@@ -58,7 +58,7 @@ Also, the following Modelica language features are not supported in CDL:
 
 .. _sec_cld_per_typ:
 
-Permissible data types
+Permissible Data Types
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The basic data types are, in addition to the elementary building blocks,
@@ -102,7 +102,7 @@ See the Modelica 3.3 specification Chapter 10 for array notation.
 
 .. _sec_enc_block:
 
-Encapsulation of functionality
+Encapsulation of Functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All computations are encapsulated in a ``block``.
@@ -116,7 +116,7 @@ or *composite blocks* (:numref:`sec_com_blo`).
 
 .. _sec_ele_bui_blo:
 
-Elementary building blocks
+Elementary Building Blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: img/cdl/cdl_screen_shot.*
@@ -327,7 +327,7 @@ vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
 .. _sec_com_blo:
 
-Composite blocks
+Composite Blocks
 ^^^^^^^^^^^^^^^^
 
 CDL allows building composite blocks such as shown in
@@ -366,7 +366,7 @@ and are needed for hierarchical composition of control sequences.]
 
 
 
-Model of computation
+Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,
@@ -509,10 +509,9 @@ can be declared in CDL as
 
 .. code-block:: modelica
 
-   annotation(__cdl(brick(
-     soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor ;
-        bf:hasTag brick:Average ;
-        bf:isLocatedIn soda_hall:floor_1 . )))
+   annotation(__cdl(brick="soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor  ;
+     bf:hasTag brick:Average ;
+     bf:isLocatedIn soda_hall:floor_1 ."));
 
 ]
 
@@ -546,18 +545,18 @@ can be declared in CDL as
 
 .. code::
 
-   annotation(__cdl( haystack(
-     {"id"        : ""@whitehouse.ahu3.dat",
-      "dis"       : "White House AHU-3 DischargeAirTemp",
-      "point"     : "m:",
-      "siteRef"   : "@whitehouse",
-      "equipRef'  : "@whitehouse.ahu3",
-      "discharge" : "m:",
-      "air"       : "m:",
-      "temp"      : "m:",
-      "sensor"    : "m:",
-      "kind       : "Number"
-      "unit       : "degF"} )));
+   annotation(__cdl( haystack=
+     "{\"id\"   : \"@whitehouse.ahu3.dat\",
+       \"dis\" : \"White House AHU-3 DischargeAirTemp\",
+       \"point\" : \"m:\",
+       \"siteRef\" : \"@whitehouse\",
+       \"equipRef\" : \"@whitehouse.ahu3\",
+       \"discharge\" : \"m:\",
+       \"air\"       : \"m:\",
+       \"temp\"      : \"m:\",
+       \"sensor\"    : \"m:\",
+       \"kind\"       : \"Number\"
+       \"unit\"       : \"degF\"}"));
 
 
 Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
