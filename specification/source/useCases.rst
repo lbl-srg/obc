@@ -14,22 +14,18 @@ This section describes use cases for end-user interaction, including the followi
   convention, a plain language sequence of operation,
   and verification that the control diagram includes
   all instrumentation required to complete the control sequence,
-* use the control design tool during construction to assist the controls integration process by
-  identifying network protocol, communication protocol and points list discrepancies between
-  systems and equipment,
 * use the commissioning and functional verification tool during commissioning
 
 
 Controls Design
 ^^^^^^^^^^^^^^^
 
-Loading a standard sequence from Guideline 36
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-(Extension modified by Philip Haves, LBNL)
+Loading a standard sequence from a library
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to load, edit and store a control
-sequence based on a Guideline 36 sequence.
+sequence from a library. For illustration, we use here
+a sequence from the `Guideline 36 library <http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE_G36_PR1.html>`_.
 
 .. table::
    :class: longtable
@@ -37,11 +33,9 @@ sequence based on a Guideline 36 sequence.
    ===========================  ===================================================
    **Use case name**            **Loading a standard sequence from Guideline 36**
    ===========================  ===================================================
-   Related Requirements         Direct reference/selection from Guideline 36’s
-                                corresponding chapter and narrative sequence to convert to CDL.
-                                User able to change the pre-set elements within
+   Related Requirements         User able to change the pre-set elements within
                                 the standard sequence, with automatic download of
-                                associated CDL/visual block diagram of any new elements.
+                                associated CDL block diagram.
    ---------------------------  ---------------------------------------------------
    Goal in Context              Enable fast adaptation of Guideline 36
    ---------------------------  ---------------------------------------------------
@@ -61,11 +55,11 @@ sequence based on a Guideline 36 sequence.
    ---------------------------  ---------------------------------------------------
    Primary Actors               Mechanical Designer/Consultant
    ---------------------------  ---------------------------------------------------
-   Secondary Actors             Maintenance Engineer for retrofitting redesign
+   Secondary Actors             Controls contractor
    ---------------------------  ---------------------------------------------------
    Trigger                      Designing control system using Guideline 36 as
                                 default sequence or a starting point,
-                                then needs to change key elements as the system
+                                then needs to change key elements because the system
                                 is different to Guideline 36 presumed system configuration.
    ---------------------------  ---------------------------------------------------
    **Main Flow**                **Action**
@@ -76,7 +70,7 @@ sequence based on a Guideline 36 sequence.
    2                            User selects a sequence
    ---------------------------  ---------------------------------------------------
    3                            The corresponding CDL and visual block diagram appears
-                                in the controls design tool, key mechanical elements
+                                in the controls design tool. Key mechanical elements
                                 (e.g. fan, cooling coil valve, control damper)
                                 controlled by the standard sequence are also displayed.
    ---------------------------  ---------------------------------------------------
@@ -84,17 +78,16 @@ sequence based on a Guideline 36 sequence.
    ---------------------------  ---------------------------------------------------
    1                            User saves copy of the imported sequence prior to editing
    ---------------------------  ---------------------------------------------------
-   2                            User deletes/adds atomic blocks or a composite blocks.
+   2                            User deletes/adds elementary blocks or composite blocks.
    ---------------------------  ---------------------------------------------------
    2                            User saves the modified sequence.
    ===========================  ===================================================
 
 
-Customizing a control sequence for a VAV system
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Customizing a control sequence for an HVAC system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This use case describes how to connect a control sequence
-to a VAV system and then customize the control sequence.
+This use case describes how to connect a control sequence to a system model and then customize the control sequence, using a VAV system as an example.
 
 .. table::
    :class: longtable
@@ -118,7 +111,7 @@ to a VAV system and then customize the control sequence.
    Successful End Condition     Implemented VAV sequence with customized control,
                                 ready for performance assessment
                                 (Use case :ref:`use_case_per_ass`) and
-                                ready for export in CDL.
+                                ready for export in CDL for subsequent implementation.
    ---------------------------  ---------------------------------------------------
    Failed End Condition         n/a
    ---------------------------  ---------------------------------------------------
@@ -135,15 +128,15 @@ to a VAV system and then customize the control sequence.
    ---------------------------  ---------------------------------------------------
    1                            The user opens the controls design tool in OpenStudio
    ---------------------------  ---------------------------------------------------
-   2                            The user drags and drops from the Buildings library
-                                a pre-configured VAV control sequence.
+   2                            The user drags and drops a
+                                preconfigured VAV control sequence from the Buildings library.
    ---------------------------  ---------------------------------------------------
    3                            The user clicks on the pre-configured VAV control
                                 sequence and selects in the tool a function that
                                 will store the sequence in the project library
                                 to allow further editing.
    ---------------------------  ---------------------------------------------------
-   4                            The controls design tool stores the
+   4                            The controls design tool saves the
                                 sequence in the project library.
    ---------------------------  ---------------------------------------------------
    5                            The user connects sensors and actuators of the
@@ -157,12 +150,12 @@ to a VAV system and then customize the control sequence.
                                 in the controls design tool.
    ---------------------------  ---------------------------------------------------
    7                            The user opens in the project library
-                                the new composite control block.
+                                the composite sequence saved in step 4.
    ---------------------------  ---------------------------------------------------
    8                            The user adds and connects additional control blocks
                                 from the elementary CDL-block library.
    ---------------------------  ---------------------------------------------------
-   9                            The user selects "Check model" to verify whether
+   9                            The user selects "Check model" to verify that
                                 the implemented sequence complies with the CDL
                                 specification.
    ===========================  ===================================================
@@ -267,7 +260,7 @@ for a single zone VAV system.
                                 and loads it into the sequence
                                 editor.
    ---------------------------  ---------------------------------------------------
-   11                           The user edits the sequence by deleting and/or moving atomic
+   11                           The user edits the sequence by deleting and/or moving elementary
                                 and composite blocks and/or adding control
                                 blocks from the elementary CDL-block library
    ---------------------------  ---------------------------------------------------
@@ -370,7 +363,8 @@ for a multizone VAV system.
    15                           The user makes a copy of the reference/library sequence prior to replication and loads it into the sequence
                                 editor.
    ---------------------------  ---------------------------------------------------
-   16                           The user edits the sequence by deleting and/or moving atomic and composite blocks and/or adding control
+   16                           The user edits the sequence by deleting and/or moving elementary
+                                and composite blocks and/or adding control
                                 blocks from the elementary CDL-block library
 
    ---------------------------  ---------------------------------------------------
@@ -521,7 +515,7 @@ control in the control design tool.
    ---------------------------  ---------------------------------------------------
    Primary Actors               Mechanical Designer/Consultant
    ---------------------------  ---------------------------------------------------
-   Secondary Actors             Maintenance Engineer for retrofitting redesign
+   Secondary Actors
    ---------------------------  ---------------------------------------------------
    Trigger
    ---------------------------  ---------------------------------------------------
@@ -626,20 +620,23 @@ relative to the design intent.
                                 the controller operates in accordance with the
                                 sequence of operation
    ---------------------------  ---------------------------------------------------
-   Preconditions                CDL code in vendor software is correct.
+   Preconditions                CDL-conformant control sequence and verification tests
+                                are imported into verification tool.
 
                                 Field instrumentation is per spec.
 
                                 Installation of field equipment is correct.
 
-                                Point-point testing from point in field through
+                                Point-to-point testing from point in field through
                                 to graphic is correct.
    ---------------------------  ---------------------------------------------------
    Successful End Condition     Control devices carry out the right sequence of actions,
-                                and the verification tool recognizes compliance to the design intent.
+                                and the verification tool verifies compliance
+                                with the design intent.
 
                                 Control devices carry out wrong sequence of actions,
-                                and the verification tool recognizes incompliance to the design intent.
+                                and the verification tool shows non-compliance
+                                with the design intent.
    ---------------------------  ---------------------------------------------------
    Failed End Condition         The verification tool fails to recognize verification success/failure.
    ---------------------------  ---------------------------------------------------
@@ -647,7 +644,7 @@ relative to the design intent.
    ---------------------------  ---------------------------------------------------
    Secondary Actors             BMS engineer (optional)
 
-                                Approved vendor software which replicates uploaded CDL code
+                                Vendor software which replicates uploaded CDL code
    ---------------------------  ---------------------------------------------------
    Trigger                      The verification tool is connected to the BMS and receives the
                                 following signals from the VAV box controller:
@@ -727,203 +724,4 @@ is similar to the intended sequence.
    ---------------------------  ---------------------------------------------------
    3                            User initiates translation of installed control logic
                                 to sequence documentation.
-   ===========================  ===================================================
-
-
-Controls Programming Status Verification
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This use case will verify whether an installed control system
-is ready for commissioning.
-
-.. table::
-   :class: longtable
-
-   ===========================  ===================================================
-   **Use case name**            **Controls Programming Status Verification**
-   ===========================  ===================================================
-   Related Requirements         Tool can interpret as-installed programming.
-   ---------------------------  ---------------------------------------------------
-   Goal in Context              An engineer wishes to confirm that the control logic
-                                is ready for commissioning. The tool will identify
-                                improper sequences, logic errors, missing code and
-                                missing control points.
-   ---------------------------  ---------------------------------------------------
-   Preconditions                Installed control system must be capable of communication
-                                with the tool. The translation protocol must be established.
-   ---------------------------  ---------------------------------------------------
-   Successful End Condition
-   ---------------------------  ---------------------------------------------------
-   Failed End Condition
-   ---------------------------  ---------------------------------------------------
-   Primary Actors               New construction project manager, owner’s representative
-   ---------------------------  ---------------------------------------------------
-   Secondary Actors             Cx agent, engineer of record
-   ---------------------------  ---------------------------------------------------
-   Trigger                      Contractor notifies owner or PM that system is ready
-                                for Cx.
-   ---------------------------  ---------------------------------------------------
-   **Main Flow**                **Action**
-   ---------------------------  ---------------------------------------------------
-   1                            User opens tool interface.
-   ---------------------------  ---------------------------------------------------
-   2                            User configures tool to connect with desired
-                                control system.
-   ---------------------------  ---------------------------------------------------
-   3                            User initiates translation of installed control
-                                logic to sequence documentation.
-   ===========================  ===================================================
-
-
-Performance assessment of a control sequence, including local loops
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. table::
-   :class: longtable
-
-   ===========================  ===================================================
-   **Use case name**            **Performance assessment of a control sequence,
-                                including local loops**
-   ===========================  ===================================================
-   Related Requirements
-   ---------------------------  ---------------------------------------------------
-   Goal in Context              Evaluate the performance of a specific control sequence
-                                in the context of a particular design project.
-   ---------------------------  ---------------------------------------------------
-   Preconditions                1. Either a) whole building or system model for the particular design
-                                project, or b) sufficient information about the current state of the design,
-                                to enable the configuration of a model template based on a generic design
-                                for the appropriate building type. The model must be complete down to the
-                                required sensors and actuators.
-
-                                2. Control sequence to be assessed must match, or be capable of being configured
-                                to match, the building/system model in terms of sensing and actuation points
-                                and modes of operation.
-
-                                3. Relevant statutory requirements and design performance targets. Performance
-                                metrics derived from these requirements and targets.
-   ---------------------------  ---------------------------------------------------
-   Successful End Condition     User is able to (i) compare the performance
-                                of different control sequences in
-                                terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected
-                                control sequence to enable the building/system to meet or exceed externally-defined
-                                performance criteria.
-   ---------------------------  ---------------------------------------------------
-   Failed End Condition         1. Building/system model or
-                                configuration information for generic model template is incomplete.
-
-                                2. Performance requirements or targets are incomplete
-                                or inconsistent with respect to the specific
-                                control sequence.
-
-                                3. Simulation fails to run to completion or fails
-                                convergence tests
-   ---------------------------  ---------------------------------------------------
-   Primary Actors               Mechanical Designer/Consultant
-   ---------------------------  ---------------------------------------------------
-   Secondary Actors
-   ---------------------------  ---------------------------------------------------
-   Trigger                      Need to select or improve a control sequence for a
-                                building or system
-   ---------------------------  ---------------------------------------------------
-   **Main Flow**                **Action**
-   ---------------------------  ---------------------------------------------------
-   1                            User loads the building/system model for the
-                                project or uses design information
-                                to configure a model template for the building type
-                                and system type.
-   ---------------------------  ---------------------------------------------------
-   2                            User selects and loads weather data and operation
-                                schedules.
-   ---------------------------  ---------------------------------------------------
-   3                            User configures control sequence with
-                                project-specific information, e.g. number
-                                of terminal units on an air loop, and connects to building/system model.
-   ---------------------------  ---------------------------------------------------
-   4                            User uses design information to identify operating
-                                ranges at which the control sequence must function and identifies operating conditions/ranges for tuning of    individual feedback control loops in the sequence.
-   ---------------------------  ---------------------------------------------------
-   5                            User selects initial values for supervisory
-                                controller parameters and tunes the individual feedback control loops or initiates autotuning.
-   ---------------------------  ---------------------------------------------------
-   6                            User selects short periods for initial testing
-                                of control loop stability and responsiveness to disturbances and set-point changes and changes controller parameters    as necessary.
-   ---------------------------  ---------------------------------------------------
-   7                            User initiates simulation of building/system
-                                controlled performance over full
-                                reference year or statistically-selected short reference year that reports
-                                output variables required to evaluate performance according to pre-defined metrics.
-   ---------------------------  ---------------------------------------------------
-   8                            Compare metric values to requirements and/or
-                                targets.
-   ===========================  ===================================================
-
-
-Performance assessment of a control sequence (no local loop)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. table::
-   :class: longtable
-
-   ===========================  ===================================================
-   **Use case name**            **Performance assessment of a control sequence (no local loop)**
-   ===========================  ===================================================
-   Related Requirements
-   ---------------------------  ---------------------------------------------------
-   Goal in Context              Evaluate the performance of a specific supervisory
-                                control sequence in the context of a particular
-                                design project.
-   ---------------------------  ---------------------------------------------------
-   Preconditions                1. Either a) whole building or system model for
-                                the particular design project, or b) sufficient information about the current state of the design, to enable the    configuration of a model template
-                                based on a generic design for the appropriate building type. The model must be complete down to the required sensors    and actuation points, which may be set-points for idealized local loop control, since the sequence only performs
-                                supervisory control.
-
-                                2. Control sequence to be assessed must match, or be capable of being configured to match, the
-                                building/system model in terms of sensors, set-points for idealized local loop control and
-                                modes of operation.
-
-                                3. Relevant statutory requirements and design performance targets, together with performance metrics derived from    these requirements and
-                                targets.
-   ---------------------------  ---------------------------------------------------
-   Successful End Condition     User is able to (i) compare the performance of
-                                different control sequences in terms of selected pre-defined criteria, and (ii) evaluate the ability of a selected    control sequence to enable the building/system to meet or exceed externally-defined performance criteria.
-   ---------------------------  ---------------------------------------------------
-   Failed End Condition         1. Building or plant model or
-                                configuration information for generic model template is incomplete.
-
-                                2. Performance requirements or targets are incomplete or inconsistent wrt the specific
-                                control sequence.
-
-                                3. Simulation fails to run to completion or fails
-                                convergence tests.
-   ---------------------------  ---------------------------------------------------
-   Primary Actors               Mechanical Designer/Consultant
-   ---------------------------  ---------------------------------------------------
-   Secondary Actors
-   ---------------------------  ---------------------------------------------------
-   Trigger                      Need to select or improve a control sequence for a
-                                building or system
-   ---------------------------  ---------------------------------------------------
-   **Main Flow**                **Action**
-   ---------------------------  ---------------------------------------------------
-   1                            User loads the building/system model for the
-                                project or uses design information to configure a model template: building type, system types and size.
-   ---------------------------  ---------------------------------------------------
-   2                            User selects and loads weather data and operation schedules.
-   ---------------------------  ---------------------------------------------------
-   3                            User manually replaces real local loop controllers
-                                with ideal local loop controllers or initiates (semi-)automated replacement
-   ---------------------------  ---------------------------------------------------
-   4                            User configures control sequence with
-                                project-specific information, e.g. number of terminal units on an air loop, and connects to building/system model.
-   ---------------------------  ---------------------------------------------------
-   5                            User  selects initial values for supervisory
-                                controller parameters.
-   ---------------------------  ---------------------------------------------------
-   6                            User initiates simulation of building/system
-                                controlled performance over full reference year or statistically-selected short reference year that reports output    variables required to evaluate performance according to pre-defined metrics.
-   ---------------------------  ---------------------------------------------------
-   7                            User compare metric values to requirements and/or
-                                targets.
    ===========================  ===================================================
