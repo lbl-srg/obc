@@ -509,10 +509,9 @@ can be declared in CDL as
 
 .. code-block:: modelica
 
-   annotation(__cdl(brick(
-     soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor ;
-        bf:hasTag brick:Average ;
-        bf:isLocatedIn soda_hall:floor_1 . )))
+   annotation(__cdl(brick="soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor  ;
+     bf:hasTag brick:Average ;
+     bf:isLocatedIn soda_hall:floor_1 ."));
 
 ]
 
@@ -546,18 +545,18 @@ can be declared in CDL as
 
 .. code::
 
-   annotation(__cdl( haystack(
-     {"id"        : ""@whitehouse.ahu3.dat",
-      "dis"       : "White House AHU-3 DischargeAirTemp",
-      "point"     : "m:",
-      "siteRef"   : "@whitehouse",
-      "equipRef'  : "@whitehouse.ahu3",
-      "discharge" : "m:",
-      "air"       : "m:",
-      "temp"      : "m:",
-      "sensor"    : "m:",
-      "kind       : "Number"
-      "unit       : "degF"} )));
+   annotation(__cdl( haystack=
+     "{\"id\"   : \"@whitehouse.ahu3.dat\",
+       \"dis\" : \"White House AHU-3 DischargeAirTemp\",
+       \"point\" : \"m:\",
+       \"siteRef\" : \"@whitehouse\",
+       \"equipRef\" : \"@whitehouse.ahu3\",
+       \"discharge\" : \"m:\",
+       \"air\"       : \"m:\",
+       \"temp\"      : \"m:\",
+       \"sensor\"    : \"m:\",
+       \"kind\"       : \"Number\"
+       \"unit\"       : \"degF\"}"));
 
 
 Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
