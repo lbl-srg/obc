@@ -18,6 +18,7 @@ sending setpoints to PICs.
 
 .. uml::
    :caption: Overall software architecture.
+   :width: 600px
 
    skinparam componentStyle uml2
 
@@ -35,7 +36,7 @@ sending setpoints to PICs.
 
    ctl_des -d-> [CDL Parser]: uses
    vt -d-> [CDL Parser]: uses
-   [CDL Parser] -d-> [CDL-compliant Control Sequences]: reads
+   [CDL Parser] -d-> [CDL-compliant Control Sequence]: reads
    [CDL Parser] -d-> [CDL Library]: reads
 
 :numref:`fig_architecture_overall_obc` shows the overall
@@ -63,6 +64,7 @@ Controls Design Tool
 
 .. uml::
    :caption: Overall software architecture of the Controls Design Tool.
+   :width: 600px
 
    skinparam componentStyle uml2
 
@@ -162,6 +164,7 @@ Functional Verification Tool
 
 .. uml::
    :caption: Overall software architecture of the Functional Verification Tool.
+   :width: 600px
 
    skinparam componentStyle uml2
 
@@ -177,14 +180,14 @@ Functional Verification Tool
    [Reports] <<htlm, json>>
    [HIL Module]
 
-   vt -r-> [CDL Parser]: uses
-   [I/O\nConfiguration] -> mod_ctl : updates point list
+   vt -d-> [CDL Parser]: uses
+   [I/O\nConfiguration] -d-> mod_ctl : updates point list
    [Engine] -> [FMU-ME] : inserts point list
-   [Engine] -> [JModelica] : invokes FMU-ME export
-   [JModelica] -l-> mod_ctl: imports
+   [Engine] -d-> [JModelica] : invokes FMU-ME export
+   [JModelica] -d-> mod_ctl: imports
+   [Engine] -l-> [HIL Module]: connects
    [JModelica] -> [FMU-ME] : exports
-   [Engine] -> [HIL Module]: connect
-   [Engine] -> [Reports]: writes
+   [Engine] -d-> [Reports]: writes
    [Viewer] -> [Reports]: imports
 
 The `Functional Verification Tool` consists of three modules:

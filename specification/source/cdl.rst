@@ -58,7 +58,7 @@ Also, the following Modelica language features are not supported in CDL:
 
 .. _sec_cld_per_typ:
 
-Permissible data types
+Permissible Data Types
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The basic data types are, in addition to the elementary building blocks,
@@ -102,7 +102,7 @@ See the Modelica 3.3 specification Chapter 10 for array notation.
 
 .. _sec_enc_block:
 
-Encapsulation of functionality
+Encapsulation of Functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All computations are encapsulated in a ``block``.
@@ -116,7 +116,7 @@ or *composite blocks* (:numref:`sec_com_blo`).
 
 .. _sec_ele_bui_blo:
 
-Elementary building blocks
+Elementary Building Blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: img/cdl/cdl_screen_shot.*
@@ -327,7 +327,7 @@ vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
 
 .. _sec_com_blo:
 
-Composite blocks
+Composite Blocks
 ^^^^^^^^^^^^^^^^
 
 CDL allows building composite blocks such as shown in
@@ -366,7 +366,7 @@ and are needed for hierarchical composition of control sequences.]
 
 
 
-Model of computation
+Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,

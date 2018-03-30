@@ -96,8 +96,8 @@ The best approach will depend on the control platform.
 
 .. _sec_cdl_to_fmi:
 
-Export of the whole control sequence using the FMI standard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Export of a Control Sequence or a Verification Test using the FMI Standard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes how to export a control sequence, or a verification test,
 using the :term:`FMI standard<Functional Mockup Interface>`.
@@ -166,7 +166,7 @@ This may be attractive for FDD and some advanced control sequences.
 
 .. _sec_cdl_to_json_simp:
 
-Translation of a control sequence using a JSON intermediate format
+Translation of a Control Sequence using a JSON Intermediate Format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Control companies that choose to not use C-code generation or the FMI standard to
@@ -233,8 +233,8 @@ https://github.com/lbl-srg/modelica-json/tree/master/test/FromModelica.
 
 .. _sec_cdl_ssp:
 
-Modular export of a control sequence using the FMI standard for control blocks and using the SSP standard as a run-time environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Modular Export of a Control Sequence using the FMI Standard for Control Blocks and using the SSP Standard for the Run-time Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In early 2018, a new standard called System Structure and Parameterization (SSP)
 will be released. The standard provides an xml scheme for the
@@ -299,8 +299,8 @@ the elementary CDL block FMUs from the FMU repository.
           and finally the runtime environment uses the SSP standard.
 
 
-Replacement of CDL blocks during translation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Replacement of Elementary CDL Blocks during Translation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When translating CDL to a control product lines, a translator may want to
 conduct certain substitutions. Some of these substitutions can change the
@@ -315,8 +315,8 @@ implementation is within a certain tolerance of the control response
 computed by the CDL specification, provided that both sequences receive
 the same input signals and use the same parameter values.)
 
-Substitutions that do not change the response
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Substitutions that Give Identical Control Response
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Consider the gain ``CDL.Continuous.Gain`` used above. If a product line
 uses different names for the inputs, outputs and parameters, then they can
@@ -333,8 +333,8 @@ the translation, as both implementations yield an identical response.
 
 .. _sec_cha_sub_cha:
 
-Substitutions that change the response
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Substitutions that Change the Control Response
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a control vendor likes to use for example a different implementation of
 the anti-windup in a PID controller, then such a substitution
@@ -360,7 +360,7 @@ provided by the control provider. Afterwards, verification can be conducted as u
           If a compiled library is provided, then binaries shall be provided for
           Windows 32/64 bit, Linux 32/64 bit, and OS X 64 bit.
 
-Adding blocks that are not in the CDL library
+Adding Blocks that are not in the CDL Library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a control vendor likes to use a block that is not in the CDL library,
