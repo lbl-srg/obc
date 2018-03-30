@@ -11,15 +11,13 @@ to perform this step.
 However, translation of a *CDL-conforming control sequence*, as well as translation
 of verification tests, will need to be done for each building project.
 
-Discussion of Different Translation Approaches
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section compares different approaches
+Challenges and Implications for Translation of Control Sequences
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This section discusses challenges and implications
 for translating CDL-conforming control
 sequences to executable code on a building automation system.
-The section also describes how to translate verification tests
-to execute them on a computer to conduct a formal verification of
-the control implementation relative to its CDL-conformant specification.
 
 First, we note that the translation will for most, if not all,
 systems only be possible from CDL to a building automation system,
@@ -42,7 +40,7 @@ Relatively recent or new product lines include
 
 While Sedona has been designed for 3rd party developers to add
 new functionality, the others seem rather closed.
-For example, detailed developer documentation that describes the following 
+For example, detailed developer documentation that describes the following
 is difficult to find, or may not exist:
 
 * the language specification for implementation of block diagrams,
