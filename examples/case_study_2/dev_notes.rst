@@ -83,6 +83,12 @@ Inputs:
 - Min OSA CFM PI output from Minimum OA flow
 - Manual override
 
+Outputs:
+
+- RA damper control signal (0 - 100)
+- SA damper control signal (0 - 100)
+
+
 Notes, issues and assumptions:
 
 - take parameters from the ALC EIKON block diagram
