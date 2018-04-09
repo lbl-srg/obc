@@ -1,6 +1,10 @@
 Data availability assessment for LBL B33 control sequences for validation tool case study
 =========================================================================================
 
+This documents the process of developing control sequences to demonstrate the
+validation tool capabilities. It uses trended data from ALC EIKON control sequences
+implemented in B33.
+
 
 33-AHU-02 (Roof) | 33-AHU-01 (Roof)
 -----------------------------------
@@ -22,7 +26,7 @@ Outputs:
 
 - Heating valve status signal (33-HC-22 Heating Valve)
 
-Notes. issues and assumptions:
+Notes, issues and assumptions:
 
 - Manual override: Per correspondence with Chris W, assume it never got activated
 - Supply fan is on all the time based on observed data
@@ -79,7 +83,7 @@ Inputs:
 - Min OSA CFM PI output from Minimum OA flow
 - Manual override
 
-Notes. issues and assumptions:
+Notes, issues and assumptions:
 
 - take parameters from the ALC EIKON block diagram
 - OAT not trended, one could substitute with OAT AI0 or AHU-1 OAT sensor
