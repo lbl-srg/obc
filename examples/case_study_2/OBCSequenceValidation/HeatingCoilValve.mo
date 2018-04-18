@@ -56,18 +56,6 @@ block HeatingCoilValve
     "Maximum supply air temperature for defining the lower limit of the valve position (45 F)"
     annotation(Evaluate=true);
 
-  parameter Real yHeaValMinLowLim(
-    final min=0,
-    final max=1,
-    final unit="1")= 0
-    "Minimum valve position signal at maximum lower limit defining supply air temperature"
-    annotation(Evaluate=true);
-  parameter Real yHeaValMaxLowLim(
-    final min=0,
-    final max=1,
-    final unit="1") = 1
-    "Maximum valve position signal at minimum lower limit defining supply air temperature"
-    annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
@@ -142,6 +130,7 @@ block HeatingCoilValve
   Buildings.Controls.OBC.CDL.Logical.Switch swiLim
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Greater greLim
     "Checks if the low supply air temperature range limiter should be applied"
     annotation (Placement(transformation(extent={{30,10},{50,30}})));

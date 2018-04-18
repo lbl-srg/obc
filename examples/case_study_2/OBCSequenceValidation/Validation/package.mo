@@ -39,8 +39,8 @@ package Validation "Package with models for the validation of the OBC validation
 
 
 
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(k=false)
-      annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan(k=false)
+    annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
     HeatingCoilValve                       heaValSta1
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
@@ -53,8 +53,8 @@ package Validation "Package with models for the validation of the OBC validation
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet1(final k=TSupSet)
       "Supply air temperature setpoint"
       annotation (Placement(transformation(extent={{-260,-60},{-240,-40}})));
-    Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(k=true)
-      annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+    Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan1(k=true)
+    annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
   equation
 
 
@@ -63,12 +63,12 @@ package Validation "Package with models for the validation of the OBC validation
 
     connect(heaValSta.TOut, uTOutBelowCutoff.y)
       annotation (Line(points={{-141,113},{-170,113},{-170,70},{-199,70}}, color={0,0,127}));
-    connect(con.y, heaValSta.uSupFan)
-      annotation (Line(points={{-159,50},{-150,50},{-150,100},{-141,100}}, color={255,0,255}));
+  connect(uSupFan.y, heaValSta.uSupFan)
+    annotation (Line(points={{-159,50},{-150,50},{-150,100},{-141,100}}, color={255,0,255}));
     connect(heaValSta1.TOut, uTOutAboveCutoff.y)
       annotation (Line(points={{-141,-7},{-170,-7},{-170,-50},{-199,-50}}, color={0,0,127}));
-    connect(con1.y, heaValSta1.uSupFan)
-      annotation (Line(points={{-159,-70},{-150,-70},{-150,-20},{-141,-20}}, color={255,0,255}));
+  connect(uSupFan1.y, heaValSta1.uSupFan)
+    annotation (Line(points={{-159,-70},{-150,-70},{-150,-20},{-141,-20}}, color={255,0,255}));
   connect(heaValSta1.TSupSet, uTSupSet1.y) annotation (Line(points={{-141,-3},{-190,-3},{-190,-20},
           {-230,-20},{-230,-50},{-239,-50}}, color={0,0,127}));
   connect(heaValSta1.TSup, uTSup1.y)
@@ -95,7 +95,25 @@ First implementation.
 </ul>
 </html>"),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-120},{
-              140,140}})));
+              140,140}}), graphics={
+        Rectangle(
+          extent={{-276,136},{-114,24}},
+          lineColor={217,217,217},
+          fillColor={217,217,217},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-258,40},{-202,28}},
+          lineColor={0,0,127},
+          textString="Supply fan is off - disable control"),
+        Rectangle(
+          extent={{-276,16},{-114,-96}},
+          lineColor={217,217,217},
+          fillColor={217,217,217},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-260,-78},{-196,-90}},
+          lineColor={0,0,127},
+          textString="TOut is above cuttoff - disable control")}));
   end HeatingCoilValve_TSup_TSupSet_TOut_uSupFan;
 
 annotation (Documentation(info="<html>
