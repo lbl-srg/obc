@@ -20,6 +20,7 @@ block HeatingCoilValve
     final unit="1") = 1
     "Maximum controller signal"
     annotation(Evaluate=true);
+
   parameter Real uMin(
     final min=0,
     final max=1,
@@ -159,9 +160,7 @@ equation
   connect(lesEquThr.y, andEna.u1)
     annotation (Line(points={{-69,0},{-60,0},{-60,30},{-52,30}}, color={255,0,255}));
   connect(uSupFan, andEna.u2)
-    annotation (Line(points={{-140,-60},{-58,-60},{-58,22},{-52,22}}, color={255,0,255}));
-  connect(andEna.y, TSupCon.trigger)
-    annotation (Line(points={{-29,30},{-8,30},{-8,68}}, color={255,0,255}));
+    annotation (Line(points={{-140,-60},{-56,-60},{-56,22},{-52,22}}, color={255,0,255}));
   connect(yHeaValLowLim.f2, yHeaValMin.y)
     annotation (Line(points={{38,-38},{30,-38},{30,-104},{11,-104}}, color={0,0,127}));
   connect(yHeaValLowLim.f1, yHeaValMax.y)
@@ -179,6 +178,8 @@ equation
     annotation (Line(points={{11,80},{60,80},{60,28},{68,28}}, color={0,0,127}));
   connect(yHeaValLowLim.y, swiLim.u3)
     annotation (Line(points={{61,-30},{64,-30},{64,12},{68,12}}, color={0,0,127}));
+  connect(TSupCon.trigger, andEna.y)
+    annotation (Line(points={{-8,68},{-20,68},{-20,30},{-29,30}}, color={255,0,255}));
   annotation (
     defaultComponentName = "heaValSta",
     Icon(graphics={
