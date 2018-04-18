@@ -154,9 +154,9 @@ package Validation "Package with models for the validation of the OBC validation
             -40},{50,-70},{41,-70}}, color={0,0,127}));
     connect(heaValSta3.TSup, uTSup3.y)
       annotation (Line(points={{139,-20},{60,-20},{60,-30},{41,-30}}, color={0,0,127}));
-    annotation(experiment(Tolerance=1e-06, StopTime=31536000),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/?/?/?.mos"
-          "Simulate and plot"),
+  annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/Validation/Controller.mos"
+      "Simulate and plot"),
       Documentation(
       info="<html>
 <p>
