@@ -66,6 +66,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})),
-    Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
 end HeatingCoilValve_ValidationWithB33Data;

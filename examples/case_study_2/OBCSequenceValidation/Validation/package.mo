@@ -208,8 +208,7 @@ First implementation.
           Text(
             extent={{22,-98},{116,-118}},
             lineColor={0,0,127},
-            textString="Normal operation above the lower limit TSup range.")}),
-      Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
+            textString="Normal operation above the lower limit TSup range.")}));
   end HeatingCoilValve_TSup_TSupSet_TOut_uSupFan;
 
 annotation (Documentation(info="<html>
