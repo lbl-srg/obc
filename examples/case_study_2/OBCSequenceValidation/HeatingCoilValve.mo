@@ -28,7 +28,7 @@ block HeatingCoilValve
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti=k / 0.5
+  parameter Modelica.SIunits.Time Ti = 1 / 0.5
     "Time constant of modulation controller integrator block, 33-AHU-02 (Roof) / m488 integral gain = 0.2, , Apr 17 '18"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -94,8 +94,8 @@ block HeatingCoilValve
     final Td=Td,
     final yMax=uMax,
     final yMin=uMin,
-    final reverseAction=revAct,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
+    final reverseAction=false)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
