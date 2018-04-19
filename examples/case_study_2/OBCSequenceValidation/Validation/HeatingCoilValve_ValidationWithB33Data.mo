@@ -47,6 +47,23 @@ model HeatingCoilValve_ValidationWithB33Data
 
 // Tests controler operation when supply air temperature is within limiter values
 
+  Buildings.Utilities.Plotters.Scatter sca
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+  Buildings.Utilities.Plotters.TimeSeries timSer
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
+    fileName=plots.html,
+    timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
+    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
+    samplePeriod=1) "\"Plots for the validation with B33-AHU-2 data\""
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable refTOut(smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
+      timeScale=1) "\"Reads measured outdoor air temperature data\""
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1
+    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2
+    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
   annotation(experiment(Tolerance=1e-06, StopTime=31536000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/?/?/?.mos"
         "Simulate and plot"),
