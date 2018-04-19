@@ -37,9 +37,6 @@ model HeatingCoilValve_ValidationWithB33Data
     annotation(Evaluate=true);
 
 // Tests disable if supply fan is off
-  OBCSequenceValidation.HeatingCoilValve heaValSta
-    "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
 // Tests disable if it is warm outside
 
@@ -47,26 +44,15 @@ model HeatingCoilValve_ValidationWithB33Data
 
 // Tests controler operation when supply air temperature is within limiter values
 
-  Buildings.Utilities.Plotters.Scatter sca
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Utilities.Plotters.TimeSeries timSer
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
-    fileName=plots.html,
-    timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
-    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
-    samplePeriod=1) "\"Plots for the validation with B33-AHU-2 data\""
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable refTOut(smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.LinearSegments,
-      timeScale=1) "\"Reads measured outdoor air temperature data\""
-    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable1
-    annotation (Placement(transformation(extent={{-160,-20},{-140,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2
-    annotation (Placement(transformation(extent={{-160,-60},{-140,-40}})));
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
+    tableOnFile=true,
+    fileName=("/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
+    columns={3},
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    offset={0}) annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+
   annotation(experiment(Tolerance=1e-06, StopTime=31536000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/?/?/?.mos"
-        "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
@@ -84,4 +70,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
+//__Dymola_Commands(file="modelica://fixme.mos"
+//        "Simulate and plot"),
 end HeatingCoilValve_ValidationWithB33Data;
