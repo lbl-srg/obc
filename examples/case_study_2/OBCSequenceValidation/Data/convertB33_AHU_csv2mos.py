@@ -25,7 +25,8 @@ def B33_trend_data_csv2mos(path2csv):
         start times earlier than the file getting converted,
         - keeps relative timestamp in seconds and the associated 
         values,
-        - writes a mos file readable by combiTimeTable model.
+        - writes a mos file readable by combiTimeTable model in 
+	the folder where the script is run from (unless edited).
         
     Notes
     -----
