@@ -187,8 +187,8 @@ equation
     annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
   connect(heaValSta.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,32},{50,32},{50,104},{74,
           104},{74,105},{96,105}}, color={0,0,127}));
-  connect(percConv.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{-38,90},{-38,108},{96,108},{96,103}}, color={0,0,127}));
+  connect(percConv.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-38,90},{-38,108},{50,108},
+          {50,106},{96,106},{96,103}}, color={0,0,127}));
   connect(percConv.y, correlation.y[2])
     annotation (Line(points={{-79,90},{90,90},{90,29},{98,29},{98,29}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
