@@ -108,14 +108,15 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-80},{-120,
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   HeatingCoilValve heaValSta annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 equation
   connect(heatingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(EnableDisableSignals.y[1], greEquThr.u)
-    annotation (Line(points={{-119,-70},{-102,-70}}, color={0,0,127}));
+    annotation (Line(points={{-119,-70},{-110,-70},{-110,-50},{-102,-50}},
+                                                     color={0,0,127}));
   connect(greEquThr.y, heaValSta.uSupFan)
-    annotation (Line(points={{-79,-70},{-50,-70},{-50,20},{-21,20}}, color={255,0,255}));
+    annotation (Line(points={{-79,-50},{-50,-50},{-50,25},{-21,25}}, color={255,0,255}));
   connect(TSupply_F.y[1], heaValSta.TSup)
     annotation (Line(points={{-119,50},{-70,50},{-70,40},{-21,40}}, color={0,0,127}));
   connect(heaValSta.TSupSet, TSupSetpoint_F.y[1])

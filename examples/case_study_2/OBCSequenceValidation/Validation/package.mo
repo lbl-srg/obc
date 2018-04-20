@@ -53,12 +53,12 @@ package Validation "Package with models for the validation of the OBC validation
     Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan(k=false)
       "Supply fan status"
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    OBCSequenceValidation.HeatingCoilValve heaValSta
+    OBCSequenceValidation.HeatingCoilValve heaValSta(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   // Tests disable if it is warm outside
-    HeatingCoilValve heaValSta1
+    HeatingCoilValve heaValSta1(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff1(final k=TOutHeaCut + 5)
@@ -75,7 +75,7 @@ package Validation "Package with models for the validation of the OBC validation
       annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
   // Tests controler normal operation when supply air temperature is above limiter values
-    HeatingCoilValve heaValSta2
+    HeatingCoilValve heaValSta2(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{140,80},{160,100}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff2(final k=TOutHeaCut - 5)
@@ -95,7 +95,7 @@ package Validation "Package with models for the validation of the OBC validation
       height=2,
       offset=TSupSet - 2/2) "\"Supply air temperature\""
       annotation (Placement(transformation(extent={{20,80},{40,100}})));
-    HeatingCoilValve heaValSta3
+    HeatingCoilValve heaValSta3(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff1(final k=TOutHeaCut - 5)
@@ -120,11 +120,11 @@ package Validation "Package with models for the validation of the OBC validation
     connect(heaValSta.TOut, uTOutBelowCutoff.y)
       annotation (Line(points={{-41,93},{-70,93},{-70,50},{-99,50}},       color={0,0,127}));
     connect(uSupFan.y, heaValSta.uSupFan)
-      annotation (Line(points={{-59,30},{-50,30},{-50,80},{-41,80}},       color={255,0,255}));
+      annotation (Line(points={{-59,30},{-50,30},{-50,85},{-41,85}},       color={255,0,255}));
     connect(heaValSta1.TOut, uTOutAboveCutoff1.y)
       annotation (Line(points={{-41,-27},{-70,-27},{-70,-70},{-99,-70}},   color={0,0,127}));
     connect(uSupFan1.y, heaValSta1.uSupFan)
-      annotation (Line(points={{-59,-90},{-50,-90},{-50,-40},{-41,-40}},     color={255,0,255}));
+      annotation (Line(points={{-59,-90},{-50,-90},{-50,-35},{-41,-35}},     color={255,0,255}));
     connect(heaValSta1.TSupSet, uTSupSet1.y) annotation (Line(points={{-41,-23},{-90,-23},{-90,-40},{-130,
             -40},{-130,-70},{-139,-70}},      color={0,0,127}));
     connect(heaValSta1.TSup, uTSup1.y)
@@ -138,7 +138,7 @@ package Validation "Package with models for the validation of the OBC validation
       annotation (Line(points={{139,93},{110,93},{110,50},{81,50}},
                                                                   color={0,0,127}));
     connect(uSupFan2.y, heaValSta2.uSupFan)
-      annotation (Line(points={{121,30},{130,30},{130,80},{139,80}},
+      annotation (Line(points={{121,30},{130,30},{130,85},{139,85}},
                                                                    color={255,0,255}));
     connect(heaValSta2.TSupSet, uTSupSet2.y) annotation (Line(points={{139,97},{90,97},{90,80},{50,80},
             {50,50},{41,50}},        color={0,0,127}));
@@ -148,7 +148,7 @@ package Validation "Package with models for the validation of the OBC validation
       annotation (Line(points={{139,-27},{110,-27},{110,-70},{81,-70}},
                                                                   color={0,0,127}));
     connect(uSupFan3.y,heaValSta3. uSupFan)
-      annotation (Line(points={{121,-90},{130,-90},{130,-40},{139,-40}},
+      annotation (Line(points={{121,-90},{130,-90},{130,-35},{139,-35}},
                                                                    color={255,0,255}));
     connect(heaValSta3.TSupSet,uTSupSet3. y) annotation (Line(points={{139,-23},{90,-23},{90,-40},{50,
             -40},{50,-70},{41,-70}}, color={0,0,127}));
