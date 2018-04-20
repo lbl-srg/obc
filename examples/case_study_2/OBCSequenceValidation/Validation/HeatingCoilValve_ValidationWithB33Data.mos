@@ -1,0 +1,2 @@
+simulateModel("OBCSequenceValidation.Validation.HeatingCoilValve_ValidationWithB33Data", method="dassl", startTime = 15430000, stopTime=15472000, tolerance=1e-06, resultFile="HeatingCoilValve_ValidationWithB33Data");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Disable when fan is off", axes = {1,1,1,2,2}, y={"heaValSta.TSup", "heaValSta.TSupSet", "heaValSta.TOut", "heaValSta.uSupFan", "heaValSta.yHeaVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,108,200},{238,46,47},{28,108,200}, {238,46,47}});

@@ -53,7 +53,6 @@ model HeatingCoilValve_ValidationWithB33Data
     tableName="33-HC-22_Heating_Valve",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Heating_Valve.mos"),
-
     timeScale(displayUnit="s")) "\"Output of the heating valve control subsequence\""
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -102,9 +101,9 @@ model HeatingCoilValve_ValidationWithB33Data
     tableName="Manualy_Created_Enable_Statuses",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Manualy_Created_Enable_Statuses.mos"),
-
     columns={2,3,4}) "\"Flow on, manual vverride and heating required
 status signals\"" annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01) "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   HeatingCoilValve heaValSta annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -121,9 +120,12 @@ equation
     annotation (Line(points={{-119,50},{-70,50},{-70,40},{-21,40}}, color={0,0,127}));
   connect(heaValSta.TSupSet, TSupSetpoint_F.y[1])
     annotation (Line(points={{-21,37},{-69.5,37},{-69.5,10},{-119,10}}, color={0,0,127}));
-  connect(TOut_F.y[1], heaValSta.TOut) annotation (Line(points={{-119,-30},{-60,-30},{-60,26},{-40,
+  connect(TOut_F.y[1], heaValSta.TOut)
+    annotation (Line(points={{-119,-30},{-60,-30},{-60,26},{-40,
           26},{-40,33},{-21,33}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1e-06, StopTime=31536000),
+  annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
+  __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
+    "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
@@ -141,6 +143,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
-//__Dymola_Commands(file="modelica://fixme.mos"
-//        "Simulate and plot"),
 end HeatingCoilValve_ValidationWithB33Data;
