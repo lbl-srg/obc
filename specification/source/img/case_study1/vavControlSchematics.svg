@@ -12,7 +12,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg4190"
    version="1.1"
-   inkscape:version="0.92.2 (unknown)"
+   inkscape:version="0.91 r13725"
    width="1170"
    height="781.31"
    viewBox="0 0 1170 781.31"
@@ -28,7 +28,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -691,18 +691,18 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1855"
-     inkscape:window-height="1098"
+     inkscape:window-width="2560"
+     inkscape:window-height="1522"
      id="namedview4192"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="0.94050385"
-     inkscape:cx="563.97063"
-     inkscape:cy="346.87123"
-     inkscape:window-x="65"
+     inkscape:zoom="2.6601466"
+     inkscape:cx="736.14242"
+     inkscape:cy="611.414"
+     inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4190"
@@ -2599,15 +2599,16 @@
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.3950119px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20987538px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.3950119px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20987538px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="11.268625"
      y="361.37939"
-     id="text3257-9-4-0-6-0-3"><tspan
+     id="text3257-9-4-0-6-0-3"
+     sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan1967"
        x="11.268625"
        y="361.37939"
-       style="stroke-width:0.20987538px">Total numer of </tspan><tspan
+       style="stroke-width:0.20987538px">Total number of </tspan><tspan
        sodipodi:role="line"
        id="tspan1969"
        x="11.268625"
