@@ -106,24 +106,55 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-80},{-120,
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01) "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatingCoilValve heaValSta annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  HeatingCoilValve heaValSta annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold flowOn(threshold=1)
+    "\"Flow on signal\"" annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold manOver(threshold=1)
+    "\"Manual override signal\""
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold heaReq(threshold=1)
+    "\"Heating required signal\""
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.And enable1 "Aggregated enable signal"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+  inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
+    samplePeriod=1,
+    fileName="b33_ahu_2_validation.html",
+    timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
+    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always)
+    "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+  Buildings.Utilities.Plotters.Scatter sca(samplePeriod=1)
+    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+  Buildings.Utilities.Plotters.TimeSeries timSer
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
 equation
   connect(heatingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
-  connect(EnableDisableSignals.y[1], greEquThr.u)
-    annotation (Line(points={{-119,-70},{-110,-70},{-110,-50},{-102,-50}},
-                                                     color={0,0,127}));
-  connect(greEquThr.y, heaValSta.uSupFan)
-    annotation (Line(points={{-79,-50},{-50,-50},{-50,25},{-21,25}}, color={255,0,255}));
+  connect(EnableDisableSignals.y[1], flowOn.u)
+    annotation (Line(points={{-119,-70},{-110,-70},{-110,-50},{-102,-50}}, color={0,0,127}));
+  connect(flowOn.y, heaValSta.uSupFan)
+    annotation (Line(points={{-79,-50},{-50,-50},{-50,25},{19,25}}, color={255,0,255}));
   connect(TSupply_F.y[1], heaValSta.TSup)
-    annotation (Line(points={{-119,50},{-70,50},{-70,40},{-21,40}}, color={0,0,127}));
+    annotation (Line(points={{-119,50},{-70,50},{-70,40},{19,40}},  color={0,0,127}));
   connect(heaValSta.TSupSet, TSupSetpoint_F.y[1])
-    annotation (Line(points={{-21,37},{-69.5,37},{-69.5,10},{-119,10}}, color={0,0,127}));
+    annotation (Line(points={{19,37},{-69.5,37},{-69.5,10},{-119,10}},  color={0,0,127}));
   connect(TOut_F.y[1], heaValSta.TOut)
-    annotation (Line(points={{-119,-30},{-60,-30},{-60,26},{-40,
-          26},{-40,33},{-21,33}}, color={0,0,127}));
+    annotation (Line(points={{-119,-30},{-60,-30},{-60,32},{-40,32},{-40,33},{19,33}},
+                                  color={0,0,127}));
+  connect(EnableDisableSignals.y[2], manOver.u)
+    annotation (Line(points={{-119,-70},{-110,-70},{-110,-80},{-102,-80}}, color={0,0,127}));
+  connect(EnableDisableSignals.y[3], heaReq.u)
+    annotation (Line(points={{-119,-70},{-110,-70},{-110,-110},{-102,-110}}, color={0,0,127}));
+  connect(manOver.y, not1.u) annotation (Line(points={{-79,-80},{-72,-80}}, color={255,0,255}));
+  connect(not1.y, enable1.u1)
+    annotation (Line(points={{-49,-80},{-46,-80},{-46,-90},{-42,-90}}, color={255,0,255}));
+  connect(heaReq.y, enable1.u2)
+    annotation (Line(points={{-79,-110},{-60,-110},{-60,-98},{-42,-98}}, color={255,0,255}));
+  connect(enable1.y, heaValSta.uEnable)
+    annotation (Line(points={{-19,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
   annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
