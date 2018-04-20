@@ -125,11 +125,17 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-80},{-120,
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always)
     "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Utilities.Plotters.Scatter sca(samplePeriod=1)
-    annotation (Placement(transformation(extent={{120,60},{140,80}})));
+    annotation (Placement(transformation(extent={{140,80},{160,100}})));
+  Buildings.Utilities.Plotters.Scatter sca(
+    samplePeriod=1,
+    n=1,
+    title="OBC heating valve signal",
+    xlabel="B33-AHU-2 heating valve signal")
+    annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Utilities.Plotters.TimeSeries timSer
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 equation
   connect(heatingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
@@ -155,6 +161,14 @@ equation
     annotation (Line(points={{-79,-110},{-60,-110},{-60,-98},{-42,-98}}, color={255,0,255}));
   connect(enable1.y, heaValSta.uEnable)
     annotation (Line(points={{-19,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
+  connect(heaValSta.yHeaVal, sca.y[1])
+    annotation (Line(points={{41,32},{58,32},{58,70},{98,70}}, color={0,0,127}));
+  connect(percConv.y, sca.x)
+    annotation (Line(points={{-79,90},{0,90},{0,62},{98,62}}, color={0,0,127}));
+  connect(heaValSta.yHeaVal, cheEqu.u2)
+    annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
+  connect(percConv.y, cheEqu.u1)
+    annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
