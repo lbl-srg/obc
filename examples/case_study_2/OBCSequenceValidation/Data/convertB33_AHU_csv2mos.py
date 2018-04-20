@@ -58,7 +58,6 @@ def B33_trend_data_csv2mos(path2csv):
 
     # drop missing values, interpolation will fill it with the values recorded in previous timestep
     for column_label in raw_data.columns:
-        bp()
         null_values_index = pd.isnull(raw_data[column_label]) == True
         rows_to_drop = null_values_index.index[null_values_index]
         data = raw_data.drop(rows_to_drop)
