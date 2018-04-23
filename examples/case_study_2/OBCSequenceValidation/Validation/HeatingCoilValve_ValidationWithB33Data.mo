@@ -146,12 +146,12 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,
     legend={"Supply air temperature, [K]","Supply air temperature setpoint, [K]",
         "Outdoor air temperature, [K]"}) "\"Input signals\""
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupUniCon(p=1, k=273.15) "\"FtoC\""
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupSetUniCon(p=1, k=273.15) "\"FtoC\""
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(p=1, k=273.15) "\"FtoC\""
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupUniCon(k=5/9, p=-(5*32)/9 + 273.15)
+    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupSetUniCon(p=-(5*32)/9 + 273.15, k=5/9)
+    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(p=-(5*32)/9 + 273.15, k=5/9)
+    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
   connect(heatingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
