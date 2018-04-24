@@ -104,9 +104,11 @@ model HeatingCoilValve_ValidationWithB33Data
     columns={2,3,4}) "\"Flow on, manual vverride and heating required
 status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01) "\"Convert from % to 0 - 1 range\""
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConvHeaValSig(k=0.01)
+    "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatingCoilValve heaValSta annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  HeatingCoilValve heaValSta(k=0.01, Ti=10000)
+                             annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold flowOn(threshold=1)
     "\"Flow on signal\"" annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold manOver(threshold=1)
@@ -138,7 +140,7 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,
     legend={"Heating valve control signal, OBC","Heating valve control signal, B33-AHU-2"})
     "\"Reference and result heating valve control signal\""
     annotation (Placement(transformation(extent={{98,94},{118,114}})));
-  Buildings.Utilities.Diagnostics.CheckEquality cheEqu
+  Buildings.Utilities.Diagnostics.CheckEquality cheEqu(threShold=0)
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
     n=3,
@@ -153,7 +155,7 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(p=-(5*32)/9 + 273.15, k=5/9)
     "\"FtoC\"" annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 equation
-  connect(heatingValveSignal.y[1], percConv.u)
+  connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(EnableDisableSignals.y[1], flowOn.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-40},{-102,-40}}, color={0,0,127}));
@@ -179,17 +181,17 @@ equation
     annotation (Line(points={{-19,-80},{0,-80},{0,20},{19,20}}, color={255,0,255}));
   connect(heaValSta.yHeaVal, correlation.y[1])
     annotation (Line(points={{41,32},{60,32},{60,31},{98,31}}, color={0,0,127}));
-  connect(percConv.y, correlation.x)
+  connect(percConvHeaValSig.y, correlation.x)
     annotation (Line(points={{-79,90},{32,90},{32,90},{66,90},{66,22},{98,22}}, color={0,0,127}));
   connect(heaValSta.yHeaVal, cheEqu.u2)
     annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
-  connect(percConv.y, cheEqu.u1)
+  connect(percConvHeaValSig.y, cheEqu.u1)
     annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
   connect(heaValSta.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,32},{50,32},{50,104},{74,
           104},{74,105},{96,105}}, color={0,0,127}));
-  connect(percConv.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-38,90},{-38,108},{50,108},
-          {50,106},{96,106},{96,103}}, color={0,0,127}));
-  connect(percConv.y, correlation.y[2])
+  connect(percConvHeaValSig.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-38,90},{-38,108},
+          {50,108},{50,106},{96,106},{96,103}}, color={0,0,127}));
+  connect(percConvHeaValSig.y, correlation.y[2])
     annotation (Line(points={{-79,90},{90,90},{90,29},{98,29},{98,29}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
     annotation (Line(points={{-119,50},{-90,50},{-90,60},{-82,60}}, color={0,0,127}));
