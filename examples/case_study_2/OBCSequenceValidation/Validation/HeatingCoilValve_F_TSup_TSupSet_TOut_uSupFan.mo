@@ -75,9 +75,10 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 
 // Tests controler normal operation when supply air temperature is above limiter values
   HeatingCoilValve_F heaValSta2(
-    k=5,
     Ti=1/0.5,
-    genEna=false)
+    genEna=false,
+    revAct=true,
+    k=5)
     "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff2(final k=TOutHeaCut - 5)
@@ -140,14 +141,14 @@ equation
   connect(heaValSta.TSup, uTSup.y)
     annotation (Line(points={{-41,100},{-120,100},{-120,90},{-139,90}},    color={0,0,127}));
   connect(heaValSta2.TOut, uTOutBelowCutoff2.y)
-    annotation (Line(points={{139,93},{110,93},{110,50},{81,50}},
+    annotation (Line(points={{139,93},{120,93},{120,94},{100,94},{100,50},{81,50}},
                                                                 color={0,0,127}));
   connect(uSupFan2.y, heaValSta2.uSupFan)
     annotation (Line(points={{121,30},{130,30},{130,85},{139,85}},
                                                                  color={255,0,255}));
   connect(heaValSta2.TSupSet, uTSupSet2.y)
-    annotation (Line(points={{139,97},{90,97},{90,80},{50,80},
-          {50,50},{41,50}},        color={0,0,127}));
+    annotation (Line(points={{139,97},{108,97},{108,98},{76,98},{76,80},{50,80},{50,50},{41,50}},
+                                   color={0,0,127}));
   connect(heaValSta2.TSup, uTSup2.y)
     annotation (Line(points={{139,100},{60,100},{60,90},{41,90}}, color={0,0,127}));
   connect(heaValSta3.TOut,uTOutBelowCutoff1. y)

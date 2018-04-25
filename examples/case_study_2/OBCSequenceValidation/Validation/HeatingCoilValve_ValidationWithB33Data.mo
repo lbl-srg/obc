@@ -48,10 +48,10 @@ model HeatingCoilValve_ValidationWithB33Data
     offset={0},
     columns={2},
     timeScale(displayUnit="s"),
-    tableName="Supply_Air_Temp",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    tableName="33-AHU-02_Supply_Air_Temp")
     "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -61,10 +61,11 @@ model HeatingCoilValve_ValidationWithB33Data
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    tableName="Manualy_Created_Enable_Statuses",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Manualy_Created_Enable_Statuses.mos"),
-    columns={2,3,4}) "\"Flow on, manual vverride and heating required status signals\""
+    columns={2,3,4},
+    tableName="33-HC-22_Manualy_Created_Enable_Statuses")
+                     "\"Flow on, manual vverride and heating required status signals\""
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvHeaValSig(k=0.01)
@@ -75,9 +76,8 @@ model HeatingCoilValve_ValidationWithB33Data
                    heaValSta_F(
     genEna=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    revAct=false,
-    k=0.03,
-    Ti=1000)
+    revAct=true,
+    Ti=100*5/0.5)
     "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 

@@ -11,7 +11,7 @@ block HeatingCoilValve_F
     "Controller type"
     annotation(Evaluate=true);
 
-  parameter Real k(final unit="1/F") = 5
+  parameter Real k(final unit="1") = 5
     "Controller gain as in : 33-AHU-02 (Roof) / m488, Apr 17, '18"
     annotation(Evaluate=true);
 
@@ -32,7 +32,7 @@ block HeatingCoilValve_F
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti = 1 / 0.5
+  parameter Modelica.SIunits.Time Ti = k / 0.5
     "Time constant of modulation controller integrator block, 33-AHU-02 (Roof) / m488 integral gain = 0.2, , Apr 17 '18"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -103,7 +103,7 @@ block HeatingCoilValve_F
     final yMax=uMax,
     final yMin=uMin,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final reverseAction=true)
+    final reverseAction=revAct)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -145,12 +145,8 @@ block HeatingCoilValve_F
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
 equation
-  connect(TSup, TSupCon.u_m)
-    annotation (Line(points={{-140,40},{-108,40},{-108,58},{-30,58},{-30,78}},
-                                                                           color={0,0,127}));
   connect(TSupMin.y, yHeaValLowLim.x1)
     annotation (Line(points={{21,-70},{24,-70},{24,-22},{78,-22}},    color={0,0,127}));
-  connect(TSupSet, TSupCon.u_s) annotation (Line(points={{-140,90},{-42,90}}, color={0,0,127}));
   connect(TSupMax.y, yHeaValLowLim.x2)
     annotation (Line(points={{61,-70},{70,-70},{70,-34},{78,-34}}, color={0,0,127}));
   connect(TOut, lesEquThr.u)
@@ -179,6 +175,10 @@ equation
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
   connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},
           {78,14}}, color={0,0,127}));
+  connect(TSupSet, TSupCon.u_m) annotation (Line(points={{-140,90},{-76,90},{-76,64},{-30,64},{-30,78},
+          {-30,78}}, color={0,0,127}));
+  connect(TSup, TSupCon.u_s) annotation (Line(points={{-140,40},{-62,40},{-62,90},{-52,90},{-52,90},
+          {-42,90}}, color={0,0,127}));
   annotation (
     defaultComponentName = "heaValSta_F",
     Icon(graphics={
