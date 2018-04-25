@@ -104,7 +104,7 @@ model HeatingCoilValve_ValidationWithB33Data
     fileName="b33_ahu_2_validation.html",
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
-    samplePeriod=300)
+    samplePeriod=1200)
     "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 

@@ -11,7 +11,7 @@ block HeatingCoilValve_F
     "Controller type"
     annotation(Evaluate=true);
 
-  parameter Real k(final unit="1") = 5
+  parameter Real k(final unit="1") = 0.05
     "Controller gain as in : 33-AHU-02 (Roof) / m488, Apr 17, '18"
     annotation(Evaluate=true);
 
@@ -102,8 +102,8 @@ block HeatingCoilValve_F
     final Td=Td,
     final yMax=uMax,
     final yMin=uMin,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter,
-    final reverseAction=revAct)
+    final reverseAction=revAct,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -142,8 +142,13 @@ block HeatingCoilValve_F
 
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Switches the signal between controller and low range limiter signals"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-36,-30},{-16,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min
+    "Switches the signal between controller and low range limiter signals"
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 equation
   connect(TSupMin.y, yHeaValLowLim.x1)
     annotation (Line(points={{21,-70},{24,-70},{24,-22},{78,-22}},    color={0,0,127}));
@@ -162,23 +167,27 @@ equation
   connect(yHeaValLowLim.f1, yHeaValMax.y)
     annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}},    color={0,0,127}));
   connect(TSup, yHeaValLowLim.u)
-    annotation (Line(points={{-140,40},{-18,40},{-18,-30},{78,-30}},   color={0,0,127}));
-  connect(yHeaVal, max.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+    annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}},     color={0,0,127}));
   connect(TSupCon.y, max.u1)
-    annotation (Line(points={{-19,90},{70,90},{70,26},{78,26}}, color={0,0,127}));
-  connect(TSupCon.trigger, andEna.y)
-    annotation (Line(points={{-38,78},{-38,-20},{-39,-20}},       color={255,0,255}));
+    annotation (Line(points={{-19,90},{0,90},{0,56},{38,56}},   color={0,0,127}));
   connect(uEnable, andEna.u3)
     annotation (Line(points={{-140,-100},{-70,-100},{-70,-28},{-62,-28}},
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
-  connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},
-          {78,14}}, color={0,0,127}));
+  connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{30,0},{30,
+          44},{38,44}},
+                    color={0,0,127}));
   connect(TSupSet, TSupCon.u_m) annotation (Line(points={{-140,90},{-76,90},{-76,64},{-30,64},{-30,78},
           {-30,78}}, color={0,0,127}));
   connect(TSup, TSupCon.u_s) annotation (Line(points={{-140,40},{-62,40},{-62,90},{-52,90},{-52,90},
           {-42,90}}, color={0,0,127}));
+  connect(andEna.y, booToRea.u) annotation (Line(points={{-39,-20},{-38,-20}}, color={255,0,255}));
+  connect(booToRea.y, min.u2)
+    annotation (Line(points={{-15,-20},{0,-20},{0,14},{78,14}}, color={0,0,127}));
+  connect(yHeaVal, min.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+  connect(min.u1, max.y)
+    annotation (Line(points={{78,26},{70,26},{70,50},{61,50}}, color={0,0,127}));
   annotation (
     defaultComponentName = "heaValSta_F",
     Icon(graphics={

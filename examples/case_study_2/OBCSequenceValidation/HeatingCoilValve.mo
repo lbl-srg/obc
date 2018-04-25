@@ -150,12 +150,8 @@ block HeatingCoilValve
 
 
 equation
-  connect(TSup, TSupCon.u_m)
-    annotation (Line(points={{-140,40},{-108,40},{-108,58},{-30,58},{-30,78}},
-                                                                           color={0,0,127}));
   connect(TSupMin.y, yHeaValLowLim.x1)
     annotation (Line(points={{21,-70},{24,-70},{24,-22},{78,-22}},    color={0,0,127}));
-  connect(TSupSet, TSupCon.u_s) annotation (Line(points={{-140,90},{-42,90}}, color={0,0,127}));
   connect(TSupMax.y, yHeaValLowLim.x2)
     annotation (Line(points={{61,-70},{70,-70},{70,-34},{78,-34}}, color={0,0,127}));
   connect(TOut, lesEquThr.u)
@@ -184,6 +180,10 @@ equation
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
   connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},
           {78,14}}, color={0,0,127}));
+  connect(TSup, TSupCon.u_s)
+    annotation (Line(points={{-140,40},{-92,40},{-92,90},{-42,90}}, color={0,0,127}));
+  connect(TSupSet, TSupCon.u_m) annotation (Line(points={{-140,90},{-102,90},{-102,64},{-30,64},{
+          -30,78},{-30,78}}, color={0,0,127}));
   annotation (
     defaultComponentName = "heaValSta",
     Icon(graphics={

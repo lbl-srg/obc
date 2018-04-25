@@ -75,10 +75,10 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 
 // Tests controler normal operation when supply air temperature is above limiter values
   HeatingCoilValve_F heaValSta2(
-    Ti=1/0.5,
     genEna=false,
     revAct=true,
-    k=5)
+    k=5,
+    Ti=1/0.5)
     "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff2(final k=TOutHeaCut - 5)
