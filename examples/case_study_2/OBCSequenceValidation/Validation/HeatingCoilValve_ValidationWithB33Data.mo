@@ -27,7 +27,7 @@ model HeatingCoilValve_ValidationWithB33Data
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "\"Measured outdoor air temperature\""
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSupSetpoint_F(
     tableOnFile=true,
@@ -71,7 +71,8 @@ model HeatingCoilValve_ValidationWithB33Data
     "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  HeatingCoilValve heaValSta(
+  HeatingCoilValve_F
+                   heaValSta_F(
     genEna=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     revAct=false,
@@ -139,23 +140,23 @@ model HeatingCoilValve_ValidationWithB33Data
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(k=5/9, p=-(5*32)/9)
     "\"FtoC\""
-    annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
+    annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
 
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter minusF(k=1, p=-1) "\"FtoC\""
-    annotation (Placement(transformation(extent={{-70,6},{-50,26}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1, p=-1)
+    "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
+    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 equation
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(EnableDisableSignals.y[1], flowOn.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-40},{-102,-40}}, color={0,0,127}));
-  connect(flowOn.y, heaValSta.uSupFan)
+  connect(flowOn.y, heaValSta_F.uSupFan)
     annotation (Line(points={{-79,-40},{-30,-40},{-30,25},{19,25}}, color={255,0,255}));
-  connect(TSupply_F.y[1], heaValSta.TSup)
-    annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}},  color={0,0,127}));
-  connect(TOut_F.y[1], heaValSta.TOut)
-    annotation (Line(points={{-119,-10},{-40,-10},{-40,32},{-40,32},{-40,33},{19,33}},
-                                  color={0,0,127}));
+  connect(TSupply_F.y[1], heaValSta_F.TSup)
+    annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
+  connect(TOut_F.y[1], heaValSta_F.TOut) annotation (Line(points={{-119,-20},{-36,-20},{-36,32},{-8,
+          32},{-8,33},{19,33}}, color={0,0,127}));
   connect(EnableDisableSignals.y[2], manOver.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-70},{-102,-70}}, color={0,0,127}));
   connect(EnableDisableSignals.y[3], heaReq.u)
@@ -165,18 +166,18 @@ equation
     annotation (Line(points={{-49,-70},{-46,-70},{-46,-80},{-42,-80}}, color={255,0,255}));
   connect(heaReq.y, enable1.u2)
     annotation (Line(points={{-79,-100},{-60,-100},{-60,-88},{-42,-88}}, color={255,0,255}));
-  connect(enable1.y, heaValSta.uEnable)
+  connect(enable1.y, heaValSta_F.uEnable)
     annotation (Line(points={{-19,-80},{0,-80},{0,20},{19,20}}, color={255,0,255}));
-  connect(heaValSta.yHeaVal, correlation.y[1])
+  connect(heaValSta_F.yHeaVal, correlation.y[1])
     annotation (Line(points={{41,32},{60,32},{60,31},{98,31}}, color={0,0,127}));
   connect(percConvHeaValSig.y, correlation.x)
     annotation (Line(points={{-79,90},{32,90},{32,90},{66,90},{66,22},{98,22}}, color={0,0,127}));
-  connect(heaValSta.yHeaVal, cheEqu.u2)
+  connect(heaValSta_F.yHeaVal, cheEqu.u2)
     annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
   connect(percConvHeaValSig.y, cheEqu.u1)
     annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
-  connect(heaValSta.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,32},{50,32},{50,104},{74,
-          104},{74,105},{96,105}}, color={0,0,127}));
+  connect(heaValSta_F.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,32},{50,32},{50,104},{
+          74,104},{74,105},{96,105}}, color={0,0,127}));
   connect(percConvHeaValSig.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-38,90},{-38,108},
           {50,108},{50,106},{96,106},{96,103}}, color={0,0,127}));
   connect(percConvHeaValSig.y, correlation.y[2])
@@ -190,16 +191,17 @@ equation
     annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}},
                                                                     color={0,0,127}));
   connect(TOut_F.y[1], TOutUniCon.u)
-    annotation (Line(points={{-119,-10},{-110,-10},{-110,0},{-104,0}},
+    annotation (Line(points={{-119,-20},{-110,-20},{-110,-10},{-104,-10}},
                                                                     color={0,0,127}));
   connect(TSupSetUniCon.y, timSerInp.y[2]) annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
           {24,70},{98,70}},     color={0,0,127}));
   connect(TOutUniCon.y, timSerInp.y[3])
-    annotation (Line(points={{-81,0},{-46,0},{-46,68.6667},{98,68.6667}}, color={0,0,127}));
-  connect(TSupSetpoint_F.y[1], minusF.u)
-    annotation (Line(points={{-119,20},{-96,20},{-96,16},{-72,16}}, color={0,0,127}));
-  connect(minusF.y, heaValSta.TSupSet)
-    annotation (Line(points={{-49,16},{-16,16},{-16,37},{19,37}}, color={0,0,127}));
+    annotation (Line(points={{-81,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
+                                                                          color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], heatingTSupSetpoint.u)
+    annotation (Line(points={{-119,20},{-96,20},{-96,10},{-72,10}}, color={0,0,127}));
+  connect(heatingTSupSetpoint.y, heaValSta_F.TSupSet)
+    annotation (Line(points={{-49,10},{-16,10},{-16,37},{19,37}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
