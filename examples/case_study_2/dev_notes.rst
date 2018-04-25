@@ -18,7 +18,7 @@ Inputs:
 
 - SAT
 - OAT
-- SAT SP
+- SAT SP (HT SAT SP is 1F lower than the SAT SP)
 - Manual override: Assume off at all times during the test period
 - Flow (Fan Status)
 
@@ -31,6 +31,12 @@ Notes, issues and assumptions:
 - Manual override: Per correspondence with Chris W, assume it never got activated
 - Supply fan is on all the time based on observed data
 - take parameters from the ALC EIKON block diagram
+
+
+Cooling Control - Coil Valve
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Similar to heating control valve. SAT SP trend is the SAT cooling SP trend.
 
 
 33-AHU-03 (Roof)
