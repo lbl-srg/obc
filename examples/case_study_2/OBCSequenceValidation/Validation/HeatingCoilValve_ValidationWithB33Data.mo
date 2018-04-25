@@ -77,7 +77,8 @@ model HeatingCoilValve_ValidationWithB33Data
     genEna=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     revAct=true,
-    Ti=100*5/0.5)
+    k=5/100,
+    Ti=1000)
     "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
@@ -104,7 +105,7 @@ model HeatingCoilValve_ValidationWithB33Data
     fileName="b33_ahu_2_validation.html",
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
-    samplePeriod=1200)
+    samplePeriod=300)
     "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
@@ -147,9 +148,6 @@ model HeatingCoilValve_ValidationWithB33Data
   Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1, p=-1)
     "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division relError
-    "Divides the delta between the reference and the calculated control signal with the calculated control signal"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
 equation
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
@@ -206,10 +204,6 @@ equation
     annotation (Line(points={{-119,20},{-96,20},{-96,10},{-72,10}}, color={0,0,127}));
   connect(heatingTSupSetpoint.y, heaValSta_F.TSupSet)
     annotation (Line(points={{-49,10},{-16,10},{-16,37},{19,37}}, color={0,0,127}));
-  connect(delta.y, relError.u1)
-    annotation (Line(points={{121,-30},{130,-30},{130,-44},{138,-44}}, color={0,0,127}));
-  connect(heaValSta_F.yHeaVal, relError.u2) annotation (Line(points={{41,32},{50,32},{50,-56},{94,
-          -56},{94,-56},{138,-56}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
