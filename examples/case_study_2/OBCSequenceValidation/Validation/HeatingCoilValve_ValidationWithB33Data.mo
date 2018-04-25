@@ -3,95 +3,58 @@ model HeatingCoilValve_ValidationWithB33Data
   "Validation model for a system with heating, cooling and hot water"
   extends Modelica.Icons.Example;
 
-  parameter Real TOutHeaCut(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 293.15
-    "Upper outdoor air temperature limit for enabling heating (68 F)";
-
-  parameter Real TSup(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 289
-    "Supply air temperature";
-
-  parameter Real TSupSet(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 294.261
-    "Supply air temperature setpoint";
-
-  parameter Real TSatMinLowLim(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 277.5944
-    "Minimum supply air temperature for defining the lower limit of the valve position (40 F)"
-    annotation(Evaluate=true);
-
-  parameter Real TSatMaxLowLim(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 280.3722
-    "Maximum supply air temperature for defining the lower limit of the valve position (45 F)"
-    annotation(Evaluate=true);
-
-  parameter Real LowTSupSet(
-    final unit="K",
-    final quantity = "ThermodynamicTemperature") = 279
-    "Fictive low supply air temeprature setpoint to check the limiter functionality"
-    annotation(Evaluate=true);
-
-// Tests disable if supply fan is off
-
-// Tests disable if it is warm outside
-
-// Tests controler normal operation when supply air temperature is above limiter values
-
-// Tests controler operation when supply air temperature is within limiter values
-
   Modelica.Blocks.Sources.CombiTimeTable heatingValveSignal(
     tableOnFile=true,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     columns={2},
     tableName="33-HC-22_Heating_Valve",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Heating_Valve.mos"),
-    timeScale(displayUnit="s")) "\"Output of the heating valve control subsequence\""
+    timeScale(displayUnit="s"),
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+                                "\"Output of the heating valve control subsequence\""
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TOut_F(
     tableOnFile=true,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     columns={2},
     timeScale(displayUnit="s"),
     tableName="OA_Temp",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"))
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+
   Modelica.Blocks.Sources.CombiTimeTable TSupSetpoint_F(
     tableOnFile=true,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     columns={2},
     timeScale(displayUnit="s"),
     tableName="SA_Stpt",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"))
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"),
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+
   Modelica.Blocks.Sources.CombiTimeTable TSupply_F(
     tableOnFile=true,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     columns={2},
     timeScale(displayUnit="s"),
     tableName="Supply_Air_Temp",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"))
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+
   Modelica.Blocks.Sources.CombiTimeTable EnableDisableSignals(
     tableOnFile=true,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
@@ -101,39 +64,56 @@ model HeatingCoilValve_ValidationWithB33Data
     tableName="Manualy_Created_Enable_Statuses",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Manualy_Created_Enable_Statuses.mos"),
-    columns={2,3,4}) "\"Flow on, manual vverride and heating required
-status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+    columns={2,3,4}) "\"Flow on, manual vverride and heating required status signals\""
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvHeaValSig(k=0.01)
     "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatingCoilValve heaValSta(k=0.01, Ti=10000)
-                             annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
+  HeatingCoilValve heaValSta(
+    genEna=true,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    revAct=false,
+    k=0.03,
+    Ti=1000)
+    "Heating valve position control sequence"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold flowOn(threshold=1)
-    "\"Flow on signal\"" annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    "\"Flow on signal\""
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold manOver(threshold=1)
     "\"Manual override signal\""
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold heaReq(threshold=1)
     "\"Heating required signal\""
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
+
   Buildings.Controls.OBC.CDL.Logical.And enable1 "Aggregated enable signal"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+
+
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
-    samplePeriod=1,
     fileName="b33_ahu_2_validation.html",
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
-    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always)
+    activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
+    samplePeriod=300)
     "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
+
   Buildings.Utilities.Plotters.Scatter correlation(
     samplePeriod=1,
     n=2,
     title="OBC heating valve signal",
     xlabel="B33-AHU-2 heating valve signal") "\"Reference vs. output results\""
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
+
   Buildings.Utilities.Plotters.TimeSeries timSerRes(
     n=2,
     title="Reference and result heating valve control signal",
@@ -142,18 +122,28 @@ status signals\"" annotation (Placement(transformation(extent={{-140,-70},{-120,
     annotation (Placement(transformation(extent={{98,94},{118,114}})));
   Buildings.Utilities.Diagnostics.CheckEquality cheEqu(threShold=0)
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
+
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
     n=3,
     title="Input signals",
     legend={"Supply air temperature, [K]","Supply air temperature setpoint, [K]",
-        "Outdoor air temperature, [K]"}) "\"Input signals\""
+        "Outdoor air temperature, [K]"})
+     "\"Input signals\""
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupUniCon(k=5/9, p=-(5*32)/9 + 273.15)
-    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupSetUniCon(p=-(5*32)/9 + 273.15, k=5/9)
-    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(p=-(5*32)/9 + 273.15, k=5/9)
-    "\"FtoC\"" annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupUniCon(k=5/9, p=-(5*32)/9)
+    "\"FtoC\""
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TSupSetUniCon(k=5/9, p=-(5*32)/9) "\"FtoC\""
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(k=5/9, p=-(5*32)/9)
+    "\"FtoC\""
+    annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
+
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter minusF(k=1, p=-1) "\"FtoC\""
+    annotation (Placement(transformation(extent={{-70,6},{-50,26}})));
 equation
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
@@ -163,8 +153,6 @@ equation
     annotation (Line(points={{-79,-40},{-30,-40},{-30,25},{19,25}}, color={255,0,255}));
   connect(TSupply_F.y[1], heaValSta.TSup)
     annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}},  color={0,0,127}));
-  connect(heaValSta.TSupSet, TSupSetpoint_F.y[1])
-    annotation (Line(points={{19,37},{-50,37},{-50,20},{-119,20}},      color={0,0,127}));
   connect(TOut_F.y[1], heaValSta.TOut)
     annotation (Line(points={{-119,-10},{-40,-10},{-40,32},{-40,32},{-40,33},{19,33}},
                                   color={0,0,127}));
@@ -194,17 +182,24 @@ equation
   connect(percConvHeaValSig.y, correlation.y[2])
     annotation (Line(points={{-79,90},{90,90},{90,29},{98,29},{98,29}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
-    annotation (Line(points={{-119,50},{-90,50},{-90,60},{-82,60}}, color={0,0,127}));
+    annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}},
+                                                                    color={0,0,127}));
   connect(TSupUniCon.y, timSerInp.y[1])
-    annotation (Line(points={{-59,60},{28,60},{28,71.3333},{98,71.3333}}, color={0,0,127}));
+    annotation (Line(points={{-79,60},{28,60},{28,71.3333},{98,71.3333}}, color={0,0,127}));
   connect(TSupSetpoint_F.y[1], TSupSetUniCon.u)
-    annotation (Line(points={{-119,20},{-90,20},{-90,30},{-82,30}}, color={0,0,127}));
+    annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}},
+                                                                    color={0,0,127}));
   connect(TOut_F.y[1], TOutUniCon.u)
-    annotation (Line(points={{-119,-10},{-90,-10},{-90,0},{-82,0}}, color={0,0,127}));
-  connect(TSupSetUniCon.y, timSerInp.y[2]) annotation (Line(points={{-59,30},{-52,30},{-52,68},{24,
-          68},{24,70},{98,70}}, color={0,0,127}));
+    annotation (Line(points={{-119,-10},{-110,-10},{-110,0},{-104,0}},
+                                                                    color={0,0,127}));
+  connect(TSupSetUniCon.y, timSerInp.y[2]) annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
+          {24,70},{98,70}},     color={0,0,127}));
   connect(TOutUniCon.y, timSerInp.y[3])
-    annotation (Line(points={{-59,0},{-46,0},{-46,68.6667},{98,68.6667}}, color={0,0,127}));
+    annotation (Line(points={{-81,0},{-46,0},{-46,68.6667},{98,68.6667}}, color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], minusF.u)
+    annotation (Line(points={{-119,20},{-96,20},{-96,16},{-72,16}}, color={0,0,127}));
+  connect(minusF.y, heaValSta.TSupSet)
+    annotation (Line(points={{-49,16},{-16,16},{-16,37},{19,37}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),

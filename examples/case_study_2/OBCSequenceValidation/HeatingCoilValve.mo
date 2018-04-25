@@ -73,18 +73,18 @@ block HeatingCoilValve
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="K",
+    final unit="F",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature (SAT)"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
-    final unit="K",
+    final unit="F",
     final quantity = "ThermodynamicTemperature") "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-120,110}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
-    final unit="K",
+    final unit="F",
     final quantity = "ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -144,13 +144,9 @@ block HeatingCoilValve
     "Outputs controller enable signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swiLim
+  Buildings.Controls.OBC.CDL.Continuous.Max max
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Greater greLim
-    "Checks if the low supply air temperature range limiter should be applied"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
 
 
 equation
@@ -165,10 +161,10 @@ equation
   connect(TOut, lesEquThr.u)
     annotation (Line(points={{-140,-20},{-102,-20}},                  color={0,0,127}));
   connect(lesEquThr.y, andEna.u1)
-    annotation (Line(points={{-79,-20},{-78,-20},{-78,-46},{-70,-46},{-70,-12},{-62,-12}},
+    annotation (Line(points={{-79,-20},{-78,-20},{-78,-20},{-74,-20},{-74,-12},{-62,-12}},
                                                                  color={255,0,255}));
   connect(uSupFan, andEna.u2)
-    annotation (Line(points={{-140,-60},{-70,-60},{-70,-20},{-62,-20}},
+    annotation (Line(points={{-140,-60},{-72,-60},{-72,-20},{-62,-20}},
                                                                       color={255,0,255}));
   connect(yHeaValLowLim.f2, yHeaValMin.y)
     annotation (Line(points={{78,-38},{74,-38},{74,-104},{61,-104}}, color={0,0,127}));
@@ -176,18 +172,9 @@ equation
     annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}},    color={0,0,127}));
   connect(TSup, yHeaValLowLim.u)
     annotation (Line(points={{-140,40},{-18,40},{-18,-30},{78,-30}},   color={0,0,127}));
-  connect(swiLim.u2, greLim.y) annotation (Line(points={{78,20},{61,20}}, color={255,0,255}));
-  connect(TSupCon.y, greLim.u1)
-    annotation (Line(points={{-19,90},{30,90},{30,20},{38,20}},color={0,0,127}));
-  connect(yHeaValLowLim.y, greLim.u2)
-    annotation (Line(points={{101,-30},{108,-30},{108,-10},{24,-10},{24,12},{38,12}},
-    color={0,0,127}));
-  connect(yHeaVal, swiLim.y) annotation (Line(points={{130,20},{101,20}},color={0,0,127}));
-  connect(TSupCon.y, swiLim.u1)
-    annotation (Line(points={{-19,90},{70,90},{70,28},{78,28}},color={0,0,127}));
-  connect(yHeaValLowLim.y, swiLim.u3)
-    annotation (Line(points={{101,-30},{108,-30},{108,-10},{64,-10},{64,12},{78,12}},
-                                                                 color={0,0,127}));
+  connect(yHeaVal, max.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+  connect(TSupCon.y, max.u1)
+    annotation (Line(points={{-19,90},{70,90},{70,26},{78,26}}, color={0,0,127}));
   connect(TSupCon.trigger, andEna.y)
     annotation (Line(points={{-38,78},{-38,-20},{-39,-20}},       color={255,0,255}));
   connect(uEnable, andEna.u3)
@@ -195,6 +182,8 @@ equation
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
+  connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},
+          {78,14}}, color={0,0,127}));
   annotation (
     defaultComponentName = "heaValSta",
     Icon(graphics={

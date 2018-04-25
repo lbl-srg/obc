@@ -76,8 +76,8 @@ package Validation "Package with models for the validation of the OBC validation
 
   // Tests controler normal operation when supply air temperature is above limiter values
     HeatingCoilValve heaValSta2(genEna=false,
-    Ti=1000,
-    k=0.1)
+    k=5,
+    Ti=1/0.5)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{140,80},{160,100}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff2(final k=TOutHeaCut - 5)
