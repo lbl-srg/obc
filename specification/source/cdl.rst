@@ -79,7 +79,7 @@ allows users to change the value of a parameter when the simulation
 or control sequence is not running.
 For example, to declare a real-valued parameter,
 use ``parameter Real k = 1 "A parameter with value 1";``.
-In contract, a ``constant`` cannot be changed after the software is
+In contrast, a ``constant`` cannot be changed after the software is
 compiled, and is typically not shown in a graphical user interface menu.
 For example, a ``constant`` is used to define latent heat of evaporation
 if used in a controller.
@@ -149,8 +149,8 @@ building blocks, because the implementation is language specific. However,
 implementations shall have the same inputs, outputs and parameters, and
 they shall compute the same response for the same value of inputs and state variables.]
 
-An actual implementation looks as follows, where we omitted
-is used for graphical rendering:
+An actual implementation looks as follows, where we omitted the annotations that are
+used for graphical rendering:
 
 .. code-block:: modelica
 
@@ -289,7 +289,7 @@ The order of the connections and the order of the arguments in the
 ]
 
 Signals shall be connected using a ``connect`` statement;
-direct assigning the values of signals when instantiating
+directly assigning the values of signals when instantiating
 signals is not allowed.
 
 [This ensures that all control sequences are expressed as block diagrams.
@@ -312,7 +312,7 @@ Annotations
 ^^^^^^^^^^^
 
 Annotations follow the same rules as described in the following
-Modelica 3.3 Specification
+Modelica 3.3 Specifications
 
 * 18.2 Annotations for Documentation
 * 18.6 Annotations for Graphical Objects, with the exception of
@@ -409,15 +409,11 @@ tagging schemes in CDL.
 Inferred Properties
 ...................
 
-In order to infer whether a signal is a hardware or a software point,
-all input signals and output signals shall be retrieved from
-the packages ``IO.Hardware`` and ``IO.Software``
+To avoid that signals with physically incompatible quantities
+are connected, tools that parse CDL can infer the physical quantities
+from the ``unit`` and ``quantity`` attributes.
 
-.. note:: It is not clear whether this package need to be implemented,
-          or whether vendor annotations would be better suited
-          to declare this information.
-
-[Note that a differential pressure input signal with name ``u``
+[For example, a differential pressure input signal with name ``u``
 can be declared as
 
 .. code-block:: modelica
@@ -429,7 +425,7 @@ can be declared as
 Hence, tools can verify that the ``PressureDifference`` is not connected
 to ``AbsolutePressure``, and they can infer that the input has units of Pascal.
 
-Hence, tools that process CDL can infer the following information:
+Therefore, tools that process CDL can infer the following information:
 
 * Numerical value:
   :term:`Binary value <Binary Value>`
@@ -539,7 +535,7 @@ in http://project-haystack.org/tag/sensor, which is in Haystack declared as
    temp
    sensor
    kind: "Number"
-   unit: "degF"]
+   unit: "degF"
 
 can be declared in CDL as
 

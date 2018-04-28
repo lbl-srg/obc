@@ -284,7 +284,7 @@ In such a workflow, a control vendor would translate the elementary CDL blocks
 (:numref:`sec_ele_bui_blo`)
 to a repository of FMU-ME blocks. These blocks will then be used during operation.
 For each project, its CDL-compliant control sequence could be translated
-to the simplified JSON format, as described in Section :numref:`sec_cdl_to_json_simp`.
+to the simplified JSON format, as described in :numref:`sec_cdl_to_json_simp`.
 Using a template engine (similar as is used
 by ``modelica-json`` to translate the simplified JSON to html),
 the simplified JSON representation could then be converted to the xml syntax
