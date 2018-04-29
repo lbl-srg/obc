@@ -3,7 +3,7 @@ package Validation "Package with models for the validation of the OBC validation
   extends Modelica.Icons.ExamplesPackage;
 
   model HeatingCoilValve_TSup_TSupSet_TOut_uSupFan
-    "Validation model for a system with heating, cooling and hot water"
+    "Validation model for the heating coil valve control sequence"
     extends Modelica.Icons.Example;
 
     parameter Real TOutHeaCut(
@@ -53,12 +53,12 @@ package Validation "Package with models for the validation of the OBC validation
     Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan(k=false)
       "Supply fan status"
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    OBCSequenceValidation.HeatingCoilValve heaValSta(genEna=false)
+    OBCSequenceValidation.HeatingCoilValve cooValSta(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   // Tests disable if it is warm outside
-    HeatingCoilValve heaValSta1(genEna=false)
+    HeatingCoilValve cooValSta1(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff1(final k=TOutHeaCut + 5)
@@ -75,7 +75,7 @@ package Validation "Package with models for the validation of the OBC validation
       annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
   // Tests controler normal operation when supply air temperature is above limiter values
-    HeatingCoilValve heaValSta2(genEna=false,
+    HeatingCoilValve cooValSta2(genEna=false,
     k=5,
     Ti=1/0.5)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
@@ -97,7 +97,7 @@ package Validation "Package with models for the validation of the OBC validation
       height=2,
       offset=TSupSet - 2/2) "\"Supply air temperature\""
       annotation (Placement(transformation(extent={{20,80},{40,100}})));
-    HeatingCoilValve heaValSta3(genEna=false)
+    HeatingCoilValve cooValSta3(genEna=false)
       "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
       annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff1(final k=TOutHeaCut - 5)
@@ -119,42 +119,42 @@ package Validation "Package with models for the validation of the OBC validation
 
 
   equation
-    connect(heaValSta.TOut, uTOutBelowCutoff.y)
+    connect(cooValSta.TOut, uTOutBelowCutoff.y)
       annotation (Line(points={{-41,93},{-70,93},{-70,50},{-99,50}},       color={0,0,127}));
-    connect(uSupFan.y, heaValSta.uSupFan)
+    connect(uSupFan.y, cooValSta.uSupFan)
       annotation (Line(points={{-59,30},{-50,30},{-50,85},{-41,85}},       color={255,0,255}));
-    connect(heaValSta1.TOut, uTOutAboveCutoff1.y)
+    connect(cooValSta1.TOut, uTOutAboveCutoff1.y)
       annotation (Line(points={{-41,-27},{-70,-27},{-70,-70},{-99,-70}},   color={0,0,127}));
-    connect(uSupFan1.y, heaValSta1.uSupFan)
+    connect(uSupFan1.y, cooValSta1.uSupFan)
       annotation (Line(points={{-59,-90},{-50,-90},{-50,-35},{-41,-35}},     color={255,0,255}));
-    connect(heaValSta1.TSupSet, uTSupSet1.y) annotation (Line(points={{-41,-23},{-90,-23},{-90,-40},{-130,
+    connect(cooValSta1.TSupSet, uTSupSet1.y) annotation (Line(points={{-41,-23},{-90,-23},{-90,-40},{-130,
             -40},{-130,-70},{-139,-70}},      color={0,0,127}));
-    connect(heaValSta1.TSup, uTSup1.y)
+    connect(cooValSta1.TSup, uTSup1.y)
       annotation (Line(points={{-41,-20},{-120,-20},{-120,-28},{-139,-28}},
                                                                        color={0,0,127}));
-    connect(heaValSta.TSupSet, uTSupSet.y) annotation (Line(points={{-41,97},{-90,97},{-90,80},{-130,80},
+    connect(cooValSta.TSupSet, uTSupSet.y) annotation (Line(points={{-41,97},{-90,97},{-90,80},{-130,80},
             {-130,50},{-139,50}},           color={0,0,127}));
-    connect(heaValSta.TSup, uTSup.y)
+    connect(cooValSta.TSup, uTSup.y)
       annotation (Line(points={{-41,100},{-120,100},{-120,90},{-139,90}},    color={0,0,127}));
-    connect(heaValSta2.TOut, uTOutBelowCutoff2.y)
+    connect(cooValSta2.TOut, uTOutBelowCutoff2.y)
       annotation (Line(points={{139,93},{110,93},{110,50},{81,50}},
                                                                   color={0,0,127}));
-    connect(uSupFan2.y, heaValSta2.uSupFan)
+    connect(uSupFan2.y, cooValSta2.uSupFan)
       annotation (Line(points={{121,30},{130,30},{130,85},{139,85}},
                                                                    color={255,0,255}));
-    connect(heaValSta2.TSupSet, uTSupSet2.y) annotation (Line(points={{139,97},{90,97},{90,80},{50,80},
+    connect(cooValSta2.TSupSet, uTSupSet2.y) annotation (Line(points={{139,97},{90,97},{90,80},{50,80},
             {50,50},{41,50}},        color={0,0,127}));
-    connect(heaValSta2.TSup, uTSup2.y)
+    connect(cooValSta2.TSup, uTSup2.y)
       annotation (Line(points={{139,100},{60,100},{60,90},{41,90}}, color={0,0,127}));
-    connect(heaValSta3.TOut,uTOutBelowCutoff1. y)
+    connect(cooValSta3.TOut,uTOutBelowCutoff1. y)
       annotation (Line(points={{139,-27},{110,-27},{110,-70},{81,-70}},
                                                                   color={0,0,127}));
-    connect(uSupFan3.y,heaValSta3. uSupFan)
+    connect(uSupFan3.y,cooValSta3. uSupFan)
       annotation (Line(points={{121,-90},{130,-90},{130,-35},{139,-35}},
                                                                    color={255,0,255}));
-    connect(heaValSta3.TSupSet,uTSupSet3. y) annotation (Line(points={{139,-23},{90,-23},{90,-40},{50,
+    connect(cooValSta3.TSupSet,uTSupSet3. y) annotation (Line(points={{139,-23},{90,-23},{90,-40},{50,
             -40},{50,-70},{41,-70}}, color={0,0,127}));
-    connect(heaValSta3.TSup, uTSup3.y)
+    connect(cooValSta3.TSup, uTSup3.y)
       annotation (Line(points={{139,-20},{60,-20},{60,-30},{41,-30}}, color={0,0,127}));
   annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
     __Dymola_Commands(file="HeatingCoilValve_TSup_TSupSet_TOut_uSupFan.mos"

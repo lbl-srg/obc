@@ -1,6 +1,6 @@
 within OBCSequenceValidation.Validation;
-model HeatingCoilValve_ValidationWithB33Data
-  "Validation model for the heating coil control subsequence with real data trends"
+model CoolingCoilValve_ValidationWithB33Data
+  "Validation model for the cooling coil control subsequence with real data trends"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.CombiTimeTable heatingValveSignal(
@@ -100,7 +100,6 @@ model HeatingCoilValve_ValidationWithB33Data
   Buildings.Controls.OBC.CDL.Logical.And enable1 "Aggregated enable signal"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
     fileName="b33_ahu_2_validation.html",
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
@@ -143,7 +142,6 @@ model HeatingCoilValve_ValidationWithB33Data
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(k=5/9, p=-(5*32)/9)
     "\"FtoC\""
     annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
-
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1, p=-1)
     "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
@@ -224,4 +222,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
-end HeatingCoilValve_ValidationWithB33Data;
+end CoolingCoilValve_ValidationWithB33Data;

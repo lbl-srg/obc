@@ -1,6 +1,6 @@
 within OBCSequenceValidation;
 block HeatingCoilValve
-  "Heating coil valve position sequence"
+  "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Boolean genEna = true
     "Generic enable disable input"

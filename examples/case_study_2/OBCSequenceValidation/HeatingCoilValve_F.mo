@@ -1,6 +1,6 @@
 within OBCSequenceValidation;
 block HeatingCoilValve_F
-  "Heating coil valve position sequence with all temperatures in F"
+  "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Boolean genEna = true
     "Generic enable disable input"
@@ -46,18 +46,18 @@ block HeatingCoilValve_F
   parameter Real TOutHeaCut(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 68
-    "Upper outdoor air temperature limit for enabling heating (68 F)"
+    "Upper outdoor air temperature limit for enabling heating"
      annotation(Evaluate=true);
 
   parameter Real TSatMinLowLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 40
-    "Minimum supply air temperature for defining the lower limit of the valve position (40 F)"
+    "Minimum supply air temperature for defining the lower limit of the valve position"
     annotation(Evaluate=true);
   parameter Real TSatMaxLowLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 45
-    "Maximum supply air temperature for defining the lower limit of the valve position (45 F)"
+    "Maximum supply air temperature for defining the lower limit of the valve position"
     annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnable if genEna
