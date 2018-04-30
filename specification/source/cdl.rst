@@ -277,7 +277,7 @@ Connections
 Connections connect input to output connector (:numref:`sec_connectors`).
 For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
-For vectorized connectors, each element of an input connector need to be connected
+For vectorized connectors, each element of an input connector needs to be connected
 to exactly one (element of) an output connector.
 Vectorized input connectors can be connected to vectorized output connectors
 if they have the same number of elements.
