@@ -53,7 +53,6 @@ Also, the following Modelica language features are not supported in CDL:
    models as far as CDL is concerned and thus CDL compliant tools need
    not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
-#. package-level declaration of ``constant`` data types.
 
 
 .. _sec_cld_per_typ:
