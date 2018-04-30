@@ -66,9 +66,12 @@ parameters of type
 [Parameters do not change their value as time progress.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type ``parameter``
-or type ``constant``.
-Variables are not allowed [they are used however in the elementary building blocks].
+instances of blocks, or declarations of type ``parameter``,
+``constant``, or ``enumeration``.
+Variables are not allowed.
+[Variables are used in the elementary building blocks,
+but these can only be used as inputs to other blocks if they are declared
+as an output.]
 
 The declaration of such types is identical to the declaration
 in Modelica.
@@ -126,7 +129,17 @@ Elementary Building Blocks
 The CDL contains elementary building blocks that are used to compose
 control sequences.
 The functionality of elementary building blocks, but not their implementation,
-is part of the CDL specification. Hence, users are not allowed to add
+is part of the CDL specification.
+Control providers who support CDL need to be able to implement the same
+functionality as is provided by the elementary CDL blocks.
+
+
+[CDL implementations are allowed to use a different implementation of the elementary
+building blocks, because the implementation is language specific. However,
+implementations shall have the same inputs, outputs and parameters, and
+they shall compute the same response for the same value of inputs and state variables.]
+
+Users are not allowed to add
 new elementary building blocks. Rather, users can use them to implement
 composite blocks (:numref:`sec_com_blo`).
 
@@ -142,11 +155,6 @@ composite blocks (:numref:`sec_com_blo`).
        `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
        All models in the `Examples` and `Validation` packages can be simulated with these tools.
        They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
-
-[CDL implementations are allowed to use a different implementation of the elementary
-building blocks, because the implementation is language specific. However,
-implementations shall have the same inputs, outputs and parameters, and
-they shall compute the same response for the same value of inputs and state variables.]
 
 An actual implementation looks as follows, where we omitted the annotations that are
 used for graphical rendering:
@@ -192,8 +200,8 @@ Instantiation is identical to Modelica.
 
    Continuous.Gain myGain(k=-1) "Constant gain of -1" annotation(...);
 
-where the documentation string and the annotation are both optional.
-The optional annotations is typically used
+where the documentation string is optional.
+The annotations is typically used
 for the graphical positioning of the instance in a block-diagram.
 ]
 
@@ -235,9 +243,16 @@ Connectors
 ^^^^^^^^^^
 
 Blocks expose their inputs and outputs through input and output
-connectors. The permissible connectors are defined in the
-`CDL.Interfaces package
-<http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Interfaces.html#Buildings.Controls.OBC.CDL.Interfaces>`_.
+connectors.
+
+The permissible connectors are implemented in the package
+``CDL.Interfaces``, and are
+``BooleanInput``, ``BooleanOutput``,
+``DayTypeInput``, ``DayTypeOutput``,
+``IntegerInput``, ``IntegerOutput``,
+``RealInput`` and ``RealOutput``.
+``DayType`` is an ``enumeration`` for working day,
+non-working day and holiday.
 
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
@@ -250,7 +265,7 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
 
-Hence, unlike in Modelica 3.2, we do not allow for automatic vectorization
+Hence, unlike in Modelica 3.3, we do not allow for automatic vectorization
 of input signals.
 ]
 
@@ -260,8 +275,13 @@ Connections
 ^^^^^^^^^^^
 
 Connections connect input to output connector (:numref:`sec_connectors`).
-Each input connector of a block needs to be connected to exactly
+For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
+For vectorized connectors, each element of an input connector need to be connected
+to exactly one (element of) an output connector.
+Vectorized input connectors can be connected to vectorized output connectors
+if they have the same number of elements.
+
 Connections are listed after the instantiation of the blocks in an equation
 section. The syntax is
 
@@ -269,8 +289,8 @@ section. The syntax is
 
    connect(port_a, port_b) annotation(...);
 
-where ``annotation(...)`` is optional and may be used to declare
-the graphical rendering of the connection.
+where ``annotation(...)`` is used to declare
+the graphical rendering of the connection (see :numref:`sec_annotations`).
 The order of the connections and the order of the arguments in the
 ``connect`` statement does not matter.
 
@@ -306,6 +326,8 @@ whereas the following implementation is not valid in CDL, although it is valid i
    :emphasize-lines: 4
 
 ]
+
+.. _sec_annotations:
 
 Annotations
 ^^^^^^^^^^^
@@ -434,9 +456,9 @@ Therefore, tools that process CDL can infer the following information:
   :term:`mode <Mode>`
   (which in CDL are presented by an ``Integer`` data type or an enumeration,
   which allow for example encoding of the
-  ASHRAE Guidline 36 Freeze Protection which has 4 stages).
+  ASHRAE Guideline 36 Freeze Protection which has 4 stages).
 * Source: Hardware point or software point.
-* Quantity: such as Temperature, Pressure, Humidity, Speed or Command/Request/Status
+* Quantity: such as Temperature, Pressure, Humidity or Speed.
 * Unit: Unit and preferred display unit. (The display unit
   can be overwritten by a tool. This allows for example a control vendor
   to use the same sequences in North America displaying IP units, and in
@@ -562,5 +584,5 @@ to an ahu3. CDL, however, has a different syntax to declare such dependencies:
 In CDL, the instance that declares this sensor
 input already unambiguously declares to what entity it belongs to, and the
 sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
-Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
+Furthermore, in CDL, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
