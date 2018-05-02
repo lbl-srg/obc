@@ -30,13 +30,16 @@ The next sections explain the elements of CDL.
 Syntax
 ^^^^^^
 
-In order to easily process CDL, we will use
+In order to use CDL with building energy simulation programs,
+and to not invent yet another language with new syntax, we will use
 a subset of the Modelica 3.3 specification
 for the implementation of CDL :cite:`Modelica2012:1`.
-The syntax is a minimum subset of Modelica as needed to instantiate
+The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
-violates the Modelica Standard is added.
+violates the Modelica Standard is added, thereby allowing users
+to view, modify and simulate CDL-conformant control sequences with any
+Modelica-compliant simulation environment.
 
 To simplify the support of CDL for tools and control systems,
 the following Modelica keywords are not supported in CDL:
@@ -108,7 +111,7 @@ Encapsulation of Functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All computations are encapsulated in a ``block``.
-Blocks exposes parameters (used to configure
+Blocks expose parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
 
@@ -126,10 +129,20 @@ Elementary Building Blocks
 
    Screenshot of CDL library.
 
-The CDL contains elementary building blocks that are used to compose
+The CDL library contains elementary building blocks that are used to compose
 control sequences.
 The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification.
+Thus, in the most general form, elementary building blocks can be considered
+as functions that for given parameters :math:`p`,
+time :math:`t` and internal state :math:`x(t)`,
+map inputs :math:`u(t)` to new values for the
+outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
+
+.. math::
+
+   (p, t, u(t), x(t)) \to (y(t), x'(t)).
+
 Control providers who support CDL need to be able to implement the same
 functionality as is provided by the elementary CDL blocks.
 
@@ -156,7 +169,8 @@ composite blocks (:numref:`sec_com_blo`).
        All models in the `Examples` and `Validation` packages can be simulated with these tools.
        They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
 
-An actual implementation looks as follows, where we omitted the annotations that are
+An actual implementation of an elementary building block
+looks as follows, where we omitted the annotations that are
 used for graphical rendering:
 
 .. code-block:: modelica
@@ -307,9 +321,9 @@ The order of the connections and the order of the arguments in the
 
 ]
 
-Signals shall be connected using a ``connect`` statement;
-directly assigning the values of signals when instantiating
-signals is not allowed.
+Signals shall be connected using a \code{connect} statement;
+assigning the value of a signal in the instantiation of the
+output connnector is not allowed.
 
 [This ensures that all control sequences are expressed as block diagrams.
 For example, the following model is valid
