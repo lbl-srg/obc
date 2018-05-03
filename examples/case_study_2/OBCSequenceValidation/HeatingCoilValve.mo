@@ -12,7 +12,7 @@ block HeatingCoilValve
     annotation(Evaluate=true);
 
   parameter Real k(final unit="1/K") = 5
-    "Controller gain as in : 33-AHU-02 (Roof) / m488, Apr 17, '18"
+    "Controller gain"
     annotation(Evaluate=true);
 
   parameter Boolean revAct = true "Controller reverse action"
@@ -33,7 +33,7 @@ block HeatingCoilValve
     annotation(Evaluate=true);
 
   parameter Modelica.SIunits.Time Ti = 1 / 0.5
-    "Time constant of modulation controller integrator block, 33-AHU-02 (Roof) / m488 integral gain = 0.2, , Apr 17 '18"
+    "Time constant of modulation controller integrator block"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));

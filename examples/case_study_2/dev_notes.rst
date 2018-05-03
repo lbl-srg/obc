@@ -95,7 +95,12 @@ Outputs:
 - SA damper control signal (0 - 100)
 
 
-Notes, issues and assumptions:
+Implementation notes, issues and assumptions:
 
-- take parameters from the ALC EIKON block diagram
-- OAT not trended, one could substitute with OAT AI0 or AHU-1 OAT sensor
+- ALC has a proprietary PI controller algorithm. Proportional and integral
+gains, as read from the ALC control logic diagram do not seem to correspond
+the OBC PI controller parameters. Assuming that the proportional gain is
+the same, well matched performance can be achieved only by scaling the
+integral gain up by several orders of magnitude. *mg?
+- OAT not directly trended, one could substitute with OAT AI0 or
+AHU-1 OAT sensor

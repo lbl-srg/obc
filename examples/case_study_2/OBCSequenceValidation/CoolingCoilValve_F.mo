@@ -1,6 +1,6 @@
 within OBCSequenceValidation;
-block HeatingCoilValve_F
-  "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+block CoolingCoilValve_F
+  "Cooling coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Boolean genEna = true
     "Generic enable disable input"
@@ -43,20 +43,20 @@ block HeatingCoilValve_F
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Real TOutHeaCut(
+  parameter Real TOutCooCut(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 68
-    "Upper outdoor air temperature limit for enabling heating"
+    final quantity = "ThermodynamicTemperature") = 50
+    "Upper outdoor air temperature limit for enabling Cooling"
      annotation(Evaluate=true);
 
   parameter Real TSatMinLowLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 40
+    final quantity = "ThermodynamicTemperature") = 42
     "Minimum supply air temperature for defining the lower limit of the valve position"
     annotation(Evaluate=true);
   parameter Real TSatMaxLowLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 45
+    final quantity = "ThermodynamicTemperature") = 50
     "Maximum supply air temperature for defining the lower limit of the valve position"
     annotation(Evaluate=true);
 
@@ -88,10 +88,10 @@ block HeatingCoilValve_F
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
       iconTransformation(extent={{-120,20},{-100,40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHeaVal(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCooVal(
     final min=0,
     final max=1,
-    final unit="1") "Heating valve control signal"
+    final unit="1") "Cooling valve control signal"
     annotation (Placement(transformation(extent={{120,10},{140,30}}),
       iconTransformation(extent={{100,10},{120,30}})));
 
@@ -104,7 +104,7 @@ block HeatingCoilValve_F
     final yMin=uMin,
     final reverseAction=revAct,
     final reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
-    "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
+    "Contoller that outputs a signal based on the error between the measured SAT and SAT Cooling setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant trueSignal(
@@ -114,25 +114,25 @@ block HeatingCoilValve_F
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinLowLim)
     "Low range supply air temperature low limit"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{40,-82},{60,-62}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSatMaxLowLim)
     "Low range supply air temperature high limit"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHeaValMin(final k=uMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{40,-114},{60,-94}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHeaValMax(final k=uMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMax(final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{0,-114},{20,-94}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line yHeaValLowLim(
     final limitBelow=true,
     final limitAbove=true)
-    "Defines lower limit of the heating valve signal at low range SATs"
+    "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessEqualThreshold lesEquThr(threshold=TOutHeaCut)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold   greThr(   threshold=TOutCooCut)
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
@@ -150,21 +150,15 @@ block HeatingCoilValve_F
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 equation
-  connect(TSupMin.y, yHeaValLowLim.x1)
-    annotation (Line(points={{21,-70},{24,-70},{24,-22},{78,-22}},    color={0,0,127}));
-  connect(TSupMax.y, yHeaValLowLim.x2)
-    annotation (Line(points={{61,-70},{70,-70},{70,-34},{78,-34}}, color={0,0,127}));
-  connect(TOut, lesEquThr.u)
-    annotation (Line(points={{-140,-20},{-102,-20}},                  color={0,0,127}));
-  connect(lesEquThr.y, andEna.u1)
-    annotation (Line(points={{-79,-20},{-78,-20},{-78,-20},{-74,-20},{-74,-12},{-62,-12}},
-                                                                 color={255,0,255}));
+  connect(TOut, greThr.u) annotation (Line(points={{-140,-20},{-102,-20}}, color={0,0,127}));
+  connect(greThr.y, andEna.u1) annotation (Line(points={{-79,-20},{-78,-20},{-78,-20},{-74,-20},{-74,
+          -12},{-62,-12}}, color={255,0,255}));
   connect(uSupFan, andEna.u2)
     annotation (Line(points={{-140,-60},{-72,-60},{-72,-20},{-62,-20}},
                                                                       color={255,0,255}));
-  connect(yHeaValLowLim.f2, yHeaValMin.y)
+  connect(yHeaValLowLim.f2, yCooValMin.y)
     annotation (Line(points={{78,-38},{74,-38},{74,-104},{61,-104}}, color={0,0,127}));
-  connect(yHeaValLowLim.f1, yHeaValMax.y)
+  connect(yHeaValLowLim.f1, yCooValMax.y)
     annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}},    color={0,0,127}));
   connect(TSup, yHeaValLowLim.u)
     annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}},     color={0,0,127}));
@@ -178,17 +172,22 @@ equation
   connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{30,0},{30,
           44},{38,44}},
                     color={0,0,127}));
+  connect(TSupSet, TSupCon.u_m) annotation (Line(points={{-140,90},{-76,90},{-76,64},{-30,64},{-30,78},
+          {-30,78}}, color={0,0,127}));
+  connect(TSup, TSupCon.u_s) annotation (Line(points={{-140,40},{-62,40},{-62,90},{-52,90},{-52,90},
+          {-42,90}}, color={0,0,127}));
   connect(andEna.y, booToRea.u) annotation (Line(points={{-39,-20},{-38,-20}}, color={255,0,255}));
   connect(booToRea.y, min.u2)
     annotation (Line(points={{-15,-20},{0,-20},{0,14},{78,14}}, color={0,0,127}));
-  connect(yHeaVal, min.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+  connect(yCooVal, min.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
   connect(min.u1, max.y)
     annotation (Line(points={{78,26},{70,26},{70,50},{61,50}}, color={0,0,127}));
-  connect(TSupSet, TSupCon.u_s) annotation (Line(points={{-140,90},{-42,90}}, color={0,0,127}));
-  connect(TSup, TSupCon.u_m)
-    annotation (Line(points={{-140,40},{-30,40},{-30,78},{-30,78}}, color={0,0,127}));
+  connect(yHeaValLowLim.x2, TSupMin.y)
+    annotation (Line(points={{78,-34},{70,-34},{70,-72},{61,-72}}, color={0,0,127}));
+  connect(TSupMax.y, yHeaValLowLim.x1)
+    annotation (Line(points={{21,-72},{24,-72},{24,-22},{78,-22}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "heaValSta_F",
+    defaultComponentName = "cooValSta_F",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -232,7 +231,7 @@ low TSup"),
           textString="Controller")}),
     Documentation(info="<html>
 <p>
-This subsequence defines heating coil valve position. The implementation is identical to
+This subsequence defines Cooling coil valve position. The implementation is identical to
 the actual ALC EIKON control sequence implementation in LBL B33-AHU-02 (Roof), with parameters
 recorded on April 09 2018. This version of the sequences uses F as a temperature unit.
 </p>
@@ -247,4 +246,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatingCoilValve_F;
+end CoolingCoilValve_F;

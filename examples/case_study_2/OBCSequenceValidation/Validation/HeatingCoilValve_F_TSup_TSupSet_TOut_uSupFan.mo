@@ -50,7 +50,7 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   HeatingCoilValve_F heaValSta_F(
-                               genEna=false)
+                               genEna=false, revAct=false)
     "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -58,7 +58,8 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
   HeatingCoilValve_F heaValSta_F1(
     k=5,
     Ti=1/0.5,
-    genEna=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+    genEna=false,
+    revAct=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff1(final k=TOutHeaCut + 5)
     "Outdoor air temperature is above the cutoff"
@@ -76,9 +77,10 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 // Tests controler normal operation when supply air temperature is above limiter values
   HeatingCoilValve_F heaValSta_F2(
     genEna=false,
-    revAct=true,
     k=5,
-    Ti=1/0.5) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+    Ti=1/0.5,
+    revAct=false)
+              "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff2(final k=TOutHeaCut - 5)
     "Outdoor air temperature is below the cutoff"
@@ -100,7 +102,8 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
   HeatingCoilValve_F heaValSta_F3(
     k=5,
     Ti=1/0.5,
-    genEna=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+    genEna=false,
+    revAct=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff1(final k=TOutHeaCut - 5)
     "Outdoor air temperature is below the cutoff"
@@ -204,7 +207,7 @@ First implementation.
           fillColor={217,217,217},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{22,-98},{116,-118}},
+          extent={{22,-100},{102,-114}},
           lineColor={0,0,127},
           textString="Operation within the lower limit TSup range.")}));
 end HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan;
