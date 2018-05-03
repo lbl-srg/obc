@@ -109,3 +109,10 @@ the same, well matched performance can be achieved only by scaling the
 integral gain up by several orders of magnitude. *mg?
 - OAT not directly trended, one could substitute with OAT AI0 or
 AHU-1 OAT sensor
+
+
+Memo
+- It proved correct that TSupSetHea is TSupSet - 1 F
+- ALC controller seems to sample each 10s and at each sampling instance it adds 10% of the total proportional addend as the integral addend,
+so assuming that we set k_controller_gain_cdl = kp_alc ==> k_controller_gain_cdl/Ti_cdl = ki_alc/10 ==> Ti_cdl = 10 * k_controller_gain_cdl / ki_alc, with, for heating,
+kp_alc = 5, ki_alc = .5

@@ -11,7 +11,7 @@ block HeatingCoilValve_F
     "Controller type"
     annotation(Evaluate=true);
 
-  parameter Real k(final unit="1") = 0.05
+  parameter Real k(final unit="1") = 5/100
     "Controller gain"
     annotation(Evaluate=true);
 
@@ -32,7 +32,7 @@ block HeatingCoilValve_F
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti = k / 0.5
+  parameter Modelica.SIunits.Time Ti = 10 * k / (0.5/100)
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
