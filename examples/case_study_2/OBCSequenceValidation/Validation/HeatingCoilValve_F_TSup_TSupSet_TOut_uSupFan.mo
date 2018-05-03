@@ -18,13 +18,13 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     final quantity = "ThermodynamicTemperature") = 70
     "Supply air temperature setpoint";
 
-  parameter Real TSatMinLowLim(
+  parameter Real TSetMinLowLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 40
     "Minimum supply air temperature for defining the lower limit of the valve position (40 F)"
     annotation(Evaluate=true);
 
-  parameter Real TSatMaxLowLim(
+  parameter Real TSetMaxLowLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 45
     "Maximum supply air temperature for defining the lower limit of the valve position (45 F)"
@@ -38,7 +38,7 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 
 // Tests disable if supply fan is off
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff(final k=TOutHeaCut - 5)
-    "Outdoor air temperature is below the cutoff"
+    "Outdoor air temperature is below the cutoff, heating should be on"
     annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=TSup)
     "Supply air temperature"
@@ -59,8 +59,8 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     genEna=false,
     revAct=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff1(final k=TOutHeaCut + 5)
-    "Outdoor air temperature is above the cutoff"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff(final k=TOutHeaCut + 5)
+    "Outdoor air temperature is below the cutoff, heating should be off"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup1(final k=TSup)
     "Supply air temperature"
@@ -111,8 +111,8 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup3(
     duration=1800,
     startTime=0,
-    offset=TSatMinLowLim,
-    height=TSatMaxLowLim - TSatMinLowLim)
+    offset=TSetMinLowLim,
+    height=TSetMaxLowLim - TSetMinLowLim)
     "Supply air temperature source"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -121,7 +121,7 @@ equation
     annotation (Line(points={{-41,93},{-70,93},{-70,50},{-99,50}}, color={0,0,127}));
   connect(uSupFan.y, heaValSta_F.uSupFan)
     annotation (Line(points={{-59,30},{-50,30},{-50,85},{-41,85}}, color={255,0,255}));
-  connect(heaValSta_F1.TOut, uTOutAboveCutoff1.y)
+  connect(heaValSta_F1.TOut, uTOutAboveCutoff.y)
     annotation (Line(points={{-41,-27},{-70,-27},{-70,-70},{-99,-70}}, color={0,0,127}));
   connect(uSupFan1.y, heaValSta_F1.uSupFan)
     annotation (Line(points={{-59,-90},{-50,-90},{-50,-35},{-41,-35}}, color={255,0,255}));

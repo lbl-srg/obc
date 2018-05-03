@@ -32,7 +32,7 @@ block CoolingCoilValve_F
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti = k / 0.5
+  parameter Modelica.SIunits.Time Ti = 10 * k / (0.5/100)
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -126,10 +126,8 @@ block CoolingCoilValve_F
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{0,-114},{20,-94}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Line yCooValLowLim(
-    final limitBelow=true,
-    final limitAbove=true)
-    "Defines lower limit of the Cooling valve signal at low range SATs"
+  Buildings.Controls.OBC.CDL.Continuous.Line yCooValHighLim(final limitBelow=true, final limitAbove=
+       true) "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold   greThr(   threshold=TOutCooCut)
@@ -140,7 +138,7 @@ block CoolingCoilValve_F
     "Outputs controller enable signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Max max
+  Buildings.Controls.OBC.CDL.Continuous.Min min1
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
@@ -157,36 +155,34 @@ equation
   connect(uSupFan, andEna.u2)
     annotation (Line(points={{-140,-60},{-72,-60},{-72,-20},{-62,-20}},
                                                                       color={255,0,255}));
-  connect(yCooValLowLim.f2, yCooValMin.y)
+  connect(yCooValHighLim.f2, yCooValMin.y)
     annotation (Line(points={{78,-38},{74,-38},{74,-104},{61,-104}}, color={0,0,127}));
-  connect(yCooValLowLim.f1, yCooValMax.y)
-    annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}},    color={0,0,127}));
-  connect(TSup, yCooValLowLim.u)
-    annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}},     color={0,0,127}));
-  connect(TSupCon.y, max.u1)
-    annotation (Line(points={{-19,90},{0,90},{0,56},{38,56}},   color={0,0,127}));
+  connect(yCooValHighLim.f1, yCooValMax.y)
+    annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}}, color={0,0,127}));
+  connect(TSup, yCooValHighLim.u)
+    annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}}, color={0,0,127}));
+  connect(TSupCon.y, min1.u1)
+    annotation (Line(points={{-19,90},{0,90},{0,56},{38,56}}, color={0,0,127}));
   connect(uEnable, andEna.u3)
     annotation (Line(points={{-140,-100},{-70,-100},{-70,-28},{-62,-28}},
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
-  connect(yCooValLowLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{30,0},{30,
-          44},{38,44}},
-                    color={0,0,127}));
-  connect(TSupSet, TSupCon.u_m) annotation (Line(points={{-140,90},{-76,90},{-76,64},{-30,64},{-30,78},
-          {-30,78}}, color={0,0,127}));
-  connect(TSup, TSupCon.u_s) annotation (Line(points={{-140,40},{-62,40},{-62,90},{-52,90},{-52,90},
-          {-42,90}}, color={0,0,127}));
+  connect(yCooValHighLim.y, min1.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{30,0},{30,
+          44},{38,44}}, color={0,0,127}));
   connect(andEna.y, booToRea.u) annotation (Line(points={{-39,-20},{-38,-20}}, color={255,0,255}));
   connect(booToRea.y, min.u2)
     annotation (Line(points={{-15,-20},{0,-20},{0,14},{78,14}}, color={0,0,127}));
   connect(yCooVal, min.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
-  connect(min.u1, max.y)
+  connect(min.u1, min1.y)
     annotation (Line(points={{78,26},{70,26},{70,50},{61,50}}, color={0,0,127}));
-  connect(yCooValLowLim.x2, TSupMin.y)
+  connect(yCooValHighLim.x2, TSupMin.y)
     annotation (Line(points={{78,-34},{70,-34},{70,-72},{61,-72}}, color={0,0,127}));
-  connect(TSupMax.y, yCooValLowLim.x1)
+  connect(TSupMax.y, yCooValHighLim.x1)
     annotation (Line(points={{21,-72},{24,-72},{24,-22},{78,-22}}, color={0,0,127}));
+  connect(TSup, TSupCon.u_m) annotation (Line(points={{-140,40},{-30,40},{-30,76},{-30,76},{-30,78},
+          {-30,78}}, color={0,0,127}));
+  connect(TSupCon.u_s, TSupSet) annotation (Line(points={{-42,90},{-140,90}}, color={0,0,127}));
   annotation (
     defaultComponentName = "cooValSta_F",
     Icon(graphics={
