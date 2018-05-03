@@ -56,8 +56,6 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 
 // Tests disable if it is warm outside
   HeatingCoilValve_F heaValSta_F1(
-    k=5,
-    Ti=1/0.5,
     genEna=false,
     revAct=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -77,8 +75,6 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
 // Tests controler normal operation when supply air temperature is above limiter values
   HeatingCoilValve_F heaValSta_F2(
     genEna=false,
-    k=5,
-    Ti=1/0.5,
     revAct=false)
               "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
@@ -100,8 +96,6 @@ model HeatingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     offset=TSupSet - 2/2) "\"Supply air temperature\""
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   HeatingCoilValve_F heaValSta_F3(
-    k=5,
-    Ti=1/0.5,
     genEna=false,
     revAct=false) "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));

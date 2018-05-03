@@ -97,6 +97,11 @@ Outputs:
 
 Implementation notes, issues and assumptions:
 
+PI Controller
+
+- OBC reverse and direct action are in reverse compared to the ALC controller
+(e.g. if setpoint is lower than the measurement )
+
 - ALC has a proprietary PI controller algorithm. Proportional and integral
 gains, as read from the ALC control logic diagram do not seem to correspond
 the OBC PI controller parameters. Assuming that the proportional gain is
