@@ -78,7 +78,7 @@ model CoolingCoilValve_ValidationWithB33Data
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     revAct=true,
     k=5/100,
-    Ti=1000)
+    Ti=10000)
     "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 

@@ -12,7 +12,7 @@ model HeatingCoilValve_ValidationWithB33Data
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Heating_Valve.mos"),
     timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
                                 "\"Output of the heating valve control subsequence\""
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -25,7 +25,7 @@ model HeatingCoilValve_ValidationWithB33Data
     tableName="OA_Temp",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -38,7 +38,7 @@ model HeatingCoilValve_ValidationWithB33Data
     tableName="SA_Stpt",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -50,10 +50,10 @@ model HeatingCoilValve_ValidationWithB33Data
     timeScale(displayUnit="s"),
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableName="33-AHU-02_Supply_Air_Temp")
+    tableName="33-AHU-02_Supply_Air_Temp",
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "\"Measured supply air temperature\""
-    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+    annotation (Placement(transformation(extent={{-138,40},{-118,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable EnableDisableSignals(
     tableOnFile=true,
@@ -154,7 +154,7 @@ equation
   connect(flowOn.y, heaValSta_F.uSupFan) annotation (Line(points={{-79,-40},{-10,-40},{-10,24},{4,
           24},{4,25},{19,25}}, color={255,0,255}));
   connect(TSupply_F.y[1], heaValSta_F.TSup)
-    annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
+    annotation (Line(points={{-117,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
   connect(TOut_F.y[1], heaValSta_F.TOut) annotation (Line(points={{-119,-20},{-36,-20},{-36,32},{-8,
           32},{-8,33},{19,33}}, color={0,0,127}));
   connect(EnableDisableSignals.y[2], manOver.u)
@@ -183,7 +183,7 @@ equation
   connect(percConvHeaValSig.y, correlation.y[2])
     annotation (Line(points={{-79,90},{90,90},{90,29},{98,29},{98,29}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
-    annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}},
+    annotation (Line(points={{-117,50},{-110,50},{-110,60},{-102,60}},
                                                                     color={0,0,127}));
   connect(TSupUniCon.y, timSerInp.y[1])
     annotation (Line(points={{-79,60},{28,60},{28,71.3333},{98,71.3333}}, color={0,0,127}));
