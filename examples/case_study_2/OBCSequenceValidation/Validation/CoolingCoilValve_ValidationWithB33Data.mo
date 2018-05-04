@@ -23,9 +23,9 @@ model CoolingCoilValve_ValidationWithB33Data
     columns={2},
     timeScale(displayUnit="s"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableName="SA_Clg_Stpt",
+    tableName="SA_Stpt",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Clg_Stpt.mos"))
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -138,7 +138,7 @@ model CoolingCoilValve_ValidationWithB33Data
     fileName=("/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos"))
     "\"Output of the cooling valve control subsequence\""
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter coolingTSupSetpoint(k=1, p=-5)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter coolingTSupSetpoint(k=1, p=0)
     "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 equation
