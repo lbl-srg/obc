@@ -3,19 +3,6 @@ model CoolingCoilValve_ValidationWithB33Data
   "Validation model for the cooling coil control subsequence with real data trends"
   extends Modelica.Icons.Example;
 
-  Modelica.Blocks.Sources.CombiTimeTable heatingValveSignal(
-    tableOnFile=true,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    offset={0},
-    columns={2},
-    tableName="33-HC-22_Heating_Valve",
-    fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Heating_Valve.mos"),
-    timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-                                "\"Output of the heating valve control subsequence\""
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-
   Modelica.Blocks.Sources.CombiTimeTable TOut_F(
     tableOnFile=true,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -35,10 +22,10 @@ model CoolingCoilValve_ValidationWithB33Data
     offset={0},
     columns={2},
     timeScale(displayUnit="s"),
-    tableName="SA_Stpt",
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    tableName="SA_Clg_Stpt",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"),
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Clg_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -51,8 +38,7 @@ model CoolingCoilValve_ValidationWithB33Data
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableName="33-AHU-02_Supply_Air_Temp")
-    "\"Measured supply air temperature\""
+    tableName="33-AHU-02_Supply_Air_Temp") "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Modelica.Blocks.Sources.CombiTimeTable EnableDisableSignals(
@@ -65,22 +51,19 @@ model CoolingCoilValve_ValidationWithB33Data
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Manualy_Created_Enable_Statuses.mos"),
     columns={2,3,4},
     tableName="33-HC-22_Manualy_Created_Enable_Statuses")
-                     "\"Flow on, manual vverride and heating required status signals\""
+                     "\"Flow on, manual vverride and cooling required status signals\""
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConvHeaValSig(k=0.01)
-    "\"Convert from % to 0 - 1 range\""
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
-  HeatingCoilValve_F
-                   heaValSta_F(
+  CoolingCoilValve_F cooValSta_F(
     genEna=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    revAct=true,
-    k=5/100,
-    Ti=10000)
-    "Heating valve position control sequence"
+    revAct=true)
+    "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
+    "Percentage to number converter"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold flowOn(threshold=1)
     "\"Flow on signal\""
@@ -90,8 +73,8 @@ model CoolingCoilValve_ValidationWithB33Data
     "\"Manual override signal\""
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold heaReq(threshold=1)
-    "\"Heating required signal\""
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold cooReq(threshold=1)
+    "\"Cooling required signal\""
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -101,26 +84,26 @@ model CoolingCoilValve_ValidationWithB33Data
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
-    fileName="b33_ahu_2_validation.html",
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
-    samplePeriod=300)
-    "\"Visualization of heating valve sequence validation against reference data from B33-AHU-2\""
+    samplePeriod=300,
+    fileName="b33_ahu_2_cooling_validation.html")
+    "\"Visualization of cooling valve sequence validation against reference data from B33-AHU-2\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
   Buildings.Utilities.Plotters.Scatter correlation(
-    samplePeriod=1,
-    n=2,
-    title="OBC heating valve signal",
-    xlabel="B33-AHU-2 heating valve signal") "\"Reference vs. output results\""
+    title="OBC cooling valve signal",
+    xlabel="B33-AHU-2 cooling valve signal",
+    n=1,
+    legend={"OBC cooling valve signal"})     "\"Reference vs. output results\""
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Utilities.Plotters.TimeSeries timSerRes(
-    n=2,
-    title="Reference and result heating valve control signal",
-    legend={"Heating valve control signal, OBC","Heating valve control signal, B33-AHU-2"})
-    "\"Reference and result heating valve control signal\""
-    annotation (Placement(transformation(extent={{98,94},{118,114}})));
+    title="Reference and result cooling valve control signal",
+    legend={"Cooling valve control signal, OBC","Cooling valve control signal, B33-AHU-2"},
+    n=2)
+    "\"Reference and result cooling valve control signal\""
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Add delta(k2=-1)
     "Delta between the reference and the calculated control signal"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
@@ -143,72 +126,85 @@ model CoolingCoilValve_ValidationWithB33Data
     "\"FtoC\""
     annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1, p=-1)
+
+  Modelica.Blocks.Sources.CombiTimeTable coolingValveSignal(
+    tableOnFile=true,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    offset={0},
+    columns={2},
+    timeScale(displayUnit="s"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    tableName="Clg_Coil_Valve",
+    fileName=("/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos"))
+    "\"Output of the cooling valve control subsequence\""
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter coolingTSupSetpoint(k=1, p=-5)
     "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 equation
-  connect(heatingValveSignal.y[1], percConvHeaValSig.u)
-    annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(EnableDisableSignals.y[1], flowOn.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-40},{-102,-40}}, color={0,0,127}));
-  connect(flowOn.y, heaValSta_F.uSupFan) annotation (Line(points={{-79,-40},{-10,-40},{-10,24},{4,
-          24},{4,25},{19,25}}, color={255,0,255}));
-  connect(TSupply_F.y[1], heaValSta_F.TSup)
+  connect(flowOn.y,cooValSta_F. uSupFan)
+    annotation (Line(points={{-79,-40},{-10,-40},{-10,24},{4,24},{4,25},{19,25}},
+    color={255,0,255}));
+  connect(TSupply_F.y[1],cooValSta_F. TSup)
     annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
-  connect(TOut_F.y[1], heaValSta_F.TOut) annotation (Line(points={{-119,-20},{-36,-20},{-36,32},{-8,
+  connect(TOut_F.y[1],cooValSta_F. TOut)
+    annotation (Line(points={{-119,-20},{-36,-20},{-36,32},{-8,
           32},{-8,33},{19,33}}, color={0,0,127}));
   connect(EnableDisableSignals.y[2], manOver.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-70},{-102,-70}}, color={0,0,127}));
-  connect(EnableDisableSignals.y[3], heaReq.u)
+  connect(EnableDisableSignals.y[3], cooReq.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-100},{-102,-100}}, color={0,0,127}));
-  connect(manOver.y, not1.u) annotation (Line(points={{-79,-70},{-72,-70}}, color={255,0,255}));
+  connect(manOver.y, not1.u)
+    annotation (Line(points={{-79,-70},{-72,-70}}, color={255,0,255}));
   connect(not1.y, enable1.u1)
     annotation (Line(points={{-49,-70},{-46,-70},{-46,-80},{-42,-80}}, color={255,0,255}));
-  connect(heaReq.y, enable1.u2)
+  connect(cooReq.y, enable1.u2)
     annotation (Line(points={{-79,-100},{-60,-100},{-60,-88},{-42,-88}}, color={255,0,255}));
-  connect(enable1.y, heaValSta_F.uEnable)
+  connect(enable1.y,cooValSta_F. uEnable)
     annotation (Line(points={{-19,-80},{0,-80},{0,20},{19,20}}, color={255,0,255}));
-  connect(heaValSta_F.yHeaVal, correlation.y[1])
-    annotation (Line(points={{41,32},{60,32},{60,31},{98,31}}, color={0,0,127}));
-  connect(percConvHeaValSig.y, correlation.x)
-    annotation (Line(points={{-79,90},{32,90},{32,90},{66,90},{66,22},{98,22}}, color={0,0,127}));
-  connect(heaValSta_F.yHeaVal, delta.u2)
-    annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
-  connect(percConvHeaValSig.y, delta.u1)
-    annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
-  connect(heaValSta_F.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,32},{50,32},{50,104},{
-          74,104},{74,105},{96,105}}, color={0,0,127}));
-  connect(percConvHeaValSig.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-38,90},{-38,108},
-          {50,108},{50,106},{96,106},{96,103}}, color={0,0,127}));
-  connect(percConvHeaValSig.y, correlation.y[2])
-    annotation (Line(points={{-79,90},{90,90},{90,29},{98,29},{98,29}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
     annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}},
                                                                     color={0,0,127}));
   connect(TSupUniCon.y, timSerInp.y[1])
     annotation (Line(points={{-79,60},{28,60},{28,71.3333},{98,71.3333}}, color={0,0,127}));
   connect(TSupSetpoint_F.y[1], TSupSetUniCon.u)
-    annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}},
-                                                                    color={0,0,127}));
+    annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}}, color={0,0,127}));
   connect(TOut_F.y[1], TOutUniCon.u)
     annotation (Line(points={{-119,-20},{-110,-20},{-110,-10},{-104,-10}},
-                                                                    color={0,0,127}));
-  connect(TSupSetUniCon.y, timSerInp.y[2]) annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
-          {24,70},{98,70}},     color={0,0,127}));
+    color={0,0,127}));
+  connect(TSupSetUniCon.y, timSerInp.y[2])
+    annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
+    {24,70},{98,70}}, color={0,0,127}));
   connect(TOutUniCon.y, timSerInp.y[3])
     annotation (Line(points={{-81,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
-                                                                          color={0,0,127}));
-  connect(TSupSetpoint_F.y[1], heatingTSupSetpoint.u)
+    color={0,0,127}));
+  connect(cooValSta_F.yCooVal, timSerRes.y[1])
+    annotation (Line(points={{41,32},{50,32},{50,101},{98,101}}, color={0,0,127}));
+  connect(cooValSta_F.yCooVal, delta.u2)
+    annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
+  connect(cooValSta_F.yCooVal, correlation.y[1])
+    annotation (Line(points={{41,32},{70,32},{70,30},{98,30}}, color={0,0,127}));
+  connect(percConvCooValSig.y, timSerRes.y[2])
+    annotation (Line(points={{-79,90},{8,90},{8,99},{98,99}},   color={0,0,127}));
+  connect(percConvCooValSig.y, correlation.x)
+    annotation (Line(points={{-79,90},{80,90},{80,22},{98,22}}, color={0,0,127}));
+  connect(percConvCooValSig.y, delta.u1) annotation (Line(points={{-79,90},{72,90},{72,-24},{88,-24},
+          {88,-24},{98,-24}}, color={0,0,127}));
+  connect(coolingValveSignal.y[1], percConvCooValSig.u)
+    annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
+  connect(coolingTSupSetpoint.y, cooValSta_F.TSupSet) annotation (Line(points={{-49,10},{-26,10},{
+          -26,36},{-26,36},{-26,37},{19,37}}, color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], coolingTSupSetpoint.u)
     annotation (Line(points={{-119,20},{-96,20},{-96,10},{-72,10}}, color={0,0,127}));
-  connect(heatingTSupSetpoint.y, heaValSta_F.TSupSet)
-    annotation (Line(points={{-49,10},{-16,10},{-16,37},{19,37}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
-  __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
+  annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
+  __Dymola_Commands(file="CoolingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
-This model validates the heating coil signal subsequence implemented using CDL blocks 
+This model validates the cooling coil signal subsequence implemented using CDL blocks 
 aginst the equivalent OBC implementation as installed in LBNL B33 AHU-2. Data used for the
 validation are measured sequence input and output timeseries.
 </p>

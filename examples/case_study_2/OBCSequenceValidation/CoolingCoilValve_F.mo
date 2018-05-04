@@ -49,12 +49,12 @@ block CoolingCoilValve_F
     "Upper outdoor air temperature limit for enabling Cooling"
      annotation(Evaluate=true);
 
-  parameter Real TSatMinLowLim(
+  parameter Real TSatMinHighLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 42
     "Minimum supply air temperature for defining the lower limit of the valve position"
     annotation(Evaluate=true);
-  parameter Real TSatMaxLowLim(
+  parameter Real TSatMaxHighLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 50
     "Maximum supply air temperature for defining the lower limit of the valve position"
@@ -112,10 +112,10 @@ block CoolingCoilValve_F
     "Dummy input if the generic enable/disable signal is not used."
     annotation (Placement(transformation(extent={{-98,-92},{-78,-72}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinLowLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinHighLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSatMaxLowLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSatMaxHighLim)
     "Low range supply air temperature high limit"
     annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
 
