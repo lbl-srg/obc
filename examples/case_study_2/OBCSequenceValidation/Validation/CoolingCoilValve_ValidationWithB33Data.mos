@@ -1,0 +1,7 @@
+simulateModel("OBCSequenceValidation.Validation.CoolingCoilValve_ValidationWithB33Data", method="dassl", startTime =3733000000, stopTime = 3733664400, outputInterval = 10, tolerance=1e-06, resultFile="CoolingCoilValve_ValidationWithB33Data");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input and output signals, OBC sequence", axes = {1,1,1,2,2}, y={"cooValSta_F.TSup", "cooValSta_F.TSupSet", "cooValSta_F.TOut", "cooValSta_F.uSupFan", "cooValSta_F.TSupCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{50,205,50},{216,191,216}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Delta between OBC output and recorded trend", axes = {2,2,2}, y={"percConvCooValSig.y", "delta.y", "cooValSta_F.yCooVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{50,205,50}, {0,0,127}});
+
+
+// startTime = 7905077: 4/22/2018 10:15:00 PDT
+// endTime = startTime + 7200
