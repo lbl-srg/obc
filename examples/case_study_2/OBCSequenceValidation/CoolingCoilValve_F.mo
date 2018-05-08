@@ -92,8 +92,8 @@ block CoolingCoilValve_F
     final min=0,
     final max=1,
     final unit="1") "Cooling valve control signal"
-    annotation (Placement(transformation(extent={{120,10},{140,30}}),
-      iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID TSupCon(
     final controllerType=controllerType,
@@ -169,7 +169,8 @@ equation
   connect(andEna.y, booToRea.u) annotation (Line(points={{-39,-20},{-38,-20}}, color={255,0,255}));
   connect(booToRea.y, min.u2)
     annotation (Line(points={{-15,-20},{0,-20},{0,14},{78,14}}, color={0,0,127}));
-  connect(yCooVal, min.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+  connect(yCooVal, min.y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
+                                                                       color={0,0,127}));
   connect(min.u1, min1.y)
     annotation (Line(points={{78,26},{70,26},{70,50},{61,50}}, color={0,0,127}));
   connect(TSup, TSupCon.u_m) annotation (Line(points={{-140,40},{-30,40},{-30,76},{-30,76},{-30,78},

@@ -11,11 +11,11 @@ block HeatingCoilValve
     "Controller type"
     annotation(Evaluate=true);
 
-  parameter Real k(final unit="1/K") = 5
+  parameter Real k(final unit="1/K") = (5/9)*5/100
     "Controller gain"
     annotation(Evaluate=true);
 
-  parameter Boolean revAct = true "Controller reverse action"
+  parameter Boolean revAct = false "Controller reverse action"
     annotation(Evaluate=true);
 
   parameter Real uMax(
@@ -32,7 +32,7 @@ block HeatingCoilValve
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti = 1 / 0.5
+  parameter Modelica.SIunits.Time Ti = 10 * k / (0.5/100)
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -73,18 +73,18 @@ block HeatingCoilValve
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature (SAT)"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-120,110}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -96,8 +96,8 @@ block HeatingCoilValve
     final min=0,
     final max=1,
     final unit="1") "Heating valve control signal"
-    annotation (Placement(transformation(extent={{120,10},{140,30}}),
-      iconTransformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}}),
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimPID TSupCon(
     final controllerType=controllerType,
@@ -168,7 +168,8 @@ equation
     annotation (Line(points={{78,-26},{30,-26},{30,-104},{21,-104}},    color={0,0,127}));
   connect(TSup, yHeaValLowLim.u)
     annotation (Line(points={{-140,40},{-18,40},{-18,-30},{78,-30}},   color={0,0,127}));
-  connect(yHeaVal, max.y) annotation (Line(points={{130,20},{101,20}}, color={0,0,127}));
+  connect(yHeaVal, max.y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
+                                                                       color={0,0,127}));
   connect(TSupCon.y, max.u1)
     annotation (Line(points={{-19,90},{70,90},{70,26},{78,26}}, color={0,0,127}));
   connect(TSupCon.trigger, andEna.y)
