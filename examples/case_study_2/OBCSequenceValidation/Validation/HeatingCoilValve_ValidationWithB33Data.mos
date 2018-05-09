@@ -1,6 +1,7 @@
-simulateModel("OBCSequenceValidation.Validation.HeatingCoilValve_ValidationWithB33Data", method="dassl", startTime = 7905077, stopTime = 8509877, outputInterval = 10, tolerance=1e-06, resultFile="HeatingCoilValve_ValidationWithB33Data");
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input and output signals, OBC sequence", axes = {1,1,1,2,2}, y={"heaValSta_F.TSup", "heaValSta_F.TSupSet", "heaValSta_F.TOut", "heaValSta_F.uSupFan", "heaValSta_F.TSupCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{50,205,50},{216,191,216}, {0,0,127}});
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Delta between OBC output and recorded trend", axes = {2,2,2}, y={"percConvHeaValSig.y", "delta.y", "heaValSta_F.yHeaVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{50,205,50}, {0,0,127}});
+simulateModel("OBCSequenceValidation.Validation.HeatingCoilValve_ValidationWithB33Data", method="dassl", startTime = 7905077, stopTime = 8509877, outputInterval = 1, tolerance=1e-06, resultFile="HeatingCoilValve_ValidationWithB33Data");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Recorded trends as input signals to an OBC heating valve control sequence", axes = {1,1,1,2}, y={"heaValSta_F.TSup", "heaValSta_F.TSupSet", "heaValSta_F.TOut", "heaValSta_F.uSupFan"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {50,205,50},{216,191,216}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "OBC output heating valve signal and the corresponding recorded trend", axes = {2,2}, y={"percConvHeaValSig.y", "heaValSta_F.yHeaVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{0,0,127}});
 
 
 // startTime = 7905077: 1/8/2018 00:00:00 PST (Mon)

@@ -72,10 +72,12 @@ model HeatingCoilValve_ValidationWithB33Data
     "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  HeatingCoilValve heaValSta_F(
+  HeatingCoilValve_F
+                   heaValSta_F(
     genEna=true,
+    revAct=false,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    revAct=false)
+    Ti(displayUnit="min"))
     "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
@@ -203,7 +205,7 @@ equation
     annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
-  annotation(experiment(Tolerance=1e-06),startTime = 15430000, stopTime=15472000,
+  annotation(experiment(Tolerance=1e-06),
   __Dymola_Commands(file="HeatingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
     Documentation(
