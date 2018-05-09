@@ -309,7 +309,7 @@ The order of the connections and the order of the arguments in the
 ``connect`` statement does not matter.
 
 [For example, to connect an input ``u`` of an instance ``gain`` to the output
-``y`` of an instance ``timer``, one would declare
+``y`` of an instance ``maxValue``, one would declare
 
 .. code-block:: modelica
 
@@ -373,7 +373,7 @@ CDL allows building composite blocks such as shown in
 .. figure:: img/cdl/CustomPWithLimiter.*
    :width: 500px
 
-   Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
+   Example of a composite control block that outputs :math:`y = \min( k \, e, \, y_{max})`
    where :math:`k` is a parameter.
 
 
