@@ -428,14 +428,14 @@ CDL has sufficient information for tools that process CDL to
 generate for example point lists that list all analog temperature sensors,
 or to verify that a pressure control signal is not connected to a temperature
 input of a controller.
-Some, but not all, of these information can be inferred from the CDL language described above.
+Some, but not all, of this information can be inferred from the CDL language described above.
 We will use tags, implemented through Modelica vendor annotations,
 to provide this additional information.
 In :numref:`sec_inf_pro`, we will explain the properties that can be inferred,
 and in :numref:`sec_tag_pro`, we will explain how to use
 tagging schemes in CDL.
 
-.. note:: None of these information affects the computation of a control signal.
+.. note:: None of this information affects the computation of a control signal.
           Rather, it can be used for example to facilitate the implementation of cost estimation tools,
           or to detect incorrect connections between outputs and inputs.
 
@@ -489,7 +489,7 @@ The buildings industry uses different tagging schemes such as
 Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
 CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
 
-CDL allows to tag declarations that instantiate
+CDL allows to add tags to declarations that instantiate
 
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
