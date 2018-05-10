@@ -31,13 +31,13 @@ Syntax
 ^^^^^^
 
 In order to use CDL with building energy simulation programs,
-and to not invent yet another language with new syntax, we will use
+and to not invent yet another language with new syntax, we use
 a subset of the Modelica 3.3 specification
 for the implementation of CDL :cite:`Modelica2012:1`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
-violates the Modelica Standard is added, thereby allowing users
+violates the Modelica Standard has been added, thereby allowing users
 to view, modify and simulate CDL-conformant control sequences with any
 Modelica-compliant simulation environment.
 
@@ -141,7 +141,7 @@ outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
 
 .. math::
 
-   (p, t, u(t), x(t)) \to (y(t), x'(t)).
+   (p, t, u(t), x(t)) \mapsto (y(t), x'(t)).
 
 Control providers who support CDL need to be able to implement the same
 functionality as is provided by the elementary CDL blocks.
@@ -225,7 +225,7 @@ In the assignment of ``parameters``, calculations are allowed.
 
 .. code-block:: modelica
 
-   parameter Real pRel(unit="Pa") = 50 "Static pressure difference at damper";
+   parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
 
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
@@ -237,7 +237,7 @@ Instances can conditionally be removed by using an ``if`` clause.
 
 [This allows to have one implementation for an economizer control sequence
 that can be configured to take into account enthalpy rather than
-temperature. A statement would be
+temperature. An example code snippet is
 
 .. code-block:: modelica
 
@@ -291,10 +291,11 @@ Connections
 Connections connect input to output connector (:numref:`sec_connectors`).
 For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
-For vectorized connectors, each element of an input connector needs to be connected
-to exactly one (element of) an output connector.
+For vectorized connectors, each (element of an) input connector needs to be connected
+to exactly one (element of an) output connector.
 Vectorized input connectors can be connected to vectorized output connectors
-if they have the same number of elements.
+using one connection statement provided that
+they have the same number of elements.
 
 Connections are listed after the instantiation of the blocks in an equation
 section. The syntax is
@@ -357,8 +358,8 @@ Modelica 3.3 Specifications
 * 18.8 Annotations for Version Handling
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
-input and output signal connections, and declare
-vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
+input and output signal connections, and to declare
+vendor annotations (Sec. 18.1 in Modelica 3.3 Specification).]
 
 .. _sec_com_blo:
 
@@ -464,11 +465,11 @@ Therefore, tools that process CDL can infer the following information:
 
 * Numerical value:
   :term:`Binary value <Binary Value>`
-  (which in CDL are represented by a ``Boolean`` data types),
+  (which in CDL is represented by a ``Boolean`` data type),
   :term:`analog value <Analog Value>`,
-  (which in CDL are represented by a ``Real`` data type)
+  (which in CDL is represented by a ``Real`` data type)
   :term:`mode <Mode>`
-  (which in CDL are presented by an ``Integer`` data type or an enumeration,
+  (which in CDL is presented by an ``Integer`` data type or an enumeration,
   which allow for example encoding of the
   ASHRAE Guideline 36 Freeze Protection which has 4 stages).
 * Source: Hardware point or software point.
@@ -526,7 +527,7 @@ that :math:`y_1` ``controls`` a fan speed and :math:`y_2` ``controls``
 a heating valve, where ``controls`` is the Brick relationship.
 Therefore, we allow the ``brick_annotation`` to only be at the
 block level, but not at the level of instances of input or output
-signals.
+connectors.
 
 For example, the Brick specification
 
@@ -591,12 +592,9 @@ can be declared in CDL as
 
 
 Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
-but CDL will ignore it. [This avoids potential conflict for entities that
+but for control purposes CDL will ignore it. [This avoids potential conflict for entities that
 are declared differently in Brick (or Haystack) and CDL, and may be conflicting.
 For example, the above sensor input declares in Haystack that it belongs
 to an ahu3. CDL, however, has a different syntax to declare such dependencies:
-In CDL, the instance that declares this sensor
-input already unambiguously declares to what entity it belongs to, and the
-sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
-Furthermore, in CDL, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
+In CDL, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
