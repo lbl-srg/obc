@@ -30,13 +30,16 @@ The next sections explain the elements of CDL.
 Syntax
 ^^^^^^
 
-In order to easily process CDL, we will use
+In order to use CDL with building energy simulation programs,
+and to not invent yet another language with new syntax, we use
 a subset of the Modelica 3.3 specification
 for the implementation of CDL :cite:`Modelica2012:1`.
-The syntax is a minimum subset of Modelica as needed to instantiate
+The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no other information that
-violates the Modelica Standard is added.
+violates the Modelica Standard has been added, thereby allowing users
+to view, modify and simulate CDL-conformant control sequences with any
+Modelica-compliant simulation environment.
 
 To simplify the support of CDL for tools and control systems,
 the following Modelica keywords are not supported in CDL:
@@ -53,7 +56,6 @@ Also, the following Modelica language features are not supported in CDL:
    models as far as CDL is concerned and thus CDL compliant tools need
    not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
-#. package-level declaration of ``constant`` data types.
 
 
 .. _sec_cld_per_typ:
@@ -67,9 +69,12 @@ parameters of type
 [Parameters do not change their value as time progress.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type ``parameter``
-or type ``constant``.
-Variables are not allowed [they are used however in the elementary building blocks].
+instances of blocks, or declarations of type ``parameter``,
+``constant``, or ``enumeration``.
+Variables are not allowed.
+[Variables are used in the elementary building blocks,
+but these can only be used as inputs to other blocks if they are declared
+as an output.]
 
 The declaration of such types is identical to the declaration
 in Modelica.
@@ -106,7 +111,7 @@ Encapsulation of Functionality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All computations are encapsulated in a ``block``.
-Blocks exposes parameters (used to configure
+Blocks expose parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
 
@@ -124,10 +129,30 @@ Elementary Building Blocks
 
    Screenshot of CDL library.
 
-The CDL contains elementary building blocks that are used to compose
+The CDL library contains elementary building blocks that are used to compose
 control sequences.
 The functionality of elementary building blocks, but not their implementation,
-is part of the CDL specification. Hence, users are not allowed to add
+is part of the CDL specification.
+Thus, in the most general form, elementary building blocks can be considered
+as functions that for given parameters :math:`p`,
+time :math:`t` and internal state :math:`x(t)`,
+map inputs :math:`u(t)` to new values for the
+outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
+
+.. math::
+
+   (p, t, u(t), x(t)) \mapsto (y(t), x'(t)).
+
+Control providers who support CDL need to be able to implement the same
+functionality as is provided by the elementary CDL blocks.
+
+
+[CDL implementations are allowed to use a different implementation of the elementary
+building blocks, because the implementation is language specific. However,
+implementations shall have the same inputs, outputs and parameters, and
+they shall compute the same response for the same value of inputs and state variables.]
+
+Users are not allowed to add
 new elementary building blocks. Rather, users can use them to implement
 composite blocks (:numref:`sec_com_blo`).
 
@@ -144,12 +169,8 @@ composite blocks (:numref:`sec_com_blo`).
        All models in the `Examples` and `Validation` packages can be simulated with these tools.
        They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
 
-[CDL implementations are allowed to use a different implementation of the elementary
-building blocks, because the implementation is language specific. However,
-implementations shall have the same inputs, outputs and parameters, and
-they shall compute the same response for the same value of inputs and state variables.]
-
-An actual implementation looks as follows, where we omitted the annotations that are
+An actual implementation of an elementary building block
+looks as follows, where we omitted the annotations that are
 used for graphical rendering:
 
 .. code-block:: modelica
@@ -193,8 +214,8 @@ Instantiation is identical to Modelica.
 
    Continuous.Gain myGain(k=-1) "Constant gain of -1" annotation(...);
 
-where the documentation string and the annotation are both optional.
-The optional annotations is typically used
+where the documentation string is optional.
+The annotations is typically used
 for the graphical positioning of the instance in a block-diagram.
 ]
 
@@ -204,7 +225,7 @@ In the assignment of ``parameters``, calculations are allowed.
 
 .. code-block:: modelica
 
-   parameter Real pRel(unit="Pa") = 50 "Static pressure difference at damper";
+   parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
 
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
@@ -216,7 +237,7 @@ Instances can conditionally be removed by using an ``if`` clause.
 
 [This allows to have one implementation for an economizer control sequence
 that can be configured to take into account enthalpy rather than
-temperature. A statement would be
+temperature. An example code snippet is
 
 .. code-block:: modelica
 
@@ -236,9 +257,16 @@ Connectors
 ^^^^^^^^^^
 
 Blocks expose their inputs and outputs through input and output
-connectors. The permissible connectors are defined in the
-`CDL.Interfaces package
-<http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Interfaces.html#Buildings.Controls.OBC.CDL.Interfaces>`_.
+connectors.
+
+The permissible connectors are implemented in the package
+``CDL.Interfaces``, and are
+``BooleanInput``, ``BooleanOutput``,
+``DayTypeInput``, ``DayTypeOutput``,
+``IntegerInput``, ``IntegerOutput``,
+``RealInput`` and ``RealOutput``.
+``DayType`` is an ``enumeration`` for working day,
+non-working day and holiday.
 
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
@@ -251,7 +279,7 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
 
-Hence, unlike in Modelica 3.2, we do not allow for automatic vectorization
+Hence, unlike in Modelica 3.3, we do not allow for automatic vectorization
 of input signals.
 ]
 
@@ -261,8 +289,14 @@ Connections
 ^^^^^^^^^^^
 
 Connections connect input to output connector (:numref:`sec_connectors`).
-Each input connector of a block needs to be connected to exactly
+For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
+For vectorized connectors, each (element of an) input connector needs to be connected
+to exactly one (element of an) output connector.
+Vectorized input connectors can be connected to vectorized output connectors
+using one connection statement provided that
+they have the same number of elements.
+
 Connections are listed after the instantiation of the blocks in an equation
 section. The syntax is
 
@@ -270,13 +304,13 @@ section. The syntax is
 
    connect(port_a, port_b) annotation(...);
 
-where ``annotation(...)`` is optional and may be used to declare
-the graphical rendering of the connection.
+where ``annotation(...)`` is used to declare
+the graphical rendering of the connection (see :numref:`sec_annotations`).
 The order of the connections and the order of the arguments in the
 ``connect`` statement does not matter.
 
 [For example, to connect an input ``u`` of an instance ``gain`` to the output
-``y`` of an instance ``timer``, one would declare
+``y`` of an instance ``maxValue``, one would declare
 
 .. code-block:: modelica
 
@@ -288,9 +322,9 @@ The order of the connections and the order of the arguments in the
 
 ]
 
-Signals shall be connected using a ``connect`` statement;
-directly assigning the values of signals when instantiating
-signals is not allowed.
+Signals shall be connected using a \code{connect} statement;
+assigning the value of a signal in the instantiation of the
+output connnector is not allowed.
 
 [This ensures that all control sequences are expressed as block diagrams.
 For example, the following model is valid
@@ -308,6 +342,8 @@ whereas the following implementation is not valid in CDL, although it is valid i
 
 ]
 
+.. _sec_annotations:
+
 Annotations
 ^^^^^^^^^^^
 
@@ -322,8 +358,8 @@ Modelica 3.3 Specifications
 * 18.8 Annotations for Version Handling
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
-input and output signal connections, and declare
-vendor annotation (Sec. 18.1 in Modelica 3.3 Specification).]
+input and output signal connections, and to declare
+vendor annotations (Sec. 18.1 in Modelica 3.3 Specification).]
 
 .. _sec_com_blo:
 
@@ -338,7 +374,7 @@ CDL allows building composite blocks such as shown in
 .. figure:: img/cdl/CustomPWithLimiter.*
    :width: 500px
 
-   Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
+   Example of a composite control block that outputs :math:`y = \min( k \, e, \, y_{max})`
    where :math:`k` is a parameter.
 
 
@@ -393,14 +429,14 @@ CDL has sufficient information for tools that process CDL to
 generate for example point lists that list all analog temperature sensors,
 or to verify that a pressure control signal is not connected to a temperature
 input of a controller.
-Some, but not all, of these information can be inferred from the CDL language described above.
+Some, but not all, of this information can be inferred from the CDL language described above.
 We will use tags, implemented through Modelica vendor annotations,
 to provide this additional information.
 In :numref:`sec_inf_pro`, we will explain the properties that can be inferred,
 and in :numref:`sec_tag_pro`, we will explain how to use
 tagging schemes in CDL.
 
-.. note:: None of these information affects the computation of a control signal.
+.. note:: None of this information affects the computation of a control signal.
           Rather, it can be used for example to facilitate the implementation of cost estimation tools,
           or to detect incorrect connections between outputs and inputs.
 
@@ -429,15 +465,15 @@ Therefore, tools that process CDL can infer the following information:
 
 * Numerical value:
   :term:`Binary value <Binary Value>`
-  (which in CDL are represented by a ``Boolean`` data types),
+  (which in CDL is represented by a ``Boolean`` data type),
   :term:`analog value <Analog Value>`,
-  (which in CDL are represented by a ``Real`` data type)
+  (which in CDL is represented by a ``Real`` data type)
   :term:`mode <Mode>`
-  (which in CDL are presented by an ``Integer`` data type or an enumeration,
+  (which in CDL is presented by an ``Integer`` data type or an enumeration,
   which allow for example encoding of the
-  ASHRAE Guidline 36 Freeze Protection which has 4 stages).
+  ASHRAE Guideline 36 Freeze Protection which has 4 stages).
 * Source: Hardware point or software point.
-* Quantity: such as Temperature, Pressure, Humidity, Speed or Command/Request/Status
+* Quantity: such as Temperature, Pressure, Humidity or Speed.
 * Unit: Unit and preferred display unit. (The display unit
   can be overwritten by a tool. This allows for example a control vendor
   to use the same sequences in North America displaying IP units, and in
@@ -454,7 +490,7 @@ The buildings industry uses different tagging schemes such as
 Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
 CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
 
-CDL allows to tag declarations that instantiate
+CDL allows to add tags to declarations that instantiate
 
 * elementary building blocks (:numref:`sec_ele_bui_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
@@ -491,7 +527,7 @@ that :math:`y_1` ``controls`` a fan speed and :math:`y_2` ``controls``
 a heating valve, where ``controls`` is the Brick relationship.
 Therefore, we allow the ``brick_annotation`` to only be at the
 block level, but not at the level of instances of input or output
-signals.
+connectors.
 
 For example, the Brick specification
 
@@ -556,12 +592,9 @@ can be declared in CDL as
 
 
 Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
-but CDL will ignore it. [This avoids potential conflict for entities that
+but for control purposes CDL will ignore it. [This avoids potential conflict for entities that
 are declared differently in Brick (or Haystack) and CDL, and may be conflicting.
 For example, the above sensor input declares in Haystack that it belongs
 to an ahu3. CDL, however, has a different syntax to declare such dependencies:
-In CDL, the instance that declares this sensor
-input already unambiguously declares to what entity it belongs to, and the
-sensor input will automatically get the full name ``whitehouse.ahu3.TSup``.
-Furthermore, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
+In CDL, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
 a tool can infer what upstream component sends the input signal.]
