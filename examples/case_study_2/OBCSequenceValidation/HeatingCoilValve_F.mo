@@ -32,7 +32,7 @@ block HeatingCoilValve_F
     "Minimum controller signal"
     annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.Time Ti = 10 * k / (0.5/100)
+  parameter Modelica.SIunits.Time Ti = 15 * k / (0.5/100)
     "Time constant of modulation controller integrator block"
     annotation (Dialog(
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -95,15 +95,11 @@ block HeatingCoilValve_F
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID TSupCon(
-    final controllerType=controllerType,
-    final k=k,
-    final Ti=Ti,
-    final Td=Td,
-    final yMax=uMax,
-    final yMin=uMin,
-    final reverseAction=revAct,
-    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
+  alcPI                                        TSupCon(
+    k_p=0.05,
+    k_i=0.005,
+    interval=15,
+    final reverseAction=true)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
