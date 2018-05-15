@@ -1,0 +1,8 @@
+simulateModel("OBCSequenceValidation.Validation.HeatingCoilValve_ValidationWithB33Data_alc", method="Euler", fixedstepsize=15,  startTime=7905077, stopTime=8509877, outputInterval=1, tolerance=1e-06, resultFile="HeatingCoilValve_ValidationWithB33Data_alc");
+
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Recorded trends as input signals to an OBC heating valve control sequence", axes = {1,1,1,2}, y={"heaValSta_F_alc.TSup", "heaValSta_F_alc.TSupSet", "heaValSta_F_alc.TOut", "heaValSta_F_alc.uSupFan"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {50,205,50},{216,191,216}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "OBC output heating valve signal and the corresponding recorded trend", axes = {2,2}, y={"percConvHeaValSig.y", "heaValSta_F_alc.yHeaVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{0,0,127}});
+
+
+// startTime = 7905077: 1/8/2018 00:00:00 PST (Mon)
+// endTime = startTime + a week is 8509877
