@@ -57,14 +57,14 @@ model HeatingCoilValve_ValidationWithB33Data_alc
 
   Modelica.Blocks.Sources.CombiTimeTable EnableDisableSignals(
     tableOnFile=true,
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_Manualy_Created_Enable_Statuses.mos"),
     columns={2,3,4},
-    tableName="33-HC-22_Manualy_Created_Enable_Statuses")
+    tableName="33-HC-22_Manualy_Created_Enable_Statuses",
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
                      "\"Flow on, manual vverride and heating required status signals\""
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -72,12 +72,7 @@ model HeatingCoilValve_ValidationWithB33Data_alc
     "\"Convert from % to 0 - 1 range\""
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  HeatingCoilValve_F_alc heaValSta_F_alc(
-    genEna=true,
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.5,
-    Ti(displayUnit="s"),
-    revAct=true) "Heating valve position control sequence"
+  HeatingCoilValve_F_alc heaValSta_F_alc "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold flowOn(threshold=1)
@@ -139,7 +134,7 @@ model HeatingCoilValve_ValidationWithB33Data_alc
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(k=5/9, p=-(5*32)/9)
     "\"FtoC\""
-    annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1,
     y(unit="F"),
@@ -185,12 +180,12 @@ equation
     annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}},
                                                                     color={0,0,127}));
   connect(TOut_F.y[1], TOutUniCon.u)
-    annotation (Line(points={{-119,-20},{-110,-20},{-110,-10},{-104,-10}},
+    annotation (Line(points={{-119,-20},{-110,-20},{-110,-10},{-102,-10}},
                                                                     color={0,0,127}));
   connect(TSupSetUniCon.y, timSerInp.y[2]) annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
           {24,70},{98,70}},     color={0,0,127}));
   connect(TOutUniCon.y, timSerInp.y[3])
-    annotation (Line(points={{-81,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
+    annotation (Line(points={{-79,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
                                                                           color={0,0,127}));
   connect(TSupSetpoint_F.y[1], heatingTSupSetpoint.u)
     annotation (Line(points={{-119,20},{-110,20},{-110,10},{-72,10}},

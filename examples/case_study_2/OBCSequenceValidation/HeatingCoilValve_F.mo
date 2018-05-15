@@ -100,11 +100,12 @@ block HeatingCoilValve_F
     "Dummy input if the generic enable/disable signal is not used."
     annotation (Placement(transformation(extent={{-98,-92},{-78,-72}})));
 
-  alcPI                                        TSupCon(
-    k_p=0.05,
-    k_i=0.005,
-    interval=15,
-    final reverseAction=true)
+  Buildings.Controls.OBC.CDL.Continuous.LimPID TSupCon(
+    k=k,
+    Ti=Ti,
+    yMax=uMax,
+    yMin=uMin,
+    final reverseAction=revAct)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinLowLim)
