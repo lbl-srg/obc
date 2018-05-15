@@ -72,6 +72,24 @@ equation
   connect(intGain.y, pro.u2) annotation (Line(points={{-19,30},{-10,30},{-10,50},{-50,50},{-50,64},{
           -42,64}}, color={0,0,127}));
   connect(pro.y, integrator.u) annotation (Line(points={{-19,70},{-2,70}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(
-          preserveAspectRatio=false)));
+  annotation (
+    defaultComponentName = "alc_PI",
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(points={{20,58}}, color={28,108,200}),
+        Text(
+          extent={{-108,138},{102,110}},
+          lineColor={0,0,127},
+          textString="%name")}),
+  Diagram(coordinateSystem(
+          preserveAspectRatio=false)), Icon(graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
+
 end alcPI;

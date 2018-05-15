@@ -213,6 +213,53 @@ First implementation.
             textString="Operation within the lower limit TSup range.")}));
   end HeatingCoilValve_TSup_TSupSet_TOut_uSupFan;
 
+  block alcPI_test
+    alcPI alcPI1(
+      k_p=0.05,
+      k_i=0.005,
+      reverseAction=true,
+      interval=15) annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=66)
+      "Supply air temperature"
+      annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet(final k=67)
+      "Supply air temperature setpoint"
+      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  equation
+    connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-39,50},{-22,50}}, color={0,0,127}));
+    connect(uTSup.y, alcPI1.u_m)
+      annotation (Line(points={{-39,10},{-10,10},{-10,38},{-10,38}}, color={0,0,127}));
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Ellipse(lineColor = {75,138,73},
+                  fillColor={255,255,255},
+                  fillPattern = FillPattern.Solid,
+                  extent = {{-100,-100},{100,100}}),
+          Polygon(lineColor = {0,0,255},
+                  fillColor = {75,138,73},
+                  pattern = LinePattern.None,
+                  fillPattern = FillPattern.Solid,
+                  points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(coordinateSystem(
+            preserveAspectRatio=false)));
+  annotation (experiment(StopTime=150.0, Tolerance=1e-06),
+      Documentation(
+      info="<html>
+<p>
+This model validates the temporary implementation of a PI controller with 
+fixed timestep integration.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+April 10, Milica Grahovac<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  //  __Dymola_Commands(file="HeatingCoilValve_TSup_TSupSet_TOut_uSupFan1.mos"
+  //    "Simulate and plot"),
+  end alcPI_test;
+
 annotation (Documentation(info="<html>
 <p>
 This package contains models that validate the district heating and cooling models.

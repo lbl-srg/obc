@@ -95,6 +95,11 @@ block HeatingCoilValve_F
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant trueSignal(
+    final k=true) if not genEna
+    "Dummy input if the generic enable/disable signal is not used."
+    annotation (Placement(transformation(extent={{-98,-92},{-78,-72}})));
+
   alcPI                                        TSupCon(
     k_p=0.05,
     k_i=0.005,
@@ -102,12 +107,6 @@ block HeatingCoilValve_F
     final reverseAction=true)
     "Contoller that outputs a signal based on the error between the measured SAT and SAT heating setpoint"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant trueSignal(
-    final k=true) if not genEna
-    "Dummy input if the generic enable/disable signal is not used."
-    annotation (Placement(transformation(extent={{-98,-92},{-78,-72}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinLowLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
