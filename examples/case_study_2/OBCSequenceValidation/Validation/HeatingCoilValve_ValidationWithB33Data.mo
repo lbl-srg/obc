@@ -78,7 +78,7 @@ model HeatingCoilValve_ValidationWithB33Data
     revAct=false,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.5,
-    Ti(displayUnit="s") = 100000000000000)
+    Ti(displayUnit="s"))
     "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
@@ -145,8 +145,9 @@ model HeatingCoilValve_ValidationWithB33Data
     annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
 
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1, p=-1,
-    y(unit="F"))
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter heatingTSupSetpoint(k=1,
+    y(unit="F"),
+    p=-1)
     "\"Heating SAT setpoint is 1F lower than the SAT setpoint\""
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 equation
