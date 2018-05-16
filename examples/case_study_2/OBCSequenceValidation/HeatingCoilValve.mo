@@ -1,6 +1,6 @@
 within OBCSequenceValidation;
 block HeatingCoilValve
-  "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+  "fixme: broken Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Boolean genEna = true
     "Generic enable disable input"

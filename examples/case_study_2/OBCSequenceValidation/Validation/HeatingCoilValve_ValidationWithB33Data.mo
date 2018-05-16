@@ -76,7 +76,6 @@ model HeatingCoilValve_ValidationWithB33Data
                    heaValSta_F(
     genEna=true,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.5,
     Ti(displayUnit="s"),
     revAct=false) "Heating valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

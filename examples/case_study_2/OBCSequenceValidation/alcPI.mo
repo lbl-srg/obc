@@ -41,22 +41,31 @@ block alcPI "ALC implementation of a PI controller"
   Buildings.Controls.OBC.CDL.Continuous.Add addPI
     "Sums proportional and integral parts of the controller signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset integrator(reset=Buildings.Controls.OBC.CDL.Types.Reset.Disabled)
-    "Cumulates input signals" annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse sampler(period=interval, width=1/interval)
-    "Integral error sampler" annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
 protected
   parameter Real ra = if reverseAction then -1 else 1
     "Reverse action multiplier";
 
+public
+  Buildings.Controls.OBC.CDL.Discrete.Sampler sam(samplePeriod=interval)
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=interval)
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add error1
+    "Absolute difference between the measurement and the setpoint"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{8,10},{28,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput Go
+    "If off, the integral part of the error is ignored" annotation (Placement(transformation(extent
+          ={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
   connect(u_m, error.u2)
-    annotation (Line(points={{0,-120},{0,-80},{-88,-80},{-88,-6},{-82,-6}}, color={0,0,127}));
+    annotation (Line(points={{0,-120},{0,-80},{-90,-80},{-90,-6},{-82,-6}}, color={0,0,127}));
   connect(u_s, error.u1)
-    annotation (Line(points={{-120,0},{-88,0},{-88,6},{-82,6}}, color={0,0,127}));
+    annotation (Line(points={{-120,0},{-90,0},{-90,6},{-82,6}}, color={0,0,127}));
   connect(y, limiter.y) annotation (Line(points={{110,0},{91,0}}, color={0,0,127}));
   connect(error.y, proGain.u)
     annotation (Line(points={{-59,0},{-50,0},{-50,-30},{-42,-30}}, color={0,0,127}));
@@ -65,13 +74,20 @@ equation
   connect(limiter.u, addPI.y) annotation (Line(points={{68,0},{61,0}}, color={0,0,127}));
   connect(error.y, intGain.u)
     annotation (Line(points={{-59,0},{-50,0},{-50,30},{-42,30}}, color={0,0,127}));
-  connect(integrator.y, addPI.u1)
-    annotation (Line(points={{21,70},{30,70},{30,6},{38,6}}, color={0,0,127}));
-  connect(sampler.y, pro.u1)
-    annotation (Line(points={{-59,70},{-50,70},{-50,76},{-42,76}}, color={0,0,127}));
-  connect(intGain.y, pro.u2) annotation (Line(points={{-19,30},{-10,30},{-10,50},{-50,50},{-50,64},{
-          -42,64}}, color={0,0,127}));
-  connect(pro.y, integrator.u) annotation (Line(points={{-19,70},{-2,70}}, color={0,0,127}));
+  connect(intGain.y, sam.u) annotation (Line(points={{-19,30},{-10,30},{-10,50},{-50,50},{-50,70},{
+          -42,70}}, color={0,0,127}));
+  connect(zerOrdHol.u, error1.y) annotation (Line(points={{38,70},{21,70}}, color={0,0,127}));
+  connect(sam.y, error1.u2)
+    annotation (Line(points={{-19,70},{-10,70},{-10,64},{-2,64}}, color={0,0,127}));
+  connect(zerOrdHol.y, error1.u1)
+    annotation (Line(points={{61,70},{70,70},{70,90},{-10,90},{-10,76},{-2,76}}, color={0,0,127}));
+  connect(addPI.u1, pro.y)
+    annotation (Line(points={{38,6},{34,6},{34,20},{29,20}}, color={0,0,127}));
+  connect(zerOrdHol.y, pro.u1)
+    annotation (Line(points={{61,70},{70,70},{70,50},{0,50},{0,26},{6,26}}, color={0,0,127}));
+  connect(Go, booToRea.u) annotation (Line(points={{-120,-60},{-82,-60}}, color={255,0,255}));
+  connect(pro.u2, booToRea.y)
+    annotation (Line(points={{6,14},{0,14},{0,-60},{-59,-60}}, color={0,0,127}));
   annotation (
     defaultComponentName = "alc_PI",
     Icon(graphics={

@@ -144,12 +144,12 @@ model HeatingCoilValve_ValidationWithB33Data_alc
 equation
   connect(EnableDisableSignals.y[1], flowOn.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-40},{-102,-40}}, color={0,0,127}));
-  connect(flowOn.y, heaValSta_F_alc.uSupFan) annotation (Line(points={{-79,-40},{-10,-40},{-10,24},{
-          -10,24},{-10,25},{19,25}}, color={255,0,255}));
+  connect(flowOn.y, heaValSta_F_alc.uSupFan) annotation (Line(points={{-79,-40},{-10,-40},{-10,25},
+          {19,25}},                  color={255,0,255}));
   connect(TSupply_F.y[1], heaValSta_F_alc.TSup)
     annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
-  connect(TOut_F.y[1], heaValSta_F_alc.TOut) annotation (Line(points={{-119,-20},{-36,-20},{-36,32},
-          {-36,32},{-36,33},{19,33}}, color={0,0,127}));
+  connect(TOut_F.y[1], heaValSta_F_alc.TOut) annotation (Line(points={{-119,-20},{-36,-20},{-36,33},
+          {19,33}},                   color={0,0,127}));
   connect(EnableDisableSignals.y[2], manOver.u)
     annotation (Line(points={{-119,-60},{-110,-60},{-110,-70},{-102,-70}}, color={0,0,127}));
   connect(EnableDisableSignals.y[3], heaReq.u)
@@ -167,8 +167,8 @@ equation
     annotation (Line(points={{41,30},{60,30},{60,-36},{98,-36}}, color={0,0,127}));
   connect(percConvHeaValSig.y, delta.u1)
     annotation (Line(points={{-79,90},{80,90},{80,-24},{98,-24}}, color={0,0,127}));
-  connect(heaValSta_F_alc.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,30},{50,30},{50,104},
-          {50,104},{50,105},{96,105}}, color={0,0,127}));
+  connect(heaValSta_F_alc.yHeaVal, timSerRes.y[1]) annotation (Line(points={{41,30},{50,30},{50,105},
+          {96,105}},                   color={0,0,127}));
   connect(percConvHeaValSig.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{-40,90},{-40,108},
           {50,108},{50,106},{96,106},{96,103}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
@@ -193,7 +193,7 @@ equation
   connect(heatingTSupSetpoint.y, heaValSta_F_alc.TSupSet)
     annotation (Line(points={{-49,10},{-16,10},{-16,37},{19,37}}, color={0,0,127}));
   connect(heaValSta_F_alc.yHeaVal, correlation.y[1])
-    annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
+    annotation (Line(points={{41,30},{98,30}},                 color={0,0,127}));
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),

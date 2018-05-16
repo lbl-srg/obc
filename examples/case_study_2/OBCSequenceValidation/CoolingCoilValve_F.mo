@@ -144,7 +144,7 @@ block CoolingCoilValve_F
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-36,-30},{-16,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min
+  Buildings.Controls.OBC.CDL.Continuous.Max max
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
@@ -164,14 +164,10 @@ equation
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
     annotation (Line(points={{-62,-28},{-70,-28},{-70,-82},{-77,-82}}, color={255,0,255}));
-  connect(yCooValHighLim.y, min1.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{30,0},{30,
-          44},{38,44}}, color={0,0,127}));
   connect(andEna.y, booToRea.u) annotation (Line(points={{-39,-20},{-38,-20}}, color={255,0,255}));
-  connect(booToRea.y, min.u2)
-    annotation (Line(points={{-15,-20},{0,-20},{0,14},{78,14}}, color={0,0,127}));
-  connect(yCooVal, min.y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
+  connect(yCooVal,max. y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
                                                                        color={0,0,127}));
-  connect(min.u1, min1.y)
+  connect(max.u1, min1.y)
     annotation (Line(points={{78,26},{70,26},{70,50},{61,50}}, color={0,0,127}));
   connect(TSup, TSupCon.u_m) annotation (Line(points={{-140,40},{-30,40},{-30,76},{-30,76},{-30,78},
           {-30,78}}, color={0,0,127}));
@@ -184,6 +180,10 @@ equation
     annotation (Line(points={{21,-58},{26,-58},{26,-22},{78,-22}}, color={0,0,127}));
   connect(yCooValMin.y, yCooValHighLim.f1)
     annotation (Line(points={{21,-90},{30,-90},{30,-26},{78,-26}}, color={0,0,127}));
+  connect(booToRea.y, min1.u2)
+    annotation (Line(points={{-15,-20},{0,-20},{0,44},{38,44}}, color={0,0,127}));
+  connect(yCooValHighLim.y, max.u2) annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,
+          14},{78,14}}, color={0,0,127}));
   annotation (
     defaultComponentName = "cooValSta_F",
     Icon(graphics={

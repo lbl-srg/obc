@@ -162,8 +162,6 @@ equation
     annotation (Line(points={{-49,-70},{-46,-70},{-46,-80},{-42,-80}}, color={255,0,255}));
   connect(cooReq.y, enable1.u2)
     annotation (Line(points={{-79,-100},{-60,-100},{-60,-88},{-42,-88}}, color={255,0,255}));
-  connect(enable1.y,cooValSta_F. uEnable)
-    annotation (Line(points={{-19,-80},{0,-80},{0,20},{19,20}}, color={255,0,255}));
   connect(TSupply_F.y[1], TSupUniCon.u)
     annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}},
                                                                     color={0,0,127}));
@@ -181,11 +179,11 @@ equation
     annotation (Line(points={{-81,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
     color={0,0,127}));
   connect(cooValSta_F.yCooVal, timSerRes.y[1])
-    annotation (Line(points={{41,32},{50,32},{50,101},{98,101}}, color={0,0,127}));
+    annotation (Line(points={{41,30},{50,30},{50,101},{98,101}}, color={0,0,127}));
   connect(cooValSta_F.yCooVal, delta.u2)
-    annotation (Line(points={{41,32},{60,32},{60,-36},{98,-36}}, color={0,0,127}));
+    annotation (Line(points={{41,30},{60,30},{60,-36},{98,-36}}, color={0,0,127}));
   connect(cooValSta_F.yCooVal, correlation.y[1])
-    annotation (Line(points={{41,32},{70,32},{70,30},{98,30}}, color={0,0,127}));
+    annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
   connect(percConvCooValSig.y, timSerRes.y[2])
     annotation (Line(points={{-79,90},{8,90},{8,99},{98,99}},   color={0,0,127}));
   connect(percConvCooValSig.y, correlation.x)
@@ -198,6 +196,8 @@ equation
           -26,36},{-26,36},{-26,37},{19,37}}, color={0,0,127}));
   connect(TSupSetpoint_F.y[1], coolingTSupSetpoint.u)
     annotation (Line(points={{-119,20},{-96,20},{-96,10},{-72,10}}, color={0,0,127}));
+  connect(enable1.y, cooValSta_F.uEnable)
+    annotation (Line(points={{-19,-80},{0,-80},{0,20},{19,20}}, color={255,0,255}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
