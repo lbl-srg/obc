@@ -60,8 +60,6 @@ block HeatingCoilValve
     "Maximum supply air temperature for defining the lower limit of the valve position (45 F)"
     annotation(Evaluate=true);
 
-
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnable if genEna
     "Misc enable-disable signal"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}), iconTransformation(

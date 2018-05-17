@@ -5,17 +5,29 @@ package Validation "Package with models for the validation of the OBC validation
       k_p=0.05,
       k_i=0.005,
       reverseAction=true,
-      interval=15) annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+      interval=15) annotation (Placement(transformation(extent={{40,0},{60,20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=66)
       "Supply air temperature"
-      annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet(final k=67)
       "Supply air temperature setpoint"
-      annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+      annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul(
+                                                            width=0.6, period=100)
+      annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   equation
-    connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-39,50},{-22,50}}, color={0,0,127}));
+    connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-19,70},{10,70},{10,16},{38,16}},
+                                                                                 color={0,0,127}));
     connect(uTSup.y, alcPI1.u_m)
-      annotation (Line(points={{-39,10},{-10,10},{-10,38},{-10,38}}, color={0,0,127}));
+      annotation (Line(points={{-19,-50},{50,-50},{50,-2}},          color={0,0,127}));
+  //  __Dymola_Commands(file="HeatingCoilValve_TSup_TSupSet_TOut_uSupFan1.mos"
+  //    "Simulate and plot"),
+  connect(alcPI1.intErrSta, booPul.y)
+    annotation (Line(points={{38,8},{0,8},{0,30},{-19,30}}, color={255,0,255}));
+  connect(alcPI1.holdIntError, holdIntError.y)
+    annotation (Line(points={{38,2},{10,2},{10,-10},{-19,-10}}, color={255,0,255}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},
@@ -26,8 +38,8 @@ package Validation "Package with models for the validation of the OBC validation
                   pattern = LinePattern.None,
                   fillPattern = FillPattern.Solid,
                   points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(coordinateSystem(
-            preserveAspectRatio=false)));
-  annotation (experiment(StopTime=150.0, Tolerance=1e-06),
+            preserveAspectRatio=false)),
+              experiment(StopTime=1000.0, Tolerance=1e-06),
       Documentation(
       info="<html>
 <p>
@@ -43,8 +55,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  //  __Dymola_Commands(file="HeatingCoilValve_TSup_TSupSet_TOut_uSupFan1.mos"
-  //    "Simulate and plot"),
   end alcPI_test;
 
   extends Modelica.Icons.ExamplesPackage;
