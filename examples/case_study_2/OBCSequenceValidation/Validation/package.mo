@@ -5,7 +5,7 @@ package Validation "Package with models for the validation of the OBC validation
       k_p=0.05,
       k_i=0.005,
       reverseAction=true,
-      interval=15) annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    interval=10)   annotation (Placement(transformation(extent={{40,0},{60,20}})));
     Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=66)
       "Supply air temperature"
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
@@ -27,7 +27,7 @@ package Validation "Package with models for the validation of the OBC validation
   connect(alcPI1.intErrSta, booPul.y)
     annotation (Line(points={{38,8},{0,8},{0,30},{-19,30}}, color={255,0,255}));
   connect(alcPI1.holdIntError, holdIntError.y)
-    annotation (Line(points={{38,2},{10,2},{10,-10},{-19,-10}}, color={255,0,255}));
+    annotation (Line(points={{38,2},{0,2},{0,-10},{-19,-10}},   color={255,0,255}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Ellipse(lineColor = {75,138,73},
                   fillColor={255,255,255},

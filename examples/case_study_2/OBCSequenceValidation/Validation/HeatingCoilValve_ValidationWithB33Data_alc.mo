@@ -191,7 +191,8 @@ equation
     annotation (Line(points={{-119,20},{-110,20},{-110,10},{-72,10}},
                                                                     color={0,0,127}));
   connect(heatingTSupSetpoint.y, heaValSta_F_alc.TSupSet)
-    annotation (Line(points={{-49,10},{-16,10},{-16,37},{19,37}}, color={0,0,127}));
+    annotation (Line(points={{-49,10},{-38,10},{-38,36},{-38,36},{-38,37},{19,37}},
+                                                                  color={0,0,127}));
   connect(heaValSta_F_alc.yHeaVal, correlation.y[1])
     annotation (Line(points={{41,30},{98,30}},                 color={0,0,127}));
   connect(heatingValveSignal.y[1], percConvHeaValSig.u)
