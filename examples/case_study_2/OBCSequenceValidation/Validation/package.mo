@@ -15,7 +15,7 @@ package Validation "Package with models for the validation of the OBC validation
     Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul(
                                                             width=0.6, period=100)
       annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=true)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   equation
     connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-19,70},{10,70},{10,16},{38,16}},
