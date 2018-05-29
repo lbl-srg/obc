@@ -1,17 +1,25 @@
 within OBCSequenceValidation;
 block alcPI "ALC implementation of a PI controller"
 
+  parameter Boolean reverseAction = false "Reverse action";
   parameter Real k_p(min=0, unit="1/F") = 1 "Proportional Gain";
   parameter Real k_i(min=0, unit="1/F") = 1 "Integral Gain";
   parameter Real interval(min = 1, unit="s") = 10
     "Interval at which integration part of the output gets updated";
-  parameter Boolean reverseAction = false
-    "Reverse action";
   parameter Real ra = if reverseAction then -1 else 1
     "Reverse action multiplier";
   parameter Real uMin = 0 "Upper limit of output";
   parameter Real uMax = 1 "Lower limit of output";
 
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput holdIntError
+    "If False, the integrator error is reset to 0 after a period of integrator inactivity"
+     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
+     iconTransformation(extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput intErrSta
+    "If False, the integral error is 0."
+    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
+    iconTransformation(extent={{-140,-40},{-100,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
     annotation (Placement(transformation(origin={0,-160}, extent={{20,-20},{-20,20}},
@@ -21,14 +29,7 @@ block alcPI "ALC implementation of a PI controller"
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput holdIntError
-    "If False, the integrator error is reset to 0 after a period of integrator inactivity"
-     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-     iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput intErrSta
-    "If False, the integral error is 0."
-    annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-    iconTransformation(extent={{-140,-40},{-100,0}})));
+
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
@@ -124,7 +125,7 @@ equation
           textString="%name")}),
   Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
-                                       Icon(graphics={Rectangle(
+          Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={255,255,255},
