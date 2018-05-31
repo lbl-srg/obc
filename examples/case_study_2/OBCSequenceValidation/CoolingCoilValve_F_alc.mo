@@ -52,12 +52,12 @@ block CoolingCoilValve_F_alc
   parameter Real TSatMinHighLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 42
-    "Minimum supply air temperature for defining the lower limit of the valve position"
+    "Minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
   parameter Real TSatMaxHighLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 50
-    "Maximum supply air temperature for defining the lower limit of the valve position"
+    "Maximum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnable if genEna
@@ -98,7 +98,7 @@ block CoolingCoilValve_F_alc
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant trueSignal(
     final k=true) if not genEna
     "Dummy input if the generic enable/disable signal is not used."
-    annotation (Placement(transformation(extent={{-98,-90},{-78,-70}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinHighLim)
     "Low range supply air temperature low limit"
@@ -152,7 +152,7 @@ equation
     annotation (Line(points={{-140,-100},{-68,-100},{-68,-28},{-62,-28}},
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
-    annotation (Line(points={{-62,-28},{-68,-28},{-68,-80},{-77,-80}}, color={255,0,255}));
+    annotation (Line(points={{-62,-28},{-68,-28},{-68,-80},{-79,-80}}, color={255,0,255}));
   connect(yCooVal,min. y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
                                                                        color={0,0,127}));
   connect(TSupMax.y, yCooValHighLim.x2)

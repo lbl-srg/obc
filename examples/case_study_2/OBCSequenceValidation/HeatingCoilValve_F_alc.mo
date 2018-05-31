@@ -105,7 +105,7 @@ block HeatingCoilValve_F_alc
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant trueSignal(
     final k=true) if not genEna
     "Dummy input if the generic enable/disable signal is not used."
-    annotation (Placement(transformation(extent={{-102,-90},{-82,-70}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSatMinLowLim)
     "Low range supply air temperature low limit"
@@ -166,7 +166,7 @@ equation
     annotation (Line(points={{-140,-100},{-70,-100},{-70,-28},{-62,-28}},
                                                                         color={255,0,255}));
   connect(andEna.u3, trueSignal.y)
-    annotation (Line(points={{-62,-28},{-70,-28},{-70,-80},{-81,-80}}, color={255,0,255}));
+    annotation (Line(points={{-62,-28},{-70,-28},{-70,-80},{-79,-80}}, color={255,0,255}));
   connect(yHeaVal,max. y) annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},
                                                                        color={0,0,127}));
   connect(yHeaValLowLim.y, max.u2) annotation (Line(points={{101,-30},{104,-30},{104,-10},{72,-10},

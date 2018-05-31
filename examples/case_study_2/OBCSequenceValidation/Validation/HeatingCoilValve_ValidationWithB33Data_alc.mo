@@ -34,11 +34,10 @@ model HeatingCoilValve_ValidationWithB33Data_alc
     offset={0},
     timeScale(displayUnit="s"),
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    tableName="SA_Htg_Stpt",
+    columns={1,2,3},
+    tableName="SA_Stpt",
     fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Htg_Stpt.mos"),
-
-    columns={1,2,3})
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -47,11 +46,11 @@ model HeatingCoilValve_ValidationWithB33Data_alc
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    fileName=(
-        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
-    tableName="33-AHU-02_Supply_Air_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    columns={1,2,3})
+    columns={1,2,3},
+    tableName="SA_Htg_Stpt",
+    fileName=(
+        "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_SA_Htg_Stpt.mos"))
     "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -64,7 +63,6 @@ model HeatingCoilValve_ValidationWithB33Data_alc
     tableName="33-HC-22_flow_status_and_manual_override",
     fileName=(
         "/home/mg/data/B33-AHU-2-HtVal/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-HC-22_flow_status_and_manual_override.mos"),
-
     columns={1,2,3,4})
                      "\"Flow on, manual vverride and heating required status signals\""
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
