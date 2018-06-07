@@ -30,8 +30,7 @@ Controls Design Tool
 #. When the control sequences are coupled to plant models, the controls design tool shall allow users to tag the thermofluid dependencies between different pieces of equipment in the object model. [For example, for any VAV box, the user can define which AHU provides the airflow, which boiler (or system) provides the hot water for heating, etc.]
 #. The control design tool shall include templates for common objects.
 #. A design engineer should be able to easily modify the library of predefined
-   control sequences by adding or removing sub-blocks, limiting the need to
-   modify the elemental blocks that make up the visual programming language.
+   control sequences by adding or removing blocks.
 #. The controls design tool shall prompt
    the user to provide necessary information when instantiating objects.
    For example, the object representing an air handler should include fan, filter,
