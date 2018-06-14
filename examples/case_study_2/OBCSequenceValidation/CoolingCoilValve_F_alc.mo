@@ -42,8 +42,7 @@ block CoolingCoilValve_F_alc
      annotation(Evaluate=true);
 
   parameter Real uFanFeeCut(
-    final unit="F",
-    final quantity = "ThermodynamicTemperature") = 15
+    final unit="1") = 0.15
     "Fan status threshold"
      annotation(Evaluate=true);
 
@@ -130,7 +129,7 @@ block CoolingCoilValve_F_alc
 
   // limiter
 
-  Buildings.Controls.OBC.CDL.Continuous.Line yCooValHighLim(
+  Buildings.Controls.OBC.CDL.Continuous.Line higLim(
     final limitBelow=true,
     final limitAbove=true)
     "Defines lower limit of the Cooling valve signal at low range SATs"
@@ -156,21 +155,21 @@ equation
     annotation (Line(points={{-140,-20},{-102,-20}}, color={0,0,127}));
   connect(TOutThr.y, andIntErr.u1)
     annotation (Line(points={{-79,-20},{-74,-20},{-74,-12},{-62,-12}}, color={255,0,255}));
-  connect(TSup, yCooValHighLim.u)
+  connect(TSup, higLim.u)
     annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}}, color={0,0,127}));
   connect(uFanSta, andIntErr.u3)
     annotation (Line(points={{-140,-100},{-68,-100},{-68,-28},{-62,-28}},color={255,0,255}));
   connect(yCooVal,min. y)
     annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},color={0,0,127}));
-  connect(TSupMax.y, yCooValHighLim.x2)
+  connect(TSupMax.y, higLim.x2)
     annotation (Line(points={{61,-58},{68,-58},{68,-34},{78,-34}}, color={0,0,127}));
-  connect(yCooValMax.y, yCooValHighLim.f2)
+  connect(yCooValMax.y, higLim.f2)
     annotation (Line(points={{61,-90},{72,-90},{72,-38},{78,-38}}, color={0,0,127}));
-  connect(TSupMin.y, yCooValHighLim.x1)
+  connect(TSupMin.y, higLim.x1)
     annotation (Line(points={{21,-58},{26,-58},{26,-22},{78,-22}}, color={0,0,127}));
-  connect(yCooValMin.y, yCooValHighLim.f1)
+  connect(yCooValMin.y, higLim.f1)
     annotation (Line(points={{21,-90},{30,-90},{30,-26},{78,-26}}, color={0,0,127}));
-  connect(yCooValHighLim.y,min. u2)
+  connect(higLim.y,min. u2)
     annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},{78,14}}, color={0,0,127}));
   connect(holdIntErrSignal.y, alc_PI.holdIntError)
     annotation (Line(points={{-79,60},{-60,60},{-60,82},{-42,82}}, color={255,0,255}));
