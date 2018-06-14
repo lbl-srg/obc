@@ -188,7 +188,7 @@ equation
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-110,-60},{-110,-50},{-102,-50}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "cooValSta_F_alc",
+    defaultComponentName = "cooVal",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
