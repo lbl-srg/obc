@@ -49,12 +49,12 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uSupFan
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan(k=false)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  CoolingCoilValve_F cooValSta_F(genEna=false, revAct=true)
+  CoolingCoilValve_F cooValSta_F(genEna=false, revAct=false)
     "Cooling coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
 // Tests disable if it is warm outside
-  CoolingCoilValve_F cooValSta_F1(genEna=false, revAct=true)
+  CoolingCoilValve_F cooValSta_F1(genEna=false, revAct=false)
     "Cooling coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff(final k=TOutCooCut - 5)
@@ -71,7 +71,7 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 
 // Tests controler normal operation when supply air temperature is above limiter values
-  CoolingCoilValve_F cooValSta_F2(genEna=false, revAct=true)
+  CoolingCoilValve_F cooValSta_F2(genEna=false, revAct=false)
     "Cooling coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff2(final k=TOutCooCut + 5)
@@ -91,7 +91,7 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uSupFan
     height=4,
     offset=TSupSet - 1)   "\"Supply air temperature\""
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  CoolingCoilValve_F cooValSta_F3(genEna=false, revAct=true)
+  CoolingCoilValve_F cooValSta_F3(genEna=false, revAct=false)
     "Cooling coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff1(final k=TOutCooCut + 5)

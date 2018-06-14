@@ -1,14 +1,9 @@
 within OBCSequenceValidation;
 block HeatingCoilValve_F_alc
-  "Heating coil controll sequence as implemented in LBNL 33-AHU-02 (Roof)"
+  "Heating coil control sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Boolean genEna = true
     "Generic enable disable input"
-    annotation(Evaluate=true);
-
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Controller type"
     annotation(Evaluate=true);
 
   parameter Real k_p(final unit="1/F") = 5/100
