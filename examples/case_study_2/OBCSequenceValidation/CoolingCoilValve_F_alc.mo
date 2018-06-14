@@ -48,13 +48,13 @@ block CoolingCoilValve_F_alc
 
   parameter Real TSupHighLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 42
+    final quantity = "ThermodynamicTemperature") = 50
     "Minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
   parameter Real TSupLowLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
+    final quantity = "ThermodynamicTemperature") = 42
     "Maximum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
@@ -183,7 +183,7 @@ equation
   connect(alc_PI.y, min.u1)
     annotation (Line(points={{-19,90},{30,90},{30,26},{78,26}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-62,-20},{-70,-20},{-70,-50},{-79,-50}}, color={255,0,255}));
+    annotation (Line(points={{-62,-20},{-72,-20},{-72,-50},{-79,-50}}, color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-110,-60},{-110,-50},{-102,-50}}, color={0,0,127}));
   annotation (

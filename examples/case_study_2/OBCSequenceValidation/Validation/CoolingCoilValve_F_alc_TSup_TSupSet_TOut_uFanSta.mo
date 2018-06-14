@@ -30,7 +30,7 @@ model CoolingCoilValve_F_alc_TSup_TSupSet_TOut_uFanSta
 
   parameter Real LowTSupSet(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
+    final quantity = "ThermodynamicTemperature") = 45
     "Supply air temeprature setpoint to check the limiter functionality";
 
   parameter Real fanFee(
@@ -38,28 +38,27 @@ model CoolingCoilValve_F_alc_TSup_TSupSet_TOut_uFanSta
     "Fan feedback";
 
   CoolingCoilValve_F_alc cooVal(reverseAction=false,
-    k_p=0.1,
-    k_i=0.01)
+    k_p=1,
+    k_i=0.1)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   CoolingCoilValve_F_alc cooVal1(reverseAction=false,
-    k_p=0.1,
-    k_i=0.01)
+    k_p=1,
+    k_i=0.1)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   CoolingCoilValve_F_alc cooVal2(
     reverseAction=false,
     holdIntError=false,
-    k_p=0.1,
-    k_i=0.01)
-             "Cooling valve control sequence"
+    k_p=1,
+    k_i=0.1)  "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
   CoolingCoilValve_F_alc cooVal3(reverseAction=false,
-    k_p=0.1,
-    k_i=0.01)
+    k_p=1,
+    k_i=0.1)
     "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
