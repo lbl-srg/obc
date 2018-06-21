@@ -52,7 +52,7 @@ block CoolingCoilValve_F_alc
     "Minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
-  parameter Real TSupLowLim(
+  parameter Real TSuphigLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 42
     "Maximum supply air temperature for defining the upper limit of the valve position"
@@ -135,7 +135,7 @@ block CoolingCoilValve_F_alc
     "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupLowLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSuphigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)

@@ -34,11 +34,12 @@ model CoolingCoilValve_ValidationWithB33Data
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos",
     tableName="33-CC-22_Clg_Coil_Valve",
-    columns={3})     "Output of the cooling valve control subsequence"
+    columns={3},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+                     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Modelica.Blocks.Sources.CombiTimeTable fanFeedback(
@@ -46,11 +47,12 @@ model CoolingCoilValve_ValidationWithB33Data
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     tableName="33-BL-22_VFD_Fan_Feedback",
     fileName=(
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Feedback.mos"),
-    columns={3})                           "Fan feedback"
+    columns={3},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+                                           "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
   Modelica.Blocks.Sources.CombiTimeTable fanStatus(
@@ -58,11 +60,12 @@ model CoolingCoilValve_ValidationWithB33Data
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
     fileName=(
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Enable.mos"),
     tableName="33-BL-22_VFD_Fan_Enable",
-    columns={3})     "Fan status"
+    columns={3},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+                     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSupply_F(
@@ -78,7 +81,12 @@ model CoolingCoilValve_ValidationWithB33Data
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   CoolingCoilValve_F_alc
-                     cooValSta_F
+                     cooValSta_F(
+    reverseAction=false,
+    k_p=1/100,
+    k_i=0.5/100,
+    holdIntError=false,
+    TOutCooCut=32)
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 

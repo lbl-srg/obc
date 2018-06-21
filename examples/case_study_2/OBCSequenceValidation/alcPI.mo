@@ -41,7 +41,7 @@ block alcPI "ALC implementation of a PI controller"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=interval)
     "Zero order hold"
-    annotation (Placement(transformation(extent={{80,100},{100,120}})));
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter limiter(
@@ -73,6 +73,9 @@ block alcPI "ALC implementation of a PI controller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1 "Boolean to real converter"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Limiter limiter1(final uMax=uMax, final uMin=uMin)
+                     "Output limiter"
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
 equation
   connect(u_m, error.u2)
     annotation (Line(points={{0,-160},{0,-120},{-90,-120},{-90,-66},{-82,-66}},color={0,0,127}));
@@ -90,12 +93,13 @@ equation
     Line(points={{-19,-30},{-10,-30},{-10,80},{-80,80},{-80,110},{-62,110}},  color={0,0,127}));
   connect(sam.y, intErrSum.u2)
     annotation (Line(points={{-39,110},{-20,110},{-20,104},{-2,104}}, color={0,0,127}));
-  connect(zerOrdHol.y, intErrSum.u1) annotation (Line(points={{101,110},{108,110},{108,132},{-10,132},
-          {-10,116},{-2,116}}, color={0,0,127}));
+  connect(zerOrdHol.y, intErrSum.u1) annotation (Line(points={{121,100},{130,100},{130,130},{-10,
+          130},{-10,116},{-2,116}},
+                               color={0,0,127}));
   connect(addPI.u1, pro.y)
     annotation (Line(points={{58,6},{50,6},{50,20},{41,20}}, color={0,0,127}));
   connect(zerOrdHol.y, pro.u1)
-    annotation (Line(points={{101,110},{108,110},{108,80},{10,80},{10,26},{18,26}},
+    annotation (Line(points={{121,100},{130,100},{130,80},{10,80},{10,26},{18,26}},
                                                                                 color={0,0,127}));
   connect(pro.u2, booToRea.y)
     annotation (Line(points={{18,14},{10,14},{10,20},{-79,20}},color={0,0,127}));
@@ -103,14 +107,15 @@ equation
     annotation (Line(points={{-160,20},{-102,20}}, color={255,0,255}));
   connect(intErrSum.y, intErrHolPro.u1)
     annotation (Line(points={{21,110},{28,110},{28,106},{38,106}}, color={0,0,127}));
-  connect(zerOrdHol.u, intErrHolPro.y)
-    annotation (Line(points={{78,110},{70,110},{70,100},{61,100}}, color={0,0,127}));
   connect(intErrHolPro.u2, booToRea1.y)
     annotation (Line(points={{38,94},{0,94},{0,60},{-39,60}}, color={0,0,127}));
   connect(intErrSta, or2.u2)
     annotation (Line(points={{-160,20},{-120,20},{-120,52},{-102,52}}, color={255,0,255}));
   connect(or2.y, booToRea1.u) annotation (Line(points={{-79,60},{-62,60}}, color={255,0,255}));
   connect(holdIntError, or2.u1) annotation (Line(points={{-160,60},{-102,60}}, color={255,0,255}));
+  connect(intErrHolPro.y, limiter1.u)
+    annotation (Line(points={{61,100},{68,100}}, color={0,0,127}));
+  connect(zerOrdHol.u, limiter1.y) annotation (Line(points={{98,100},{91,100}}, color={0,0,127}));
   annotation (
     defaultComponentName = "alc_PI",
     Icon(graphics={
