@@ -11,8 +11,8 @@ model CoolingCoilValve_ValidationWithB33Data
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=(
-        "/home/mg/data/B33-AHU-2-CtVal-5/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
-    columns={1,2,3})
+        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
+    columns={3})
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,11 +23,47 @@ model CoolingCoilValve_ValidationWithB33Data
     timeScale(displayUnit="s"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
-    columns={1,2,3},
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Clg_Stpt.mos"))
+        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Clg_Stpt.mos"),
+    columns={3})
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable coolingValveSignal(
+    tableOnFile=true,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    offset={0},
+    timeScale(displayUnit="s"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    fileName=
+        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos",
+    tableName="33-CC-22_Clg_Coil_Valve",
+    columns={3})     "Output of the cooling valve control subsequence"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable fanFeedback(
+    tableOnFile=true,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    offset={0},
+    timeScale(displayUnit="s"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    tableName="33-BL-22_VFD_Fan_Feedback",
+    fileName=(
+        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Feedback.mos"),
+    columns={3})                           "Fan feedback"
+    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable fanStatus(
+    tableOnFile=true,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    offset={0},
+    timeScale(displayUnit="s"),
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    fileName=(
+        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Enable.mos"),
+    tableName="33-BL-22_VFD_Fan_Enable",
+    columns={3})     "Fan status"
+    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSupply_F(
     tableOnFile=true,
@@ -38,7 +74,7 @@ model CoolingCoilValve_ValidationWithB33Data
     tableName="33-AHU-02_Supply_Air_Temp",
     fileName=(
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
-    columns={1,2,3})                       "\"Measured supply air temperature\""
+    columns={3})                           "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   CoolingCoilValve_F_alc
@@ -94,41 +130,7 @@ model CoolingCoilValve_ValidationWithB33Data
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
 
-  Modelica.Blocks.Sources.CombiTimeTable coolingValveSignal(
-    tableOnFile=true,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    offset={0},
-    timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    tableName="Clg_Coil_Valve",
-    fileName=
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos",
-    columns={1,2,3}) "Output of the cooling valve control subsequence"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
-  Modelica.Blocks.Sources.CombiTimeTable fanFeedback(
-    tableOnFile=true,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    offset={0},
-    timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    fileName=(
-        "/home/mg/data/B33-AHU-2-CtVal-5/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Feedback.mos"),
-    columns={1,2,3},
-    tableName="33-BL-22_VFD_Fan_Feedback") "Fan feedback"
-    annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
-
-  Modelica.Blocks.Sources.CombiTimeTable fanStatus(
-    tableOnFile=true,
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    offset={0},
-    timeScale(displayUnit="s"),
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Enable.mos"),
-    tableName="33-BL-22_VFD_Fan_Enable",
-    columns={1,2,3}) "Fan status"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
     "Converter to boolean" annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -137,7 +139,7 @@ model CoolingCoilValve_ValidationWithB33Data
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(TSupUniCon.y, timSerInp.y[1])
-    annotation (Line(points={{-79,60},{22,60},{22,71.3333},{98,71.3333}}, color={0,0,127}));
+    annotation (Line(points={{-79,60},{20,60},{20,71.3333},{98,71.3333}}, color={0,0,127}));
   connect(TSupSetUniCon.y, timSerInp.y[2])
     annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
     {24,70},{98,70}}, color={0,0,127}));
@@ -151,33 +153,34 @@ equation
   connect(cooValSta_F.yCooVal, correlation.y[1])
     annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
   connect(percConvCooValSig.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{8,90},{8,99},{98,99}},   color={0,0,127}));
+    annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,98},{20,99},{60,99},{98,99}},
+                                                                color={0,0,127}));
   connect(percConvCooValSig.y, correlation.x)
     annotation (Line(points={{-79,90},{80,90},{80,22},{98,22}}, color={0,0,127}));
-  connect(percConvCooValSig.y, delta.u1) annotation (Line(points={{-79,90},{72,90},{72,-24},{88,-24},
-          {88,-24},{98,-24}}, color={0,0,127}));
-  connect(coolingValveSignal.y[3], percConvCooValSig.u)
-    annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
-  connect(fanStatus.y[3], greEquThr.u)
-    annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
+  connect(percConvCooValSig.y, delta.u1) annotation (Line(points={{-79,90},{70,90},{70,-24},{98,-24}},
+                              color={0,0,127}));
   connect(greEquThr.y, cooValSta_F.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
-  connect(fanFeedback.y[3], percConvFanFee.u)
-    annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(percConvFanFee.y, cooValSta_F.uFanFee) annotation (Line(points={{-79,-60},{-10,-60},{-10,
           24},{-10,24},{-10,-60},{-10,25},{4,25},{19,25}}, color={0,0,127}));
-  connect(TOut_F.y[3], TOutUniCon.u)
-    annotation (Line(points={{-119,-20},{-110,-20},{-110,-10},{-102,-10}}, color={0,0,127}));
-  connect(TOut_F.y[3], cooValSta_F.TOut)
+  connect(coolingValveSignal.y[1], percConvCooValSig.u)
+    annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
+  connect(TSupply_F.y[1], TSupUniCon.u)
+    annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}}, color={0,0,127}));
+  connect(TSupply_F.y[1], cooValSta_F.TSup)
+    annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
+  connect(TOut_F.y[1], TOutUniCon.u)
+    annotation (Line(points={{-119,-20},{-108,-20},{-108,-10},{-102,-10}}, color={0,0,127}));
+  connect(TOut_F.y[1], cooValSta_F.TOut)
     annotation (Line(points={{-119,-20},{-16,-20},{-16,33},{19,33}}, color={0,0,127}));
-  connect(TSupSetpoint_F.y[3], cooValSta_F.TSupSet)
-    annotation (Line(points={{-119,20},{-20,20},{-20,37},{19,37}}, color={0,0,127}));
-  connect(TSupSetpoint_F.y[3], TSupSetUniCon.u)
+  connect(fanFeedback.y[1], percConvFanFee.u)
+    annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
+  connect(fanStatus.y[1], greEquThr.u)
+    annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], TSupSetUniCon.u)
     annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}}, color={0,0,127}));
-  connect(TSupply_F.y[3], cooValSta_F.TSup)
-    annotation (Line(points={{-119,50},{0,50},{0,40},{19,40}}, color={0,0,127}));
-  connect(TSupply_F.y[3], TSupUniCon.u) annotation (Line(points={{-119,50},{-112,50},{-112,58},{
-          -112,58},{-112,60},{-102,60},{-102,60}}, color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], cooValSta_F.TSupSet)
+    annotation (Line(points={{-119,20},{-20,20},{-20,37},{19,37}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_ValidationWithB33Data.mos"
     "Simulate and plot"),
