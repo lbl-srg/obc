@@ -86,7 +86,7 @@ model CoolingCoilValve_ValidationWithB33Data
     k_p=1/100,
     k_i=0.5/100,
     holdIntError=false,
-    TOutCooCut=32)
+    TOutCooCut=50)
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 

@@ -15,7 +15,7 @@ block alcPI_TSup
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul(
                                                           width=0.6, period=100)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=true)
+Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
   annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   alcPI alcPI2(
     k_p=0.05,
@@ -31,7 +31,7 @@ Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=true)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul1(width=0.6, period=100)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=true)
+Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=false)
   annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
   connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-59,70},{-30,70},{-30,16},{-22,16}},
