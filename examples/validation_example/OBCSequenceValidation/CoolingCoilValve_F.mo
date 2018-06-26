@@ -45,9 +45,9 @@ block CoolingCoilValve_F
 
   parameter Real TOutCooCut(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
+    final quantity = "ThermodynamicTemperature") = 30
     "Upper outdoor air temperature limit for enabling Cooling"
-     annotation(Evaluate=true);
+     annotation(Evaluate=true);                       // changed from 50 to temporarily disable
 
   parameter Real TSatMinHighLim(
     final unit="F",

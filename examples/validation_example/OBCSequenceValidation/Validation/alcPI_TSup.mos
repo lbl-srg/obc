@@ -1,5 +1,0 @@
-simulateModel("OBCSequenceValidation.Validation.alcPI_TSup", method="dassl", stopTime=2200, tolerance=1e-06, resultFile="alcPI_TSup");
-
-createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, bottomTitle = "Heating - Reverse Action", axes = {1,1,2,2,2}, y={"alcPI1.u_s", "alcPI1.u_m", "alcPI1.intErrSta", "alcPI1.holdIntError", "alcPI1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0},{28,108,200},{238,46,47},{85,0,0},{50,150,50}});
-
-createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, bottomTitle = "Cooling - Direct Action", axes = {1,1,2,2,2}, y={"alcPI2.u_s",  "alcPI2.u_m", "alcPI2.intErrSta", "alcPI2.holdIntError", "alcPI2.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0},{28,108,200},{238,46,47},{85,0,0},{50,150,50}});

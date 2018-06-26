@@ -1,6 +1,6 @@
 within OBCSequenceValidation.Validation;
-model CoolingCoilValve_ValidationWithB33Data
-  "Validation model for the cooling coil control subsequence with real data trends"
+model CoolingCoilValve_customPI_ValidationWithB33Data
+  "Validation model for the cooling coil control subsequence with recorded data trends using a custom controller model"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.CombiTimeTable TOut_F(
@@ -38,8 +38,7 @@ model CoolingCoilValve_ValidationWithB33Data
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos",
     tableName="33-CC-22_Clg_Coil_Valve",
     columns={3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-                     "Output of the cooling valve control subsequence"
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Modelica.Blocks.Sources.CombiTimeTable fanFeedback(
@@ -80,14 +79,12 @@ model CoolingCoilValve_ValidationWithB33Data
     columns={3})                           "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  CoolingCoilValve_F_alc
-                     cooValSta_F(
+  CoolingCoilValve_F_customPI cooValSta_F(
     reverseAction=false,
     k_p=1/100,
     k_i=0.5/100,
     holdIntError=false,
-    TOutCooCut=50)
-    "Cooling valve position control sequence"
+    TOutCooCut=50) "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
@@ -137,9 +134,6 @@ model CoolingCoilValve_ValidationWithB33Data
     "\"FtoC\""
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-
-
-
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
     "Converter to boolean" annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvFanFee(k=0.01)
@@ -162,15 +156,16 @@ equation
     annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
   connect(percConvCooValSig.y, timSerRes.y[2])
     annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,98},{20,99},{60,99},{98,99}},
-                                                                color={0,0,127}));
+    color={0,0,127}));
   connect(percConvCooValSig.y, correlation.x)
     annotation (Line(points={{-79,90},{80,90},{80,22},{98,22}}, color={0,0,127}));
-  connect(percConvCooValSig.y, delta.u1) annotation (Line(points={{-79,90},{70,90},{70,-24},{98,-24}},
-                              color={0,0,127}));
+  connect(percConvCooValSig.y, delta.u1)
+    annotation (Line(points={{-79,90},{70,90},{70,-24},{98,-24}}, color={0,0,127}));
   connect(greEquThr.y, cooValSta_F.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
-  connect(percConvFanFee.y, cooValSta_F.uFanFee) annotation (Line(points={{-79,-60},{-10,-60},{-10,
-          24},{-10,24},{-10,-60},{-10,25},{4,25},{19,25}}, color={0,0,127}));
+  connect(percConvFanFee.y, cooValSta_F.uFanFee)
+    annotation (Line(points={{-79,-60},{-10,-60},{-10, 24},{-10,24},{-10,-60},{-10,25},{4,25},{19,25}},
+    color={0,0,127}));
   connect(coolingValveSignal.y[1], percConvCooValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
@@ -190,14 +185,14 @@ equation
   connect(TSupSetpoint_F.y[1], cooValSta_F.TSupSet)
     annotation (Line(points={{-119,20},{-20,20},{-20,37},{19,37}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
-  __Dymola_Commands(file="CoolingCoilValve_ValidationWithB33Data.mos"
+  __Dymola_Commands(file="CoolingCoilValve_customPI_ValidationWithB33Data.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
 <p>
 This model validates the cooling coil signal subsequence implemented using CDL blocks 
-aginst the equivalent OBC implementation as installed in LBNL B33 AHU-2. Data used for the
-validation are measured sequence input and output timeseries.
+aginst the equivalent OBC implementation as installed in one of the LBNL buildings. 
+Data used for the validation are measured input and output trends.
 </p>
 </html>",
 revisions="<html>
@@ -209,4 +204,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
-end CoolingCoilValve_ValidationWithB33Data;
+end CoolingCoilValve_customPI_ValidationWithB33Data;

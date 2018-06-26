@@ -1,5 +1,5 @@
 within OBCSequenceValidation;
-block CoolingCoilValve_F_alc
+block CoolingCoilValve_F_customPI
   "Cooling coil control sequence as implemented in LBNL 33-AHU-02 (Roof)"
 
   parameter Real k_p(final unit="1/F") = 5/100
@@ -97,12 +97,11 @@ block CoolingCoilValve_F_alc
 
   // controller
 
-  alcPI alc_PI(
+  CustomPI alc_PI(
     final k_i=k_i,
     final k_p=k_p,
     final interval=interval,
-    final reverseAction=reverseAction)
-    "PI controller as implemented in the B33"
+    final reverseAction=reverseAction) "PI controller as implemented in the B33"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
@@ -246,4 +245,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingCoilValve_F_alc;
+end CoolingCoilValve_F_customPI;

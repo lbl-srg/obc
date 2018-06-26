@@ -64,8 +64,7 @@ model CoolingCoilValve_ValidationWithB33Data
         "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Enable.mos"),
     tableName="33-BL-22_VFD_Fan_Enable",
     columns={3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-                     "Fan status"
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSupply_F(
@@ -80,14 +79,12 @@ model CoolingCoilValve_ValidationWithB33Data
     columns={3})                           "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  CoolingCoilValve_F_alc
-                     cooValSta_F(
+  CoolingCoilValve_F_customPI cooValSta_F(
     reverseAction=false,
     k_p=1/100,
     k_i=0.5/100,
     holdIntError=false,
-    TOutCooCut=50)
-    "Cooling valve position control sequence"
+    TOutCooCut=50) "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
@@ -136,9 +133,6 @@ model CoolingCoilValve_ValidationWithB33Data
   Buildings.Controls.OBC.CDL.Continuous.AddParameter TOutUniCon(k=5/9, p=-(5*32)/9)
     "\"FtoC\""
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-
-
-
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
     "Converter to boolean" annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -196,8 +190,8 @@ equation
     info="<html>
 <p>
 This model validates the cooling coil signal subsequence implemented using CDL blocks 
-aginst the equivalent OBC implementation as installed in LBNL B33 AHU-2. Data used for the
-validation are measured sequence input and output timeseries.
+aginst the equivalent OBC implementation as installed in one of the LBNL buildings. 
+Data used for the validation are measured input and output trends.
 </p>
 </html>",
 revisions="<html>

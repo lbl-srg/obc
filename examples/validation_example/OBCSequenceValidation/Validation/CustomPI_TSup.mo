@@ -1,11 +1,11 @@
 within OBCSequenceValidation.Validation;
 block alcPI_TSup
   "Test direct and reverse action operation of a fixed timestep PI controller"
-  alcPI alcPI1(
+  CustomPI alcPI1(
     k_p=0.05,
     k_i=0.005,
     reverseAction=true,
-  interval=10)   annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    interval=10) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=71)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -17,12 +17,11 @@ block alcPI_TSup
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
   annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  alcPI alcPI2(
+  CustomPI alcPI2(
     k_p=0.05,
     k_i=0.005,
     interval=10,
-    reverseAction=false)
-                 annotation (Placement(transformation(extent={{80,0},{100,20}})));
+    reverseAction=false) annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup1(final k=66)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));

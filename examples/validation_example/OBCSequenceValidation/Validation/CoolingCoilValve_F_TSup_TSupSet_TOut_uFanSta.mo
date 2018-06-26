@@ -37,29 +37,29 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     final unit="1") = 0.60
     "Fan feedback";
 
-  CoolingCoilValve_F_alc cooVal(reverseAction=false,
+  CoolingCoilValve_F_customPI cooVal(
+    reverseAction=false,
     k_p=1,
-    k_i=0.1)
-    "Cooling valve control sequence"
+    k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  CoolingCoilValve_F_alc cooVal1(reverseAction=false,
+  CoolingCoilValve_F_customPI cooVal1(
+    reverseAction=false,
     k_p=1,
-    k_i=0.1)
-    "Cooling valve control sequence"
+    k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  CoolingCoilValve_F_alc cooVal2(
+  CoolingCoilValve_F_customPI cooVal2(
     reverseAction=false,
     holdIntError=false,
     k_p=1,
-    k_i=0.1)  "Cooling valve control sequence"
+    k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
-  CoolingCoilValve_F_alc cooVal3(reverseAction=false,
+  CoolingCoilValve_F_customPI cooVal3(
+    reverseAction=false,
     k_p=1,
-    k_i=0.1)
-    "Cooling valve control sequence"
+    k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off
@@ -207,7 +207,7 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
     Documentation(
     info="<html>
 <p>
-This model validates the cooling coil signal subsequence as implemented at LBNL B33 AHU-1 and 2.
+This model validates the cooling coil signal subsequence as implemented in one of the LBNL buildings.
 </p>
 </html>",
 revisions="<html>

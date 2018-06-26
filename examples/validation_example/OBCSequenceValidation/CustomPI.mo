@@ -1,5 +1,5 @@
 within OBCSequenceValidation;
-block alcPI "ALC implementation of a PI controller"
+block CustomPI "Customized PI controller reflecting the controller from the validation example"
 
   parameter Boolean reverseAction = false "Reverse action";
   parameter Real k_p(min=0, unit="1/F") = 1 "Proportional Gain";
@@ -10,7 +10,6 @@ block alcPI "ALC implementation of a PI controller"
     "Reverse action multiplier";
   parameter Real uMin = 0 "Upper limit of output";
   parameter Real uMax = 1 "Lower limit of output";
-
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput holdIntError
     "If False, the integrator error is reset to 0 after a period of integrator inactivity"
@@ -30,7 +29,6 @@ block alcPI "ALC implementation of a PI controller"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
 
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of actuator output signal"
     annotation (Placement(transformation(extent={{140,-10},{160,10}}),
@@ -42,7 +40,6 @@ block alcPI "ALC implementation of a PI controller"
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(samplePeriod=interval)
     "Zero order hold"
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter limiter(
     final uMax=uMax,
@@ -136,4 +133,4 @@ equation
           lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-end alcPI;
+end CustomPI;
