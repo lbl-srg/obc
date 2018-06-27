@@ -202,7 +202,7 @@ equation
     annotation (Line(points={{121,-100},{128,-100},{128,-100},{
           134,-100},{134,-42},{139,-42}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="CoolingCoilValve_F_alc_TSup_TSupSet_TOut_uFanSta.mos"
+  __Dymola_Commands(file="CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>

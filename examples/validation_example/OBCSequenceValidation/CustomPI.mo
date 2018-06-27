@@ -1,5 +1,6 @@
 within OBCSequenceValidation;
-block CustomPI "Customized PI controller reflecting the controller from the validation example"
+block CustomPI
+  "Customized PI controller reflecting the controller from the validation example"
 
   parameter Boolean reverseAction = false "Reverse action";
   parameter Real k_p(min=0, unit="1/F") = 1 "Proportional Gain";

@@ -43,11 +43,12 @@ block CoolingCoilValve_F
       andEna=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
+  // changed from 50 to 30 to temporarily disable
   parameter Real TOutCooCut(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 30
     "Upper outdoor air temperature limit for enabling Cooling"
-     annotation(Evaluate=true);                       // changed from 50 to temporarily disable
+     annotation(Evaluate=true);
 
   parameter Real TSatMinHighLim(
     final unit="F",

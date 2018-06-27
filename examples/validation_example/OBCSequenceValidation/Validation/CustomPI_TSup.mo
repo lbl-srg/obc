@@ -1,5 +1,5 @@
 within OBCSequenceValidation.Validation;
-block alcPI_TSup
+block CustomPI_TSup
   "Test direct and reverse action operation of a fixed timestep PI controller"
   CustomPI alcPI1(
     k_p=0.05,
@@ -12,11 +12,10 @@ block alcPI_TSup
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet(final k=72)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul(
-                                                          width=0.6, period=100)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(width=0.6, period=100)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
-  annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   CustomPI alcPI2(
     k_p=0.05,
     k_i=0.005,
@@ -30,19 +29,17 @@ Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError(k=false)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul1(width=0.6, period=100)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=false)
-  annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=false)
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(uTSupSet.y, alcPI1.u_s) annotation (Line(points={{-59,70},{-30,70},{-30,16},{-22,16}},
-                                                                               color={0,0,127}));
+  connect(uTSupSet.y, alcPI1.u_s)
+    annotation (Line(points={{-59,70},{-30,70},{-30,16},{-22,16}}, color={0,0,127}));
   connect(uTSup.y, alcPI1.u_m)
-    annotation (Line(points={{-59,-50},{-10,-50},{-10,-2}},        color={0,0,127}));
-connect(alcPI1.intErrSta, booPul.y)
-  annotation (Line(points={{-22,8},{-40,8},{-40,30},{-59,30}},
-                                                          color={255,0,255}));
-connect(alcPI1.holdIntError, holdIntError.y)
-  annotation (Line(points={{-22,2},{-40,2},{-40,-10},{-59,-10}},
-                                                              color={255,0,255}));
+    annotation (Line(points={{-59,-50},{-10,-50},{-10,-2}}, color={0,0,127}));
+  connect(alcPI1.intErrSta, booPul.y)
+    annotation (Line(points={{-22,8},{-40,8},{-40,30},{-59,30}}, color={255,0,255}));
+  connect(alcPI1.holdIntError, holdIntError.y)
+    annotation (Line(points={{-22,2},{-40,2},{-40,-10},{-59,-10}}, color={255,0,255}));
   connect(uTSupSet1.y, alcPI2.u_s)
     annotation (Line(points={{41,70},{70,70},{70,16},{78,16}}, color={0,0,127}));
   connect(uTSup1.y, alcPI2.u_m)
@@ -71,7 +68,7 @@ connect(alcPI1.holdIntError, holdIntError.y)
           lineColor={0,0,127},
           textString="Cooling")}),
             experiment(StopTime=1000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="alcPI_TSup.mos"
+  __Dymola_Commands(file="CustomPI_TSup.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
@@ -88,4 +85,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end alcPI_TSup;
+end CustomPI_TSup;
