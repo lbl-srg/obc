@@ -43,8 +43,14 @@ This allows to reproduce the verification tests, and it does
 not require the verification tool to have access to the actual building
 control system.
 During the verification, the archived data are read into a Modelica
-model that conducts the verification. There are three main blocks.
-One block, labeled *control specification*,
+model that conducts the verification.
+The verification will use three blocks.
+The block labeled *input file reader* reads the archived data,
+which may typically be in CSV format. As this data may be directly written
+by a building automation system, its units will differ from the units
+used in CDL. Therefore, the block called *unit conversion* converts
+the data to the units used in the CDL control specification.
+Next, the block labeled *control specification*
 is the control sequence specification in CDL format.
 This is the specification that was exported during design and sent
 to the control provider.
@@ -96,20 +102,80 @@ and *sequence chart*.
           we did not implement them.
 
 
-Developed modules
-^^^^^^^^^^^^^^^^^
+Modules of the verification test
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+File reader
+~~~~~~~~~~~
+
+xxxx [Michael to describe CSV reader that is currently developed]
+
+Unit conversion
+~~~~~~~~~~~~~~~
+
+Building automation systems store physical quantities in various units.
+To convert them to the units used by Modelica and hence also by CDL,
+we developed the package ``Buildings.Controls.OBC.UnitConversions``.
+This package provides blocks that convert common units to SI units, and
+from SI units to units that are commonly used in the HVAC community.
+
+[todo: This package needs to be implemented.
+As there will be many blocks, it should be generated from a json file
+using code in Buildings/Resources/src/Controls]
 
 Comparison of time series data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 xxxx
+[Jianjun to document the time series comparison tool.]
 
 Verification of sequence diagrams
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-xxxx
+To verify sequence diagrams we developed the Modelica package
+``Buildings.Utilities.IO.Plotters``.
+:numref:`fig_vav_sin_mod_ver` shows an example in which this block is used to produce the sequence
+diagram shown in :numref:`fig_vav_sin_plo_dia_ver`. While in this example, we used the control
+output of the CDL implementation of the control sequence, during commissioning,
+one would use the control signal from the building automation system.
+
+.. _fig_vav_sin_mod_ver:
+
+.. figure:: img/verification/SingleZoneVAVSupply_u.*
+   :width: 700 px
+
+   Modelica model that verifies the sequence diagram.
+   On the left are the blocks that generate the control input.
+   In a real verification, these would be replaced with a file reader that
+   reads data that have been archived by the building automation system.
+   In the center is the control sequence implementation.
+   Some of its output is converted to degree Celsius, and then fed to the
+   plotters on the right that generate a scatter plot for the temperatures
+   and a scatter plot for the fan control signal.
+   The block labelled ``plotConfiguration`` configures
+   the file name for the plots and the sampling interval.
+
+.. _fig_vav_sin_plo_dia_ver:
+
+.. figure:: img/verification/VAVSingleZoneTSupSet.*
+   :width: 500 px
+
+   Control sequence diagram for the VAV single zone control sequence
+   from ASHRAE Guideline 36.
+
+Simulating the model shown in :numref:`fig_vav_sin_mod_ver`
+generates a file that contains the scatter plots shown in :numref:`xxxx`
+
+.. _fig_vav_sin_ger_ver:
+
+.. figure:: img/verification/xxxx.*
+   :width: 500 px
+
+   Scatter plots that show the control sequence diagram generated from
+   the outputs of the simulated control sequence.
+
 
 Example
 ^^^^^^^
 
-xxxxx
+[Milica to document her example.]
