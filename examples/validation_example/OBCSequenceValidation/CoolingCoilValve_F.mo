@@ -93,11 +93,14 @@ block CoolingCoilValve_F
 
   // controller
 
-  Buildings.Controls.Continuous.LimPID limPI(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID
+                                       limPI(
     final reverseAction=reverseAction,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final k=k,
-    final Ti = Ti)
+    final Ti = Ti,
+    yMax=1,
+    yMin=0)
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
