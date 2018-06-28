@@ -11,7 +11,7 @@ model CoolingCoilValve_F_withTrends
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_OA_Temp.mos"),
+        "/home/mg/data/trends/LBNL_building_trend_OA_Temp.mos"),
     columns={3})
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
@@ -24,7 +24,7 @@ model CoolingCoilValve_F_withTrends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_SA_Clg_Stpt.mos"),
+        "/home/mg/data/trends/LBNL_building_trend_SA_Clg_Stpt.mos"),
     columns={3})
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
@@ -35,7 +35,7 @@ model CoolingCoilValve_F_withTrends
     offset={0},
     timeScale(displayUnit="s"),
     fileName=
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-CC-22_Clg_Coil_Valve.mos",
+        "/home/mg/data/trends/LBNL_building_trend_33-CC-22_Clg_Coil_Valve.mos",
     tableName="33-CC-22_Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
@@ -49,7 +49,7 @@ model CoolingCoilValve_F_withTrends
     timeScale(displayUnit="s"),
     tableName="33-BL-22_VFD_Fan_Feedback",
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Feedback.mos"),
+        "/home/mg/data/trends/LBNL_building_trend_33-BL-22_VFD_Fan_Feedback.mos"),
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
                                            "Fan feedback"
@@ -61,7 +61,7 @@ model CoolingCoilValve_F_withTrends
     offset={0},
     timeScale(displayUnit="s"),
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-BL-22_VFD_Fan_Enable.mos"),
+        "/home/mg/data/trends/LBNL_building_trend_33-BL-22_VFD_Fan_Enable.mos"),
     tableName="33-BL-22_VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments) "Fan status"
@@ -75,7 +75,7 @@ model CoolingCoilValve_F_withTrends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="33-AHU-02_Supply_Air_Temp",
     fileName=(
-        "/home/mg/data/B33-AHU-2-ClVal-5s/LBNL_FMCS_Building_33_Roof_33-AHU-02_(Roof)_33-AHU-02_Supply_Air_Temp.mos"),
+        "/home/mg/data/trends/LBNL_building_trend_33-AHU-02_Supply_Air_Temp.mos"),
     columns={3})                           "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -95,20 +95,20 @@ model CoolingCoilValve_F_withTrends
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
     samplePeriod=300,
-    fileName="b33_ahu_2_cooling_validation.html")
-    "\"Visualization of cooling valve sequence validation against reference data from B33-AHU-2\""
+    fileName="cooling_valve_status_validation.html")
+    "\"Cooling valve control sequence validation\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
   Buildings.Utilities.Plotters.Scatter correlation(
     title="OBC cooling valve signal",
-    xlabel="B33-AHU-2 cooling valve signal",
+    xlabel="Cooling valve signal",
     n=1,
     legend={"OBC cooling valve signal"})     "\"Reference vs. output results\""
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Buildings.Utilities.Plotters.TimeSeries timSerRes(
     title="Reference and result cooling valve control signal",
-    legend={"Cooling valve control signal, OBC","Cooling valve control signal, B33-AHU-2"},
+    legend={"Cooling valve control signal, OBC","Cooling valve control signal, trended data"},
     n=2)
     "\"Reference and result cooling valve control signal\""
     annotation (Placement(transformation(extent={{100,90},{120,110}})));

@@ -115,7 +115,7 @@ equation
     annotation (Line(points={{61,100},{68,100}}, color={0,0,127}));
   connect(zerOrdHol.u, limiter1.y) annotation (Line(points={{98,100},{91,100}}, color={0,0,127}));
   annotation (
-    defaultComponentName = "alc_PI",
+    defaultComponentName = "customPI",
     Icon(graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

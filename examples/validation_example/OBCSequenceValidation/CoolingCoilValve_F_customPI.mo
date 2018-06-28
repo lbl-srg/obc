@@ -1,6 +1,6 @@
 within OBCSequenceValidation;
 block CoolingCoilValve_F_customPI
-  "Cooling coil control sequence as implemented in LBNL 33-AHU-02 (Roof)"
+  "Cooling coil control sequence as implemented in in one of the LBNL buildings"
 
   parameter Real k_p(final unit="1/F") = 5/100
     "Proportional controller gain"
@@ -97,11 +97,11 @@ block CoolingCoilValve_F_customPI
 
   // controller
 
-  CustomPI alc_PI(
+  CustomPI customPI(
     final k_i=k_i,
     final k_p=k_p,
     final interval=interval,
-    final reverseAction=reverseAction) "PI controller as implemented in the B33"
+    final reverseAction=reverseAction) "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
@@ -170,16 +170,16 @@ equation
     annotation (Line(points={{21,-90},{30,-90},{30,-26},{78,-26}}, color={0,0,127}));
   connect(higLim.y,min. u2)
     annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},{78,14}}, color={0,0,127}));
-  connect(holdIntErrSignal.y, alc_PI.holdIntError)
+  connect(holdIntErrSignal.y, customPI.holdIntError)
     annotation (Line(points={{-79,60},{-60,60},{-60,82},{-42,82}}, color={255,0,255}));
-  connect(andIntErr.y, alc_PI.intErrSta)
+  connect(andIntErr.y, customPI.intErrSta)
     annotation (Line(points={{-39,-20},{-36,-20},{-36,74},{-68,74},{-68,88},{-42,88}},
     color={255,0,255}));
-  connect(TSupSet, alc_PI.u_s)
+  connect(TSupSet, customPI.u_s)
     annotation (Line(points={{-140,90},{-92,90},{-92,96},{-42,96}}, color={0,0,127}));
-  connect(TSup, alc_PI.u_m)
+  connect(TSup, customPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
-  connect(alc_PI.y, min.u1)
+  connect(customPI.y, min.u1)
     annotation (Line(points={{-19,90},{30,90},{30,26},{78,26}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
     annotation (Line(points={{-62,-20},{-72,-20},{-72,-50},{-79,-50}}, color={255,0,255}));
@@ -231,7 +231,7 @@ low TSup"),
     Documentation(info="<html>
 <p>
 This subsequence defines cooling coil valve position. The implementation is identical to
-the ALC EIKON control sequence implementation in LBL B33-AHU-02 (Roof), with parameters
+the ALC EIKON control sequence implementation in one of the LBNL buildings, with parameters
 recorded on April 09 2018. This version of the sequences uses F as a temperature unit.
 </p>
 

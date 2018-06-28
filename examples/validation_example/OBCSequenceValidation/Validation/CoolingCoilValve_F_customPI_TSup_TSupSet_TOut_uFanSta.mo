@@ -1,6 +1,6 @@
 within OBCSequenceValidation.Validation;
 model CoolingCoilValve_F_customPI_TSup_TSupSet_TOut_uFanSta
-  "Validation model for the cooling coil valve control sequence in F"
+  "Validation model for the cooling coil valve control sequence"
   extends Modelica.Icons.Example;
 
   parameter Real TOutCooCut(
