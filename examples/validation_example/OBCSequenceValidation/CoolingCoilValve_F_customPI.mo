@@ -2,7 +2,7 @@ within OBCSequenceValidation;
 block CoolingCoilValve_F_customPI
   "Cooling coil control sequence as implemented in in one of the LBNL buildings"
 
-  parameter Real k_p(final unit="1/F") = 5/100
+  parameter Real k_p(final unit="1/F") = 1/100
     "Proportional controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
@@ -52,7 +52,7 @@ block CoolingCoilValve_F_customPI
     "Minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
-  parameter Real TSuphigLim(
+  parameter Real TSupHigLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 42
     "Maximum supply air temperature for defining the upper limit of the valve position"
@@ -134,7 +134,7 @@ block CoolingCoilValve_F_customPI
     "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSuphigLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)

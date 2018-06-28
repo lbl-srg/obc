@@ -2,23 +2,19 @@ within OBCSequenceValidation;
 block CoolingCoilValve_F
   "Cooling coil control sequence as implemented in one of the LBNL buildings"
 
-  parameter Real k_p(final unit="1/F") = 5/100
-    "Proportional controller gain"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
-  parameter Real k_i(final unit="1/F") = 0.5/100
-    "Integral controller gain"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
   parameter Real interval(min = 1, unit="s") = 15
     "Interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Boolean reverseAction = true "Controller reverse action"
+  parameter Real k(final unit="1/F") = 1/100
+    "Proportional controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Boolean holdIntError = false
-    "Keep calculating integrator error when integrator error is off"
+  parameter Real Ti(final unit="s") = k*interval/(0.5/100)
+    "Integral controller gain"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Boolean reverseAction = true "Controller reverse action"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real uMax(
@@ -39,12 +35,12 @@ block CoolingCoilValve_F
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 50
     "Outdoor air temperature cooling threshold"
-     annotation(Evaluate=true);
+    annotation(Evaluate=true);
 
   parameter Real uFanFeeCut(
     final unit="1") = 0.15
     "Fan status threshold"
-     annotation(Evaluate=true);
+    annotation(Evaluate=true);
 
   parameter Real TSupHighLim(
     final unit="F",
@@ -52,7 +48,7 @@ block CoolingCoilValve_F
     "Minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true);
 
-  parameter Real TSuphigLim(
+  parameter Real TSupHigLim(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 42
     "Maximum supply air temperature for defining the upper limit of the valve position"
@@ -97,11 +93,11 @@ block CoolingCoilValve_F
 
   // controller
 
-  CustomPI alc_PI(
-    final k_i=k_i,
-    final k_p=k_p,
-    final interval=interval,
-    final reverseAction=reverseAction)
+  Buildings.Controls.Continuous.LimPID limPI(
+    final reverseAction=reverseAction,
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final k=k,
+    final Ti = Ti)
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -122,11 +118,6 @@ block CoolingCoilValve_F
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntErrSignal(
-    final k=holdIntError)
-    "If True, the integral error aggregation continues during periods with integral error off"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-
   // limiter
 
   Buildings.Controls.OBC.CDL.Continuous.Line higLim(
@@ -135,7 +126,7 @@ block CoolingCoilValve_F
     "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSuphigLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)
@@ -171,16 +162,11 @@ equation
     annotation (Line(points={{21,-90},{30,-90},{30,-26},{78,-26}}, color={0,0,127}));
   connect(higLim.y,min. u2)
     annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},{78,14}}, color={0,0,127}));
-  connect(holdIntErrSignal.y, alc_PI.holdIntError)
-    annotation (Line(points={{-79,60},{-60,60},{-60,82},{-42,82}}, color={255,0,255}));
-  connect(andIntErr.y, alc_PI.intErrSta)
-    annotation (Line(points={{-39,-20},{-36,-20},{-36,74},{-68,74},{-68,88},{-42,88}},
-    color={255,0,255}));
-  connect(TSupSet, alc_PI.u_s)
-    annotation (Line(points={{-140,90},{-92,90},{-92,96},{-42,96}}, color={0,0,127}));
-  connect(TSup, alc_PI.u_m)
+  connect(TSupSet, limPI.u_s)
+    annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
+  connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
-  connect(alc_PI.y, min.u1)
+  connect(limPI.y, min.u1)
     annotation (Line(points={{-19,90},{30,90},{30,26},{78,26}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
     annotation (Line(points={{-62,-20},{-72,-20},{-72,-50},{-79,-50}}, color={255,0,255}));

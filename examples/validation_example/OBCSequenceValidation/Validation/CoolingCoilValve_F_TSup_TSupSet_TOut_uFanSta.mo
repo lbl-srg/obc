@@ -37,29 +37,24 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     final unit="1") = 0.60
     "Fan feedback";
 
-  CoolingCoilValve_F_customPI cooVal(
-    reverseAction=false,
-    k_p=1,
-    k_i=0.1) "Cooling valve control sequence"
+  CoolingCoilValve_F cooVal(
+    reverseAction=false)
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  CoolingCoilValve_F_customPI cooVal1(
-    reverseAction=false,
-    k_p=1,
-    k_i=0.1) "Cooling valve control sequence"
+  CoolingCoilValve_F cooVal1(
+    reverseAction=false)
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  CoolingCoilValve_F_customPI cooVal2(
-    reverseAction=false,
-    holdIntError=false,
-    k_p=1,
-    k_i=0.1) "Cooling valve control sequence"
-    annotation (Placement(transformation(extent={{140,78},{160,98}})));
+  CoolingCoilValve_F cooVal2(
+    reverseAction=false)
+    "Cooling valve control sequence"
+    annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
-  CoolingCoilValve_F_customPI cooVal3(
-    reverseAction=false,
-    k_p=1,
-    k_i=0.1) "Cooling valve control sequence"
+  CoolingCoilValve_F cooVal3(
+    reverseAction=false)
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off
@@ -118,7 +113,7 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan2(
-    k=true)
+    final k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uFanFee2(
@@ -137,10 +132,12 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     final k=TOutCooCut + 5)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(final k=LowTSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(
+    final k=LowTSupSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(
+    final k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup3(
@@ -169,20 +166,20 @@ equation
   connect(cooVal.uFanSta, uSupFan.y)
     annotation (Line(points={{-41,80},{-46,80},{-46,20},{-59,20}}, color={255,0,255}));
   connect(uTSup2.y, cooVal2.TSup)
-    annotation (Line(points={{41,90},{74,90},{74,98},{139,98}}, color={0,0,127}));
+    annotation (Line(points={{41,90},{74,90},{74,100},{139,100}}, color={0,0,127}));
   connect(uTSupSet2.y, cooVal2.TSupSet)
-    annotation (Line(points={{41,50},{50,50},{50,82},{82,82},{82,95},{139,95}}, color={0,0,127}));
+    annotation (Line(points={{41,50},{50,50},{50,82},{82,82},{82,97},{139,97}}, color={0,0,127}));
   connect(uTOutAboveCutoff2.y, cooVal2.TOut)
-    annotation (Line(points={{81,50},{90,50},{90,91},{139,91}}, color={0,0,127}));
+    annotation (Line(points={{81,50},{90,50},{90,93},{139,93}}, color={0,0,127}));
   connect(uFanFee2.y, cooVal2.uFanFee)
-    annotation (Line(points={{121,50},{130,50},{130,83},{139,83}}, color={0,0,127}));
+    annotation (Line(points={{121,50},{130,50},{130,85},{139,85}}, color={0,0,127}));
   connect(uSupFan2.y, cooVal2.uFanSta)
-    annotation (Line(points={{121,20},{134,20},{134,78},{139,78}}, color={255,0,255}));
+    annotation (Line(points={{121,20},{134,20},{134,80},{139,80}}, color={255,0,255}));
   connect(uTSup1.y, cooVal1.TSup)
     annotation (Line(points={{-139,-28},{-124,-28},{-124,-20},{-41,-20}}, color={0,0,127}));
   connect(uTSupSet1.y, cooVal1.TSupSet)
-    annotation (Line(points={{-139,-70},{-132,-70},{-132,-32},{
-          -116,-32},{-116,-23},{-41,-23}}, color={0,0,127}));
+    annotation (Line(points={{-139,-70},{-132,-70},{-132,-32},{-116,-32},{-116,-23},{-41,-23}},
+    color={0,0,127}));
   connect(uTOutBelowCutoff.y, cooVal1.TOut)
     annotation (Line(points={{-99,-70},{-94,-70},{-94,-27},{-41,-27}}, color={0,0,127}));
   connect(uFanFee1.y, cooVal1.uFanFee)
