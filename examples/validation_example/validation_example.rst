@@ -1,18 +1,41 @@
-Data availability assessment for LBL B33 control sequences for validation tool case study
-=========================================================================================
+Subsequence validation example
+==============================
 
-This documents the process of developing control sequences to demonstrate the
-validation tool capabilities. It uses trended data from ALC EIKON control sequences
-implemented in B33.
+This documents an example control sequence validation test. The purpose of a validation test is to compare the recorded output trend of a control sequence installed in an actual building with the output of an identical control sequence programmed in CDL, given the same input trends. Inputs and outputs are provided as recorded 5s interval trends, recorded between 2018-06-07 17:00:00 PDT and 6/11/2018 08:41:50 PDT.
 
 
-33-AHU-02 (Roof) | 33-AHU-01 (Roof)
------------------------------------
+Control Sequence
+----------------
 
-Heating Control - Coil Valve
+The control sequence used in the validation example is a subsequence of the AHU control logic {in building fixme}. The subsequence defines the position of the cooling coil valve using a PI controller that tracks the supply air temperature.
++ low OAT as limiter
+
+Input trends to the subsequence are:
+
+- 
+-
+-
+-
+-
+-
+
+Output trend of the subsequence is:
+
+-
+
+Controller parameters:
+
+-
+
+
+.. note:: {fixme: add screenshot of the EIKON Logic}
+
+
+
+Old notes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Summary: PI controller tracks SAT/SAT SP + freeze protection as limiter
+Summary: PI controller tracks SAT/SAT SP 
 
 Inputs:
 
@@ -51,48 +74,6 @@ AHU-1 OAT sensor as a primary OAT sensor. If we decide to use OA Temp AI0 trend
 as a substitute, the PI controller enable signal may not be identical as the one
 that generated the trended outputs.
 
-Economizer Control
-~~~~~~~~~~~~~~~~~~
-
-**Minimum OA flow**
-
-Inputs:
-
-- Flow Stpt
-- OA CFM
-- OCC status
-- Supply fan status
-
-Intermediary output (not trended yet, asked Chris W to trend it):
-
-- Min OSA CFM PI output (0 - 100)
-
-**Economizer Enable**
-
-Inputs:
-- OAT
-- RAT
-- OCC, FLOW and RUN enable signals
-
-Intermediary output (not trended):
-
-- Enable economizer (ECON OK)
-
-**Damper Modulation**
-
-Inputs:
-
-- Cooling SAT SP (or the also trended Econ Stpt)
-- ECON OK
-- MAT
-- OCC status
-- Min OSA CFM PI output from Minimum OA flow
-- Manual override
-
-Outputs:
-
-- RA damper control signal (0 - 100)
-- SA damper control signal (0 - 100)
 
 
 Implementation notes, issues and assumptions:
