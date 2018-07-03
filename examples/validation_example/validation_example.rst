@@ -1,3 +1,5 @@
+.. todo :: <50 as a fault, 15 s data, start data at midnight, ticks (0612, or date)?
+
 Subsequence validation example
 ==============================
 
