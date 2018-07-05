@@ -10,9 +10,8 @@ model CoolingCoilValve_F_withTrends
     timeScale(displayUnit="s"),
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=(
-        "/home/mg/data/trends/LBNL_building_trend_OA_Temp.mos"),
-    columns={3})
+    columns={3},
+    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_OA_Temp.mos"))
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,9 +22,8 @@ model CoolingCoilValve_F_withTrends
     timeScale(displayUnit="s"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
-    fileName=(
-        "/home/mg/data/trends/LBNL_building_trend_SA_Clg_Stpt.mos"),
-    columns={3})
+    columns={3},
+    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_SA_Clg_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -34,11 +32,10 @@ model CoolingCoilValve_F_withTrends
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    fileName=
-        "/home/mg/data/trends/LBNL_building_trend_Clg_Coil_Valve.mos",
     tableName="Clg_Coil_Valve",
     columns={3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    fileName="/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Clg_Coil_Valve.mos")
     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -48,10 +45,9 @@ model CoolingCoilValve_F_withTrends
     offset={0},
     timeScale(displayUnit="s"),
     tableName="VFD_Fan_Feedback",
-    fileName=(
-        "/home/mg/data/trends/LBNL_building_trend_VFD_Fan_Feedback.mos"),
     columns={3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -60,11 +56,10 @@ model CoolingCoilValve_F_withTrends
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     offset={0},
     timeScale(displayUnit="s"),
-    fileName=(
-        "/home/mg/data/trends/LBNL_building_trend_VFD_Fan_Enable.mos"),
     tableName="VFD_Fan_Enable",
     columns={3},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -75,9 +70,9 @@ model CoolingCoilValve_F_withTrends
     timeScale(displayUnit="s"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
-    fileName=(
-        "/home/mg/data/trends/LBNL_building_trend_Supply_Air_Temp.mos"),
-    columns={3})                           "\"Measured supply air temperature\""
+    columns={3},
+    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Supply_Air_Temp.mos"))
+                                           "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   CoolingCoilValve_F          cooValSta_F(
