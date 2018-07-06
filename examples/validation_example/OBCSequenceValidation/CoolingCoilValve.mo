@@ -209,7 +209,11 @@ equation
         Text(
           extent={{-108,138},{102,110}},
           lineColor={0,0,127},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{18,-84},{100,-12}},
+          lineColor={0,0,127},
+          textString="V")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,
             120}}), graphics={
         Rectangle(

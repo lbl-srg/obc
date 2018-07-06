@@ -11,7 +11,7 @@ model CoolingCoilValve_Trends
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_OA_Temp.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/OA_Temp.mos"))
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,7 +23,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_SA_Clg_Stpt.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/SA_Clg_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -35,7 +35,7 @@ model CoolingCoilValve_Trends
     tableName="Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName="/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Clg_Coil_Valve.mos")
+    fileName="/home/mg/data/obc_validation_study/trends/Clg_Coil_Valve.mos")
     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -47,7 +47,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Feedback",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Feedback.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -59,7 +59,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Enable.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -71,7 +71,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Supply_Air_Temp.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/Supply_Air_Temp.mos"))
                                            "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -108,14 +108,14 @@ model CoolingCoilValve_Trends
     legend={"Cooling valve control signal, modeled","Cooling valve control signal, trended"},
     title="Cooling valve control signal: reference trend vs. modeled result")
     "\"Cooling valve control signal: reference trend vs. modeled result \""
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}})));
 
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
     legend={"Supply air temperature, [degC]","Supply air temperature setpoint, [degC]",
         "Outdoor air temperature, [degC]"},
     n=3,
     title="Trended input signals") "\"Trended input signals\""
-    annotation (Placement(transformation(extent={{100,60},{120,80}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
     "Converter to boolean"
@@ -131,16 +131,15 @@ model CoolingCoilValve_Trends
   ToC ToC3 annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(cooValSta.yCooVal, timSerRes.y[1])
-    annotation (Line(points={{41,0},{50,0},{50,90},{50,90},{50,96},{98,96},{98,101}},
+    annotation (Line(points={{41,0},{60,0},{60,90},{98,90},{98,91}},
                                                                  color={0,0,127}));
   connect(cooValSta.yCooVal, correlation.y[1])
     annotation (Line(points={{41,0},{70,0},{70,30},{98,30}},   color={0,0,127}));
   connect(percConvCooValSig.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,98},{20,100},{98,100},{98,102},{
-          98,99},{98,99}},
+    annotation (Line(points={{-79,90},{20,90},{20,96},{98,96},{98,89}},
     color={0,0,127}));
   connect(percConvCooValSig.y, correlation.x)
-    annotation (Line(points={{-79,90},{60,90},{60,22},{98,22}}, color={0,0,127}));
+    annotation (Line(points={{-79,90},{50,90},{50,22},{98,22}}, color={0,0,127}));
   connect(greEquThr.y, cooValSta.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,-10},{19,-10}},
                                                                 color={255,0,255}));
@@ -170,14 +169,12 @@ equation
     annotation (Line(points={{-79,20},{-12,20},{-12,7},{19,7}},   color={0,0,127}));
   connect(FromF3.kelvin, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,-20},{-12,3},{19,3}},
                                                   color={0,0,127}));
-  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,70},{-32,70},{-32,74},{98,74},
-          {98,72},{98,72},{98,71.3333},{98,71.3333}},
-                                      color={0,0,127}));
-  connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,32},{-28,32},{-28,70},{90,70},
-          {90,70},{98,70}}, color={0,0,127}));
-  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,0},{-24,0},{-24,66},{-14,66},
-          {-14,66},{-14,66},{98,66},{98,68.6667}},
-                                     color={0,0,127}));
+  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,70},{-30,70},{-30,64},{98,64},
+          {98,61.3333}},              color={0,0,127}));
+  connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,32},{-30,32},{-30,60},{98,60}},
+                            color={0,0,127}));
+  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,0},{-20,0},{-20,56},{98,56},{
+          98,58.6667}},              color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
