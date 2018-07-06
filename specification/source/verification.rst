@@ -178,4 +178,62 @@ generates a file that contains the scatter plots shown in :numref:`xxxx`
 Example
 ^^^^^^^
 
-[Milica to document her example.]
+[Pending approval: building name, ALC logic diagram]
+
+In this example, we validated a trended output of a control sequence that defines the cooling
+coil valve position. This cooling coil valve sequence is a part of the ALC EIKON control logic 
+implemented in {fixme building and ahu name} in Berkeley, CA. The subsequence comprises a PI
+controller that  tracks the supply air temperature, an upstream subsequence that enables the 
+controller and a downstream output limiter in case of low supply air temperatures.
+
+.. figure:: img/verification/xxxx.* {fixme after we obtain permission}
+   :width: 500 px
+   
+   ALC EIKON specification of the cooling coil valve position control sequence
+   
+We created a CLD specification of the same cooling coil valve position control sequence in order to
+validate the recorded output.
+
+.. figure:: img/verification/CoolingCoilValve.png
+   :width: 500 px
+   
+   OBC specification of the cooling coil valve position control sequence
+
+Recorded 5s input trends to the subsequence are:
+
+* Supply air temperature [F]
+* Supply air temperature setpoint [F]
+* Outdoor air temperature [F]
+* VFD fan enable status [0/1]
+* VFD fan feedback [%]
+
+Output trend of the subsequence is:
+
+* Cooling coil valve position [%]
+
+The input and output trends were processed using a csv to mos conversion script. We used data 
+beginning at midnight on June 7 2018.
+
+We implemented a Modelica model that conducts the verification. The model reads the input and output
+trends in, generates the output of the OBC cooling coil valve sequence specification using the 
+recorded inputs and compares that output to the trended one.
+
+.. figure:: img/verification/CoolingCoilValve_Trends.png
+   :width: 500 px
+   
+   A Modelica model that conducts the verification
+   
+We obtained a good fit between the trend and the modeled data.
+
+.. figure:: img/verification/cooling_valve_validation.html
+   :width: 800 px
+   
+   Verification results
+
+
+
+
+
+   
+   
+
