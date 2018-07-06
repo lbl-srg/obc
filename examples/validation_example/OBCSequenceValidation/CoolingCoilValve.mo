@@ -1,16 +1,43 @@
 within OBCSequenceValidation;
-block CoolingCoilValve_F
-  "Cooling coil control sequence as implemented in one of the LBNL buildings"
+block CoolingCoilValve "Cooling coil control sequence to validate"
+
+  parameter Real alc_prop_k(final unit="%/F)") = 1
+    "Recorded proportional controller gain, as provided in the ALC control logic"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Real alc_int_k(final unit="%/F)") = 0.5
+    "Recorded integral controller gain, as provided in the ALC control logic"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Real alc_k_unit_conv = (9/5)/100
+    "Unit converter for controller gains from the ALC control logic"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Modelica.SIunits.Temperature TOutCooCut = 50
+    "Outdoor air temperature cooling threshold"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Real uFanFeeCut(final unit="1") = 0.15
+    "Fan status threshold"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Modelica.SIunits.Temperature TSupHighLim = 50
+    "Minimum supply air temperature for defining the upper limit of the valve position"
+    annotation(Evaluate=true, Dialog(group="Controller"));
+
+  parameter Modelica.SIunits.Temperature TSupHigLim = 42
+    "Maximum supply air temperature for defining the upper limit of the valve position"
+    annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real interval(min = 1, unit="s") = 15
     "Interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real k(final unit="1/F") = 1/100
+  parameter Real k(final unit="1/K") = alc_prop_k * alc_k_unit_conv
     "Proportional controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real Ti(final unit="s") = k*interval/(0.5/100)
+  parameter Real Ti(final unit="s") = k*interval/(alc_int_k * alc_k_unit_conv)
     "Integral controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
@@ -31,28 +58,7 @@ block CoolingCoilValve_F
     "Minimum controller signal"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real TOutCooCut(
-    final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
-    "Outdoor air temperature cooling threshold"
-    annotation(Evaluate=true);
 
-  parameter Real uFanFeeCut(
-    final unit="1") = 0.15
-    "Fan status threshold"
-    annotation(Evaluate=true);
-
-  parameter Real TSupHighLim(
-    final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
-    "Minimum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true);
-
-  parameter Real TSupHigLim(
-    final unit="F",
-    final quantity = "ThermodynamicTemperature") = 42
-    "Maximum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true);
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanSta
     "Optional additional status signal"
@@ -65,20 +71,20 @@ block CoolingCoilValve_F
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured supply air temperature (SAT)"
     annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
       iconTransformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSupSet(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature") "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,70},{-120,110}}),
       iconTransformation(extent={{-120,60},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
-    final unit="F",
+    final unit="K",
     final quantity = "ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-120,0}}),
@@ -117,8 +123,7 @@ block CoolingCoilValve_F
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(
-    final threshold=uFanFeeCut)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       uFanFeeThr(uLow=0.05, uHigh=0.15)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
@@ -240,4 +245,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingCoilValve_F;
+end CoolingCoilValve;

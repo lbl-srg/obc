@@ -1,6 +1,8 @@
 within OBCSequenceValidation.Validation;
-block CustomPI_TSup
+model CustomPI_TSup
   "Test direct and reverse action operation of a fixed timestep PI controller"
+  extends Modelica.Icons.Example;
+
   CustomPI alcPI1(
     k_p=0.05,
     k_i=0.005,
@@ -31,6 +33,7 @@ block CustomPI_TSup
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=false)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+
 equation
   connect(uTSupSet.y, alcPI1.u_s)
     annotation (Line(points={{-59,70},{-30,70},{-30,16},{-22,16}}, color={0,0,127}));

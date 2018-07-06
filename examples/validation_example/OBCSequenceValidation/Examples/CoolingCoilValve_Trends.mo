@@ -1,6 +1,6 @@
 within OBCSequenceValidation.Examples;
-model CoolingCoilValve_F_customPI_withTrends
-  "Validation model for the cooling coil control subsequence with recorded data trends using a custom controller model"
+model CoolingCoilValve_Trends
+  "Validation model for the cooling coil control subsequence with recorded data trends"
   extends Modelica.Icons.Example;
 
   Modelica.Blocks.Sources.CombiTimeTable TOut_F(
@@ -36,7 +36,7 @@ model CoolingCoilValve_F_customPI_withTrends
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     fileName="/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Clg_Coil_Valve.mos")
-                                                                "Output of the cooling valve control subsequence"
+    "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
   Modelica.Blocks.Sources.CombiTimeTable fanFeedback(
@@ -75,12 +75,8 @@ model CoolingCoilValve_F_customPI_withTrends
                                            "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
-  CoolingCoilValve_F_customPI cooValSta_F(
-    reverseAction=false,
-    k_p=1/100,
-    k_i=0.5/100,
-    holdIntError=false,
-    TOutCooCut=50) "Cooling valve position control sequence"
+  CoolingCoilValve cooValSta(TOutCooCut=50, reverseAction=true)
+    "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
@@ -140,16 +136,16 @@ equation
   connect(TSupUniCon.y, timSerInp.y[1])
     annotation (Line(points={{-79,60},{20,60},{20,71.3333},{98,71.3333}}, color={0,0,127}));
   connect(TSupSetUniCon.y, timSerInp.y[2])
-    annotation (Line(points={{-79,30},{-52,30},{-52,68},{24,68},
-    {24,70},{98,70}}, color={0,0,127}));
+    annotation (Line(points={{-79,30},{-50,30},{-50,70},{24,70},{24,70},{98,70}},
+                      color={0,0,127}));
   connect(TOutUniCon.y, timSerInp.y[3])
     annotation (Line(points={{-79,-10},{-40,-10},{-40,66},{26,66},{26,68.6667},{98,68.6667}},
     color={0,0,127}));
-  connect(cooValSta_F.yCooVal, timSerRes.y[1])
+  connect(cooValSta.yCooVal, timSerRes.y[1])
     annotation (Line(points={{41,30},{50,30},{50,101},{98,101}}, color={0,0,127}));
-  connect(cooValSta_F.yCooVal, delta.u2)
+  connect(cooValSta.yCooVal, delta.u2)
     annotation (Line(points={{41,30},{60,30},{60,-36},{98,-36}}, color={0,0,127}));
-  connect(cooValSta_F.yCooVal, correlation.y[1])
+  connect(cooValSta.yCooVal, correlation.y[1])
     annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
   connect(percConvCooValSig.y, timSerRes.y[2])
     annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,98},{20,99},{60,99},{98,99}},
@@ -158,31 +154,30 @@ equation
     annotation (Line(points={{-79,90},{80,90},{80,22},{98,22}}, color={0,0,127}));
   connect(percConvCooValSig.y, delta.u1)
     annotation (Line(points={{-79,90},{70,90},{70,-24},{98,-24}}, color={0,0,127}));
-  connect(greEquThr.y, cooValSta_F.uFanSta)
+  connect(greEquThr.y, cooValSta.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
-  connect(percConvFanFee.y, cooValSta_F.uFanFee)
-    annotation (Line(points={{-79,-60},{-10,-60},{-10, 24},{-10,24},{-10,-60},{-10,25},{4,25},{19,25}},
-    color={0,0,127}));
+  connect(percConvFanFee.y, cooValSta.uFanFee) annotation (Line(points={{-79,-60},{-10,-60},{-10,24},
+          {-10,24},{-10,-60},{-10,25},{4,25},{19,25}}, color={0,0,127}));
   connect(coolingValveSignal.y[1], percConvCooValSig.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
     annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}}, color={0,0,127}));
-  connect(TSupply_F.y[1], cooValSta_F.TSup)
-    annotation (Line(points={{-119,50},{-50,50},{-50,40},{19,40}}, color={0,0,127}));
   connect(TOut_F.y[1], TOutUniCon.u)
     annotation (Line(points={{-119,-20},{-108,-20},{-108,-10},{-102,-10}}, color={0,0,127}));
-  connect(TOut_F.y[1], cooValSta_F.TOut)
-    annotation (Line(points={{-119,-20},{-16,-20},{-16,33},{19,33}}, color={0,0,127}));
   connect(fanFeedback.y[1], percConvFanFee.u)
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(fanStatus.y[1], greEquThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
   connect(TSupSetpoint_F.y[1], TSupSetUniCon.u)
     annotation (Line(points={{-119,20},{-110,20},{-110,30},{-102,30}}, color={0,0,127}));
-  connect(TSupSetpoint_F.y[1], cooValSta_F.TSupSet)
-    annotation (Line(points={{-119,20},{-20,20},{-20,37},{19,37}}, color={0,0,127}));
+  connect(TSupUniCon.y, cooValSta.TSup)
+    annotation (Line(points={{-79,60},{-30,60},{-30,40},{19,40}}, color={0,0,127}));
+  connect(TOutUniCon.y, cooValSta.TSupSet)
+    annotation (Line(points={{-79,-10},{-30,-10},{-30,37},{19,37}}, color={0,0,127}));
+  connect(TSupSetUniCon.y, cooValSta.TOut) annotation (Line(points={{-79,30},{-20,30},{-20,30},{-20,
+          30},{-20,33},{19,33}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
-  __Dymola_Commands(file="CoolingCoilValve_F_customPI_withTrends.mos"
+  __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
@@ -201,4 +196,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
-end CoolingCoilValve_F_customPI_withTrends;
+end CoolingCoilValve_Trends;

@@ -72,8 +72,9 @@ block CustomPI
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Limiter limiter1(final uMax=uMax, final uMin=uMin)
-                     "Output limiter"
+    "Output limiter"
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
+
 equation
   connect(u_m, error.u2)
     annotation (Line(points={{0,-160},{0,-120},{-90,-120},{-90,-66},{-82,-66}},color={0,0,127}));

@@ -34,6 +34,13 @@ Controller parameters:
 
 
 
+Lessons learned
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Check if CDL PID controller's integral error reset reproduce all combinations of "hold integral error" and "Go" input
+- Trends with timestep < controller integral error interval are best.
+- 
+
+
 Old notes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
