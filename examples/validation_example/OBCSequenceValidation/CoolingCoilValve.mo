@@ -1,64 +1,70 @@
 within OBCSequenceValidation;
-block CoolingCoilValve "Cooling coil control sequence to validate"
+block CoolingCoilValve "Cooling coil valve position control sequence"
 
-  parameter Real alc_prop_k(final unit="%/F)") = 1
-    "Recorded proportional controller gain, as provided in the ALC control logic"
+  parameter Real alc_prop_k(final unit="1/F") = 1/100
+    "Recorded proportional controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real alc_int_k(final unit="%/F)") = 0.5
-    "Recorded integral controller gain, as provided in the ALC control logic"
+  parameter Real alc_int_k(final unit="1/F") = 0.5/100
+    "Recorded integral controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Real alc_k_unit_conv = (9/5)/100
+  parameter Real alc_k_unit_conv = 9/5
     "Unit converter for controller gains from the ALC control logic"
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Parameters"));
+
+  parameter Modelica.SIunits.Temperature TOutCooCut = 50 * (5/9) - 32 * (5/9) + 273.15
+    "Recorded outdoor air temperature cooling threshold"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Modelica.SIunits.Temperature TOutDelta = 2 * (5/9) - 32 * (5/9) + 273.15
+    "Recorded outdoor air temperature cooling threshold hysteresis delta"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Real FanFeeCut = 15/100
+    "Recorded fan feedback threshold"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Real FanFeeDelta = 10/100
+    "Recorded fan feedback threshold hysteresis delta"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Modelica.SIunits.Temperature TSupHighLim = 50 * (5/9) - 32 * (5/9) + 273.15
+    "Recorded minimum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Modelica.SIunits.Temperature TOutCooCut = 50
-    "Outdoor air temperature cooling threshold"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
-  parameter Real uFanFeeCut(final unit="1") = 0.15
-    "Fan status threshold"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
-  parameter Modelica.SIunits.Temperature TSupHighLim = 50
-    "Minimum supply air temperature for defining the upper limit of the valve position"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
-  parameter Modelica.SIunits.Temperature TSupHigLim = 42
-    "Maximum supply air temperature for defining the upper limit of the valve position"
+  parameter Modelica.SIunits.Temperature TSupHigLim = 42 * (5/9) - 32 * (5/9) + 273.15
+    "Recorded maximum supply air temperature for defining the upper limit of the valve position"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real interval(min = 1, unit="s") = 15
-    "Interval at which integration part of the output gets updated"
+    "Recorded interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real k(final unit="1/K") = alc_prop_k * alc_k_unit_conv
     "Proportional controller gain"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real Ti(final unit="s") = k*interval/(alc_int_k * alc_k_unit_conv)
     "Integral controller gain"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Boolean reverseAction = true "Controller reverse action"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real uMax(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Maximum controller signal"
-    annotation(Evaluate=true, Dialog(group="Controller"));
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   parameter Real uMin(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Minimum controller signal"
-    annotation(Evaluate=true, Dialog(group="Controller"));
-
-
+    annotation(Evaluate=true, Dialog(tab="Advanced", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFanSta
     "Optional additional status signal"
@@ -66,8 +72,7 @@ block CoolingCoilValve "Cooling coil control sequence to validate"
     iconTransformation(extent={{-120,-110},{-100,-90}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanFee "Supply fan feedback"
-    annotation (Placement(
-        transformation(extent={{-160,-80},{-120,-40}}),
+    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
         iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
@@ -99,16 +104,15 @@ block CoolingCoilValve "Cooling coil control sequence to validate"
 
   // controller
 
-  Buildings.Controls.OBC.CDL.Continuous.LimPID
-                                       limPI(
+  Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
     final reverseAction=reverseAction,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     final k=k,
     final Ti = Ti,
-    yMax=1,
-    yMin=0,
-    y_reset=0,
-    reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
+    final yMax=1,
+    final yMin=0,
+    final y_reset=0,
+    final reset=Buildings.Controls.OBC.CDL.Types.Reset.Parameter)
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
@@ -119,11 +123,14 @@ block CoolingCoilValve "Cooling coil control sequence to validate"
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       TOutThr(uLow=48, uHigh=50)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis TOutThr(
+    final uLow = TOutCooCut - TOutDelta,
+    final uHigh = TOutCooCut)
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       uFanFeeThr(uLow=0.05, uHigh=0.15)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(uLow=FanFeeCut - FanFeeDelta, uHigh=
+        FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
@@ -133,14 +140,14 @@ block CoolingCoilValve "Cooling coil control sequence to validate"
     final limitBelow=true,
     final limitAbove=true)
     "Defines lower limit of the Cooling valve signal at low range SATs"
-    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
     "Low range supply air temperature low limit"
-    annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)
     "Low range supply air temperature high limit"
-    annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And3 andIntErr
     "Outputs controller enable signal"
@@ -148,44 +155,48 @@ block CoolingCoilValve "Cooling coil control sequence to validate"
 
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Switches the signal between controller and low range limiter signals"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+
 equation
   connect(TOut, TOutThr.u)
     annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
   connect(TOutThr.y, andIntErr.u1)
-    annotation (Line(points={{-89,-20},{-80,-20},{-80,-12},{-72,-12}}, color={255,0,255}));
+    annotation (Line(points={{-89,-20},{-86,-20},{-86,-12},{-72,-12}}, color={255,0,255}));
   connect(TSup, higLim.u)
-    annotation (Line(points={{-140,40},{10,40},{10,-30},{78,-30}}, color={0,0,127}));
+    annotation (Line(points={{-140,40},{10,40},{10,-20},{78,-20}}, color={0,0,127}));
   connect(uFanSta, andIntErr.u3)
-    annotation (Line(points={{-140,-100},{-80,-100},{-80,-28},{-72,-28}},color={255,0,255}));
+    annotation (Line(points={{-140,-100},{-82,-100},{-82,-28},{-72,-28}},color={255,0,255}));
   connect(yCooVal,min. y)
-    annotation (Line(points={{130,0},{116,0},{116,20},{101,20}},color={0,0,127}));
+    annotation (Line(points={{130,0},{114,0},{114,30},{101,30}},color={0,0,127}));
   connect(TSupMax.y, higLim.x2)
-    annotation (Line(points={{61,-58},{68,-58},{68,-34},{78,-34}}, color={0,0,127}));
+    annotation (Line(points={{61,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
+                                                                   color={0,0,127}));
   connect(yCooValMax.y, higLim.f2)
-    annotation (Line(points={{61,-90},{72,-90},{72,-38},{78,-38}}, color={0,0,127}));
-  connect(TSupMin.y, higLim.x1)
-    annotation (Line(points={{21,-58},{26,-58},{26,-22},{78,-22}}, color={0,0,127}));
-  connect(yCooValMin.y, higLim.f1)
-    annotation (Line(points={{21,-90},{30,-90},{30,-26},{78,-26}}, color={0,0,127}));
+    annotation (Line(points={{61,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
   connect(higLim.y,min. u2)
-    annotation (Line(points={{101,-30},{110,-30},{110,0},{70,0},{70,14},{78,14}}, color={0,0,127}));
+    annotation (Line(points={{101,-20},{106,-20},{106,0},{70,0},{70,24},{78,24}}, color={0,0,127}));
   connect(TSupSet, limPI.u_s)
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
   connect(limPI.y, min.u1)
-    annotation (Line(points={{-19,90},{30,90},{30,26},{78,26}}, color={0,0,127}));
+    annotation (Line(points={{-19,90},{30,90},{30,36},{78,36}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-20},{-80,-20},{-80,-60},{-89,-60}}, color={255,0,255}));
+    annotation (Line(points={{-72,-20},{-84,-20},{-84,-60},{-89,-60}}, color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-112,-60}},                       color={0,0,127}));
   connect(andIntErr.y, not1.u) annotation (Line(points={{-49,-20},{-42,-20}}, color={255,0,255}));
   connect(not1.y, limPI.trigger)
     annotation (Line(points={{-19,-20},{-16,-20},{-16,20},{-38,20},{-38,78}}, color={255,0,255}));
+  connect(TSupMin.y, higLim.x1)
+    annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},
+                                                               color={0,0,127}));
+  connect(yCooValMin.y, higLim.f1)
+    annotation (Line(points={{21,-90},{30,-90},{30,-16},{78,-16}},
+                                                               color={0,0,127}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
@@ -207,7 +218,7 @@ equation
           fillColor={217,217,217},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{80,-104},{120,-112}},
+          extent={{80,-102},{120,-110}},
           lineColor={0,0,127},
           textString="Limiter for 
 low TSup"),
@@ -217,7 +228,7 @@ low TSup"),
           fillColor={217,217,217},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-48,-108},{-20,-114}},
+          extent={{-48,-106},{-20,-112}},
           lineColor={0,0,127},
           textString="Enbale/Disable"),
         Rectangle(
