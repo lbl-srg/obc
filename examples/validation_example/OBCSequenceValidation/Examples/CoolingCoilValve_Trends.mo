@@ -76,10 +76,10 @@ model CoolingCoilValve_Trends
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   CoolingCoilValve cooValSta(               reverseAction=true,
-    TOutCooCut(displayUnit="K") = 50,
     TSupHighLim(displayUnit="K"),
     TSupHigLim(displayUnit="K"),
-    TOutDelta(displayUnit="K"))
+    TOutDelta(displayUnit="K"),
+    TOutCooCut(displayUnit="K") = 50*(5/9) - 32*(5/9) + 273.15)
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -194,5 +194,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
+        Rectangle(
+          extent={{-180,122},{180,-122}},
+          lineColor={217,217,217},
+          fillColor={217,217,217},
+          fillPattern=FillPattern.Solid)}));
 end CoolingCoilValve_Trends;
