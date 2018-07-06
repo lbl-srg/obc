@@ -223,7 +223,7 @@ recorded inputs and compares that output to the trended one.
    
    A Modelica model that conducts the verification
    
-We obtained a good fit between the trend and the modeled data.
+We obtained a good fit between the trend and the modeled output.
 
 .. figure:: img/verification/cooling_valve_validation.html
    :width: 800 px
