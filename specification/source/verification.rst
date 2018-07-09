@@ -180,10 +180,10 @@ Example
 
 [Pending approval: building name, ALC logic diagram]
 
-In this example, we validated a trended output of a control sequence that defines the cooling
-coil valve position. This cooling coil valve sequence is a part of the ALC EIKON control logic 
+In this example we validated a trended output of a control sequence that defines the cooling
+coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic 
 implemented in {fixme building and ahu name} in Berkeley, CA. The subsequence comprises a PI
-controller that  tracks the supply air temperature, an upstream subsequence that enables the 
+controller that tracks the supply air temperature, an upstream subsequence that enables the 
 controller and a downstream output limiter in case of low supply air temperatures.
 
 .. figure:: img/verification/xxxx.* {fixme after we obtain permission}
@@ -211,12 +211,12 @@ Output trend of the subsequence is:
 
 * Cooling coil valve position [%]
 
-The input and output trends were processed using a csv to mos conversion script. We used data 
-beginning at midnight on June 7 2018.
+The input and output trends were processed using a csv to mos conversion script [fixme: maybe add link]. 
+The data used in the example begins at midnight on June 7 2018.
 
-We implemented a Modelica model that conducts the verification. The model reads the input and output
-trends in, generates the output of the OBC cooling coil valve sequence specification using the 
-recorded inputs and compares that output to the trended one.
+A Modelica model that conducts the verification reads the input and output
+trends in, generates the output of the OBC cooling coil valve sequence specification 
+using the recorded inputs and compares that output to the trended one.
 
 .. figure:: img/verification/CoolingCoilValve_Trends.png
    :width: 500 px
