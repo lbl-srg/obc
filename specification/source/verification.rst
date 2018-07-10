@@ -66,9 +66,6 @@ has the expected position as a function of the outside air temperature.
 Below, we will further describe the blocks  *time series verification*
 and *sequence chart*.
 
-.. todo:: Do we also need a block to do unit conversion?
-          A block to read CSV data is in development.
-
 .. _fig_con_seq_ver:
 
 .. figure:: img/verification/overviewBlockDiagram.*
@@ -119,7 +116,7 @@ we developed the package ``Buildings.Controls.OBC.UnitConversions``.
 This package provides blocks that convert common units to SI units, and
 from SI units to units that are commonly used in the HVAC community.
 
-[todo: This package needs to be implemented.
+[todo: This package is currently being developed.
 As there will be many blocks, it should be generated from a json file
 using code in Buildings/Resources/src/Controls]
 
@@ -138,11 +135,13 @@ To verify sequence diagrams we developed the Modelica package
 diagram shown in :numref:`fig_vav_sin_plo_dia_ver`. While in this example, we used the control
 output of the CDL implementation of the control sequence, during commissioning,
 one would use the control signal from the building automation system.
+The model is available from the Modelica Buildings Library, see the model
+``Buildings.Utilities.Plotters.Examples.SingleZoneVAVSupply_u``.
 
 .. _fig_vav_sin_mod_ver:
 
 .. figure:: img/verification/SingleZoneVAVSupply_u.*
-   :width: 700 px
+   :width: 500 px
 
    Modelica model that verifies the sequence diagram.
    On the left are the blocks that generate the control input.
@@ -152,7 +151,7 @@ one would use the control signal from the building automation system.
    Some of its output is converted to degree Celsius, and then fed to the
    plotters on the right that generate a scatter plot for the temperatures
    and a scatter plot for the fan control signal.
-   The block labelled ``plotConfiguration`` configures
+   The block labeled ``plotConfiguration`` configures
    the file name for the plots and the sampling interval.
 
 .. _fig_vav_sin_plo_dia_ver:
@@ -164,16 +163,15 @@ one would use the control signal from the building automation system.
    from ASHRAE Guideline 36.
 
 Simulating the model shown in :numref:`fig_vav_sin_mod_ver`
-generates a file that contains the scatter plots shown in :numref:`xxxx`
+generates a file that contains the scatter plots shown in :numref:`fig_vav_sin_ger_ver`.
 
 .. _fig_vav_sin_ger_ver:
 
-.. figure:: img/verification/xxxx.*
+.. figure:: img/verification/vavSingleZoneSeq.*
    :width: 500 px
 
    Scatter plots that show the control sequence diagram generated from
-   the outputs of the simulated control sequence.
-
+   the simulated sequence.
 
 Example
 ^^^^^^^
@@ -181,25 +179,24 @@ Example
 [Pending approval: building name, ALC logic diagram]
 
 In this example we validated a trended output of a control sequence that defines the cooling
-coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic 
+coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic
 implemented in {fixme building and ahu name} in Berkeley, CA. The subsequence comprises a PI
-controller that tracks the supply air temperature, an upstream subsequence that enables the 
+controller that tracks the supply air temperature, an upstream subsequence that enables the
 controller and a downstream output limiter in case of low supply air temperatures.
 
-.. figure:: img/verification/xxxx.* {fixme after we obtain permission}
-   :width: 500 px
-   
-   ALC EIKON specification of the cooling coil valve position control sequence
-   
+.. todo:: Add ALC Eikon figure after we obtain permission
+
 We created a CLD specification of the same cooling coil valve position control sequence in order to
 validate the recorded output.
 
+.. _fig_coo_coi_val_seq:
+
 .. figure:: img/verification/CoolingCoilValve.png
    :width: 500 px
-   
-   OBC specification of the cooling coil valve position control sequence
 
-Recorded 5s input trends to the subsequence are:
+   OBC specification of the cooling coil valve position control sequence.
+
+Recorded 5 seconds input trends to the subsequence are:
 
 * Supply air temperature [F]
 * Supply air temperature setpoint [F]
@@ -207,33 +204,37 @@ Recorded 5s input trends to the subsequence are:
 * VFD fan enable status [0/1]
 * VFD fan feedback [%]
 
-Output trend of the subsequence is:
+Output of the subsequence is the cooling coil valve position in percentage.
 
-* Cooling coil valve position [%]
-
-The input and output trends were processed using a csv to mos conversion script [fixme: maybe add link]. 
+The input and output trends were processed using a csv to mos conversion script [fixme: maybe add link].
 The data used in the example begins at midnight on June 7 2018.
 
-A Modelica model that conducts the verification reads the input and output
-trends in, generates the output of the OBC cooling coil valve sequence specification 
-using the recorded inputs and compares that output to the trended one.
+:numref:`fig_coo_coi_val_tre` shows the
+Modelica model that was used to conduct the verification. On the left hand side
+are the data readers that reads the input and output
+trends from files. Next are unit conversions, and a conversion for the fan status
+between a real value and a boolean value.
+These data are fed into the instance labeled ``cooValSta``, which contains the control sequence
+as shown in :numref:`fig_coo_coi_val_seq`. The plotters on the right hand side then
+compare the simulated cooling coil valve position with the recorded data.
 
-.. figure:: img/verification/CoolingCoilValve_Trends.png
+.. _fig_coo_coi_val_tre:
+
+.. figure:: img/verification/CoolingCoilValve_Trends.*
    :width: 500 px
-   
-   A Modelica model that conducts the verification
-   
-We obtained a good fit between the trend and the modeled output.
 
-.. figure:: img/verification/cooling_valve_validation.html
+   Modelica model that conducts the verification.
+
+:numref:`fig_coo_coi` shows the trended input temperatures for the
+control sequence, the trended and simulated cooling valve control signal
+for the same time period, which are practically on top of each other,
+and the the correlation error between the
+trended and simulated cooling valve control signal.
+
+.. _fig_coo_coi:
+
+.. figure:: img/verification/cooling_valve.*
    :width: 800 px
-   
-   Verification results
 
-
-
-
-
-   
-   
-
+   Verification of the cooling valve control signal between ALC EIKON computed
+   signal and simulated signal.
