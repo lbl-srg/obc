@@ -83,8 +83,7 @@ model CoolingCoilValve_Trends
     "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
-    "Percentage to number converter"
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01) "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
@@ -117,37 +116,35 @@ model CoolingCoilValve_Trends
     title="Trended input signals") "\"Trended input signals\""
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
     "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConvFanFee(k=0.01)
-    "Percentage to number converter"
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConv1(k=0.01) "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   FromF FromF1 annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   FromF FromF2 annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   FromF FromF3 annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  ToC ToC1 annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  ToC ToC2 annotation (Placement(transformation(extent={{-60,22},{-40,42}})));
-  ToC ToC3 annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  ToC ToC1 annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  ToC ToC2 annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  ToC ToC3 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(cooValSta.yCooVal, timSerRes.y[1])
     annotation (Line(points={{41,0},{60,0},{60,90},{98,90},{98,91}},
                                                                  color={0,0,127}));
   connect(cooValSta.yCooVal, correlation.y[1])
     annotation (Line(points={{41,0},{70,0},{70,30},{98,30}},   color={0,0,127}));
-  connect(percConvCooValSig.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{20,90},{20,96},{98,96},{98,89}},
-    color={0,0,127}));
-  connect(percConvCooValSig.y, correlation.x)
+  connect(percConv.y, timSerRes.y[2])
+    annotation (Line(points={{-79,90},{20,90},{20,96},{98,96},{98,89}}, color={0,0,127}));
+  connect(percConv.y, correlation.x)
     annotation (Line(points={{-79,90},{50,90},{50,22},{98,22}}, color={0,0,127}));
   connect(greEquThr.y, cooValSta.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,-10},{19,-10}},
                                                                 color={255,0,255}));
-  connect(percConvFanFee.y, cooValSta.uFanFee) annotation (Line(points={{-79,-60},{-80,-60},{-80,
-          -60},{-70,-60},{-4,-60},{-4,-5},{19,-5}},    color={0,0,127}));
-  connect(coolingValveSignal.y[1], percConvCooValSig.u)
+  connect(percConv1.y, cooValSta.uFanFee) annotation (Line(points={{-79,-60},{-80,-60},{-80,-60},{-70,
+          -60},{-4,-60},{-4,-5},{19,-5}}, color={0,0,127}));
+  connect(coolingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
-  connect(fanFeedback.y[1], percConvFanFee.u)
+  connect(fanFeedback.y[1], percConv1.u)
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(fanStatus.y[1], greEquThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
@@ -158,23 +155,24 @@ equation
   connect(TOut_F.y[1], FromF3.fahrenheit)
     annotation (Line(points={{-119,-20},{-108,-20},{-108,-20},{-102,-20}}, color={0,0,127}));
   connect(FromF1.kelvin, ToC1.kelvin)
-    annotation (Line(points={{-79,50},{-70,50},{-70,70},{-62,70}}, color={0,0,127}));
+    annotation (Line(points={{-79,50},{-70,50},{-70,60},{-62,60}}, color={0,0,127}));
   connect(FromF2.kelvin, ToC2.kelvin)
-    annotation (Line(points={{-79,20},{-70,20},{-70,32},{-62,32}}, color={0,0,127}));
+    annotation (Line(points={{-79,20},{-70,20},{-70,30},{-62,30}}, color={0,0,127}));
   connect(FromF3.kelvin, ToC3.kelvin)
-    annotation (Line(points={{-79,-20},{-70,-20},{-70,0},{-62,0}}, color={0,0,127}));
+    annotation (Line(points={{-79,-20},{-70,-20},{-70,-10},{-62,-10}},
+                                                                   color={0,0,127}));
   connect(FromF1.kelvin, cooValSta.TSup)
     annotation (Line(points={{-79,50},{0,50},{0,10},{19,10}},     color={0,0,127}));
   connect(FromF2.kelvin, cooValSta.TSupSet)
     annotation (Line(points={{-79,20},{-12,20},{-12,7},{19,7}},   color={0,0,127}));
   connect(FromF3.kelvin, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,-20},{-12,3},{19,3}},
                                                   color={0,0,127}));
-  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,70},{-30,70},{-30,64},{98,64},
+  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,60},{-34,60},{-34,64},{98,64},
           {98,61.3333}},              color={0,0,127}));
-  connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,32},{-30,32},{-30,60},{98,60}},
+  connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,30},{-30,30},{-30,60},{98,60}},
                             color={0,0,127}));
-  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,0},{-20,0},{-20,56},{98,56},{
-          98,58.6667}},              color={0,0,127}));
+  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,-10},{-20,56},{98,
+          56},{98,58.6667}},         color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
@@ -196,7 +194,7 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}), graphics={
         Rectangle(
-          extent={{-180,122},{180,-122}},
+          extent={{-180,120},{180,-120}},
           lineColor={217,217,217},
           fillColor={217,217,217},
           fillPattern=FillPattern.Solid)}));

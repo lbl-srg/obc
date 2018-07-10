@@ -11,7 +11,7 @@ model CoolingCoilValve_F_customPI_withTrends
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_OA_Temp.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/OA_Temp.mos"))
     "\"Measured outdoor air temperature\""
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,7 +23,7 @@ model CoolingCoilValve_F_customPI_withTrends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_SA_Clg_Stpt.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/SA_Clg_Stpt.mos"))
     "\"Supply air temperature setpoint\""
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -35,7 +35,7 @@ model CoolingCoilValve_F_customPI_withTrends
     tableName="Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName="/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Clg_Coil_Valve.mos")
+    fileName="/home/mg/data/obc_validation_study/trends/Clg_Coil_Valve.mos")
                                                                 "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -47,7 +47,7 @@ model CoolingCoilValve_F_customPI_withTrends
     tableName="VFD_Fan_Feedback",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Feedback.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -59,7 +59,7 @@ model CoolingCoilValve_F_customPI_withTrends
     tableName="VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_VFD_Fan_Enable.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -71,7 +71,7 @@ model CoolingCoilValve_F_customPI_withTrends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/LBNL_building_trend_Supply_Air_Temp.mos"))
+    fileName=("/home/mg/data/obc_validation_study/trends/Supply_Air_Temp.mos"))
                                            "\"Measured supply air temperature\""
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -83,15 +83,14 @@ model CoolingCoilValve_F_customPI_withTrends
     TOutCooCut=50) "Cooling valve position control sequence"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConvCooValSig(k=0.01)
-    "Percentage to number converter"
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConv(k=0.01) "Percentage to number converter"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   inner Buildings.Utilities.Plotters.Configuration plotConfiguration(
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
     samplePeriod=300,
-    fileName="cooling_valve_status_validation.html")
+    fileName="cooling_valve_status_customPI_validation.html")
     "\"Cooling valve control sequence validation\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
@@ -108,9 +107,6 @@ model CoolingCoilValve_F_customPI_withTrends
     n=2)
     "\"Reference and result cooling valve control signal\""
     annotation (Placement(transformation(extent={{100,90},{120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add delta(k2=-1)
-    "Delta between the reference and the calculated control signal"
-    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
     n=3,
@@ -130,11 +126,10 @@ model CoolingCoilValve_F_customPI_withTrends
     "\"FtoC\""
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=1)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
     "Converter to boolean"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain percConvFanFee(k=0.01)
-    "Percentage to number converter"
+  Buildings.Controls.OBC.CDL.Continuous.Gain percConv1(k=0.01) "Percentage to number converter"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 equation
   connect(TSupUniCon.y, timSerInp.y[1])
@@ -147,23 +142,17 @@ equation
     color={0,0,127}));
   connect(cooValSta_F.yCooVal, timSerRes.y[1])
     annotation (Line(points={{41,30},{50,30},{50,101},{98,101}}, color={0,0,127}));
-  connect(cooValSta_F.yCooVal, delta.u2)
-    annotation (Line(points={{41,30},{60,30},{60,-36},{98,-36}}, color={0,0,127}));
   connect(cooValSta_F.yCooVal, correlation.y[1])
     annotation (Line(points={{41,30},{70,30},{70,30},{98,30}}, color={0,0,127}));
-  connect(percConvCooValSig.y, timSerRes.y[2])
-    annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,98},{20,99},{60,99},{98,99}},
-    color={0,0,127}));
-  connect(percConvCooValSig.y, correlation.x)
+  connect(percConv.y, timSerRes.y[2]) annotation (Line(points={{-79,90},{20,90},{20,98},{20,98},{20,
+          98},{20,99},{60,99},{98,99}}, color={0,0,127}));
+  connect(percConv.y, correlation.x)
     annotation (Line(points={{-79,90},{80,90},{80,22},{98,22}}, color={0,0,127}));
-  connect(percConvCooValSig.y, delta.u1)
-    annotation (Line(points={{-79,90},{70,90},{70,-24},{98,-24}}, color={0,0,127}));
   connect(greEquThr.y, cooValSta_F.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,20},{19,20}}, color={255,0,255}));
-  connect(percConvFanFee.y, cooValSta_F.uFanFee)
-    annotation (Line(points={{-79,-60},{-10,-60},{-10, 24},{-10,24},{-10,-60},{-10,25},{4,25},{19,25}},
-    color={0,0,127}));
-  connect(coolingValveSignal.y[1], percConvCooValSig.u)
+  connect(percConv1.y, cooValSta_F.uFanFee) annotation (Line(points={{-79,-60},{-10,-60},{-10,24},{
+          -10,24},{-10,-60},{-10,25},{4,25},{19,25}}, color={0,0,127}));
+  connect(coolingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(TSupply_F.y[1], TSupUniCon.u)
     annotation (Line(points={{-119,50},{-110,50},{-110,60},{-102,60}}, color={0,0,127}));
@@ -173,7 +162,7 @@ equation
     annotation (Line(points={{-119,-20},{-108,-20},{-108,-10},{-102,-10}}, color={0,0,127}));
   connect(TOut_F.y[1], cooValSta_F.TOut)
     annotation (Line(points={{-119,-20},{-16,-20},{-16,33},{19,33}}, color={0,0,127}));
-  connect(fanFeedback.y[1], percConvFanFee.u)
+  connect(fanFeedback.y[1], percConv1.u)
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(fanStatus.y[1], greEquThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));

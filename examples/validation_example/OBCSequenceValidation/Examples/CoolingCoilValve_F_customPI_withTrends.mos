@@ -1,9 +1,9 @@
 simulateModel("OBCSequenceValidation.Examples.CoolingCoilValve_F_customPI_withTrends", method="dassl", startTime =0, stopTime = 315710, tolerance=1e-06, resultFile="CoolingCoilValve_F_customPI_withTrends");
 
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input trends", axes = {1,1,1,2,2}, y={"cooValSta_F.TSup", "cooValSta_F.TSupSet", "cooValSta_F.TOut", "cooValSta_F.uSupFan", "cooValSta_F.TSupCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{50,205,50},{216,191,216}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input trends", axes = {1,1,1,2,2}, y={"cooValSta_F.TSup", "cooValSta_F.TSupSet", "cooValSta_F.TOut", "cooValSta_F.uFanFee", "cooValSta_F.uFanSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{50,205,50},{216,191,216}, {0,0,127}});
 
-createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Simulated and trended output", axes = {1,1,1}, y={"percConvCooValSig.y", "delta.y", "cooValSta_F.yCooVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{50,205,50}, {0,0,127}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, bottomTitle = "Simulated and trended output", axes = {1,1}, y={"percConv.y", "cooValSta_F.yCooVal"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{50,205,50}});
 
-// startTime = 0: 2018-06-07 17:00:00 PDT
+// startTime = 0: 2018-06-07 00:00:00 PDT
 // endTime = 315710 (end of 5s data)
 // 424200 -> end of all data

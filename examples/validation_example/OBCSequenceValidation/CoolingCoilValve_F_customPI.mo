@@ -3,18 +3,19 @@ block CoolingCoilValve_F_customPI
   "Cooling coil control sequence as implemented in in one of the LBNL buildings"
 
   parameter Real k_p(final unit="1/F") = 1/100
-    "Proportional controller gain"
+    "Recorded proportional controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real k_i(final unit="1/F") = 0.5/100
-    "Integral controller gain"
+    "Recorded integral controller gain"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Real interval(min = 1, unit="s") = 15
-    "Interval at which integration part of the output gets updated"
+    "Recorded interval at which integration part of the output gets updated"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
-  parameter Boolean reverseAction = true "Controller reverse action"
+  parameter Boolean reverseAction = true
+    "Controller reverse action"
     annotation(Evaluate=true, Dialog(group="Controller"));
 
   parameter Boolean holdIntError = false
@@ -38,13 +39,24 @@ block CoolingCoilValve_F_customPI
   parameter Real TOutCooCut(
     final unit="F",
     final quantity = "ThermodynamicTemperature") = 50
-    "Outdoor air temperature cooling threshold"
-     annotation(Evaluate=true);
+    "Recorded outdoor air temperature cooling threshold"
+    annotation(Evaluate=true, Dialog(group="Enable"));
 
-  parameter Real uFanFeeCut(
-    final unit="1") = 0.15
-    "Fan status threshold"
-     annotation(Evaluate=true);
+  parameter Real TOutDelta(
+    final unit="F",
+    final quantity = "ThermodynamicTemperature") = 2
+    "Recorded outdoor air temperature cooling threshold hysteresis delta"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Real FanFeeCut(
+    final unit="1") = 15/100
+    "Recorded fan feedback threshold"
+    annotation(Evaluate=true, Dialog(group="Enable"));
+
+  parameter Real FanFeeDelta(
+    final unit="1") = 10/100
+    "Recorded fan feedback threshold hysteresis delta"
+    annotation(Evaluate=true, Dialog(group="Enable"));
 
   parameter Real TSupHighLim(
     final unit="F",
@@ -111,13 +123,13 @@ block CoolingCoilValve_F_customPI
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold TOutThr(
-    final threshold=TOutCooCut)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       TOutThr(uLow=TOutCooCut - TOutDelta, uHigh=
+       TOutCooCut)
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold uFanFeeThr(
-    final threshold=uFanFeeCut)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       uFanFeeThr(uLow=FanFeeCut - FanFeeDelta,
+      uHigh=FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
