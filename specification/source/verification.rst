@@ -102,10 +102,42 @@ and *sequence chart*.
 Modules of the verification test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-File reader
-~~~~~~~~~~~
+CSV file reader
+~~~~~~~~~~~~~~~
 
-xxxx [Michael to describe CSV reader that is currently developed]
+Reading archived data is easiest using CSV files.
+The data reader ```Modelica.Blocks.Sources.CombiTimeTable```
+from the Modelica Standard Library
+can read CSV files that have the following structure:
+
+.. code-block:: C
+
+   #1
+   # comment line
+   double tab1(6,2)
+   # time in seconds, column 1
+     0   0
+     1   0
+     1   1
+     2   4
+     3   9
+     4  16
+
+
+Note, that the first two characters in the file need to be ```#1```
+(a line comment defining the version number of the file format).
+Afterwards, the corresponding matrix has to be declared with type
+(= ```double``` or ```float```), name and actual dimensions.
+Finally, in successive rows of the file, the elements
+of the matrix have to be given.
+The elements have to be provided as a sequence of numbers
+in row-wise order (therefore a matrix row can span several
+lines in the file and need not start at the beginning of a line).
+Numbers have to be given according to C syntax
+(such as 2.3, -2, +2.e4). Number separators are spaces,
+tab, comma, or semicolon.
+Line comments start with the hash symbol (#) and can appear everywhere.
+
 
 Unit conversion
 ~~~~~~~~~~~~~~~
@@ -186,7 +218,7 @@ controller and a downstream output limiter in case of low supply air temperature
 
 .. todo:: Add ALC Eikon figure after we obtain permission
 
-We created a CLD specification of the same cooling coil valve position control sequence in order to
+We created a CLD specification of the same cooling coil valve position control sequence to
 validate the recorded output.
 
 .. _fig_coo_coi_val_seq:
