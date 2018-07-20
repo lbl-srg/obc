@@ -272,6 +272,7 @@ trended and simulated cooling valve control signal.
    signal and simulated signal.
 
 The difference in modeled vs. trended results is due to:
+
 * The difference in the integrator error calculation. Modelica CDL model simulation is continuous,
 whereas the ALC EIKON logic uses a discrete time implementation with a user defined interval
-* Anti-windup implementation, which is proprietary for the ALC EIKON controller
+* The anti-windup implementation, which is proprietary for the ALC EIKON controller
