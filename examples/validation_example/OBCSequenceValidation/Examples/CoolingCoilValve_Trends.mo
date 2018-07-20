@@ -90,7 +90,7 @@ model CoolingCoilValve_Trends
     timeUnit=Buildings.Utilities.Plotters.Types.TimeUnit.hours,
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
     samplePeriod=300,
-    fileName="cooling_valve_validation.html")
+    fileName="coolingCoilValve_validationPlots.html")
     "\"Cooling valve control sequence validation\""
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
@@ -127,6 +127,12 @@ model CoolingCoilValve_Trends
   ToC ToC1 annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   ToC ToC2 annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   ToC ToC3 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Buildings.Utilities.IO.Files.CSVWriter cSVWriter(
+    samplePeriod=5,
+    nin=2,
+    headerNames={"Trended","Modeled"})
+    "Writes trended and modeled cooling coil valve position to CSV"
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 equation
   connect(cooValSta.yCooVal, timSerRes.y[1])
     annotation (Line(points={{41,0},{60,0},{60,90},{98,90},{98,91}},
@@ -167,12 +173,18 @@ equation
     annotation (Line(points={{-79,20},{-12,20},{-12,7},{19,7}},   color={0,0,127}));
   connect(FromF3.kelvin, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,-20},{-12,3},{19,3}},
                                                   color={0,0,127}));
-  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,60},{-34,60},{-34,64},{98,64},
-          {98,61.3333}},              color={0,0,127}));
+  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,60},{-34,
+          60},{-34,64},{98,64},{98,61.3333}},
+                                      color={0,0,127}));
   connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,30},{-30,30},{-30,60},{98,60}},
                             color={0,0,127}));
-  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,-10},{-20,56},{98,
-          56},{98,58.6667}},         color={0,0,127}));
+  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
+          -10},{-20,56},{98,56},{98,58.6667}},
+                                     color={0,0,127}));
+  connect(percConv.y, cSVWriter.u[1]) annotation (Line(points={{-79,90},{50,90},
+          {50,-29},{100,-29}}, color={0,0,127}));
+  connect(cooValSta.yCooVal, cSVWriter.u[2]) annotation (Line(points={{41,0},{
+          70,0},{70,-31},{100,-31}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),

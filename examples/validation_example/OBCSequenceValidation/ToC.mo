@@ -41,10 +41,15 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{12,-12},{92,-88}},
+          extent={{-122,-38},{-20,0}},
           lineColor={0,0,127},
-          textString="SI")}),
-          Documentation(info="<html>
+          textString="K
+"),
+        Text(
+          extent={{0,0},{80,-60}},
+          lineColor={0,0,127},
+          textString="degC
+")}),     Documentation(info="<html>
 <p>
 Converts temperature from Kelvin to Fahrenheit.
 </p>
