@@ -208,7 +208,7 @@ generates a file that contains the scatter plots shown in :numref:`fig_vav_sin_g
 Example
 ^^^^^^^
 
-[Pending approval: building name, ALC logic diagram]
+.. todo:: [Pending approval: building name, ALC logic diagram]
 
 In this example we validated a trended output of a control sequence that defines the cooling
 coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic
