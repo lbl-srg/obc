@@ -223,7 +223,7 @@ validate the recorded output.
 
 .. _fig_coo_coi_val_seq:
 
-.. figure:: img/verification/CoolingCoilValve.png
+.. figure:: img/verification/CoolingCoilValve.*
    :width: 500 px
 
    OBC specification of the cooling coil valve position control sequence.
@@ -270,3 +270,7 @@ trended and simulated cooling valve control signal.
 
    Verification of the cooling valve control signal between ALC EIKON computed
    signal and simulated signal.
+
+The difference in modeled vs. trended results is due to the difference in the way
+the integrator error gets calculated. Modelica CDL model simulation is continuous,
+whereas the ALC EIKON logic uses a discrete time implementation.
