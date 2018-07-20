@@ -31,7 +31,7 @@ model CustomPI_TSup
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    booPul1(width=0.6, period=100)
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant holdIntError1(k=true)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
 equation
@@ -63,13 +63,17 @@ equation
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(coordinateSystem(
           preserveAspectRatio=false), graphics={
         Text(
-          extent={{-84,-74},{-56,-80}},
+          extent={{-78,-66},{-28,-84}},
           lineColor={0,0,127},
-          textString="Heating"),
+          horizontalAlignment=TextAlignment.Left,
+          textString="Heating with
+Hold integer error = False"),
         Text(
-          extent={{16,-74},{44,-80}},
+          extent={{22,-66},{70,-82}},
           lineColor={0,0,127},
-          textString="Cooling")}),
+          horizontalAlignment=TextAlignment.Left,
+          textString="Cooling with
+Hold integer error = True")}),
             experiment(StopTime=1000.0, Tolerance=1e-06),
   __Dymola_Commands(file="CustomPI_TSup.mos"
     "Simulate and plot"),

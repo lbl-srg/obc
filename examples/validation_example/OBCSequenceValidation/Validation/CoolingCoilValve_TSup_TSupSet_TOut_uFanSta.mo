@@ -1,60 +1,56 @@
 within OBCSequenceValidation.Validation;
-model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
+model CoolingCoilValve_TSup_TSupSet_TOut_uFanSta
   "Validation model for the cooling coil valve control sequence"
   extends Modelica.Icons.Example;
 
   parameter Real TOutCooCut(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
+    final quantity = "ThermodynamicTemperature") = 283.15
     "Lower outdoor air temperature limit for enabling cooling";
 
   parameter Real TSup(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 65
+    final quantity = "ThermodynamicTemperature") = 293.15
     "Supply air temperature";
 
   parameter Real TSupSet(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 60
+    final quantity = "ThermodynamicTemperature") = 289.15
     "Supply air temperature setpoint";
 
   parameter Real TSetMinLowLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 42
+    final quantity = "ThermodynamicTemperature") = 278.71
     "Minimum supply air temperature for defining the upper limit of the valve position";
 
   parameter Real TSetMaxLowLim(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 50
+    final quantity = "ThermodynamicTemperature") = 283.15
     "Maximum supply air temperature for defining the upper limit of the valve position";
 
   parameter Real LowTSupSet(
     final unit="F",
-    final quantity = "ThermodynamicTemperature") = 45
+    final quantity = "ThermodynamicTemperature") = 280.37
     "Supply air temeprature setpoint to check the limiter functionality";
 
   parameter Real fanFee(
     final unit="1") = 0.60
     "Fan feedback";
 
-  CoolingCoilValve_F cooVal(
-    reverseAction=false)
-    "Cooling valve control sequence"
+  CoolingCoilValve cooVal(
+    final reverseAction=true) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  CoolingCoilValve_F cooVal1(
-    reverseAction=false)
-    "Cooling valve control sequence"
+  CoolingCoilValve cooVal1(
+    final reverseAction=true) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  CoolingCoilValve_F cooVal2(
-    reverseAction=false)
-    "Cooling valve control sequence"
-    annotation (Placement(transformation(extent={{140,80},{160,100}})));
+  CoolingCoilValve cooVal2(
+    final reverseAction=true) "Cooling valve control sequence"
+    annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
-  CoolingCoilValve_F cooVal3(
-    reverseAction=false)
-    "Cooling valve control sequence"
+  CoolingCoilValve cooVal3(
+    final reverseAction=true) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off
@@ -113,7 +109,7 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan2(
-    final k=true)
+    k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uFanFee2(
@@ -132,12 +128,10 @@ model CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta
     final k=TOutCooCut + 5)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(
-    final k=LowTSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(final k=LowTSupSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(
-    final k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup3(
@@ -166,20 +160,20 @@ equation
   connect(cooVal.uFanSta, uSupFan.y)
     annotation (Line(points={{-41,80},{-46,80},{-46,20},{-59,20}}, color={255,0,255}));
   connect(uTSup2.y, cooVal2.TSup)
-    annotation (Line(points={{41,90},{74,90},{74,100},{139,100}}, color={0,0,127}));
+    annotation (Line(points={{41,90},{74,90},{74,98},{139,98}}, color={0,0,127}));
   connect(uTSupSet2.y, cooVal2.TSupSet)
-    annotation (Line(points={{41,50},{50,50},{50,82},{82,82},{82,97},{139,97}}, color={0,0,127}));
+    annotation (Line(points={{41,50},{50,50},{50,82},{82,82},{82,95},{139,95}}, color={0,0,127}));
   connect(uTOutAboveCutoff2.y, cooVal2.TOut)
-    annotation (Line(points={{81,50},{90,50},{90,93},{139,93}}, color={0,0,127}));
+    annotation (Line(points={{81,50},{90,50},{90,91},{139,91}}, color={0,0,127}));
   connect(uFanFee2.y, cooVal2.uFanFee)
-    annotation (Line(points={{121,50},{130,50},{130,85},{139,85}}, color={0,0,127}));
+    annotation (Line(points={{121,50},{130,50},{130,83},{139,83}}, color={0,0,127}));
   connect(uSupFan2.y, cooVal2.uFanSta)
-    annotation (Line(points={{121,20},{134,20},{134,80},{139,80}}, color={255,0,255}));
+    annotation (Line(points={{121,20},{134,20},{134,78},{139,78}}, color={255,0,255}));
   connect(uTSup1.y, cooVal1.TSup)
     annotation (Line(points={{-139,-28},{-124,-28},{-124,-20},{-41,-20}}, color={0,0,127}));
   connect(uTSupSet1.y, cooVal1.TSupSet)
-    annotation (Line(points={{-139,-70},{-132,-70},{-132,-32},{-116,-32},{-116,-23},{-41,-23}},
-    color={0,0,127}));
+    annotation (Line(points={{-139,-70},{-132,-70},{-132,-32},{
+          -116,-32},{-116,-23},{-41,-23}}, color={0,0,127}));
   connect(uTOutBelowCutoff.y, cooVal1.TOut)
     annotation (Line(points={{-99,-70},{-94,-70},{-94,-27},{-41,-27}}, color={0,0,127}));
   connect(uFanFee1.y, cooVal1.uFanFee)
@@ -199,7 +193,7 @@ equation
     annotation (Line(points={{121,-100},{128,-100},{128,-100},{
           134,-100},{134,-42},{139,-42}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta.mos"
+  __Dymola_Commands(file="CoolingCoilValve_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
@@ -257,4 +251,4 @@ the upper limit TSup range."),
           horizontalAlignment=TextAlignment.Left,
           textString="Operation within the 
 upper limit TSup range.")}));
-end CoolingCoilValve_F_TSup_TSupSet_TOut_uFanSta;
+end CoolingCoilValve_TSup_TSupSet_TOut_uFanSta;

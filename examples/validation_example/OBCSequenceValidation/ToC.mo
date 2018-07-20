@@ -43,8 +43,7 @@ equation
         Text(
           extent={{-122,-38},{-20,0}},
           lineColor={0,0,127},
-          textString="K
-"),
+          textString="K"),
         Text(
           extent={{0,0},{80,-60}},
           lineColor={0,0,127},
