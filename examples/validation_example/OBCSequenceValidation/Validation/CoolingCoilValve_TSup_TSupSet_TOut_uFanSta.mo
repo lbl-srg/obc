@@ -67,8 +67,7 @@ model CoolingCoilValve_TSup_TSupSet_TOut_uFanSta
     final k=TSupSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan(
-    k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse    uSupFan(period=900)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uFanFee(
@@ -219,7 +218,7 @@ First implementation.
         Text(
           extent={{-158,18},{-102,6}},
           lineColor={0,0,127},
-          textString="Supply fan is off - disable control"),
+          textString="Supply fan signal"),
         Rectangle(
           extent={{-176,-4},{-14,-116}},
           lineColor={217,217,217},

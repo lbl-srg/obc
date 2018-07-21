@@ -151,24 +151,27 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
 
   Buildings.Controls.OBC.CDL.Logical.And3 andIntErr
     "Outputs controller enable signal"
-    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Change
+                                         cha
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
 equation
   connect(TOut, TOutThr.u)
     annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
   connect(TOutThr.y, andIntErr.u1)
-    annotation (Line(points={{-89,-20},{-86,-20},{-86,-12},{-72,-12}}, color={255,0,255}));
+    annotation (Line(points={{-89,-20},{-86,-20},{-86,-52},{-72,-52}}, color={255,0,255}));
   connect(TSup, higLim.u)
-    annotation (Line(points={{-140,40},{10,40},{10,-20},{78,-20}}, color={0,0,127}));
-  connect(uFanSta, andIntErr.u3)
-    annotation (Line(points={{-140,-100},{-82,-100},{-82,-28},{-72,-28}},color={255,0,255}));
+    annotation (Line(points={{-140,40},{20,40},{20,-20},{78,-20}}, color={0,0,127}));
   connect(yCooVal,min. y)
     annotation (Line(points={{130,0},{114,0},{114,30},{101,30}},color={0,0,127}));
   connect(TSupMax.y, higLim.x2)
@@ -182,21 +185,33 @@ equation
     annotation (Line(points={{-140,90},{-92,90},{-92,90},{-42,90}}, color={0,0,127}));
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
-  connect(limPI.y, min.u1)
-    annotation (Line(points={{-19,90},{30,90},{30,36},{78,36}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-20},{-84,-20},{-84,-60},{-89,-60}}, color={255,0,255}));
+    annotation (Line(points={{-72,-60},{-89,-60}},                     color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
     annotation (Line(points={{-140,-60},{-112,-60}},                       color={0,0,127}));
-  connect(andIntErr.y, not1.u) annotation (Line(points={{-49,-20},{-42,-20}}, color={255,0,255}));
-  connect(not1.y, limPI.trigger)
-    annotation (Line(points={{-19,-20},{-16,-20},{-16,20},{-38,20},{-38,78}}, color={255,0,255}));
+  connect(andIntErr.y, cha.u)
+    annotation (Line(points={{-49,-60},{-42,-60}}, color={255,0,255}));
+  connect(cha.y, limPI.trigger) annotation (Line(points={{-19,-60},{-16,-60},{
+          -16,20},{-38,20},{-38,78}},
+                                  color={255,0,255}));
   connect(TSupMin.y, higLim.x1)
     annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},
                                                                color={0,0,127}));
   connect(yCooValMin.y, higLim.f1)
     annotation (Line(points={{21,-90},{30,-90},{30,-16},{78,-16}},
                                                                color={0,0,127}));
+  connect(uFanSta, andIntErr.u3) annotation (Line(points={{-140,-100},{-82,-100},
+          {-82,-68},{-72,-68}}, color={255,0,255}));
+  connect(andIntErr.y, booToRea.u) annotation (Line(points={{-49,-60},{-46,-60},
+          {-46,-20},{-42,-20}},
+                             color={255,0,255}));
+  connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{0,90},{0,96},{38,
+          96}}, color={0,0,127}));
+  connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,84},
+          {38,84}},color={0,0,127}));
+  connect(min.u1, pro.y)
+    annotation (Line(points={{78,36},{72,36},{72,90},{61,90}},
+                                               color={0,0,127}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
