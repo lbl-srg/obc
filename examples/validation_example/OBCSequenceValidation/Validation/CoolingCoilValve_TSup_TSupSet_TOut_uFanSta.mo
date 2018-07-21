@@ -37,20 +37,20 @@ model CoolingCoilValve_TSup_TSupSet_TOut_uFanSta
     final unit="1") = 0.60
     "Fan feedback";
 
-  CoolingCoilValve cooVal(
-    final reverseAction=true) "Cooling valve control sequence"
+  CoolingCoilValve cooVal(final reverseAction=true, alc_int_k=1/100)
+                              "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  CoolingCoilValve cooVal1(
-    final reverseAction=true) "Cooling valve control sequence"
+  CoolingCoilValve cooVal1(final reverseAction=true, alc_int_k=1/100)
+                              "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  CoolingCoilValve cooVal2(
-    final reverseAction=true) "Cooling valve control sequence"
+  CoolingCoilValve cooVal2(final reverseAction=true, alc_int_k=1/100)
+                              "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
-  CoolingCoilValve cooVal3(
-    final reverseAction=true) "Cooling valve control sequence"
+  CoolingCoilValve cooVal3(final reverseAction=true, alc_int_k=1/100)
+                              "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off

@@ -41,11 +41,11 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{-122,-38},{-20,0}},
+          extent={{-122,-26},{-20,12}},
           lineColor={0,0,127},
           textString="K"),
         Text(
-          extent={{0,0},{80,-60}},
+          extent={{0,12},{80,-48}},
           lineColor={0,0,127},
           textString="degC
 ")}),     Documentation(info="<html>

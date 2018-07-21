@@ -16,8 +16,8 @@ block FromF "Fahrenheit to Kelvin unit converter"
       iconTransformation(extent={{100,-10},{120,10}})));
 
 protected
-  parameter Real k = 0.55555556 "Multiplier";
-  parameter Real p = 255.37222222 "Adder";
+  parameter Real k = 5/9 "Multiplier";
+  parameter Real p = -32 * (5/9) + 273.15 "Adder";
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p = p,
@@ -43,15 +43,14 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{-80,20},{0,-40}},
+          extent={{-82,42},{-2,-18}},
           lineColor={0,0,127},
-          textString="degF
-"),
+          textString="degF"),
         Text(
-          extent={{20,-60},{120,-20}},
+          extent={{18,-38},{118,2}},
           lineColor={0,0,127},
-          textString="K
-")}),     Documentation(info="<html>
+          textString="K")}),
+    Documentation(info="<html>
 <p>
 Converts temperature from Fahrenheit to Kelvin.
 </p>
