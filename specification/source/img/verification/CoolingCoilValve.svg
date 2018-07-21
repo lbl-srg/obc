@@ -1,249 +1,286 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg viewBox="0 0 1529.000000 1102.000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="719.833" y="15" width="580.667" height="1072"/>
-	<text x="1211.17" y="1015.47" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">
-		<tspan x="1211.17" dy="0">Limiter for </tspan>
-		<tspan x="1211.17" dy="18">low TSup</tspan>
+<svg viewBox="0 0 1461.000000 1190.000000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="686.667" y="69" width="569.833" height="1052"/>
+	<text x="1168.83" y="1050.63" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">
+		<tspan x="1168.83" dy="0">Limiter for </tspan>
+		<tspan x="1168.83" dy="18">low TSup</tspan>
 	</text>
-	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="228.5" y="551" width="482.4" height="536"/>
-	<text x="612.633" y="1037.87" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">Enbale/Disable</text>
-	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="228.5" y="15" width="482.4" height="527.067"/>
-	<text x="308.9" y="510.8" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">Controller</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="585.833" y="104.333" width="89.3333" height="89.3333"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-opacity="1" x="627.82" y="157.933" width="32.16" height="20.5467"/>
-	<text x="641.22" y="167.76" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">PI</text>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="594.766667,108.800000 591.193333,118.626667 598.340000,118.626667 594.766667,108.800000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="594.766667,114.160000 594.766667,189.200000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="590.300000,184.733333 667.126667,184.733333"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="670.700000,184.733333 660.873333,181.160000 660.873333,188.306667 670.700000,184.733333"/>
-	<text x="630.5" y="90.9333" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">limPI</text>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="594.766667,184.733333 594.766667,158.826667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="594.766667,158.826667 633.180000,123.986667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="633.180000,123.986667 660.873333,123.986667"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="764.5" y="908.333" width="89.3333" height="89.3333"/>
-	<text x="809.167" y="894.933" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">yCooValMin</text>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="773.433333,922.626667 773.433333,988.733333"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="773.433333,912.800000 769.860000,922.626667 777.006667,922.626667 773.433333,912.800000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="768.966667,984.266667 845.793333,984.266667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="849.366667,984.266667 839.540000,980.693333 839.540000,987.840000 849.366667,984.266667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="773.433333,953.000000 844.900000,953.000000"/>
-	<text x="809.167" y="1011.07" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=uMin</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="943.167" y="908.333" width="89.3333" height="89.3333"/>
-	<text x="987.833" y="894.933" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">yCooValMax</text>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="952.100000,922.626667 952.100000,988.733333"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="952.100000,912.800000 948.526667,922.626667 955.673333,922.626667 952.100000,912.800000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="947.633333,984.266667 1024.460000,984.266667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1028.033333,984.266667 1018.206667,980.693333 1018.206667,987.840000 1028.033333,984.266667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="952.100000,953.000000 1023.566667,953.000000"/>
-	<text x="987.833" y="1011.07" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=uMax</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="273.167" y="595.667" width="89.3333" height="89.3333"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="271.697" y="594.197" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="271.697" y="685" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="362.5" y="595.667" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="273.167" y="594.197" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="273.167" y="595.667" width="2.204" height="89.3333"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="273.167" y="595.667" width="89.3333" height="2.204"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="361.031" y="595.667" width="1.46933" height="89.3333"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="273.167" y="683.531" width="89.3333" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="359.561" y="597.136" width="1.46933" height="86.3947"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="274.636" y="682.061" width="86.3947" height="1.46933"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="352.673" cy="640.333" rx="3.12667" ry="3.12667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.100000,600.133333 278.526667,609.960000 285.673333,609.960000 282.100000,600.133333"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.100000,609.960000 282.100000,653.286667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="358.926667,653.286667 349.100000,649.713333 349.100000,656.860000 358.926667,653.286667"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.546667,653.286667 355.353333,653.286667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="282.546667,653.286667 336.146667,653.286667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="311.133333,649.713333 318.280000,653.286667 311.133333,656.413333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="336.146667,617.553333 336.146667,653.286667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="332.573333,638.993333 336.146667,630.506667 340.166667,638.993333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="295.946667,617.553333 354.013333,617.553333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="316.046667,613.980000 309.346667,617.553333 316.046667,621.126667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="291.480000,627.380000 295.946667,635.420000 300.413333,627.380000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="295.946667,617.553333 295.946667,653.286667"/>
-	<text x="295.277" y="671.823" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">TOutCooCut - TOutDelta</text>
-	<text x="338.603" y="671.823" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">TOutCooCut</text>
-	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="277.187" y="662.22" width="37.0733" height="19.2067"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="295.946667,653.286667 295.946667,662.220000"/>
-	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="318.727" y="662.22" width="39.7533" height="19.2067"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="336.146667,653.286667 336.146667,662.220000"/>
-	<text x="317.833" y="582.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TOutThr</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="273.167" y="774.333" width="89.3333" height="89.3333"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="271.697" y="772.864" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="271.697" y="863.667" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="362.5" y="774.333" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="273.167" y="772.864" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="273.167" y="774.333" width="2.204" height="89.3333"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="273.167" y="774.333" width="89.3333" height="2.204"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="361.031" y="774.333" width="1.46933" height="89.3333"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="273.167" y="862.197" width="89.3333" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="359.561" y="775.803" width="1.46933" height="86.3947"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="274.636" y="860.728" width="86.3947" height="1.46933"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="352.673" cy="819" rx="3.12667" ry="3.12667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.100000,778.800000 278.526667,788.626667 285.673333,788.626667 282.100000,778.800000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.100000,788.626667 282.100000,831.953333"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="358.926667,831.953333 349.100000,828.380000 349.100000,835.526667 358.926667,831.953333"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="282.546667,831.953333 355.353333,831.953333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="282.546667,831.953333 336.146667,831.953333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="311.133333,828.380000 318.280000,831.953333 311.133333,835.080000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="336.146667,796.220000 336.146667,831.953333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="332.573333,817.660000 336.146667,809.173333 340.166667,817.660000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="295.946667,796.220000 354.013333,796.220000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="316.046667,792.646667 309.346667,796.220000 316.046667,799.793333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="291.480000,806.046667 295.946667,814.086667 300.413333,806.046667"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="295.946667,796.220000 295.946667,831.953333"/>
-	<text x="295.277" y="850.49" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">FanFeeCut - FanFeeDelta</text>
-	<text x="338.603" y="850.49" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">FanFeeCut</text>
-	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="277.187" y="840.887" width="37.0733" height="19.2067"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="295.946667,831.953333 295.946667,840.886667"/>
-	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="318.727" y="840.887" width="39.7533" height="19.2067"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="336.146667,831.953333 336.146667,840.886667"/>
-	<text x="317.833" y="760.933" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">uFanFeeThr</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="1121.83" y="595.667" width="89.3333" height="89.3333"/>
-	<text x="1166.5" y="582.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">higLim</text>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1207.593333,675.173333 1197.766667,671.600000 1197.766667,678.746667 1207.593333,675.173333"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-width="2" stroke-opacity="1" points="1145.953333,622.466667 1188.833333,659.986667"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="1130.766667,676.066667 1130.766667,608.173333"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1130.766667,599.240000 1127.193333,609.066667 1134.340000,609.066667 1130.766667,599.240000"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="1127.193333,675.173333 1200.446667,675.173333"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1121.833333,604.600000 1137.913333,604.600000"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1137.913333,604.600000 1138.806667,675.173333"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1121.833333,622.466667 1127.193333,622.466667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1127.193333,622.466667 1145.060000,622.466667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1121.833333,658.200000 1187.940000,656.413333"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1187.940000,656.413333 1188.833333,675.173333"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1121.833333,676.066667 1149.526667,665.346667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1149.526667,665.346667 1187.940000,659.986667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1121.833333,640.333333 1138.806667,640.333333"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1138.806667,640.333333 1170.073333,643.906667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1170.966667,643.906667 1189.726667,643.906667"/>
-	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1189.726667,643.906667 1211.166667,640.333333"/>
-	<ellipse fill="rgb(0,0,0)" stroke="none" stroke-opacity="1" cx="1188.83" cy="659.987" rx="2.68" ry="2.68"/>
-	<ellipse fill="rgb(0,0,127)" stroke="none" stroke-opacity="1" cx="1170.07" cy="643.907" rx="2.68" ry="2.68"/>
-	<polyline fill="none" stroke="rgb(238,46,47)" stroke-width="2" stroke-opacity="1" points="1189.726667,659.986667 1204.913333,659.986667"/>
-	<polyline fill="none" stroke="rgb(238,46,47)" stroke-width="2" stroke-opacity="1" points="1130.766667,622.466667 1145.953333,622.466667"/>
-	<ellipse fill="rgb(0,0,0)" stroke="none" stroke-opacity="1" cx="1145.95" cy="622.467" rx="2.68" ry="2.68"/>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="764.5" y="729.667" width="89.3333" height="89.3333"/>
-	<text x="809.167" y="716.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TSupMin</text>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="773.433333,743.960000 773.433333,810.066667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="773.433333,734.133333 769.860000,743.960000 777.006667,743.960000 773.433333,734.133333"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="768.966667,805.600000 845.793333,805.600000"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="849.366667,805.600000 839.540000,802.026667 839.540000,809.173333 849.366667,805.600000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="773.433333,774.333333 844.900000,774.333333"/>
-	<text x="809.167" y="832.4" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=TSupHigLim</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="943.167" y="729.667" width="89.3333" height="89.3333"/>
-	<text x="987.833" y="716.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TSupMax</text>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="952.100000,743.960000 952.100000,810.066667"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="952.100000,734.133333 948.526667,743.960000 955.673333,743.960000 952.100000,734.133333"/>
-	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="947.633333,805.600000 1024.460000,805.600000"/>
-	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1028.033333,805.600000 1018.206667,802.026667 1018.206667,809.173333 1028.033333,805.600000"/>
-	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="952.100000,774.333333 1023.566667,774.333333"/>
-	<text x="987.833" y="832.4" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=TSupHighLim</text>
-	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="451.833" y="595.667" width="89.3333" height="89.3333"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="450.364" y="594.197" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="450.364" y="685" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="541.167" y="595.667" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="451.833" y="594.197" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="451.833" y="595.667" width="2.204" height="89.3333"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="451.833" y="595.667" width="89.3333" height="2.204"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="539.697" y="595.667" width="1.46933" height="89.3333"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="451.833" y="683.531" width="89.3333" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="538.228" y="597.136" width="1.46933" height="86.3947"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="453.303" y="682.061" width="86.3947" height="1.46933"/>
-	<text x="496.5" y="640.333" fill="rgb(0,0,0)" dominant-baseline="central" font-size="36" font-family="helvetica" text-anchor="middle">and</text>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="531.34" cy="640.333" rx="3.12667" ry="3.12667"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="459.873" cy="639.887" rx="3.12667" ry="3.12667"/>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="459.873" cy="676.067" rx="3.12667" ry="3.12667"/>
-	<text x="496.5" y="582.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">andIntErr</text>
-	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="1121.83" y="372.333" width="89.3333" height="89.3333"/>
-	<text x="1166.5" y="358.933" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">min</text>
-	<text x="1166.5" y="417" fill="rgb(160,160,164)" dominant-baseline="central" font-size="32" font-family="helvetica" text-anchor="middle">min()</text>
-	<rect fill="rgb(215,215,215)" stroke="rgb(0,0,0)" stroke-opacity="1" x="585.833" y="595.667" width="89.3333" height="89.3333"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="584.364" y="594.197" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="584.364" y="685" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="675.167" y="595.667" width="1.46933" height="90.8027"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="585.833" y="594.197" width="90.8027" height="1.46933"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="585.833" y="595.667" width="2.204" height="89.3333"/>
-	<rect fill="rgb(255,255,255)" stroke="none" x="585.833" y="595.667" width="89.3333" height="2.204"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="673.697" y="595.667" width="1.46933" height="89.3333"/>
-	<rect fill="rgb(113,111,100)" stroke="none" x="585.833" y="683.531" width="89.3333" height="1.46933"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="672.228" y="597.136" width="1.46933" height="86.3947"/>
-	<rect fill="rgb(172,168,153)" stroke="none" x="587.303" y="682.061" width="86.3947" height="1.46933"/>
-	<text x="634.073" y="639.44" fill="rgb(0,0,0)" dominant-baseline="central" font-size="23" font-family="helvetica" text-anchor="middle">not</text>
-	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="665.34" cy="640.333" rx="3.12667" ry="3.12667"/>
-	<text x="630.5" y="582.267" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">not1</text>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,640.333333 264.233333,640.333333"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,640.333333 264.233333,640.333333"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="366.966667,640.333333 380.366667,640.333333 380.366667,604.600000 442.900000,604.600000"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="366.966667,640.333333 380.366667,640.333333 380.366667,604.600000 442.900000,604.600000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,372.333333 809.166667,372.333333 809.166667,640.333333 1112.900000,640.333333"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,372.333333 809.166667,372.333333 809.166667,640.333333 1112.900000,640.333333"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,997.666667 398.233333,997.666667 398.233333,676.066667 442.900000,676.066667"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="139.166667,997.666667 398.233333,997.666667 398.233333,676.066667 442.900000,676.066667"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1345.166667,551.000000 1273.700000,551.000000 1273.700000,417.000000 1215.633333,417.000000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1345.166667,551.000000 1273.700000,551.000000 1273.700000,417.000000 1215.633333,417.000000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1036.966667,774.333333 1050.366667,774.333333 1050.366667,658.200000 1068.233333,658.200000 1068.233333,658.200000 1112.900000,658.200000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1036.966667,774.333333 1050.366667,774.333333 1050.366667,658.200000 1068.233333,658.200000 1068.233333,658.200000 1112.900000,658.200000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1036.966667,953.000000 1077.166667,953.000000 1077.166667,676.066667 1112.900000,676.066667"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1036.966667,953.000000 1077.166667,953.000000 1077.166667,676.066667 1112.900000,676.066667"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1215.633333,640.333333 1237.966667,640.333333 1237.966667,551.000000 1077.166667,551.000000 1077.166667,443.800000 1112.900000,443.800000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1215.633333,640.333333 1237.966667,640.333333 1237.966667,551.000000 1077.166667,551.000000 1077.166667,443.800000 1112.900000,443.800000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,149.000000 353.566667,149.000000 353.566667,149.000000 576.900000,149.000000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,149.000000 353.566667,149.000000 353.566667,149.000000 576.900000,149.000000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,372.333333 630.500000,372.333333 630.500000,202.600000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,372.333333 630.500000,372.333333 630.500000,202.600000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="679.633333,149.000000 898.500000,149.000000 898.500000,390.200000 1112.900000,390.200000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="679.633333,149.000000 898.500000,149.000000 898.500000,390.200000 1112.900000,390.200000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="442.900000,640.333333 389.300000,640.333333 389.300000,819.000000 366.966667,819.000000"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="442.900000,640.333333 389.300000,640.333333 389.300000,819.000000 366.966667,819.000000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="139.166667,819.000000 264.233333,819.000000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,819.000000 264.233333,819.000000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="545.633333,640.333333 576.900000,640.333333"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="545.633333,640.333333 576.900000,640.333333"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="679.633333,640.333333 693.033333,640.333333 693.033333,461.666667 594.766667,461.666667 594.766667,202.600000"/>
-	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="679.633333,640.333333 693.033333,640.333333 693.033333,461.666667 594.766667,461.666667 594.766667,202.600000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="858.300000,774.333333 880.633333,774.333333 880.633333,604.600000 1112.900000,604.600000"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="858.300000,774.333333 880.633333,774.333333 880.633333,604.600000 1112.900000,604.600000"/>
-	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="858.300000,953.000000 898.500000,953.000000 898.500000,622.466667 1112.900000,622.466667"/>
-	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="858.300000,953.000000 898.500000,953.000000 898.500000,622.466667 1112.900000,622.466667"/>
-	<ellipse fill="rgb(0,0,127)" stroke="rgb(0,0,127)" cx="630.5" cy="372.333" rx="3" ry="3"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="139.166667,953.000000 228.500000,997.666667 139.166667,1042.333333 139.166667,953.000000"/>
-	<text x="130.233" y="932.9" fill="rgb(255,0,255)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">uFanSta</text>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,774.333333 228.500000,819.000000 139.166667,863.666667 139.166667,774.333333"/>
-	<text x="130.233" y="754.233" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">uFanFee</text>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,327.666667 228.500000,372.333333 139.166667,417.000000 139.166667,327.666667"/>
-	<text x="130.233" y="307.567" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TSup</text>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,104.333333 228.500000,149.000000 139.166667,193.666667 139.166667,104.333333"/>
-	<text x="130.233" y="84.2333" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TSupSet</text>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="139.166667,595.666667 228.500000,640.333333 139.166667,685.000000 139.166667,595.666667"/>
-	<text x="130.233" y="575.567" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TOut</text>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1300.500000,528.666667 1345.166667,551.000000 1300.500000,573.333333 1300.500000,528.666667"/>
-	<text x="1358.57" y="513.033" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">yCooVal</text>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="585.833333,211.533333 594.766667,193.666667 603.700000,211.533333 585.833333,211.533333"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="567.966667,140.066667 585.833333,149.000000 567.966667,157.933333 567.966667,140.066667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="639.433333,211.533333 630.500000,193.666667 621.566667,211.533333 639.433333,211.533333"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="675.166667,144.533333 684.100000,149.000000 675.166667,153.466667 675.166667,144.533333"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="853.833333,948.533333 862.766667,953.000000 853.833333,957.466667 853.833333,948.533333"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1032.500000,948.533333 1041.433333,953.000000 1032.500000,957.466667 1032.500000,948.533333"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="255.300000,631.400000 273.166667,640.333333 255.300000,649.266667 255.300000,631.400000"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="362.500000,635.866667 371.433333,640.333333 362.500000,644.800000 362.500000,635.866667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="255.300000,810.066667 273.166667,819.000000 255.300000,827.933333 255.300000,810.066667"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="362.500000,814.533333 371.433333,819.000000 362.500000,823.466667 362.500000,814.533333"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,595.666667 1121.833333,604.600000 1103.966667,613.533333 1103.966667,595.666667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,613.533333 1121.833333,622.466667 1103.966667,631.400000 1103.966667,613.533333"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,649.266667 1121.833333,658.200000 1103.966667,667.133333 1103.966667,649.266667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,667.133333 1121.833333,676.066667 1103.966667,685.000000 1103.966667,667.133333"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,631.400000 1121.833333,640.333333 1103.966667,649.266667 1103.966667,631.400000"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1211.166667,635.866667 1220.100000,640.333333 1211.166667,644.800000 1211.166667,635.866667"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="853.833333,769.866667 862.766667,774.333333 853.833333,778.800000 853.833333,769.866667"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1032.500000,769.866667 1041.433333,774.333333 1032.500000,778.800000 1032.500000,769.866667"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="433.966667,595.666667 451.833333,604.600000 433.966667,613.533333 433.966667,595.666667"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="433.966667,631.400000 451.833333,640.333333 433.966667,649.266667 433.966667,631.400000"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="433.966667,667.133333 451.833333,676.066667 433.966667,685.000000 433.966667,667.133333"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="541.166667,635.866667 550.100000,640.333333 541.166667,644.800000 541.166667,635.866667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,381.266667 1121.833333,390.200000 1103.966667,399.133333 1103.966667,381.266667"/>
-	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1103.966667,434.866667 1121.833333,443.800000 1103.966667,452.733333 1103.966667,434.866667"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1211.166667,412.533333 1220.100000,417.000000 1211.166667,421.466667 1211.166667,412.533333"/>
-	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="567.966667,631.400000 585.833333,640.333333 567.966667,649.266667 567.966667,631.400000"/>
-	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="675.166667,635.866667 684.100000,640.333333 675.166667,644.800000 675.166667,635.866667"/>
+	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="204.5" y="595" width="473.4" height="526"/>
+	<text x="581.467" y="1072.78" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">Enbale/Disable</text>
+	<rect fill="rgb(217,217,217)" stroke="rgb(217,217,217)" stroke-opacity="1" x="204.5" y="69" width="473.4" height="517.233"/>
+	<text x="283.4" y="555.55" fill="rgb(0,0,127)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">Controller</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="555.167" y="156.667" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-opacity="1" x="596.37" y="209.267" width="31.56" height="20.1633"/>
+	<text x="609.52" y="218.91" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">PI</text>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="563.933333,161.050000 560.426667,170.693333 567.440000,170.693333 563.933333,161.050000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="563.933333,166.310000 563.933333,239.950000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="559.550000,235.566667 634.943333,235.566667"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="638.450000,235.566667 628.806667,232.060000 628.806667,239.073333 638.450000,235.566667"/>
+	<text x="599" y="143.517" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">limPI</text>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="563.933333,235.566667 563.933333,210.143333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="563.933333,210.143333 601.630000,175.953333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="601.630000,175.953333 628.806667,175.953333"/>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="730.5" y="945.667" width="87.6667" height="87.6667"/>
+	<text x="774.333" y="932.517" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">yCooValMin</text>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="739.266667,959.693333 739.266667,1024.566667"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="739.266667,950.050000 735.760000,959.693333 742.773333,959.693333 739.266667,950.050000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="734.883333,1020.183333 810.276667,1020.183333"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="813.783333,1020.183333 804.140000,1016.676667 804.140000,1023.690000 813.783333,1020.183333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="739.266667,989.500000 809.400000,989.500000"/>
+	<text x="774.333" y="1046.48" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=uMin</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="905.833" y="945.667" width="87.6667" height="87.6667"/>
+	<text x="949.667" y="932.517" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">yCooValMax</text>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="914.600000,959.693333 914.600000,1024.566667"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="914.600000,950.050000 911.093333,959.693333 918.106667,959.693333 914.600000,950.050000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="910.216667,1020.183333 985.610000,1020.183333"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="989.116667,1020.183333 979.473333,1016.676667 979.473333,1023.690000 989.116667,1020.183333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="914.600000,989.500000 984.733333,989.500000"/>
+	<text x="949.667" y="1046.48" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=uMax</text>
+	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="248.333" y="638.833" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="246.747" y="637.247" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="246.747" y="726.5" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="336" y="638.833" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="248.333" y="637.247" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="248.333" y="638.833" width="2.38" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="248.333" y="638.833" width="87.6667" height="2.38"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="334.413" y="638.833" width="1.58667" height="87.6667"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="248.333" y="724.913" width="87.6667" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="332.827" y="640.42" width="1.58667" height="84.4933"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="249.92" y="723.327" width="84.4933" height="1.58667"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="326.357" cy="682.667" rx="3.06833" ry="3.06833"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.100000,643.216667 253.593333,652.860000 260.606667,652.860000 257.100000,643.216667"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.100000,652.860000 257.100000,695.378333"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="332.493333,695.378333 322.850000,691.871667 322.850000,698.885000 332.493333,695.378333"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.538333,695.378333 328.986667,695.378333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="257.538333,695.378333 310.138333,695.378333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="285.591667,691.871667 292.605000,695.378333 285.591667,698.446667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="310.138333,660.311667 310.138333,695.378333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="306.631667,681.351667 310.138333,673.023333 314.083333,681.351667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="270.688333,660.311667 327.671667,660.311667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="290.413333,656.805000 283.838333,660.311667 290.413333,663.818333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="266.305000,669.955000 270.688333,677.845000 275.071667,669.955000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="270.688333,660.311667 270.688333,695.378333"/>
+	<text x="270.031" y="713.569" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">TOutCooCut - TOutDelta</text>
+	<text x="312.549" y="713.569" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">TOutCooCut</text>
+	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="252.278" y="704.145" width="36.3817" height="18.8483"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="270.688333,695.378333 270.688333,704.145000"/>
+	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="293.043" y="704.145" width="39.0117" height="18.8483"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="310.138333,695.378333 310.138333,704.145000"/>
+	<text x="292.167" y="625.683" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TOutThr</text>
+	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="248.333" y="814.167" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="246.747" y="812.58" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="246.747" y="901.833" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="336" y="814.167" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="248.333" y="812.58" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="248.333" y="814.167" width="2.38" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="248.333" y="814.167" width="87.6667" height="2.38"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="334.413" y="814.167" width="1.58667" height="87.6667"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="248.333" y="900.247" width="87.6667" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="332.827" y="815.753" width="1.58667" height="84.4933"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="249.92" y="898.66" width="84.4933" height="1.58667"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="326.357" cy="858" rx="3.06833" ry="3.06833"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.100000,818.550000 253.593333,828.193333 260.606667,828.193333 257.100000,818.550000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.100000,828.193333 257.100000,870.711667"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="332.493333,870.711667 322.850000,867.205000 322.850000,874.218333 332.493333,870.711667"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="257.538333,870.711667 328.986667,870.711667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="257.538333,870.711667 310.138333,870.711667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="285.591667,867.205000 292.605000,870.711667 285.591667,873.780000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="310.138333,835.645000 310.138333,870.711667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="306.631667,856.685000 310.138333,848.356667 314.083333,856.685000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="270.688333,835.645000 327.671667,835.645000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="290.413333,832.138333 283.838333,835.645000 290.413333,839.151667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="266.305000,845.288333 270.688333,853.178333 275.071667,845.288333"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="270.688333,835.645000 270.688333,870.711667"/>
+	<text x="270.031" y="888.903" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">FanFeeCut - FanFeeDelta</text>
+	<text x="312.549" y="888.903" fill="rgb(192,192,192)" dominant-baseline="central" font-size="10" font-family="helvetica" text-anchor="middle">FanFeeCut</text>
+	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="252.278" y="879.478" width="36.3817" height="18.8483"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="270.688333,870.711667 270.688333,879.478333"/>
+	<rect fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" x="293.043" y="879.478" width="39.0117" height="18.8483"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="310.138333,870.711667 310.138333,879.478333"/>
+	<text x="292.167" y="801.017" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">uFanFeeThr</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="1081.17" y="638.833" width="87.6667" height="87.6667"/>
+	<text x="1125" y="625.683" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">higLim</text>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1165.326667,716.856667 1155.683333,713.350000 1155.683333,720.363333 1165.326667,716.856667"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-width="2" stroke-opacity="1" points="1104.836667,665.133333 1146.916667,701.953333"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="1089.933333,717.733333 1089.933333,651.106667"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1089.933333,642.340000 1086.426667,651.983333 1093.440000,651.983333 1089.933333,642.340000"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="1086.426667,716.856667 1158.313333,716.856667"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1081.166667,647.600000 1096.946667,647.600000"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1096.946667,647.600000 1097.823333,716.856667"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1081.166667,665.133333 1086.426667,665.133333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1086.426667,665.133333 1103.960000,665.133333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1081.166667,700.200000 1146.040000,698.446667"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1146.040000,698.446667 1146.916667,716.856667"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1081.166667,717.733333 1108.343333,707.213333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1108.343333,707.213333 1146.040000,701.953333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1081.166667,682.666667 1097.823333,682.666667"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1097.823333,682.666667 1128.506667,686.173333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1129.383333,686.173333 1147.793333,686.173333"/>
+	<polyline fill="none" stroke="rgb(28,108,200)" stroke-dasharray="2,2" stroke-opacity="1" points="1147.793333,686.173333 1168.833333,682.666667"/>
+	<ellipse fill="rgb(0,0,0)" stroke="none" stroke-opacity="1" cx="1146.92" cy="701.953" rx="2.63" ry="2.63"/>
+	<ellipse fill="rgb(0,0,127)" stroke="none" stroke-opacity="1" cx="1128.51" cy="686.173" rx="2.63" ry="2.63"/>
+	<polyline fill="none" stroke="rgb(238,46,47)" stroke-width="2" stroke-opacity="1" points="1147.793333,701.953333 1162.696667,701.953333"/>
+	<polyline fill="none" stroke="rgb(238,46,47)" stroke-width="2" stroke-opacity="1" points="1089.933333,665.133333 1104.836667,665.133333"/>
+	<ellipse fill="rgb(0,0,0)" stroke="none" stroke-opacity="1" cx="1104.84" cy="665.133" rx="2.63" ry="2.63"/>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="730.5" y="770.333" width="87.6667" height="87.6667"/>
+	<text x="774.333" y="757.183" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TSupMin</text>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="739.266667,784.360000 739.266667,849.233333"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="739.266667,774.716667 735.760000,784.360000 742.773333,784.360000 739.266667,774.716667"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="734.883333,844.850000 810.276667,844.850000"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="813.783333,844.850000 804.140000,841.343333 804.140000,848.356667 813.783333,844.850000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="739.266667,814.166667 809.400000,814.166667"/>
+	<text x="774.333" y="871.15" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=TSupHigLim</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="905.833" y="770.333" width="87.6667" height="87.6667"/>
+	<text x="949.667" y="757.183" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">TSupMax</text>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="914.600000,784.360000 914.600000,849.233333"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="914.600000,774.716667 911.093333,784.360000 918.106667,784.360000 914.600000,774.716667"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="910.216667,844.850000 985.610000,844.850000"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="989.116667,844.850000 979.473333,841.343333 979.473333,848.356667 989.116667,844.850000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="914.600000,814.166667 984.733333,814.166667"/>
+	<text x="949.667" y="871.15" fill="rgb(0,0,0)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">k=TSupHighLim</text>
+	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="423.667" y="814.167" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="422.08" y="812.58" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="422.08" y="901.833" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="511.333" y="814.167" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="423.667" y="812.58" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="423.667" y="814.167" width="2.38" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="423.667" y="814.167" width="87.6667" height="2.38"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="509.747" y="814.167" width="1.58667" height="87.6667"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="423.667" y="900.247" width="87.6667" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="508.16" y="815.753" width="1.58667" height="84.4933"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="425.253" y="898.66" width="84.4933" height="1.58667"/>
+	<text x="467.5" y="858" fill="rgb(0,0,0)" dominant-baseline="central" font-size="35" font-family="helvetica" text-anchor="middle">and</text>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="501.69" cy="858" rx="3.06833" ry="3.06833"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="431.557" cy="857.562" rx="3.06833" ry="3.06833"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="431.557" cy="893.067" rx="3.06833" ry="3.06833"/>
+	<text x="467.5" y="801.017" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">andIntErr</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="1081.17" y="419.667" width="87.6667" height="87.6667"/>
+	<text x="1125" y="406.517" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">min</text>
+	<text x="1125" y="463.5" fill="rgb(160,160,164)" dominant-baseline="central" font-size="32" font-family="helvetica" text-anchor="middle">min()</text>
+	<rect fill="rgb(215,215,215)" stroke="rgb(0,0,0)" stroke-opacity="1" x="555.167" y="814.167" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="553.58" y="812.58" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="553.58" y="901.833" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="642.833" y="814.167" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="555.167" y="812.58" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="555.167" y="814.167" width="2.38" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="555.167" y="814.167" width="87.6667" height="2.38"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="641.247" y="814.167" width="1.58667" height="87.6667"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="555.167" y="900.247" width="87.6667" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="639.66" y="815.753" width="1.58667" height="84.4933"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="556.753" y="898.66" width="84.4933" height="1.58667"/>
+	<text x="599" y="856.685" fill="rgb(0,0,0)" dominant-baseline="central" font-size="15" font-family="helvetica" text-anchor="middle">change</text>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="633.19" cy="858" rx="3.06833" ry="3.06833"/>
+	<text x="599" y="801.017" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">cha</text>
+	<text x="578.837" y="660.312" fill="rgb(255,0,255)" dominant-baseline="central" font-size="36" font-family="helvetica" text-anchor="middle">B</text>
+	<polygon fill="rgb(255,170,85)" stroke="rgb(255,170,85)" stroke-opacity="1" points="593.740000,702.830000 584.973333,694.063333 584.973333,698.446667 570.946667,698.446667 570.946667,707.213333 584.973333,707.213333 584.973333,711.596667 593.740000,702.830000"/>
+	<text x="620.917" y="704.145" fill="rgb(255,170,85)" dominant-baseline="central" font-size="39" font-family="helvetica" text-anchor="middle">I</text>
+	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" x="555.167" y="638.833" width="87.6667" height="87.6667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="553.58" y="637.247" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="553.58" y="726.5" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="642.833" y="638.833" width="1.58667" height="89.2533"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="555.167" y="637.247" width="89.2533" height="1.58667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="555.167" y="638.833" width="2.38" height="87.6667"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="555.167" y="638.833" width="87.6667" height="2.38"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="641.247" y="638.833" width="1.58667" height="87.6667"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="555.167" y="724.913" width="87.6667" height="1.58667"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="639.66" y="640.42" width="1.58667" height="84.4933"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="556.753" y="723.327" width="84.4933" height="1.58667"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="564.81" cy="682.667" rx="3.06833" ry="3.06833"/>
+	<text x="599" y="625.683" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">booToRea</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="905.833" y="156.667" width="87.6667" height="87.6667"/>
+	<ellipse fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" cx="949.667" cy="200.5" rx="21.9167" ry="21.9167"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="905.833333,174.200000 932.133333,174.200000 936.516667,182.966667"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="905.833333,226.800000 932.133333,226.800000 936.516667,218.033333"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="971.583333,200.500000 993.500000,200.500000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="936.516667,200.500000 962.816667,200.500000"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="943.091667,189.107717 956.241667,211.892283"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="943.091667,211.892283 956.241667,189.107717"/>
+	<text x="949.667" y="143.517" fill="rgb(0,0,255)" dominant-baseline="central" font-size="18" font-family="helvetica" text-anchor="middle">pro</text>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,682.666667 239.566667,682.666667"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,682.666667 239.566667,682.666667"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="340.383333,682.666667 353.533333,682.666667 353.533333,822.933333 414.900000,822.933333"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="340.383333,682.666667 353.533333,682.666667 353.533333,822.933333 414.900000,822.933333"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,419.666667 818.166667,419.666667 818.166667,682.666667 1072.400000,682.666667"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,419.666667 818.166667,419.666667 818.166667,682.666667 1072.400000,682.666667"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1300.333333,595.000000 1230.200000,595.000000 1230.200000,463.500000 1173.216667,463.500000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1300.333333,595.000000 1230.200000,595.000000 1230.200000,463.500000 1173.216667,463.500000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="997.883333,814.166667 1011.033333,814.166667 1011.033333,700.200000 1028.566667,700.200000 1028.566667,700.200000 1072.400000,700.200000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="997.883333,814.166667 1011.033333,814.166667 1011.033333,700.200000 1028.566667,700.200000 1028.566667,700.200000 1072.400000,700.200000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="997.883333,989.500000 1037.333333,989.500000 1037.333333,717.733333 1072.400000,717.733333"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="997.883333,989.500000 1037.333333,989.500000 1037.333333,717.733333 1072.400000,717.733333"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1173.216667,682.666667 1195.133333,682.666667 1195.133333,595.000000 1037.333333,595.000000 1037.333333,489.800000 1072.400000,489.800000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1173.216667,682.666667 1195.133333,682.666667 1195.133333,595.000000 1037.333333,595.000000 1037.333333,489.800000 1072.400000,489.800000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,200.500000 327.233333,200.500000 327.233333,200.500000 546.400000,200.500000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,200.500000 327.233333,200.500000 327.233333,200.500000 546.400000,200.500000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,419.666667 599.000000,419.666667 599.000000,253.100000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,419.666667 599.000000,419.666667 599.000000,253.100000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="414.900000,858.000000 340.383333,858.000000"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="414.900000,858.000000 340.383333,858.000000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,858.000000 239.566667,858.000000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,858.000000 239.566667,858.000000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="515.716667,858.000000 546.400000,858.000000"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="515.716667,858.000000 546.400000,858.000000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="647.216667,858.000000 660.366667,858.000000 660.366667,507.333333 563.933333,507.333333 563.933333,253.100000"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="647.216667,858.000000 660.366667,858.000000 660.366667,507.333333 563.933333,507.333333 563.933333,253.100000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="822.550000,814.166667 844.466667,814.166667 844.466667,647.600000 1072.400000,647.600000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="822.550000,814.166667 844.466667,814.166667 844.466667,647.600000 1072.400000,647.600000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="822.550000,989.500000 862.000000,989.500000 862.000000,665.133333 1072.400000,665.133333"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="822.550000,989.500000 862.000000,989.500000 862.000000,665.133333 1072.400000,665.133333"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="116.833333,1033.333333 371.066667,1033.333333 371.066667,893.066667 414.900000,893.066667"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="116.833333,1033.333333 371.066667,1033.333333 371.066667,893.066667 414.900000,893.066667"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="515.716667,858.000000 528.866667,858.000000 528.866667,682.666667 546.400000,682.666667"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="515.716667,858.000000 528.866667,858.000000 528.866667,682.666667 546.400000,682.666667"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="647.216667,200.500000 730.500000,200.500000 730.500000,174.200000 897.066667,174.200000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="647.216667,200.500000 730.500000,200.500000 730.500000,174.200000 897.066667,174.200000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="647.216667,682.666667 730.500000,682.666667 730.500000,226.800000 897.066667,226.800000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="647.216667,682.666667 730.500000,682.666667 730.500000,226.800000 897.066667,226.800000"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="5" stroke-opacity="1" points="1072.400000,437.200000 1046.100000,437.200000 1046.100000,200.500000 997.883333,200.500000"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1072.400000,437.200000 1046.100000,437.200000 1046.100000,200.500000 997.883333,200.500000"/>
+	<ellipse fill="rgb(0,0,127)" stroke="rgb(0,0,127)" cx="599" cy="419.667" rx="3" ry="3"/>
+	<ellipse fill="rgb(255,0,255)" stroke="rgb(255,0,255)" cx="528.867" cy="858" rx="3" ry="3"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="116.833333,989.500000 204.500000,1033.333333 116.833333,1077.166667 116.833333,989.500000"/>
+	<text x="108.067" y="969.775" fill="rgb(255,0,255)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">uFanSta</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,814.166667 204.500000,858.000000 116.833333,901.833333 116.833333,814.166667"/>
+	<text x="108.067" y="794.442" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">uFanFee</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,375.833333 204.500000,419.666667 116.833333,463.500000 116.833333,375.833333"/>
+	<text x="108.067" y="356.108" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TSup</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,156.666667 204.500000,200.500000 116.833333,244.333333 116.833333,156.666667"/>
+	<text x="108.067" y="136.942" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TSupSet</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="116.833333,638.833333 204.500000,682.666667 116.833333,726.500000 116.833333,638.833333"/>
+	<text x="108.067" y="619.108" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">TOut</text>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1256.500000,573.083333 1300.333333,595.000000 1256.500000,616.916667 1256.500000,573.083333"/>
+	<text x="1313.48" y="557.742" fill="rgb(0,0,127)" dominant-baseline="central" font-size="22" font-family="helvetica" text-anchor="middle">yCooVal</text>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="555.166667,261.866667 563.933333,244.333333 572.700000,261.866667 555.166667,261.866667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="537.633333,191.733333 555.166667,200.500000 537.633333,209.266667 537.633333,191.733333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="607.766667,261.866667 599.000000,244.333333 590.233333,261.866667 607.766667,261.866667"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="642.833333,196.116667 651.600000,200.500000 642.833333,204.883333 642.833333,196.116667"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="818.166667,985.116667 826.933333,989.500000 818.166667,993.883333 818.166667,985.116667"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="993.500000,985.116667 1002.266667,989.500000 993.500000,993.883333 993.500000,985.116667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="230.800000,673.900000 248.333333,682.666667 230.800000,691.433333 230.800000,673.900000"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="336.000000,678.283333 344.766667,682.666667 336.000000,687.050000 336.000000,678.283333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="230.800000,849.233333 248.333333,858.000000 230.800000,866.766667 230.800000,849.233333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="336.000000,853.616667 344.766667,858.000000 336.000000,862.383333 336.000000,853.616667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,638.833333 1081.166667,647.600000 1063.633333,656.366667 1063.633333,638.833333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,656.366667 1081.166667,665.133333 1063.633333,673.900000 1063.633333,656.366667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,691.433333 1081.166667,700.200000 1063.633333,708.966667 1063.633333,691.433333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,708.966667 1081.166667,717.733333 1063.633333,726.500000 1063.633333,708.966667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,673.900000 1081.166667,682.666667 1063.633333,691.433333 1063.633333,673.900000"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1168.833333,678.283333 1177.600000,682.666667 1168.833333,687.050000 1168.833333,678.283333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="818.166667,809.783333 826.933333,814.166667 818.166667,818.550000 818.166667,809.783333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="993.500000,809.783333 1002.266667,814.166667 993.500000,818.550000 993.500000,809.783333"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="406.133333,814.166667 423.666667,822.933333 406.133333,831.700000 406.133333,814.166667"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="406.133333,849.233333 423.666667,858.000000 406.133333,866.766667 406.133333,849.233333"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="406.133333,884.300000 423.666667,893.066667 406.133333,901.833333 406.133333,884.300000"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="511.333333,853.616667 520.100000,858.000000 511.333333,862.383333 511.333333,853.616667"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,428.433333 1081.166667,437.200000 1063.633333,445.966667 1063.633333,428.433333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1063.633333,481.033333 1081.166667,489.800000 1063.633333,498.566667 1063.633333,481.033333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1168.833333,459.116667 1177.600000,463.500000 1168.833333,467.883333 1168.833333,459.116667"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="537.633333,849.233333 555.166667,858.000000 537.633333,866.766667 537.633333,849.233333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="642.833333,853.616667 651.600000,858.000000 642.833333,862.383333 642.833333,853.616667"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="537.633333,673.900000 555.166667,682.666667 537.633333,691.433333 537.633333,673.900000"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="642.833333,678.283333 651.600000,682.666667 642.833333,687.050000 642.833333,678.283333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="888.300000,165.433333 905.833333,174.200000 888.300000,182.966667 888.300000,165.433333"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="888.300000,218.033333 905.833333,226.800000 888.300000,235.566667 888.300000,218.033333"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="993.500000,196.116667 1002.266667,200.500000 993.500000,204.883333 993.500000,196.116667"/>
 </svg>
