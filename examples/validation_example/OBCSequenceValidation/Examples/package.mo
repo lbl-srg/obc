@@ -4,7 +4,7 @@ package Examples "Collection of models that illustrate model use and test models
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains the validation example for an OBC subsequence.
+This package contains the examples for the control sequence verification with trend data.
 </p>
 </html>"));
 end Examples;
