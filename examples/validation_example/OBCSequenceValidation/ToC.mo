@@ -45,7 +45,7 @@ equation
           lineColor={0,0,127},
           textString="K"),
         Text(
-          extent={{0,12},{80,-48}},
+          extent={{0,16},{80,-44}},
           lineColor={0,0,127},
           textString="degC
 ")}),     Documentation(info="<html>
