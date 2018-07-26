@@ -155,8 +155,30 @@ using code in Buildings/Resources/src/Controls]
 Comparison of time series data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-xxxx
-[Jianjun to document the time series comparison tool.]
+We developed a tool called `funnel` to conduct the time series data comparison.
+The tool imports reference and test datasets, generates curves with them and
+a funnel around the reference curve. By checking if the test curve is
+inside the funnel, it generates report to indicate if the test dataset is "same" as
+reference curve with given tolerance, when they are different and for how long
+time. The funnel can be reshaped by setting tolerance.
+
+The tool is available from
+https://github.com/lbl-srg/funnel.
+To see usage information, start the tool with command line argument `---help`
+or `---usage`::
+
+  ./fcompare/Release/fcompare --help
+  Usage: fcompare [OPTION...]
+    -a, --absolute             Set to absolute tolerance
+    -b, --baseFile=FILE_PATH   Base CSV file path
+    -c, --compareFile=FILE_PATH   Test CSV file path
+    -o, --outputFile=DIR       Output directory.
+    -t, --tolerance=TOLERANCE  Tolerance to generate data tube
+    -x, --axes=AXES            Check if the tolerance value is set for half-width
+                               or half-height of tube
+    -?, --help                 Give this help list
+        --usage                Give a short usage message
+
 
 Verification of sequence diagrams
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -276,3 +298,14 @@ The difference in modeled vs. trended results is due to:
 * The difference in the integrator error calculation. Modelica CDL model simulation is continuous,
   whereas the ALC EIKON logic uses a discrete time implementation with a user defined interval
 * The anti-windup implementation, which is proprietary for the ALC EIKON controller
+
+:numref:`fig_coo_coi_val_fun` shows the verification of the implemented consequence.
+It indicates that with the implemented control sequences can capture the same
+operation as practical.
+
+.. _fig_coo_coi_val_fun:
+
+.. figure:: img/verification/cooling_valve_withFunnel.*
+   :width: 800 px
+
+   Verification of the cooling valve control signal, with funnel.
