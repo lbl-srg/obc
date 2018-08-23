@@ -3,49 +3,50 @@ model ToC "Test unit conversion from Kelvin to Celsius"
   import OBCSequenceValidation;
   extends Modelica.Icons.Example;
 
-  parameter Integer num_decimals = 6 "Tolerance";
+  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)
+    "Difference between the calculated and expected conversion output"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+    "Difference between the calculated and expected conversion output"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  OBCSequenceValidation.ToC   ToC   "Fahrenheit to Kelvin unit converter"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  OBCSequenceValidation.ToC   ToC1   "Fahrenheit to Kelvin unit converter"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(k=273.15)
-                                                                     "Value to convert"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value1(k=373.15)
-                                                                       "Value to convert"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(k=0)
-    "Expected converted value"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result1(k=100)
-    "Expected converted value"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1) "Result checker"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1) "Result checker"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+protected
+  parameter Real kin = 273.15 "Validation input";
+  parameter Real kin1 = 373.15 "Validation input 1";
+  parameter Real kout = 0 "Validation output";
+  parameter Real kout1 = 100 "Validation output 1";
 
-  Buildings.Controls.OBC.CDL.Continuous.Round rou(n=num_decimals)
-    "Round result"
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Round rou1(n=num_decimals)
-    "Round result"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  OBCSequenceValidation.ToC ToC "Fahrenheit to Kelvin unit converter"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  OBCSequenceValidation.ToC ToC1 "Fahrenheit to Kelvin unit converter"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value(k=kin)
+    "Value to convert"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant value1(k=kin1)
+    "Value to convert"
+    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result(k=kout)
+    "Expected converted value"
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant result1(k=kout1)
+    "Expected converted value"
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
 equation
   connect(result.y, add.u2)
-    annotation (Line(points={{-19,20},{-10,20},{-10,44},{-2,44}}, color={0,0,127}));
+    annotation (Line(points={{1,20},{10,20},{10,44},{18,44}}, color={0,0,127}));
   connect(result1.y, add1.u2)
-    annotation (Line(points={{-19,-60},{-10,-60},{-10,-36},{-2,-36}}, color={0,0,127}));
-  connect(add.y, rou.u) annotation (Line(points={{21,50},{38,50}}, color={0,0,127}));
-  connect(add1.y, rou1.u) annotation (Line(points={{21,-30},{38,-30}}, color={0,0,127}));
-  connect(value1.y,ToC1. kelvin) annotation (Line(points={{-59,-30},{-42,-30}}, color={0,0,127}));
-  connect(ToC1.celsius, add1.u1)
-    annotation (Line(points={{-19,-30},{-12,-30},{-12,-24},{-2,-24}}, color={0,0,127}));
-  connect(ToC.celsius, add.u1)
-    annotation (Line(points={{-19,50},{-10,50},{-10,56},{-2,56}}, color={0,0,127}));
-  connect(value.y,ToC. kelvin) annotation (Line(points={{-59,50},{-42,50}}, color={0,0,127}));
+    annotation (Line(points={{1,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));
+  connect(value1.y,ToC1.u)
+    annotation (Line(points={{-39,-30},{-22,-30}}, color={0,0,127}));
+  connect(ToC1.y, add1.u1)
+    annotation (Line(points={{1,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));
+  connect(ToC.y, add.u1)
+    annotation (Line(points={{1,50},{10,50},{10,56},{18,56}}, color={0,0,127}));
+  connect(value.y,ToC.u)
+    annotation (Line(points={{-39,50}, {-22,50}}, color={0,0,127}));
   annotation (Icon(graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

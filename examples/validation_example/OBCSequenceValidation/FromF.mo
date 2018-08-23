@@ -1,14 +1,14 @@
 within OBCSequenceValidation;
 block FromF "Fahrenheit to Kelvin unit converter"
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput fahrenheit(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final unit = "degF",
     final quantity = "ThermodynamicTemperature")
     "Temparature in Fahrenheit"
     annotation (Placement(transformation(extent={{-80,-20},{-40,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput kelvin(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final unit = "K",
     final quantity = "ThermodynamicTemperature")
     "Temparature in Kelvin"
@@ -25,9 +25,9 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(fahrenheit, addPar.u)
+  connect(u, addPar.u)
     annotation (Line(points={{-60,0},{-12,0}}, color={0,0,127}));
-  connect(addPar.y, kelvin)
+  connect(addPar.y, y)
     annotation (Line(points={{11,0},{50,0}}, color={0,0,127}));
   annotation (
       defaultComponentName = "FromF",
@@ -43,11 +43,11 @@ equation
           extent={{-150,110},{150,150}},
           textString="%name"),
         Text(
-          extent={{-82,42},{-2,-18}},
+          extent={{-80,40},{0,0}},
           lineColor={0,0,127},
           textString="degF"),
         Text(
-          extent={{18,-38},{118,2}},
+          extent={{0,-40},{80,0}},
           lineColor={0,0,127},
           textString="K")}),
     Documentation(info="<html>
