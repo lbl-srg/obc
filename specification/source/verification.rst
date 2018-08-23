@@ -229,14 +229,17 @@ Example
 
 In this example we validated a trended output of a control sequence that defines the cooling
 coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic
-implemented in one of the buildings on the main LBNL campus in Berkeley, CA.
+implemented in building 33 on the main LBNL campus in Berkeley, CA.
 The subsequence is shown in :numref:`fig_alc_coo_seq`. It comprises a PI controller
 that tracks the supply air temperature, an upstream subsequence that enables the
 controller and a downstream output limiter in case of low supply air temperatures.
 
 .. _fig_alc_coo_seq:
+
 .. figure:: img/verification/AlcEikon_CoolingControl_CHWValvePositionAndEnable.*
    :width: 500 px
+
+   ALC EIKON specification of the cooling coil valve position control sequence.
 
 We created a CLD specification of the same cooling coil valve position control sequence to
 validate the recorded output.
@@ -258,8 +261,35 @@ Recorded 5 seconds input trends to the subsequence are:
 
 Output of the subsequence is the cooling coil valve position in percentage.
 
-The input and output trends were processed using a csv to mos conversion script [fixme: maybe add link].
+The input and output trends were processed using a csv to mos conversion script.
 The data used in the example begins at midnight on June 7 2018.
+
+In addition to the input and output trends we recorded all parameters, such as
+hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
+(see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation. For
+example, due to the differences in the controller implementation the OBC
+controller was configured as illustrated in :numref:`fig_cdl_con_par`.
+
+.. _fig_alc_hys_par:
+
+.. figure:: img/verification/AlcEikon_OATHysteresis.*
+    :width: 500 px
+
+    ALC EIKON outdoor air temperature hysteresis to enable/disable the controller
+
+.. _fig_alc_con_par:
+
+.. figure:: img/verification/AlcEikon_PIParameters.*
+    :width: 500 px
+
+    ALC EIKON PI controller parameters
+
+.. _fig_cdl_con_par:
+
+.. figure:: img/verification/CDLControllerParameters.*
+    :width: 500 px
+
+    CDL implementation of the ALC EIKON control parameters
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
