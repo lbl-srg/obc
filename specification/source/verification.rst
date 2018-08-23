@@ -148,9 +148,6 @@ we developed the package ``Buildings.Controls.OBC.UnitConversions``.
 This package provides blocks that convert common units to SI units, and
 from SI units to units that are commonly used in the HVAC community.
 
-[todo: This package is currently being developed.
-As there will be many blocks, it should be generated from a json file
-using code in Buildings/Resources/src/Controls]
 
 Comparison of time series data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,15 +227,16 @@ generates a file that contains the scatter plots shown in :numref:`fig_vav_sin_g
 Example
 ^^^^^^^
 
-.. todo:: [Pending approval: building name, ALC logic diagram]
-
 In this example we validated a trended output of a control sequence that defines the cooling
 coil valve position. The cooling coil valve sequence is a part of the ALC EIKON control logic
-implemented in {fixme building and ahu name} in Berkeley, CA. The subsequence comprises a PI
-controller that tracks the supply air temperature, an upstream subsequence that enables the
+implemented in one of the buildings on the main LBNL campus in Berkeley, CA.
+The subsequence is shown in :numref:`fig_alc_coo_seq`. It comprises a PI controller
+that tracks the supply air temperature, an upstream subsequence that enables the
 controller and a downstream output limiter in case of low supply air temperatures.
 
-.. todo:: Add ALC Eikon figure after we obtain permission
+.. _fig_alc_coo_seq:
+.. figure:: img/verification/AlcEikon_CoolingControl_CHWValvePositionAndEnable.*
+   :width: 500 px
 
 We created a CLD specification of the same cooling coil valve position control sequence to
 validate the recorded output.
