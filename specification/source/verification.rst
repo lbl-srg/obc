@@ -306,7 +306,12 @@ in the ALC EIKON software help section, while the info section of the CDL PID
 controller (``Buildings.Controls.OBC.CDL.Continuous.LimPID``)
 provides its algorithm and parameters. ALC controller tracks the temperature in
 degree Fahrenheit, while the CDL implementation expects inputs in SI units.
-Based on the differences in the implementation and default units we calculated:
+An additional implementation difference is that for cooling applications an ALC
+controller uses direct action, whereas an CDL controller uses reverese action. ALC
+controller outputs results as percentages (0-100), while the CDL controller ouputs
+the signal between 0 and 1, thus all ALC controller gain parameters were
+converted accordingly. Both controllers were enabled throughout the performed validation test time period.
+Based on these differences in the implementation we calculated:
 
 * The proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
   controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor, :math:`u_{T,F,K}`:
@@ -315,17 +320,14 @@ Based on the differences in the implementation and default units we calculated:
 
       k_{p,cdl} = u_{T,F,K} k_{p,alc}
 
-* The time constant of CDL controller integrator using following ALC controller
-  parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
-  the unit conversion factor:
+* The time constant of CDL controller integrator using the ALC controller
+  parameters (interval (:math:`I_{alc}`) and integral gain (:math:`k_{i,alc}`)),
+  unit conversion factor and the previously calculated CDL proportional gain:
 
   .. math::
 
-      T_{i,cdl} = \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
+      T_{i,cdl} = k_{p,cdl} \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
 
-An additional implementation difference is that for cooling applications an ALC
-controller uses direct action, whereas an CDL controller uses reverese action.
-Both controllers were enabled throughout the performed validation test time period.
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
