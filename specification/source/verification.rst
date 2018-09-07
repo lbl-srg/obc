@@ -300,8 +300,17 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 .. _fig_cdl_con_par:
 
 
-.. note:
-      *mg Add equations to convert ALC control parameters to OBC control parameters
+*****
+*mg controller parameter conversion equtions
+We set up the CDL PI controller parameters such that its performance
+matches that of the ALC PI controller. The proportional CLD controller gain is:
+
+.. math:
+
+
+
+
+*****
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
