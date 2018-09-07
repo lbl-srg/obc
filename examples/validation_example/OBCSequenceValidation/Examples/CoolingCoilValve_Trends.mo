@@ -158,8 +158,8 @@ equation
   connect(greEquThr.y, cooValSta.uFanSta)
     annotation (Line(points={{-79,-90},{0,-90},{0,-10},{19,-10}},
                                                                 color={255,0,255}));
-  connect(percConv1.y, cooValSta.uFanFee) annotation (Line(points={{-79,-60},{-80,-60},{-80,-60},{-70,
-          -60},{-4,-60},{-4,-5},{19,-5}}, color={0,0,127}));
+  connect(percConv1.y, cooValSta.uFanFee) annotation (Line(points={{-79,-60},{
+          -6,-60},{-6,-5},{19,-5}},       color={0,0,127}));
   connect(coolingValveSignal.y[1], percConv.u)
     annotation (Line(points={{-119,90},{-102,90}}, color={0,0,127}));
   connect(fanFeedback.y[1], percConv1.u)
@@ -183,17 +183,17 @@ equation
   connect(from_degF2.y, to_degC2.u) annotation (Line(points={{-79,-20},{-72,-20},
           {-72,-10},{-62,-10}}, color={0,0,127}));
   connect(from_degF2.y, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,
-          -20},{-12,2},{4,2},{4,3},{19,3}}, color={0,0,127}));
+          -20},{-12,3},{19,3}},             color={0,0,127}));
   connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-79,20},{
           -30,20},{-30,7},{19,7}}, color={0,0,127}));
-  connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-79,50},{-12,
-          50},{-12,10},{19,10}}, color={0,0,127}));
-  connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-39,60},{30,60},
-          {30,61.3333},{98,61.3333}}, color={0,0,127}));
-  connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-39,30},{28,30},
-          {28,60},{98,60}}, color={0,0,127}));
-  connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-22,
-          -10},{-22,58.6667},{98,58.6667}}, color={0,0,127}));
+  connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-79,50},{0,50},
+          {0,10},{19,10}},       color={0,0,127}));
+  connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-39,60},{-30,60},
+          {-30,61.3333},{98,61.3333}},color={0,0,127}));
+  connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-39,30},{-26,30},
+          {-26,60},{98,60}},color={0,0,127}));
+  connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
+          -10},{-20,58.6667},{98,58.6667}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
