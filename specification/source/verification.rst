@@ -254,14 +254,14 @@ see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
 .. _fig_alc_coo_seq:
 
 .. figure:: img/verification/AlcEikon_CoolingControl_CHWValvePositionAndEnable.*
-   :width: 500 px
+   :width: 800 px
 
    ALC EIKON specification of the cooling coil valve position control sequence.
 
 .. _fig_coo_coi_val_seq:
 
 .. figure:: img/verification/CoolingCoilValve.*
-   :width: 500 px
+   :width: 800 px
 
    CDL specification of the cooling coil valve position control sequence.
 
@@ -286,7 +286,7 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 .. _fig_alc_hys_par:
 
 .. figure:: img/verification/AlcEikon_OATHysteresis.*
-    :width: 200 px
+    :width: 300 px
 
     ALC EIKON outdoor air temperature hysteresis to enable/disable the controller
 
@@ -301,21 +301,21 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 
 
 We set up the CDL PI controller parameters such that its performance
-matches that of the ALC PI controller. ALC controller implementation is described
+matches that of the ALC PI controller. The ALC PID controller implementation is described
 in the ALC EIKON software help section, while the info section of the CDL PID
 controller (``Buildings.Controls.OBC.CDL.Continuous.LimPID``)
 provides its algorithm and parameters. ALC controller tracks the temperature in
 degree Fahrenheit, while the CDL implementation expects inputs in SI units.
-Based on the differences in the implementation and default units, we calculate:
+Based on the differences in the implementation and default units we calculated:
 
-* the proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
-  controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor,  :math:`u_{T,F,K}`:
+* The proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
+  controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor, :math:`u_{T,F,K}`:
 
   .. math::
 
       k_{p,cdl} = u_{T,F,K} k_{p,alc}
 
-* the time constant of CDL controller integrator using the following ALC controller
+* The time constant of CDL controller integrator using following ALC controller
   parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
   the unit conversion factor:
 
@@ -323,12 +323,9 @@ Based on the differences in the implementation and default units, we calculate:
 
       T_{i,cdl} = \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
 
-An additional difference is that for cooling applications ALC controller uses
-direct action, whereas the CDL controller uses reverese action. Both controllers
-were enabled throughout the performed validation test time period.
-
-The parameters are derived using information provided in
-and the *mg CLD PID controller info section
+An additional implementation difference is that for cooling applications an ALC
+controller uses direct action, whereas an CDL controller uses reverese action.
+Both controllers were enabled throughout the performed validation test time period.
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
@@ -342,7 +339,7 @@ compare the simulated cooling coil valve position with the recorded data.
 .. _fig_coo_coi_val_tre:
 
 .. figure:: img/verification/CoolingCoilValve_Trends.*
-   :width: 500 px
+   :width: 800 px
 
    Modelica model that conducts the verification.
 
