@@ -300,23 +300,28 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 .. _fig_cdl_con_par:
 
 
-*****
-*mg controller parameter conversion equtions
 We set up the CDL PI controller parameters such that its performance
 matches that of the ALC PI controller. ALC controller implementation is described
 in the ALC EIKON software help section, while the info section of the CDL PID
-controller provides its algorithm and parameters. ALC controller tracks the temperature in
+controller (``Buildings.Controls.OBC.CDL.Continuous.LimPID``)
+provides its algorithm and parameters. ALC controller tracks the temperature in
 degree Fahrenheit, while the CDL implementation expects inputs in SI units.
-Based on the implementation and unit differences, we calculate:
+Based on the differences in the implementation and default units, we calculate:
 
-* the proportional CLD controller gain (:math:`k_{p,cdl}`) as a product of the ALC proportional
-controller gain (:math:`k_{p,alc}`) and the temperature unit conversion factor (u_{T,F,K}):
+* the proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
+controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor,  :math:`u_{T,F,K}`:
 
-..math:
+.. math::
+
     k_{p,cdl} = u_{T,F,K} k_{p,alc}
-*
 
-.. math:
+* the time constant of CDL controller integrator using the following ALC controller
+parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
+the unit conversion factor:
+
+.. math::
+
+    T_{i,cdl} = \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
 
 An additional difference is that for cooling applications ALC controller uses
 direct action, whereas the CDL controller uses reverese action. Both controllers
