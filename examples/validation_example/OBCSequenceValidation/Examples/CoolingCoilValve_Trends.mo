@@ -112,8 +112,8 @@ model CoolingCoilValve_Trends
   Buildings.Utilities.Plotters.TimeSeries timSerInp(
     legend={"Supply air temperature, [degC]","Supply air temperature setpoint, [degC]",
         "Outdoor air temperature, [degC]"},
-    n=3,
-    title="Trended input signals") "\"Trended input signals\""
+    title="Trended input signals",
+    n=3)                           "\"Trended input signals\""
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterEqualThreshold greEquThr(threshold=0.5)
@@ -121,12 +121,24 @@ model CoolingCoilValve_Trends
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain percConv1(k=0.01) "Converter from percentage"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-  FromF FromF1 annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  FromF FromF2 annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  FromF FromF3 annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  ToC ToC1 annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  ToC ToC2 annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  ToC ToC3 annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Buildings.Controls.OBC.UnitConversions.From_degF
+        from_degF
+               annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Buildings.Controls.OBC.UnitConversions.From_degF
+        from_degF1
+               annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+  Buildings.Controls.OBC.UnitConversions.From_degF
+        from_degF2
+               annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+  Buildings.Controls.OBC.UnitConversions.To_degC
+      to_degC
+           annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  Buildings.Controls.OBC.UnitConversions.To_degC
+      to_degC1
+           annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Buildings.Controls.OBC.UnitConversions.To_degC
+      to_degC2
+           annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Utilities.IO.Files.CSVWriter cSVWriter(
     samplePeriod=5,
     nin=2,
@@ -154,37 +166,34 @@ equation
     annotation (Line(points={{-119,-60},{-102,-60}}, color={0,0,127}));
   connect(fanStatus.y[1], greEquThr.u)
     annotation (Line(points={{-119,-90},{-102,-90}}, color={0,0,127}));
-  connect(TSupply_F.y[1], FromF1.fahrenheit)
-    annotation (Line(points={{-119,50},{-102,50}}, color={0,0,127}));
-  connect(TSupSetpoint_F.y[1], FromF2.fahrenheit)
-    annotation (Line(points={{-119,20},{-102,20}}, color={0,0,127}));
-  connect(TOut_F.y[1], FromF3.fahrenheit)
-    annotation (Line(points={{-119,-20},{-108,-20},{-108,-20},{-102,-20}}, color={0,0,127}));
-  connect(FromF1.kelvin, ToC1.kelvin)
-    annotation (Line(points={{-79,50},{-70,50},{-70,60},{-62,60}}, color={0,0,127}));
-  connect(FromF2.kelvin, ToC2.kelvin)
-    annotation (Line(points={{-79,20},{-70,20},{-70,30},{-62,30}}, color={0,0,127}));
-  connect(FromF3.kelvin, ToC3.kelvin)
-    annotation (Line(points={{-79,-20},{-70,-20},{-70,-10},{-62,-10}},
-                                                                   color={0,0,127}));
-  connect(FromF1.kelvin, cooValSta.TSup)
-    annotation (Line(points={{-79,50},{0,50},{0,10},{19,10}},     color={0,0,127}));
-  connect(FromF2.kelvin, cooValSta.TSupSet)
-    annotation (Line(points={{-79,20},{-12,20},{-12,7},{19,7}},   color={0,0,127}));
-  connect(FromF3.kelvin, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,-20},{-12,3},{19,3}},
-                                                  color={0,0,127}));
-  connect(ToC1.celsius, timSerInp.y[1]) annotation (Line(points={{-39,60},{-34,
-          60},{-34,64},{98,64},{98,61.3333}},
-                                      color={0,0,127}));
-  connect(ToC2.celsius, timSerInp.y[2]) annotation (Line(points={{-39,30},{-30,30},{-30,60},{98,60}},
-                            color={0,0,127}));
-  connect(ToC3.celsius, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-20,
-          -10},{-20,56},{98,56},{98,58.6667}},
-                                     color={0,0,127}));
   connect(percConv.y, cSVWriter.u[1]) annotation (Line(points={{-79,90},{50,90},
           {50,-29},{100,-29}}, color={0,0,127}));
   connect(cooValSta.yCooVal, cSVWriter.u[2]) annotation (Line(points={{41,0},{
           70,0},{70,-31},{100,-31}}, color={0,0,127}));
+  connect(TSupply_F.y[1], from_degF.u)
+    annotation (Line(points={{-119,50},{-102,50}}, color={0,0,127}));
+  connect(from_degF.y, to_degC.u) annotation (Line(points={{-79,50},{-70,50},{
+          -70,60},{-62,60}}, color={0,0,127}));
+  connect(TSupSetpoint_F.y[1], from_degF1.u)
+    annotation (Line(points={{-119,20},{-102,20}}, color={0,0,127}));
+  connect(from_degF1.y, to_degC1.u) annotation (Line(points={{-79,20},{-70,20},
+          {-70,30},{-62,30}}, color={0,0,127}));
+  connect(TOut_F.y[1], from_degF2.u)
+    annotation (Line(points={{-119,-20},{-102,-20}}, color={0,0,127}));
+  connect(from_degF2.y, to_degC2.u) annotation (Line(points={{-79,-20},{-72,-20},
+          {-72,-10},{-62,-10}}, color={0,0,127}));
+  connect(from_degF2.y, cooValSta.TOut) annotation (Line(points={{-79,-20},{-12,
+          -20},{-12,2},{4,2},{4,3},{19,3}}, color={0,0,127}));
+  connect(from_degF1.y, cooValSta.TSupSet) annotation (Line(points={{-79,20},{
+          -30,20},{-30,7},{19,7}}, color={0,0,127}));
+  connect(from_degF.y, cooValSta.TSup) annotation (Line(points={{-79,50},{-12,
+          50},{-12,10},{19,10}}, color={0,0,127}));
+  connect(to_degC.y, timSerInp.y[1]) annotation (Line(points={{-39,60},{30,60},
+          {30,61.3333},{98,61.3333}}, color={0,0,127}));
+  connect(to_degC1.y, timSerInp.y[2]) annotation (Line(points={{-39,30},{28,30},
+          {28,60},{98,60}}, color={0,0,127}));
+  connect(to_degC2.y, timSerInp.y[3]) annotation (Line(points={{-39,-10},{-22,
+          -10},{-22,58.6667},{98,58.6667}}, color={0,0,127}));
   annotation(experiment(Tolerance=1e-06),startTime = 3733553700, stopTime=3733560900,
   __Dymola_Commands(file="CoolingCoilValve_Trends.mos"
     "Simulate and plot"),
