@@ -311,17 +311,17 @@ Based on the differences in the implementation and default units, we calculate:
 * the proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
   controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor,  :math:`u_{T,F,K}`:
 
-.. math::
+  .. math::
 
-    k_{p,cdl} = u_{T,F,K} k_{p,alc}
+      k_{p,cdl} = u_{T,F,K} k_{p,alc}
 
 * the time constant of CDL controller integrator using the following ALC controller
   parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
   the unit conversion factor:
 
-.. math::
+  .. math::
 
-    T_{i,cdl} = \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
+      T_{i,cdl} = \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
 
 An additional difference is that for cooling applications ALC controller uses
 direct action, whereas the CDL controller uses reverese action. Both controllers
