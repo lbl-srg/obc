@@ -303,11 +303,27 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 *****
 *mg controller parameter conversion equtions
 We set up the CDL PI controller parameters such that its performance
-matches that of the ALC PI controller. The proportional CLD controller gain is:
+matches that of the ALC PI controller. ALC controller implementation is described
+in the ALC EIKON software help section, while the info section of the CDL PID
+controller provides its algorithm and parameters. ALC controller tracks the temperature in
+degree Fahrenheit, while the CDL implementation expects inputs in SI units.
+Based on the implementation and unit differences, we calculate:
+
+* the proportional CLD controller gain (:math:`k_{p,cdl}`) as a product of the ALC proportional
+controller gain (:math:`k_{p,alc}`) and the temperature unit conversion factor (u_{T,F,K}):
+
+..math:
+    k_{p,cdl} = u_{T,F,K} k_{p,alc}
+*
 
 .. math:
 
+An additional difference is that for cooling applications ALC controller uses
+direct action, whereas the CDL controller uses reverese action. Both controllers
+were enabled throughout the performed validation test time period.
 
+The parameters are derived using information provided in
+and the *mg CLD PID controller info section
 
 
 *****
