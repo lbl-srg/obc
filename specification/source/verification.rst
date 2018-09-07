@@ -309,15 +309,15 @@ degree Fahrenheit, while the CDL implementation expects inputs in SI units.
 Based on the differences in the implementation and default units, we calculate:
 
 * the proportional CLD controller gain, :math:`k_{p,cdl}`, as a product of the ALC proportional
-controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor,  :math:`u_{T,F,K}`:
+  controller gain, :math:`k_{p,alc}`, and the temperature unit conversion factor,  :math:`u_{T,F,K}`:
 
 .. math::
 
     k_{p,cdl} = u_{T,F,K} k_{p,alc}
 
 * the time constant of CDL controller integrator using the following ALC controller
-parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
-the unit conversion factor:
+  parameters: interval (:math:`I_{alc}`), integral gain (:math:`k_{i,alc}`), and
+  the unit conversion factor:
 
 .. math::
 
@@ -329,9 +329,6 @@ were enabled throughout the performed validation test time period.
 
 The parameters are derived using information provided in
 and the *mg CLD PID controller info section
-
-
-*****
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
