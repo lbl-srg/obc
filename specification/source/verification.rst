@@ -3,21 +3,27 @@
 Verification
 ------------
 
-This section describes the verification
-of the control sequences that can be done as part
-of the commissioning, e.g., step 9 in the process shown in
+This section describes how to formally verify whether
+the control sequence is implemented according to specification.
+This process would be done as part
+of the commissioning, as indicated in step 9 in the process diagram
 :numref:`fig_process`.
 For the requirements, see :numref:`sec_requirements_verification_tool`.
 
+For clarity, we remind that *verification* tests whether the implementation
+of the control sequence conforms with its specification. In contrast,
+*validation* would test whether the control sequence
+is such that it meets the building owner's need. Hence,
+validation would be done in step 2 in :numref:`fig_process`.
 
 Scope of the verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For OpenBuildingControl, we currently only verify the control
+For OpenBuildingControl, we currently only verify the implementation of the control
 sequence. Outside the scope of our verification are tests
 that verify whether the I/O points are connected properly,
 whether the mechanical equipment is installed and functions correctly,
-and whether the building envelop is meeting the specifications.
+and whether the building envelop is meeting its specification.
 Therefore, with our tests, we aim to verify that the control provider
 implemented the sequence as specified, and that it executes correctly.
 
@@ -26,14 +32,18 @@ Methodology
 
 A typical usage would be as follows: Given a CDL specification,
 a commissioning agent would export trended control inputs and outputs
-to a CSV file. The commissioning agent then executes the CDL specification
+and store them in a CSV file. The commissioning agent then executes the CDL specification
 for the trended inputs, and compares the following:
 
-* Whether the trended outputs and the outputs computed by the CDL specification
-  are close to each other.
-* Whether the trended inputs and outputs lead to the right sequence diagrams,
-  for example, whether an airhandler's economizer outdoor air damper is fully open when
-  the system is in free cooling mode.
+1. Whether the trended outputs and the outputs computed by the CDL specification
+   are close to each other.
+2. Whether the trended inputs and outputs lead to the right sequence diagrams,
+   for example, whether an airhandler's economizer outdoor air damper is fully open when
+   the system is in free cooling mode.
+
+Technically, step 2 is not needed if step 1 succeeds. However, as part of the commissioning,
+it seems beneficial to confirm that the sequence diagrams are indeed correct
+(and hence the original control specification is correct for the given system).
 
 :numref:`fig_con_seq_ver` shows the flow diagram for the verification.
 Rather than using real-time data through BACnet or other protocols,
@@ -58,13 +68,12 @@ Given the set point and measurement signals, it outputs the control signal
 according to the specification.
 The block labeled *time series verification* compares this output with
 trended control signals, and indicates where the signals differ by more than
-a prescribed tolerance, both, in time and in signal value.
+a prescribed tolerance in time and in signal value.
 The block labeled *sequence chart* creates x-y or scatter plots. These
 can be used to verify for example that an economizer outdoor air damper
 has the expected position as a function of the outside air temperature.
 
-Below, we will further describe the blocks  *time series verification*
-and *sequence chart*.
+Below, we will further describe the blocks in the box labeled *verification*.
 
 .. _fig_con_seq_ver:
 
@@ -79,7 +88,7 @@ and *sequence chart*.
           are satisfactory" or "a damper control signal is not oscillating". However,
           discussions with design engineers and commissioning providers showed that
           there is currently no accepted method for turning such questions into
-          hard requirements. We implemented software that tests for example
+          hard requirements. We implemented software that tests
           criteria such as
           "Room air temperature shall be within the setpoint +/- 0.5 Kelvin
           for at least 45 min within each 60 min window." and
@@ -105,10 +114,9 @@ Modules of the verification test
 CSV file reader
 ~~~~~~~~~~~~~~~
 
-Reading archived data is easiest using CSV files.
-The data reader ```Modelica.Blocks.Sources.CombiTimeTable```
+To read CSV files, the data reader ``Modelica.Blocks.Sources.CombiTimeTable``
 from the Modelica Standard Library
-can read CSV files that have the following structure:
+can be used. It requires the CSV file to have the following structure:
 
 .. code-block:: C
 
@@ -124,10 +132,10 @@ can read CSV files that have the following structure:
      4  16
 
 
-Note, that the first two characters in the file need to be ```#1```
+Note, that the first two characters in the file need to be ``#1``
 (a line comment defining the version number of the file format).
 Afterwards, the corresponding matrix has to be declared with type
-(= ```double``` or ```float```), name and actual dimensions.
+``double``, name and dimensions.
 Finally, in successive rows of the file, the elements
 of the matrix have to be given.
 The elements have to be provided as a sequence of numbers
@@ -145,27 +153,33 @@ Unit conversion
 Building automation systems store physical quantities in various units.
 To convert them to the units used by Modelica and hence also by CDL,
 we developed the package ``Buildings.Controls.OBC.UnitConversions``.
-This package provides blocks that convert common units to SI units, and
-from SI units to units that are commonly used in the HVAC community.
+This package provides blocks that convert between SI units
+and units that are commonly used in the HVAC industry.
 
 
 Comparison of time series data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We developed a tool called `funnel` to conduct the time series data comparison.
-The tool imports reference and test datasets, generates curves with them and
-a funnel around the reference curve. By checking if the test curve is
-inside the funnel, it generates report to indicate if the test dataset is "same" as
-reference curve with given tolerance, when they are different and for how long
-time. The funnel can be reshaped by setting tolerance.
+We developed a tool called *funnel* to conduct time series data comparison.
+The tool imports two CSV files, one containing the reference data set and
+the other the test data set.
+Both CSV files contain time series that need to be compared across the two
+CSV files. The comparison is conducted by computing a funnel around the
+reference curve. For this funnel, users can specify the tolerances with respect
+to time and with respect to the recorded quantity. The tool then
+checks whether the time series of the test data set is within the funnel.
+It then generates a report that shows whether the test succeeded.
+If the test data set is outside the funnel, the tool will report where and
+for how long they differ.
 
 The tool is available from
 https://github.com/lbl-srg/funnel.
-To see usage information, start the tool with command line argument `---help`
-or `---usage`::
+To see usage information, run ``fcompare --help``. This produces the following:
+
+.. code-block:: none
 
   ./fcompare/Release/fcompare --help
-  Usage: fcompare [OPTION...]
+   Usage: fcompare [OPTION...]
     -a, --absolute             Set to absolute tolerance
     -b, --baseFile=FILE_PATH   Base CSV file path
     -c, --compareFile=FILE_PATH   Test CSV file path
