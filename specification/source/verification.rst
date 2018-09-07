@@ -246,7 +246,10 @@ coil valve position. The cooling coil valve sequence is a part of the ALC EIKON 
 implemented in building 33 on the main LBNL campus in Berkeley, CA.
 The subsequence is shown in :numref:`fig_alc_coo_seq`. It comprises a PI controller
 that tracks the supply air temperature, an upstream subsequence that enables the
-controller and a downstream output limiter in case of low supply air temperatures.
+controller and a downstream output limiter that is active in case of low supply air temperatures.
+
+We created a CLD specification of the same cooling coil valve position control sequence,
+see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
 
 .. _fig_alc_coo_seq:
 
@@ -255,15 +258,12 @@ controller and a downstream output limiter in case of low supply air temperature
 
    ALC EIKON specification of the cooling coil valve position control sequence.
 
-We created a CLD specification of the same cooling coil valve position control sequence to
-validate the recorded output.
-
 .. _fig_coo_coi_val_seq:
 
 .. figure:: img/verification/CoolingCoilValve.*
    :width: 500 px
 
-   OBC specification of the cooling coil valve position control sequence.
+   CDL specification of the cooling coil valve position control sequence.
 
 Recorded 5 seconds input trends to the subsequence are:
 
@@ -275,19 +275,18 @@ Recorded 5 seconds input trends to the subsequence are:
 
 Output of the subsequence is the cooling coil valve position in percentage.
 
-The input and output trends were processed using a csv to mos conversion script.
-The data used in the example begins at midnight on June 7 2018.
+The input and output trends were processed with a script that converts them to the
+format required by the data readers. The data used in the example begins at
+midnight on June 7 2018.
 
-In addition to the input and output trends we recorded all parameters, such as
+In addition to the input and output trends, we recorded all parameters, such as
 hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
-(see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation. For
-example, due to the differences in the controller implementation the OBC
-controller was configured as illustrated in :numref:`fig_cdl_con_par`.
+(see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation.
 
 .. _fig_alc_hys_par:
 
 .. figure:: img/verification/AlcEikon_OATHysteresis.*
-    :width: 500 px
+    :width: 200 px
 
     ALC EIKON outdoor air temperature hysteresis to enable/disable the controller
 
@@ -300,15 +299,14 @@ controller was configured as illustrated in :numref:`fig_cdl_con_par`.
 
 .. _fig_cdl_con_par:
 
-.. figure:: img/verification/CDLControllerParameters.*
-    :width: 500 px
 
-    CDL implementation of the ALC EIKON control parameters
+.. note:
+      *mg Add equations to convert ALC control parameters to OBC control parameters
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
 are the data readers that reads the input and output
-trends from files. Next are unit conversions, and a conversion for the fan status
+trends from files. Next are unit converters, and a conversion for the fan status
 between a real value and a boolean value.
 These data are fed into the instance labeled ``cooValSta``, which contains the control sequence
 as shown in :numref:`fig_coo_coi_val_seq`. The plotters on the right hand side then
@@ -324,7 +322,7 @@ compare the simulated cooling coil valve position with the recorded data.
 :numref:`fig_coo_coi` shows the trended input temperatures for the
 control sequence, the trended and simulated cooling valve control signal
 for the same time period, which are practically on top of each other,
-and the the correlation error between the
+and a correlation error between the
 trended and simulated cooling valve control signal.
 
 .. _fig_coo_coi:
@@ -338,16 +336,17 @@ trended and simulated cooling valve control signal.
 The difference in modeled vs. trended results is due to:
 
 * The difference in the integrator error calculation. Modelica CDL model simulation is continuous,
-  whereas the ALC EIKON logic uses a discrete time implementation with a user defined interval
-* The anti-windup implementation, which is proprietary for the ALC EIKON controller
+  whereas the ALC EIKON logic uses a discrete time implementation with a user defined
+  time step;
+* The anti-windup implementation, which is proprietary for the ALC EIKON controller.
 
-:numref:`fig_coo_coi_val_fun` shows the verification of the implemented consequence.
-It indicates that with the implemented control sequences can capture the same
-operation as practical.
+:numref:`fig_coo_coi_val_fun` shows the verification of the implemented control
+sequence. It indicates that with the implemented control sequence can capture the same
+operation as a control sequence implemented in the current practice.
 
 .. _fig_coo_coi_val_fun:
 
 .. figure:: img/verification/cooling_valve_withFunnel.*
    :width: 800 px
 
-   Verification of the cooling valve control signal, with funnel.
+   Verification of the cooling valve control signal with the funnel software.
