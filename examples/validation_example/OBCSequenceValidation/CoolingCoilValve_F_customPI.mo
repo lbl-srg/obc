@@ -109,7 +109,7 @@ block CoolingCoilValve_F_customPI
 
   // controller
 
-  CustomPI customPI(
+  DisIntPI customPI(
     final k_i=k_i,
     final k_p=k_p,
     final interval=interval,
