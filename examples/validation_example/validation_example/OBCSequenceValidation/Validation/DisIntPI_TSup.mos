@@ -1,0 +1,5 @@
+simulateModel("OBCSequenceValidation.Validation.DisIntPI_TSup", method="dassl", stopTime=2200, tolerance=1e-06, resultFile="DisIntPI_TSup");
+
+createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, axes = {1,1,2,2,2}, y={"disIntPI.u_s", "disIntPI.u_m", "disIntPI.intErrSta", "disIntPI.holdIntError", "disIntPI.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0},{28,108,200},{238,46,47},{85,0,0},{50,150,50}});
+
+createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, axes = {1,1,2,2,2}, y={"disIntPI1.u_s",  "disIntPI1.u_m", "disIntPI1.intErrSta", "disIntPI1.holdIntError", "disIntPI1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0},{28,108,200},{238,46,47},{85,0,0},{50,150,50}});
