@@ -315,17 +315,17 @@ performed validation test time period. Based on these differences in the impleme
 * The proportional CDL controller gain, :math:`k_{p,cdl}` in :math:`\frac{1} {K}`,
   as a product of the ALC proportional controller gain, :math:`k_{p,alc}`
   in :math:`\frac{1} {^\circ{F}}`, and a conversion factor between units of temperature difference,
-  :math:`u_{T,F,K}` in :math:`\frac{^\circ{F}} {K}`:
+  :math:`u_{T}` in :math:`\frac{^\circ{F}} {K}`:
 
   .. math::
 
-      k_{p,cdl} = u_{T,F,K} k_{p,alc}
+      k_{p,cdl} = u_{T} k_{p,alc}
 
   with the temperature difference conversion factor:
 
   .. math::
 
-      u_{T,F,K} = \frac{9} {5} \left[\frac{^\circ{F}} {K}\right]
+      u_{T} = \frac{9} {5} \left[\frac{^\circ{F}} {K}\right]
 
 
 * The time constant of CDL controller integrator, :math:`T_{i,cdl}` in :math:`s`,
@@ -335,7 +335,7 @@ performed validation test time period. Based on these differences in the impleme
 
   .. math::
 
-      T_{i,cdl} = k_{p,cdl} \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
+      T_{i,cdl} = k_{p,cdl} \frac{I_{alc}} {u_{T} k_{i,alc}}
 
 
 :numref:`fig_coo_coi_val_tre` shows the
