@@ -1,7 +1,5 @@
 DisIntPI
 CoolingCoilValve
-CoolingCoilValve_F_customPI
-FromF
-ToC
+CoolingCoilValve_disIntPI
 Examples
 Validation

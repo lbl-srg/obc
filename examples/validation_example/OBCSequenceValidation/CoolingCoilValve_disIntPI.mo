@@ -1,5 +1,5 @@
 within OBCSequenceValidation;
-block CoolingCoilValve_F_customPI
+block CoolingCoilValve_disIntPI
   "Cooling coil control sequence as implemented in in one of the LBNL buildings"
 
   parameter Real k_p(final unit="1/F") = 1/100
@@ -257,4 +257,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoolingCoilValve_F_customPI;
+end CoolingCoilValve_disIntPI;

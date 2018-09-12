@@ -1,4 +1,4 @@
-simulateModel("OBCSequenceValidation.Examples.CoolingCoilValve_F_customPI_Trends", method="dassl", startTime =0, stopTime = 315710, tolerance=1e-06, resultFile="CoolingCoilValve_F_customPI_Trends");
+simulateModel("OBCSequenceValidation.Examples.CoolingCoilValve_disIntPI_Trends", method="dassl", startTime =0, stopTime = 315710, tolerance=1e-06, resultFile="CoolingCoilValve_disIntPI_Trends");
 
 createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, bottomTitle = "Input trends", axes = {1,1,1,2,2}, y={"cooValSta_F.TSup", "cooValSta_F.TSupSet", "cooValSta_F.TOut", "cooValSta_F.uFanFee", "cooValSta_F.uFanSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{238,46,47},{28,002,254},{50,205,50},{216,191,216}, {0,0,127}});
 

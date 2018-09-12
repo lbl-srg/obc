@@ -1,5 +1,5 @@
 within OBCSequenceValidation.Validation;
-model CoolingCoilValve_F_customPI_TSup_TSupSet_TOut_uFanSta
+model CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta
   "Validation model for the cooling coil valve control sequence"
   extends Modelica.Icons.Example;
 
@@ -37,26 +37,26 @@ model CoolingCoilValve_F_customPI_TSup_TSupSet_TOut_uFanSta
     final unit="1") = 0.60
     "Fan feedback";
 
-  CoolingCoilValve_F_customPI cooVal(
+  CoolingCoilValve_disIntPI cooVal(
     reverseAction=false,
     k_p=1,
     k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
-  CoolingCoilValve_F_customPI cooVal1(
+  CoolingCoilValve_disIntPI cooVal1(
     reverseAction=false,
     k_p=1,
     k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  CoolingCoilValve_F_customPI cooVal2(
+  CoolingCoilValve_disIntPI cooVal2(
     reverseAction=false,
     holdIntError=false,
     k_p=1,
     k_i=0.1) "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
-  CoolingCoilValve_F_customPI cooVal3(
+  CoolingCoilValve_disIntPI cooVal3(
     reverseAction=false,
     k_p=1,
     k_i=0.1) "Cooling valve control sequence"
@@ -202,7 +202,7 @@ equation
     annotation (Line(points={{121,-100},{128,-100},{128,-100},{
           134,-100},{134,-42},{139,-42}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="CoolingCoilValve_F_customPI_TSup_TSupSet_TOut_uFanSta.mos"
+  __Dymola_Commands(file="CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
     Documentation(
     info="<html>
@@ -260,4 +260,4 @@ the upper limit TSup range."),
           horizontalAlignment=TextAlignment.Left,
           textString="Operation within the 
 upper limit TSup range.")}));
-end CoolingCoilValve_F_customPI_TSup_TSupSet_TOut_uFanSta;
+end CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta;
