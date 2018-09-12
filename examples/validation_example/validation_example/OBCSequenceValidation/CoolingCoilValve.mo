@@ -121,10 +121,12 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(
+    final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMax(final k=uMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMax(
+    final k=uMax)
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
@@ -134,15 +136,18 @@ protected
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(uLow=FanFeeCut - FanFeeDelta, uHigh=
-        FanFeeCut)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(
+    final uLow=FanFeeCut - FanFeeDelta,
+    final uHigh= FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
+    final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(
+    final k=TSupHighLim)
     "Low range supply air temperature high limit"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
@@ -154,14 +159,15 @@ protected
     "Switches the signal between controller and low range limiter signals"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Change
-                                         cha
+  Buildings.Controls.OBC.CDL.Logical.Change cha
+    "Detect signal change"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
+
 equation
   connect(TOut, TOutThr.u)
     annotation (Line(points={{-140,-20},{-112,-20}}, color={0,0,127}));
@@ -173,7 +179,7 @@ equation
     annotation (Line(points={{130,0},{114,0},{114,30},{101,30}},color={0,0,127}));
   connect(TSupMax.y, higLim.x2)
     annotation (Line(points={{61,-50},{64,-50},{64,-24},{68,-24},{68,-24},{78,-24}},
-                                                                   color={0,0,127}));
+    color={0,0,127}));
   connect(yCooValMax.y, higLim.f2)
     annotation (Line(points={{61,-90},{70,-90},{70,-28},{78,-28}}, color={0,0,127}));
   connect(higLim.y,min. u2)
@@ -183,32 +189,29 @@ equation
   connect(TSup, limPI.u_m)
     annotation (Line(points={{-140,40},{-30,40},{-30,78}}, color={0,0,127}));
   connect(andIntErr.u2, uFanFeeThr.y)
-    annotation (Line(points={{-72,-60},{-89,-60}},                     color={255,0,255}));
+    annotation (Line(points={{-72,-60},{-89,-60}}, color={255,0,255}));
   connect(uFanFee, uFanFeeThr.u)
-    annotation (Line(points={{-140,-60},{-112,-60}},                       color={0,0,127}));
+    annotation (Line(points={{-140,-60},{-112,-60}}, color={0,0,127}));
   connect(andIntErr.y, cha.u)
     annotation (Line(points={{-49,-60},{-42,-60}}, color={255,0,255}));
-  connect(cha.y, limPI.trigger) annotation (Line(points={{-19,-60},{-16,-60},{
-          -16,20},{-38,20},{-38,78}},
-                                  color={255,0,255}));
+  connect(cha.y, limPI.trigger)
+    annotation (Line(points={{-19,-60},{-16,-60},{
+          -16,20},{-38,20},{-38,78}}, color={255,0,255}));
   connect(TSupMin.y, higLim.x1)
-    annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},
-                                                               color={0,0,127}));
+    annotation (Line(points={{21,-50},{26,-50},{26,-12},{78,-12}},color={0,0,127}));
   connect(yCooValMin.y, higLim.f1)
     annotation (Line(points={{21,-90},{30,-90},{30,-16},{78,-16}},
-                                                               color={0,0,127}));
+    color={0,0,127}));
   connect(uFanSta, andIntErr.u3) annotation (Line(points={{-140,-100},{-82,-100},
           {-82,-68},{-72,-68}}, color={255,0,255}));
   connect(andIntErr.y, booToRea.u) annotation (Line(points={{-49,-60},{-46,-60},
-          {-46,-20},{-42,-20}},
-                             color={255,0,255}));
+          {-46,-20},{-42,-20}},color={255,0,255}));
   connect(limPI.y, pro.u1) annotation (Line(points={{-19,90},{0,90},{0,96},{38,
           96}}, color={0,0,127}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{-19,-20},{0,-20},{0,84},
           {38,84}},color={0,0,127}));
   connect(min.u1, pro.y)
-    annotation (Line(points={{78,36},{72,36},{72,90},{61,90}},
-                                               color={0,0,127}));
+    annotation (Line(points={{78,36},{72,36},{72,90},{61,90}},color={0,0,127}));
   annotation (
     defaultComponentName = "cooVal",
     Icon(graphics={
