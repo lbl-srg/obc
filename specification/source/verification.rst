@@ -340,10 +340,10 @@ performed validation test time period. Based on these differences in the impleme
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
-are the data readers that reads the input and output
+are the data readers that read the input and output
 trends from files. Next are unit converters, and a conversion for the fan status
-between a real value and a boolean value.
-These data are fed into the instance labeled ``cooValSta``, which contains the control sequence
+between a real value and a boolean value. These data are fed into the instance labeled
+``cooValSta``, which contains the control sequence
 as shown in :numref:`fig_coo_coi_val_seq`. The plotters on the right hand side then
 compare the simulated cooling coil valve position with the recorded data.
 
