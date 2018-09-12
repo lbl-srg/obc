@@ -11,7 +11,7 @@ model CoolingCoilValve_Trends
     tableName="OA_Temp",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/OA_Temp.mos"))
+    fileName=("/../Data/OA_Temp.mos"))
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
@@ -23,7 +23,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="SA_Clg_Stpt",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/SA_Clg_Stpt.mos"))
+    fileName=("/../Data/SA_Clg_Stpt.mos"))
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
@@ -35,7 +35,7 @@ model CoolingCoilValve_Trends
     tableName="Clg_Coil_Valve",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName="/home/mg/data/obc_validation_study/trends/Clg_Coil_Valve.mos")
+    fileName="/../Data/Clg_Coil_Valve.mos")
     "Output of the cooling valve control subsequence"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 
@@ -47,7 +47,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Feedback",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Feedback.mos"))
+    fileName=("/../Data/VFD_Fan_Feedback.mos"))
     "Fan feedback"
     annotation (Placement(transformation(extent={{-140,-70},{-120,-50}})));
 
@@ -59,7 +59,7 @@ model CoolingCoilValve_Trends
     tableName="VFD_Fan_Enable",
     columns={3},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName=("/home/mg/data/obc_validation_study/trends/VFD_Fan_Enable.mos"))
+    fileName=("/../Data/VFD_Fan_Enable.mos"))
     "Fan status"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
 
@@ -71,7 +71,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableName="Supply_Air_Temp",
     columns={3},
-    fileName=("/home/mg/data/obc_validation_study/trends/Supply_Air_Temp.mos"))
+    fileName=("/../Data/Supply_Air_Temp.mos"))
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
