@@ -328,7 +328,7 @@ performed validation test time period. Based on these differences in the impleme
       u_{T} = \frac{9} {5} \left[\frac{^\circ{F}} {K}\right]
 
 
-* The time constant of CDL controller integrator, :math:`T_{i,cdl}` in :math:`s`,
+* The time constant of the CDL controller integrator, :math:`T_{i,cdl}` in :math:`s`,
   using the ALC controller parameters (interval (:math:`I_{alc}`) and integral gain
   (:math:`k_{i,alc}`)), temperature difference conversion factor and the previously
   calculated CDL proportional gain:
