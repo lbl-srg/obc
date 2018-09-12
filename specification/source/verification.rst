@@ -306,7 +306,7 @@ provides its algorithm and parameters. ALC controller tracks the temperature in
 degree Fahrenheit, while the CDL implementation expects inputs in SI units.
 An additional implementation difference is that for cooling applications an ALC
 controller uses direct action, whereas an CDL controller uses reverse action. ALC
-controller was set up to output the control signal in percentages (0 - 100), while we set up 
+controller was set up to output the control signal in percentages (0 - 100), while we set up
 the CDL controller to output the signal between 0 and 1, thus the ALC proportional and
 integral gain parameters, as presented in :numref:`fig_alc_con_par`, were converted
 accordingly (divided by 100). Both controllers were enabled throughout the
@@ -328,10 +328,10 @@ performed validation test time period. Based on these differences in the impleme
       u_{T,F,K} = \frac{9} {5} \left[\frac{^\circ{F}} {K}\right]
 
 
-* The time constant of CDL controller integrator using the ALC controller
-  parameters (interval (:math:`I_{alc}`) and integral gain (:math:`k_{i,alc}`)),
-  temperature difference conversion factor and the previously calculated CDL
-  proportional gain:
+* The time constant of CDL controller integrator, :math:`T_{i,cdl}` in :math:`s`,
+  using the ALC controller parameters (interval (:math:`I_{alc}`) and integral gain
+  (:math:`k_{i,alc}`)), temperature difference conversion factor and the previously
+  calculated CDL proportional gain:
 
   .. math::
 
