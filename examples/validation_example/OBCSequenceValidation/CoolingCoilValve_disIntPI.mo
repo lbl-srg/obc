@@ -116,6 +116,7 @@ block CoolingCoilValve_disIntPI
     final reverseAction=reverseAction) "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
@@ -123,12 +124,12 @@ block CoolingCoilValve_disIntPI
     "Minimal control loop signal limit when supply air temperature is at a defined low limit"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       TOutThr(uLow=TOutCooCut - TOutDelta, uHigh=
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis TOutThr(uLow=TOutCooCut - TOutDelta, uHigh=
        TOutCooCut)
     "Determines whether the outdoor air temperature is below a treashold"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis       uFanFeeThr(uLow=FanFeeCut - FanFeeDelta,
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis uFanFeeThr(uLow=FanFeeCut - FanFeeDelta,
       uHigh=FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
@@ -146,10 +147,12 @@ block CoolingCoilValve_disIntPI
     "Defines lower limit of the Cooling valve signal at low range SATs"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(
+    final k=TSupHigLim)
     "Low range supply air temperature low limit"
     annotation (Placement(transformation(extent={{0,-68},{20,-48}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(final k=TSupHighLim)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMax(
+    final k=TSupHighLim)
     "Low range supply air temperature high limit"
     annotation (Placement(transformation(extent={{40,-68},{60,-48}})));
 
@@ -244,7 +247,8 @@ low TSup"),
 <p>
 This subsequence defines cooling coil valve position. The implementation is identical to
 the ALC EIKON control sequence implementation in one of the LBNL buildings, with parameters
-recorded on April 09 2018. This version of the sequences uses F as a temperature unit.
+recorded on April 09 2018. This version of the sequences uses degree Fahrenheit as a 
+default temperature unit.
 </p>
 
 </p>

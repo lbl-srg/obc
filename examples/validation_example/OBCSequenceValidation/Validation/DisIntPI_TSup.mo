@@ -20,6 +20,7 @@ model DisIntPI_TSup
     "PI controller with a fixed timestep integration"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSup(final k=71)
     "Supply air temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));

@@ -102,8 +102,6 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     annotation (Placement(transformation(extent={{120,-10},{140,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
-  // controller
-
   Buildings.Controls.OBC.CDL.Continuous.LimPID limPI(
     final reverseAction=reverseAction,
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -116,6 +114,13 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
     "Custom PI controller"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Line higLim(
+    final limitBelow=true,
+    final limitAbove=true)
+    "Defines lower limit of the Cooling valve signal at low range SATs"
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCooValMin(final k=uMin)
     "Minimal control loop signal limit when supply air temperature is at a defined high limit"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
@@ -133,14 +138,6 @@ block CoolingCoilValve "Cooling coil valve position control sequence"
         FanFeeCut)
     "Checks if the fan status is above a threshold"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-
-  // limiter
-
-  Buildings.Controls.OBC.CDL.Continuous.Line higLim(
-    final limitBelow=true,
-    final limitAbove=true)
-    "Defines lower limit of the Cooling valve signal at low range SATs"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TSupMin(final k=TSupHigLim)
     "Low range supply air temperature low limit"

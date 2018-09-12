@@ -38,23 +38,23 @@ model CoolingCoilValve_TSup_TSupSet_TOut_uFanSta
     "Fan feedback";
 
   CoolingCoilValve cooVal(final reverseAction=true, alc_int_k=1/100)
-                              "Cooling valve control sequence"
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 
   CoolingCoilValve cooVal1(final reverseAction=true, alc_int_k=1/100)
-                              "Cooling valve control sequence"
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
   CoolingCoilValve cooVal2(final reverseAction=true, alc_int_k=1/100)
-                              "Cooling valve control sequence"
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
 
   CoolingCoilValve cooVal3(final reverseAction=true, alc_int_k=1/100)
-                              "Cooling valve control sequence"
+    "Cooling valve control sequence"
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off
-
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff(
     final k=TOutCooCut + 5)
     "Outdoor air temperature is below the cutoff"
@@ -76,7 +76,6 @@ model CoolingCoilValve_TSup_TSupSet_TOut_uFanSta
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 // Tests disable if it is warm outside
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutBelowCutoff(
     final k=TOutCooCut - 5)
     "Outdoor air temperature is above the cutoff"
@@ -194,20 +193,6 @@ equation
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="CoolingCoilValve_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
-    Documentation(
-    info="<html>
-<p>
-This model validates the cooling coil signal subsequence as implemented in one of the LBNL buildings.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-April 10, Milica Grahovac<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}),
                         graphics={
         Rectangle(
@@ -249,5 +234,20 @@ the upper limit TSup range."),
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation within the 
-upper limit TSup range.")}));
+          upper limit TSup range.")}),
+    Documentation(
+    info="<html>
+<p>
+This model validates the cooling coil signal subsequence as implemented in B33
+on the main LBNL campus.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 10, Milica Grahovac<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoolingCoilValve_TSup_TSupSet_TOut_uFanSta;

@@ -63,7 +63,7 @@ model CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta
     annotation (Placement(transformation(extent={{140,-42},{160,-22}})));
 
 // Tests disable if supply fan is off
-
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTOutAboveCutoff(
     final k=TOutCooCut + 5)
     "Outdoor air temperature is below the cutoff"
@@ -137,10 +137,12 @@ model CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta
     final k=TOutCooCut + 5)
     "Outdoor air temperature is below the cutoff"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(final k=LowTSupSet)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant uTSupSet3(
+    final k=LowTSupSet)
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uSupFan3(
+    k=true)
     "Supply fan status"
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp uTSup3(
@@ -204,20 +206,6 @@ equation
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta.mos"
     "Simulate and plot"),
-    Documentation(
-    info="<html>
-<p>
-This model validates the cooling coil signal subsequence as implemented in one of the LBNL buildings.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-April 10, Milica Grahovac<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,120}}),
                         graphics={
         Rectangle(
@@ -228,7 +216,7 @@ First implementation.
         Text(
           extent={{-158,18},{-102,6}},
           lineColor={0,0,127},
-          textString="Supply fan is off - disable control"),
+          textString="Supply fan signal"),
         Rectangle(
           extent={{-176,-4},{-14,-116}},
           lineColor={217,217,217},
@@ -259,5 +247,20 @@ the upper limit TSup range."),
           lineColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Operation within the 
-upper limit TSup range.")}));
+          upper limit TSup range.")}),
+    Documentation(
+    info="<html>
+<p>
+This model validates the cooling coil signal subsequence with a discrete timestep
+PI controller as implemented in B33 on the main LBNL campus.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 10, Milica Grahovac<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end CoolingCoilValve_disIntPI_TSup_TSupSet_TOut_uFanSta;

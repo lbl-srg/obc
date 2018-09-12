@@ -12,7 +12,7 @@ model CoolingCoilValve_Trends
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns={3},
     fileName=("/home/mg/data/obc_validation_study/trends/OA_Temp.mos"))
-    "Measured outdoor air temperature\""
+    "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
   Modelica.Blocks.Sources.CombiTimeTable TSupSetpoint_F(
@@ -24,7 +24,7 @@ model CoolingCoilValve_Trends
     tableName="SA_Clg_Stpt",
     columns={3},
     fileName=("/home/mg/data/obc_validation_study/trends/SA_Clg_Stpt.mos"))
-    "Supply air temperature setpoint\""
+    "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
   Modelica.Blocks.Sources.CombiTimeTable coolingValveSignal(
@@ -132,7 +132,7 @@ protected
     activation=Buildings.Utilities.Plotters.Types.GlobalActivation.always,
     samplePeriod=300,
     fileName="coolingCoilValve_validationPlots.html")
-    "Cooling valve control sequence validation\""
+    "Cooling valve control sequence validation"
     annotation (Placement(transformation(extent={{140,80},{160,100}})));
 
   Buildings.Utilities.Plotters.Scatter correlation(
@@ -218,6 +218,8 @@ equation
 This model validates the cooling coil signal subsequence implemented 
 in Building 33 on the main LBNL campus. Data used for the validation are measured 
 input and output trends with 5s time steps exported from the building's ALC EIKON webserver.
+OBC implementation of the subsequence implemented in this example 
+uses the OBC controller block. 
 </p>
 </html>",
 revisions="<html>
