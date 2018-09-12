@@ -248,7 +248,7 @@ The subsequence is shown in :numref:`fig_alc_coo_seq`. It comprises a PI control
 that tracks the supply air temperature, an upstream subsequence that enables the
 controller and a downstream output limiter that is active in case of low supply air temperatures.
 
-We created a CLD specification of the same cooling coil valve position control sequence,
+We created a CDL specification of the same cooling coil valve position control sequence,
 see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
 
 .. _fig_alc_coo_seq:
@@ -279,9 +279,9 @@ The input and output trends were processed with a script that converts them to t
 format required by the data readers. The data used in the example begins at
 midnight on June 7 2018.
 
-In addition to the input and output trends, we recorded all parameters, such as the
-hysteresis offset and controller gains shown in :numref:`fig_alc_hys_par` and
-:numref:`fig_alc_con_par`, and used them in the CDL implementation.
+In addition to the input and output trends, we recorded all parameters, such as
+hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
+(see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation.
 
 .. _fig_alc_hys_par:
 
@@ -297,34 +297,50 @@ hysteresis offset and controller gains shown in :numref:`fig_alc_hys_par` and
 
     ALC EIKON PI controller parameters
 
-.. _fig_cdl_con_par:
+
+We set up the CDL PI controller parameters such that its performance
+matches that of the ALC PI controller. The ALC PID controller implementation is described
+in the ALC EIKON software help section, while the info section of the CDL PID
+controller (``Buildings.Controls.OBC.CDL.Continuous.LimPID``)
+provides its algorithm and parameters. ALC controller tracks the temperature in
+degree Fahrenheit, while the CDL implementation expects inputs in SI units.
+An additional implementation difference is that for cooling applications an ALC
+controller uses direct action, whereas an CDL controller uses reverse action. ALC
+controller was set up to output the control signal in percentages (0 - 100), while we set up 
+the CDL controller to output the signal between 0 and 1, thus the ALC proportional and
+integral gain parameters, as presented in :numref:`fig_alc_con_par`, were converted
+accordingly (divided by 100). Both controllers were enabled throughout the
+performed validation test time period. Based on these differences in the implementation we calculated:
+
+* The proportional CDL controller gain, :math:`k_{p,cdl}` in :math:`\frac{1} {K}`,
+  as a product of the ALC proportional controller gain, :math:`k_{p,alc}`
+  in :math:`\frac{1} {^\circ{F}}`, and a conversion factor between units of temperature difference,
+  :math:`u_{T,F,K}` in :math:`\frac{^\circ{F}} {K}`:
+
+  .. math::
+
+      k_{p,cdl} = u_{T,F,K} k_{p,alc}
+
+  with the temperature difference conversion factor:
+
+  .. math::
+
+      u_{T,F,K} = \frac{9} {5} \left[\frac{^\circ{F}} {K}\right]
 
 
-We configured the CDL PID controller parameters such that they correspond to the parameters of the
-ALC PI controller. The ALC PID controller implementation is described
-in the ALC EIKON software help section, while CDL PID
-controller is described in the info section of the model
-`Buildings.Controls.OBC.CDL.Continuous.LimPID <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
-The ALC controller tracks the temperature in
-degree Fahrenheit, while CDL uses SI units.
-An additional implementation difference is that for cooling applications, the ALC
-controller uses direct control action, whereas the CDL controller needs to be configured to use
-reverse control action, which can be done by setting it parameter `reverseAction=true`.
-Furthermore, the ALC controller outputs the control action in percentages, while the CDL controller outputs
-a signal between :math:`0` and :math:`1`.
-To reconcile the differences, the ALC controller gains were
-converted for CDL as follows:
-The proportional gain :math:`k_{p,cdl}` was set to
-:math:`k_{p,cdl} = u \, k_{p,alc}`, where `u` is a unit conversion factor
-from Fahrenheit to Celsius.
-The integrator time constant was converted
-as
-:math:`T_{i,cdl} = k_{p,cdl} \, I_{alc}/(u \, k_{i,alc})`.
-Both controllers were enabled throughout the whole validation time.
+* The time constant of CDL controller integrator using the ALC controller
+  parameters (interval (:math:`I_{alc}`) and integral gain (:math:`k_{i,alc}`)),
+  temperature difference conversion factor and the previously calculated CDL
+  proportional gain:
+
+  .. math::
+
+      T_{i,cdl} = k_{p,cdl} \frac{I_{alc}} {u_{T,F,K} k_{i,alc}}
+
 
 :numref:`fig_coo_coi_val_tre` shows the
 Modelica model that was used to conduct the verification. On the left hand side
-are the data readers that read the input and output
+are the data readers that reads the input and output
 trends from files. Next are unit converters, and a conversion for the fan status
 between a real value and a boolean value.
 These data are fed into the instance labeled ``cooValSta``, which contains the control sequence
@@ -352,17 +368,16 @@ trended and simulated cooling valve control signal.
    Verification of the cooling valve control signal between ALC EIKON computed
    signal and simulated signal.
 
-The difference in modeled vs. trended results is due to the following factors:
+The difference in modeled vs. trended results is due to:
 
-* The difference in the integrator implementation.
-  ALC EIKON uses a discrete time step for the time integration with a user-defined
-  time step length, whereas CDL uses a continuous time integrator that adjusts the time step
-  based on the integration error.
-* The anti-windup implementation differs, with ALC EIKON using a proprietary algorithm.
+* The difference in the integrator error calculation. Modelica CDL model simulation is continuous,
+  whereas the ALC EIKON logic uses a discrete time implementation with a user defined
+  time step;
+* The anti-windup implementation, which is proprietary for the ALC EIKON controller.
 
 :numref:`fig_coo_coi_val_fun` shows the verification of the implemented control
-sequence. It indicates that the control trajectory computed by ALC EIKON and CDL
-are close to each other.
+sequence. It indicates that with the implemented control sequence can capture the same
+operation as a control sequence implemented in the current practice.
 
 .. _fig_coo_coi_val_fun:
 
