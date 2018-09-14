@@ -31,6 +31,7 @@ OpenBuildingControl (Working Draft)
    softwareArchitecture
    cdl
    codeGeneration
+   verification
    example
    glossary
    acknowledgments
