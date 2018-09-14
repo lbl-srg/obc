@@ -307,13 +307,13 @@ The ALC controller tracks the temperature in
 degree Fahrenheit, while CDL uses SI units.
 An additional implementation difference is that for cooling applications, the ALC
 controller uses direct control action, whereas the CDL controller needs to be configured to use
-reverse control action, which can be done by setting it parameter `reverseAction=true`.
+reverse control action, which can be done by setting its parameter `reverseAction=true`.
 Furthermore, the ALC controller outputs the control action in percentages, while the CDL controller outputs
 a signal between :math:`0` and :math:`1`.
 To reconcile the differences, the ALC controller gains were
 converted for CDL as follows:
 The proportional gain :math:`k_{p,cdl}` was set to
-:math:`k_{p,cdl} = u \, k_{p,alc}`, where `u=9/5` is a unit conversion factor
+:math:`k_{p,cdl} = u \, k_{p,alc}`, where :math:`u=9/5` is a unit conversion factor
 from Fahrenheit to Celsius.
 The integrator time constant was converted
 as
@@ -358,13 +358,14 @@ The difference in modeled vs. trended results is due to the following factors:
   based on the integration error.
 * The anti-windup implementation differs, with ALC EIKON using a proprietary algorithm.
 
-:numref:`fig_coo_coi_val_fun` shows the verification of the implemented control
-sequence. It indicates that the control trajectory computed by ALC EIKON and CDL
-are close to each other.
-
 .. _fig_coo_coi_val_fun:
 
 .. figure:: img/verification/cooling_valve_withFunnel.*
    :width: 800 px
 
    Verification of the cooling valve control signal with the funnel software.
+
+
+:numref:`fig_coo_coi_val_fun` shows the verification of the implemented control
+sequence. It indicates that the control trajectory computed by ALC EIKON and CDL
+are close to each other.
