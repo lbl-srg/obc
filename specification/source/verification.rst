@@ -313,8 +313,8 @@ a signal between :math:`0` and :math:`1`.
 To reconcile the differences, the ALC controller gains were
 converted for CDL as follows:
 The proportional gain :math:`k_{p,cdl}` was set to
-:math:`k_{p,cdl} = u \, k_{p,alc}`, where :math:`u=9/5` is a unit conversion factor
-from Fahrenheit to Celsius.
+:math:`k_{p,cdl} = u \, k_{p,alc}`, where :math:`u=9/5` is a ratio of one degree Celsius 
+(or kelvin) to one degree Fahrnheit of temperature difference.
 The integrator time constant was converted
 as
 :math:`T_{i,cdl} = k_{p,cdl} \, I_{alc}/(u \, k_{i,alc})`.
