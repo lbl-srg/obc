@@ -21,7 +21,8 @@ sys.path.append(os.path.abspath('.'))
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
 extensions = ['sphinxcontrib.bibtex', \
-              'sphinx.ext.autodoc', 'mathjax', \
+              'sphinx.ext.autodoc', \
+              'sphinx.ext.mathjax', \
               'sphinxcontrib.plantuml', 'sphinx.ext.todo']
 
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
@@ -479,6 +480,15 @@ latex_elements['preamble'] = r'''
 \usetikzlibrary{calc}
 
 '''
+
+def setup(app):
+    app.add_stylesheet('basic.css')
+    app.add_stylesheet('pygments.css')
+    app.add_stylesheet('bootstrap.css')
+    app.add_stylesheet('bootstrap-theme.css')
+    app.add_stylesheet('bootstrap_custom.css')
+    app.add_stylesheet('custom.css')
+    app.add_stylesheet('custom-sphinx.css')
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
