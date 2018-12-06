@@ -24,6 +24,7 @@ install:
   - pip install --upgrade pip setuptools wheel
   - pip install sphinx==1.8.2 sphinx-bootstrap-theme==0.6.5 \
       sphinxcontrib-bibtex==0.4.0 sphinxcontrib-plantuml==0.12 \
+      Pillow=5.1.0 \
       alabaster==0.7.12 MarkupSafe==1.1.0 html5lib==0.999 \
       Pygments==2.2.0 snowballstemmer==1.2.1 docutils==0.14 \
       Babel==2.6.0 requests==2.20.1 Jinja2==2.10 latexcodec==1.0.5 \
