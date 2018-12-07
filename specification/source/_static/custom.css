@@ -125,18 +125,15 @@ color: #750000;
     background-color: #f8f8f8;
 }
 
-tr.border_top td {
-  border-top:1pt solid #022e4d;
-}
-tr.border_bottom td {
-  border-bottom:1pt solid #022e4d;
-}
 
 td.label{
     color: #022e4d;
 }
 table.citation > thead > tr > th, .table.citation > tbody > tr > th, .table.citation > tfoot > tr > th, .table.citation > thead > tr > td, .table.citation > tbody > tr > td, .table.citation > tfoot > tr > td{
-    border-top: none;
+    border: none;
+}
+#references.section{
+    color: #022e4d;
 }
 
 h1{
@@ -152,6 +149,10 @@ h1{
   font-size: 1.2em;
 }
 
+.h5, h5{
+  font-style: italic;
+}
+
 blockquote{
   font-size: 1em;
   border-left: 0pt;
@@ -164,16 +165,8 @@ span.pre{
   border: none;
 }
 
-table.citation{
-  border: none;
-}
-
 .page-content{
   margin: 10px;
-}
-
-div.figure p{
-    text-align: center;
 }
 /* End stylesheet from main web site -------------------- */
 /* ------------------------------------------------------ */

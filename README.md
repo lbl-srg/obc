@@ -1,6 +1,6 @@
 # OpenBuildingControl
 
-[![Build Status](https://travis-ci.org/lbl-srg/obc.svg)](https://travis-ci.org/lbl-srg/obc)
+[![Build Status](https://travis-ci.org/lbl-srg/obc.svg?branch=master)](https://travis-ci.org/lbl-srg/obc)
 
 This is the development site for the OpenBuildingControl project. The project web site is at http://obc.lbl.gov/
 
