@@ -47,10 +47,10 @@ is difficult to find, or may not exist:
 * the model of computation, and
 * how to simulate open loop control responses and implement regression testing,
 
-Although Sedona "is designed to make it easy to build smart, networked embedded devices"
-and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/),
-developing block diagrams requires Tridium NiagaraAX, a commercial
-product which is not free.
+Sedona "is designed to make it easy to build smart, networked embedded devices"
+and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/).
+Block diagrams can be developed with the free
+Sedona Application Editor (https://www.ccontrols.com/basautomation/sae.htm).
 
 
 Use of Control Sequences or Verification Tests in Realtime Applications
@@ -130,7 +130,7 @@ This will generate an FMU-ME.
 Finally, to import the FMU-ME in a runtime environment, various tools can be used, including:
 
 * Tools based on Python, which could be used to interface with
-  sMAP (http://people.eecs.berkeley.edu/~stevedh/smap2/intro.html) or
+  sMAP (https://pythonhosted.org/Smap/en/2.0/index.html) or
   Volttron (https://energy.gov/eere/buildings/volttron):
 
   * PyFMI (https://pypi.python.org/pypi/PyFMI)
