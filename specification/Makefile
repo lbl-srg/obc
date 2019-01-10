@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -W
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
@@ -61,7 +61,7 @@ generate_cdl_from_modelica:
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
-html:   
+html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py
 	@echo
@@ -69,7 +69,7 @@ html:
 
 
 
-latex:	test_installation 
+latex:	test_installation
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
@@ -91,6 +91,7 @@ linkcheck:
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
 
 copytowww:
+	ls build/latex/obc_report.pdf
 	(cd build && \
 	rsync --delete --links --archive \
 		--recursive --backup --update \
@@ -100,6 +101,11 @@ copytowww:
 	    html/* \
 	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
 	)
+	(cd build && \
+	rsync --checksum --verbose \
+	    latex/obc_report.pdf \
+	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
+	)
 
-dist:	html, generate_cdl_from_modelica, linkcheck
 
+dist:	html, latex, linkcheck
