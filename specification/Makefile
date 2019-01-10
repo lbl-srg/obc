@@ -21,7 +21,7 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
-.PHONY: help clean www dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
+.PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -62,10 +62,10 @@ copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
 html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/www
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py
 	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/www"
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
 
 
 
@@ -76,8 +76,7 @@ latex:	test_installation
 	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
 	      "run these through (pdf)latex."
 	./fixLatex.py
-	(cd $(BUILDDIR)/latex; make all-pdf; if [ ! -d ../www ]; then mkdir ../www; fi; mv obc_report.pdf ../www/)
-	@echo "Moved report to $(BUILDDIR)/www/obc_report.pdf."
+	(cd $(BUILDDIR)/latex; make all-pdf)
 
 test_installation:
 ifneq "$(found)" "1"
@@ -92,15 +91,21 @@ linkcheck:
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
 
 copytowww:
+	ls build/latex/obc_report.pdf
 	(cd build && \
-	ls www/cdl_report.pdf && \
 	rsync --delete --links --archive \
 		--recursive --backup --update \
 		--rsh=ssh --compress --times --checksum --verbose \
 		--exclude ".DS_Store" \
 		--exclude "*~" \
-	    www/* \
+	    html/* \
 	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
 	)
+	(cd build && \
+	rsync --checksum --verbose \
+	    latex/obc_report.pdf \
+	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
+	)
 
-dist:	www, generate_cdl_from_modelica, linkcheck
+
+dist:	html, latex, linkcheck
