@@ -93,6 +93,7 @@ linkcheck:
 
 copytowww:
 	(cd build && \
+	ls www/cdl_report.pdf && \
 	rsync --delete --links --archive \
 		--recursive --backup --update \
 		--rsh=ssh --compress --times --checksum --verbose \
