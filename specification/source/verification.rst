@@ -16,6 +16,13 @@ of the control sequence conforms with its specification. In contrast,
 is such that it meets the building owner's need. Hence,
 validation would be done in step 2 in :numref:`fig_process`.
 
+As this step only verifies that the control logic is implemented correctly,
+it should be conducted in addition to other functional tests,
+such as tests that verify that sensor and actuators are connected to the
+correct inputs and outputs, that sensors are installed properly and
+that the installed mechanical system meets the specification.
+
+
 Scope of the verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -31,8 +38,8 @@ Methodology
 ^^^^^^^^^^^
 
 A typical usage would be as follows: Given a CDL specification,
-a commissioning agent would export trended control inputs and outputs
-and store them in a CSV file. The commissioning agent then executes the CDL specification
+a commissioning agent exports trended control inputs and outputs
+and stores them in a CSV file. The commissioning agent then executes the CDL specification
 for the trended inputs, and compares the following:
 
 1. Whether the trended outputs and the outputs computed by the CDL specification
@@ -41,14 +48,16 @@ for the trended inputs, and compares the following:
    for example, whether an airhandler's economizer outdoor air damper is fully open when
    the system is in free cooling mode.
 
-Technically, step 2 is not needed if step 1 succeeds. However, as part of the commissioning,
-it seems beneficial to confirm that the sequence diagrams are indeed correct
+Technically, step 2 is not needed if step 1 succeeds. However,
+feedback from mechanical designers indicate the desire to
+confirm during commissioning
+that the sequence diagrams are indeed correct
 (and hence the original control specification is correct for the given system).
 
 :numref:`fig_con_seq_ver` shows the flow diagram for the verification.
 Rather than using real-time data through BACnet or other protocols,
 set points, inputs and outputs of the actual controller
-are stored in an archive such as a CSV file or a data base.
+are stored in an archive, here a CSV file.
 This allows to reproduce the verification tests, and it does
 not require the verification tool to have access to the actual building
 control system.
@@ -110,6 +119,9 @@ Below, we will further describe the blocks in the box labeled *verification*.
 
 Modules of the verification test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To conduct the verification, the following models and
+tools are used.
 
 CSV file reader
 ~~~~~~~~~~~~~~~
@@ -179,16 +191,25 @@ To see usage information, run ``funnel --help``. This produces the following:
 .. code-block:: none
 
   ./funnel --help
-   Usage: funnel [OPTION...]
-    -a, --absolute             Set to absolute tolerance
-    -b, --baseFile=FILE_PATH   Base CSV file path
-    -c, --compareFile=FILE_PATH   Test CSV file path
-    -o, --outputFile=DIR       Output directory.
-    -t, --tolerance=TOLERANCE  Tolerance to generate data tube
-    -x, --axes=AXES            Check if the tolerance value is set for half-width
-                               or half-height of tube
-    -?, --help                 Give this help list
-        --usage                Give a short usage message
+
+    Usage: funnel [OPTIONS...]
+      Compares time series within user-specified tolerances.
+
+      --test             Name of CSV file to be tested.
+      --reference        Name of CSV file with reference data.
+      --output           Directory to save outputs.
+      --atolx            Absolute tolerance in x direction.
+      --atoly            Absolute tolerance in y direction.
+      --rtolx            Relative tolerance in x direction.
+      --rtoly            Relative tolerance in y direction.
+      --help             Print this help.
+
+      At least one tolerance must be specified for x and y.
+
+      Typical use:
+        ./funnel --reference trended.csv --test simulated.csv --atolx 0.002 --atoly 0.002 --output results/
+
+      Full documentation at https://github.com/lbl-srg/funnel
 
 
 Verification of sequence diagrams
@@ -248,9 +269,6 @@ The subsequence is shown in :numref:`fig_alc_coo_seq`. It comprises a PI control
 that tracks the supply air temperature, an upstream subsequence that enables the
 controller and a downstream output limiter that is active in case of low supply air temperatures.
 
-We created a CDL specification of the same cooling coil valve position control sequence,
-see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
-
 .. _fig_alc_coo_seq:
 
 .. figure:: img/verification/AlcEikon_CoolingControl_CHWValvePositionAndEnable.*
@@ -265,22 +283,22 @@ see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
 
    CDL specification of the cooling coil valve position control sequence.
 
-Recorded 5 seconds input trends to the subsequence are:
+We created a CDL specification of the same cooling coil valve position control sequence,
+see :numref:`fig_coo_coi_val_seq`, to validate the recorded output.
+We recorded trend data in 5 second intervals for
 
-* Supply air temperature [F]
-* Supply air temperature setpoint [F]
-* Outdoor air temperature [F]
-* VFD fan enable status [0/1]
-* VFD fan feedback [%]
-
-Output of the subsequence is the cooling coil valve position in percentage.
+* Supply air temperature in [F]
+* Supply air temperature setpoint in [F]
+* Outdoor air temperature in [F]
+* VFD fan enable status in [0/1]
+* VFD fan feedback in [%]
+* Cooling coil valve position, which is the output of the controller, in [%].
 
 The input and output trends were processed with a script that converts them to the
 format required by the data readers. The data used in the example begins at
 midnight on June 7 2018.
-
 In addition to the input and output trends, we recorded all parameters, such as the
-hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
+hysteresis offset (see :numref:`fig_alc_hys_par`) and the controller gains
 (see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation.
 
 .. _fig_alc_hys_par:
@@ -300,7 +318,7 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and controller gains
 
 We configured the CDL PID controller parameters such that they correspond to the parameters of the
 ALC PI controller. The ALC PID controller implementation is described
-in the ALC EIKON software help section, while CDL PID
+in the ALC EIKON software help section, while the CDL PID
 controller is described in the info section of the model
 `Buildings.Controls.OBC.CDL.Continuous.LimPID <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
 The ALC controller tracks the temperature in
@@ -336,7 +354,9 @@ compare the simulated cooling coil valve position with the recorded data.
 
    Modelica model that conducts the verification.
 
-:numref:`fig_coo_coi` shows the trended input temperatures for the
+:numref:`fig_coo_coi`,
+which was produced by the Modelica model,
+shows the trended input temperatures for the
 control sequence, the trended and simulated cooling valve control signal
 for the same time period, which are practically on top of each other,
 and a correlation error between the
@@ -352,11 +372,11 @@ trended and simulated cooling valve control signal.
 
 The difference in modeled vs. trended results is due to the following factors:
 
-* The difference in the integrator implementation.
-  ALC EIKON uses a discrete time step for the time integration with a user-defined
+* ALC EIKON uses a discrete time step for the time integration with a user-defined
   time step length, whereas CDL uses a continuous time integrator that adjusts the time step
   based on the integration error.
-* The anti-windup implementation differs, with ALC EIKON using a proprietary algorithm.
+* ALC EIKON uses a proprietary algorithm for the anti-windup, which differs from
+  the one used in the CDL implementation.
 
 .. _fig_coo_coi_val_fun:
 
@@ -365,7 +385,7 @@ The difference in modeled vs. trended results is due to the following factors:
 
    Verification of the cooling valve control signal with the funnel software.
 
-
-:numref:`fig_coo_coi_val_fun` shows the verification of the implemented control
-sequence. It indicates that the control trajectory computed by ALC EIKON and CDL
-are close to each other.
+Despite these differences, the computed and the simulated control signals
+show good agreement, which is also demonstrated
+by verifying the time series with the
+funnel software, whose output is shown in :numref:`fig_coo_coi_val_fun`.

@@ -3,12 +3,11 @@
 Process Workflow
 ----------------
 
-The actual process work flow needs to be refined by the project team
-with input from the Technical Advisory Group.
-:numref:`fig_process` shows the proposed process:
+:numref:`fig_process` shows the process of selecting, deploying and verifying a control sequence
+that we follow in OpenBuildingControl.
 First, given regulations and efficiency targets, labeled as (1) in :numref:`fig_process`,
 a design engineer selects, configures, tests and evaluates the performance of a control sequence
-within the Controls Design Tool to be developed within this project (2),
+using building energy simulation (2),
 starting from a control sequence library that contains ASHRAE GPC 36 sequences,
 as well as user-added sequences (3),
 linked to a model of the mechanical system and the building (4).
@@ -26,19 +25,14 @@ by running functional tests against the electronic, executable specification
 in the Commissioning and Functional Verification Tool (9).
 If the verification tests fail, the implementation needs to be corrected.
 
-For closed-loop performance assessment and verification in the Controls Design Tool
-and Commissioning and Functional Verification Tool,
+For closed-loop performance assessment,
 `Modelica models <http://simulationresearch.lbl.gov/modelica/>`_
 of the HVAC systems and controls will be linked to
 a Modelica envelope model or to
-an EnergyPlus envelope model through its
-`External Interface <http://simulationresearch.lbl.gov/fmu/EnergyPlus/export/index.html>`_.
-If a project-specific simulation model of the building
-and its systems already exists,
-it can be imported into the control design tool. Otherwise, a building model,
-based on the most appropriate DOE prototype, can be used to evaluate control strategies
-for the given climate and use patterns.
-
+an EnergyPlus envelope model. This can currently be done through the
+`External Interface <http://simulationresearch.lbl.gov/fmu/EnergyPlus/export/index.html>`_,
+and a more direct coupling is in development through the
+`Spawn of EnergyPlus <https://www.energy.gov/eere/buildings/downloads/spawn-energyplus-spawn>`_ project.
 
 .. _fig_process:
 
