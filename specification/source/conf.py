@@ -274,7 +274,7 @@ latex_additional_files = ['_static/latex-note.png', '_static/latex-warning.png']
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index',
-   'cdl_report.tex',
+   'obc_report.tex',
    u'Control Description Language',
    '', 'manual'),
 ]

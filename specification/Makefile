@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -W
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
@@ -21,7 +21,7 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
-.PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
+.PHONY: help clean www dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -61,22 +61,23 @@ generate_cdl_from_modelica:
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
-html:   
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+html:
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/www
 	./fixHtml.py
 	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/www"
 
 
 
-latex:	test_installation 
+latex:	test_installation
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
 	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
 	      "run these through (pdf)latex."
 	./fixLatex.py
-	(cd $(BUILDDIR)/latex; make all-pdf)
+	(cd $(BUILDDIR)/latex; make all-pdf; if [ ! -d ../www ]; then mkdir ../www; fi; mv obc_report.pdf ../www/)
+	@echo "Moved report to $(BUILDDIR)/www/obc_report.pdf."
 
 test_installation:
 ifneq "$(found)" "1"
@@ -97,9 +98,8 @@ copytowww:
 		--rsh=ssh --compress --times --checksum --verbose \
 		--exclude ".DS_Store" \
 		--exclude "*~" \
-	    html/* \
+	    www/* \
 	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
 	)
 
-dist:	html, generate_cdl_from_modelica, linkcheck
-
+dist:	www, generate_cdl_from_modelica, linkcheck
