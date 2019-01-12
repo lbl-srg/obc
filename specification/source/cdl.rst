@@ -202,6 +202,7 @@ For the complete implementation, see
 the
 `github repository <https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/Controls/OBC/CDL/Continuous/AddParameter.mo>`_.
 
+.. _sec_instantiation:
 
 Instantiation
 ^^^^^^^^^^^^^
@@ -283,6 +284,27 @@ Hence, unlike in Modelica 3.3, we do not allow for automatic vectorization
 of input signals.
 ]
 
+.. _sec_equation:
+
+Equations
+^^^^^^^^^
+
+After the instantiations (:numref:`sec_instantiation`),
+a keyword ``equation`` must be present
+to introduce the equation section.
+The equation section can only contain
+connections (:numref:`sec_connections`) and
+annotations (:numref:`sec_annotations`).
+
+Unlike in Modelica, an ``equation`` section shall not contain
+equations such as ``y=2*u;`` or commands such as ``for``, ``if``,
+``while`` and ``when``.
+
+Furthermore, unlike in Modelica, there shall not be an ``initial equation``,
+``initial algorithm`` or ``algorithm``
+section. (They can however be part of a elementary building block.)
+
+
 .. _sec_connections:
 
 Connections
@@ -297,7 +319,7 @@ Vectorized input connectors can be connected to vectorized output connectors
 using one connection statement provided that
 they have the same number of elements.
 
-Connections are listed after the instantiation of the blocks in an equation
+Connections are listed after the instantiation of the blocks in an ``equation``
 section. The syntax is
 
 .. code-block:: modelica
@@ -322,7 +344,7 @@ The order of the connections and the order of the arguments in the
 
 ]
 
-Signals shall be connected using a \code{connect} statement;
+Signals shall be connected using a ``connect`` statement;
 assigning the value of a signal in the instantiation of the
 output connnector is not allowed.
 
