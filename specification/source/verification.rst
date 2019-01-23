@@ -12,7 +12,8 @@ For the requirements, see :numref:`sec_requirements_verification_tool`.
 
 For clarity, we remind that *verification* tests whether the implementation
 of the control sequence conforms with its specification. In contrast,
-*validation* would test whether the control sequence
+*validation* would test whether the control sequence,
+together with the building system,
 is such that it meets the building owner's need. Hence,
 validation would be done in step 2 in :numref:`fig_process`.
 
@@ -37,8 +38,8 @@ implemented the sequence as specified, and that it executes correctly.
 Methodology
 ^^^^^^^^^^^
 
-A typical usage would be as follows: Given a CDL specification,
-a commissioning agent exports trended control inputs and outputs
+A typical usage would be as follows:
+A commissioning agent exports trended control inputs and outputs
 and stores them in a CSV file. The commissioning agent then executes the CDL specification
 for the trended inputs, and compares the following:
 
@@ -73,7 +74,7 @@ Next, the block labeled *control specification*
 is the control sequence specification in CDL format.
 This is the specification that was exported during design and sent
 to the control provider.
-Given the set point and measurement signals, it outputs the control signal
+Given the set points and measurement signals, it outputs the control signals
 according to the specification.
 The block labeled *time series verification* compares this output with
 trended control signals, and indicates where the signals differ by more than
@@ -99,10 +100,10 @@ Below, we will further describe the blocks in the box labeled *verification*.
           there is currently no accepted method for turning such questions into
           hard requirements. We implemented software that tests
           criteria such as
-          "Room air temperature shall be within the setpoint +/- 0.5 Kelvin
-          for at least 45 min within each 60 min window." and
-          "Damper signal shall not oscillate more than 4 times per hour
-          between a change of +/- 0.025 (for a 2 minute sample period)".
+          "Room air temperature shall be within the setpoint :math:`\pm 0.5` Kelvin
+          for at least 45 min within each :math:`60` minute window." and
+          "Damper signal shall not oscillate more than :math:`4` times per hour
+          between a change of :math:`\pm 0.025` (for a :math:`2` minute sample period)".
           Software implementations of such tests are available on
           the Modelica Buildings Library github repository, commit
           `454cc75 <https://github.com/lbl-srg/modelica-buildings/commit/454cc7521c0303d0a3f903acdda2132cc53fe45f>`_.
@@ -172,13 +173,13 @@ and units that are commonly used in the HVAC industry.
 Comparison of time series data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We developed a tool called *funnel* to conduct time series data comparison.
+We have been developing a tool called *funnel* to conduct time series comparison.
 The tool imports two CSV files, one containing the reference data set and
 the other the test data set.
-Both CSV files contain time series that need to be compared across the two
-CSV files. The comparison is conducted by computing a funnel around the
+Both CSV files contain time series that need to be compared against each other.
+The comparison is conducted by computing a funnel around the
 reference curve. For this funnel, users can specify the tolerances with respect
-to time and with respect to the recorded quantity. The tool then
+to time and with respect to the trended quantity. The tool then
 checks whether the time series of the test data set is within the funnel.
 It then generates a report that shows whether the test succeeded.
 If the test data set is outside the funnel, the tool will report where and
@@ -219,7 +220,7 @@ To verify sequence diagrams we developed the Modelica package
 ``Buildings.Utilities.IO.Plotters``.
 :numref:`fig_vav_sin_mod_ver` shows an example in which this block is used to produce the sequence
 diagram shown in :numref:`fig_vav_sin_plo_dia_ver`. While in this example, we used the control
-output of the CDL implementation of the control sequence, during commissioning,
+output of the CDL implementation, during commissioning,
 one would use the control signal from the building automation system.
 The model is available from the Modelica Buildings Library, see the model
 ``Buildings.Utilities.Plotters.Examples.SingleZoneVAVSupply_u``.
@@ -249,7 +250,7 @@ The model is available from the Modelica Buildings Library, see the model
    from ASHRAE Guideline 36.
 
 Simulating the model shown in :numref:`fig_vav_sin_mod_ver`
-generates a file that contains the scatter plots shown in :numref:`fig_vav_sin_ger_ver`.
+generates an html file that contains the scatter plots shown in :numref:`fig_vav_sin_ger_ver`.
 
 .. _fig_vav_sin_ger_ver:
 
@@ -299,7 +300,7 @@ format required by the data readers. The data used in the example begins at
 midnight on June 7 2018.
 In addition to the input and output trends, we recorded all parameters, such as the
 hysteresis offset (see :numref:`fig_alc_hys_par`) and the controller gains
-(see :numref:`fig_alc_con_par`), to utilize them in the CDL implementation.
+(see :numref:`fig_alc_con_par`), to use them in the CDL implementation.
 
 .. _fig_alc_hys_par:
 
@@ -332,7 +333,7 @@ To reconcile the differences, the ALC controller gains were
 converted for CDL as follows:
 The proportional gain :math:`k_{p,cdl}` was set to
 :math:`k_{p,cdl} = u \, k_{p,alc}`, where :math:`u=9/5` is a ratio of one degree Celsius
-(or kelvin) to one degree Fahrenheit of temperature difference.
+(or Kelvin) to one degree Fahrenheit of temperature difference.
 The integrator time constant was converted
 as
 :math:`T_{i,cdl} = k_{p,cdl} \, I_{alc}/(u \, k_{i,alc})`.
@@ -355,7 +356,8 @@ compare the simulated cooling coil valve position with the recorded data.
    Modelica model that conducts the verification.
 
 :numref:`fig_coo_coi`,
-which was produced by the Modelica model,
+which was produced by the Modelica model using blocks from the
+``Buildings.Utilities.Plotters`` package,
 shows the trended input temperatures for the
 control sequence, the trended and simulated cooling valve control signal
 for the same time period, which are practically on top of each other,
