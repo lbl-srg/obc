@@ -91,13 +91,21 @@ if used in a controller.
 ]
 
 Each of these data types, including the elementary building blocks,
-can be a single instance or one-dimensional array.
+can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
 An array of size ``0`` is an empty array.
-See the Modelica 3.3 specification Chapter 10 for array notation.
+
+Arrays may be constructed with the general array constructor,
+one or several iterators, for example 
+``parameter Real  K[2,3] = {i+j for i in 1:3, j in 1:2};``, 
+and with a ``fill`` function.
+Arrays may also be concatenated using ``cat``.
 
 [``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
+
+See the Modelica 3.3 specification Chapter 10 for array notation.
+
 
 .. note::
 
