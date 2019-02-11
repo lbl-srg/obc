@@ -98,7 +98,7 @@ An array of size ``0`` is an empty array.
 
 Arrays may be constructed with the general array constructor,
 one or several iterators, for example 
-``parameter Real  K[2,3] = {i+j for i in 1:3, j in 1:2};``, 
+``parameter Real K[2,3] = {i+j for i in 1:3, j in 1:2};``, 
 and with a ``fill`` function.
 Arrays may also be concatenated using ``cat``.
 
