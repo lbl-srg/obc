@@ -100,7 +100,7 @@ Arrays may be constructed with the array constructor
 function ``array(x1,x2,...)`` or its shorthand ``{x1,x2,...}``, 
 for example ``Integer k[3,2] = {{1,2},{3,4},{5,6}}``, 
 one or several iterators, for example 
-``parameter Real k[2,3] = {i+j for i in 1:3, j in 1:2};``, 
+``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``, 
 and with a ``fill`` function.
 Arrays may also be concatenated using ``cat``.
 
