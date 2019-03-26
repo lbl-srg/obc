@@ -228,8 +228,23 @@ until only elementary CDL blocks are present in the JSON file.
 Various examples of CDL converted to JSON can be found at
 https://github.com/lbl-srg/modelica-json/tree/master/test/FromModelica.
 
-.. todo:: Add a JSON-schema definition for the simplified JSON representation,
-          see http://json-schema.org.
+The simplified JSON representation of a CDL sequence must be compliant with the
+corresponding JSON Schema. A JSON Schema describes the data format and file structure,
+lists the required or optional properties, and set limitations on values such as
+patterns for strings or extremums for numbers.
+
+The raw CDL Schema can be found `here <https://raw.githubusercontent.com/lbl-srg/modelica-json/issue55_JSONSchema/schema-CDL.json>`_ .
+
+`modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
+the JSON representation parsed from a CDL file against the schema right after its
+generation.
+
+The validation of an existing JSON representation of a CDL file against the schema
+can be done executing the command :
+
+.. code-block:: bash
+
+   node modelica-json/validation.js -f filename.json
 
 .. _sec_cdl_ssp:
 
