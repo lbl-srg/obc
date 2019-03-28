@@ -246,7 +246,7 @@ can be done executing the command :
 
    node modelica-json/validation.js -f filename.json
 
-Contractors can use the JSON Schema as a specification to develop a translator to a control product line.
+Control providers can use the JSON Schema as a specification to develop a translator to a control product line.
 If JSON Files are the starting point, then they must validate against the schema.
 
 
