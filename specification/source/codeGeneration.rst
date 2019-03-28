@@ -246,6 +246,10 @@ can be done executing the command :
 
    node modelica-json/validation.js -f filename.json
 
+Contractors can use the JSON Schema as a specification to develop a translator to a control product line.
+If JSON Files are the starting point, then they must validate against the schema.
+
+
 .. _sec_cdl_ssp:
 
 Modular Export of a Control Sequence using the FMI Standard for Control Blocks and using the SSP Standard for the Run-time Environment
