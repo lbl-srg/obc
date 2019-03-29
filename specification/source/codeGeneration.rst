@@ -240,7 +240,7 @@ the JSON representation parsed from a CDL file against the schema right after it
 generated.
 
 The validation of an existing JSON representation of a CDL file against the schema
-can be done executing the command :
+can be done executing the command
 
 .. code-block:: bash
 
