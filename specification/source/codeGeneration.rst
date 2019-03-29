@@ -233,7 +233,7 @@ corresponding JSON Schema. A JSON Schema describes the data format and file stru
 lists the required or optional properties, and set limitations on values such as
 patterns for strings or extremums for numbers.
 
-The raw CDL Schema can be found `here <https://raw.githubusercontent.com/lbl-srg/modelica-json/issue55_JSONSchema/schema-CDL.json>`_ .
+The raw CDL Schema can be found `here <https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json>`_ .
 
 `modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
 the JSON representation parsed from a CDL file against the schema right after its
