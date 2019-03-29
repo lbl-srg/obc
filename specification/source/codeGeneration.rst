@@ -230,14 +230,14 @@ https://github.com/lbl-srg/modelica-json/tree/master/test/FromModelica.
 
 The simplified JSON representation of a CDL sequence must be compliant with the
 corresponding JSON Schema. A JSON Schema describes the data format and file structure,
-lists the required or optional properties, and set limitations on values such as
-patterns for strings or extremums for numbers.
+lists the required or optional properties, and sets limitations on values such as
+patterns for strings or extrema for numbers.
 
 The raw CDL Schema can be found `here <https://raw.githubusercontent.com/lbl-srg/modelica-json/issue55_JSONSchema/schema-CDL.json>`_ .
 
-`modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
-the JSON representation parsed from a CDL file against the schema right after its
-generation.
+The program `modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
+the JSON representation parsed from a CDL file against the schema right after it is
+generated.
 
 The validation of an existing JSON representation of a CDL file against the schema
 can be done executing the command :
@@ -247,7 +247,8 @@ can be done executing the command :
    node modelica-json/validation.js -f filename.json
 
 Control providers can use the JSON Schema as a specification to develop a translator to a control product line.
-If JSON Files are the starting point, then they must validate against the schema.
+If JSON files are the starting point, then they should first validate the JSON files
+against the JSON Schema, as this ensures that the input files to the translator are valid.
 
 
 .. _sec_cdl_ssp:
