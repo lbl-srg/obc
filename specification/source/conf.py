@@ -26,7 +26,7 @@ extensions = ['sphinxcontrib.bibtex', \
               'sphinxcontrib.plantuml', 'sphinx.ext.todo']
 
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
-mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 plantuml = 'java -jar plantuml.jar'
 plantuml_output_format = 'svg'
@@ -217,6 +217,13 @@ html_favicon = "_static/lbl-icon.ico"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+html_css_files = [
+    'bootstrap.css',
+    'bootstrap-theme.css',
+    'bootstrap_custom.css',
+    'custom.css',
+    'custom-sphinx.css' ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
