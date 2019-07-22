@@ -280,6 +280,8 @@ The permissible connectors are implemented in the package
 ``DayType`` is an ``enumeration`` for working day,
 non-working day and holiday.
 
+Connectors must be in a ``public`` section.
+
 Connectors can only carry scalar variables.
 For arrays, the connectors need to be explicitly declared as an array.
 
