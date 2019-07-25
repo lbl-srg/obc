@@ -389,23 +389,23 @@ then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
 
-Keep Conditional Removable Instances
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Remain Conditional Removable Instances
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Executable code on a building automation system like Eikon does not support
-the removable instances.
-When translating CDL-conforming control sequences to Eikon, the conditional
-removable blocks need to be kept and should not be removed after compilation.
+If the executable code on a building automation system like Eikon does not support
+the removable instances, the sequences translated from CDL-conforming
+control sequences should not have any elements that can be removed.
 
-Consider the illustrative example shown in :numref:`fig_exp_ena_dis_ins`.
+Consider the illustrative example of CDL composite sequence shown in
+:numref:`fig_exp_ena_dis_ins`.
 
 .. _fig_exp_ena_dis_ins:
 
 .. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns.*
    :width: 500px
 
-   Example of a composite control block that outputs :math:`y = \max( k \, e, \, y_{max})`
-   where :math:`k` is a parameter.
+   Example of a composite control block that instances ``u2`` and ``conIns``
+   can be conditional removed (``enaIns = false``).
 
 In CDL, this is specified as
 
@@ -413,22 +413,29 @@ In CDL, this is specified as
    :language: modelica
    :linenos:
 
+.. _fig_exp_ena_dis_vir_point:
+
+.. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns_virtualPoint.*
+   :width: 500px
+
+   Example of virtual point in Eikon sequence
+
 Translating this sequence to Eikon needs to create virtual point to feed input
-``u2``. The virtual point have default value ``1.5``, which is specified in
+``u2`` (:numref:`fig_exp_ena_dis_vir_point`). The virtual point should have
+default value ``1.5``, as specified in
 
 .. code-block:: modelica
 
-   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 if enaIns
-   "Real input that could be conditional removed"
-   annotation (__cdl(default = 1.5, enable = not enaIns),
-               Placement(...));
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 if enaIns "Conditional removable real input"
+     annotation (__cdl(default = 1.5, enable = not enaIns), ...);
 
 By the Modelica language definition, when parameter ``enaIns`` sets to ``false``,
 the instances ``u2`` and ``conIns``, the connections between ``u2`` and ``conIns``,
 between ``conIns`` and ``conMax`` and the connector ``conMax.u2`` will be removed.
 However, with the same setting, the same sequence in Eikon does not need to
-graphically remove any element. The instance ``conMax`` ignores its input ``u2``.
-The instance is specified as
+graphically remove any element to have the same output as CDL sequence. When
+``u2_present = false``, the instance ``conMax`` does not take its input ``conMax.u2``,
+as specified
 
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
