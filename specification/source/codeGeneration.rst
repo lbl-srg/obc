@@ -394,7 +394,7 @@ Remain Conditional Removable Instances
 
 If the executable code on a building automation system like Eikon does not support
 the removable instances, the sequences translated from CDL-conforming
-control sequences should not have any elements that can be removed.
+control sequences should not have any elements that can be graphically removed.
 
 Consider the illustrative example of CDL composite sequence shown in
 :numref:`fig_exp_ena_dis_ins`.
@@ -440,3 +440,34 @@ as specified
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
    :linenos:
+
+Parameter Propagation and Assignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Align with Modelica language definition, CDL-conforming sequences allow parameters
+propagating from its subsequences to top level sequence. As an illustrative example,
+consider the composite control block specified as
+
+.. literalinclude:: img/codeGeneration/ParameterPropagation/Controller.mo
+   :language: modelica
+   :linenos:
+
+The parameter ``Ti`` propagates between top level sequence ``Controller`` and
+lower level subsequence ``mod``. This actually is quite efficient as we just
+need to specify the parameter in top level. The executable code of building
+automation system should support the functionality or update the product line
+to have global parameter setting.
+
+CDL allows ``parameters`` being assigned through calculations. If the
+executable code on a building automation system like Eikon does not support
+the calculation, the translating process should make the calculation being
+implemented outside of the sequence block and then feed the results in as
+inputs through virtual points. The illustrative example is shown in
+:numref:`fig_exp_par_prop`
+
+.. _fig_exp_par_prop:
+
+.. figure:: img/codeGeneration/ParameterPropagation/ParameterAssignment.*
+   :width: 1000px
+
+   Example of translating sequences with calculations for parameter assignment.
