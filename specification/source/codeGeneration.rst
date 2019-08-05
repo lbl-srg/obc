@@ -389,12 +389,12 @@ then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
 
-Remain Conditional Removable Instances
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Conditional Removable Instances
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If the executable code on a building automation system like Eikon does not support
 the removable instances, the sequences translated from CDL-conforming
-control sequences should not have any elements that can be graphically removed.
+control sequences should not have any elements that can be conditionally removed.
 
 Consider the illustrative example of CDL composite sequence shown in
 :numref:`fig_exp_ena_dis_ins`.
@@ -404,8 +404,8 @@ Consider the illustrative example of CDL composite sequence shown in
 .. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns.*
    :width: 500px
 
-   Example of a composite control block that instances ``u2`` and ``conIns``
-   can be conditional removed (``enaIns = false``).
+   Example of a composite control block which instances ``u2`` and ``conIns``
+   can be conditionally removed (``enaIns = false``).
 
 In CDL, this is specified as
 
@@ -420,22 +420,26 @@ In CDL, this is specified as
 
    Example of virtual point in Eikon sequence
 
-Translating this sequence to Eikon needs to create virtual point to feed input
-``u2`` (:numref:`fig_exp_ena_dis_vir_point`). The virtual point should have
-default value ``1.5``, as specified in
+To avoid any object being removed, translating this sequence to Eikon requires
+creating a virtual point to feed input ``u2`` (:numref:`fig_exp_ena_dis_vir_point`).
+The virtual point should have default value ``1.5``, which can be specified by means
+of a vendor annotation in CDL language.
 
 .. code-block:: modelica
 
    Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 if enaIns "Conditional removable real input"
      annotation (__cdl(default = 1.5, enable = not enaIns), ...);
 
-By the Modelica language definition, when parameter ``enaIns`` sets to ``false``,
-the instances ``u2`` and ``conIns``, the connections between ``u2`` and ``conIns``,
-between ``conIns`` and ``conMax`` and the connector ``conMax.u2`` will be removed.
-However, with the same setting, the same sequence in Eikon does not need to
-graphically remove any element to have the same output as CDL sequence. When
-``u2_present = false``, the instance ``conMax`` does not take its input ``conMax.u2``,
-as specified
+According to the Modelica language definition, when the parameter ``enaIns``
+is set to ``false``, the instances ``u2`` and ``conIns``, the connections
+between ``u2`` and ``conIns`` and between ``conIns`` and ``conMax`` as well as
+the connector ``conMax.u2`` will be excluded from the translation process that
+generates C code. However, with the same setting, the same sequence in Eikon
+will not remove any object and will have the same model structure and same I/O
+variables. The instance ``u2`` will take the default value
+when like in this case, ``enable=true``.
+As specified below, when ``u2_present = false``, the instance ``conMax`` does not take
+its input ``conMax.u2``,
 
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
@@ -444,8 +448,8 @@ as specified
 Parameter Propagation and Assignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Align with Modelica language definition, CDL-conforming sequences allow parameters
-propagating from its subsequences to top level sequence. As an illustrative example,
+Aligned with the Modelica language specifications, CDL-conforming sequences allow parameters
+propagating from subsequences to top level sequences. As an illustrative example,
 consider the composite control block specified as
 
 .. literalinclude:: img/codeGeneration/ParameterPropagation/Controller.mo
@@ -460,10 +464,9 @@ to have global parameter setting.
 
 CDL allows ``parameters`` being assigned through calculations. If the
 executable code on a building automation system like Eikon does not support
-the calculation, the translating process should make the calculation being
-implemented outside of the sequence block and then feed the results in as
-inputs through virtual points. The illustrative example is shown in
-:numref:`fig_exp_par_prop`
+the calculation, the translating process should extract the assignment as a
+separate operation block and then feed the results in as inputs. The illustrative
+example is shown in :numref:`fig_exp_par_prop`
 
 .. _fig_exp_par_prop:
 
