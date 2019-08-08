@@ -1,13 +1,11 @@
-block Controller "Model with parameter propagation"
+block Controller "Multizone AHU controller that composes subsequences for controlling fan speed, dampers, and supply air temperature"
   ...
-  parameter Modelica.SIunits.Time Ti=300  "Time constant of modulation controller integrator block"
-    annotation (...);
+  parameter Modelica.SIunits.Time samplePeriod=120
+    "Sample period of component, set to the same value to the trim and respond sequence";
   ...
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Modulation
-    mod(final Ti=Ti, ...)    "Single zone VAV AHU economizer damper modulation sequence"
-    annotation (...);
+  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
+    supFan(final samplePeriod=samplePeriod, ...) "Supply fan controller";
   ...
 equation
   ...
-  annotation (...);
 end Controller;

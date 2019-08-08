@@ -389,12 +389,21 @@ then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
 
-Conditional Removable Instances
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Handling Limitations of certain Building Automation Systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If the executable code on a building automation system like Eikon does not support
-the removable instances, the sequences translated from CDL-conforming
-control sequences should not have any elements that can be conditionally removed.
+Some buildings automation systems have the syntax that do not align with CDL
+syntax, like Eikon does not support removable instance and parameter assignment by
+calculation (:numref:`sec_instantiation`). The translation from CDL sequences to
+the executable codes of these building automation systems would need to have
+additional implementations to comply the syntaxes.
+
+This section therefore explains how certain implementations can be done to handle
+the conditional removable instances and parameter propagation and its assignment
+through calculation.
+
+Conditional Removable Instances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Consider the illustrative example of CDL composite sequence shown in
 :numref:`fig_exp_ena_dis_ins`.
@@ -413,40 +422,39 @@ In CDL, this is specified as
    :language: modelica
    :linenos:
 
-.. _fig_exp_ena_dis_vir_point:
-
-.. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns_virtualPoint.*
-   :width: 500px
-
-   Example of virtual point in Eikon sequence
-
-To avoid any object being removed, translating this sequence to Eikon requires
-creating a virtual point to feed input ``u2`` (:numref:`fig_exp_ena_dis_vir_point`).
-The virtual point should have default value ``1.5``, which can be specified by means
-of a vendor annotation in CDL language.
-
-.. code-block:: modelica
-
-   Buildings.Controls.OBC.CDL.Interfaces.RealInput u2 if enaIns "Conditional removable real input"
-     annotation (__cdl(default = 1.5, enable = not enaIns), ...);
-
-According to the Modelica language definition, when the parameter ``enaIns``
-is set to ``false``, the instances ``u2`` and ``conIns``, the connections
-between ``u2`` and ``conIns`` and between ``conIns`` and ``conMax`` as well as
-the connector ``conMax.u2`` will be excluded from the translation process that
-generates C code. However, with the same setting, the same sequence in Eikon
-will not remove any object and will have the same model structure and same I/O
-variables. The instance ``u2`` will take the default value
-when like in this case, ``enable=true``.
-As specified below, when ``u2_present = false``, the instance ``conMax`` does not take
-its input ``conMax.u2``,
+Note that the instance ``conMax`` is an elementary block
+``Buildings.Controls.OBC.CDL.Continuous.ConditionalMax`` that will be added. It
+outputs :math:`y = \{max(u_1, u_2), \: if \: u2\_present=true; \;
+u_1, \: if \: u2\_present=false\}` and is specified as below:
 
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
    :linenos:
 
+According to the Modelica language definition, when the parameter ``enaIns`` is set
+to ``false``, the instances ``u2`` and ``conIns``, the connections between ``u2``
+and ``conIns`` and between ``conIns`` and ``conMax`` as well as the connector
+``conMax.u2`` will be excluded from the translation process that generates C code.
+
+However, some executable code of building automation system do not allow
+any object being removed. To avoid the removal, translating this sequences
+requires creating a virtual point to feed input ``u2`` (:numref:`fig_exp_ena_dis_vir_point`).
+The virtual point should have default value ``1.5``, which is specified by means
+of a vendor annotation (:numref:`sec_annotations`) of instance ``u2``. Also,
+since ``u2_present=enaIns``, the instance ``conMax`` will not take its second
+input ``u2``. With the same setting, the same sequence in translated code
+will not remove any object and will have the same model structure and same I/O
+variables.
+
+.. _fig_exp_ena_dis_vir_point:
+
+.. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns_virtualPoint.*
+   :width: 500px
+
+   Example of virtual point in translated sequence
+
 Parameter Propagation and Assignment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Aligned with the Modelica language specifications, CDL-conforming sequences allow parameters
 propagating from subsequences to top level sequences. As an illustrative example,
@@ -456,14 +464,14 @@ consider the composite control block specified as
    :language: modelica
    :linenos:
 
-The parameter ``Ti`` propagates between top level sequence ``Controller`` and
-lower level subsequence ``mod``. This actually is quite efficient as we just
+The parameter ``samplePeriod`` propagates between top level sequence ``Controller`` and
+lower level subsequence ``supFan``. This actually is quite efficient as we just
 need to specify the parameter in top level. The executable code of building
 automation system should support the functionality or update the product line
 to have global parameter setting.
 
 CDL allows ``parameters`` being assigned through calculations. If the
-executable code on a building automation system like Eikon does not support
+executable code on a building automation system does not support
 the calculation, the translating process should extract the assignment as a
 separate operation block and then feed the results in as inputs. The illustrative
 example is shown in :numref:`fig_exp_par_prop`

@@ -392,7 +392,13 @@ Modelica 3.3 Specifications
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
 input and output signal connections, and to declare
-vendor annotations (Sec. 18.1 in Modelica 3.3 Specification).]
+vendor annotations, (Sec. 18.1 in Modelica 3.3 Specification), like to specify default
+value of connector as below.]
+
+.. code-block:: modelica
+
+   Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Real input"
+     annotation (__cdl(default = 1.5), ...);
 
 .. _sec_com_blo:
 
