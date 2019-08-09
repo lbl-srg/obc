@@ -422,10 +422,10 @@ In CDL, this is specified as
    :language: modelica
    :linenos:
 
-Note that the instance ``conMax`` is an elementary block
-``Buildings.Controls.OBC.CDL.Continuous.ConditionalMax`` that will be added. It
-outputs :math:`y = \{max(u_1, u_2), \: if \: u2\_present=true; \;
-u_1, \: if \: u2\_present=false\}` and is specified as below:
+Note that the instance ``conMax`` instantiates an elementary block
+``Buildings.Controls.OBC.CDL.Continuous.ConditionalMax`` that will be added. The
+elementary block outputs :math:`y = \{max(u_1, u_2), \: if \: u2\_present=true; \;
+u_1, \: if \: u2\_present=false\}` and is specified as follows:
 
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
@@ -458,7 +458,7 @@ Parameter Propagation and Assignment
 
 Aligned with the Modelica language specifications, CDL-conforming sequences allow parameters
 propagating from subsequences to top level sequences. As an illustrative example,
-consider the composite control block specified as
+consider the composite control block specified as follows:
 
 .. literalinclude:: img/codeGeneration/ParameterPropagation/Controller.mo
    :language: modelica
@@ -474,7 +474,7 @@ CDL allows ``parameters`` being assigned through calculations. If the
 executable code on a building automation system does not support
 the calculation, the translating process should extract the assignment as a
 separate operation block and then feed the results in as inputs. The illustrative
-example is shown in :numref:`fig_exp_par_prop`
+example is shown in :numref:`fig_exp_par_prop`.
 
 .. _fig_exp_par_prop:
 
