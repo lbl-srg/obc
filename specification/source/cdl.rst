@@ -218,6 +218,11 @@ the
 Instantiation
 ^^^^^^^^^^^^^
 
+.. _sec_ass_val_to_ins:
+
+Declaration and Assigning Values to Instances
+.............................................
+
 Instantiation is identical to Modelica.
 
 [For example, to instantiate a gain, one would write
@@ -245,23 +250,50 @@ In the assignment of ``parameters``, calculations are allowed.
 
 ]
 
-Instances can conditionally be removed by using an ``if`` clause.
 
-[This allows to have one implementation for an economizer control sequence
-that can be configured to take into account enthalpy rather than
-temperature. An example code snippet is
+.. _sec_con_rem_ins:
+
+Conditionally Removing Instances
+................................
+
+Instances can be conditionally removed by using an ``if`` clause.
+
+This allows, for example, to have an implementation of a controller that optionally
+takes as an input the number of occupants in a zone.
+
+An example code snippet is
 
 .. code-block:: modelica
 
-   parameter Boolean use_enthalpy = true
-     "Set to true to evaluate outdoor air enthalpy in addition to temperature";
+    parameter Boolean have_occSen=false
+      "Set to true if zones have occupancy sensor";
 
-   CDL.Interfaces.RealInput hOut if use_enthalpy
-      "Outdoor air enthalpy";
+    CDL.Interfaces.IntegerInput nOcc if have_occSen
+      "Number of occupants"
+        annotation (__cdl(default = 0));
+
+    CDL.Continuous.Gain gai(
+      k = VOutPerPer_flow) if have_occSen
+        "Outdoor air per person";
+  equation
+    connect(nOcc, gai.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
-to ``hOut`` will be removed if ``use_enthalpy = false``.]
+to ``nOcc`` will be removed if ``have_occSen = false``.
 
+Some building automation systems do not allow to conditionally removing instances
+of blocks, inputs and outputs, and their connections. Rather, these instances
+are always present, and a value for the input must be present.
+To accomodate this case, every input connector that can be conditionally removed
+must declare a default value of the form ``__cdl(default = value)``,
+where ``value`` is the default value that will be used
+if the building automation system does not support conditionally removing instances.
+The type of ``value`` must be the same as the type of the connector.
+
+Note that output connectors must not have a specification of a default value,
+because if a building automation system cannot conditionally remove instances,
+then the block (or input connector) upstream of the output will always be present
+(or will have a default value).
 
 .. _sec_connectors:
 
@@ -397,10 +429,8 @@ input and output signal connections, and to declare
 vendor annotations, (Sec. 18.1 in Modelica 3.3 Specification), like to specify default
 value of connector as below.]
 
-.. code-block:: modelica
-
-   Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Real input"
-     annotation (__cdl(default = 1.5), ...);
+CDL also uses annotations to declare default values for conditionally removable input
+connectors, see :numref:`sec_con_rem_ins`.
 
 .. _sec_com_blo:
 

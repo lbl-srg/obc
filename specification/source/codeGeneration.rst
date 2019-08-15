@@ -389,23 +389,19 @@ then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
 
-Handling Limitations of certain Building Automation Systems
+Handling Limitations of Certain Building Automation Systems
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Some buildings automation systems have the syntax that do not align with CDL
-syntax, like Eikon does not support removable instance and parameter assignment by
-calculation (:numref:`sec_instantiation`). The translation from CDL sequences to
-the executable codes of these building automation systems would need to have
-additional implementations to comply the syntaxes.
+Some buildings automation systems do not support all capabilities of CDL.
+For example, ALC Eikon does not support conditionally removable instances,
+propagation of parameter values, and calculations in parameter assignments.
+(See :numref:`sec_instantiation` for these CDL constructs).
+This section explains how such limitations can be addressed.
 
-This section therefore explains how certain implementations can be done to handle
-the conditional removable instances and parameter propagation and its assignment
-through calculation.
+Conditionally Removable Instances
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Conditional Removable Instances
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Consider the illustrative example of CDL composite sequence shown in
+Consider the illustrative example of a composite block shown in
 :numref:`fig_exp_ena_dis_ins`.
 
 .. _fig_exp_ena_dis_ins:
@@ -413,8 +409,8 @@ Consider the illustrative example of CDL composite sequence shown in
 .. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns.*
    :width: 500px
 
-   Example of a composite control block which instances ``u2`` and ``conIns``
-   can be conditionally removed (``enaIns = false``).
+   Example of a composite control block in which the instances
+   ``u2`` and ``conIns`` can be conditionally removed.
 
 In CDL, this is specified as
 
@@ -422,63 +418,78 @@ In CDL, this is specified as
    :language: modelica
    :linenos:
 
-Note that the instance ``conMax`` instantiates an elementary block
-``Buildings.Controls.OBC.CDL.Continuous.ConditionalMax`` that will be added. The
-elementary block outputs :math:`y = \{max(u_1, u_2), \: if \: u2\_present=true; \;
-u_1, \: if \: u2\_present=false\}` and is specified as follows:
+Note that the instance ``conMax`` instantiates the elementary block
+``CDL.Continuous.ConditionalMax``, which outputs
+
+.. math::
+
+   y = \left\{
+     \begin{array}{ll}
+     \max(u_1, u_2), & \text{if input connector } u_2 \text{ is present}, \\
+                     u_1, & \text{otherwise.}
+        \end{array}
+        \right.
+
+This elementary block is implemented as
 
 .. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
    :language: modelica
    :linenos:
 
-According to the Modelica language definition, when the parameter ``enaIns`` is set
-to ``false``, the instances ``u2`` and ``conIns``, the connections between ``u2``
-and ``conIns`` and between ``conIns`` and ``conMax`` as well as the connector
-``conMax.u2`` will be excluded from the translation process that generates C code.
+According to the Modelica language definition, if ``u2_present=false``,
+the instances ``u2`` and ``conIns``, the connections between ``u2``
+and ``conIns`` and between ``conIns`` and ``conMax``, and the input connector
+``conMax.u2`` are removed when generating simulation code.
 
-However, some executable code of building automation system do not allow
-any object being removed. To avoid the removal, translating this sequences
-requires creating a virtual point to feed input ``u2`` (:numref:`fig_exp_ena_dis_vir_point`).
-The virtual point should have default value ``1.5``, which is specified by means
-of a vendor annotation (:numref:`sec_annotations`) of instance ``u2``. Also,
-since ``u2_present=enaIns``, the instance ``conMax`` will not take its second
-input ``u2``. With the same setting, the same sequence in translated code
-will not remove any object and will have the same model structure and same I/O
-variables.
+However, some building automation systems do not allow objects to be removed.
+For such cases, a constant input, or a virtual point, with the default value of
+``1.5``, as declared by the annotation ``__cdl(default = 1.5)``
+(see :numref:`sec_con_rem_ins`) and shown in
+:numref:`fig_exp_ena_dis_vir_point`, could be added.
+With such a construct, the composite block
+``EnaDisIns`` can be translated without requiring removal of any objects,
+thereby preserving all inputs and outputs.
 
 .. _fig_exp_ena_dis_vir_point:
 
 .. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns_virtualPoint.*
    :width: 500px
 
-   Example of virtual point in translated sequence
+   Example of virtual point in translated sequence.
 
-Parameter Propagation and Assignment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Parameter Propagation
+~~~~~~~~~~~~~~~~~~~~~
 
-Aligned with the Modelica language specifications, CDL-conforming sequences allow parameters
-propagating from subsequences to top level sequences. As an illustrative example,
+CDL allows parameter values to be propagated to instances of blocks.
+As an illustrative example,
 consider the composite control block specified as follows:
 
 .. literalinclude:: img/codeGeneration/ParameterPropagation/Controller.mo
    :language: modelica
    :linenos:
 
-The parameter ``samplePeriod`` propagates between top level sequence ``Controller`` and
-lower level subsequence ``supFan``. This actually is quite efficient as we just
-need to specify the parameter in top level. The executable code of building
-automation system should support the functionality or update the product line
-to have global parameter setting.
+The value of the parameter ``samplePeriod`` can be specified at the top-level,
+and is propagated to blocks inside this controller.
+This allows to change the value of ``samplePeriod`` at the top-level,
+and propagation of this value to all instances in the controller that require
+sampling at this rate.
 
-CDL allows ``parameters`` being assigned through calculations. If the
-executable code on a building automation system does not support
-the calculation, the translating process should extract the assignment as a
-separate operation block and then feed the results in as inputs. The illustrative
-example is shown in :numref:`fig_exp_par_prop`.
+Building automation systems that do not support such propagation may have to
+use a global variable or virtual points.
+
+Calculations in Parameter Assignments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CDL allows calculations in the assignment statements of ``parameters``,
+see :numref:`sec_ass_val_to_ins`.
+If a building automation system does not support such calculations,
+then the translator should extract the assignments as a separate operational
+block and feed its outputs to the parameters of the block.
+:numref:`fig_exp_par_prop` shows an illustrative example.
 
 .. _fig_exp_par_prop:
 
 .. figure:: img/codeGeneration/ParameterPropagation/ParameterAssignment.*
-   :width: 1000px
+   :width: 700px
 
    Example of translating sequences with calculations for parameter assignment.

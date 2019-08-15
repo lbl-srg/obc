@@ -1,10 +1,10 @@
-block Controller "Multizone AHU controller that composes subsequences for controlling fan speed, dampers, and supply air temperature"
+block Controller "Controller with time sampling"
   ...
   parameter Modelica.SIunits.Time samplePeriod=120
-    "Sample period of component, set to the same value to the trim and respond sequence";
+    "Sample period of component";
   ...
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
-    supFan(final samplePeriod=samplePeriod, ...) "Supply fan controller";
+  OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
+    supFan(final samplePeriod=samplePeriod) "Supply fan controller";
   ...
 equation
   ...
