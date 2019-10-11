@@ -111,7 +111,7 @@ import sphinx_bootstrap_theme
 # Activate the theme.
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-print "*********** {}".format(html_theme_path)
+print("*********** {}".format(html_theme_path))
 html_logo = '_static/cdl-logo.png'
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
