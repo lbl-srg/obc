@@ -220,25 +220,29 @@ Instantiation
 
 .. _sec_ass_val_to_ins:
 
-Declaration and Assigning Values to Instances
-.............................................
+Declaration and Assigning Values to Parameters
+..............................................
 
-Instantiation is identical to Modelica.
+*Parameters* are values that do not depend on time.
+The values of parameters can be changed during run-time through a user
+interaction with the control program (such as to change a control gain),
+unless a parameter is a :term:`structural parameter <Structural parameter>`.
+
+Instantiation of blocks and parameters is identical to Modelica,
+except that parameter assignment can only be literals (such as `double`, `integer` or
+arrays of literals). Hence, no calculations are allowed in parameter assignments.
 
 [For example, to instantiate a gain, one would write
 
 .. code-block:: modelica
 
-   Continuous.Gain myGain(k=-1) "Constant gain of -1" annotation(...);
+   Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
 
 where the documentation string is optional.
 The annotations is typically used
-for the graphical positioning of the instance in a block-diagram.
-]
+for the graphical positioning of the instance in a block-diagram.]
 
-In the assignment of ``parameters``, calculations are allowed.
-
-[For example, a hysteresis block could be configured as follows
+The following is not allowed
 
 .. code-block:: modelica
 
@@ -248,7 +252,123 @@ In the assignment of ``parameters``, calculations are allowed.
      uLow  = pRel-25,
      uHigh = pRel+25) "Hysteresis for fan control";
 
-]
+
+Propagation of parameter values
+_______________________________
+
+All run-time calculations must be graphically using ``blocks`` and ``connect`` statements,
+while simple one-to-one parameter assignment are allowed.
+For example, consider
+
+.. code-block:: modelica
+
+   parameter Real s = 1;
+   Continuous.Sources.Constant con(k=s);
+   equation
+   connect(con.y, someBlock.u);
+
+
+A translator can translate this in two possible way, called a) and b) below.
+Option a) is for translators that will preserve the ``parameter`` declaration and its dependencies after the translation,
+such as any Modelica-based tools. This option allows any Modelica GUI to expose to the
+modeller the parameters so that she/he can change the values.
+Option b) is for translators that will remove the dependencies, such as ALC Eikon. In these programs,
+building operators would open the graphical panes and change the value in a ``Constant`` block.
+
+Using option a), the translator will generate code such as the pseude-code below
+
+.. code-block:: C
+
+   s = value_from_gui(instanceName="s", startValue=1);
+   con.k = s;
+   someBlock.u = con.k;
+
+In this case, stoping the simulation, setting a new value of ``s=2`` and continuing the simulation will
+cause ``s = con.k = someBlock.u``. [This is the way FMUs implement it.
+The pseudo-function ``value_from_gui`` may show to the building operator
+a window in which the value for ``s`` can be changed during run-time.]
+If a building automation system does not support such a dependency, the translator can generate code using option b),
+which will result in
+
+.. code-block:: modelica
+
+   Continuous.Sources.Constant s(k=1);
+   equation
+   connect(s.y, someBlock.u);
+
+or using pseude-code
+
+.. code-block:: C
+
+  s = value_from_gui(instanceName="s", startValue=1);
+  someBlock.u = s;
+
+If option b) is used, then the translator must remove the declaration ``parameter Real s=1;``
+(there is no longer anything dependent on the parameter ``s``), and rename the instance ``con`` to ``s``,
+which will ensure that the documentation of the sequence, which may describe what ``s`` is, remains correct.
+Note that for option b), the propagation of the parameter value is through block-diagram modeling only.
+
+For option b) to work, we impose the following constraints on CDL.
+
+First, parameters must only be assigned to one instance if this assignment is declared as ``final``. For example
+
+.. code-block:: modelica
+
+   parameter Real samplePeriod = 60;
+   Discrete.Sampler sam1(final samplePeriod = samplePeriod);
+   Discrete.Sampler sam2(final samplePeriod = samplePeriod);
+
+is not valid and ``modelica-json`` will stop with an error.
+[This is because a translator may translate this, using option b) above, to
+
+.. code-block:: C
+
+    sam1.samplePeriod = 60;
+    sam2.samplePeriod = 60;
+
+at which point a user cannot change the value anymore, causing the translated program to be less flexible.]
+
+Second, non-final assignments of parameters to multiple instances are allowed, e.g.,
+
+.. code-block:: modelica
+
+   parameter Real samplePeriod = 60;
+   Discrete.Sampler sam1(samplePeriod = samplePeriod);
+   Discrete.Sampler sam2(samplePeriod = samplePeriod);
+
+because the programmer of the above statement did not enforce
+``sam1.samplePeriod = sam2.samplePeriod``.
+Hence, if a translator implements option b) above, it can translate it to
+
+.. code-block:: C
+
+
+    sam1.samplePeriod = value_from_gui(instanceName="sam1.samplePeriod", startValue = 60);
+    sam2.samplePeriod = value_from_gui(instanceName="sam2.samplePeriod", startValue = 60);
+
+and a user can change each value individually, which she/he can also do if option a) is selected.
+
+Third, if ``sam1.samplePeriod = sam2.samplePeriod = samplePeriod`` must be enforced for the logic to work correctly,
+then the controller must be built in CDL such that ``sam1`` and ``sam2``
+exposes an input for the value of ``samplePeriod``, and the upper controller declares
+
+.. code-block:: modelica
+
+   parameter Real samplePeriod = 60;
+   Continuous.Sources.Constant con(final k=samplePeriod);
+   Discrete.Sampler sam1(use_samplePeriod_in = true); // note that this requires a redesign of Sampler
+   Discrete.Sampler sam2(use_samplePeriod_in = true); // note that this requires a redesign of Sampler
+   equation
+   connect(sam1.samplePeriod_in, con.y);
+   connect(sam2.samplePeriod_in, con.y);
+
+Translators that choose option b) in the translation can then generate code, as above, of the form
+
+.. code-block:: C
+
+   samplePeriod.k = value_from_gui(instanceName="samplePeriod.k", startValue=60);
+
+and all downstream calculation are done through block-diagram modeling only.
 
 
 .. _sec_con_rem_ins:
@@ -272,11 +392,11 @@ An example code snippet is
       "Number of occupants"
         annotation (__cdl(default = 0));
 
-    CDL.Continuous.Gain gai(
+    CDL.Continuous.Sources.Constant con(
       k = VOutPerPer_flow) if have_occSen
         "Outdoor air per person";
   equation
-    connect(nOcc, gai.u);
+    connect(nOcc, con.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.

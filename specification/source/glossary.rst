@@ -151,6 +151,14 @@ the Open Building Controls project.
 
      has a state event when :math:`x=1`.
 
+   Structural parameter
+     We say that a parameter is a *structural parameter* if changing its value can change
+     the system of equations that is being evaluated in the control logic.
+     For example, a parameter that changes a controller from a P to a PI controller is a
+     structural parameter because an integrator is being added.
+     A parameter that enables an input or that changes the size of an array is a structural
+     parameter.
+
    Time event
      We say that a simulation has a time event if its model changes based on a test
      that only depends on time. For example,
