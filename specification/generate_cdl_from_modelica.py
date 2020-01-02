@@ -121,6 +121,6 @@ shutil.copytree(os.path.join(TMP, "CDL", "Resources", "www"), os.path.join(html_
 shutil.copytree(os.path.join(TMP, "CDL", "Resources", "Images"), os.path.join(html_output_dir, "Resources", "Images"))
 
 # Move image with logo
-shutil.copy2(os.path.join("source", "_static", "cdl-logo.png"), os.path.join(html_output_dir, "Resources", "www", "library-logo.png"))
+shutil.copy2(os.path.join("source", "_static", "obc-logo.png"), os.path.join(html_output_dir, "Resources", "www", "library-logo.png"))
 
 print("HTML documentation is in {}".format(html_output_dir))

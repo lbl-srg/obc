@@ -1,14 +1,13 @@
 html{
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
   color: #022e4d;
   font-family: "Helvetica Neue", Helvetica, Verdana, sans-serif;
   /*padding: 10px;*/
-  background-color: #BFD1D4;
 }
 body{
   color: #022e4d;
-  border-radius: 4px;
-  box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.4);
+  border-radius: 0px;
+  /*box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.4);*/
 }
 
 .starter-template {
@@ -18,19 +17,21 @@ body{
 
 .navbar-toggle{
     right: 0px;
-    top: 5px;
+    top: 80px;
 }
 .navbar {
-    height: 82px;
-    max-height: 82px;
-/*    border: none;*/
+    height: 132px;
+    max-height: 132px;
+    background-color: #f0f0f0;
+    /*border: none;*/
+    border-radius: 0px;
     -webkit-user-select:none;
     -moz-user-select:none;
-    -ms-user-select:none;user-select:none;
+    -ms-user-select:none;
+    user-select:none;
 }
 
 .navbar .navbar-nav{
-  background: #f8f8f8;
   margin-bottom: 0px;
   margin-left: -20px;
 }
@@ -38,13 +39,14 @@ body{
 
 .navbar .navbar-nav > input.form-control{
    position: absolute;
-   top: 30px;
+   top: 100px;
    right: 0;
 }
 
 /* ---------------------------------- */
 .navbar .navbar-nav > li > a{
     color: #750000;
+    background-color: #f0f0f0;
     padding-top: 5px;
     padding-bottom: 5px;
     text-decoration: none;
@@ -67,7 +69,7 @@ body{
 .navbar-collapse{
   border-style: none;
   position: absolute;
-  top: 50px;
+  top: 100px;
   z-index: 100;
 }
 /* ---------------------------------- */
@@ -75,19 +77,19 @@ body{
 
 .navbar > .container-fluid .navbar-brand > img{
    position: absolute;
-   left: 10px;
-   height: 30px;
+   left: 30px;
+   height: 80px;
 }
 
 .footer{
 /*  background-color: white;
   border-color: white; */
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
   padding: 10px;
   font-size: 75%;
   border-width:0px;
   background-image: none;
-  border-radius: 4px;
+  border-radius: 0px;
 
 }
 .footer .narrow{
@@ -122,7 +124,7 @@ color: #750000;
 #markdown-toc{
     border: 0;
     color: #750000;
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
 }
 
 
@@ -161,7 +163,7 @@ blockquote{
 
 
 span.pre{
-  background-color: #f8f8f8;
+  background-color: #f0f0f0;
   border: none;
 }
 
