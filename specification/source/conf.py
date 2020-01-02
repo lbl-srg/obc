@@ -51,7 +51,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Open Building Control'
+project = u'OpenBuildingControl'
 copyright = u'(c) All rights reserved'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -112,7 +112,7 @@ import sphinx_bootstrap_theme
 html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 print("*********** {}".format(html_theme_path))
-html_logo = '_static/cdl-logo.png'
+html_logo = '_static/obc-logo.png'
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.
 html_theme_options = {
@@ -199,7 +199,7 @@ html_theme_options = {
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = "Control Description Language"
+html_title = "OpenBuildingControl"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -282,7 +282,7 @@ latex_additional_files = ['_static/latex-note.png', '_static/latex-warning.png']
 latex_documents = [
   ('index',
    'obc_report.tex',
-   u'Control Description Language',
+   u'OpenBuildingControl',
    '', 'manual'),
 ]
 
@@ -303,13 +303,50 @@ latex_elements = {'classoptions': ', openany',         # remove blank pages in P
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = '_static/cdl-logo.png'
+latex_logo = '_static/obc-logo.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
 latex_use_parts = False
 
 # Additional stuff for the LaTeX preamble.
+
+
+latex_elements['maketitle'] = r'''
+\begin{titlepage}
+\begin{minipage}{\headwidth}
+%%\begin{flushright}
+\includegraphics[scale=0.2]{../../source/_static/obc-logo.pdf}
+\hspace{3cm}
+\includegraphics[scale=0.4]{../../source/_static/lbl-text.pdf}
+%%\end{flushright}
+\begin{flushright}
+\hrulefill
+\\[50mm]
+\Large\sffamily\bfseries{Working Report}\\
+\Large\sffamily\bfseries{~}
+\\
+%%\hrulefill
+~\\[10mm]
+\end{flushright}
+\begin{center}
+~\\[50mm]
+\large{https://github.com/lbl-srg/obc}
+~\\[10mm]
+\large{\today}
+\\[10mm]
+\end{center}
+\hrule
+~\\[2mm]
+Copyright (c) 2017-2020\\
+The Regents of the University of California
+(through Lawrence Berkeley National Laboratory),\\
+subject to receipt of any required approvals from U.S. Department of Energy.\\
+All rights reserved.
+\end{minipage}
+\end{titlepage}
+'''
+
 latex_elements['preamble'] = r'''
 % The pdf output has too large picture compared to the html output.
 % The next statement reduces the figure size
@@ -487,6 +524,7 @@ latex_elements['preamble'] = r'''
 \usetikzlibrary{calc}
 
 '''
+
 
 def setup(app):
     app.add_stylesheet('basic.css')
