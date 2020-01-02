@@ -229,7 +229,7 @@ pre {
     line-height: 120%;
     padding: 0.5em;
     border: 1px solid #ccc;
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
 }
 
 pre a {
@@ -242,7 +242,7 @@ td.linenos pre {
 }
 
 div.quotebar {
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
     max-width: 250px;
     float: right;
     padding: 2px 7px;
@@ -250,7 +250,7 @@ div.quotebar {
 }
 
 div.topic {
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
 }
 
 table {
