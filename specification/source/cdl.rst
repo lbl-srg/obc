@@ -3,18 +3,53 @@
 Control Description Language
 ----------------------------
 
+Introduction
+^^^^^^^^^^^^
+
+
 This section specifies
-the Control Description Language (CDL).
-CDL is a declarative language that can be used to express control sequences using block-diagrams.
+the Control Description Language (CDL),
+a declarative language that can be used to express control sequences using block-diagrams.
 It is designed in such a way that it can be used to conveniently specify building control sequences
 in a vendor-independent format, use them within whole building energy simulation,
 and translate them for use in building control systems.
+
+To put CDL in context, and to introduce terminology, xxx shows the translation of CDL to a control product line
+or to English language documentation.
+Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
+(see also :numref:`sec_cdl_to_json_simp` and  https://github.com/lbl-srg/modelica-json)
+translates CDL to an intermediate format that we call CDL-JSON.
+From CDL-JSON, further translations can be done to a control product line, or to
+generate point lists or English language documentation of the control sequences.
+
+.. _fig_cdl_pro_lin:
+
+.. uml::
+   :caption: Translation of CDL to the JSON-CDL intermediate format and to a product lines or
+             English language documentation.
+
+   :width: 550 px
+
+   skinparam componentStyle uml2
+
+   scale 450 width
+
+     [CDL]
+
+     [JSON-CDL]
+
+     [CDL] -r-> [JSON-CDL] : translate
+
+
+
+
+
 This section describes the CDL language. Its translation is described in
 :numref:`sec_code_gen`.
 A collection of control sequences, primarily from ASHRAE Guideline 36, is available
 from the Modelica Buildings Library at https://simulationresearch.lbl.gov/modelica/.
 A tool to export CDL into a JSON intermediate format that
-can be used to translate to commercial building automation systems, a process that we prototype in 2019/20, is
+can be used to translate to commercial building automation systems, a process that we have been prototyping in 2019/20, is
 available at https://github.com/lbl-srg/modelica-json.
 
 
@@ -344,8 +379,7 @@ Consider the statement
 Some building control systems will need to evaluate this at translation because
 they cannot propagate parameters and/or cannot evaluate expressions.
 
-To lower the barrier for a CDL translator, the ``modelica-json`` translator
-(see also :numref:`sec_cdl_to_json_simp`) has two flags.
+To lower the barrier for a CDL translator, the ``modelica-json`` translator has two flags.
 One flag, called ``evaluatePropagatedParameters`` will cause the translator to evaluate the propagated parameter,
 leading to a JSON declaration that is equivalent to the declaration
 
