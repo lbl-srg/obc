@@ -301,43 +301,65 @@ For ``Real`` and ``Integer``, expressions are allowe that involving
            are consistent with Modelica 3.3.
    :widths: 15 80
 
-   ================  ===========================================================
-   Function          Descrition
-   ================  ===========================================================
-   ``abs(v)``        Absolute value of ``v``.
-   ``sign(v)``       Returns ``if v>0 then 1 else if v<0 then –1 else 0``.
-   ``sqrt(v)``       Returns the square root of ``v`` if ``v >=0``, or an error otherwise.
-   ``div(x, y)``     Returns the algebraic quotient ``x/y`` with any fractional
-                     part discarded (also known as truncation toward zero).
-                     [Note: this is defined for ``/`` in C99; in C89 the result for
-                     negative numbers is implementation-defined,
-                     so the standard function ``div()`` must be used.].
-                     Result and arguments shall have type ``Real`` or ``Integer``.
-                     If either of the arguments is ``Real`` the result is ``Real``
-                     otherwise it is ``Integer``.
-   ``mod(x, y)``     Returns the integer modulus of ``x/y`` , i.e.
-                     ``mod(x,y)=x-floor(x/y)*y``. Result and
-                     arguments shall have type ``Real`` or ``Integer``.
-                     If either of the arguments is ``Real`` the
-                     result is ``Real`` otherwise it is ``Integer``.
+   ========================  ===========================================================
+   Function                  Descrition
+   ========================  ===========================================================
+   ``abs(v)``                Absolute value of ``v``.
+   ``sign(v)``               Returns ``if v>0 then 1 else if v<0 then –1 else 0``.
+   ``sqrt(v)``               Returns the square root of ``v`` if ``v >=0``, or an error otherwise.
+   ``div(x, y)``             Returns the algebraic quotient ``x/y`` with any fractional
+                             part discarded (also known as truncation toward zero).
+                             [Note: this is defined for ``/`` in C99; in C89 the result for
+                             negative numbers is implementation-defined,
+                             so the standard function ``div()`` must be used.].
+                             Result and arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the result is ``Real``
+                             otherwise it is ``Integer``.
+   ``mod(x, y)``             Returns the integer modulus of ``x/y`` , i.e.
+                             ``mod(x,y)=x-floor(x/y)*y``. Result and
+                             arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the
+                             result is ``Real`` otherwise it is ``Integer``.
 
-                     [Examples are ``mod(3,1.4)=0.2``, ``mod(-3,1.4)=1.2`` and
-                     ``mod(3,-1.4)=-1.2``.]
-    ``rem(x,y)``     Returns the integer remainder of ``x/y``, such that
-                     ``div(x,y)*y + rem(x, y) = x``.
-                     Result and arguments shall have type ``Real`` or ``Integer``.
-                     If either of the arguments is ``Real`` the result is ``Real``
-                     otherwise it is ``Integer``.
+                             [Examples are ``mod(3,1.4)=0.2``, ``mod(-3,1.4)=1.2`` and
+                             ``mod(3,-1.4)=-1.2``.]
+   ``rem(x,y)``              Returns the integer remainder of ``x/y``, such that
+                             ``div(x,y)*y + rem(x, y) = x``.
+                             Result and arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the result is ``Real``
+                             otherwise it is ``Integer``.
 
-                     [Examples are ``rem(3,1.4)=0.2`` and ``rem(-3,1.4)=-0.2``.]
-     ``ceil(x)``     Returns the smallest integer not less than ``x``.
-                     Result and argument shall have type ``Real``.
-     ``floor(x)``    Returns the largest integer not greater than ``x``.
-                     Result and argument shall have type ``Real``.
-     ``integer(x)``  Returns the largest integer not greater than ``x``.
-                     The argument shall have type Real.
-                     The result has type Integer.
-   ================  ===========================================================
+                             [Examples are ``rem(3,1.4)=0.2`` and ``rem(-3,1.4)=-0.2``.]
+   ``ceil(x)``               Returns the smallest integer not less than ``x``.
+                             Result and argument shall have type ``Real``.
+   ``floor(x)``              Returns the largest integer not greater than ``x``.
+                             Result and argument shall have type ``Real``.
+   ``integer(x)``            Returns the largest integer not greater than ``x``.
+                             The argument shall have type Real.
+                             The result has type Integer.
+   ``min(A)``                Returns the least element of array expression ``A``.
+   ``min(x, y)``             Returns the least element of the scalars ``x`` and ``y``.
+   ``max(A)``                Returns the greatest element of array expression ``A``.
+   ``max(x, y)``             Returns the greatest element of the scalars ``x`` and ``y``.
+   ``sum(...)``              The expression ``sum( e(i, ..., j) for i in u, ..., j in v)``
+                             returns the sum of the expression ``e(i, ..., j)`` evaluated for all
+                             combinations of ``i`` in
+                             ``u, ..., j in v: e(u[1], ... ,v[1]) + e(u[2], ... ,v[1])+... +e(u[end],... ,v[1])+...+e(u[end],... ,v[end])``
+
+                             The type of ``sum(e(i, ..., j) for i in u, ..., j in v)`` is the same as the type of ``e(i,...j)``.
+   ``fill(s, n1, n2, ...)``  Returns the :math:`n_1 \times n_2 \times n_3 \times \dots` array with all
+                             elements equal to scalar or array
+                             expression ``s`` (:math:`n_i \ge 0`).
+                             The returned array has the same type as ``s``.
+
+                             Recursive definition:
+                             ``fill(s, n1, n2, n3, ...) = fill( fill(s, n2, n3, ...), n1);``,
+                             ``fill(s,n)={s, s, ..., s}``
+
+                             The function needs two or more arguments; that is ``fill(s)``
+                             is not legal.
+   ========================  ===========================================================
+
 
 
 [For example, to instantiate a gain, one would write
