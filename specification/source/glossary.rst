@@ -31,6 +31,11 @@ the Open Building Controls project.
    CDL
      See :term:`Controls Description Language`.
 
+   CDL-JSON
+     The JSON representation of the :term:`Controls Description Language`,
+     which can be generated with the ``modelica-json`` translator that
+     is available at https://github.com/lbl-srg/modelica-json.
+
    Controls Description Language
      The Control Description Language (CDL) is the language
      that is used to express control sequences and requirements.
