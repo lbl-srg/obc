@@ -25,7 +25,7 @@ generate point lists or English language documentation of the control sequences.
 .. _fig_cdl_pro_lin:
 
 .. uml::
-   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product lines or English language documentation.
+   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product line or English language documentation.
    :width: 550 px
 
    skinparam componentStyle uml2
@@ -109,7 +109,7 @@ Also, the following Modelica language features are not supported in CDL:
    models as far as CDL is concerned and thus CDL compliant tools need
    not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
-#. ``connnect`` statements that carry non-scalar values.
+#. ``connect`` statements that carry non-scalar values.
 
 
 .. _sec_cld_per_typ:
@@ -120,7 +120,7 @@ Permissible Data Types
 The basic data types are, in addition to the elementary building blocks,
 parameters of type
 ``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
-[Parameters do not change their value as time progress.]
+[Parameters do not change their value as time progresses.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
 instances of blocks, or declarations of type ``parameter``,
@@ -288,7 +288,7 @@ except that parameter assignment can only be
 literals (such as ``Real``, ``Integer`` and ``Boolean``) and
 arrays of literals. In addition, for ``Boolean`` parameters, expressions involving
 ``and``, ``or`` and ``not`` are allowed.
-For ``Real`` and ``Integer``, expressions are allowe that involving
+For ``Real`` and ``Integer``, expressions are allowed that involve
 
 - the basic arithmetic functions ``+``, ``-``, ``*``, ``-``,
 - the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
@@ -369,7 +369,7 @@ For ``Real`` and ``Integer``, expressions are allowe that involving
    Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
 
 where the documentation string is optional.
-The annotations is typically used
+The annotation is typically used
 for the graphical positioning of the instance in a block-diagram.]
 
 Using expressions in parameter assignments, and propagating values of parameters
