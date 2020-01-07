@@ -484,7 +484,7 @@ modeller the parameters so that she/he can change the values.
 Option *b)* is for translators that will remove the dependencies, such as ALC Eikon. In these programs,
 building operators would open the graphical panes and change the value in a ``Constant`` block.
 
-Using option *a)*, the translator will generate code such as the pseude-code below
+Using option *a)*, the translator will generate code such as the pseudo-code below
 
 .. code-block:: C
 
@@ -506,7 +506,7 @@ In this case, the generated code will be equivalent to the declaration
    equation
    connect(s.y, someBlock.u);
 
-or using pseude-code
+or using pseudo-code
 
 .. code-block:: C
 
