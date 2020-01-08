@@ -274,8 +274,8 @@ Instantiation
 
 .. _sec_ass_val_to_ins:
 
-Declaration and Assigning Values to Parameters
-..............................................
+Parameter Declaration and Assigning of Values to Parameters
+...........................................................
 
 *Parameters* are values that do not depend on time.
 The values of parameters can be changed during run-time through a user
@@ -382,24 +382,53 @@ and that evaluate expressions that involve parameters.
 CDL also has a keyword called ``final`` that prevents a declaration to be changed by the user.
 This can be used in a hierarchical controller to ensure that parameter values are propagated to lower level controller
 in such a way that users can only change their value at the top-level location.
-Again, most of today's building control product lines do not support such a language construct.
-Therefore, CDL has been designed in such a way that optionally parameter propagations and expressions
-that involve parameters can be preserved during the translation, or they can be evaluated.
-To guarantee that the original intent is maintained even for building control product lines
-that do not support the concept of a ``final`` declaration, certain
-restrictions are imposed on how to use the ``final`` keyword.
-The next sections describe the propagation of parameters without and with the ``final`` keyword.
-
-.. todo::
-
-   Check in the current sequences what the implications are if we indeed impose this restriction
-   on the use of ``final``.
+It can also be used in CDL to enforce that different instances of blocks have the same parameter value.
+For example, if a controller samples two signals, then ``final`` could be used to ensure that they
+sample at the same rate.
+However, most of today's building control product lines do not support such a language construct.
+Therefore, while the CDL translator preserves the ``final`` keyword in the ``CDL-JSON`` format,
+a translator from ``CDL-JSON`` to a control product line is allowed to ignore this declaration.
 
 
-Evaluation of propagated non-final parameters and evaluation of non-final parameter expressions
-_______________________________________________________________________________________________
+.. note::
 
-This section only applies to the assignment of parameter values that do not have the ``final`` keyword.
+   People who implement control sequences that require that values of parameters are identical
+   among multiple instances of blocks
+   should use blocks that take these values as an input, rather than rely on the ``final`` keyword.
+   This could be done as explained in
+   these two examples:
+
+   Example 1: If a controller has two samplers called ``sam1`` and ``sam2`` and their parameter
+   ``samplePeriod`` must satisfy ``sam1.samplePeriod = sam2.samplePeriod`` for the logic to work correctly,
+   then the controller can be implemented using
+   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
+   and connect its output to two instances of
+   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
+   that sample the corresponding signals.
+
+   Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
+   rather than using two instances of
+   `CDL.Continuous.Gain <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Gain>`_
+   with parameter ``k = 1/k1``, one could use
+   a constant source
+   `CDL.Continuous.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous_Sources.html#Buildings.Controls.OBC.CDL.Continuous.Sources.Constant>`_
+   with parameter ``k=k1`` and
+   two instances of
+   `CDL.Continuous.Division <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Division>`_,
+   and then connect
+   the output of the constant source with the inputs of the division block.
+
+
+
+Evaluation of Assignment of Values to Parameters
+................................................
+
+
+We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
+
+.. note::
+
+   This feature is being implemented through https://github.com/lbl-srg/modelica-json/issues/102
 
 
 Consider the statement
@@ -460,98 +489,7 @@ equivalent of the declaration
      uLow  = 25,
      uHigh = 75) "Hysteresis for fan control";
 
-.. note::
 
-   This is being implemented through https://github.com/lbl-srg/modelica-json/issues/102
-
-
-Propagation of parameter values that use the final keyword
-__________________________________________________________
-
-If the assignment of parameter values involve the ``final`` keyword, then certain restrictions
-must be placed to ensure that the declarations of CDL can be preserved when translated
-to a control product line that does not support a ``final`` keyword.
-Specifically, only one-to-one parameter assignment are allowed.
-For example, consider
-
-.. code-block:: modelica
-
-   parameter Real s = 1;
-   Continuous.Sources.Constant con(final k=s); // k cannot be set to anything else than s
-   equation
-   connect(con.y, someBlock.u);
-
-
-A translator from CDL to the CDL-JSON intermediate format
-can translate this in two possible ways, called *a)* and *b)* below.
-Option *a)* is for translators that will preserve the ``parameter`` declaration and its dependencies after the translation,
-such as any Modelica-based tool would. This option allows any Modelica GUI to expose to the
-modeller the parameters so that she/he can change the values.
-Option *b)* is for translators that will remove the dependencies, such as ALC Eikon. In these programs,
-building operators would open the graphical panes and change the value in a ``Constant`` block.
-
-Using option *a)*, the translator will generate code such as the pseudo-code below
-
-.. code-block:: C
-
-   s = value_from_gui(instanceName="s", defaultValue=1);
-   con.k = s;
-   someBlock.u = con.k;
-
-In this case, stoping the simulation, setting a new value of ``s=2`` and continuing the simulation will
-cause ``s = con.k = someBlock.u = 2``.
-[The pseudo-function ``value_from_gui`` may show to the building operator
-a window in which the value for ``s`` can be changed during run-time.]
-
-Option *b)* is for building control product lines that do not support such a dependency.
-In this case, the generated code will be equivalent to the declaration
-
-.. code-block:: modelica
-
-   Continuous.Sources.Constant s(k=1);
-   equation
-   connect(s.y, someBlock.u);
-
-or using pseudo-code
-
-.. code-block:: C
-
-  s = value_from_gui(instanceName="s", defaultValue=1);
-  someBlock.u = s;
-
-If option *b)* is used, then the translator must remove the declaration ``parameter Real s=1;``
-because there is no longer anything dependent on the parameter ``s``, and rename the instance ``con`` to ``s``,
-which will ensure that the documentation of the sequence, which may describe what ``s`` is, remains correct.
-Note that for option *b)*, the propagation of the parameter value is through block-diagram modeling only.
-
-For option *b)* to work, parameters must only be assigned to one instance
-if this assignment is declared as ``final``. For example
-
-.. code-block:: modelica
-   :emphasize-lines: 2,3
-
-   parameter Real samplePeriod = 60;
-   Discrete.Sampler sam1(final samplePeriod = samplePeriod); // not valid
-   Discrete.Sampler sam2(final samplePeriod = samplePeriod); // not valid
-
-is not valid and ``modelica-json`` will stop with an error.
-This is because a translator may translate this, using option *b)* above, to
-
-.. code-block:: C
-
-    sam1.samplePeriod = 60;
-    sam2.samplePeriod = 60;
-
-at which point a user cannot change the value anymore, causing the translated program to be less flexible.]
-
-.. note::
-
-   If ``sam1.samplePeriod = sam2.samplePeriod = samplePeriod`` must be enforced for the logic to work correctly,
-   then the controller can be implemented using
-   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
-   and connect its output to instances of
-   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
-   that sample the corresponding signals.
 
 
 .. _sec_con_rem_ins:
