@@ -393,7 +393,7 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
 
    People who implement control sequences that require that values of parameters are identical
    among multiple instances of blocks
-   should use blocks that take these values as an input, rather than rely on the ``final`` keyword.
+   must use blocks that take these values as an input, rather than rely on the ``final`` keyword.
    This could be done as explained in
    these two examples:
 
