@@ -272,7 +272,6 @@ the
 Instantiation
 ^^^^^^^^^^^^^
 
-.. _sec_ass_val_to_ins:
 
 Parameter Declaration and Assigning of Values to Parameters
 ...........................................................
@@ -419,6 +418,7 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    the output of the constant source with the inputs of the division block.
 
 
+.. _sec_par_eva_tra:
 
 Evaluation of Assignment of Values to Parameters
 ................................................
