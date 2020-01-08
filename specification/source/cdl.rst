@@ -415,7 +415,7 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    two instances of
    `CDL.Continuous.Division <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Division>`_,
    and then connect
-   the output of the constant source with the inputs of the division block.
+   the output of the constant source with the inputs of the division blocks.
 
 
 .. _sec_par_eva_tra:
@@ -425,6 +425,11 @@ Evaluation of Assignment of Values to Parameters
 
 
 We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
+While such an evaluation is not prefered, it is allowed in CDL to accomodate the situation
+that most building control product lines, in constrast to modeling tools such as
+Modelica, Simulink or LabVIEW,
+do not support the propagation of parameters,
+nor do they support the use of expressions in parameter assignments.
 
 .. note::
 
@@ -446,7 +451,8 @@ Consider the statement
 Some building control product lines will need to evaluate this at translation because
 they cannot propagate parameters and/or cannot evaluate expressions.
 
-To lower the barrier for a CDL translator, the ``modelica-json`` translator has two flags.
+To lower the barrier for the development of a CDL translator to a control product line,
+the ``modelica-json`` translator has two flags.
 One flag, called ``evaluatePropagatedParameters`` will cause the translator to evaluate the propagated parameter,
 leading to a CDL-JSON declaration that is equivalent to the declaration
 
@@ -489,7 +495,31 @@ equivalent of the declaration
      uLow  = 25,
      uHigh = 75) "Hysteresis for fan control";
 
+Clearly, use of these flags is not preferred, but they have been introduced to
+accomodate the capabilities that are present in most of today's building control product lines.
 
+.. note::
+
+   A commonly used construct in control sequences is to declare a ``parameter`` and
+   then use the parameter once to assign the value of a block in this sequences.
+   In CDL, this construct looks like
+
+   .. code-block:: modelica
+
+      parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
+      CDL.Continuous.Sources.Constant con(k = pRel) "Block producing constant output";
+
+   Note that the English language sequence description would typically refer to the parameter ``pRel``.
+   If this is evaluated during translation due to the ``evaluatePropagatedParameters`` flag,
+   then ``pRel`` would be removed as it is no longer used.
+   Hence, such a translation should then rename the block ``con`` to ``pRel``, e.g., it should
+   produce a sequence that is equivalent to the CDL declaration
+
+   .. code-block:: modelica
+
+      CDL.Continuous.Sources.Constant pRel(k = 50) "Block producing constant output";
+
+   In this way, references in the English language sequence to ``pRel`` are still valid.
 
 
 .. _sec_con_rem_ins:
