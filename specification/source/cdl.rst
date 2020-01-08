@@ -272,7 +272,6 @@ the
 Instantiation
 ^^^^^^^^^^^^^
 
-.. _sec_ass_val_to_ins:
 
 Declaration and Assigning Values to Parameters
 ..............................................
@@ -395,6 +394,7 @@ The next sections describe the propagation of parameters without and with the ``
    Check in the current sequences what the implications are if we indeed impose this restriction
    on the use of ``final``.
 
+.. _sec_par_eva_tra:
 
 Evaluation of propagated non-final parameters and evaluation of non-final parameter expressions
 _______________________________________________________________________________________________
