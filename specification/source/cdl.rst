@@ -284,11 +284,10 @@ interaction with the control program (such as to change a control gain),
 unless a parameter is a :term:`structural parameter <Structural parameter>`.
 
 The declaration of parameters and their values is identical to Modelica,
-except that parameter assignment can only be
-literals (such as ``Real``, ``Integer`` and ``Boolean``) and
-arrays of literals. In addition, for ``Boolean`` parameters, expressions involving
-``and``, ``or`` and ``not`` are allowed.
-For ``Real`` and ``Integer``, expressions are allowe that involving
+but we limit the type of functions that are allowed in such assignments. In particular,
+for ``Boolean`` parameters, we allow expressions involving
+``and``, ``or`` and ``not`` and the function ``fill(..)`` in :numref:`tab_par_fun`.
+For ``Real`` and ``Integer``, expressions are allowed that involve
 
 - the basic arithmetic functions ``+``, ``-``, ``*``, ``-``,
 - the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
@@ -380,6 +379,7 @@ propagation of parameter values and evaluation of expressions in parameter assig
 For CDL to be compatible with this limitation, the ``modelica-json`` translator
 has optional flags, described below, that trigger the evaluation of propagated parameters,
 and that evaluate expressions that involve parameters.
+
 CDL also has a keyword called ``final`` that prevents a declaration to be changed by the user.
 This can be used in a hierarchical controller to ensure that parameter values are propagated to lower level controller
 in such a way that users can only change their value at the top-level location.
@@ -488,7 +488,7 @@ Using option *a)*, the translator will generate code such as the pseude-code bel
 
 .. code-block:: C
 
-   s = value_from_gui(instanceName="s", startValue=1);
+   s = value_from_gui(instanceName="s", defaultValue=1);
    con.k = s;
    someBlock.u = con.k;
 
@@ -510,7 +510,7 @@ or using pseude-code
 
 .. code-block:: C
 
-  s = value_from_gui(instanceName="s", startValue=1);
+  s = value_from_gui(instanceName="s", defaultValue=1);
   someBlock.u = s;
 
 If option *b)* is used, then the translator must remove the declaration ``parameter Real s=1;``
