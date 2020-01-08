@@ -29,9 +29,14 @@ the Open Building Controls project.
      pertaining to the building.
 
    CDL
-     See :term:`Controls Description Language`.
+     See :term:`Control Description Language`.
 
-   Controls Description Language
+   CDL-JSON
+     The JSON representation of the :term:`Control Description Language`,
+     which can be generated with the ``modelica-json`` translator that
+     is available at https://github.com/lbl-srg/modelica-json.
+
+   Control Description Language
      The Control Description Language (CDL) is the language
      that is used to express control sequences and requirements.
      It is a declarative language based on a subset of the
@@ -45,7 +50,7 @@ the Open Building Controls project.
      * test the control sequences and the requirements with a model
        of the HVAC system and the building in the loop, and
      * export the control sequence and the verification test
-       in the :term:`Controls Description Language`.
+       in the :term:`Control Description Language`.
 
    Control Sequence Requirement
      A requirement is a condition that is tested and either passes, fails,
@@ -150,6 +155,14 @@ the Open Building Controls project.
         \end{cases}
 
      has a state event when :math:`x=1`.
+
+   Structural parameter
+     We say that a parameter is a *structural parameter* if changing its value can change
+     the system of equations that is being evaluated in the control logic.
+     For example, a parameter that changes a controller from a P to a PI controller is a
+     structural parameter because an integrator is being added.
+     A parameter that enables an input or that changes the size of an array is a structural
+     parameter.
 
    Time event
      We say that a simulation has a time event if its model changes based on a test

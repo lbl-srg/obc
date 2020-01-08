@@ -111,31 +111,36 @@ a:link, a:hover, a:visited, a:focus{
   }
 
 td{
-  padding-inline-start: 15px;
+  padding: 0px !important;;
+  padding-left: 10px !important;
+}
 
+td.label{
+  color: #022e4d;
+}
+
+table.citation > thead > tr > th, .table.citation > tbody > tr > th, .table.citation > tfoot > tr > th, .table.citation > thead > tr > td, .table.citation > tbody > tr > td, .table.citation > tfoot > tr > td{
+  border: none;
+}
+
+#references.section{
+  color: #022e4d;
+}
+
+.caption-text, .caption-number{
+  color: #022e4d;
+  font-style:italic;
 }
 
 code, pre{
-border: 0;
-color: #750000;
-
+  border: 0;
+  color: #750000;
 }
 
 #markdown-toc{
     border: 0;
     color: #750000;
     background-color: #f0f0f0;
-}
-
-
-td.label{
-    color: #022e4d;
-}
-table.citation > thead > tr > th, .table.citation > tbody > tr > th, .table.citation > tfoot > tr > th, .table.citation > thead > tr > td, .table.citation > tbody > tr > td, .table.citation > tfoot > tr > td{
-    border: none;
-}
-#references.section{
-    color: #022e4d;
 }
 
 h1{

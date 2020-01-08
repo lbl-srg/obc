@@ -14,7 +14,7 @@ linked to a model of the mechanical system and the building (4).
 If the sequences meet closed-loop performance requirements,
 the designer exports a control specification,
 including the sequences and functional verification tests expressed in
-the Controls Description Language CDL (5).
+the Control Description Language CDL (5).
 Optionally, for reuse in similar projects,
 the sequences can be added to a user-library (6).
 This specification is used by the control vendor to bid on the project (7)

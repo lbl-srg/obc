@@ -480,16 +480,10 @@ use a global variable or virtual points.
 Calculations in Parameter Assignments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-CDL allows calculations in the assignment statements of ``parameters``,
-see :numref:`sec_ass_val_to_ins`.
+CDL allows calculations in the assignment statements of ``parameters``.
 If a building automation system does not support such calculations,
-then the translator should extract the assignments as a separate operational
+then the translator can optionally configured to evaluate such
+calculations during the translation.
+should extract the assignments as a separate operational
 block and feed its outputs to the parameters of the block.
-:numref:`fig_exp_par_prop` shows an illustrative example.
-
-.. _fig_exp_par_prop:
-
-.. figure:: img/codeGeneration/ParameterPropagation/ParameterAssignment.*
-   :width: 700px
-
-   Example of translating sequences with calculations for parameter assignment.
+See :numref:`sec_par_eva_tra` for details.

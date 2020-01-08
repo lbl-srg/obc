@@ -3,8 +3,61 @@
 Control Description Language
 ----------------------------
 
+Introduction
+^^^^^^^^^^^^
+
+
 This section specifies
-the Control Description Language (CDL).
+the Control Description Language (CDL),
+a declarative language that can be used to express control sequences using block-diagrams.
+It is designed in such a way that it can be used to conveniently specify building control sequences
+in a vendor-independent format, use them within whole building energy simulation,
+and translate them for use in building control systems.
+
+To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
+or to English language documentation.
+Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
+(see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
+translates CDL to an intermediate format that we call :term:`CDL-JSON`.
+From CDL-JSON, further translations can be done to a control product line, or to
+generate point lists or English language documentation of the control sequences.
+
+.. _fig_cdl_pro_lin:
+
+.. uml::
+   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product line or English language documentation.
+   :width: 550 px
+
+   skinparam componentStyle uml2
+
+     [CDL]
+
+     [CDL-JSON]
+
+     [control product line]
+
+     [point list]
+
+     [English language documentation]
+
+     [CDL] -d-> [CDL-JSON]
+
+     [CDL-JSON] --> [control product line]
+
+     [CDL-JSON] --> [point list]
+
+     [CDL-JSON] --> [English language documentation]
+
+
+
+This section describes the CDL language. Its translation using ``modelica-json``, or other means of translation, is described in
+:numref:`sec_code_gen`.
+A collection of control sequences, primarily from ASHRAE Guideline 36, is available
+from the Modelica Buildings Library at https://simulationresearch.lbl.gov/modelica/.
+A tool to export CDL into the CDL-JSON intermediate format that
+can be used to translate to commercial building automation systems, a process that we have been prototyping in 2019/20, is
+available at https://github.com/lbl-srg/modelica-json.
+
 
 The CDL consists of the following elements:
 
@@ -24,7 +77,7 @@ The CDL consists of the following elements:
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
 
-The next sections explain the elements of CDL.
+The next sections define the CDL language.
 
 
 Syntax
@@ -66,7 +119,7 @@ Permissible Data Types
 The basic data types are, in addition to the elementary building blocks,
 parameters of type
 ``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
-[Parameters do not change their value as time progress.]
+[Parameters do not change their value as time progresses.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
 instances of blocks, or declarations of type ``parameter``,
@@ -96,13 +149,14 @@ Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
 An array of size ``0`` is an empty array.
 
-Arrays may be constructed with the array constructor
-function ``array(x1,x2,...)`` or its shorthand ``{x1,x2,...}``,
-for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``,
+Arrays may be constructed using the notation ``{x1,x2,...}``,
+for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``, or using
 one or several iterators, for example
-``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``,
-and with a ``fill`` function.
-Arrays may also be concatenated using ``cat``.
+``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``.
+They can also be constructed using
+a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+
+The size of arrays will be fixed at translation. It cannot be changed during run-time.
 
 [``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
 
@@ -177,8 +231,9 @@ composite blocks (:numref:`sec_com_blo`).
        and open ``Buildings/package.mo`` in the graphical model editor of
        `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
        `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
-       All models in the `Examples` and `Validation` packages can be simulated with these tools.
-       They can also be simulated with `JModelica <http://www.jmodelica.org/>`_.
+       All models in the `Examples` and `Validation` packages can be simulated with these tools, as well
+       as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_ and
+       with `JModelica <http://www.jmodelica.org/>`_.
 
 An actual implementation of an elementary building block
 looks as follows, where we omitted the annotations that are
@@ -189,11 +244,9 @@ used for graphical rendering:
    block AddParameter "Output the sum of an input plus a parameter"
 
      parameter Real p "Value to be added";
-
      parameter Real k "Gain of input";
 
      Interfaces.RealInput u "Connector of Real input signal";
-
      Interfaces.RealOutput y "Connector of Real output signal";
 
    equation
@@ -218,37 +271,255 @@ the
 Instantiation
 ^^^^^^^^^^^^^
 
-.. _sec_ass_val_to_ins:
+.. _sec_dec_par:
 
-Declaration and Assigning Values to Instances
-.............................................
+Parameter Declaration and Assigning of Values to Parameters
+...........................................................
 
-Instantiation is identical to Modelica.
+*Parameters* are values that do not depend on time.
+The values of parameters can be changed during run-time through a user
+interaction with the control program (such as to change a control gain),
+unless a parameter is a :term:`structural parameter <Structural parameter>`.
+
+The declaration of parameters and their values is identical to Modelica,
+but we limit the type of expressions that are allowed in such assignments. In particular,
+for ``Boolean`` parameters, we allow expressions involving
+``and``, ``or`` and ``not`` and the function ``fill(..)`` in :numref:`tab_par_fun`.
+For ``Real`` and ``Integer``, expressions are allowed that involve
+
+- the basic arithmetic functions ``+``, ``-``, ``*``, ``-``,
+- the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
+- calls to the functions listed in :numref:`tab_par_fun`.
+
+.. _tab_par_fun:
+
+
+.. table:: Functions that are allowed in parameter assignments. The functions
+           are consistent with Modelica 3.3.
+   :widths: 15 80
+
+   ========================  ===========================================================
+   Function                  Descrition
+   ========================  ===========================================================
+   ``abs(v)``                Absolute value of ``v``.
+   ``sign(v)``               Returns ``if v>0 then 1 else if v<0 then –1 else 0``.
+   ``sqrt(v)``               Returns the square root of ``v`` if ``v >=0``, or an error otherwise.
+   ``div(x, y)``             Returns the algebraic quotient ``x/y`` with any fractional
+                             part discarded (also known as truncation toward zero).
+                             [Note: this is defined for ``/`` in C99; in C89 the result for
+                             negative numbers is implementation-defined,
+                             so the standard function ``div()`` must be used.].
+                             Result and arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the result is ``Real``
+                             otherwise it is ``Integer``.
+   ``mod(x, y)``             Returns the integer modulus of ``x/y`` , i.e.
+                             ``mod(x,y)=x-floor(x/y)*y``. Result and
+                             arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the
+                             result is ``Real`` otherwise it is ``Integer``.
+
+                             [Examples are ``mod(3,1.4)=0.2``, ``mod(-3,1.4)=1.2`` and
+                             ``mod(3,-1.4)=-1.2``.]
+   ``rem(x,y)``              Returns the integer remainder of ``x/y``, such that
+                             ``div(x,y)*y + rem(x, y) = x``.
+                             Result and arguments shall have type ``Real`` or ``Integer``.
+                             If either of the arguments is ``Real`` the result is ``Real``
+                             otherwise it is ``Integer``.
+
+                             [Examples are ``rem(3,1.4)=0.2`` and ``rem(-3,1.4)=-0.2``.]
+   ``ceil(x)``               Returns the smallest integer not less than ``x``.
+                             Result and argument shall have type ``Real``.
+   ``floor(x)``              Returns the largest integer not greater than ``x``.
+                             Result and argument shall have type ``Real``.
+   ``integer(x)``            Returns the largest integer not greater than ``x``.
+                             The argument shall have type Real.
+                             The result has type Integer.
+   ``min(A)``                Returns the least element of array expression ``A``.
+   ``min(x, y)``             Returns the least element of the scalars ``x`` and ``y``.
+   ``max(A)``                Returns the greatest element of array expression ``A``.
+   ``max(x, y)``             Returns the greatest element of the scalars ``x`` and ``y``.
+   ``sum(...)``              The expression ``sum( e(i, ..., j) for i in u, ..., j in v)``
+                             returns the sum of the expression ``e(i, ..., j)`` evaluated for all
+                             combinations of ``i`` in
+                             ``u, ..., j in v: e(u[1], ... ,v[1]) + e(u[2], ... ,v[1])+... +e(u[end],... ,v[1])+...+e(u[end],... ,v[end])``
+
+                             The type of ``sum(e(i, ..., j) for i in u, ..., j in v)`` is the same as the type of ``e(i,...j)``.
+   ``fill(s, n1, n2, ...)``  Returns the :math:`n_1 \times n_2 \times n_3 \times \dots` array with all
+                             elements equal to scalar or array
+                             expression ``s`` (:math:`n_i \ge 0`).
+                             The returned array has the same type as ``s``.
+
+                             Recursive definition:
+                             ``fill(s, n1, n2, n3, ...) = fill( fill(s, n2, n3, ...), n1);``,
+                             ``fill(s,n)={s, s, ..., s}``
+
+                             The function needs two or more arguments; that is ``fill(s)``
+                             is not legal.
+   ========================  ===========================================================
+
+
 
 [For example, to instantiate a gain, one would write
 
 .. code-block:: modelica
 
-   Continuous.Gain myGain(k=-1) "Constant gain of -1" annotation(...);
+   Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
 
 where the documentation string is optional.
-The annotations is typically used
-for the graphical positioning of the instance in a block-diagram.
-]
+The annotation is typically used
+for the graphical positioning of the instance in a block-diagram.]
 
-In the assignment of ``parameters``, calculations are allowed.
+Using expressions in parameter assignments, and propagating values of parameters
+in a hierarchical formulation of a control sequence, are convenient language constructs
+to express relations between
+parameters. However, most of today's building control product lines do not support
+propagation of parameter values and evaluation of expressions in parameter assignments.
+For CDL to be compatible with this limitation, the ``modelica-json`` translator
+has optional flags, described below, that trigger the evaluation of propagated parameters,
+and that evaluate expressions that involve parameters.
 
-[For example, a hysteresis block could be configured as follows
+CDL also has a keyword called ``final`` that prevents a declaration to be changed by the user.
+This can be used in a hierarchical controller to ensure that parameter values are propagated to lower level controller
+in such a way that users can only change their value at the top-level location.
+It can also be used in CDL to enforce that different instances of blocks have the same parameter value.
+For example, if a controller samples two signals, then ``final`` could be used to ensure that they
+sample at the same rate.
+However, most of today's building control product lines do not support such a language construct.
+Therefore, while the CDL translator preserves the ``final`` keyword in the ``CDL-JSON`` format,
+a translator from ``CDL-JSON`` to a control product line is allowed to ignore this declaration.
+
+
+.. note::
+
+   People who implement control sequences that require that values of parameters are identical
+   among multiple instances of blocks
+   must use blocks that take these values as an input, rather than rely on the ``final`` keyword.
+   This could be done as explained in
+   these two examples:
+
+   Example 1: If a controller has two samplers called ``sam1`` and ``sam2`` and their parameter
+   ``samplePeriod`` must satisfy ``sam1.samplePeriod = sam2.samplePeriod`` for the logic to work correctly,
+   then the controller can be implemented using
+   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
+   and connect its output to two instances of
+   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
+   that sample the corresponding signals.
+
+   Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
+   rather than using two instances of
+   `CDL.Continuous.Gain <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Gain>`_
+   with parameter ``k = 1/k1``, one could use
+   a constant source
+   `CDL.Continuous.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous_Sources.html#Buildings.Controls.OBC.CDL.Continuous.Sources.Constant>`_
+   with parameter ``k=k1`` and
+   two instances of
+   `CDL.Continuous.Division <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Division>`_,
+   and then connect
+   the output of the constant source with the inputs of the division blocks.
+
+
+.. _sec_par_eva_tra:
+
+Evaluation of Assignment of Values to Parameters
+................................................
+
+
+We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
+While such an evaluation is not prefered, it is allowed in CDL to accomodate the situation
+that most building control product lines, in constrast to modeling tools such as
+Modelica, Simulink or LabVIEW,
+do not support the propagation of parameters,
+nor do they support the use of expressions in parameter assignments.
+
+.. note::
+
+   This feature is being implemented through https://github.com/lbl-srg/modelica-json/issues/102
+
+
+Consider the statement
 
 .. code-block:: modelica
 
    parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
 
+   CDL.Continuous.Sources.Constant con(
+     k = pRel) "Block producing constant output";
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
      uHigh = pRel+25) "Hysteresis for fan control";
 
-]
+Some building control product lines will need to evaluate this at translation because
+they cannot propagate parameters and/or cannot evaluate expressions.
+
+To lower the barrier for the development of a CDL translator to a control product line,
+the ``modelica-json`` translator has two flags.
+One flag, called ``evaluatePropagatedParameters`` will cause the translator to evaluate the propagated parameter,
+leading to a CDL-JSON declaration that is equivalent to the declaration
+
+.. code-block:: modelica
+
+   CDL.Continuous.Sources.Constant con(
+     k(unit="Pa") = 50) "Block producing constant output";
+   CDL.Logical.Hysteresis hys(
+     uLow  = 50-25,
+     uHigh = 50+25) "Hysteresis for fan control";
+
+Note
+  1. the ``parameter Real pRel(unit="Pa") = 50`` has been removed as it is no longer used anywhere.
+  2. the parameter ``con.k`` has now the ``unit`` attribute set as this information would otherwise be lost.
+  3. the parameter ``hys.uLow`` has the unit *not* set because the assignment involves an expression.
+     As expressions can be used to convert a value to a different unit, the unit will not be propagated
+     if the assignment involves an expression.
+
+Another flag called ``evaluateExpressions`` will cause all mathematical expressions to be evaluated,
+leading to a CDL-JSON declaration that is equivalent to the CDL declaration
+
+.. code-block:: modelica
+
+   parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
+
+   CDL.Continuous.Sources.Constant con(
+     k = pRel) "Block producing constant output";
+   CDL.Logical.Hysteresis hys(
+     uLow  = 25,
+     uHigh = 75) "Hysteresis for fan control";
+
+If both ``evaluatePropagatedParameters`` and ``evaluateExpressions`` are set, the result would be
+equivalent of the declaration
+
+.. code-block:: modelica
+
+   CDL.Continuous.Sources.Constant con(
+     k(unit="Pa") = 50) "Block producing constant output";
+   CDL.Logical.Hysteresis hys(
+     uLow  = 25,
+     uHigh = 75) "Hysteresis for fan control";
+
+Clearly, use of these flags is not preferred, but they have been introduced to
+accomodate the capabilities that are present in most of today's building control product lines.
+
+.. note::
+
+   A commonly used construct in control sequences is to declare a ``parameter`` and
+   then use the parameter once to assign the value of a block in this sequences.
+   In CDL, this construct looks like
+
+   .. code-block:: modelica
+
+      parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
+      CDL.Continuous.Sources.Constant con(k = pRel) "Block producing constant output";
+
+   Note that the English language sequence description would typically refer to the parameter ``pRel``.
+   If this is evaluated during translation due to the ``evaluatePropagatedParameters`` flag,
+   then ``pRel`` would be removed as it is no longer used.
+   Hence, such a translation should then rename the block ``con`` to ``pRel``, e.g., it should
+   produce a sequence that is equivalent to the CDL declaration
+
+   .. code-block:: modelica
+
+      CDL.Continuous.Sources.Constant pRel(k = 50) "Block producing constant output";
+
+   In this way, references in the English language sequence to ``pRel`` are still valid.
 
 
 .. _sec_con_rem_ins:
@@ -265,18 +536,18 @@ An example code snippet is
 
 .. code-block:: modelica
 
-    parameter Boolean have_occSen=false
-      "Set to true if zones have occupancy sensor";
+   parameter Boolean have_occSen=false
+     "Set to true if zones have occupancy sensor";
 
-    CDL.Interfaces.IntegerInput nOcc if have_occSen
-      "Number of occupants"
-        annotation (__cdl(default = 0));
+   CDL.Interfaces.IntegerInput nOcc if have_occSen
+     "Number of occupants"
+       annotation (__cdl(default = 0));
 
-    CDL.Continuous.Gain gai(
-      k = VOutPerPer_flow) if have_occSen
-        "Outdoor air per person";
-  equation
-    connect(nOcc, gai.u);
+   CDL.Continuous.Sources.Constant con(
+     k = VOutPerPer_flow) if have_occSen
+       "Outdoor air per person";
+   equation
+   connect(nOcc, con.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.
@@ -289,6 +560,7 @@ must declare a default value of the form ``__cdl(default = value)``,
 where ``value`` is the default value that will be used
 if the building automation system does not support conditionally removing instances.
 The type of ``value`` must be the same as the type of the connector.
+For ``Boolean`` connectors, the allowed values are ``true`` and ``false``.
 
 Note that output connectors must not have a specification of a default value,
 because if a building automation system cannot conditionally remove instances,
@@ -314,7 +586,7 @@ non-working day and holiday.
 
 Connectors must be in a ``public`` section.
 
-Connectors can only carry scalar variables.
+Connectors can carry scalar variables, vectors or arrays of values (each having the same data type).
 For arrays, the connectors need to be explicitly declared as an array.
 
 [ For example, to declare an array of ``nin`` input signals, use
@@ -325,9 +597,42 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
 
-Hence, unlike in Modelica 3.3, we do not allow for automatic vectorization
-of input signals.
 ]
+
+.. note::
+
+   In general, today's building control product lines only support scalar variables on graphical connections.
+   This leads to the situation that different control sequences need to be implemented for any combination of
+   equipment. For example, if only scalars are allowed in connections, then a chiller plant with two chillers
+   needs a different sequence than a chiller plant with three chillers. With vectors, however,
+   one sequence can be implemented for chiller plants with any number of chillers. This is currently done
+   when implementing sequences from ASHRAE RP-1711 in CDL.
+
+   If control product lines do not support vectors on connections, then during translation from CDL to the
+   control product line, the vectors (or arrays) can be flattened. For example, blocks of the form
+
+   .. code-block:: modelica
+
+      parameter Integer n = 2 "Number of blocks";
+      CDL.Continuous.Sources.Constant con[n](k={1, 2});
+      CDL.Continuous.MultiSum mulSum(nin=n); // multiSum that contains an input connector u[nin]
+      equation
+      connect(con.y, mulSum.u);
+
+   could be translated to the equivalent of
+
+   .. code-block:: modelica
+
+      CDL.Continuous.Sources.Constant con_1(k=1);
+      CDL.Continuous.Sources.Constant con_2(k=1);
+      CDL.Continuous.MultiSum mulSum(nin=2);
+      equation
+      connect(con_1.y, mulSum.u_1);
+      connect(con_2.y, mulSum.u_2);
+
+   E.g., two instances of ``CDL.Continuous.Sources.Constant`` are used, the vectorized input ``mulSum.u[2]`` is flattened
+   to two inputs, and two separate connections are instantiated.
+   This will preserve the control logic, but the components will need to be graphically rearranged after translation.
 
 .. _sec_equation:
 
@@ -358,11 +663,9 @@ Connections
 Connections connect input to output connector (:numref:`sec_connectors`).
 For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
-For vectorized connectors, each (element of an) input connector needs to be connected
+For vectorized connectors, or vectorized instances with scalar connectors,
+each (element of an) input connector needs to be connected
 to exactly one (element of an) output connector.
-Vectorized input connectors can be connected to vectorized output connectors
-using one connection statement provided that
-they have the same number of elements.
 
 Connections are listed after the instantiation of the blocks in an ``equation``
 section. The syntax is
@@ -398,13 +701,11 @@ For example, the following model is valid
 
 .. literalinclude:: img/cdl/MyAdderValid.mo
    :language: modelica
-   :linenos:
 
 whereas the following implementation is not valid in CDL, although it is valid in Modelica
 
 .. literalinclude:: img/cdl/MyAdderInvalid.mo
    :language: modelica
-   :linenos:
    :emphasize-lines: 4
 
 ]
@@ -426,7 +727,7 @@ Modelica 3.3 Specifications
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
 input and output signal connections, and to declare
-vendor annotations, (Sec. 18.1 in Modelica 3.3 Specification), like to specify default
+vendor annotations, (Sec. 18.1 in Modelica 3.3 Specification), such as to specify default
 value of connector as below.]
 
 CDL also uses annotations to declare default values for conditionally removable input
@@ -456,7 +757,7 @@ with the file extension ``.mo``, and with each package name being a directory.
 The name shall be an allowed Modelica class name.
 
 [For example, if a user specifies a new composite block ``MyController.MyAdder``, then it
-shall be stored in the file ``MyController/MyAdder.mo`` on Linux or OS X, or ``MyController\\MyAdder.mo``
+shall be stored in the file ``MyController/MyAdder.mo`` on Linux or OS X, or ``MyController\MyAdder.mo``
 on Windows.]
 
 
@@ -466,7 +767,6 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 .. literalinclude:: img/cdl/CustomPWithLimiter.mo
    :language: modelica
-   :linenos:
 
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
