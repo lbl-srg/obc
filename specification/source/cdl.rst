@@ -149,13 +149,12 @@ Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
 An array of size ``0`` is an empty array.
 
-Arrays may be constructed with the array constructor
-function ``array(x1,x2,...)`` or its shorthand ``{x1,x2,...}``,
-for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``,
+Arrays may be constructed using the notation ``{x1,x2,...}``,
+for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``, or using
 one or several iterators, for example
-``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``,
-and with a ``fill`` function.
-Arrays may also be concatenated using ``cat``.
+``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``.
+They can also be constructed using
+a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
 
 The size of arrays will be fixed at translation. It cannot be changed during run-time.
 
@@ -272,6 +271,7 @@ the
 Instantiation
 ^^^^^^^^^^^^^
 
+.. _sec_dec_par:
 
 Parameter Declaration and Assigning of Values to Parameters
 ...........................................................
