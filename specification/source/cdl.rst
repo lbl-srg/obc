@@ -109,7 +109,6 @@ Also, the following Modelica language features are not supported in CDL:
    models as far as CDL is concerned and thus CDL compliant tools need
    not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
-#. ``connect`` statements that carry non-scalar values.
 
 
 .. _sec_cld_per_typ:
@@ -284,7 +283,7 @@ interaction with the control program (such as to change a control gain),
 unless a parameter is a :term:`structural parameter <Structural parameter>`.
 
 The declaration of parameters and their values is identical to Modelica,
-but we limit the type of functions that are allowed in such assignments. In particular,
+but we limit the type of expressions that are allowed in such assignments. In particular,
 for ``Boolean`` parameters, we allow expressions involving
 ``and``, ``or`` and ``not`` and the function ``fill(..)`` in :numref:`tab_par_fun`.
 For ``Real`` and ``Integer``, expressions are allowed that involve
@@ -391,6 +390,11 @@ that do not support the concept of a ``final`` declaration, certain
 restrictions are imposed on how to use the ``final`` keyword.
 The next sections describe the propagation of parameters without and with the ``final`` keyword.
 
+.. todo::
+
+   Check in the current sequences what the implications are if we indeed impose this restriction
+   on the use of ``final``.
+
 
 Evaluation of propagated non-final parameters and evaluation of non-final parameter expressions
 _______________________________________________________________________________________________
@@ -429,6 +433,8 @@ Note
   1. the ``parameter Real pRel(unit="Pa") = 50`` has been removed as it is no longer used anywhere.
   2. the parameter ``con.k`` has now the ``unit`` attribute set as this information would otherwise be lost.
   3. the parameter ``hys.uLow`` has the unit *not* set because the assignment involves an expression.
+     As expressions can be used to convert a value to a different unit, the unit will not be propagated
+     if the assignment involves an expression.
 
 Another flag called ``evaluateExpressions`` will cause all mathematical expressions to be evaluated,
 leading to a CDL-JSON declaration that is equivalent to the CDL declaration
@@ -612,7 +618,7 @@ non-working day and holiday.
 
 Connectors must be in a ``public`` section.
 
-Connectors can only carry scalar variables.
+Connectors can carry scalar variables, vectors or arrays of values (each having the same data type).
 For arrays, the connectors need to be explicitly declared as an array.
 
 [ For example, to declare an array of ``nin`` input signals, use
@@ -623,9 +629,42 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
 
-Hence, unlike in Modelica 3.3, we do not allow for automatic vectorization
-of input signals.
 ]
+
+.. note::
+
+   In general, today's building control product lines only support scalar variables on graphical connections.
+   This leads to the situation that different control sequences need to be implemented for any combination of
+   equipment. For example, if only scalars are allowed in connections, then a chiller plant with two chillers
+   needs a different sequence than a chiller plant with three chillers. With vectors, however,
+   one sequence can be implemented for chiller plants with any number of chillers. This is currently done
+   when implementing sequences from ASHRAE RP-1711 in CDL.
+
+   If control product lines do not support vectors on connections, then during translation from CDL to the
+   control product line, the vectors (or arrays) can be flattened. For example, blocks of the form
+
+   .. code-block:: modelica
+
+      parameter Integer n = 2 "Number of blocks";
+      CDL.Continuous.Sources.Constant con[n](k={1, 2});
+      CDL.Continuous.MultiSum mulSum(nin=n); // multiSum that contains an input connector u[nin]
+      equation
+      connect(con.y, mulSum.u);
+
+   could be translated to the equivalent of
+
+   .. code-block:: modelica
+
+      CDL.Continuous.Sources.Constant con_1(k=1);
+      CDL.Continuous.Sources.Constant con_2(k=1);
+      CDL.Continuous.MultiSum mulSum(nin=2);
+      equation
+      connect(con_1.y, mulSum.u_1);
+      connect(con_2.y, mulSum.u_2);
+
+   E.g., two instances of ``CDL.Continuous.Sources.Constant`` are used, the vectorized input ``mulSum.u[2]`` is flattened
+   to two inputs, and two separate connections are instantiated.
+   This will preserve the control logic, but the components will need to be graphically rearranged after translation.
 
 .. _sec_equation:
 
@@ -656,27 +695,11 @@ Connections
 Connections connect input to output connector (:numref:`sec_connectors`).
 For scalar connectors, each input connector of a block needs to be connected to exactly
 one output connector of a block.
-For vectorized connectors, each (element of an) input connector needs to be connected
+For vectorized connectors, or vectorized instances with scalar connectors,
+each (element of an) input connector needs to be connected
 to exactly one (element of an) output connector.
 Unlike in Modelica, a ``connect`` statement can only connect scalar variables or an
 individual element of a vectorized input/output port.
-
-[Hence, the following is not valid:
-
-.. code-block:: modelica
-
-   CDL.Continuous.Sources.Constant con[2](k={1, 1}) "Constant producing the output [1, 1]";
-   CDL.Continuous.MultiSum sum(nin=2) "Block that outputs the sum of its inputs";
-
-   equation
-   connect(con.y, sum.u); // Not valid
-
-]
-
-.. note:: In future extension, we will consider to allow vectorized input connectors
-          to be connected to vectorized output connectors, using one connection statement provided that
-          they have the same number of elements. This may be required for control sequences that
-          stage multiple chillers as developed in ASHRAE RP 1711.
 
 Connections are listed after the instantiation of the blocks in an ``equation``
 section. The syntax is
