@@ -698,8 +698,6 @@ one output connector of a block.
 For vectorized connectors, or vectorized instances with scalar connectors,
 each (element of an) input connector needs to be connected
 to exactly one (element of an) output connector.
-Unlike in Modelica, a ``connect`` statement can only connect scalar variables or an
-individual element of a vectorized input/output port.
 
 Connections are listed after the instantiation of the blocks in an ``equation``
 section. The syntax is
