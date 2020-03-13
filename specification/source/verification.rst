@@ -124,6 +124,8 @@ Modules of the verification test
 To conduct the verification, the following models and
 tools are used.
 
+.. _sec_ver_csv_reader:
+
 CSV file reader
 ~~~~~~~~~~~~~~~
 
@@ -250,6 +252,8 @@ generates an html file that contains the scatter plots shown in :numref:`fig_vav
 
    Scatter plots that show the control sequence diagram generated from
    the simulated sequence.
+
+.. _sec_ver_exa:
 
 Example
 ^^^^^^^
@@ -383,3 +387,256 @@ Despite these differences, the computed and the simulated control signals
 show good agreement, which is also demonstrated
 by verifying the time series with the
 funnel software, whose output is shown in :numref:`fig_coo_coi_val_fun`.
+
+
+Specification for automating the verification
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The example :numref:`sec_ver_exa` describes a manual process of composing
+the verification model and executing the verification process.
+In this section, we provide specifications for how this process can be automated, using
+the same procedures. The automated workflow uses the same modules as in :numref:`sec_ver_exa`,
+except that the unit conversion will need to be done by the tool that reads
+the CSV files and sends data to the Building Automation System, and that reads
+data from the Building Automation System and writes them to the CSV files.
+This design decision has been done because CDL provides all required unit information,
+but this is not the case in general for a building automation system.
+Moreover, in this process, the CSV files will be read directly by the Modelica simulation
+environment rather than using the CSV file reader described in :numref:`sec_ver_csv_reader`.
+
+Use cases
+~~~~~~~~~
+
+We target two use cases. Both uses cases verify a control control
+sequence specified in CDL against a real control implementation.
+For both use cases, the precondition is that one control sequence,
+or several control sequences, are available in CDL.
+The output will be a report that describes whether the real implementation
+conforms to the CDL implementation within a user-specified error tolerance.
+The difference between the two uses cases is as follows:
+In scenario 1, the control input is prescribed in a CDL model, whereas in
+scenario 2, the control input has been trended in the real controller and will be
+input to the CDL controller.
+
+To conduct the verification, the following three steps will be conducted:
+
+1. Specifify the test setup,
+2. generate data from the real controller, and
+3. produce the test results.
+
+Next, we will describe the specification for the two scenarios.
+
+.. _sec_ver_sce1:
+
+Scenario 1: Control input prescribed in the CDL model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For this scenario, we verify whether a real controller produces a similar response
+than a controller that is implemented in a CDL model, using as control input the
+inputs from the CDL model.
+
+Applications of this use case is to test if a controller complies with the
+sequences specified in CDL for a given test input, either as part of verifying correct
+implementation during control development, or correct implementation in a Building
+Automation System that allows overwriting control inputs.
+
+For this scenario, we are given the following data:
+
+i.   A list of CDL models, and for each model, the instance name of one control sequence
+     to be tested.
+
+ii.  Relative and absolute tolerances, either for all output variables, or optionally for
+     individual output variables of the sequence.
+
+iii. Optionally, a boolean variable in the model that we call an indicator variable.
+     An indicator variable allows to indicate when to pause a test, such as during a fast transient,
+     and when to resume the test, for example when the controls is expected to have reached steady-state.
+     If its value is ``true``, then the output should be tested at that time instant, and if it is ``false``, the output
+     must not be tested at that time instant.
+
+For example, consider
+`OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
+To verify the sequences of the instances ``setPoiVAV`` and ``setPoiVAV1``, a specification may be
+
+.. code-block::
+
+   references : [
+     { "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+       "sequence" : "setPoiVAV" },
+     { "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+       "sequence" : "setPoiVAV1",
+       "tolerances": {"atoly": 0.5, "variable": "setPoiVAV1.TSup*" },
+       "indicator": "fanSta.y",
+       "sampling": {"max": 60}
+      }
+     ],
+     "tolerances": {"rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0},
+     "sampling": {"max": 120}
+
+This specifies two tests, one for the sequence ``setPoiVAV`` and one ``setPoiVAV1``.
+The test for ``setPoiVAV`` will use the globally specified tolerances, and use
+a maximum sampling rate of :math:`120` seconds.
+The test for ``setPoiVAV1`` will use different tolerances on each variable that matches
+the regular expression ``setPoiVAV1.TSup*``. Moreover, the test will be suspended whenever
+``fanSta.y == false``, and the maximum sampling rate is :math:`60` seconds.
+Tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
+variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
+in the control signal.
+
+
+To create test inputs and outputs, we generate CSV files. This need to be done for each
+control sequence, and we will explain it only for the sequence ``setPoiVAV``.
+For brevity , we call ``OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
+simply ``Supply_u``
+
+The procedure is as follows:
+
+1. Parse the model to json using
+
+   .. code-block::
+
+      modelica-json -f Supply_u.mo -o json -d test1
+
+   This will produce ``Supply_u.json`` (file name is abbreviated) in the output directory
+   ``test1``.
+   See `https://github.com/lbl-srg/modelica-json <https://github.com/lbl-srg/modelica-json>`_
+   for the json schema.
+
+2. Extract all I/O from ``Supply_u.json`` and generate an I/O list that we will call
+   ``reference_io.json``.
+
+3. Obtain reference results by simulating ``Supply_u.mo`` to produce a CSV file ``reference.csv``
+   with all inputs, outputs and the indicator function. This can be accomplished with
+   the free open-source tool `OpenModelica <https://openmodelica.org>`_ by running
+
+   .. code-block:: bash
+
+     #~/bin/bash
+     set -e
+     export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
+     python3 simulateReference.py
+     rm -f Buildings.* 2&> /dev/null
+
+   with the file ``simulateReference.py`` being
+
+   .. code-block:: python
+
+      import shutil
+      from OMPython import OMCSessionZMQ
+      model="Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u"
+      # Load and simulate the model
+      omc = OMCSessionZMQ()
+      omc.sendExpression("loadModel(Buildings)")
+      omc.sendExpression("simulate({}, outputFormat=\"csv\")".format(model))
+      # Copy output file
+      shutil.move("{}_res.csv".format(model), "reference.csv")
+
+4. To make a CSV file that only contains the control inputs, read ``reference_io.json`` to extract
+   the names of the inputs of the sequence ``setPoiVAV`` and write these time series
+   from ``reference.csv`` to a new file ``reference_input.csv``.
+
+5. Run the real controller for the inputs in ``reference_input.csv``, and optionally apply
+   unit conversion to convert the time series in ``reference_input.csv`` to the units used by
+   the controller. Note that ``reference_io.json`` will also contain the unit declarations.
+   Convert the output of the real controller to the units specified in ``reference_io.json``,
+   and write the time series to a new file ``controller_output.csv``. Use the CDL output variable
+   names in the header of the CSV file.
+
+6. Produce the test results by running the funnel software
+   (`https://github.com/lbl-srg/funnel <https://github.com/lbl-srg/funnel>`_)
+   for each time series in ``controller_output.csv`` and in ``reference.csv``.
+   This will give for each time series output files that show where the error
+   exceeds the specified tolerance.
+
+The sequence above can be run for each test case, and the results from step 6 are to be used
+to generate a test report for all tested sequences.
+
+
+Scenario 2: Control input using trended control input
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For this scenario, we verify whether a real controller produces a similar response
+than a controller that is implemented in a CDL model, using as control input the
+data that was trended by running the real controller.
+
+Applications of this use case is to test if a controller complies with the
+sequences specified in CDL for already trended data.
+
+For this scenario, we are given the same data as in :numref:`sec_ver_sce1`, points i, ii, and iii.
+We will also consider the same controller as in that example.
+
+To create test inputs and outputs, we generate again CSV files. This needs to be done for each
+control sequence, and as above, we will explain it only for the sequence ``setPoiVAV``.
+
+The procedure is as follows:
+
+1. Produce the json file ``Supply_u.json`` as in step 1 in :numref:`sec_ver_sce1`.
+
+2. Generate the I/O list ``reference_io.json`` as in Step 2 in :numref:`sec_ver_sce1`.
+
+3. Trend the input and output data specified in ``reference_io.json``
+   from the real controller, as in Step 5 in :numref:`sec_ver_sce1`. However,
+   now the evolution of the input to the real controller is whatever it receives from the actual
+   building automation system.
+
+4. Convert the input of the real controller to the units specified in ``reference_io.json``,
+   and write the input time series to a new file ``reference_input.csv``.
+   Do the same for the output time series of the real controller and store it in the new file
+   ``controller_output.csv``.
+
+5. To see which CDL model contains the sequence only, parse ``Supply_u.json``
+   for the sequence ``setPoiVAV``. This will tell
+
+   a) what the CDL model of the sequence is, in our example, it is
+      ``Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply``,
+      and
+   b) what the parameters of the sequence are, in our example they are
+      ``yHeaMax=0.7, yMin=0.3, TSupSetMax=303.15, TSupSetMin=289.15``
+
+6. Simulate the sequence from point 5 with the corresponding parameters, using the inputs
+   from ``reference_input.csv``.
+
+   This can be accomplished with
+   the free open-source tool `OpenModelica <https://openmodelica.org>`_ by running
+
+   .. code-block:: bash
+
+      #~/bin/bash
+      set -e
+      export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
+      python3 -i simulateCDL.py
+      rm -f Buildings.* 2&> /dev/null
+
+   with the file ``simulateCDL.py`` being
+
+   .. code-block:: python
+
+      import shutil
+      import os
+      from OMPython import OMCSessionZMQ
+
+      model="Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply"
+      parameters="(yHeaMax=0.7, yMin=0.3, TSupSetMax=303.15, TSupSetMin=289.15)"
+      omc = OMCSessionZMQ()
+      omc.sendExpression("loadModel(Buildings)")
+      omc.sendExpression("simulate({}, startTime=0, stopTime=3600, simflags=\"-csvInput reference_input.csv\", outputFormat=\"csv\")".format(model))
+      shutil.move("{}_res.csv".format(model), "reference.csv")
+
+   and the CSV file
+
+   .. code-block::
+
+      time, uHea, uCoo, TZonSet, TZon, TOut, uFan
+      0, 1, 1, 293.15, 293.15, 283.15, 0
+      3600, 1, 1, 293.15, 293.15, 283.15, 0
+
+
+   This will produce the CSV file ``reference.csv`` that contains all control input and outputs.
+
+   **Note: This currently does not work, see https://trac.openmodelica.org/OpenModelica/ticket/5890 for
+   the ticket**
+
+7. Produce the test results as in Step 6 in :numref:`sec_ver_sce1`.
+
+The sequence above can be run for each test case, and the results from step 6 are to be used
+to generate a test report for all tested sequences.
