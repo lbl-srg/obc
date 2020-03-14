@@ -394,14 +394,15 @@ Specification for automating the verification
 
 The example :numref:`sec_ver_exa` describes a manual process of composing
 the verification model and executing the verification process.
-In this section, we provide specifications for how this process can be automated, using
-the same procedures. The automated workflow uses the same modules as in :numref:`sec_ver_exa`,
+In this section, we provide specifications for how this process can be automated.
+The automated workflow uses the same modules as in :numref:`sec_ver_exa`,
 except that the unit conversion will need to be done by the tool that reads
 the CSV files and sends data to the Building Automation System, and that reads
 data from the Building Automation System and writes them to the CSV files.
 This design decision has been done because CDL provides all required unit information,
 but this is not the case in general for a building automation system.
-Moreover, in this process, the CSV files will be read directly by the Modelica simulation
+Moreover, in the process described in this section,
+the CSV files will be read directly by the Modelica simulation
 environment rather than using the CSV file reader described in :numref:`sec_ver_csv_reader`.
 
 Use cases
@@ -414,13 +415,14 @@ or several control sequences, are available in CDL.
 The output will be a report that describes whether the real implementation
 conforms to the CDL implementation within a user-specified error tolerance.
 The difference between the two uses cases is as follows:
-In scenario 1, the control input is prescribed in a CDL model, whereas in
-scenario 2, the control input has been trended in the real controller and will be
-input to the CDL controller.
+In scenario 1, the CDL model contains the controller and blocks that generate the control input.
+The time series from this CDL model will be used to test the real controller.
+In scenario 2, data trended from a real controller will be used to
+verify the controller against its CDL specification.
 
 To conduct the verification, the following three steps will be conducted:
 
-1. Specifify the test setup,
+1. Specify the test setup,
 2. generate data from the real controller, and
 3. produce the test results.
 
