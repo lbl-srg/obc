@@ -17,36 +17,36 @@ def get_cases():
          "name": "annual_g36",
          "start_time": 0,
          "stop_time":  365*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
-         "name": "winter_base",
-         "start_time": 0,
-         "stop_time":  14*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
-         "name": "winter_g36",
-         "start_time": 0,
-         "stop_time":  14*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
-         "name": "summer_base",
-         "start_time": 190*24*3600,
-         "stop_time":  204*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
-         "name": "summer_g36",
-         "start_time": 190*24*3600,
-         "stop_time":  204*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
-         "name": "spring_base",
-         "start_time": 80*24*3600,
-         "stop_time":  94*24*3600})
-    cases.append( \
-        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
-         "name": "spring_g36",
-         "start_time": 80*24*3600,
-         "stop_time":  94*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
+#         "name": "winter_base",
+#         "start_time": 0,
+#         "stop_time":  14*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
+#         "name": "winter_g36",
+#         "start_time": 0,
+#         "stop_time":  14*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
+#         "name": "summer_base",
+#         "start_time": 190*24*3600,
+#         "stop_time":  204*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
+#         "name": "summer_g36",
+#         "start_time": 190*24*3600,
+#         "stop_time":  204*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.ASHRAE2006",
+#         "name": "spring_base",
+#         "start_time": 80*24*3600,
+#         "stop_time":  94*24*3600})
+#    cases.append( \
+#        {'model': "Buildings.ThermalZones.EnergyPlus.Examples.VAVReheatRefBldgSmallOffice.Guideline36",
+#         "name": "spring_g36",
+#         "start_time": 80*24*3600,
+#         "stop_time":  94*24*3600})
 
     # Add load diversity
     cases_load_diversity = copy.deepcopy(cases)
