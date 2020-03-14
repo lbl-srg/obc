@@ -85,6 +85,7 @@ def _simulate(spec):
     s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
+    s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
 #    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
         s.setSolver("Cvode")
