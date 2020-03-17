@@ -4,7 +4,7 @@
 # with your model
 #############################################################
 import os
-BRANCH="master"
+BRANCH="issue1502_replaceable_thermal_zone"
 ONLY_SHORT_TIME=False
 FROM_GIT_HUB = True
 
