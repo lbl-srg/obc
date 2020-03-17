@@ -1,0 +1,11 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterldhh8O/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Error: The following error was detected at time: 0
+Not possible to open file "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos" for reading:
+No such file or directory
+
+The stack of functions is:
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3
+Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(weaDatOri.filNam)
+
+FixInitials:Init: Integrator failed to start model.
