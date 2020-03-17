@@ -1,0 +1,20 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterldhh8O/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Model: Buildings.Examples.VAVReheat.Guideline36
+Integration started at 0 using integration method:
+cvode from sundials
+
+Integration terminated successfully at T = 1.76256e+07
+   CPU-time for integration                  : 142.043 seconds
+   CPU-time for initialization               : 0.0413089 seconds
+   Number of result points                   : 25561
+   Number of grid points                     : 501
+   Number of accepted steps                  : 70794
+   Number of rejected steps                  : 1082
+   Number of f-evaluations (dynamics)        : 146488
+   Number of non-linear iteration            : 96546
+   Number of non-linear convergence failures : 94
+   Number of Jacobian-evaluations            : 12929
+   Number of crossing function evaluations   : 72814
+   Number of model time events               : 12312
+   Number of state events                    : 228
+   Number of step events                     : 0

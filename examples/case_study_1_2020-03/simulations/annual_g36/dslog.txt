@@ -1,0 +1,41 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterldhh8O/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Model: Buildings.Examples.VAVReheat.Guideline36
+Integration started at 0 using integration method:
+cvode from sundials
+
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27802e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.27803e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.65829e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.27641e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.25964e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.61388e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.61388e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.61388e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.61388e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.61388e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.2014e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.58156e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.91852e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.92716e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 3.05661e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 3.06504e+07, mxstep steps taken before reaching tout.
+Integration terminated successfully at T = 3.1536e+07
+   CPU-time for integration                  : 3493.13 seconds
+   CPU-time for initialization               : 0.0411971 seconds
+   Number of result points                   : 657640
+   Number of grid points                     : 501
+   Number of accepted steps                  : 2061117
+   Number of rejected steps                  : 40322
+   Number of f-evaluations (dynamics)        : 4173509
+   Number of non-linear iteration            : 2865379
+   Number of non-linear convergence failures : 4811
+   Number of Jacobian-evaluations            : 344578
+   Number of crossing function evaluations   : 2115105
+   Number of model time events               : 321227
+   Number of state events                    : 7382
+   Number of step events                     : 0
