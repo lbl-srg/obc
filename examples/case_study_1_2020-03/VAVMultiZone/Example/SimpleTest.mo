@@ -8,7 +8,7 @@ model SimpleTest "Simple test case to verify scripts"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(con.y, int.u)
-    annotation (Line(points={{-19,0},{18,0}}, color={0,0,127}));
+    annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end SimpleTest;
