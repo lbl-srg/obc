@@ -1,0 +1,57 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterldhh8O/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Model: Buildings.Examples.VAVReheat.Guideline36
+Integration started at 0 using integration method:
+cvode from sundials
+
+cvode: CVODE CVode At t = 5.89692e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.79482e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 1.1214e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.8448e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 2.8448e+07, mxstep steps taken before reaching tout.
+
+ERROR: Failed to solve nonlinear system using Newton solver.
+  Time: 28792826.16277393
+  Tag: simulation.nonlinear[7]
+
+  Common causes:
+   * The system of equations has no solution - the residual will be above zero.
+     - In some cases the event-logic can cause this.
+   * Starting values are too far from the solution.
+     - In rare cases this could occur at events.
+   * The equations are too discontinuous for the nonlinear solver - the residual will have knees.
+     - Likely caused by over-using noEvent.
+
+  To get more information consider the options:
+   * Simulation/Setup/Translation/Generate listing of translated Modelica code in dsmodel.mof
+   * Simulation/Setup/Translation/List non-linear iteration variables
+   * The options under the group Simulation/Setup/Debug/Nonlinear solver diagnostics
+
+  Jacobian inverse norm estimate: 583900
+  Condition number estimate: 122989
+  1-norm of the residual = 0.29831
+
+  Last value of the solution:
+    amb.ports[2].m_flow = 0.176993
+    dpRetDuc.port_a.m_flow = -0.150163
+    amb.ports[1].m_flow = 5.53289E-07
+  Last value of the residual:
+    { 0.138179, -1.02838E-07, -0.160131 }
+ 
+cvode: CVODE CVode At t = 3.06074e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 3.06074e+07, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 3.06074e+07, mxstep steps taken before reaching tout.
+Integration terminated successfully at T = 3.1536e+07
+   CPU-time for integration                  : 3470.74 seconds
+   CPU-time for initialization               : 0.040494 seconds
+   Number of result points                   : 657189
+   Number of grid points                     : 501
+   Number of accepted steps                  : 2065471
+   Number of rejected steps                  : 40504
+   Number of f-evaluations (dynamics)        : 4180985
+   Number of non-linear iteration            : 2873793
+   Number of non-linear convergence failures : 4917
+   Number of Jacobian-evaluations            : 344595
+   Number of crossing function evaluations   : 2118525
+   Number of model time events               : 321162
+   Number of state events                    : 7228
+   Number of step events                     : 0
