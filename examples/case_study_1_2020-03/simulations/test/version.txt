@@ -1,0 +1,2 @@
+branch=issue1053_integratorReset
+commit=a78e3e74a0de71e0ef47f92aaf89a0f5562f7640
