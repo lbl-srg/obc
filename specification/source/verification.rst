@@ -416,11 +416,13 @@ or several control sequences, are available in CDL.
 The output will be a report that describes whether the real implementation
 conforms to the CDL implementation within a user-specified error tolerance.
 The difference between the two uses cases is as follows:
-In scenario 1, the CDL model contains the controller and blocks that generate the control input
-time series.
+In scenario 1, the CDL model contains the controller that is connected to upstream
+blocks that generate the control input time series.
 The time series from this CDL model will be used to test the real controller.
 In scenario 2, data trended from a real controller will be used to
-verify the controller against its CDL specification.
+verify the controller against the output time series of its CDL specification,
+using as inputs and parameters of the CDL specification the trended time series
+and parameters of the real controller.
 
 To conduct the verification, the following three steps will be conducted:
 
@@ -515,7 +517,7 @@ The procedure is as follows:
    ``TSupSetMax``, ``TSupSetMin``, ``yHeaMax``, ``yMin`` and ``yCooMax``.
 
 3. Obtain reference results by simulating ``Supply_u.mo`` to produce a CSV file ``reference.csv``
-   with all inputs, outputs and the indicator function. This can be accomplished with
+   with all inputs, outputs and the value of the indicator time series. This can be accomplished with
    the free open-source tool `OpenModelica <https://openmodelica.org>`_ by running
 
    .. code-block:: bash
@@ -556,6 +558,9 @@ The procedure is as follows:
 7. Produce the test results by running the funnel software
    (`https://github.com/lbl-srg/funnel <https://github.com/lbl-srg/funnel>`_)
    for each time series in ``controller_output.csv`` and in ``reference.csv``.
+   Before sending the time series to the funnel software, set the value of the reference
+   and the controller output to zero whenever the indicator function is zero.
+   This will exclude the value from the verification.
    This will give, for each time series, output files that show where the error
    exceeds the specified tolerance.
 
@@ -586,6 +591,7 @@ Therefore, a test specification looks as shown in :numref:`sec_ver_spe_tes_set_s
 identical to :numref:`sec_ver_spe_tes_set`, except that the elements `indicator` and `sampling`
 are removed because a sequence cannot have an indicator function, and because
 CDL simulators control the accuracy and hence a sampling time step is not needed.
+However, an time series for an indicator function can be provided, see step 4 below.
 
 .. code-block::
    :name: sec_ver_spe_tes_set_sce_2
@@ -623,6 +629,11 @@ The procedure is as follows:
    and write the converted input time series to a new file ``reference_input.csv``.
    Do the same for the trended output time series of the real controller and store them in the new file
    ``controller_output.csv``.
+
+   Optionally, also store one or several indicator time series in ``indicator.csv``, with the header
+   of each time series being the name of the
+   control output variable whose verification should be suspended whenever the indicator time series is ``0``
+   at that time instant.
 
 5. Convert the parameter values for ``TSupSetMax``, ``TSupSetMin``, ``yHeaMax``, ``yMin`` and ``yCooMax``
    to the units specified in ``reference_parameters.json`` and store them in a text file ``reference_parameters.txt``.
