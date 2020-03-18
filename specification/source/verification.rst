@@ -430,7 +430,23 @@ To conduct the verification, the following three steps will be conducted:
 2. generate data from the real controller, and
 3. produce the test results.
 
-Next, we will describe the specification for the two scenarios.
+Next, we will describe the specifications for the two scenarios. The specifications
+focus on the CDL side.
+In addition, for Scenario 1, steps 5 & 6, and for Scenario 2, steps 3 & 4,
+a data collection tool need to be developed that utilizes the JSON and CSV files
+described below and does the following to generate the data from the real controller:
+
+1. Identifies which objects in the building automation system match with the desired collection.
+2. Shows the user a list of all objects that don’t match and a list of objects
+   from the building automation system and allows for the user to manually match them.
+3. Sets up the data collection.
+4. Starts collecting data at the desired intervals.
+5. Store the data.
+6. Export the desired data in the format specified below.
+
+.. note::
+
+   In support of this step, work is ongoing in exporting semantic information from the CDL implementation.
 
 .. _sec_ver_sce1:
 
