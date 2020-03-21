@@ -37,8 +37,13 @@ contains a control sequence.
 By *input* and *output*, we mean the input connectors (or ports) and output connector (or ports)
 of a (real) controller.
 
-By *control signal*, *input value* or *output value*, we mean the value that is present at an input or output connector
+By *input value* or *output value*, we mean the value that is present at an input or output connector
 at a given time instant.
+
+By *time series*, we mean a series of values at successive times. The time stamps of the series need not be equidistant,
+but they need to be non-decreasing, e.g., we allow for time series with two equal time stamps to indicate when a values switches.
+
+By *signal*, we mean a function that maps time to a value.
 
 By *parameter*, we mean a configuration value of a controller that is constant, unless it is changed by an operator
 or by the user who runs the simulation. Typical parameters are sample times, dead bands or proportional gains.
