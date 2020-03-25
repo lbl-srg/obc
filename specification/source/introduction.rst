@@ -1,7 +1,21 @@
 .. _sec_process:
 
+Introduction
+------------
+
+
+Project Goals
+~~~~~~~~~~~~~
+
+xxxx
+
+Approach
+~~~~~~~~
+
+xxxx
+
 Process Workflow
-----------------
+~~~~~~~~~~~~~~~~
 
 :numref:`fig_process` shows the process of selecting, deploying and verifying a control sequence
 that we follow in OpenBuildingControl.
@@ -41,3 +55,9 @@ and a more direct coupling is in development through the
 
    Process workflow for controls design, specification and
    functional verification.
+
+
+Project Results
+~~~~~~~~~~~~~~~
+
+xxx Summarize main results.

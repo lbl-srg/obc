@@ -8,7 +8,6 @@ the control sequence is implemented according to specification.
 This process would be done as part
 of the commissioning, as indicated in step 9 in the process diagram
 :numref:`fig_process`.
-For the requirements, see :numref:`sec_requirements_verification_tool`.
 
 For clarity, we remind that *verification* tests whether the implementation
 of the control sequence conforms with its specification. In contrast,

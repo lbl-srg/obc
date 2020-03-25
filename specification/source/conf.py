@@ -313,38 +313,7 @@ latex_use_parts = False
 
 
 latex_elements['maketitle'] = r'''
-\begin{titlepage}
-\begin{minipage}{\headwidth}
-%%\begin{flushright}
-\includegraphics[scale=0.2]{../../source/_static/obc-logo.pdf}
-\hspace{3cm}
-\includegraphics[scale=0.4]{../../source/_static/lbl-text.pdf}
-%%\end{flushright}
-\begin{flushright}
-\hrulefill
-\\[50mm]
-\Large\sffamily\bfseries{Working Report}\\
-\Large\sffamily\bfseries{~}
-\\
-%%\hrulefill
-~\\[10mm]
-\end{flushright}
-\begin{center}
-~\\[50mm]
-\large{https://github.com/lbl-srg/obc}
-~\\[10mm]
-\large{\today}
-\\[10mm]
-\end{center}
-\hrule
-~\\[2mm]
-Copyright (c) 2017-2020\\
-The Regents of the University of California
-(through Lawrence Berkeley National Laboratory),\\
-subject to receipt of any required approvals from U.S. Department of Energy.\\
-All rights reserved.
-\end{minipage}
-\end{titlepage}
+\includepdf[page=-]{firstPages}
 '''
 
 latex_elements['preamble'] = r'''
@@ -362,6 +331,7 @@ latex_elements['preamble'] = r'''
 
 \usepackage[scaled]{helvet}
 \usepackage[helvet]{sfmath}
+\usepackage{pdfpages}
 
 %% Fontsizes according to guideline from Andreas Eckmanns, Aug. 2018
 \usepackage{sectsty}

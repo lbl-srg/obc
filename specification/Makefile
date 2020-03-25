@@ -61,15 +61,16 @@ generate_cdl_from_modelica:
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
-html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-	./fixHtml.py
-	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
+##html:
+##	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+##	./fixHtml.py
+##	@echo
+##	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html"
 
 
 
 latex:	test_installation
+	cp source/firstPages.pdf $(BUILDDIR)/latex
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
@@ -90,22 +91,22 @@ linkcheck:
 	@echo "Link check complete; look for any errors in the above output " \
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
 
-copytowww:
-	ls build/latex/obc_report.pdf
-	(cd build && \
-	rsync --delete --links --archive \
-		--recursive --backup --update \
-		--rsh=ssh --compress --times --checksum --verbose \
-		--exclude ".DS_Store" \
-		--exclude "*~" \
-	    html/* \
-	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
-	)
-	(cd build && \
-	rsync --checksum --verbose \
-	    latex/obc_report.pdf \
-	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
-	)
-
-
-dist:	html, latex, linkcheck
+##copytowww:
+##	ls build/latex/obc_report.pdf
+##	(cd build && \
+##	rsync --delete --links --archive \
+##		--recursive --backup --update \
+##		--rsh=ssh --compress --times --checksum --verbose \
+##		--exclude ".DS_Store" \
+##		--exclude "*~" \
+##	    html/* \
+##	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
+##	)
+##	(cd build && \
+##	rsync --checksum --verbose \
+##	    latex/obc_report.pdf \
+##	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
+##	)
+##
+##
+##dist:	html, latex, linkcheck
