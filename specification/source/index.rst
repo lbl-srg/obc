@@ -30,7 +30,7 @@ OpenBuildingControl (Working Draft)
    requirements
    softwareArchitecture
    cdl
-   libraryOfSequences
+   controlsLibrary
    codeGeneration
    verification
    example
