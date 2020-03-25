@@ -5,6 +5,7 @@
    executiveSummary
    introduction
    cdl
+   libraryOfSequences
    codeGeneration
    verification
    example
