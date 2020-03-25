@@ -42,6 +42,5 @@ install:
 
 # Execute tests
 script:
-  - (cd specification; make clean html; cd ..)
   - (cd specification; make latex; cd ..)
   - (cd specification; make linkcheck SPHINXOPTS=-W; cd ..)
