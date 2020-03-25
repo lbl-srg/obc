@@ -1,13 +1,36 @@
+Controls Library
+----------------
+
+Introduction
+^^^^^^^^^^^^
+
+To implement control sequences that conform to the CDL specification
+of :numref:`sec_cdl`, we implemented a library of elementary
+control blocks, and a library of control sequences that are composed
+of these elementary control blocks, using composition rules that are
+specified in the CDL specification.
+The next two sections give a brief overview of these library.
+For more information, browse the online documentation at
+`https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC.html <https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC.html>`_.
+
+
+Library of Elementary Control Blocks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To implement control sequences in CDL, we created the library of elementary
+control blocks that is described in :numref:`sec_ele_bui_blo`.
+This library consist of about 130 elementary control blocks, such as a block
+that adds to input signals and produces its sum as the output,
+a block that implements a proportional-integral-derivative controller
+with anti-windup and blocks for basic operation on boolean signals.
+
+
 .. _sec_library_of_sequences:
 
 Library of Control Sequences
-----------------------------
-
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 To make ready-to-use control sequences available to building designers,
-researchers and control providers, we used the
-Control Description Language described in :numref:`sec_cdl`
-to implement control sequences.
-Control sequences have been implemented
+researchers and control providers, we implemented control sequences
 for secondary HVAC systems based on ASHRAE Guideline 36,
 for outdoor lights and for building shades.
 
