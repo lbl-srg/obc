@@ -4,6 +4,7 @@
 
    executiveSummary
    introduction
+   process
    cdl
    controlsLibrary
    codeGeneration

@@ -1,4 +1,4 @@
-.. _sec_process:
+.. _sec_intro:
 
 Introduction
 ------------
