@@ -3,6 +3,9 @@
 Example Application
 -------------------
 
+Introduction
+^^^^^^^^^^^^
+
 In this section, we compare the performance of two different
 control sequences, applied to a floor of a prototypical office building.
 The objectives are

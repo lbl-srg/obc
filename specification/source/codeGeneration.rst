@@ -6,8 +6,8 @@ Code Generation
 Introduction
 ^^^^^^^^^^^^
 
-This section describes the translation
-from CDL to a building automation system.
+This section describes the translation of control sequences expressed
+in CDL to a building automation system.
 
 Translating the *CDL library* to a building automation system to make it
 available as part of a product line needs to be done only when
@@ -16,7 +16,7 @@ to perform this step.
 However, translation of a *CDL-conforming control sequence* that has been developed
 for a specific building will need to be done for each building project.
 
-While translation from CDL to C code or to a Functional Mockup Unit is
+While translation from CDL to C code or to a :term:`Functional Mockup Unit` is
 support by Modelica simulation environments, translation to
 legacy building automation product lines is more difficult
 as they typically do not allow executing custom C code. Moreover,
@@ -30,7 +30,7 @@ in a verification test module, consists of the following steps:
 
 1. Implementation of the control sequence using CDL.
 
-2. Export of the Modelica model as a :term:`Functional Mockup Unit` for Model Exchange (FMU-ME)
+2. Export of the Modelica model as a Functional Mockup Unit for Model Exchange (FMU-ME)
    or as a JSON specification.
 
 3. Import of the FMU-ME in the runtime environment, or translation of the
