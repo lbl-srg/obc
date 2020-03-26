@@ -65,7 +65,7 @@ ASHRAE Standard 223P attempts to standardize semantic modeling, building on thes
 previous efforts.
 
 
-.. __fig_cdl_overview:
+.. _fig_cdl_overview:
 
 .. figure:: img/overview.*
    :width: 700 px
