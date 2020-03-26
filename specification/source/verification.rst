@@ -3,6 +3,9 @@
 Verification
 ------------
 
+Introduction
+^^^^^^^^^^^^
+
 This section describes how to formally verify whether
 the control sequence is implemented according to specification.
 This process would be done as part
