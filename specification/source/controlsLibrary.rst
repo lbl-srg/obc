@@ -1,3 +1,5 @@
+.. _sec_con_lib:
+
 Controls Library
 ----------------
 
