@@ -363,7 +363,7 @@ Performance comparison
 
 :numref:`fig_cas_stu1_energy` and
 :numref:`tab_site_energy` compare the annual
-site electricity use between
+site HVAC electricity use between
 the annual simulations with the base case control
 and the guideline 36 control.
 The bars labeled :math:`\pm 50\%` were obtained with simulations in which we
@@ -372,7 +372,7 @@ Specifically, we reduced the internal loads for the north zone by :math:`50\%`
 and increased them for the south zone by the same amount.
 
 The guideline 36 control saves around :math:`30\%`
-site electrical energy. These are significant savings
+site HVAC electrical energy. These are significant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
 Our experience, however, was that it is rather challenging to
@@ -693,7 +693,7 @@ are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestP
 Discussion and conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The guideline 36 sequence reduced annual site energy by :math:`30\%`
+The guideline 36 sequence reduced annual site HVAC energy use by :math:`30\%`
 compared to the baseline implementation, by comparable thermal comfort.
 Such savings are significant, and have been achieved by software only
 that can relatively easy be deployed to buildings.
