@@ -4,8 +4,8 @@ Benefits to Rate Payers
 -----------------------
 
 
-Estimates of Benefits
-^^^^^^^^^^^^^^^^^^^^^
+Estimates of Potential Benefits
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The adoption of the technology developed in the OpenBuildingControl project
 will result in improved design and implementation of building controls,
@@ -23,25 +23,14 @@ Therefore, we assume that around 75% of the 16% primary energy savings, equal to
 associated with commissioning are related to controls.
 The primary energy consumption of US commercial buildings is 18 quads/yr.
 Assuming that the technologies to be developed in the proposed project can save 12% in the 50% of
-commercial building floor area higher than 50,000 sf, the resulting savings are about 1.1 quads/yr nationally and
+commercial building floor area higher than 50,000 sf, the potential savings are about 1.1 quads/yr nationally and
 about 0.05 quads/yr in California,
-saving IOU ratepayers about $0.3B/yr.
+saving California IOU ratepayers about $0.3B/yr.
 
 Timeframe and Assumptions for Estimated Benefits
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The proposed project would take three years to complete.
 We assume 25% adoption in the target market five years after project completion and 75% ten years after.
 If 10% of the target existing buildings have a controls retrofit each year and the new construction rate is 1.5%/yr,
-then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum,
-resulting in $120M/yr savings for IOU ratepayers.
-
-Impacted Market Segments in California
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The targeted market segments are medium and large commercial buildings,
-which typically have programmable control systems. Specialized buildings,
-such as data centers and laboratories, would also benefit from the proposed technology.
-Given the strong business case for the proposed technology, the planned deployment strategies
-are expected to result in at least 25% adoption in the target market five years after project completion
-and 75% ten years after.
+then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum.
+This will result in $120M/yr savings for California IOU ratepayers.

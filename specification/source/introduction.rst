@@ -116,4 +116,60 @@ we believe such a convergence of technology will help the industry achieving hig
 Project Results
 ~~~~~~~~~~~~~~~
 
-xxx Summarize main results.
+The project resulted in a process and a set of software tools that pave the way to a digitized control
+delivery process. They enable the performance evaluation and improvement of building control sequences
+using whole building energy simulation. Typical performance indices
+are annual energy use, greenhouse gas emissions, peak demand and thermal comfort.
+Such performance assessment can be done by researchers and control companies as part of developing
+and evaluating new control sequences, or by mechanical designers as part of the building design process.
+These control sequences can then be exported to a digital format for which we showed as a proof-of-concept
+that it can be translated to a commercial building control platform, thereby running the control sequence
+that was used in simulation natively on a commercial building control platform.
+This intermediate format also allows control providers to build digital cost estimation tools, further
+streamlining the control procurement process.
+
+As part of the project, we demonstrated each step of such a digitized control design, delivery and
+verification process. We also started forming an ASHRAE Standards Committee whose purpose is to
+turn the Control Description Language that has been developed in this project into an ASHRAE/ANSI standard.
+Such a standard will then complete existing standards for building control *communication* (BACnet),
+emerging standards for *semantic* data (ASHRAE 223P) with a standard that allows expressing the
+control *logic* in a way that is indepedent of a particular control product line.
+
+The potential energy savings of this project, if adopted widely,
+are estimated to be about 1.1 quads/yr nationally and
+about 0.05 quads/yr in California, saving California IOU ratepayers about $0.3B/yr.
+If we assume 25% adoption in the target market five years after project completion and 75% ten years after, and
+if 10% of the target existing buildings have a controls retrofit each year and the new construction rate is 1.5%/yr,
+then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum.
+This will result in $120M/yr savings for California IOU ratepayers.
+
+The next sections of this report provide more details about the processes and tools developed in this project.
+They are structured as follows:
+
+:numref:`sec_process` describes the overall process from control design to performance assessment,
+export of control specification, cost-estimation, implementation by a control vendor and formal verification of the
+implemented control sequences relative to the design specifications.
+
+:numref:`sec_cdl` describes the Control Description Language (CDL), which is the key technology developed in this project.
+This language is used to express control sequences digitally and in English language, in a format that is then translated
+for simulation, for cost estimation, and for implementation in control product lines. This section is rather technical,
+and is mainly of interest to developer who implement tools that use CDL. Less technical readers may skip this section.
+
+:numref:`sec_con_lib` describes how the CDL language has been used to implement libraries of ready-to-use control sequence
+that can be used within the process described in :numref:`sec_process`.
+
+:numref:`sec_code_gen` describes various paths of how CDL can be translated for use in building control systems,
+respecting the need for reusing existing control product lines, but also showing how established and emerging standards could be used
+to streamline this process if a control provider develops a new control product line.
+
+:numref:`sec_verification` describes how to formally verify that a control sequence that is implemented on a real
+control hardware conforms to the CDL specification. It presents an actual example that illustrates the verification,
+and closes with specifications for how to automate such a verification.
+
+:numref:`sec_example` presents an example in which we compared the annual energy peformance of two different control sequences
+applied to the same building and HVAC system. In this example, simply changing the control sequence led to about
+30% annual savings in HVAC site electricity use.
+
+:numref:`sec_benefit_rate_payers` describes the benefits to the California IOU rate payers.
+
+:numref:`sec_glossary` explains technical terms used throughout the report.
