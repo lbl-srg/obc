@@ -143,7 +143,7 @@ if 10% of the target existing buildings have a controls retrofit each year and t
 then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum.
 This will result in $120M/yr savings for California IOU ratepayers.
 
-The next sections of this report provide more details about the processes and tools developed in this project.
+The next sections provide more details about the results of this project.
 They are structured as follows:
 
 :numref:`sec_process` describes the overall process from control design to performance assessment,
