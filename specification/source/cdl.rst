@@ -14,14 +14,6 @@ It is designed in such a way that it can be used to conveniently specify buildin
 in a vendor-independent format, use them within whole building energy simulation,
 and translate them for use in building control systems.
 
-To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
-or to English language documentation.
-Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
-(see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
-translates CDL to an intermediate format that we call :term:`CDL-JSON`.
-From CDL-JSON, further translations can be done to a control product line, or to
-generate point lists or English language documentation of the control sequences.
-
 .. _fig_cdl_pro_lin:
 
 .. uml::
@@ -50,14 +42,24 @@ generate point lists or English language documentation of the control sequences.
 
 
 
-This section describes the CDL language. Its translation using ``modelica-json``, or other means of translation, is described in
-:numref:`sec_code_gen`.
-A collection of control sequences, primarily from ASHRAE Guideline 36, is available
-from the Modelica Buildings Library at https://simulationresearch.lbl.gov/modelica/.
-A tool to export CDL into the CDL-JSON intermediate format that
-can be used to translate to commercial building automation systems, a process that we have been prototyping in 2019/20, is
-available at https://github.com/lbl-srg/modelica-json.
+To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
+or to English language documentation.
+Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
+(see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
+translates CDL to an intermediate format that we call :term:`CDL-JSON`.
+From CDL-JSON, further translations can be done to a control product line, or to
+generate point lists or English language documentation of the control sequences.
 
+The next sections define the CDL language.
+A collection of control sequences that are composed using the CDL language is described
+in :numref:`sec_con_lib`. These sequences can be simulated with Modelica simulation environments.
+The translation of such sequences to control product lines using ``modelica-json``,
+or other means of translation, is described in
+:numref:`sec_code_gen`.
+
+
+Basic Elements of CDL
+^^^^^^^^^^^^^^^^^^^^^
 
 The CDL consists of the following elements:
 
@@ -76,8 +78,6 @@ The CDL consists of the following elements:
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
-
-The next sections define the CDL language.
 
 
 Syntax
