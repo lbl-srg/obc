@@ -6,13 +6,28 @@ Control Description Language
 Introduction
 ^^^^^^^^^^^^
 
-
 This section specifies
 the Control Description Language (CDL),
 a declarative language that can be used to express control sequences using block-diagrams.
 It is designed in such a way that it can be used to conveniently specify building control sequences
 in a vendor-independent format, use them within whole building energy simulation,
 and translate them for use in building control systems.
+
+A key technical challenge encountered when developing CDL was that existing control product lines are heterogeneous.
+They differ in their functionality for expressing control sequences,
+in their semantics of how control output gets updated, and in their syntax which ranges from graphical languages to textual languages.
+Code generation for a variety of products is common in the Electronic Design Automation industry.
+However, in the Electronic Design Automation industry, engineers write models and controllers
+are built to conform to the models. If this were to be applied to the buildings industry,
+then control providers would need to update their product line. We think such costly product line
+reconfigurations are not reasonable to expect in the next decade.
+Therefore, for the immediate future, we will need to build models of control sequences
+that can conform to their implementation on target control product lines;
+while ensuring that as new product lines are being developed, they can invert the paradigm and build controllers
+that conform to the models.
+We therefore selected the path of designing CDL in such a way
+that it provide a minimum set of capabilities that can be expected to be supported by control product lines.
+
 
 .. _fig_cdl_pro_lin:
 
