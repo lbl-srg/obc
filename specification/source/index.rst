@@ -12,5 +12,4 @@
    example
    benefitsToRatePayers
    glossary
-   acknowledgments
    bibliography
