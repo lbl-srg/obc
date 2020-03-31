@@ -11,7 +11,7 @@ The adoption of the technology developed in the OpenBuildingControl project
 will result in improved design and implementation of building controls,
 resulting in more robust and efficient operation of commercial buildings.
 This will lead to more reliable provision of thermal and visual comfort
-while reducing both energy costs and equipment maintenance costs.
+while reducing both energy costs and equipment maintenance costs :cite:`FernandezEtAl2017:1`.
 
 The energy savings from widespread adoption of the processes and tools can be estimated as follows.
 A major barrier to achieving the state’s statutory energy goals is
