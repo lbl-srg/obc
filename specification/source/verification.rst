@@ -679,14 +679,33 @@ The procedure is as follows:
    of the control input.)
 
 4. Convert the trended input time series of the real controller to the units specified in ``reference_io.json``,
-   and write the converted input time series to a new file ``reference_input.csv``.
+   and write the converted input time series to a new file ``reference_input.csv``, using the format
+
+   .. code-block::
+
+      time, uHea, uCoo, TZonSet, TZon, TOut, uFan
+      0, 1, 1, 293.15, 293.15, 283.15, 0
+      30, 1, 1, 293.15, 294.15, 283.15, 0
+      60, 1, 1, 293.15, 295.15, 283.15, 0
+
+   where the first column is time in seconds.
+
    Do the same for the trended output time series of the real controller and store them in the new file
-   ``controller_output.csv``.
+   ``controller_output.csv`` that has the same format as ``reference_input.csv``
 
    Optionally, also store one or several indicator time series in ``indicator.csv``, with the header
    of each time series being the name of the
    control output variable whose verification should be suspended whenever the indicator time series is ``0``
-   at that time instant.
+   at that time instant. For example, to suspend the verification of an output called ``TSupCoo`` between
+   :math:`t=120` and :math:`t=600` seconds, the file ``indicator.csv`` looks like
+
+   .. code-block::
+
+      time, TSupCoo
+      0, 1
+      120, 0
+      600, 1
+
 
 5. Convert the parameter values for ``TSupSetMax``, ``TSupSetMin``, ``yHeaMax``, ``yMin`` and ``yCooMax``
    as used in the real controller
@@ -729,15 +748,6 @@ The procedure is as follows:
       omc.sendExpression("loadModel(Buildings)")
       omc.sendExpression("simulate({}, startTime=0, stopTime=3600, simflags=\"-csvInput reference_input.csv\", outputFormat=\"csv\")".format(model))
       shutil.move("{}_res.csv".format(model), "reference.csv")
-
-   and the CSV file
-
-   .. code-block::
-
-      time, uHea, uCoo, TZonSet, TZon, TOut, uFan
-      0, 1, 1, 293.15, 293.15, 283.15, 0
-      3600, 1, 1, 293.15, 293.15, 283.15, 0
-
 
    This will produce the CSV file ``reference.csv`` that contains all control input and output time series.
 
