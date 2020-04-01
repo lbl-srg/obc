@@ -610,17 +610,6 @@ measurement over a :math:`5` second moving window (in the simulation,
 this was done to avoid an algebraic system of equations,
 but in practice, this would filter measurement noise).
 
-Minor editorial revision
-........................
-
-The guideline states:
-
-   When a control loop is enabled or re-enabled, it and all its constituents (such as the
-   proportional and integral terms) shall be set initially to a Neutral value.
-
-This should be changed to "...such as the integral terms..." because the
-proportional term cannot be reset.
-
 
 Cross-referencing and modularization
 ....................................
