@@ -36,8 +36,10 @@ technician to interpret the intent and write the necessary code to
 deploy the sequence in a proprietary control system, followed by a
 manual process to validate and confirm the operation.
 
-The OpenBuildingControl approach is to enable the digitization of the
-current paper-based control delivery process by developing tools for
+The OpenBuildingControl project built the foundation to enable
+the digitization of the
+current paper-based control delivery process. The project has been
+developing tools for
 system designers to select, model the performance of, and then specify
 sequences for implementation, using a digitized workflow with
 end-to-end verification, including formal testing of the installed
@@ -48,8 +50,8 @@ project will also provide tools to automatically document the
 sequences of operation implemented in a building and compare them to
 the original design intent. Used together, this set of tools will have
 the potential to substantially reduce energy use in both new
-commercial buildings and in existing buildings with controls retrofits
-. However, to be effective, these tools need to be widely adopted and
+commercial buildings and in existing buildings with controls retrofits.
+However, to be effective, these tools need to be widely adopted and
 used by industry, including system engineers, designers, controls
 manufacturers, controls subcontractors, owners, and to be required or
 incentivized by other interested parties, including state energy
@@ -62,7 +64,7 @@ for improving system stability, energy performance, indoor air quality
 and comfort. Current versions of energy standards and codes, such as
 ASHRAE 90.1 and the California Energy Code, Title 24, require specific
 algorithms and are expected to adopt or reference Guideline 36
-sequences as awareness of the Standard grows.
+sequences as awareness of the Guideline grows.
 
 
 Project Purpose
@@ -113,6 +115,10 @@ consists of:
   guidelines for high performance building control sequences.
 
 * Analysts who assess the performance of control sequences when
+  updating energy codes such as California's Building Energy Efficiency Standard
+  Title 24 or ANSI/ASHRAE/IES Standard 90.1,
+  Energy Standard for Buildings Except Low-Rise Residential Buildings.
+
 
 * Mechanical designers who specify control sequences for a particular building.
 
@@ -125,8 +131,9 @@ consists of:
 Project Approach
 ^^^^^^^^^^^^^^^^
 
-The Department of Energy (DOE)’s Lawrence Berkeley National Laboratory
-is leading this project, with regular reviews from DOE and California
+The US Department of Energy’s Lawrence Berkeley National Laboratory
+is leading this project, with regular reviews from the
+US Department of Energy and the California
 Energy Commission program management. The process started with the
 establishment of a project team consisting of Lawrence Berkeley
 National Laboratory staff and industry experts in the design and
@@ -193,11 +200,11 @@ capabilities that can be expected to be supported by control product
 lines. As we have shown with one product commercial product line, the
 barrier to support this language is low, and we therefore expect that
 other control providers may follow suit. We are also working with
-industry to establish the Controls Description Language as an ANSI
+industry to establish |CDL| as an ASHRAE/ANSI
 and, eventually, an ISO standard. Getting industry support to make
 this a standard would allow for products to be developed that follow
-the format including semantics and syntax utilized in the controls
-description language without the need for translation.
+the format including semantics and syntax utilized in |CDL| without
+the need for translation.
 
 
 Project Results
@@ -213,7 +220,7 @@ project phase:
   of its JSON export format.
 
 * A library of control sequences for building energy systems expressed
-  in the controls description language.
+  in |CDL|.
 
 * Modeling tools that can simulate sequences expressed in |CDL| coupled
   to heating, ventilation, and air-conditioning models from the Modelica
@@ -266,8 +273,7 @@ these items has been secured. These items include:
 * Programs for implementing market transformation.
 
 * Tools for evaluating a current control system and developing
-  documentation for both installed sequences and any variations from the
-  original Control Description Language.
+  documentation for installed sequences.
 
 
 Technology/Knowledge Transfer/Market Adoption
@@ -284,12 +290,13 @@ thereby ensuring the industry that there is a robust foundation on
 which industry can make further investments.
 
 The tools developed in this project have become a key part of the
-DOE’s tool development. For example, Spawn of EnergyPlus is, in part,
+tool development sponsored by the US Department of Energy.
+For example, Spawn of EnergyPlus is, in part,
 being developed to support the design and deployment of advanced
-energy and control systems for buildings through DOE’s Building
+energy and control systems for buildings through its Building
 Technologies Office, for district heating and cooling systems through
-DOE’s Advanced Manufacturing Office, and for geothermal applications
-through DOE’s Geothermal Office.
+its Advanced Manufacturing Office, and for geothermal applications
+through its Geothermal Office.
 
 We anticipate that analysts will use |CDL| together with Spawn of
 EnergyPlus to analyze the performance of energy and control systems
@@ -325,7 +332,8 @@ the US — and, ideally, the world. The key benefits are as follows:
   zero energy.
 
 The adoption of OpenBuildingControl will result in improved design and
-implementation of commercial building controls. An LBNL study
+implementation of commercial building controls. A
+Lawrence Berkeley National Laboratory study
 identified 16% median actual savings from retro-commissioning and a
 study of 481 operational issues identified in existing commercial
 buildings found that control problems accounted for >75% of the
