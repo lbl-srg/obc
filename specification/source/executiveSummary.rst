@@ -27,7 +27,7 @@ buildings. The first phase of the project, reported here, has been
 co-funded by California Energy Commission and the United States Department of Energy (DOE).
 The second phase of the project will be funded by DOE.
 
-The Phase 1 work reported here has focussed on providing the
+The Phase 1 work reported here has focused on providing the
 capability to avoid major problems with the current process for the
 design and implementation of controls in commercial buildings. Current
 practice involves generating verbose, ambiguous and error-prone
