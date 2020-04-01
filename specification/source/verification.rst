@@ -65,7 +65,7 @@ implemented the sequence as specified, and that it executes correctly.
 Outside the scope of our verification are tests
 that verify whether the I/O points are connected properly,
 whether the mechanical equipment is installed and functions correctly,
-and whether the building envelop is meeting its specification.
+and whether the building envelope is meeting its specification.
 
 
 Methodology
