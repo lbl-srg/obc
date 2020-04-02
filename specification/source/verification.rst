@@ -683,10 +683,12 @@ The procedure is as follows:
 
    .. code-block::
 
-      time, uHea, uCoo, TZonSet, TZon, TOut, uFan
-      0, 1, 1, 293.15, 293.15, 283.15, 0
-      30, 1, 1, 293.15, 294.15, 283.15, 0
-      60, 1, 1, 293.15, 295.15, 283.15, 0
+      time, uHea, uCoo, TZonSet,    TZon,    TOut, uFan
+         0,    1,    0,  293.15,  292.15,  283.15,    1
+        60,  0.5,    0,  293.15,  292.15,  283.15,    1
+       120,    0,  0.5,  293.15,  292.15,  283.15,    1
+       180,    0,    1,  293.15,  292.15,  283.15,    1
+      3600,    0,    1,  293.15,  292.15,  283.15,    1
 
    where the first column is time in seconds.
 
@@ -750,9 +752,6 @@ The procedure is as follows:
       shutil.move("{}_res.csv".format(model), "reference.csv")
 
    This will produce the CSV file ``reference.csv`` that contains all control input and output time series.
-
-   **Note: This currently does not work, see https://trac.openmodelica.org/OpenModelica/ticket/5890 for
-   the ticket. As a work-around, JModelica could be used.**
 
 7. Produce the test results as in Step 7 in :numref:`sec_ver_sce1`.
 

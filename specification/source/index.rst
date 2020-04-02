@@ -1,4 +1,3 @@
-===================================
 OpenBuildingControl (Working Draft)
 ===================================
 
@@ -11,12 +10,6 @@ OpenBuildingControl (Working Draft)
    and any of the design may change.
    To edit the document, go to
    https://github.com/lbl-srg/obc/tree/master/specification.
-
-
-.. only:: html
-
-   Table of Contents
-   =================
 
 
 .. toctree::
