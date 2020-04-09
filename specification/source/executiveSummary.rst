@@ -17,7 +17,7 @@ projects that are designed to implement such strategies frequently
 struggle due to the inherently complicated process of traditional
 design development, documentation, interpretation, implementation and
 owner operation. This results in buildings that are inefficient and
-often uncomfortable, which results in wasted energy and  lost occupant
+often uncomfortable, which results in wasted energy and lost occupant
 productivity.
 
 OpenBuildingControl is a project whose aim is to improve the process
