@@ -748,10 +748,10 @@ value of connector as below.]
 CDL also uses annotations to declare default values for conditionally removable input
 connectors, see :numref:`sec_con_rem_ins`.
 
-For CDL implementations of sources such as ASHRAE Guideline 36, any class,
+For CDL implementations of sources such as ASHRAE Guideline 36, any instance,
 such as a parameter, input or output, that is not provided in
-the original documentation shall be annotated. For classes,
-the annotation is ``__cdl(ClassInReference=False)`` while for parameter values,
+the original documentation shall be annotated. For instances,
+the annotation is ``__cdl(InstanceInReference=False)`` while for parameter values,
 the annotation is ``__cdl(ValueInReference=False)``. For both, if not specified
 the default value is ``True``.
 
