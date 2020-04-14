@@ -748,7 +748,7 @@ value of connector as below.]
 CDL also uses annotations to declare default values for conditionally removable input
 connectors, see :numref:`sec_con_rem_ins`.
 
-For reference digital implementations of ASHRAE Guideline 36 sequences any 
+For reference digital implementations of ASHRAE Guideline 36 sequences any
 parameters that specify a value for a setting that is not provided in such
 guideline shall be annotated as in this example:
 
@@ -761,14 +761,14 @@ guideline shall be annotated as in this example:
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
     annotation(Evaluate=true, __cdl(NotInASHRAEGuideline=True));
 
-The purpose of such parameters is to prevent unexpected control behavior and control system 
-failures in situations where the user violates the ASHRAE recommendation by providing a set 
-of inputs that lead to it. Such situations are accompanied with a warning that gets provided 
+The purpose of such parameters is to prevent unexpected control behavior and control system
+failures in situations where the user violates the ASHRAE recommendation by providing a set
+of inputs that lead to it. Such situations are accompanied with a warning that gets provided
 to an operator/commissioner and contain a description of the issue encountered.
 
-.. note:: This annotation is not provided for parameters that are in general not 
-          specified in the ASHRAE Guideline 36, such as hysteresis deadband, or any reformulations of 
-          ASHREA parameters that are needed for sequence generalization, for instance a matrix variable used to 
+.. note:: This annotation is not provided for parameters that are in general not
+          specified in the ASHRAE Guideline 36, such as hysteresis deadband, or any reformulations of
+          ASHRAE parameters that are needed for sequence generalization, for instance a matrix variable used to
           indicate which chillers are used in each stage.
 
 .. _sec_com_blo:
