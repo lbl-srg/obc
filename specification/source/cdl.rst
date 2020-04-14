@@ -763,13 +763,13 @@ guideline shall be annotated as in this example:
 
 The purpose of such parameters is to prevent unexpected control behavior and control system 
 failures in situations where the user violates the ASHRAE recommendation by providing a set 
-set of inputs that lead to it. Such situations are accompanied with a warning that gets provided 
+of inputs that lead to it. Such situations are accompanied with a warning that gets provided 
 to an operator/commissioner and contain a description of the issue encountered.
 
-Note that this annotation is not provided for parameters that are in general not 
-specified in the ASHRAE Guideline 36, such as hysteresis deadband, or any reformulations of 
-ASHREA parameters that are needed for sequence generalization, for instance a matrix variable used to 
-indicate which chillers are used in each stage.
+.. note:: This annotation is not provided for parameters that are in general not 
+          specified in the ASHRAE Guideline 36, such as hysteresis deadband, or any reformulations of 
+          ASHREA parameters that are needed for sequence generalization, for instance a matrix variable used to 
+          indicate which chillers are used in each stage.
 
 .. _sec_com_blo:
 
