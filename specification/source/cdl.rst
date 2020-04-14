@@ -748,9 +748,15 @@ value of connector as below.]
 CDL also uses annotations to declare default values for conditionally removable input
 connectors, see :numref:`sec_con_rem_ins`.
 
-For reference digital implementations of ASHRAE Guideline 36 sequences any
-parameters that specify a value for a setting that is not provided in such
-guideline shall be annotated as in this example:
+For CDL implementations of sources such as ASHRAE Guideline 36, any class,
+such as a parameter, input or output, that is not provided in
+the original documentation shall be annotated. For classes,
+the annotation is ``__cdl(ClassInReference=False)`` while for parameter values,
+the annotation is ``__cdl(ValueInReference=False)``. For both, if not specified
+the default value is ``True``.
+
+[
+A specification may look like
 
 .. code-block:: modelica
 
@@ -759,17 +765,15 @@ guideline shall be annotated as in this example:
     final min = 0,
     final max = 1)=0.8
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
-    annotation(Evaluate=true, __cdl(NotInASHRAEGuideline=True));
+    annotation(Evaluate=true, __cdl(ValueInReference=False));
 
-The purpose of such parameters is to prevent unexpected control behavior and control system
-failures in situations where the user violates the ASHRAE recommendation by providing a set
-of inputs that lead to it. Such situations are accompanied with a warning that gets provided
-to an operator/commissioner and contain a description of the issue encountered.
+]
 
 .. note:: This annotation is not provided for parameters that are in general not
-          specified in the ASHRAE Guideline 36, such as hysteresis deadband, or any reformulations of
-          ASHRAE parameters that are needed for sequence generalization, for instance a matrix variable used to
-          indicate which chillers are used in each stage.
+          specified in the ASHRAE Guideline 36, such as hysteresis deadband, default gains for a controller,
+          or any reformulations of ASHRAE parameters that are needed for sequence generalization,
+          for instance a matrix variable used to indicate which chillers are used in each stage.
+
 
 .. _sec_com_blo:
 
