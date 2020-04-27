@@ -558,11 +558,11 @@ An example code snippet is
      "Number of occupants"
        annotation (__cdl(default = 0));
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Continuous.Gain gai(
      k = VOutPerPer_flow) if have_occSen
        "Outdoor air per person";
    equation
-   connect(nOcc, con.u);
+   connect(nOcc, gai.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.
