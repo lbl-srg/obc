@@ -582,6 +582,42 @@ because if a building automation system cannot conditionally remove instances,
 then the block (or input connector) upstream of the output will always be present
 (or will have a default value).
 
+.. _sec_point_list:
+
+Point list generation
+.....................
+
+The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON`` and further
+generate the point list table. In default,
+
+* The connector ``RealInput`` and ``IntegerInput`` are analog input.
+* The connector ``RealOutput`` and ``IntegerOutput`` are analog output.
+* The connector ``BooleanInput`` and ``BooleanOutput`` are digital input and output.
+
+The vendor annotation ``__cdl(generatePointlist=true)`` in class level specifies
+whether to generate point list of the sequence. The vendor annotation
+``__cdl(controlPoint=true, hardwired=false)`` of each connector specifies if the
+connector is a control point and if it is a hardwired points.
+
+[For example, blocks of the form
+
+.. code-block:: modelica
+
+   CDL.Interfaces.BooleanInput uWin
+      "Windows status"
+      annotation (__cdl(controlPoint=true, hardwired=false));
+    
+   CDL.Interfaces.RealOutput yHea
+      "Heating loop output";
+
+   equation
+     ...;
+
+   annotation (__cdl(generatePointlist=true));
+
+specifies that it should generate point list of the sequence, and the ``uWin`` is a
+control point that is not hardwired and the ``yHea`` is not a control point.]
+
 .. _sec_connectors:
 
 Connectors
