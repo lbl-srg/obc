@@ -587,8 +587,8 @@ then the block (or input connector) upstream of the output will always be presen
 Point list generation
 .....................
 
-The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON`` and further
-generate the point list table. In default,
+The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
+(:numref:`fig_cdl_pro_lin`) and further generate the point list table. In default,
 
 * The connector ``RealInput`` and ``IntegerInput`` are analog input.
 * The connector ``RealOutput`` and ``IntegerOutput`` are analog output.
@@ -603,12 +603,10 @@ connector is a control point and if it is a hardwired points.
 
 .. code-block:: modelica
 
-   CDL.Interfaces.BooleanInput uWin
-      "Windows status"
+   CDL.Interfaces.BooleanInput uWin "Windows status"
       annotation (__cdl(controlPoint=true, hardwired=false));
     
-   CDL.Interfaces.RealOutput yHea
-      "Heating loop output";
+   CDL.Interfaces.RealOutput yHea "Heating loop output";
 
    equation
      ...;
