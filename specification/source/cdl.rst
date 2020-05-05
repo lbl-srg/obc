@@ -595,9 +595,11 @@ The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
 * The connector ``BooleanInput`` and ``BooleanOutput`` are digital input and output.
 
 The vendor annotation ``__cdl(generatePointlist=true)`` in class level specifies
-whether to generate point list of the sequence. The vendor annotation
-``__cdl(controlPoint=true, hardwired=false)`` of each connector specifies if the
-connector is a control point and if it is a hardwired points.
+whether to generate point list of the sequence. It allows that a sequence do not generate
+the point list in the case when it is used for composing other sequence so it does not
+connect externally. The vendor annotation ``__cdl(controlPoint=true, hardwired=false)``
+of each connector specifies if the connector is a control point and if it is a
+hardwired points.
 
 [For example, blocks of the form
 
