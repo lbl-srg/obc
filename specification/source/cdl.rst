@@ -584,8 +584,8 @@ then the block (or input connector) upstream of the output will always be presen
 
 .. _sec_point_list:
 
-Point list generation
-.....................
+Point list
+..........
 
 The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
 (:numref:`fig_cdl_pro_lin`) and further generate the point list table. In default,
