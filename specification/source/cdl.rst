@@ -609,9 +609,12 @@ For example, a block includes
    block Controller "Controller for room VAV box"
       ...;
       CDL.Interfaces.BooleanInput uWin "Windows status"
-         annotation (__cdl(hardwired=true, application={"trend", "alarm"}));
+         annotation (__cdl(hardwired=true,
+                           trend(interval=3600, enable=true),
+                           alarm(flag=true, level=1, enable=true)));
       CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
-         annotation (__cdl(hardwired=false, application={"trend"}));
+         annotation (__cdl(hardwired=false,
+                           trend(interval=3600, enable=true)));
       ...;
    equations
       ...;
@@ -619,8 +622,8 @@ For example, a block includes
 
 It specifies that the sequence should have a point list, the ``uWin`` is a
 hardwired digital input point that can be used for trending and alarming, 
-and the ``yVal`` is not a hardwired point that can be used for trending. The point
-list table will be like:
+and the ``yVal`` is not a hardwired point that can only be used for trending.
+The point list table will be like:
 
 .. _tab_sample_point_list:
 
@@ -630,9 +633,9 @@ list table will be like:
    ========================  ===========  =========  ==========  ========  ========  ========  ================================================
    System/Equipment          Name         Type       Hardwired?  Trend     Alarm     Schedule  Notes
    ========================  ===========  =========  ==========  ========  ========  ========  ================================================
-   Terminal unit             ``uWin``     DI         Y           Y         Y         N         Windows status
+   Terminal unit             ``uWin``     DI         Y           3600      true      N         Windows status
    ------------------------  -----------  ---------  ----------  --------  --------  --------  ------------------------------------------------
-   Terminal unit             ``yVal``     AO         N           Y         N         N         Signal for heating coil valve
+   Terminal unit             ``yVal``     AO         N           3600      N         N         Signal for heating coil valve
    ------------------------  -----------  ---------  ----------  --------  --------  --------  ------------------------------------------------
    ...                       ...          ...        ...         ...       ...       ...       ...
    ========================  ===========  =========  ==========  ========  ========  ========  ================================================
