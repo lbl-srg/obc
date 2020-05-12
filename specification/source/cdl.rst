@@ -608,17 +608,13 @@ For example, a block includes
    within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits
    block Controller "Controller for room VAV box"
       ...;
-
       CDL.Interfaces.BooleanInput uWin "Windows status"
          annotation (__cdl(hardwired=true, application={"trend", "alarm"}));
-    
       CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
          annotation (__cdl(hardwired=false, application={"trend"}));
-      
       ...;
    equations
       ...;
-
    annotation (__cdl(generatePointlist=true));
 
 It specifies that the sequence should have a point list, and the ``uWin`` is a
