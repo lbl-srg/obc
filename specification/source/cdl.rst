@@ -617,7 +617,7 @@ For example, a block includes
       ...;
    annotation (__cdl(generatePointlist=true));
 
-It specifies that the sequence should have a point list, and the ``uWin`` is a
+It specifies that the sequence should have a point list, the ``uWin`` is a
 hardwired digital input point that can be used for trending and alarming, 
 and the ``yVal`` is not a hardwired point that can be used for trending. The point
 list table will be like:
@@ -634,7 +634,7 @@ list table will be like:
    ------------------------  -----------  ---------  ----------  --------  --------  --------  ------------------------------------------------
    Terminal unit             ``yVal``     AO         N           Y         N         N         Signal for heating coil valve
    ------------------------  -----------  ---------  ----------  --------  --------  --------  ------------------------------------------------
-   Terminal unit             ...          ...        ...         ...       ...       ...       ...
+   ...                       ...          ...        ...         ...       ...       ...       ...
    ========================  ===========  =========  ==========  ========  ========  ========  ================================================
 
 
