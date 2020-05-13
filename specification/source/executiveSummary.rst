@@ -284,26 +284,41 @@ of ASHRAE to make sure that the developed technology addresses an
 important industry need. Furthermore, all technology has been
 developed in such a way that it directly integrates with the roadmap
 of DOE’s Building Technologies Office for energy simulation and for
-supporting building operation. A key part of the technology transfer
+supporting building operation.
+
+To align the developed technologies with industry needs, the project
+team developed a detailed commercialization and market transformation
+plan. This plan outlines the current state of the process
+of control specification, delivery, commissioning and building operation.
+It discusses the tools and workflow developed by the project team.
+It lists benefits for mechanical designers, control providers,
+building operators and building owners.
+Lastly, it describes a path to establish
+a digitized control delivery process.
+
+Foundational work for this deployment started during this project:
+A key part of the technology transfer
 is the work that has started on making |CDL| an ASHRAE/ANSI standard,
 thereby ensuring the industry that there is a robust foundation on
 which industry can make further investments.
-
 The tools developed in this project have become a key part of the
 tool development sponsored by the US Department of Energy.
-For example, Spawn of EnergyPlus is, in part,
+Specifically, Spawn of EnergyPlus is, in part,
 being developed to support the design and deployment of advanced
 energy and control systems for buildings through its Building
 Technologies Office, for district heating and cooling systems through
 its Advanced Manufacturing Office, and for geothermal applications
 through its Geothermal Office.
 
-We anticipate that analysts will use |CDL| together with Spawn of
-EnergyPlus to analyze the performance of energy and control systems
-when updating energy codes such as California's Building Energy
-Efficiency Standard Title 24 or ANSI/ASHRAE/IES Standard 90.1.
+To support the update of
+energy codes, such as California's Building Energy
+Efficiency Standard Title 24 or ANSI/ASHRAE/IES Standard 90.1,
+we anticipate that analysts will use |CDL| together with Spawn of
+EnergyPlus. This will allow analyzing the energy impacts of measures
+related to building control across a portfolio of buildings in different
+climate zones.
 Moreover, prescriptive code may state what control sequences need to
-be used and provide the specification of these control sequences in
+be used and they could then provide the specification of these control sequences in
 |CDL| for use in project specifications and for implementation on the
 building’s control system.
 
