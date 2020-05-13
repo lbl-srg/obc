@@ -553,11 +553,11 @@ An example code snippet is
      "Number of occupants"
        annotation (__cdl(default = 0));
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Continuous.Gain gai(
      k = VOutPerPer_flow) if have_occSen
        "Outdoor air per person";
    equation
-   connect(nOcc, con.u);
+   connect(nOcc, gai.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.
@@ -742,6 +742,33 @@ value of connector as below.]
 
 CDL also uses annotations to declare default values for conditionally removable input
 connectors, see :numref:`sec_con_rem_ins`.
+
+For CDL implementations of sources such as ASHRAE Guideline 36, any instance,
+such as a parameter, input or output, that is not provided in
+the original documentation shall be annotated. For instances,
+the annotation is ``__cdl(InstanceInReference=False)`` while for parameter values,
+the annotation is ``__cdl(ValueInReference=False)``. For both, if not specified
+the default value is ``True``.
+
+[
+A specification may look like
+
+.. code-block:: modelica
+
+  parameter Real anyOutOfScoMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.8
+    "Outside of G36 recommended staging order chiller type SPLR multiplier"
+    annotation(Evaluate=true, __cdl(ValueInReference=False));
+
+]
+
+.. note:: This annotation is not provided for parameters that are in general not
+          specified in the ASHRAE Guideline 36, such as hysteresis deadband, default gains for a controller,
+          or any reformulations of ASHRAE parameters that are needed for sequence generalization,
+          for instance a matrix variable used to indicate which chillers are used in each stage.
+
 
 .. _sec_com_blo:
 
