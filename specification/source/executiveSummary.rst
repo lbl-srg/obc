@@ -280,8 +280,8 @@ Technology/Knowledge Transfer/Market Adoption
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To build market adoption, the project team worked with key committees
-of ASHRAE to make sure that the developed technology addresses an
-important industry need. Furthermore, all technology has been
+of ASHRAE to align the developed technology with the needs of the industry.
+Furthermore, all technology has been
 developed in such a way that it directly integrates with the roadmap
 of DOE’s Building Technologies Office for energy simulation and for
 supporting building operation.
@@ -304,11 +304,12 @@ which industry can make further investments.
 The tools developed in this project have become a key part of the
 tool development sponsored by the US Department of Energy.
 Specifically, Spawn of EnergyPlus is, in part,
-being developed to support the design and deployment of advanced
-energy and control systems for buildings through its Building
-Technologies Office, for district heating and cooling systems through
-its Advanced Manufacturing Office, and for geothermal applications
-through its Geothermal Office.
+being developed to support the design, deployment and operation of advanced
+energy and controls for buildings,
+for district heating and cooling systems and
+and for geothermal systems through its
+Building Technologies Office, Advanced Manufacturing Office and
+Geothermal Office, respectively.
 
 To support the update of
 energy codes, such as California's Building Energy
