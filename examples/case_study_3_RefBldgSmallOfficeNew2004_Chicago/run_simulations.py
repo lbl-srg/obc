@@ -93,8 +93,8 @@ def _simulate(spec):
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
-    s.setTolerance(1E-5)
-    s.showGUI(False)
+    s.setTolerance(1E-6 )
+    s.showGUI(True)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()
 
