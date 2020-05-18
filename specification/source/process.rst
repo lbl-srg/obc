@@ -27,12 +27,12 @@ If the verification tests fail, the implementation needs to be corrected.
 
 For closed-loop performance assessment,
 `Modelica models <http://simulationresearch.lbl.gov/modelica/>`_
-of the HVAC systems and controls will be linked to
-a Modelica envelope model or to
-an EnergyPlus envelope model. This can currently be done through the
-`External Interface <http://simulationresearch.lbl.gov/fmu/EnergyPlus/export/index.html>`_,
-and a more direct coupling is in development through the
-`Spawn of EnergyPlus <https://www.energy.gov/eere/buildings/downloads/spawn-energyplus-spawn>`_ project.
+of the HVAC systems and controls can be linked to
+a Modelica envelope model :cite:`WetterZuoNouidui2011:2` or to
+an EnergyPlus envelope model. The latter can be done through
+Spawn of EnergyPlus :cite:`WetterBenneGautierEtAl2020`,
+which is being developed in a related project at
+`https://lbl-srg.github.io/soep/ <https://lbl-srg.github.io/soep/>`_.
 
 .. _fig_process:
 

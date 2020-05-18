@@ -6,7 +6,6 @@ Control Description Language
 Introduction
 ^^^^^^^^^^^^
 
-
 This section specifies
 the Control Description Language (CDL),
 a declarative language that can be used to express control sequences using block-diagrams.
@@ -14,13 +13,21 @@ It is designed in such a way that it can be used to conveniently specify buildin
 in a vendor-independent format, use them within whole building energy simulation,
 and translate them for use in building control systems.
 
-To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
-or to English language documentation.
-Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
-(see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
-translates CDL to an intermediate format that we call :term:`CDL-JSON`.
-From CDL-JSON, further translations can be done to a control product line, or to
-generate point lists or English language documentation of the control sequences.
+A key technical challenge encountered when developing CDL was that existing control product lines are heterogeneous.
+They differ in their functionality for expressing control sequences,
+in their semantics of how control output gets updated, and in their syntax which ranges from graphical languages to textual languages.
+Code generation for a variety of products is common in the Electronic Design Automation industry.
+However, in the Electronic Design Automation industry, engineers write models and controllers
+are built to conform to the models. If this were to be applied to the buildings industry,
+then control providers would need to update their product line. We think such costly product line
+reconfigurations are not reasonable to expect in the next decade.
+Therefore, for the immediate future, we will need to build models of control sequences
+that can conform to their implementation on target control product lines;
+while ensuring that as new product lines are being developed, they can invert the paradigm and build controllers
+that conform to the models.
+We therefore selected the path of designing CDL in such a way
+that it provide a minimum set of capabilities that can be expected to be supported by control product lines.
+
 
 .. _fig_cdl_pro_lin:
 
@@ -50,14 +57,24 @@ generate point lists or English language documentation of the control sequences.
 
 
 
-This section describes the CDL language. Its translation using ``modelica-json``, or other means of translation, is described in
-:numref:`sec_code_gen`.
-A collection of control sequences, primarily from ASHRAE Guideline 36, is available
-from the Modelica Buildings Library at https://simulationresearch.lbl.gov/modelica/.
-A tool to export CDL into the CDL-JSON intermediate format that
-can be used to translate to commercial building automation systems, a process that we have been prototyping in 2019/20, is
-available at https://github.com/lbl-srg/modelica-json.
+To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
+or to English language documentation.
+Input into the translation is CDL. An open-source tool called ``modelica-json`` translator
+(see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
+translates CDL to an intermediate format that we call :term:`CDL-JSON`.
+From CDL-JSON, further translations can be done to a control product line, or to
+generate point lists or English language documentation of the control sequences.
 
+The next sections define the CDL language.
+A collection of control sequences that are composed using the CDL language is described
+in :numref:`sec_con_lib`. These sequences can be simulated with Modelica simulation environments.
+The translation of such sequences to control product lines using ``modelica-json``,
+or other means of translation, is described in
+:numref:`sec_code_gen`.
+
+
+Basic Elements of CDL
+^^^^^^^^^^^^^^^^^^^^^
 
 The CDL consists of the following elements:
 
@@ -76,8 +93,6 @@ The CDL consists of the following elements:
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
-
-The next sections define the CDL language.
 
 
 Syntax
@@ -543,11 +558,11 @@ An example code snippet is
      "Number of occupants"
        annotation (__cdl(default = 0));
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Continuous.Gain gai(
      k = VOutPerPer_flow) if have_occSen
        "Outdoor air per person";
    equation
-   connect(nOcc, con.u);
+   connect(nOcc, gai.u);
 
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.
@@ -732,6 +747,33 @@ value of connector as below.]
 
 CDL also uses annotations to declare default values for conditionally removable input
 connectors, see :numref:`sec_con_rem_ins`.
+
+For CDL implementations of sources such as ASHRAE Guideline 36, any instance,
+such as a parameter, input or output, that is not provided in
+the original documentation shall be annotated. For instances,
+the annotation is ``__cdl(InstanceInReference=False)`` while for parameter values,
+the annotation is ``__cdl(ValueInReference=False)``. For both, if not specified
+the default value is ``True``.
+
+[
+A specification may look like
+
+.. code-block:: modelica
+
+  parameter Real anyOutOfScoMult(
+    final unit = "1",
+    final min = 0,
+    final max = 1)=0.8
+    "Outside of G36 recommended staging order chiller type SPLR multiplier"
+    annotation(Evaluate=true, __cdl(ValueInReference=False));
+
+]
+
+.. note:: This annotation is not provided for parameters that are in general not
+          specified in the ASHRAE Guideline 36, such as hysteresis deadband, default gains for a controller,
+          or any reformulations of ASHRAE parameters that are needed for sequence generalization,
+          for instance a matrix variable used to indicate which chillers are used in each stage.
+
 
 .. _sec_com_blo:
 

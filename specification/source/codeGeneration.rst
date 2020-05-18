@@ -3,17 +3,77 @@
 Code Generation
 ---------------
 
-This section describes the development of a proof-of-concept
-translator from CDL to a building automation system.
-Translating the *CDL library* to a building automation system needs to be done only when
+Introduction
+^^^^^^^^^^^^
+
+This section describes the translation of control sequences expressed
+in CDL to a building automation system.
+
+Translating the *CDL library* to a building automation system to make it
+available as part of a product line needs to be done only when
 the CDL library is updated, and hence only developers need
 to perform this step.
-However, translation of a *CDL-conforming control sequence*, as well as translation
-of verification tests, will need to be done for each building project.
+However, translation of a *CDL-conforming control sequence* that has been developed
+for a specific building will need to be done for each building project.
+
+While translation from CDL to C code or to a :term:`Functional Mockup Unit` is
+support by Modelica simulation environments, translation to
+legacy building automation product lines is more difficult
+as they typically do not allow executing custom C code. Moreover,
+a building operator typically needs a graphical operator interface,
+which would not be supported if one were to simply upload compiled C code to
+a building automation system.
 
 
-Challenges and Implications for Translation of Control Sequences
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Use of CDL control sequences for building operation, or use of such sequences
+in a verification test module, consists of the following steps:
+
+1. Implementation of the control sequence using CDL.
+
+2. Export of the Modelica model as a Functional Mockup Unit for Model Exchange (FMU-ME)
+   or as a JSON specification.
+
+3. Import of the FMU-ME in the runtime environment, or translation of the
+   JSON specification to the language used by the building automation system.
+
+
+:numref:`fig_cod_exp` shows the process of exporting and importing
+control sequences.
+
+.. _fig_cod_exp:
+
+.. figure:: img/codeExport.*
+   :width: 700 px
+
+   Overview of the code export and import of control sequences and verification
+   tests.
+
+
+The next section describes three different approaches that can be used by control vendors
+to translate CDL to their product line:
+
+1. Translation of the CDL-compliant sequence to a JSON intermediate format, which can be translated
+   to the format used by the control platform (:numref:`sec_cdl_to_json_simp`).
+2. Export of the whole CDL-compliant sequence using the :term:`FMI standard<Functional Mockup Interface>`
+   (:numref:`sec_cdl_to_fmi`),
+   a standard for exchanging simulation models that can be simulated using a variety of open-source tools.
+3. Translation of the CDL-compliant sequence to an xml-based standard called
+   System Structure and Parameterization (SSP), which
+   is then used to parameterize, link and execute pre-compiled elementary CDL blocks
+   (:numref:`sec_cdl_ssp`).
+
+
+The best approach will depend on the control platform.
+While in the short-term, option 1) is likely preferred as it allows reusing existing
+control product lines, the long term vision is that control product lines would
+directly compile CDL using option 2) or 3).
+Before explaining
+these three approaches, we first discuss challenges of translation
+of CDL sequences to building automation systems, as well as their implications.
+
+
+Challenges and Implications for Translation of Control Sequences from and to Building Control Product Lines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section discusses challenges and implications
 for translating CDL-conforming control
@@ -53,121 +113,10 @@ Block diagrams can be developed with the free
 Sedona Application Editor (https://www.ccontrols.com/basautomation/sae.htm).
 
 
-Use of Control Sequences or Verification Tests in Realtime Applications
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Use of control sequences or verification tests in realtime applications, such
-as in a building automation system or in a verification test module, consists
-of the following steps:
-
-1. Implementation of the control sequence or verification test as a Modelica model.
-
-2. Export of the Modelica model as a :term:`Functional Mockup Unit` for Model Exchange (FMU-ME)
-   or as a JSON specification.
-
-3. Import of the FMU-ME in the runtime environment, or translation of the
-   JSON specification to the language used by the building automation system.
-
-
-.. _fig_cod_exp:
-
-.. figure:: img/codeExport.*
-   :width: 700 px
-
-   Overview of the code export and import of control sequences and verification
-   tests.
-
-
-:numref:`fig_cod_exp` shows the process of exporting and importing
-control sequences or verification tests.
-
-We will now describe three different approaches that can be used by control vendors
-to translate CDL to their product line:
-
-1. Export of the whole CDL-compliant sequence to one FMU (:numref:`sec_cdl_to_fmi`),
-2. Translation of the CDL-compliant sequence to a JSON intermediate format, which can be translated
-   to the format used by the control platform (:numref:`sec_cdl_to_json_simp`), and
-3. Translation of the CDL-compliant sequence to an xml-based standard called
-   System Structure and Parameterization (SSP), which
-   is then used to parameterize, link and execute pre-compiled elementary CDL blocks
-   (:numref:`sec_cdl_ssp`).
-
-The best approach will depend on the control platform.
-
-.. _sec_cdl_to_fmi:
-
-Export of a Control Sequence or a Verification Test using the FMI Standard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This section describes how to export a control sequence, or a verification test,
-using the :term:`FMI standard<Functional Mockup Interface>`.
-In this workflow, the intermediate format
-that is used is FMI for model exchange, as it is an open standard, and because FMI
-can easily be integrated into tools for controls or verification
-using a variety of languages.
-
-.. note:: Also possible, but outside of the scope
-          of this project, is the translation of the control sequences to
-          JavaScript, which could then be executed in a building automation system.
-          For a Modelica to JavasScript converter,
-          see https://github.com/tshort/openmodelica-javascript.
-
-
-To implement control sequences, blocks from the
-CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
-to the CDL language specification described in :numref:`sec_cdl`.
-For verification tests, any Modelica block can be used.
-Next, to export the Modelica model, a Modelica tool such as JModelica, OpenModelica
-or Dymola can be used.
-For example, with JModelica a control sequence can be exported using the Python commands
-
-.. code-block:: python
-
-   from pymodelica import compile_fmu
-   compile_fmu("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller")
-
-This will generate an FMU-ME.
-Finally, to import the FMU-ME in a runtime environment, various tools can be used, including:
-
-* Tools based on Python, which could be used to interface with
-  sMAP (https://pythonhosted.org/Smap/en/2.0/index.html) or
-  Volttron (https://energy.gov/eere/buildings/volttron):
-
-  * PyFMI (https://pypi.python.org/pypi/PyFMI)
-
-* Tools based on Java:
-
-  * Building Controls Virtual Test Bed (http://simulationresearch.lbl.gov/bcvtb)
-  * JFMI (https://ptolemy.eecs.berkeley.edu/java/jfmi/)
-  * JavaFMI (https://bitbucket.org/siani/javafmi/wiki/Home)
-
-* Tools based on C:
-
-  * FMI Library (http://www.jmodelica.org/FMILibrary)
-
-* Modelica tools, of which many if not all provide
-  functionality for real-time simulation:
-
-  * JModelica (http://www.jmodelica.org)
-  * OpenModelica (https://openmodelica.org/)
-  * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
-  * MapleSim (https://www.maplesoft.com/products/maplesim/)
-  * SimulationX (https://www.simulationx.com/)
-  * SystemModeler (http://www.wolfram.com/system-modeler/index.html)
-
-See also http://fmi-standard.org/tools/ for other tools.
-
-Note that directly compiling Modelica models to building automation systems
-also allows leveraging the ongoing `EMPHYSIS <https://itea3.org/project/emphysis.html>`_
-project (2017-20, Euro 14M) that develops technologies
-for running dynamic models on electronic control units (ECU),
-micro controllers or other embedded systems.
-This may be attractive for FDD and some advanced control sequences.
-
 .. _sec_cdl_to_json_simp:
 
 Translation of a Control Sequence using a JSON Intermediate Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Control companies that choose to not use C-code generation or the FMI standard to
 execute CDL-compliant control sequences can develop translators from
@@ -251,10 +200,81 @@ If JSON files are the starting point, then they should first validate the JSON f
 against the JSON Schema, as this ensures that the input files to the translator are valid.
 
 
+.. _sec_cdl_to_fmi:
+
+Export of a Control Sequence or a Verification Test using the FMI Standard
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This section describes how to export a control sequence, or a verification test,
+using the :term:`FMI standard<Functional Mockup Interface>`.
+In this workflow, the intermediate format
+that is used is FMI for model exchange, as it is an open standard, and because FMI
+can easily be integrated into tools for controls or verification
+using a variety of languages.
+
+.. note:: Also possible, but outside of the scope
+          of this project, is the translation of the control sequences to
+          JavaScript, which could then be executed in a building automation system.
+          For a Modelica to JavasScript converter,
+          see https://github.com/tshort/openmodelica-javascript.
+
+
+To implement control sequences, blocks from the
+CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
+to the CDL language specification described in :numref:`sec_cdl`.
+For verification tests, any Modelica block can be used.
+Next, to export the Modelica model, a Modelica tool such as JModelica, OpenModelica
+or Dymola can be used.
+For example, with JModelica a control sequence can be exported using the Python commands
+
+.. code-block:: python
+
+   from pymodelica import compile_fmu
+   compile_fmu("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.Economizers.Controller")
+
+This will generate an FMU-ME.
+Finally, to import the FMU-ME in a runtime environment, various tools can be used, including:
+
+* Tools based on Python, which could be used to interface with
+  sMAP (https://pythonhosted.org/Smap/en/2.0/index.html) or
+  Volttron (https://energy.gov/eere/buildings/volttron):
+
+  * PyFMI (https://pypi.python.org/pypi/PyFMI)
+
+* Tools based on Java:
+
+  * Building Controls Virtual Test Bed (http://simulationresearch.lbl.gov/bcvtb)
+  * JFMI (https://ptolemy.eecs.berkeley.edu/java/jfmi/)
+  * JavaFMI (https://bitbucket.org/siani/javafmi/wiki/Home)
+
+* Tools based on C:
+
+  * FMI Library (http://www.jmodelica.org/FMILibrary)
+
+* Modelica tools, of which many if not all provide
+  functionality for real-time simulation:
+
+  * JModelica (http://www.jmodelica.org)
+  * OpenModelica (https://openmodelica.org/)
+  * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
+  * MapleSim (https://www.maplesoft.com/products/maplesim/)
+  * SimulationX (https://www.simulationx.com/)
+  * SystemModeler (http://www.wolfram.com/system-modeler/index.html)
+
+See also http://fmi-standard.org/tools/ for other tools.
+
+Note that directly compiling Modelica models to building automation systems
+also allows leveraging the ongoing `EMPHYSIS <https://itea3.org/project/emphysis.html>`_
+project (2017-20, Euro 14M) that develops technologies
+for running dynamic models on electronic control units (ECU),
+micro controllers or other embedded systems.
+This may be attractive for FDD and some advanced control sequences.
+
+
 .. _sec_cdl_ssp:
 
 Modular Export of a Control Sequence using the FMI Standard for Control Blocks and using the SSP Standard for the Run-time Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In early 2018, a new standard called System Structure and Parameterization (SSP)
 will be released. The standard provides an xml scheme for the
@@ -389,101 +409,3 @@ then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
 
-Handling Limitations of Certain Building Automation Systems
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Some buildings automation systems do not support all capabilities of CDL.
-For example, ALC Eikon does not support conditionally removable instances,
-propagation of parameter values, and calculations in parameter assignments.
-(See :numref:`sec_instantiation` for these CDL constructs).
-This section explains how such limitations can be addressed.
-
-Conditionally Removable Instances
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Consider the illustrative example of a composite block shown in
-:numref:`fig_exp_ena_dis_ins`.
-
-.. _fig_exp_ena_dis_ins:
-
-.. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns.*
-   :width: 500px
-
-   Example of a composite control block in which the instances
-   ``u2`` and ``conIns`` can be conditionally removed.
-
-In CDL, this is specified as
-
-.. literalinclude:: img/codeGeneration/EnableDisableInstance/EnaDisIns.mo
-   :language: modelica
-   :linenos:
-
-Note that the instance ``conMax`` instantiates the elementary block
-``CDL.Continuous.ConditionalMax``, which outputs
-
-.. math::
-
-   y = \left\{
-     \begin{array}{ll}
-     \max(u_1, u_2), & \text{if input connector } u_2 \text{ is present}, \\
-                     u_1, & \text{otherwise.}
-        \end{array}
-        \right.
-
-This elementary block is implemented as
-
-.. literalinclude:: img/codeGeneration/EnableDisableInstance/ConditionalMax.mo
-   :language: modelica
-   :linenos:
-
-According to the Modelica language definition, if ``u2_present=false``,
-the instances ``u2`` and ``conIns``, the connections between ``u2``
-and ``conIns`` and between ``conIns`` and ``conMax``, and the input connector
-``conMax.u2`` are removed when generating simulation code.
-
-However, some building automation systems do not allow objects to be removed.
-For such cases, a constant input, or a virtual point, with the default value of
-``1.5``, as declared by the annotation ``__cdl(default = 1.5)``
-(see :numref:`sec_con_rem_ins`) and shown in
-:numref:`fig_exp_ena_dis_vir_point`, could be added.
-With such a construct, the composite block
-``EnaDisIns`` can be translated without requiring removal of any objects,
-thereby preserving all inputs and outputs.
-
-.. _fig_exp_ena_dis_vir_point:
-
-.. figure:: img/codeGeneration/EnableDisableInstance/EnaDisIns_virtualPoint.*
-   :width: 500px
-
-   Example of virtual point in translated sequence.
-
-Parameter Propagation
-~~~~~~~~~~~~~~~~~~~~~
-
-CDL allows parameter values to be propagated to instances of blocks.
-As an illustrative example,
-consider the composite control block specified as follows:
-
-.. literalinclude:: img/codeGeneration/ParameterPropagation/Controller.mo
-   :language: modelica
-   :linenos:
-
-The value of the parameter ``samplePeriod`` can be specified at the top-level,
-and is propagated to blocks inside this controller.
-This allows to change the value of ``samplePeriod`` at the top-level,
-and propagation of this value to all instances in the controller that require
-sampling at this rate.
-
-Building automation systems that do not support such propagation may have to
-use a global variable or virtual points.
-
-Calculations in Parameter Assignments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-CDL allows calculations in the assignment statements of ``parameters``.
-If a building automation system does not support such calculations,
-then the translator can optionally configured to evaluate such
-calculations during the translation.
-should extract the assignments as a separate operational
-block and feed its outputs to the parameters of the block.
-See :numref:`sec_par_eva_tra` for details.
