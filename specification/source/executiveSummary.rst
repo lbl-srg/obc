@@ -348,19 +348,33 @@ the US — and, ideally, the world. The key benefits are as follows:
   zero energy.
 
 The adoption of OpenBuildingControl will result in improved design and
-implementation of commercial building controls. A
-Lawrence Berkeley National Laboratory study
-identified 16% median actual savings from retro-commissioning and a
-study of 481 operational issues identified in existing commercial
-buildings found that control problems accounted for >75% of the
-potential energy savings. Taken together, these studies indicate that
-current control practices are inadequate to meet the needs of even
-conventional buildings. Therefore, the energy savings from widespread
-adoption of OpenBuildingControl can be estimated by noting that ~75%
-of the 16% primary energy savings associated with commissioning are
-related to controls, i.e. ~12%. The primary energy consumption of US
-commercial buildings with floor area above 50,000 sf is 18 quads/yr.
-Assuming that the technologies to be developed in the proposed project
-can save 12% in 50% of these buildings, the potential savings are ~1.1
-quads/yr nationally and ~0.05 quads/yr in California, saving IOU
-ratepayers ~$0.3B/yr.
+implementation of commercial building controls.
+The energy savings from widespread adoption of the processes and tools can be estimated as follows.
+A major barrier to achieving the state’s statutory energy goals is
+the failure of most commercial buildings to perform close to the technical potential
+of the design and its associated equipment. An LBNL meta-study identified 16% median actual savings
+from retro-commissioning and a study of 481 operational issues identified in existing commercial buildings
+found that control problems accounted for more than 75% of the potential energy savings.
+Therefore, we assume that around 75% of the 16% energy savings, equal to a total of 12% of energy savings,
+associated with commissioning are related to controls.
+Assuming that the technologies to be developed in the proposed project can save 12% in the 50% of
+commercial building floor area higher than 50,000 sf, we will assume our technology can reduce energy consumption
+on average across all commercial buildings by 6%.
+
+The National savings are estimated as follows:
+Commercial buildings consume annually about 4.24 quads (1240 TWh) of electricity and 2.25 quads (659 TWh) of gas.
+The 6% savings correspond to
+0.254 quads (74.4 TWh) of electricity and
+0.135 quads (39.6 TWh) of gas.
+Assuming a price of 0.1 $/kWh electricity
+and 8 $/(1000 ft3) of gas (corresponding
+to 0.027 $/kWh), the cost savings would be $7.44B in electricity and $1.07B in gas.
+
+The California savings are estimated as follows:
+CA commercial building consume annually about 0.23 quads (67.1 TWh) of electricity and
+1278.6 Mtherms (37.4 TWh) of gas.
+The 6% savings correspond to
+0.0152 quads (4.46 TWh) of electricity and
+0.0081 quads (2.38 TWh) of gas.
+Assuming the same energy costs as above,
+the cost savings would be $0.45B in electricity and $0.064B in gas.

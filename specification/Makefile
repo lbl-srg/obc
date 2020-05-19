@@ -70,6 +70,7 @@ copy_case_study1_results:
 
 
 latex:	test_installation
+	mkdir -p $(BUILDDIR)/latex
 	cp source/firstPages.pdf $(BUILDDIR)/latex
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
