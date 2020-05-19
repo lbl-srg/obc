@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Start the script for the directory that contains the package
 # with your model
@@ -58,7 +58,7 @@ def checkout_repository(working_directory, from_git_hub):
 def _simulate(spec):
     import os
 
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Optimica import Optimica
     if not spec["simulate"]:
         return
 
@@ -82,19 +82,20 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
-    s.addPreProcessingStatement("OutputCPUtime:= true;")
-    s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
-    s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
+    s=Optimica(spec["model"], outputDirectory=out_dir)
+#    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
+#    s.addPreProcessingStatement("OutputCPUtime:= true;")
+#    s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
+#    s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
 #    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
-        s.setSolver("Cvode")
+        s.setSolver("CVode")
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
-    s.setTolerance(1E-6 )
-    s.showGUI(True)
+    s.setTolerance(1E-8)
+#    s.showGUI(False)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()
 

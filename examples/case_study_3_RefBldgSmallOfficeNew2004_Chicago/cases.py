@@ -49,12 +49,12 @@ def get_cases():
          "stop_time":  94*24*3600})
 
     # Add load diversity
-    cases_load_diversity = copy.deepcopy(cases)
-    for ele in cases_load_diversity:
-        ele['name'] = "{}_diverse_loads".format(ele["name"])
-        ele['parameters'] = {'flo.kIntNor': 0.5}
+#    cases_load_diversity = copy.deepcopy(cases)
+#    for ele in cases_load_diversity:
+#        ele['name'] = "{}_diverse_loads".format(ele["name"])
+#        ele['parameters'] = {'flo.kIntNor': 0.5}
 
-    cases = cases + cases_load_diversity
+    cases = cases# + cases_load_diversity
 
     return cases
 
