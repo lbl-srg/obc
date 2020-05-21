@@ -43,7 +43,9 @@ The 6% savings correspond to
 Assuming the same energy costs as above,
 the cost savings would be $0.45B in electricity and $0.064B in gas.
 
-
+These electricity savings correspond to
+25 Rosenfelds in the US and
+1.5 Rosenfeld in California.
 
 Timeframe and Assumptions for Estimated Benefits
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

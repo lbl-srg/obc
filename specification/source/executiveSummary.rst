@@ -378,3 +378,7 @@ The 6% savings correspond to
 0.0081 quads (2.38 TWh) of gas.
 Assuming the same energy costs as above,
 the cost savings would be $0.45B in electricity and $0.064B in gas.
+
+These electricity savings correspond to
+25 Rosenfelds in the US and
+1.5 Rosenfeld in California.
