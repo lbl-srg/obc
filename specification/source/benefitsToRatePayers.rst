@@ -45,7 +45,8 @@ the cost savings would be $0.45B in electricity and $0.064B in gas.
 
 These electricity savings correspond to
 25 Rosenfelds in the US and
-1.5 Rosenfeld in California.
+1.5 Rosenfeld in California. [#f3]_
+
 
 Timeframe and Assumptions for Estimated Benefits
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -59,3 +60,6 @@ This will result in $160M/yr savings for California IOU ratepayers.
 .. [#f1] See Table 1 in https://www.eia.gov/consumption/commercial/reports/2012/energyusage/.
 
 .. [#f2] See https://www.eia.gov/dnav/ng/hist/n3020us3m.htm.
+
+.. [#f3] The unit of one Rosenfeld is equal to the electricity savings of 3 billion kWh per year,
+         the amount needed to replace the annual generation of a 500 megawatt coal-fired power plant.
