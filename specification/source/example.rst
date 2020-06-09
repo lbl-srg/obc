@@ -73,7 +73,7 @@ and a model for air flow through building leakage
 and through open doors based on wind pressure and
 flow imbalance of the HVAC system.
 
-HVAC model
+HVAC Model
 ..........
 
 The HVAC system is a variable air volume (VAV) flow system
@@ -93,7 +93,7 @@ In the VAV model, all air flows are computed based on the
 duct static pressure distribution and the performance curves of the fans.
 The fans are modeled as described in :cite:`Wetter2013:1`.
 
-Envelope heat transfer
+Envelope Heat Transfer
 ......................
 
 The thermal room model computes transient heat conduction through
@@ -112,7 +112,7 @@ has a dynamic equation for the moisture content.
 
 .. _sec_int_gai:
 
-Internal loads
+Internal Loads
 ..............
 
 .. _fig_internal_loads:
@@ -129,7 +129,7 @@ We use an internal load schedule as shown in
 :math:`40\%` is latent.
 Each zone has the same internal load per floor area.
 
-Multi-zone air exchange
+Multi-Zone Air Exchange
 .......................
 
 Each thermal zone has air flow from the HVAC system,
@@ -148,7 +148,7 @@ The multizone airflow models are further described in
 
 .. _sec_con_seq_des:
 
-Control sequences
+Control Sequences
 .................
 
 For the above models, we implemented two different control sequences, which
@@ -268,7 +268,7 @@ Our implementation differs from guideline 36 in the following points:
   to guard against numerical noise that may be introduced by a solver.
 
 
-Site electricity use
+Site Electricity Use
 ....................
 
 To convert cooling and heating energy as transferred by the coil to site electricity
@@ -346,7 +346,7 @@ as the PI controller is an elementary building block
 
 .. _sec_per_com_cas1:
 
-Performance comparison
+Performance Comparison
 ^^^^^^^^^^^^^^^^^^^^^^
 
 .. _fig_cas_stu1_energy:
@@ -501,7 +501,7 @@ their energy consumption is not noticeably affected.
 
 .. _sec_imp_spe_cas1:
 
-Improvement to guideline 36 specification
+Improvement to Guideline 36 Specification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes improvements that we recommend for the guideline 36
@@ -509,7 +509,7 @@ specification, based on the first public review draft :cite:`ASHRAE2016`.
 
 .. _sec_fre_pro:
 
-Freeze protection for mixed air temperature
+Freeze Protection for Mixed Air Temperature
 ...........................................
 
 The sequences have no freeze protection for the mixed air temperature.
@@ -587,7 +587,7 @@ Recknagel :cite:`Recknagel2005` adds further:
 
 .. _sec_dea_har_swi:
 
-Deadbands for hard switches
+Deadbands for Hard Switches
 ...........................
 
 There are various sequences in which the set point changes as a step function of
@@ -599,7 +599,7 @@ the timer was switched off. This avoids chattering.
 We therefore recommend to be more explicit for
 where to add hysteresis or time delays.
 
-Averaging air flow measurements
+Averaging Air Flow Measurements
 ...............................
 
 The guideline 36 does not seem to prescribe that outdoor airflow rate
@@ -611,7 +611,7 @@ this was done to avoid an algebraic system of equations,
 but in practice, this would filter measurement noise).
 
 
-Cross-referencing and modularization
+Cross-Referencing and Modularization
 ....................................
 
 For citing individual sections or blocks of the guideline,
@@ -628,7 +628,7 @@ for which one could also provide a reference implementation
 in software.
 
 
-Lessons learned regarding the simulations
+Lessons Learned Regarding the Simulations
 .........................................
 
 This is probably the most detailed building control simulation that
@@ -679,7 +679,7 @@ are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestP
 
 .. _sec_dis_con_cas1:
 
-Discussion and conclusions
+Discussion and Conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The guideline 36 sequence reduced annual site HVAC energy use by :math:`30\%`
