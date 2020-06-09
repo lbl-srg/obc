@@ -58,7 +58,11 @@ def checkout_repository(working_directory, from_git_hub):
 def _simulate(spec):
     import os
 
+    from buildingspy.simulate.Dymola import Dymola
     from buildingspy.simulate.Optimica import Optimica
+
+    useOptimica = True
+
     if not spec["simulate"]:
         return
 
@@ -82,12 +86,15 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    s=Optimica(spec["model"], outputDirectory=out_dir)
-#    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
-#    s.addPreProcessingStatement("OutputCPUtime:= true;")
-#    s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
-#    s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
-#    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
+    if useOptimica:
+        s=Optimica(spec["model"], outputDirectory=out_dir)
+    else:
+        s=Dymola(spec["model"], outputDirectory=out_dir)
+        s.addPreProcessingStatement("OutputCPUtime:= true;")
+        s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
+        s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
+        s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
+
     if not 'solver' in spec:
         s.setSolver("CVode")
     if 'parameters' in spec:
