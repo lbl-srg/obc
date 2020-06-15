@@ -136,12 +136,17 @@ emerging standards for *semantic* data (ASHRAE 223P) with a standard that allows
 control *logic* in a way that is indepedent of a particular control product line.
 
 The potential energy savings of this project, if adopted widely,
-are estimated to be about 1.1 quads/yr nationally and
-about 0.05 quads/yr in California, saving California IOU ratepayers about $0.3B/yr.
-If we assume 25% adoption in the target market five years after project completion and 75% ten years after, and
-if 10% of the target existing buildings have a controls retrofit each year and the new construction rate is 1.5%/yr,
-then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum.
-This will result in $120M/yr savings for California IOU ratepayers.
+are estimated to be nationally
+0.254 quads (74.4 TWh) of electricity and
+0.135 quads (39.6 TWh) of gas.
+In California, the potential energy savings would be
+0.254 quads (74.4 TWh) of electricity and
+0.135 quads (39.6 TWh) of gas.
+
+If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10%/yr and
+a new building construction rate of 1.5%/yr,
+then, after 10 years, the amount of building stock that is impacted by OpenBuildingControl is 21%.
+This would result in estimated benefits of $95M/yr for California IOU ratepayers.
 
 The next sections provide more details about the results of this project.
 They are structured as follows:

@@ -51,10 +51,19 @@ These electricity savings correspond to
 Timeframe and Assumptions for Estimated Benefits
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We assume 25% adoption in the target market five years after project completion and 75% ten years after.
-If 10% of the target existing buildings have a controls retrofit each year and the new construction rate is 1.5%/yr,
-then after 10 years the annual savings from existing buildings will have ramped up to about 40% of the maximum.
-This will result in $160M/yr savings for California IOU ratepayers.
+.. _fig_est_ben:
+
+.. figure:: img/estimatedBenefits.*
+   :width: 500 px
+
+   Estimated benefits of OpenBuildingControl.
+
+
+If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10%/yr and
+a new building construction rate of 1.5%/yr,
+then, after 10 years, the amount of building stock that is impacted by OpenBuildingControl is 21% (see :numref:`fig_est_ben`).
+Assuming the potential benefit of $0.45B savings in electricity,
+the estimated benefits are $95M/yr savings for California IOU ratepayers.
 
 
 .. [#f1] See Table 1 in https://www.eia.gov/consumption/commercial/reports/2012/energyusage/.
