@@ -385,8 +385,8 @@ These electricity savings correspond to
 25 Rosenfelds in the US and
 1.5 Rosenfeld in California.
 
-If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10%/yr and
-a new building construction rate of 1.5%/yr,
+If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10% per year and
+a new building construction rate of 1.5% per year,
 then, after 10 years, the amount of building stock that is impacted by OpenBuildingControl is 21% (see xxxx).
 Assuming the potential benefit of $0.45B savings in electricity,
 the estimated benefits are $95M/yr savings for California IOU ratepayers.

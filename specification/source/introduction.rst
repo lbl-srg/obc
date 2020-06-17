@@ -143,8 +143,8 @@ In California, the potential site energy savings would be
 0.254 quads (74.4 TWh) of electricity and
 0.135 quads (39.6 TWh) of gas.
 
-If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10%/yr and
-a new building construction rate of 1.5%/yr,
+If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10% per year and
+a new building construction rate of 1.5% per year,
 then, after 10 years, the amount of building stock that is impacted by OpenBuildingControl is 21%.
 This would result in estimated benefits of $95M/yr for California IOU ratepayers.
 
