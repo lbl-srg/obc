@@ -135,11 +135,11 @@ Such a standard will then complete existing standards for building control *comm
 emerging standards for *semantic* data (ASHRAE 223P) with a standard that allows expressing the
 control *logic* in a way that is indepedent of a particular control product line.
 
-The potential energy savings of this project, if adopted widely,
+The potential site energy savings of this project, if adopted widely,
 are estimated to be nationally
 0.254 quads (74.4 TWh) of electricity and
 0.135 quads (39.6 TWh) of gas.
-In California, the potential energy savings would be
+In California, the potential site energy savings would be
 0.254 quads (74.4 TWh) of electricity and
 0.135 quads (39.6 TWh) of gas.
 
