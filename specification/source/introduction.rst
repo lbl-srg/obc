@@ -176,6 +176,6 @@ and closes with specifications for how to automate such a verification.
 applied to the same building and HVAC system. In this example, simply changing the control sequence led to about
 30% annual savings in HVAC site electricity use.
 
-:numref:`sec_benefit_rate_payers` describes the benefits to the California IOU rate payers.
+:numref:`sec_benefit_rate_payers` describes the benefits to the California rate payers.
 
 :numref:`sec_glossary` explains technical terms used throughout the report.
