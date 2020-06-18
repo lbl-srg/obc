@@ -361,32 +361,30 @@ Assuming that the technologies to be developed in the proposed project can save 
 commercial building floor area higher than 50,000 sf, we will assume our technology can reduce energy consumption
 on average across all commercial buildings by 6%.
 
-The National savings are estimated as follows:
-The annual site energy consumption of commercial buildings in the US is about
-4.24 quads (1240 TWh) of electricity and 2.25 quads (659 TWh) of gas.
-The 6% savings correspond to
-0.254 quads (74.4 TWh) of electricity and
-0.135 quads (39.6 TWh) of gas.
-Assuming a price of 0.1 $/kWh electricity
-and 8 $/(1000 ft3) of gas (corresponding
-to 0.027 $/kWh), the cost savings would be $7.44B in electricity and $1.07B in gas.
-
 The California savings are estimated as follows:
-The annual site energy consumption of commercial buildings in California is about
-0.23 quads (67.1 TWh) of electricity and
-1278.6 Mtherms (37.4 TWh) of gas.
-The 6% savings correspond to
-0.0152 quads (4.46 TWh) of electricity and
-0.0081 quads (2.38 TWh) of gas.
-Assuming the same energy costs as above,
-the cost savings would be $0.45B in electricity and $0.064B in gas.
+The annual energy consumption of California commercial buildings is about 67.1 TWh of electricity,
+equivalent to 0.64 quads (188 TWh) of source energy,
+and 1278.6 Mtherms (0.13 quads, 37.4 TWh) of natural gas.
+The estimated 6% savings correspond to 4.03 TWh of electricity,
+equivalent to 0.038 quads (11.28 TWh) of source energy, and 0.00764 quads (2.24 TWh) of natural gas.
+Assuming a price of 0.17 $/kWh for electricity and 8 $/(1000 ft3) for natural gas (corresponding to 0.027 $/kWh),
+the cost savings would be $0.69B in electricity and $0.064B in natural gas.
+
+The US national savings are estimated as follows:
+The annual energy consumption of US commercial buildings is about 1240 TWh of electricity, equivalent to 11.9 quads (3472 TWh) of source energy,
+and about 22,500 MTherms (2.25 quads, 659 TWh) of natural gas. [#f2]_
+The estimated 6% savings correspond to 74.4 TWh of electricity, equivalent to 0.71 quads (208 TWh) of source energy, and
+0.135 quads (39.5 TWh) of natural gas.
+Assuming a price of 0.11 $/kWh for electricity and 8 $/(1000 ft3) for natural gas, the electricity cost savings would be $8.2B and
+the natural gas savings $1.07B.
 
 These electricity savings correspond to
 25 Rosenfelds in the US and
-1.5 Rosenfeld in California.
+1.5 Rosenfelds in California.
 
 If we assume 75% adoption of OpenBuildingControl over the next ten years, a controls retrofit rate of 10% per year and
 a new building construction rate of 1.5% per year,
-then, after 10 years, the amount of building stock that is impacted by OpenBuildingControl is 21% (see xxxx).
-Assuming the potential benefit of $0.45B savings in electricity,
-the estimated benefits are $95M/yr savings for California IOU ratepayers.
+then, after 10 years, the fraction of the building stock, weighted by floor area,
+that is impacted by OpenBuildingControl is 21%.
+Assuming the potential benefit of $0.69B savings in electricity,
+the estimated benefits are $146M/yr savings for California ratepayers.

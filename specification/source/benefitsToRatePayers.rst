@@ -26,7 +26,7 @@ commercial building floor area that is in buildings larger than 50,000 sf, the e
 We assume a value of 2.8 for the ratio of site energy to source energy for electricity, both for California and nationally. [#f1]_
 
 The California savings are estimated as follows:
-the annual energy consumption of California commercial buildings is about 67.1 TWh of electricity,
+The annual energy consumption of California commercial buildings is about 67.1 TWh of electricity,
 equivalent to 0.64 quads (188 TWh) of source energy,
 and 1278.6 Mtherms (0.13 quads, 37.4 TWh) of natural gas (see Table 8-1 in :cite:`CEUS2006`).
 The estimated 6% savings correspond to 4.03 TWh of electricity,
