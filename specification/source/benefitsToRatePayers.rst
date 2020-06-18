@@ -28,7 +28,7 @@ the annual energy consumption of California commercial buildings is about 67.1 T
 equivalent to 0.64 quads (188 TWh) of source energy,
 and 1278.6 Mtherms (0.13 quads, 37.4 TWh) of natural gas (see Table 8-1 in :cite:`CEUS2006`).
 The estimated 6% savings correspond to 4.03 TWh of electricity,
-equivalent to 0.038 quads (11.28 TWh) of source energy, and 0.0081 quads (2.37 TWh) of natural gas.
+equivalent to 0.038 quads (11.28 TWh) of source energy, and 0.00764 quads (2.24 TWh) of natural gas.
 Assuming a price of 0.17 $/kWh for electricity and 8 $/(1000 ft3) for natural gas (corresponding to 0.027 $/kWh),
 the cost savings would be $0.69B in electricity and $0.064B in natural gas.
 
