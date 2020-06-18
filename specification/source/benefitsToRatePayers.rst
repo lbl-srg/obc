@@ -23,6 +23,8 @@ Therefore, we assume that around 75% of the 16% expected energy savings associat
 Assuming that the technologies being developed in the project can save 12% in the 50% of the
 commercial building floor area that is in buildings larger than 50,000 sf, the estimated savings average 6% across all commercial buildings.
 
+We assume a value of 2.8 for the ratio of site energy to source energy for electricity, both for California and nationally. [#f1]_
+
 The California savings are estimated as follows:
 the annual energy consumption of California commercial buildings is about 67.1 TWh of electricity,
 equivalent to 0.64 quads (188 TWh) of source energy,
@@ -34,13 +36,11 @@ the cost savings would be $0.69B in electricity and $0.064B in natural gas.
 
 The US national savings are estimated as follows:
 The annual energy consumption of US commercial buildings is about 1240 TWh of electricity, equivalent to 11.9 quads (3472 TWh) of source energy,
-and about 22,500 MTherms (2.25 quads, 659 TWh) of natural gas. [#f1]_
+and about 22,500 MTherms (2.25 quads, 659 TWh) of natural gas. [#f2]_
 The estimated 6% savings correspond to 74.4 TWh of electricity, equivalent to 0.71 quads (208 TWh) of source energy, and
 0.135 quads (39.5 TWh) of natural gas.
 Assuming a price of 0.11 $/kWh for electricity and 8 $/(1000 ft3) for natural gas, the electricity cost savings would be $8.2B and
 the natural gas savings $1.07B.
-
-A value of 2.8 for the ratio of site energy to source energy has been assumed for electricity, both for California and nationally. [#f2]_
 
 These electricity savings correspond to
 25 Rosenfelds in the US and
@@ -66,9 +66,9 @@ Assuming the potential benefit of $0.69B savings in electricity,
 the estimated benefits are $146M/yr savings for California ratepayers.
 
 
-.. [#f1] See Table 1 in https://www.eia.gov/consumption/commercial/reports/2012/energyusage/.
+.. [#f1] See https://portfoliomanager.energystar.gov/pdf/reference/Source%20Energy.pdf
 
-.. [#f2] See https://portfoliomanager.energystar.gov/pdf/reference/Source%20Energy.pdf
+.. [#f2] See Table 1 in https://www.eia.gov/consumption/commercial/reports/2012/energyusage/.
 
 .. [#f3] The unit of one Rosenfeld is equal to the electricity savings of 3 billion kWh per year,
          the amount needed to replace the annual generation of a 500 megawatt coal-fired power plant.
