@@ -12,7 +12,8 @@ include HVAC and lighting. Proper control of these systems, based on
 factors such as building occupancy and weather conditions, can reduce
 building energy use by 10 to 30%. However, few commercial buildings
 have optimized control systems. Many existing buildings predate
-current energy codes, standards and guidelines. New construction
+current energy codes, standards and guidelines which require
+optimized sequences. New construction
 projects that are designed to implement such strategies frequently
 struggle due to the inherently complicated process of traditional
 design development, documentation, interpretation, implementation and
@@ -22,19 +23,21 @@ productivity.
 
 OpenBuildingControl is a project whose aim is to improve the process
 and tools necessary for the design, cost-effective implementation, and
-validation of the operating control sequences used for commercial
+validation of the control sequences used for commercial
 buildings. The first phase of the project, reported here, has been
-co-funded by California Energy Commission and the United States Department of Energy (DOE).
-The second phase of the project will be funded by DOE.
+co-funded by the California Energy Commission and
+the United States Department of Energy (DOE).
+A second phase of the project is being funded by the DOE.
 
 The Phase 1 work reported here has focused on providing the
 capability to avoid major problems with the current process for the
 design and implementation of controls in commercial buildings. Current
-practice involves generating verbose, ambiguous and error-prone
-descriptions of control system sequences, then requiring a project
-technician to interpret the intent and write the necessary code to
-deploy the sequence in a proprietary control system, followed by a
-manual process to validate and confirm the operation.
+practice involves the HVAC designer writing a sequence, which depending
+on the skill level of the HVAC designer can be ambiguous and error-prone.
+The sequence is a verbose description of the control system operation,
+which a project technician has to interpret to write the necessary code
+for deployment of the sequence in a proprietary control system. This is
+followed by a manual process to validate and confirm the operation.
 
 The OpenBuildingControl project built the foundation to enable
 the digitization of the
@@ -44,7 +47,7 @@ system designers to select, model the performance of, and then specify
 sequences for implementation, using a digitized workflow with
 end-to-end verification, including formal testing of the installed
 control sequences. The designer will be able to express the desired
-sequence in an electronic format that can be readily translated to
+sequence in an electronic format that can be readily implemented or translated to
 programming code without the need for manual interpretation. The
 project will also provide tools to automatically document the
 sequences of operation implemented in a building and compare them to
@@ -57,13 +60,16 @@ manufacturers, controls subcontractors, owners, and to be required or
 incentivized by other interested parties, including state energy
 agencies and utilities.
 
-The OpenBuildingControl project complements work by ASHRAE’s Standing
-Guideline Project Committee 36, which collects, develops and
+The OpenBuildingControl project complements work by the
+Standing
+Guideline Project Committee 36 of
+the American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE),
+which collects, develops and
 publishes control sequences considered to be industry best-in-class
 for improving system stability, energy performance, indoor air quality
 and comfort. Current versions of energy standards and codes, such as
 ASHRAE 90.1 and the California Energy Code, Title 24, require specific
-algorithms and are expected to adopt or reference Guideline 36
+algorithms documented in Guideline 36, and are anticipated to adopt or reference Guideline 36
 sequences as awareness of the Guideline grows.
 
 
@@ -78,7 +84,7 @@ processes and tools to remove impediments to effective design and
 correct implementation.
 
 A key paradigm shift is the development of a process and supporting
-software that pave the way for digitization of the controls delivery
+software that paves the way for digitization of the controls delivery
 process. The current process starts with the need for a design
 engineer to write a “controls sequence” using a verbose format to
 describe each part of the operation of a system. There are several
@@ -94,7 +100,7 @@ select the sequences that will work best with the project's mechanical
 system, using tools developed in this project. The digital sequence
 specification allows the performance of building control sequences,
 including annual energy, peak demand and comfort, to be assessed using
-whole building simulation. The control sequences can then be
+whole building simulation. The control sequences can then be used directly or be
 translated for use in commercial building control product lines using
 machine-to-machine translation. Finally, new tools will assist in
 verifying proper implementation of the sequences.  Such a process will
@@ -108,7 +114,7 @@ consists of:
 * Building owners and operators, who are responsible for operating
   commercial buildings so that they are safe, productive, and efficient.
 
-* Researchers and control companies who develop new control sequences
+* Researchers and control companies who develop new HVAC systems and control sequences
   for building energy systems.
 
 * Professional organizations such as ASHRAE who are developing
@@ -119,10 +125,10 @@ consists of:
   Title 24 or ANSI/ASHRAE/IES Standard 90.1,
   Energy Standard for Buildings Except Low-Rise Residential Buildings.
 
-
 * Mechanical designers who specify control sequences for a particular building.
 
-* Control companies who implement the control sequences on their product lines.
+* Control companies and system integrators who implement control sequences
+  in new construction or retrofit projects.
 
 * Commissioning agents who verify whether the as-installed control
   sequences comply with the specification from the mechanical designer.
@@ -144,62 +150,42 @@ commissioning agents, and building owners and operators.
 
 The advisory panel provided industry input and feedback while the core
 team was responsible for defining the new process and coding, testing,
-validating, and documenting the associated tools. Key elements of the
-development work include:
-
-* Definition of use cases and processes related to controls design and
-  implementation.
-
-* Development of an open standard called Control Description Language
-  (CDL) used to specify building control sequences.
-
-* Review of the proposed semantics and functionality of the |CDL| with
-  controls suppliers.
-
-* Development of tools to allow |CDL| to be used within annual whole
-  building energy simulation using the open-source modeling language
-  Modelica and the Spawn of EnergyPlus software that is currently
-  developed by the US Department of Energy.
-
-* Tools to translate |CDL| into common data formats for documentation
-  and for translation to commercial control product lines.
-
-* Case studies that compare the performance of new sequences developed
-  by the American Society of Heating and Air-Conditioning Engineers
-  (ASHRAE) to current typical sequences.
-
-* Demonstration of translation of |CDL| to a proprietary controller
-  language and uploading of this code into a functioning control system.
-
-* Coordination with other industry efforts including ASHRAE.
-
-* Development of a commercialization plan.
+validating, and documenting the associated tools.
+Several presentations at ASHRAE also led to feedback that affected
+the direction of the research and development, as did presentation
+to the advisory panel, to selected companies and to the scientific community
+at various conferences.
 
 A key technical challenge that was encountered by the project was
 that, due to a lack of standards, existing control product lines are
 heterogeneous. They differ in their functionality for expressing
 control sequences, in their semantics of how control output gets
-updated, and in their syntax, which ranges from graphical languages to
+updated, and in their programming syntax, which ranges from graphical languages to
 textual languages. Code generation for a variety of products is common
 in the Electronic Design Automation industry, which develops software
 tools for designing electronic systems such as integrated circuits and
 printed circuit boards. However, in the Electronic Design Automation
-industry, engineers write models and controllers are built to conform
+industry, engineers write models of the physical device and the
+controls, using graphical and textual languages,
+and actual controllers are then built to conform
 to the models. If this process were to be applied to the buildings
 industry, then control providers would need to update their product
-lines. The project team considers that such costly product line
-reconfigurations cannot reasonably be expected in the next decade.
+lines. The project team
+believes that once CDL becomes a standard, that suppliers consider
+adding it to new or existing products.
+That process may take 5 to 10 years to complete.
 Therefore, for the immediate future, the OpenBuildingControl process
 will need to involve the building of models of control sequences that
-can conform to their implementation on target control product lines,
+can conform to their implementation on existing control product lines,
 while ensuring that, as new product lines are being developed, they
 can invert the paradigm and build controllers that conform to the
 models. The project team has, therefore, selected the path of
 designing |CDL| in such a way that it provides a minimum set of
-capabilities that can be expected to be supported by control product
-lines. As we have shown with one product commercial product line, the
-barrier to support this language is low, and we therefore expect that
-other control providers may follow suit. We are also working with
+capabilities that can be expected to be supported by current control products.
+As we have demonstrated with one commercial product, the
+barrier to supporting this language is low, and we therefore expect
+that suppliers may elect to develop and support translators.
+We are also working with
 industry to establish |CDL| as an ASHRAE/ANSI
 and, eventually, an ISO standard. Getting industry support to make
 this a standard would allow for products to be developed that follow
@@ -215,6 +201,9 @@ industry and by members of the ASHRAE Standing
 Guideline Project Committee 36 which develops high
 performance control sequences. The following items resulted from this
 project phase:
+
+* Definition of use cases and processes related to controls design and
+  implementation.
 
 * Definition and documentation of the semantics and syntax of |CDL| and
   of its JSON export format.
@@ -236,7 +225,7 @@ project phase:
 * Demonstration of sequences expressed in |CDL| being translated to a
   proprietary language and uploaded into a working control system.
 
-* Various case studies that demonstrate the use of the tools and the
+* Case studies that demonstrate the use of the tools and the
   energy savings obtained through the use of high performance control sequence.
 
 * A commercialization and market transformation plan.
@@ -283,8 +272,8 @@ To build market adoption, the project team worked with key committees
 of ASHRAE to align the developed technology with the needs of the industry.
 Furthermore, all technology has been
 developed in such a way that it directly integrates with the roadmap
-of DOE’s Building Technologies Office for energy simulation and for
-supporting building operation.
+of the US Department of Energy's Building Technologies Office
+for energy simulation and for sensors and controls.
 
 To align the developed technologies with industry needs, the project
 team developed a detailed commercialization and market transformation
@@ -331,24 +320,25 @@ This project will benefit both the State of California and the rest of
 the US — and, ideally, the world. The key benefits are as follows:
 
 * *Reduced cost to design and implement advanced controls*. This
-  project will make the use of these advanced controls more cost
+  project will make the use of these advanced controls sequences more cost
   effective for new construction and, even more importantly, for
   retrofit, where costs and complexity are often impediments to
   implementation.
 
 * *Improved energy efficiency*. The project team has documented the
   potential to reduce heating, ventilation, and air-conditioning system
-  energy use by 30% through the use of advanced controls for secondary
+  energy use by 30% through the use of advanced controls sequences for airside
   HVAC systems. The team is confident that this approach can be extended
   to other building systems, including primary systems, lighting
   systems, and active façade systems. The ability to reduce building
   energy use is a significant benefit for the state and is essential to
   achieving California’s 2030 goal of having all new commercial
-  buildings, and 50% of commercial buildings being retrofitted, be net
+  buildings, and 50% of commercial buildings being retrofitted, to be net
   zero energy.
 
 The adoption of OpenBuildingControl will result in improved design and
-implementation of commercial building controls.
+implementation of commercial building controls
+without requiring major retraining or process changes to how controls are designed or delivered.
 The energy savings from widespread adoption of the processes and tools can be estimated as follows.
 A major barrier to achieving the state’s statutory energy goals is
 the failure of most commercial buildings to perform close to the technical potential
@@ -371,8 +361,8 @@ Assuming a price of 0.17 $/kWh for electricity and 8 $/(1000 ft3) for natural ga
 the cost savings would be $0.69B in electricity and $0.064B in natural gas.
 
 The US national savings are estimated as follows:
-The annual energy consumption of US commercial buildings is about 1240 TWh of electricity, equivalent to 11.9 quads (3472 TWh) of source energy,
-and about 22,500 MTherms (2.25 quads, 659 TWh) of natural gas. [#f2]_
+The annual energy consumption of US commercial buildings is about 1240 TWh of electricity,
+equivalent to 11.9 quads (3472 TWh) of source energy, and about 22,500 MTherms (2.25 quads, 659 TWh) of natural gas.
 The estimated 6% savings correspond to 74.4 TWh of electricity, equivalent to 0.71 quads (208 TWh) of source energy, and
 0.135 quads (39.5 TWh) of natural gas.
 Assuming a price of 0.11 $/kWh for electricity and 8 $/(1000 ft3) for natural gas, the electricity cost savings would be $8.2B and
