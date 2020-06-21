@@ -36,8 +36,8 @@ significant labor cost savings and performance improvements.
 Project Goals
 ~~~~~~~~~~~~~
 
-The overall goal of this project is to significantly improve the building energy efficiency
-through a robust workflow that allows deploying at scale high performance building control sequence.
+The overall goal of this project is to significantly improve building energy efficiency
+through a robust workflow that allows deploying high performance building control sequence at scale.
 In support of this, the project developed a process
 with an integrated set of tools to enable design engineers to unambiguously
 specify energy-efficient control sequences for commercial buildings and
@@ -47,7 +47,7 @@ then verify their correct implementation, providing end-to-end quality control.
 Approach
 ~~~~~~~~
 
-Our approach is to digitize the control delivery. Rather than paper-based English language
+Our approach is to digitize the delivery of control. Rather than paper-based English language
 specification, our process is fully digitized, allowing performance assessment in design,
 electronic specification in a format that was designed to allow machine-to-machine translation to
 control product lines, and formal verification of the control response relative
@@ -59,9 +59,9 @@ delivery and implementation on existing building automation product lines.
 
 The technical environment for such a digital control delivery starts to fall in place:
 For communication of control signals, standards such as
-BACnet, LonWorks and EIB/KNX are widely used.
-For semantic modeling, Haystack and Brick are increasingly used, and
-ASHRAE Standard 223P attempts to standardize semantic modeling, building on these
+BACnet and LonWorks are widely used.
+For semantic modeling, Haystack and Brick Schema are increasingly used, and
+the proposed ASHRAE Standard 223P attempts to standardize semantic modeling, building on these
 previous efforts.
 
 
@@ -78,6 +78,7 @@ previous efforts.
 However, what is missing is a means to express control sequences
 in a way that can be simulated during design,
 exported for control specification and documentation,
+used directly or
 translated to commercial product lines and reused for formal verification of the correct
 implementation of the control sequences. This gap is what the OpenBuildingControl project
 attempts to close.
@@ -97,20 +98,35 @@ The control specification can also be exported for use in a formal process that 
 that the control signal of the actual implementation is within a user-selected tolerance
 of the simulated control signal. This therefore provides a workflow with an end-to-end
 verification as shown in :numref:`fig_cdl_overview`.
-Therefore, CDL complements communication (BACnet) and semantic modeling (ASHRAE 223P) by
+Therefore, CDL complements communication (ASHRAE 135 - BACnet) and semantic modeling
+(ASHRAE 223P - Designation and Classification of Semantic Tags for Building Data) by
 expressing the control logic, with the goal of standardizing this missing part of the
 control representation.
 
 We believe that the time for such an effort is ideal due to the convergence of various technologies
-such as declarative modeling (Modelica) that allows closed loop control simulation in annual energy modeling,
-advances in code generation that eases machine-to-machine translation of declarative languages,
-semantic modeling (BRICK) that promises to generate a semantic model from a declarative Modelica model
-for subsequent semi-automatical connection to an actual buildings in which a digital twin of the
-control and of the building systems could be used to support building analytics (MORTAR~\cite{}).
-Due to the trend towards all electric buildings, which, to increase 2nd law efficiency, should no longer
-decouple subsystems through large temperature lifts (as is customary in fossil-fuel based heating systems),
-and the resulting need for more complex control which, in addition, also need to provide grid flexibility,
-we believe such a convergence of technology will help the industry achieving higher system-level performance.
+related to the digitization of the building design and operation, and related to emerging needs
+of building energy systems.
+Regarding digitization of the building design and operation,
+declarative modeling (Modelica) progressed substantially over the last years,
+getting to the point where fully coupled closed loop control simulation is possible
+within annual energy simulation.
+Furthermore, advances in code generation eases machine-to-machine translation of declarative languages and
+semantic modeling (BRICK or ASHRAE 223p), putting in place the foundation to generate a semantic model
+from a declarative Modelica model. This combination promises to allow the
+semi-automatic connection of an actual building system to a digital twin of the
+control and related algorithms that support building analytics (MORTAR~\cite{FieroPritoniEtAl2019}).
+Regarding emerging needs of building energy systems,
+there is a shift towards all electric buildings in various US states and various countries.
+In these systems, heating and cooling
+often includes the use of heat sources and heat storage that are close to ambient temperatures.
+To increase the 2nd law efficiency of such systems, systems operate with low temperature lifts,
+rather than the large temperature lifts that are customary in fossil-fuel based heating systems
+and conventional cooling systems.
+Moreover, building systems also have the added recent requirement to provide flexibility to the
+electrical grid.
+All of these lead to more complex HVAC and control systems.
+The OpenBuildingControl process has been developed to support the transitions towards
+such high performance systems.
 
 
 Project Results
@@ -125,15 +141,16 @@ and evaluating new control sequences, or by mechanical designers as part of the 
 These control sequences can then be exported to a digital format for which we showed as a proof-of-concept
 that it can be translated to a commercial building control platform, thereby running the control sequence
 that was used in simulation natively on a commercial building control platform.
-This intermediate format also allows control providers to build digital cost estimation tools, further
-streamlining the control procurement process.
+This intermediate format also provides control providers data needed to build digital cost estimation tools,
+further streamlining the control procurement process.
 
 As part of the project, we demonstrated each step of such a digitized control design, delivery and
 verification process. We also started forming an ASHRAE Standards Committee whose purpose is to
 turn the Control Description Language that has been developed in this project into an ASHRAE/ANSI standard.
-Such a standard will then complete existing standards for building control *communication* (BACnet),
-emerging standards for *semantic* data (ASHRAE 223P) with a standard that allows expressing the
-control *logic* in a way that is indepedent of a particular control product line.
+Such a standard will then complete existing standards for building control *communication* (ASHRAE 135 - BACnet),
+emerging standards for *semantic* data (ASHRAE 223P - Designation and Classification of Semantic Tags for Building Data)
+with a standard that allows expressing the
+control *logic* in a way that is independent of a particular control product line.
 
 The potential energy savings of this project, if adopted widely,
 are estimated to be in California,
