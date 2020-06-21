@@ -114,7 +114,7 @@ Furthermore, advances in code generation eases machine-to-machine translation of
 semantic modeling (BRICK or ASHRAE 223p), putting in place the foundation to generate a semantic model
 from a declarative Modelica model. This combination promises to allow the
 semi-automatic connection of an actual building system to a digital twin of the
-control and related algorithms that support building analytics (MORTAR~\cite{FieroPritoniEtAl2019}).
+control and related algorithms that support building analytics (Mortar :cite:`FieroPritoniEtAl2019`).
 Regarding emerging needs of building energy systems,
 there is a shift towards all electric buildings in various US states and various countries.
 In these systems, heating and cooling
@@ -124,7 +124,7 @@ rather than the large temperature lifts that are customary in fossil-fuel based 
 and conventional cooling systems.
 Moreover, building systems also have the added recent requirement to provide flexibility to the
 electrical grid.
-All of these lead to more complex HVAC and control systems.
+All of these lead to more complex energy and control systems.
 The OpenBuildingControl process has been developed to support the transitions towards
 such high performance systems.
 
