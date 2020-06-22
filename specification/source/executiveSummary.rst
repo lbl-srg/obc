@@ -23,7 +23,7 @@ productivity.
 
 OpenBuildingControl is a project whose aim is to improve the process
 and tools necessary for the design, cost-effective implementation, and
-validation of the control sequences used for commercial
+validation of the control sequences used in commercial
 buildings. The first phase of the project, reported here, has been
 co-funded by the California Energy Commission and
 the United States Department of Energy (DOE).
@@ -41,8 +41,8 @@ followed by a manual process to validate and confirm the operation.
 
 The OpenBuildingControl project built the foundation to enable
 the digitization of the
-current paper-based control delivery process. The project has been
-developing tools for
+current paper-based delivery process. The project has
+built tools for
 system designers to select, model the performance of, and then specify
 sequences for implementation, using a digitized workflow with
 end-to-end verification, including formal testing of the installed
@@ -106,7 +106,7 @@ machine-to-machine translation. Finally, new tools will assist in
 verifying proper implementation of the sequences.  Such a process will
 allow error-free deployment of control sequences, thereby addressing
 the situation that the current paper-based process fails to implement
-- high-performance control sequences at scale.
+high-performance control sequences at scale.
 
 The main audience for the technology developed in this project
 consists of:
@@ -156,7 +156,7 @@ the direction of the research and development, as did presentation
 to the advisory panel, to selected companies and to the scientific community
 at various conferences.
 
-A key technical challenge that was encountered by the project was
+A key technical challenge encountered by the project was
 that, due to a lack of standards, existing control product lines are
 heterogeneous. They differ in their functionality for expressing
 control sequences, in their semantics of how control output gets
@@ -186,11 +186,10 @@ As we have demonstrated with one commercial product, the
 barrier to supporting this language is low, and we therefore expect
 that suppliers may elect to develop and support translators.
 We are also working with
-industry to establish |CDL| as an ASHRAE/ANSI
-and, eventually, an ISO standard. Getting industry support to make
-this a standard would allow for products to be developed that follow
-the format including semantics and syntax utilized in |CDL| without
-the need for translation.
+industry to establish |CDL| as an ASHRAE/ANSI Standard
+and, eventually, an ISO Standard. Getting industry support to make
+|CDL| a standard would allow for products to be developed that use
+|CDL| without the need for translation.
 
 
 Project Results
@@ -239,7 +238,7 @@ project phase:
   EnergyPlus simulation tool to compute the performance of the selected
   option using whole building energy simulation.
 
-* The formation of an ASHRAE Standards Committee for making |CDL| an
+* The formation of an ASHRAE Standard Project Committee for making |CDL| an
   ASHRAE/ANSI Standard and, ultimately, an ISO Standard.
 
 There is also a set of items that were not completed by the end of
@@ -302,12 +301,12 @@ Geothermal Office, respectively.
 
 To support the update of
 energy codes, such as California's Building Energy
-Efficiency Standard Title 24 or ANSI/ASHRAE/IES Standard 90.1,
+Efficiency Standard Title 24 and ANSI/ASHRAE/IES Standard 90.1,
 we anticipate that analysts will use |CDL| together with Spawn of
 EnergyPlus. This will allow analyzing the energy impacts of measures
 related to building control across a portfolio of buildings in different
 climate zones.
-Moreover, prescriptive code may state what control sequences need to
+Moreover, prescriptive codes may state which control sequences need to
 be used and they could then provide the specification of these control sequences in
 |CDL| for use in project specifications and for implementation on the
 building’s control system.
