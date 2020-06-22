@@ -115,7 +115,7 @@ The parser generates the following output formats:
 3. an html-formated documentation of the control sequence.
 
 To translate CDL-compliant control sequences to the language that is used
-by the respective building automation system, the simplified JSON representation
+by the target building automation system, the simplified JSON representation
 is most suited.
 
 As an illustrative example, consider the composite control block shown in

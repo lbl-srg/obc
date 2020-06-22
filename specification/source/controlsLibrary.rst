@@ -34,8 +34,8 @@ control sequences that are expressed in CDL can be translated to, using
 the process described in :numref:`sec_cdl_to_json_simp`.
 
 These elementary blocks are used to compose control sequences for
-mechanical systems, lighting systems and active facades that
-are described in the next section.
+mechanical systems, lighting systems and active facades as
+described in the next section.
 
 
 .. _sec_library_of_sequences:
@@ -77,7 +77,7 @@ VAV systems.
 
 
 Every sequence contains an English language description,
-an implementation using block diagram modeling, and one or several examples
+an implementation using block diagram modeling, and one or more examples
 that illustrate the use of the sequence. These examples
 are available in the ``Validation`` package in which the sequences are used,
 typically with open-loop tests.
