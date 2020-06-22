@@ -19,11 +19,14 @@ in their semantics of how control output gets updated, and in their syntax which
 Code generation for a variety of products is common in the Electronic Design Automation industry.
 However, in the Electronic Design Automation industry, engineers write models and controllers
 are built to conform to the models. If this were to be applied to the buildings industry,
-then control providers would need to update their product line. We think such costly product line
+then control providers would need to update their product line in order to be able to faithfully
+comply with the model.
+We think such costly product line
 reconfigurations are not reasonable to expect in the next decade.
-Therefore, for the immediate future, we will need to build models of control sequences
+Therefore, for the immediate future, we will need to build digital models of control sequences
 that can conform to their implementation on target control product lines;
-while ensuring that as new product lines are being developed, they can invert the paradigm and build controllers
+while ensuring that as new product lines are being developed,
+the manufacturers can invert the paradigm and build controllers
 that conform to the models.
 We therefore selected the path of designing CDL in such a way
 that it provide a minimum set of capabilities that can be expected to be supported
@@ -116,7 +119,7 @@ a subset of the Modelica 3.3 specification
 for the implementation of CDL :cite:`Modelica2012:1`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
-This subset is fully compatible with Modelica, e.g., no other information that
+This subset is fully compatible with Modelica, e.g., no construct that
 violates the Modelica Standard has been added, thereby allowing users
 to view, modify and simulate CDL-conformant control sequences with any
 Modelica-compliant simulation environment.
@@ -166,7 +169,7 @@ For example, to declare a real-valued parameter,
 use ``parameter Real k = 1 "A parameter with value 1";``.
 In contrast, a ``constant`` cannot be changed after the software is
 compiled, and is typically not shown in a graphical user interface menu.
-For example, a ``constant`` is used to define latent heat of evaporation
+For example, a ``constant`` is used to specify latent heat of evaporation of water
 if used in a controller.
 ]
 
@@ -189,12 +192,6 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 See the Modelica 3.3 specification Chapter 10 for array notation and these
 functions.
-
-
-.. note::
-
-   We still need to define the allowed values for ``quantity``, for example
-   ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
 .. _sec_enc_block:
@@ -245,8 +242,8 @@ implementations shall have the same inputs, outputs and parameters, and
 they shall compute the same response for the same value of inputs and state variables.]
 
 Users are not allowed to add
-new elementary building blocks. Rather, users can use them to implement
-composite blocks (:numref:`sec_com_blo`).
+new elementary building blocks. Rather, users can use the existing elementary blocks
+to implement composite blocks (:numref:`sec_com_blo`).
 
 .. note::
 
@@ -394,7 +391,7 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
 
 where the documentation string is optional.
 The annotation is typically used
-for the graphical positioning of the instance in a block-diagram.]
+for the graphical positioning of the instance in a block diagram.]
 
 Using expressions in parameter assignments, and propagating values of parameters
 in a hierarchical formulation of a control sequence, are convenient language constructs
@@ -405,7 +402,7 @@ For CDL to be compatible with this limitation, the ``modelica-json`` translator
 has optional flags, described below, that trigger the evaluation of propagated parameters,
 and that evaluate expressions that involve parameters.
 
-CDL also has a keyword called ``final`` that prevents a declaration to be changed by the user.
+CDL also has a keyword called ``final`` that prevents a declaration from being changed by the user.
 This can be used in a hierarchical controller to ensure that parameter values are propagated to lower level controller
 in such a way that users can only change their value at the top-level location.
 It can also be used in CDL to enforce that different instances of blocks have the same parameter value.
