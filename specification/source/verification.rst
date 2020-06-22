@@ -13,7 +13,7 @@ of the commissioning, as indicated in step 9 in the process diagram
 :numref:`fig_process`.
 For the requirements, see :numref:`sec_requirements_verification_tool`.
 
-For clarity, we remind that *verification* tests whether the implementation
+For clarity, we note that *verification* tests whether the implementation
 of the control sequence conforms with its specification. In contrast,
 *validation* would test whether the control sequence,
 together with the building system,
@@ -127,7 +127,7 @@ Below, we will further describe the blocks in the box labeled *verification*.
    control sequence meets the specification.
 
 
-.. note:: We also considered testing for criteria such as "whether room temperatures
+.. note:: We also considered testing criteria such as "whether room temperatures
           are satisfactory" or "a damper control signal is not oscillating". However,
           discussions with design engineers and commissioning providers showed that
           there is currently no accepted method for turning such questions into
@@ -757,4 +757,3 @@ The procedure is as follows:
 
 The sequence above can be run for each test case, and the results from step 7 are to be used
 to generate a test report for all tested sequences.
-

@@ -8,7 +8,7 @@ that we follow in OpenBuildingControl.
 First, given regulations and efficiency targets, labeled as (1) in :numref:`fig_process`,
 a design engineer selects, configures, tests and evaluates the performance of a control sequence
 using building energy simulation (2),
-starting from a control sequence library that contains ASHRAE GPC 36 sequences,
+starting from a control sequence library that contains ASHRAE Guideline 36 sequences,
 as well as user-added sequences (3),
 linked to a model of the mechanical system and the building (4).
 If the sequences meet closed-loop performance requirements,
@@ -18,7 +18,9 @@ the Control Description Language CDL (5).
 Optionally, for reuse in similar projects,
 the sequences can be added to a user-library (6).
 This specification is used by the control vendor to bid on the project (7)
-and to implement the sequence (8) in product-specific code.
+and to implement the sequence (8). For current control product lines,
+step (8) involves a translation of CDL to their programming languages,
+whereas in the future, control providers could build systems that directly use CDL.
 Prior to operation, a commissioning provider verifies
 the correct functionality of these implemented sequences
 by running functional tests against the electronic, executable specification

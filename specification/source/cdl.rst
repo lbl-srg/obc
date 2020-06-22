@@ -19,14 +19,23 @@ in their semantics of how control output gets updated, and in their syntax which
 Code generation for a variety of products is common in the Electronic Design Automation industry.
 However, in the Electronic Design Automation industry, engineers write models and controllers
 are built to conform to the models. If this were to be applied to the buildings industry,
-then control providers would need to update their product line. We think such costly product line
+then control providers would need to update their product line in order to be able to faithfully
+comply with the model.
+We think such costly product line
 reconfigurations are not reasonable to expect in the next decade.
-Therefore, for the immediate future, we will need to build models of control sequences
+Therefore, for the immediate future, we will need to build digital models of control sequences
 that can conform to their implementation on target control product lines;
-while ensuring that as new product lines are being developed, they can invert the paradigm and build controllers
+while ensuring that as new product lines are being developed,
+the manufacturers can invert the paradigm and build controllers
 that conform to the models.
 We therefore selected the path of designing CDL in such a way
-that it provide a minimum set of capabilities that can be expected to be supported by control product lines.
+that it provide a minimum set of capabilities that can be expected to be supported
+by current control product lines,
+while allowing future control product lines to directly use CDL
+for the implementation of the control sequences.
+As we have demonstrated with one commercial product,
+the barrier to translate CDL to the programming language of a current control product line is low.
+
 
 
 .. _fig_cdl_pro_lin:
@@ -41,20 +50,23 @@ that it provide a minimum set of capabilities that can be expected to be support
 
      [CDL-JSON]
 
-     [control product line]
-
      [point list]
 
      [English language documentation]
 
+     [current control\nproduct line]
+
+     [future control\nproduct line\nbased on CDL]
+
      [CDL] -d-> [CDL-JSON]
 
-     [CDL-JSON] --> [control product line]
-
-     [CDL-JSON] --> [point list]
+     [CDL-JSON] --> [current control\nproduct line]
 
      [CDL-JSON] --> [English language documentation]
 
+     [CDL-JSON] --> [point list]
+
+     [CDL] ---> [future control\nproduct line\nbased on CDL]
 
 
 To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
@@ -64,6 +76,9 @@ Input into the translation is CDL. An open-source tool called ``modelica-json`` 
 translates CDL to an intermediate format that we call :term:`CDL-JSON`.
 From CDL-JSON, further translations can be done to a control product line, or to
 generate point lists or English language documentation of the control sequences.
+We anticipate that future control product lines use directly CDL as shown in the right of
+:numref:`fig_cdl_pro_lin`. Such a translation can then be done using
+various existing Modelica tools to generate code for real-time simulation.
 
 The next sections define the CDL language.
 A collection of control sequences that are composed using the CDL language is described
@@ -104,7 +119,7 @@ a subset of the Modelica 3.3 specification
 for the implementation of CDL :cite:`Modelica2012:1`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
-This subset is fully compatible with Modelica, e.g., no other information that
+This subset is fully compatible with Modelica, e.g., no construct that
 violates the Modelica Standard has been added, thereby allowing users
 to view, modify and simulate CDL-conformant control sequences with any
 Modelica-compliant simulation environment.
@@ -135,6 +150,8 @@ The basic data types are, in addition to the elementary building blocks,
 parameters of type
 ``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
 [Parameters do not change their value as time progresses.]
+The use of ``Modelica.SIunits`` is not allowed.
+[Set instead the ``unit`` attribute of the ``Real`` data type.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
 instances of blocks, or declarations of type ``parameter``,
@@ -154,7 +171,7 @@ For example, to declare a real-valued parameter,
 use ``parameter Real k = 1 "A parameter with value 1";``.
 In contrast, a ``constant`` cannot be changed after the software is
 compiled, and is typically not shown in a graphical user interface menu.
-For example, a ``constant`` is used to define latent heat of evaporation
+For example, a ``constant`` is used to specify latent heat of evaporation of water
 if used in a controller.
 ]
 
@@ -177,12 +194,6 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 See the Modelica 3.3 specification Chapter 10 for array notation and these
 functions.
-
-
-.. note::
-
-   We still need to define the allowed values for ``quantity``, for example
-   ``ThermodynamicTemperature`` rather than ``Temp``.
 
 
 .. _sec_enc_block:
@@ -233,8 +244,8 @@ implementations shall have the same inputs, outputs and parameters, and
 they shall compute the same response for the same value of inputs and state variables.]
 
 Users are not allowed to add
-new elementary building blocks. Rather, users can use them to implement
-composite blocks (:numref:`sec_com_blo`).
+new elementary building blocks. Rather, users can use the existing elementary blocks
+to implement composite blocks (:numref:`sec_com_blo`).
 
 .. note::
 
@@ -382,7 +393,7 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
 
 where the documentation string is optional.
 The annotation is typically used
-for the graphical positioning of the instance in a block-diagram.]
+for the graphical positioning of the instance in a block diagram.]
 
 Using expressions in parameter assignments, and propagating values of parameters
 in a hierarchical formulation of a control sequence, are convenient language constructs
@@ -393,7 +404,7 @@ For CDL to be compatible with this limitation, the ``modelica-json`` translator
 has optional flags, described below, that trigger the evaluation of propagated parameters,
 and that evaluate expressions that involve parameters.
 
-CDL also has a keyword called ``final`` that prevents a declaration to be changed by the user.
+CDL also has a keyword called ``final`` that prevents a declaration from being changed by the user.
 This can be used in a hierarchical controller to ensure that parameter values are propagated to lower level controller
 in such a way that users can only change their value at the top-level location.
 It can also be used in CDL to enforce that different instances of blocks have the same parameter value.
