@@ -295,7 +295,7 @@ Specifically, Spawn of EnergyPlus is, in part,
 being developed to support the design, deployment and operation of advanced
 energy and controls for buildings,
 for district heating and cooling systems and
-and for geothermal systems through its
+for geothermal systems through its
 Building Technologies Office, Advanced Manufacturing Office and
 Geothermal Office, respectively.
 
@@ -346,7 +346,7 @@ from retro-commissioning and a study of 481 operational issues identified in exi
 found that control problems accounted for more than 75% of the potential energy savings.
 Therefore, we assume that around 75% of the 16% energy savings, equal to a total of 12% of energy savings,
 associated with commissioning are related to controls.
-Assuming that the technologies to be developed in the proposed project can save 12% in the 50% of
+Assuming that the technologies to be developed in the project can save 12% in the 50% of
 commercial building floor area higher than 50,000 sf, we will assume our technology can reduce energy consumption
 on average across all commercial buildings by 6%.
 
