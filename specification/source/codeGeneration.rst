@@ -119,6 +119,7 @@ by the target building automation system, the simplified JSON representation
 is most suited.
 
 As an illustrative example, consider the composite control block shown in
+:numref:`fig_custom_control_block` and reproduced in
 :numref:`fig_exp_custom_control_block`.
 
 .. _fig_exp_custom_control_block:
@@ -199,7 +200,7 @@ using a variety of languages.
 .. note:: Also possible, but outside of the scope
           of this project, is the translation of the control sequences to
           JavaScript, which could then be executed in a building automation system.
-          For a Modelica to JavasScript converter,
+          For a Modelica to JavaScript converter,
           see https://github.com/tshort/openmodelica-javascript.
 
 
@@ -260,8 +261,8 @@ This may be attractive for FDD and some advanced control sequences.
 Modular Export of a Control Sequence using the FMI Standard for Control Blocks and using the SSP Standard for the Run-time Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In early 2018, a new standard called System Structure and Parameterization (SSP)
-will be released. The standard provides an xml scheme for the
+In 2019, a new standard called System Structure and Parameterization (SSP)
+was released (https://ssp-standard.org/). The standard provides an xml scheme for the
 specification of FMU parameter values, their input and output connections,
 and their graphical layout. The SSP standard allows
 for transporting complex networks of FMUs between different platforms for
