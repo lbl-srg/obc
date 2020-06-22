@@ -150,6 +150,8 @@ The basic data types are, in addition to the elementary building blocks,
 parameters of type
 ``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
 [Parameters do not change their value as time progresses.]
+The use of ``Modelica.SIunits`` is not allowed.
+[Set instead the ``unit`` attribute of the ``Real`` data type.]
 See also the Modelica 3.3 specification, Chapter 3.
 All specifications in CDL shall be declaration of blocks,
 instances of blocks, or declarations of type ``parameter``,
