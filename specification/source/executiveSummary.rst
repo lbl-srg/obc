@@ -99,7 +99,7 @@ English and in a  unambiguous digital format. The system designer can
 select the sequences that will work best with the project's mechanical
 system, using tools developed in this project. The digital sequence
 specification allows the performance of building control sequences,
-including annual energy, peak demand and comfort, to be assessed using
+including annual energy, load flexibility, peak demand and comfort, to be assessed using
 whole building simulation. The control sequences can then be used directly or be
 translated for use in commercial building control product lines using
 machine-to-machine translation. Finally, new tools will assist in
