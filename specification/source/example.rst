@@ -21,17 +21,17 @@ The main conceptual differences between the two control sequences,
 which are described in more detail in :numref:`sec_con_seq_des`,
 are as follows:
 
-* The base case uses constant supply air temperature setpoints
+* The base case uses two different but constant supply air temperature setpoints
   for heating and cooling during occupied hours,
-  whereas the guideline 36 uses one supply air
-  temperature setpoint, which is reset based on outdoor air temperature
+  whereas guideline 36 resets the supply air
+  temperature setpoint based on outdoor air temperature
   and zone cooling requests, as obtained from the VAV terminal unit controllers.
-  The reset is dynamic using the trim and respond logic.
+  The reset is using the trim and respond logic.
 * The base case resets the supply fan static pressure setpoint based
-  on the VAV damper position, which is only modulated during cooling,
-  whereas the guideline 36 resets the fan static pressure setpoint based
+  on the VAV damper positions,
+  whereas guideline 36 resets the fan static pressure setpoint based
   on zone pressure requests from the VAV terminal controllers.
-  The reset is dynamic using the trim and respond logic.
+  The reset is using the trim and respond logic.
 * The base case controls the economizer to track a mixed air
   temperature setpoint, whereas guideline 36 controls the economizer
   based on supply air temperature control loop signal.
@@ -159,8 +159,8 @@ For the base case, we implemented the control sequence
 *VAV 2A2-21232* of the Sequences of Operation for
 Common HVAC Systems :cite:`ASHRAESeq2006:1`.
 In this control sequence, the
-supply fan speed is regulated based on the duct static pressure.
-The duct static pressure is adjusted
+supply fan speed is modulated to maintain a duct static pressure setpoint.
+The duct static pressure setpoint is adjusted
 so that at least one VAV damper is 90% open.
 The economizer dampers
 are modulated to track the setpoint for the mixed air dry bulb temperature.
@@ -169,7 +169,7 @@ during occupied hours, which may not comply with some energy codes.
 Priority is given to maintain a minimum outside air volume flow rate.
 In each zone, the VAV damper is adjusted to meet the room temperature
 setpoint for cooling, or fully opened during heating.
-The room temperature setpoint for heating is tracked by varying
+The room temperature setpoint for heating is controlled by varying
 the water flow rate through the reheat coil. There is also a
 finite state machine that transitions the mode of operation of
 the HVAC system between the modes
