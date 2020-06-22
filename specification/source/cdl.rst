@@ -26,7 +26,13 @@ that can conform to their implementation on target control product lines;
 while ensuring that as new product lines are being developed, they can invert the paradigm and build controllers
 that conform to the models.
 We therefore selected the path of designing CDL in such a way
-that it provide a minimum set of capabilities that can be expected to be supported by control product lines.
+that it provide a minimum set of capabilities that can be expected to be supported
+by current control product lines,
+while allowing future control product lines to directly use CDL
+for the implementation of the control sequences.
+As we have demonstrated with one commercial product,
+the barrier to translate CDL to the programming language of a current control product line is low.
+
 
 
 .. _fig_cdl_pro_lin:
@@ -41,20 +47,23 @@ that it provide a minimum set of capabilities that can be expected to be support
 
      [CDL-JSON]
 
-     [control product line]
-
      [point list]
 
      [English language documentation]
 
+     [current control\nproduct line]
+
+     [future control\nproduct line\nbased on CDL]
+
      [CDL] -d-> [CDL-JSON]
 
-     [CDL-JSON] --> [control product line]
-
-     [CDL-JSON] --> [point list]
+     [CDL-JSON] --> [current control\nproduct line]
 
      [CDL-JSON] --> [English language documentation]
 
+     [CDL-JSON] --> [point list]
+
+     [CDL] ---> [future control\nproduct line\nbased on CDL]
 
 
 To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line
@@ -64,6 +73,9 @@ Input into the translation is CDL. An open-source tool called ``modelica-json`` 
 translates CDL to an intermediate format that we call :term:`CDL-JSON`.
 From CDL-JSON, further translations can be done to a control product line, or to
 generate point lists or English language documentation of the control sequences.
+We anticipate that future control product lines use directly CDL as shown in the right of
+:numref:`fig_cdl_pro_lin`. Such a translation can then be done using
+various existing Modelica tools to generate code for real-time simulation.
 
 The next sections define the CDL language.
 A collection of control sequences that are composed using the CDL language is described
