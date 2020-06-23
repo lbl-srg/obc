@@ -123,7 +123,7 @@ Internal Loads
 .. _fig_internal_loads:
 
 .. figure:: img/case_study1/results/internal_loads.*
-   :scale: 80%
+   :width: 700px
 
    Internal load schedule.
 
@@ -247,7 +247,7 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
 .. _fig_dam_val_reh:
 
 .. figure:: img/case_study1/DamperValve.*
-   :scale: 50%
+   :width: 600px
 
    Control sequence for VAV terminal unit.
 
@@ -357,6 +357,7 @@ Performance Comparison
 .. _fig_cas_stu1_energy:
 
 .. figure:: img/case_study1/results/energy_all.*
+   :width: 600px
 
    Comparison of energy use. For the cases labeled :math:`\pm 50\%`, the internal gains
    have been increased and decreased as described in :numref:`sec_int_gai`.
