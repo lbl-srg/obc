@@ -7,11 +7,27 @@ Introduction
 ^^^^^^^^^^^^
 
 In this section, we compare the performance of two different
-control sequences, applied to a floor of a prototypical office building.
+control sequences.
 The objectives are
 to demonstrate the setup for closed loop performance assessment,
 to demonstrate how to compare control performance, and
 to assess the difference in annual energy consumption.
+
+As a test case, we used a simulation model that consists
+of five thermal zones that are representative of one floor of the
+new construction medium office building for Chicago, IL,
+as described in the set of DOE Commercial Building Benchmarks
+:cite:`DeruEtAl2011:1`.
+There are four perimeter zones and one core zone.
+The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+The system model consist of an HVAC system, a building envelope model :cite:`WetterZuoNouidui2011:2`
+and a model for air flow through building leakage
+and through open doors based on wind pressure and
+flow imbalance of the HVAC system :cite:`Wetter2006:2`.
+Thus, at every simulation step, a full pressure drop calculation is done
+to compute the air flow distribution based on damper positions, fan control signal
+and fan curve.
+
 For the base case, we implemented a control sequence published in
 ASHRAE's Sequences of Operation for
 Common HVAC Systems :cite:`ASHRAESeq2006:1`.
@@ -57,21 +73,10 @@ Methodology
 
 All models are implemented in Modelica, using models from
 the Buildings library :cite:`WetterZuoNouiduiPang2014`.
-
 The models are available from
 https://github.com/lbl-srg/modelica-buildings/releases/tag/v5.0.0
 
-As a test case, we used a simulation model that consists
-of five thermal zones that are representative of one floor of the
-new construction medium office building for Chicago, IL,
-as described in the set of DOE Commercial Building Benchmarks
-:cite:`DeruEtAl2011:1`.
-There are four perimeter zones and one core zone.
-The envelope thermal properties meet ASHRAE Standard 90.1-2004.
-The system model consist of an HVAC system, a building envelope model
-and a model for air flow through building leakage
-and through open doors based on wind pressure and
-flow imbalance of the HVAC system.
+
 
 HVAC Model
 ..........
@@ -118,7 +123,7 @@ Internal Loads
 .. _fig_internal_loads:
 
 .. figure:: img/case_study1/results/internal_loads.*
-   :scale: 80%
+   :width: 700px
 
    Internal load schedule.
 
@@ -242,7 +247,7 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
 .. _fig_dam_val_reh:
 
 .. figure:: img/case_study1/DamperValve.*
-   :scale: 50%
+   :width: 600px
 
    Control sequence for VAV terminal unit.
 
@@ -352,6 +357,7 @@ Performance Comparison
 .. _fig_cas_stu1_energy:
 
 .. figure:: img/case_study1/results/energy_all.*
+   :width: 600px
 
    Comparison of energy use. For the cases labeled :math:`\pm 50\%`, the internal gains
    have been increased and decreased as described in :numref:`sec_int_gai`.
@@ -371,7 +377,8 @@ changed the diversity of the internal loads.
 Specifically, we reduced the internal loads for the north zone by :math:`50\%`
 and increased them for the south zone by the same amount.
 
-The Guideline 36 control saves around :math:`30\%`
+In this case study,
+the Guideline 36 control saves around :math:`30\%`
 site HVAC electrical energy. These are significant savings
 that can be achieved through software only, without the need
 for additional hardware or equipment.
@@ -684,7 +691,8 @@ are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestP
 Discussion and Conclusions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Guideline 36 sequence reduced annual site HVAC energy use by :math:`30\%`
+In this case study,
+the Guideline 36 sequence reduced annual site HVAC energy use by :math:`30\%`
 compared to the baseline implementation with comparable thermal comfort.
 Such savings are significant, and have been achieved by changes in controls programming only
 which can relatively easy be deployed in buildings.
