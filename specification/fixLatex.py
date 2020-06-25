@@ -38,3 +38,8 @@ freplace('\\begin{Verbatim}[',
 
 freplace('\\begin{longtable}{|l|l|}',
          '\\begin{longtable}{|*{2}{p{\\dimexpr(\\linewidth-\\arrayrulewidth)/2-2\\tabcolsep-\\arrayrulewidth\\relax}|}}')
+
+freplace('\\renewcommand{\\indexname}{Index}',
+         '')
+freplace('\\printindex',
+         '')
