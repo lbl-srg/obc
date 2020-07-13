@@ -77,40 +77,24 @@ Challenges and Implications for Translation of Control Sequences from and to Bui
 
 This section discusses challenges and implications
 for translating CDL-conforming control
-sequences to executable code on a building automation system.
+sequences to the programming languages used by building automation system.
 
-First, we note that the translation will for most, if not all,
+First, we note that simply generating C code is not viable
+for such applications because building automation systems generally do not
+allow users to upload C code.
+Moreover, they also need to provide an interface
+for the building operator that allows editing the control parameters and control sequences.
+
+Second, we note that the translation will for most, if not all,
 systems only be possible from CDL to a building automation system,
 but not vice versa. This is due to specific constructs that may exist
 in building automation systems but not in CDL.  For example,
-if Sedona were the target platform, then
+if Sedona (`https://www.sedona-alliance.org/ <https://www.sedona-alliance.org/>`_)
+were the target platform, then
 translating from Sedona to CDL will not be possible
 because Sedona allows boolean variables
 to take on the values ``true``, ``false`` and ``null``, but
 CDL has no ``null`` value.
-
-Second, we note that most building automation product lines are based on
-old computing technologies. One may argue that to meet future process
-requirements and user-friendliness, these may be updated in the near future.
-Relatively recent or new product lines include
-
-* Tridium Niagara, or its open version Sedona (http://www.sedonadev.org/),
-* Distech control (http://www.distech-controls.com/en/us/), and
-* Schneider Electric's EcoStruxture (https://www.schneider-electric.us/en/work/campaign/innovation/overview.jsp).
-
-While Sedona has been designed for 3rd party developers to add
-new functionality, the others seem rather closed.
-For example, detailed developer documentation that describes the following
-is difficult to find, or may not exist:
-
-* the language specification for implementation of block diagrams,
-* the model of computation, and
-* how to simulate open loop control responses and implement regression testing,
-
-Sedona "is designed to make it easy to build smart, networked embedded devices"
-and Sedona attempts to create an "Open Source Ecosystem" (http://www.sedonadev.org/).
-Block diagrams can be developed with the free
-Sedona Application Editor (https://www.ccontrols.com/basautomation/sae.htm).
 
 
 .. _sec_cdl_to_json_simp:
@@ -131,10 +115,11 @@ The parser generates the following output formats:
 3. an html-formated documentation of the control sequence.
 
 To translate CDL-compliant control sequences to the language that is used
-by the respective building automation system, the simplified JSON representation
+by the target building automation system, the simplified JSON representation
 is most suited.
 
 As an illustrative example, consider the composite control block shown in
+:numref:`fig_custom_control_block` and reproduced in
 :numref:`fig_exp_custom_control_block`.
 
 .. _fig_exp_custom_control_block:
@@ -215,7 +200,7 @@ using a variety of languages.
 .. note:: Also possible, but outside of the scope
           of this project, is the translation of the control sequences to
           JavaScript, which could then be executed in a building automation system.
-          For a Modelica to JavasScript converter,
+          For a Modelica to JavaScript converter,
           see https://github.com/tshort/openmodelica-javascript.
 
 
@@ -276,8 +261,8 @@ This may be attractive for FDD and some advanced control sequences.
 Modular Export of a Control Sequence using the FMI Standard for Control Blocks and using the SSP Standard for the Run-time Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In early 2018, a new standard called System Structure and Parameterization (SSP)
-will be released. The standard provides an xml scheme for the
+In 2019, a new standard called System Structure and Parameterization (SSP)
+was released (https://ssp-standard.org/). The standard provides an xml scheme for the
 specification of FMU parameter values, their input and output connections,
 and their graphical layout. The SSP standard allows
 for transporting complex networks of FMUs between different platforms for
@@ -408,4 +393,3 @@ such as a block that uses machine learning to schedule optimal warm-up,
 then such an addition must be approved by the customer.
 If the customer requires the part of the control sequence that contains this
 block to be verified, then the block shall be made available as described in :numref:`sec_cha_sub_cha`.
-
