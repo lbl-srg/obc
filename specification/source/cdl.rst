@@ -599,7 +599,7 @@ Point list
 ..........
 
 The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
-(:numref:`fig_cdl_pro_lin`) and further generate the point list table. In default,
+(:numref:`fig_cdl_pro_lin`) and further generate the point list table. By default,
 
 * The connector ``RealInput`` and ``IntegerInput`` are analog input.
 * The connector ``RealOutput`` and ``IntegerOutput`` are analog output.
@@ -609,8 +609,8 @@ The vendor annotation ``__cdl(generatePointlist=true)`` in class level specifies
 whether to generate point list of the sequence. It allows a sequence to not generate
 the point list in the case when it is used for composing other sequence so it is not
 connected externally. The connector could have the vendor annotation like 
-``__cdl(hardwired=false, application={"trend", "alarm"})``. It indicates that if it
-is hardwired point and what it could be used for, i.e. "tread", "alarm", "schedule".
+``__cdl(hardwired=false, trend(), alarm(), schedule())``. It indicates that if it
+is hardwired point and what it is used for, i.e. "trend", "alarm", "schedule".
 
 For example, a block includes
 
@@ -631,7 +631,7 @@ For example, a block includes
       ...;
    annotation (__cdl(generatePointlist=true));
 
-It specifies that the sequence should have a point list, the ``uWin`` is a
+It specifies that a point list should be generated for the sequence, the ``uWin`` is a
 hardwired digital input point that can be used for trending and alarming, 
 and the ``yVal`` is not a hardwired point that can only be used for trending.
 The point list table will be like:
