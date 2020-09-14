@@ -601,18 +601,51 @@ Point list
 The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
 (:numref:`fig_cdl_pro_lin`) and further generate the point list table. By default,
 
-* The connector ``RealInput`` and ``IntegerInput`` are analog input.
-* The connector ``RealOutput`` and ``IntegerOutput`` are analog output.
-* The connector ``BooleanInput`` and ``BooleanOutput`` are digital input and output.
+* The connectors ``RealInput`` and ``IntegerInput`` are analog input.
+* The connectors ``RealOutput`` and ``IntegerOutput`` are analog output.
+* The connectors ``BooleanInput`` and ``BooleanOutput`` are digital input and output.
 
-The vendor annotation ``__cdl(generatePointlist=true)`` in class level specifies
-whether to generate point list of the sequence. It allows a sequence to not generate
-the point list in the case when it is used for composing other sequence so it is not
-connected externally. The connector could have the vendor annotation like 
-``__cdl(hardwired=false, trend())``. It indicates that if it
-is hardwired point and how it is used for trending.
+The vendor annotation ``__cdl(generatePointlist=Boolean)`` at the block level specifies
+that a point list of the sequence is generated.
+If not specified, it is assumed that ``__cdl(generatePointlist=false)``.
+[Hence, if not specified, or if ``__cdl(generatePointlist=false)`` is specified,
+no point list is generated. This typically is used for subsequences that are
+not connected to external signals.]
 
-For example, a block includes
+When instantiating a block, this annotation can also be added to the instantiation clause,
+and it will overwrite the class level declaration.
+
+[For example, consider the pseude-code
+
+.. code-block:: modelica
+
+   MyController con1 annotation(__cdl(generatePointlist=true);
+   MyController con2 annotation(__cdl(generatePointlist=false);
+
+   ...
+
+   block MyController
+     ...
+     annotation(__cdl(generatePointlist=true));
+   end MyController;
+
+This will generate a point list for ``con1`` but not for ``con2``.
+]
+
+Connectors can have a vendor annotation of the form
+``__cdl(connection(hardwired=Boolean)``.
+The field ``hardwired`` specifies whether the connection should be hardwired or not,
+the default value is ``false``.
+
+Connectors can have a vendor annotation of the form
+``__cdl(trend(interval=Real, enable=Boolean)``.
+The field ``interval`` must be specified and its value is the trending interval in seconds,
+and the field ``enable`` is optional, with default value of ``true``, and
+it can be used to overwrite the value used in the sequence declaration.
+
+.. todo:: Specify how to overwrite these annotation in blocks and connectors that are part of a subsequence of an instanciated controller.
+
+[For example, consider the pseudo-code
 
 .. code-block:: modelica
 
@@ -621,18 +654,16 @@ For example, a block includes
       ...;
       CDL.Interfaces.BooleanInput uWin "Windows status"
          annotation (__cdl(hardwired=true,
-                           trend(interval=3600, enable=true)));
+                           trend(interval=60, enable=true)));
       CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
          annotation (__cdl(hardwired=false,
-                           trend(interval=3600, enable=true)));
-      ...;
-   equations
-      ...;
+                           trend(interval=60, enable=true)));
+      ...
    annotation (__cdl(generatePointlist=true));
 
 It specifies that a point list should be generated for the sequence, the ``uWin`` is a
 digital input point that is hardwired,  and the ``yVal`` is a analog output point that
-is not hardwired. Both of them can be trended with time interval of 1 hour.
+is not hardwired. Both of them can be trended with time interval of 1 minute.
 The point list table will be like:
 
 .. _tab_sample_point_list:
@@ -641,15 +672,16 @@ The point list table will be like:
    :class: longtable
 
    ========================  ===========  =========  ==========  ======== ================================================
-   System/Equipment          Name         Type       Hardwired?  Trend    Notes
+   System/Equipment          Name         Type       Hardwired?  Trend    Description
    ========================  ===========  =========  ==========  ======== ================================================
-   Terminal unit             ``uWin``     DI         Yes         3600     Windows status
+   Terminal unit             ``uWin``     DI         Yes         60       Windows status
    ------------------------  -----------  ---------  ----------  -------- ------------------------------------------------
-   Terminal unit             ``yVal``     AO         No          3600     Signal for heating coil valve
+   Terminal unit             ``yVal``     AO         No          60       Signal for heating coil valve
    ------------------------  -----------  ---------  ----------  -------- ------------------------------------------------
    ...                       ...          ...        ...         ...      ...
    ========================  ===========  =========  ==========  ======== ================================================
 
+]
 
 .. _sec_connectors:
 
