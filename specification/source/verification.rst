@@ -517,29 +517,43 @@ To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a spe
 
 .. code-block::
    :name: sec_ver_spe_tes_set
-   :caption: Specification of test setup.
+   :caption: Configuration of test setup.
 
-   references : [
-     { "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
-       "sequence" : "setPoiVAV" },
-     { "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
-       "sequence" : "setPoiVAV1",
-       "tolerances": {"atoly": 0.5, "variable": "setPoiVAV1.TSup*" },
-       "indicator": "fanSta.y",
-       "sampling": {"max": 60}
-      }
+   {
+     "references": [
+       {
+         "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "sequence": "setPoiVAV",
+         "pointNameMapping": "realControllerPointMapping.json"
+       },
+       {
+         "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "sequence": "setPoiVAV1",
+         "pointNameMapping": "realControllerPointMapping.json"
+         "tolerances": [
+           { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
+         ],
+         "indicators": [
+           { "setPoiVAV1.TSup*": [ "fanSta.y" ] }
+         ],
+         "sampling": 60
+       }
      ],
-     "tolerances": {"rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0},
-     "sampling": {"max": 120}
+     "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
+     "sampling": 120
+   }
 
 This specifies two tests, one for the controller ``setPoiVAV`` and one for ``setPoiVAV1``.
 (In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence, but their
 input time series and/or parameters are different, and therefore their output time series will be different.)
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
-a maximum sampling rate of :math:`120` seconds.
+a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
+is provided in the file ``realControllerPointMapping.json``.
 The test for ``setPoiVAV1`` will use different tolerances on each output variable that matches
-the regular expression ``setPoiVAV1.TSup*``. Moreover, the test will be suspended whenever
-``fanSta.y = false``, and the maximum sampling rate is :math:`60` seconds.
+the regular expression ``setPoiVAV1.TSup*``. Moreover, for each variable that matches the regular
+expression, ``setPoiVAV1.TSup*``, the verification will be suspended whenever
+``fanSta.y = false``, and the sampling rate is :math:`60` seconds. This test will also use
+``realControllerPointMapping.json`` to map the variables to points of the real controller.
 The tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
 variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
 in the control output variable.
