@@ -1,0 +1,12 @@
+{
+ "references": [
+   {
+     "model": "",
+     "sequence": "",
+     "pointNameMapping": ""
+   }
+ ],
+ "modelJsonDirectory": "",
+ "tolerances": { "rtolx": <>, "rtoly": <>, "atolx": <>, "atoly": <> },
+ "sampling": <>
+}
