@@ -877,11 +877,18 @@ The order of the connections and the order of the arguments in the
 Only connectors that carry the same data type (:numref:`sec_dat_typ`)
 can be connected.
 
-If the ``quantity``, ``unit``, ``min`` or ``max`` attribute are set to a non-default value for both
-connector variables, then they must be equal.
-If only one of the two connector variables declares the
-``quantity``, ``unit``, ``min`` or ``max`` attribute, then this value is applied to both
-connector variables.
+Attributes of the variables that are connected are handled as follows:
+
+* If the ``quantity``, ``unit``, ``min`` or ``max`` attributes are set to a non-default value for both
+  connector variables, then they must be equal. Otherwise an error should be issued.
+* If only one of the two connector variables declares the
+  ``quantity``, ``unit``, ``min`` or ``max`` attribute, then this value is applied to both
+  connector variables.
+* If two connectors have different values for the ``displayUnit`` attribute, then either can be used.
+  [It is a quality of the implementation that a warning is issued if declarations are inconsistent.
+  However, because ``displayUnit`` does not affect the computations in the sequence, the connection
+  is still valid.]
+
 
 [For example,
 
@@ -899,12 +906,6 @@ connector variables.
      connect(gainWrong.u, maxValue.y); // Not allowed, because of inconsistent unit attributes
 
 ]
-
-If two connectors have different values for the ``displayUnit`` attribute, then either can be used.
-[It is a quality of the implementation that users are warned about such inconsistent declarations.
-However, because ``displayUnit`` does not affect the computations in the sequence, the connection
-is still valid.]
-
 
 Signals shall be connected using a ``connect`` statement;
 assigning the value of a signal in the instantiation of the
