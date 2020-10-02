@@ -893,7 +893,8 @@ connector variables.
    Continous.Gain gainWrong(u(unit="kg/s"), k=60) "Gain";
 
    equation
-     connect(gain.u,      maxValue.y); // This sets gain.u(unit="m/s") as gain.u does not declare its unit
+     connect(gain.u,      maxValue.y); // This sets gain.u(unit="m/s")
+                                       // as gain.u does not declare its unit
      connect(gainOK.u,    maxValue.y); // Correct, because unit attributes are consistent
      connect(gainWrong.u, maxValue.y); // Not allowed, because of inconsistent unit attributes
 
