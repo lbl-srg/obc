@@ -90,10 +90,7 @@ CDL
    Modelica environment.
 #. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
 #. The object model must be rigorous, extensible and flexible.
-#. The object model must be relational, inherently defining connections between different objects.
-#. The system must support many-to-many relationships [For example, two parallel chilled water pumps
-   can serve three parallel chillers (see also Brick's "isPartOf" and "feeds").]
-#. Each distinct piece of equipment [e.g. return air temperature sensor]
+#. Each distinct piece of equipment [e.g. VAV terminal box controller]
    shall be represented by a unique instance.
 
 
