@@ -186,7 +186,7 @@ The following is the predefined ``Real`` type:
 
 ``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
 
-The ``quantity`` attribute can take on the following values:
+The ``quantity`` attribute is optional, can take on the following values:
 
 - ``""``, which is the default, is considered as no quantity being specified.
 - ``ThermodynamicTemperature`` for absolute temperature.
