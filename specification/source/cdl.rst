@@ -114,9 +114,8 @@ Syntax
 ^^^^^^
 
 In order to use CDL with building energy simulation programs,
-and to not invent yet another language with new syntax, we use
-a subset of the Modelica 3.3 specification
-for the implementation of CDL :cite:`Modelica2012:1`.
+and to not invent yet another language with new syntax,
+the CDL syntax conforms to a subset of the Modelica 3.3 specification :cite:`Modelica2012:1`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no construct that
@@ -187,8 +186,34 @@ The following is the predefined ``Real`` type:
 
 ``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
 
+The ``quantity`` attribute can take on the following values:
+
+- ``""``, which is the default, is considered as no quantity being specified.
+- ``ThermodynamicTemperature`` for absolute temperature.
+- ``TemperatureDifference`` for temperature difference.
+- ``Pressure`` for absolute pressure.
+- ``PressureDifference`` for pressure difference.
+- ``Time`` for time.
+- ``SpecificEnergy`` for specific energy.
+- ``Velocity`` for velocity.
+- ``VolumeFlowRate`` for volume flow rate.
+- ``MassFlowRate`` for mass flow rate.
+- ``MassFraction`` for mass fraction.
+- ``Area`` for area.
+- ``Angle`` for area (such as used for sun position).
+- ``Irradiance`` for solar irradiance.
+- ``Illuminance`` for illuminance.
+- ``Energy`` for energy.
+- ``Power`` for power.
+- ``PowerFactor`` for power factor.
+
+
+[These quantities are compatible with the quantities used in the Modelica Standard Library, to allow
+connecting CDL models to Modelica models, see also :numref:`sec_connections`.]
+
 [The `quantity` attribute could be used for example to declare in a sequence that a real signal is a ``AbsolutePressure``.
-This could be used to aid connecting signals or filtering data.]
+This could be used to aid connecting signals or filtering data.
+Quantities serve a different purpose than tagged properties (:numref:`sec_tag_pro`).]
 
 The value of ``displayUnit`` is used as a recommendation for how to display units to the user.
 [For example, tools that implement CDL may convert the ``value`` from ``unit`` to ``displayUnit``
@@ -208,7 +233,7 @@ The following is the predefined ``Integer`` type:
 
    type Integer // Note: Defined with Modelica syntax although predefined
      IntegerType value; // Accessed without dot-notation
-     parameter StringType quantity = "";
+     //-- parameter StringType quantity = "";
      parameter IntegerType min=-Inf, max=+Inf;
      //-- parameter IntegerType start = 0; // Initial value
      //-- parameter BooleanType fixed = true,  // default for parameter/constant;
@@ -234,7 +259,7 @@ The following is the predefined ``Boolean`` type:
 
    type Boolean // Note: Defined with Modelica syntax although predefined
      BooleanType value; // Accessed without dot-notation
-     parameter StringType quantity = "";
+   //--  parameter StringType quantity = "";
    //--  parameter BooleanType start = false; // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
@@ -251,7 +276,7 @@ The following is the predefined ``String`` type:
 
    type String // Note: Defined with Modelica syntax although predefined
      StringType value; // Accessed without dot-notation
-     parameter StringType quantity = "";
+   //--  parameter StringType quantity = "";
    //--  parameter StringType start = "";     // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
@@ -738,11 +763,25 @@ Some building automation systems do not allow to conditionally removing instance
 of blocks, inputs and outputs, and their connections. Rather, these instances
 are always present, and a value for the input must be present.
 To accomodate this case, every input connector that can be conditionally removed
-must declare a default value of the form ``__cdl(default = value)``,
+can declare a default value of the form ``__cdl(default = value)``,
 where ``value`` is the default value that will be used
 if the building automation system does not support conditionally removing instances.
 The type of ``value`` must be the same as the type of the connector.
 For ``Boolean`` connectors, the allowed values are ``true`` and ``false``.
+
+If the ``__cdl(default = value)`` annotation is absent, then the following values are
+assumed as default:
+
+- For RealInput, the default values are:
+
+  - If ``unit=K``: If ``quantity="TemperatureDifference"``, the default is :math:`0` K, otherwise it is :math:`293.15` K.
+  - If ``unit=Pa``: If ``quantity="PressureDifference"``, the default is :math:`0` K, otherwise it is :math:`101325` Pa.
+  - For all other units, the default value is :math:`0`.
+
+- For ``IntegerInput``, the default value is :math:`0`.
+- For ``BooleanInput``, the default value is ``false``.
+- For ``DayTypeInput``, the default value is ``WorkingDay``.
+
 
 Note that output connectors must not have a specification of a default value,
 because if a building automation system cannot conditionally remove instances,
