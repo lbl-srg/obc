@@ -146,34 +146,190 @@ Also, the following Modelica language features are not supported in CDL:
 Permissible Data Types
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The basic data types are, in addition to the elementary building blocks,
-parameters of type
-``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
-[Parameters do not change their value as time progresses.]
-The use of ``Modelica.SIunits`` is not allowed.
-[Set instead the ``unit`` attribute of the ``Real`` data type.]
-See also the Modelica 3.3 specification, Chapter 3.
-All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type ``parameter``,
-``constant``, or ``enumeration``.
-Variables are not allowed.
-[Variables are used in the elementary building blocks,
-but these can only be used as inputs to other blocks if they are declared
-as an output.]
+.. _sec_dat_typ:
 
-The declaration of such types is identical to the declaration
-in Modelica.
-[The keyword ``parameter`` is used
-before the type declaration, and typically a graphical user interface
-allows users to change the value of a parameter when the simulation
-or control sequence is not running.
-For example, to declare a real-valued parameter,
-use ``parameter Real k = 1 "A parameter with value 1";``.
-In contrast, a ``constant`` cannot be changed after the software is
-compiled, and is typically not shown in a graphical user interface menu.
-For example, a ``constant`` is used to specify latent heat of evaporation of water
-if used in a controller.
+Data Types
+..........
+
+This section defines the basic data types. The definition is a subset of Modelica
+in which we left out attributes that are not needed for CDL.
+
+The attributes that are present in Modelica but not in CDL are marked with ``//--``.
+
+[Note the following: The ``start`` attribute is not needed in CDL because the start value of states is
+declared through a `parameter`.
+The ``equation`` section has been removed because how to deal with variables that
+are out of limit should be left to the implementation of the control system.
 ]
+
+Real Type
+_________
+
+The following is the predefined ``Real`` type:
+
+.. code-block:: modelica
+
+   type Real // Note: Defined with Modelica syntax although predefined
+     RealType value; // Accessed without dot-notation
+     parameter StringType quantity    = "";
+     parameter StringType unit        = "" "Unit used in equations";
+     parameter StringType displayUnit = "" "Default display unit";
+     parameter RealType min=-Inf, max=+Inf; // Inf denotes a large value
+     //-- parameter RealType start    = 0; // Initial value
+     //-- parameter BooleanType fixed = true,  // default for parameter/constant;
+     //--                             = false; // default for other variables
+     parameter RealType nominal;            // Nominal value
+     //-- parameter BooleanType unbounded=false; // For error control
+     //-- parameter StateSelect stateSelect = StateSelect.default;
+   //-- equation
+   //--   assert(value >= min and value <= max, "Variable value out of limit");
+   end Real;
+
+``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
+
+[The `quantity` attribute could be used for example to declare in a sequence that a real signal is a ``AbsolutePressure``.
+This could be used to aid connecting signals or filtering data.]
+
+The value of ``displayUnit`` is used as a recommendation for how to display units to the user.
+[For example, tools that implement CDL may convert the ``value`` from ``unit`` to ``displayUnit``
+before showing it in a GUI or a log file.
+Moreover, tools may have a global list where users can specify, for example,
+to display ``degC`` and ``K`` in ``degF``.]
+
+The nominal attribute is meant to be used for scaling purposes and to define tolerances, such as for integrators,
+in relative terms.
+
+Integer Type
+____________
+
+The following is the predefined ``Integer`` type:
+
+.. code-block:: modelica
+
+   type Integer // Note: Defined with Modelica syntax although predefined
+     IntegerType value; // Accessed without dot-notation
+     parameter StringType quantity = "";
+     parameter IntegerType min=-Inf, max=+Inf;
+     //-- parameter IntegerType start = 0; // Initial value
+     //-- parameter BooleanType fixed = true,  // default for parameter/constant;
+     //--                             = false; // default for other variables
+   //-- equation
+   //--   assert(value >= min and value <= max, "Variable value out of limit");
+   end Integer;
+
+The minimal recommended number range for IntegerType is from
+:math:`-2147483648` to :math:`+2147483647`,
+corresponding to a two’s-complement 32-bit integer implementation.
+
+[The ``quantity`` attribute could be used for example to declare in a sequence that a integer signal is a ``NumberOfHeatingRequest``.
+This could be used to aid connecting signals or filtering data.]
+
+
+Boolean Type
+____________
+
+The following is the predefined ``Boolean`` type:
+
+.. code-block:: modelica
+
+   type Boolean // Note: Defined with Modelica syntax although predefined
+     BooleanType value; // Accessed without dot-notation
+     parameter StringType quantity = "";
+   //--  parameter BooleanType start = false; // Initial value
+   //--  parameter BooleanType fixed = true,  // default for parameter/constant;
+   //--                              = false, // default for other variables
+   end Boolean;
+
+[The ``quantity`` attribute could be used for example to declare in a sequence that a boolean signal is a ``ChillerOn`` command.]
+
+String Type
+___________
+
+The following is the predefined ``String`` type:
+
+.. code-block:: modelica
+
+   type String // Note: Defined with Modelica syntax although predefined
+     StringType value; // Accessed without dot-notation
+     parameter StringType quantity = "";
+   //--  parameter StringType start = "";     // Initial value
+   //--  parameter BooleanType fixed = true,  // default for parameter/constant;
+   //--                              = false, // default for other variables
+   end String;
+
+Enumeration Types
+_________________
+
+
+A declaration of the form
+
+.. code-block::
+
+   type E = enumeration([enumList]);
+
+defines an enumeration type ``E`` and the associated enumeration literals of the ``enumList``.
+The enumeration literals shall be distinct within the enumeration type.
+The names of the enumeration literals are defined inside the scope of ``E``.
+Each enumeration literal in the ``enumList`` has type ``E``.
+
+[Example:
+
+.. code-block:: modelica
+
+   type SimpleController = enumeration(P, PI, PD, PID);
+
+   parameter SimpleController = SimpleController.P;
+
+]
+
+An optional comment string can be specified with each enumeration literal.
+
+[Example:
+
+.. code-block::
+
+   type SimpleController = enumeration(
+       P "P controller",
+       PI "PI controller",
+       PD "PD controller",
+       PID "PID controller")
+     "Enumeration defining P, PI, PD, or PID simple controller type";
+
+]
+
+[Enumerations can for example be used to declare a list of mode of operations, such as ``on``, ``off``, ``startUp``, ``coolDown``.]
+
+
+Parameter and constant declarations
+...................................
+
+A ``parameter`` is a value that does not change as time progresses, except through
+stopping the executation of the control sequence,
+setting a new value through a user interaction or an API, and restarting the execution.
+In other words, the value of a ``parameter`` cannot be changed through an input connector (:numref:`sec_connectors`).
+Parameters are declared with the ``parameter`` prefix.
+
+[For example, to declare a proportional gain, use
+
+.. code-block::
+
+     parameter Real k(min=0) = 1 "Proportional gain of controller";
+
+]
+
+A ``constant`` is a value that is fixed at compilation time.
+Constants are declared with the ``constant`` prefix.
+
+[For example,
+
+.. code-block::
+
+   constant Real pi = 3.14159;
+
+]
+
+Arrays
+......
 
 Each of these data types, including the elementary building blocks,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
@@ -710,6 +866,39 @@ The order of the connections and the order of the arguments in the
 
    equation
      connect(gain.u, maxValue.y);
+
+]
+
+Only connectors that carry the same data type (:numref:`sec_dat_typ`)
+can be connected.
+
+Attributes of the variables that are connected are handled as follows:
+
+* If the ``quantity``, ``unit``, ``min`` or ``max`` attributes are set to a non-default value for both
+  connector variables, then they must be equal. Otherwise an error should be issued.
+* If only one of the two connector variables declares the
+  ``quantity``, ``unit``, ``min`` or ``max`` attribute, then this value is applied to both
+  connector variables.
+* If two connectors have different values for the ``displayUnit`` attribute, then either can be used.
+  [It is a quality of the implementation that a warning is issued if declarations are inconsistent.
+  However, because ``displayUnit`` does not affect the computations in the sequence, the connection
+  is still valid.]
+
+
+[For example,
+
+.. code-block:: modelica
+
+   Continuous.Max maxValue(y(unit="m/s")) "Output maximum value";
+   Continous.Gain gain(                     k=60) "Gain";
+   Continous.Gain gainOK(   u(unit="m/s" ), k=60) "Gain";
+   Continous.Gain gainWrong(u(unit="kg/s"), k=60) "Gain";
+
+   equation
+     connect(gain.u,      maxValue.y); // This sets gain.u(unit="m/s")
+                                       // as gain.u does not declare its unit
+     connect(gainOK.u,    maxValue.y); // Correct, because unit attributes are consistent
+     connect(gainWrong.u, maxValue.y); // Not allowed, because of inconsistent unit attributes
 
 ]
 
