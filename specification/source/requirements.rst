@@ -53,7 +53,7 @@ CDL
 #. The CDL shall be declarative.
 #. CDL shall be able to express control sequences and their linkage to an object model which represents the plant.
 #. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`) with inputs and outputs
-   through which blocks can be connnected.
+   through which blocks can be connected.
 #. It shall be possible to compose blocks hierarchically to form new blocks.
 #. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs.
    The actual implementation is not part of the standard [as this is language dependent].
