@@ -638,11 +638,6 @@ Modelica, Simulink or LabVIEW,
 do not support the propagation of parameters,
 nor do they support the use of expressions in parameter assignments.
 
-.. note::
-
-   This feature is being implemented through https://github.com/lbl-srg/modelica-json/issues/102
-
-
 Consider the statement
 
 .. code-block:: modelica
