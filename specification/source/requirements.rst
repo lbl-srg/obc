@@ -55,7 +55,7 @@ CDL
 #. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`) with inputs and outputs
    through which blocks can be connected.
 #. It shall be possible to compose blocks hierarchically to form new blocks.
-#. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs.
+#. The elementary building blocks [such as a gain] are defined through their input, outputs, parameters, and their response to given outputs.
    The actual implementation is not part of the standard [as this is language dependent].
 #. Each block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
 #. It shall be possible to identify whether a block represents a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
