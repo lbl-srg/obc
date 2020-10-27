@@ -679,7 +679,7 @@ The propagations will overwrite the corresponding annotations in the subsequence
       annotation(__cdl(generatePointlist=true));
    end MyController;
 
-The parser will generate a list of how the specifications being propagated as below
+The parser will generate an annotation propagation list as below:
 
 .. code-block:: JSON
 
