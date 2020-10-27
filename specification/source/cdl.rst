@@ -682,6 +682,7 @@ The propagations will overwrite the corresponding annotations in the subsequence
 The parser will generate a list of how the specifications being propagated as below
 
 .. code-block:: JSON
+
    [
      {
        "className": "Controller",
@@ -718,7 +719,7 @@ The parser will generate a list of how the specifications being propagated as be
        ]
      }
    ]
-   
+
 ]   
 
 
