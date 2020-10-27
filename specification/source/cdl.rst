@@ -615,23 +615,6 @@ not connected to external signals.]
 When instantiating a block, this annotation can also be added to the instantiation clause,
 and it will overwrite the class level declaration.
 
-[For example, consider the pseudo-code
-
-.. code-block:: modelica
-
-   MyController con1 annotation(__cdl(generatePointlist=true);
-   MyController con2 annotation(__cdl(generatePointlist=false);
-
-   ...
-
-   block MyController
-     ...
-     annotation(__cdl(generatePointlist=true));
-   end MyController;
-
-This will generate a point list for ``con1`` but not for ``con2``.
-]
-
 Connectors can have a vendor annotation of the form
 ``__cdl(connection(hardwired=Boolean)``.
 The field ``hardwired`` specifies whether the connection should be hardwired or not,
@@ -643,10 +626,10 @@ The field ``interval`` must be specified and its value is the trending interval 
 and the field ``enable`` is optional, with default value of ``true``, and
 it can be used to overwrite the value used in the sequence declaration.
 
-When translating the CDL sequences to ``CDL-JSON``, the ``modelica-json`` tool will
-create a list which shows how the annotations propagate from top level controller to
-the subsequence. It propagates the block level annotation through the class instantiation
-and the connector annotations through the connection.
+When translating the CDL sequences to ``CDL-JSON`` (:numref:`fig_cdl_pro_lin`),
+the ``modelica-json`` tool will create a list which shows how the annotations propagate
+from top level controller to the subsequence. It propagates the block level annotation
+through the class instantiation and the connector annotations through the connection.
 The propagations will overwrite the corresponding annotations in the subsequences.
 
 [For example, consider the pseudo-code
@@ -679,7 +662,8 @@ The propagations will overwrite the corresponding annotations in the subsequence
       annotation(__cdl(generatePointlist=true));
    end MyController;
 
-The parser will generate an annotation propagation list as below:
+The translator will generate an annotation propgation list as below. There will be point
+list for ``Controller.con1`` but not for ``Controller.con2``.
 
 .. code-block:: JSON
 
@@ -721,14 +705,6 @@ The parser will generate an annotation propagation list as below:
    ]
 
 ]   
-
-
-
-
-
-
-
-.. todo:: Specify how to overwrite these annotation in blocks and connectors that are part of a subsequence of an instanciated controller.
 
 [For example, consider the pseudo-code
 
