@@ -615,7 +615,7 @@ not connected to external signals.]
 When instantiating a block, this annotation can also be added to the instantiation clause,
 and it will overwrite the class level declaration.
 
-[For example, consider the pseude-code
+[For example, consider the pseudo-code
 
 .. code-block:: modelica
 
@@ -637,11 +637,95 @@ Connectors can have a vendor annotation of the form
 The field ``hardwired`` specifies whether the connection should be hardwired or not,
 the default value is ``false``.
 
-Connectors can have a vendor annotation of the form
+Connectors can also have a vendor annotation of the form
 ``__cdl(trend(interval=Real, enable=Boolean)``.
 The field ``interval`` must be specified and its value is the trending interval in seconds,
 and the field ``enable`` is optional, with default value of ``true``, and
 it can be used to overwrite the value used in the sequence declaration.
+
+When translating the CDL sequences to ``CDL-JSON``, the ``modelica-json`` tool will
+create a list which shows how the annotations propagate from top level controller to
+the subsequence. It propagates the block level annotation through the class instantiation
+and the connector annotations through the connection.
+The propagations will overwrite the corresponding annotations in the subsequences.
+
+[For example, consider the pseudo-code
+
+.. code-block:: modelica
+
+   block Controller
+      ...
+      Interfaces.RealInput u1
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=true), trend(interval=120, enable=true));
+      ...
+      MyController con1 annotation(__cdl(generatePointlist=true);
+      MyController con2 annotation(__cdl(generatePointlist=false);
+      ...
+   equation
+      connect(u1, con1.u);
+      connect(u2, con2.u);
+      ...
+      annotation(__cdl(generatePointlist=true));
+   end Controller;
+
+   ...
+
+   block MyController
+      Interfaces.RealInput u
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true));
+      ...
+      annotation(__cdl(generatePointlist=true));
+   end MyController;
+
+The parser will generate a list of how the specifications being propagated as below
+
+.. code-block:: JSON
+   [
+     {
+       "className": "Controller",
+       "points": [
+         {
+           "name": "u1",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 60
+           }
+         },
+         {
+           "name": "u2",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         }
+       ]
+     },
+     {
+       "className": "Controller.con1",
+       "points": [
+         {
+           "name": "u",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 60
+           }
+         }
+       ]
+     }
+   ]
+   
+]   
+
+
+
+
+
+
 
 .. todo:: Specify how to overwrite these annotation in blocks and connectors that are part of a subsequence of an instanciated controller.
 
