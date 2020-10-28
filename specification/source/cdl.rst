@@ -407,13 +407,12 @@ The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification.
 Thus, in the most general form, elementary building blocks can be considered
 as functions that for given parameters :math:`p`,
-time :math:`t` and internal state :math:`x(t)`,
-map inputs :math:`u(t)` to new values for the
-outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
+time :math:`t` and internal states :math:`x(t)`,
+map inputs :math:`u(t)` to new outputs :math:`y(t)`, e.g.,
 
 .. math::
 
-   (p, t, u(t), x(t)) \mapsto (y(t), x'(t)).
+   (p, t, u(t), x(t)) \mapsto y(t).
 
 Control providers who support CDL need to be able to implement the same
 functionality as is provided by the elementary CDL blocks.
