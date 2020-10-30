@@ -636,7 +636,8 @@ connector in top level is specified as software point, it will trigger a
 warning and the annotations in subsequence will not be overwritten.
 However, by specifying a vendor annotation ``__cdl(connection(suppressWarning=true))`` will
 suppress the warning and allow the subsequence annotation being overwritten. The field
-``suppressWarning`` has default value of ``false``.
+``suppressWarning`` has default value of ``false`` and if it is not specified, the
+warning will not be suppressed.
 
 [For example, consider the pseudo-code
 
