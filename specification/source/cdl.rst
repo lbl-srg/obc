@@ -733,10 +733,10 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
    block Controller "Controller for room VAV box"
       ...;
       CDL.Interfaces.BooleanInput uWin "Windows status"
-         annotation (__cdl(hardwired=true,
+         annotation (__cdl(connection(hardwired=true),
                            trend(interval=60, enable=true)));
       CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
-         annotation (__cdl(hardwired=false,
+         annotation (__cdl(connection(hardwired=false),
                            trend(interval=60, enable=true)));
       ...
    annotation (__cdl(generatePointlist=true));
