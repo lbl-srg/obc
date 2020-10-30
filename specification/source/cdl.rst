@@ -631,6 +631,12 @@ the ``modelica-json`` tool will create a list which shows how the annotations pr
 from top level controller to the subsequence. It propagates the block level annotation
 through the class instantiation and the connector annotations through the connection.
 The propagations will overwrite the corresponding annotations in the subsequences.
+When in subsequence a connector is specified as hardwired point while its upstream
+connector in top level is specified as software point, it will trigger a
+warning and the annotations in subsequence will not be overwritten.
+However, by specifying a vendor annotation ``__cdl(connection(suppressWarning=true))`` will
+suppress the warning and allow the subsequence annotation being overwritten. The field
+``suppressWarning`` has default value of ``false``.
 
 [For example, consider the pseudo-code
 
@@ -641,14 +647,16 @@ The propagations will overwrite the corresponding annotations in the subsequence
       Interfaces.RealInput u1
         annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true));
       Interfaces.RealInput u2
-        annotation(__cdl(connection(hardwired=true), trend(interval=120, enable=true));
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true));
       ...
       MyController con1 annotation(__cdl(generatePointlist=true);
       MyController con2 annotation(__cdl(generatePointlist=false);
       ...
    equation
-      connect(u1, con1.u);
-      connect(u2, con2.u);
+      connect(u1, con1.u1);
+      connect(u2, con1.u2);
+      connect(u1, con2.u1);
+      connect(u2. con2.u2);
       ...
       annotation(__cdl(generatePointlist=true));
    end Controller;
@@ -656,8 +664,10 @@ The propagations will overwrite the corresponding annotations in the subsequence
    ...
 
    block MyController
-      Interfaces.RealInput u
+      Interfaces.RealInput u1
         annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true));
       ...
       annotation(__cdl(generatePointlist=true));
    end MyController;
@@ -681,7 +691,7 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
          },
          {
            "name": "u2",
-           "hardwired": true,
+           "hardwired": false,
            "trend": {
              "enable": true,
              "interval": 120
@@ -693,7 +703,15 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
        "className": "Controller.con1",
        "points": [
          {
-           "name": "u",
+           "name": "u1",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 60
+           }
+         },
+         {
+           "name": "u2",
            "hardwired": true,
            "trend": {
              "enable": true,
