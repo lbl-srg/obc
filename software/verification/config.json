@@ -3,12 +3,15 @@
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
      "sequence": "setPoiVAV",
-     "pointNameMapping": "realControllerPointMapping.json"
+     "pointNameMapping": "realControllerPointMapping.json",
+     "run_controller": false,
+     "controller_output": "real_outputs.csv"
    },
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
      "sequence": "setPoiVAV1",
      "pointNameMapping": "realControllerPointMapping.json",
+     "run_controller": true,
      "outputs": [
        { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
      ],

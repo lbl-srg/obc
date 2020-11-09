@@ -2,21 +2,22 @@ import json
 import re
 import argparse
 # import pyfunnel
+# from OMPython import OMCSessionZMQ
 import os
 import shutil
 import BAC0
 
 class VerificationTool:
-    def __init__(self, config_file="config.json", run_controller=False):
+    def __init__(self, config_file="config.json"):
         with open(config_file, 'r') as fp:
             self.config = json.load(fp)
 
         self.test_list = []
         self.parse_configurations()
-        self.run_controller = run_controller
 
-        if self.run_controller:
-            self.controller_config = self.config.get('controller', {})
+        self.controller_config = self.config.get('controller', {})
+        self.real_controller = None
+        if self.controller_config != {}:
             self.initialize_controller()
 
         self.execute_tests()
@@ -27,8 +28,8 @@ class VerificationTool:
         device_id = self.controller_config["device_id"]
 
         bacnet = BAC0.connect(ip=network_address)
-        self.device = BAC0.device(address=device_address, device_id=device_id, network=bacnet)
-        self.point_properties = self.device.points_properties_df().T
+        self.real_controller = BAC0.device(address=device_address, device_id=device_id, network=bacnet)
+        self.point_properties = self.real_controller.points_properties_df().T
         print(self.point_properties)
 
     def parse_configurations(self):
@@ -41,6 +42,8 @@ class VerificationTool:
             ref_model = reference.get('model', None)
             ref_sequence = reference.get('sequence', None)
             ref_point_name_mapping = reference.get('pointNameMapping', None)
+            ref_run_controller_flag = reference.get('run_controller', False)
+            ref_controller_output = reference.get('controller_output', None)
 
             if ref_model is None:
                 raise Exception("missing 'model' keyword for a test")
@@ -48,6 +51,11 @@ class VerificationTool:
                 raise Exception("missing 'sequence' keyword for a test")
             if ref_point_name_mapping is None:
                 raise Exception("missing 'pointNameMapping' keyword for a test")
+            if not ref_run_controller_flag and ref_controller_output is None:
+                raise Exception("missing 'controller_output' keyword for a test")
+            elif ref_controller_output and self.real_controller is None:
+                raise Exception("missing 'controller' configuration")
+
 
             ref_outputs = reference.get('outputs', None)
             ref_sampling_rate = reference.get('sampling', None)
@@ -80,6 +88,9 @@ class VerificationTool:
             if not reference['modelJsonDirectory'].endswith('/'):
                 reference['modelJsonDirectory'] += '/'
 
+            if ref_run_controller_flag:
+                reference['controller'] = self.real_controller
+
             self.test_list.append(reference)
         print(self.test_list)
 
@@ -88,17 +99,60 @@ class VerificationTool:
             model_dir = test.get('modelJsonDirectory')
             model_name = test.get('model')
             sequence_name = test.get('sequence')
+            run_controller = test.get('run_controller')
+            point_name_mapping = reference.get('pointNameMapping')
+            sample_rate = reference.get('sampling')
+            output_config = reference.get('outputs', None)
             json_file_name = model_dir+model_name+'.json'
 
             test_parameters, test_io = self.extract_io(model=model_name, sequence=sequence_name, json_file=json_file_name)
+
+            simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir)
+
+
+            param_list = []
             for param in test_parameters:
-                print(param.get('name'))
+                param_list.append(sequence_name+"."+param.get('name'))
 
+            ip_list = []
             for ip in test_io.get('inputs'):
-                print(ip.get('name'))
+                ip_list.append(sequence_name+"."+ip.get('name'))
 
+            op_list = []
             for op in test_io.get('outputs'):
-                print(op.get('name'))
+                op_list.append(sequence_name+"."+op.get('name'))
+
+            ip_dataframe = simulation_output[ip_list]
+            op_dataframe = simulation_output[op_list]
+
+            if run_controller:
+                real_outputs = self.execute_controller(inputs=ip_dataframe, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
+
+            for op in op_dataframe.columns:
+                self.compare_single_variable(cdl_output=op_dataframe[op], actual_output=real_outputs[op], output_config=output_config)
+
+
+    def execute_controller(self, inputs, point_name_mapping, sample_rate):
+        new_col_list = []
+        for col in inputs.columns:
+            new_col_list.append(point_name_mapping.get(col))
+
+        ip_df  = inputs.copy()
+        ip_df.columns = new_col_list
+
+        t_start = time.time()
+        t_now = time.time() - t_start
+        ops = []
+        while t_now <= ip_df.iloc[-1].index.values[0]:
+            ip_row = ip_df.loc[t_now>=ip_df.index][0]
+            for ip in ip_row.columns:
+                self.real_controller[ip] = ip_row[ip]
+
+            ops.append(self.real_controller.points)
+            time.sleep(sample_rate)
+            t_now = time.time() - t_start
+
+        return ops
 
     def regex_parser(self, regex, point_list):
         r = re.compile(regex)
@@ -175,15 +229,23 @@ class VerificationTool:
         test_io = {"inputs": test_inputs, "outputs": test_outputs}
         return test_parameters, test_io
 
+    def run_cdl_simulation(self, model, output_folder):
+        omc = OMCSessionZMQ()
+        omc.sendExpression("loadModel(Buildings)")
+        omc.sendExpression("simulate({}, outputFormat=\"csv\")".format(model))
+        # Copy output file
+        shutil.move("{}_res.csv".format(model), output_folder+"/{}_res.csv".format(model))
+        simulation_output = pd.read_csv(output_folder+"/{}_res.csv".format(model), index_col=0)
+        simulation_output.index = pd.to_datetime(simulation_output.index)
+        return simulation_output
+
 if __name__ == "__main__":
     args_parser = argparse.ArgumentParser()
     args_parser.add_argument("-c", "--config", help="config file name")
-    args_parser.add_argument("--run_controller", help="if chosen, the inputs will be set to the controller", default=False, action="store_true")
 
     args = args_parser.parse_args()
     config_file = args.config
-    run_controller = args.run_controller
 
-    test = VerificationTool(config_file=config_file, run_controller=run_controller)
+    test = VerificationTool(config_file=config_file)
     # test.start_test()
 
