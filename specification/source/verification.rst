@@ -530,7 +530,7 @@ To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a spe
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
-         "tolerances": [
+         "outputs": [
            { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
          ],
          "indicators": [
