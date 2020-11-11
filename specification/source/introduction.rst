@@ -132,7 +132,9 @@ such high performance systems.
 Project Results
 ~~~~~~~~~~~~~~~
 
-The project resulted in a process and a set of software tools that pave the way to a digitized control
+The project resulted in a process and a set of software tools,
+documented at `obc.lbl.gov <https://obc.lbl.gov>`_,
+that pave the way to a digitized control
 delivery process. They enable the performance evaluation and improvement of building control sequences
 using whole building energy simulation. Typical performance indices
 are annual energy use, greenhouse gas emissions, peak demand and thermal comfort.
