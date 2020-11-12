@@ -189,23 +189,24 @@ The following is the predefined ``Real`` type:
 The ``quantity`` attribute is optional, can take on the following values:
 
 - ``""``, which is the default, is considered as no quantity being specified.
-- ``ThermodynamicTemperature`` for absolute temperature.
-- ``TemperatureDifference`` for temperature difference.
-- ``Pressure`` for absolute pressure.
-- ``PressureDifference`` for pressure difference.
-- ``Time`` for time.
-- ``SpecificEnergy`` for specific energy.
-- ``Velocity`` for velocity.
-- ``VolumeFlowRate`` for volume flow rate.
+- ``Angle`` for area (such as used for sun position).
+- ``Area`` for area.
+- ``Energy`` for energy.
+- ``Frequency`` for frequency.
+- ``Illuminance`` for illuminance.
+- ``Irradiance`` for solar irradiance.
 - ``MassFlowRate`` for mass flow rate.
 - ``MassFraction`` for mass fraction.
-- ``Area`` for area.
-- ``Angle`` for area (such as used for sun position).
-- ``Irradiance`` for solar irradiance.
-- ``Illuminance`` for illuminance.
-- ``Energy`` for energy.
 - ``Power`` for power.
 - ``PowerFactor`` for power factor.
+- ``Pressure`` for absolute pressure.
+- ``PressureDifference`` for pressure difference.
+- ``SpecificEnergy`` for specific energy.
+- ``TemperatureDifference`` for temperature difference.
+- ``Time`` for time.
+- ``ThermodynamicTemperature`` for absolute temperature.
+- ``Velocity`` for velocity.
+- ``VolumeFlowRate`` for volume flow rate.
 
 
 [These quantities are compatible with the quantities used in the Modelica Standard Library, to allow
