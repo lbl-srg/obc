@@ -6,6 +6,7 @@ import argparse
 import os
 import shutil
 import BAC0
+from buildingspy.io.outputfile import Reader
 
 #BACNET has tags in it
 
@@ -121,12 +122,10 @@ class VerificationTool:
             for op in test_io.get('outputs'):
                 op_list.append(sequence_name+"."+op.get('name'))
 
-            simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir)
+            simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir, ip_list=ip_list, op_list=op_list)
 
             ip_dataframe = simulation_output[ip_list]
             op_dataframe = simulation_output[op_list]
-
-
 
             if run_controller:
                 real_outputs = self.execute_controller(inputs=ip_dataframe, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
@@ -235,14 +234,29 @@ class VerificationTool:
         test_io = {"inputs": test_inputs, "outputs": test_outputs}
         return test_parameters, test_io
 
-    def run_cdl_simulation(self, model, output_folder):
+    def run_cdl_simulation(self, model, output_folder, ip_list, op_list):
         omc = OMCSessionZMQ()
         omc.sendExpression("loadModel(Buildings)")
-        omc.sendExpression("simulate({}, outputFormat=\"csv\")".format(model))
+        omc.sendExpression("simulate({}, outputFormat=\"mat\")".format(model))
         # Copy output file
-        shutil.move("{}_res.csv".format(model), output_folder+"/{}_res.csv".format(model))
-        simulation_output = pd.read_csv(output_folder+"/{}_res.csv".format(model), index_col=0)
-        simulation_output.index = pd.to_datetime(simulation_output.index)
+        shutil.move("{}_res.mat".format(model), output_folder+"/{}_res.mat".format(model))
+
+        r = Reader(output_folder+"/{}_res.mat".format(model), 'dymola')
+
+        df_list = []
+        for ip in ip_list:
+            values = r.values(ip)
+            df = pd.DataFrame(index=values[0], data={ip: values[1]})
+            df_list.concat(df)
+        for op in op_list:
+            values = r.values(op)
+            df = pd.DataFrame(index=values[0], data={op: values[1]})
+            df_list.concat(df)
+
+        simulation_output = pd.concat(df_list, axis=1).fillna(method='ffill')
+        simulation_output.to_csv(output_folder+"/{}_res.csv".format(model))
+        simulation_output.index = pd.to_datetime(simulation_output.index).time
+
         return simulation_output
 
 if __name__ == "__main__":
