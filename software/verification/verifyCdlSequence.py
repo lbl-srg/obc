@@ -7,18 +7,20 @@ import os
 import shutil
 import BAC0
 
+#BACNET has tags in it
+
 class VerificationTool:
     def __init__(self, config_file="config.json"):
         with open(config_file, 'r') as fp:
             self.config = json.load(fp)
 
-        self.test_list = []
-        self.parse_configurations()
-
         self.controller_config = self.config.get('controller', {})
         self.real_controller = None
         if self.controller_config != {}:
             self.initialize_controller()
+
+        self.test_list = []
+        self.parse_configurations()
 
         self.execute_tests()
 
@@ -100,15 +102,12 @@ class VerificationTool:
             model_name = test.get('model')
             sequence_name = test.get('sequence')
             run_controller = test.get('run_controller')
-            point_name_mapping = reference.get('pointNameMapping')
-            sample_rate = reference.get('sampling')
-            output_config = reference.get('outputs', None)
+            point_name_mapping = test.get('pointNameMapping')
+            sample_rate = test.get('sampling')
+            output_config = test.get('outputs', None)
             json_file_name = model_dir+model_name+'.json'
 
             test_parameters, test_io = self.extract_io(model=model_name, sequence=sequence_name, json_file=json_file_name)
-
-            simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir)
-
 
             param_list = []
             for param in test_parameters:
@@ -122,11 +121,18 @@ class VerificationTool:
             for op in test_io.get('outputs'):
                 op_list.append(sequence_name+"."+op.get('name'))
 
+            simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir)
+
             ip_dataframe = simulation_output[ip_list]
             op_dataframe = simulation_output[op_list]
 
+
+
             if run_controller:
                 real_outputs = self.execute_controller(inputs=ip_dataframe, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
+            else:
+                real_outputs = pd.read_csv(reference.get('controller_output'), index_col=0)
+                real_outputs.index = pd.to_datetime(real_outputs.index)
 
             for op in op_dataframe.columns:
                 self.compare_single_variable(cdl_output=op_dataframe[op], actual_output=real_outputs[op], output_config=output_config)
