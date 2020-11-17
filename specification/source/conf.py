@@ -461,14 +461,16 @@ latex_elements['preamble'] = r'''
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark}
-\fancyhead[LO]{\rightmark}
+% \fancyhead[LE,RO]{\thepage}
+% \fancyhead[RE]{\leftmark}
+% \fancyhead[LO]{\rightmark}
 \fancypagestyle{plain}{%
    \fancyhead{} % get rid of headers
+   \fancyhead[L]{OpenBuildingControl}
    \fancyhead[R]{\leftmark}
-   \fancyfoot[R]{\thepage}
    \fancyfoot[L]{}
+   \fancyfoot[C]{\thepage}
+   \fancyfoot[R]{}
    \renewcommand{\headrulewidth}{0.5pt} % and the line
 }
 
