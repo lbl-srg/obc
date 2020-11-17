@@ -167,7 +167,7 @@ corresponding JSON Schema. A JSON Schema describes the data format and file stru
 lists the required or optional properties, and sets limitations on values such as
 patterns for strings or extrema for numbers.
 
-The raw CDL Schema can be found at `https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json <https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json>`_ .
+The CDL Schema can be found at `https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json <https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json>`_ .
 
 The program `modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
 the JSON representation parsed from a CDL file against the schema right after it is
@@ -208,9 +208,9 @@ To implement control sequences, blocks from the
 CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
 to the CDL language specification described in :numref:`sec_cdl`.
 For verification tests, any Modelica block can be used.
-Next, to export the Modelica model, a Modelica tool such as JModelica, OpenModelica
+Next, to export the Modelica model, a Modelica tool such as OpenModelica, JModelica, OPTIMICA
 or Dymola can be used.
-For example, with JModelica a control sequence can be exported using the Python commands
+For example, with OPTIMICA a control sequence can be exported using the Python commands
 
 .. code-block:: python
 
@@ -234,13 +234,14 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
 
 * Tools based on C:
 
-  * FMI Library (http://www.jmodelica.org/FMILibrary)
+  * FMI Library (https://github.com/modelon-community/fmi-library)
 
 * Modelica tools, of which many if not all provide
   functionality for real-time simulation:
 
-  * JModelica (http://www.jmodelica.org)
   * OpenModelica (https://openmodelica.org/)
+  * JModelica (https://www.jmodelica.org)
+  * Impact (https://www.modelon.com/modelon-impact/)
   * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
   * MapleSim (https://www.maplesoft.com/products/maplesim/)
   * SimulationX (https://www.simulationx.com/)

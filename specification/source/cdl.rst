@@ -436,11 +436,12 @@ to implement composite blocks (:numref:`sec_com_blo`).
        http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
      * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
        and open ``Buildings/package.mo`` in the graphical model editor of
-       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
-       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
+       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_,
+       `Impact <https://www.modelon.com/modelon-impact/>`_, or
+       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_.
        All models in the `Examples` and `Validation` packages can be simulated with these tools, as well
        as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_ and
-       with `JModelica <http://www.jmodelica.org/>`_.
+       with `JModelica <https://www.jmodelica.org/>`_.
 
 An actual implementation of an elementary building block
 looks as follows, where we omitted the annotations that are
