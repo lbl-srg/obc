@@ -473,6 +473,15 @@ latex_elements['preamble'] = r'''
    \fancyfoot[R]{}
    \renewcommand{\headrulewidth}{0.5pt} % and the line
 }
+\fancypagestyle{normal}{%
+   \fancyhead{} % get rid of headers
+   \fancyhead[L]{OpenBuildingControl}
+   \fancyhead[R]{\leftmark}
+   \fancyfoot[L]{}
+   \fancyfoot[C]{\thepage}
+   \fancyfoot[R]{}
+   \renewcommand{\headrulewidth}{0.5pt} % and the line
+}
 
 %%\rfoot[LE,RO]{\thepage}
 %%\renewcommand{\headrulewidth}{0.4pt}
