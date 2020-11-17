@@ -420,6 +420,9 @@ show good agreement, which is also demonstrated
 by verifying the time series with the
 funnel software, whose output is shown in :numref:`fig_coo_coi_val_fun`.
 
+.. raw:: latex
+
+   \clearpage
 
 Specification for Automating the Verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -476,9 +479,6 @@ described below and does the following to generate the data from the real contro
 5. Store the data.
 6. Export the desired data in the format specified below.
 
-.. note::
-
-   In support of this step, work is ongoing in exporting semantic information from the CDL implementation.
 
 .. _sec_ver_sce1:
 
