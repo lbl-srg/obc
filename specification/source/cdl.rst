@@ -789,46 +789,130 @@ then the block (or input connector) upstream of the output will always be presen
 Point list
 ..........
 
-The ``modelica-json`` tool translates the CDL sequences to ``CDL-JSON``
-(:numref:`fig_cdl_pro_lin`) and further generate the point list table. By default,
+From CDL-conforming sequences, point lists can be generated.
+[This could be accomplished using the ``modelica-json`` tool,
+see :numref:`fig_cdl_pro_lin`.]
 
-* The connectors ``RealInput`` and ``IntegerInput`` are analog input.
-* The connectors ``RealOutput`` and ``IntegerOutput`` are analog output.
-* The connectors ``BooleanInput`` and ``BooleanOutput`` are digital input and output.
+For point lists,
 
-The vendor annotation ``__cdl(generatePointlist=Boolean)`` at the block level specifies
+* the connectors ``RealInput`` and ``IntegerInput`` are analog inputs.
+* the connectors ``RealOutput`` and ``IntegerOutput`` are analog outputs.
+* the connectors ``BooleanInput`` and ``BooleanOutput`` are digital inputs and outputs.
+
+.. _sec_ann_cau_poi_lis:
+
+Annotations that Cause Point Lists to be Generated
+__________________________________________________
+
+
+The vendor annotation ``__cdl(generatePointlist=Boolean)`` at the class level specifies
 that a point list of the sequence is generated.
 If not specified, it is assumed that ``__cdl(generatePointlist=false)``.
-[Hence, if not specified, or if ``__cdl(generatePointlist=false)`` is specified,
-no point list is generated. This typically is used for subsequences that are
-not connected to external signals.]
 
-When instantiating a block, this annotation can also be added to the instantiation clause,
-and it will overwrite the class level declaration.
+When instantiating a block, the ``__cdl(generatePointlist=Boolean)`` annotation
+can also be added to the instantiation clause,
+and it will override the class level declaration.
+
+[For example,
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=false));
+     annotation(__cdl(generatePointlist=true));
+   end A;
+
+generates a point list for `A.con1` only, while
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=true));
+     annotation(__cdl(generatePointlist=false));
+   end A;
+
+generates a point list for `A.con2` only.]
+
+The `generatePointlist` annotation can be propagated down in a hierarchical controller
+by specifying in the instantiantion clause the annotation
+
+.. code-block:: modelica
+
+   __cdl(propagate(instance="subCon1", generatePointlist=true))
+
+Controllers deeper in the hierarchy are referred to using the dot notation, such as in
+``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance in ``subCon1``.
+
+The instance in the ``instance=`` must exist, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
+in which case the declaration can safely be ignored.
+
+Higher-level declarations override lower-level declarations.
+
+[For example, assume `con1` has a block called `subCon1`. Then, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
+
+sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
+
+
+Annotations for Connectors
+__________________________
 
 Connectors can have a vendor annotation of the form
-``__cdl(connection(hardwired=Boolean)``.
+
+.. code-block:: modelica
+
+   __cdl(connection(hardwired=Boolean))
+
 The field ``hardwired`` specifies whether the connection should be hardwired or not,
 the default value is ``false``.
 
 Connectors can also have a vendor annotation of the form
-``__cdl(trend(interval=Real, enable=Boolean)``.
-The field ``interval`` must be specified and its value is the trending interval in seconds,
-and the field ``enable`` is optional, with default value of ``true``, and
+
+.. code-block:: modelica
+
+   __cdl(trend(interval=Real, enable=Boolean))
+
+The field ``interval`` must be specified and its value is the trending interval in seconds.
+The field ``enable`` is optional, with default value of ``true``, and
 it can be used to overwrite the value used in the sequence declaration.
 
-When translating the CDL sequences to ``CDL-JSON`` (:numref:`fig_cdl_pro_lin`),
+Similar to ``generatePointlist``, the ``connection`` and ``trend`` annotations can be
+propagated as
+``__cdl(propagate(instance="subCon1", connection(hardwired=Boolean)))``
+or as
+``__cdl(propagate(instance="subCon1", trend(interval=Real, enable=Boolean)))``.
+As in :numref:`sec_ann_cau_poi_lis`, the instance in ``instance=`` must exist, and higher-level declarations override lower-level declarations.
+
+
+**I don't think the paragraph below is needed anymore**
+
+[When translating the CDL sequences to ``CDL-JSON`` (:numref:`fig_cdl_pro_lin`),
 the ``modelica-json`` tool will create a list which shows how the annotations propagate
-from top level controller to the subsequence. It propagates the block level annotation
-through the class instantiation and the connector annotations through the connection.
-The propagations will overwrite the corresponding annotations in the subsequences.
-When in subsequence a connector is specified as hardwired point while its upstream
+from the top level controller to the subsequences.
+Because by the above convention, instance-level declarations have priority over class-level declarations,
+the ``modelica-json`` tool
+propagates block level annotations
+through the class instantiations.
+Similarly, it also propagates connector annotations through the ``connect`` statements **I don't think this propagation is needed**.
+The propagations will overwrite the corresponding annotations in the subsequences.]
+
+**I don't think the paragraph below is needed anymore**
+
+When in a subsequence a connector is specified as hardwired point while its upstream
 connector in top level is specified as software point, it will trigger a
-warning and the annotations in subsequence will not be overwritten.
+warning and the annotation in the subsequence will not be overwritten.
 However, by specifying a vendor annotation ``__cdl(connection(suppressWarning=true))`` will
 suppress the warning and allow the subsequence annotation being overwritten. The field
 ``suppressWarning`` has default value of ``false`` and if it is not specified, the
 warning will not be suppressed.
+
+**I don't see a use for ``suppressWarning`` anymore**
+
 
 [For example, consider the pseudo-code
 
@@ -864,7 +948,7 @@ warning will not be suppressed.
       annotation(__cdl(generatePointlist=true));
    end MyController;
 
-The translator will generate an annotation propgation list as below. There will be point
+The translator will generate an annotation propagation list as shown below. There will be point
 list for ``Controller.con1`` but not for ``Controller.con2``.
 
 .. code-block:: JSON
@@ -914,9 +998,13 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
      }
    ]
 
-]   
+]
 
-[For example, consider the pseudo-code
+Example for a Point List
+________________________
+
+
+For an example of a point list generation, consider the pseudo-code shown below.
 
 .. code-block:: modelica
 
@@ -932,27 +1020,28 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
       ...
    annotation (__cdl(generatePointlist=true));
 
-It specifies that a point list should be generated for the sequence, the ``uWin`` is a
-digital input point that is hardwired,  and the ``yVal`` is a analog output point that
-is not hardwired. Both of them can be trended with time interval of 1 minute.
-The point list table will be like:
+It specifies that a point list should be generated for the sequence, that ``uWin`` is a
+digital input point that is hardwired,  and that ``yVal`` is a analog output point that
+is not hardwired. Both of them can be trended with a time interval of 1 minute.
+The point list table will look as shown in :numref:`tab_sample_point_list`.
+
+**In the table below, from where do you deduce programmatically the information that it is a "Terminal unit"?**
 
 .. _tab_sample_point_list:
 
-.. table:: Sample point list table generated by the ``modelica-json`` tool
+.. table:: Sample point list table generated by the ``modelica-json`` tool.
    :class: longtable
 
-   ========================  ===========  =========  ==========  ======== ================================================
-   System/Equipment          Name         Type       Hardwired?  Trend    Description
-   ========================  ===========  =========  ==========  ======== ================================================
-   Terminal unit             ``uWin``     DI         Yes         60       Windows status
-   ------------------------  -----------  ---------  ----------  -------- ------------------------------------------------
-   Terminal unit             ``yVal``     AO         No          60       Signal for heating coil valve
-   ------------------------  -----------  ---------  ----------  -------- ------------------------------------------------
-   ...                       ...          ...        ...         ...      ...
-   ========================  ===========  =========  ==========  ======== ================================================
+   ========================  ===========  =========  ==========  =========== ================================================
+   System/Equipment          Name         Type       Hardwired?  Trend [s]   Description
+   ========================  ===========  =========  ==========  =========== ================================================
+   Terminal unit             ``uWin``     DI         Yes         60          Windows status
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   Terminal unit             ``yVal``     AO         No          60          Signal for heating coil valve
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   ...                       ...          ...        ...         ...         ...
+   ========================  ===========  =========  ==========  =========== ================================================
 
-]
 
 .. _sec_connectors:
 
