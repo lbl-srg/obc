@@ -857,7 +857,7 @@ Higher-level declarations override lower-level declarations.
    MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
 
 sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
-[**What if `con1` has another block called `subCon2` and also needs to generate the point list? It seems that the `instance` should be specified to be an array, like `{"subCon1", "subCon2"}`.**]
+[**What if ``con1`` has another block called ``subCon2`` and also needs to generate the point list? It seems that the ``instance`` should be specified to be an array, like ``{"subCon1", "subCon2"}``.**]
 
 Annotations for Connectors
 __________________________
@@ -886,7 +886,7 @@ propagated as
 ``__cdl(propagate(instance="subCon1", connection(hardwired=Boolean)))``
 or as
 ``__cdl(propagate(instance="subCon1", trend(interval=Real, enable=Boolean)))``.
-[**Is the `subCon1` the instance inside `con1`? Should the `instance="subCon1"` be `instance="con1"`, or even `instance={"con1", "con2"}`, as `con1` and `con2` connect to the connector?**]
+[**Is the ``subCon1`` the instance inside ``con1``? Should the ``instance="subCon1"`` be ``instance="con1"``, or even ``instance={"con1", "con2"}``, as ``con1`` and ``con2`` connect to the connector?**]
 As in :numref:`sec_ann_cau_poi_lis`, the instance in ``instance=`` must exist, and higher-level
 declarations override lower-level declarations.
 
@@ -931,8 +931,8 @@ declarations override lower-level declarations.
 
 The translator will generate an annotation propagation list as shown below. There will be point
 list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
-``Controller.con2.subCon1``. Also, the annotation `connection(hardwired=true), trend(interval=60, enable=true)`
-of `con1.u2` will be overridden as `connection(hardwired=false), trend(interval=120, enable=true)`.
+``Controller.con2.subCon1``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
+of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interval=120, enable=true)``.
 
 .. code-block:: JSON
 
