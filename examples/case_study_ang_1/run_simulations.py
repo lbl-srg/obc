@@ -4,8 +4,8 @@
 # with your model
 #############################################################
 import os
-BRANCH="issue1502_replaceable_thermal_zone"
-ONLY_SHORT_TIME=False
+BRANCH = 'issue2028_dualMin'  # "issue1502_replaceable_thermal_zone_OA"
+ONLY_SHORT_TIME = False
 FROM_GIT_HUB = True
 
 
@@ -101,7 +101,7 @@ def _simulate(spec):
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
-    s.setTolerance(1E-8)
+    s.setTolerance(1E-6)
 #    s.showGUI(False)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()

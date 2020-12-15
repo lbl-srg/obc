@@ -4,9 +4,9 @@
 # with your model
 #############################################################
 import os
-BRANCH="issue1502_replaceable_thermal_zone"
-ONLY_SHORT_TIME=False
-FROM_GIT_HUB = True
+BRANCH = 'issue1502_replaceable_thermal_zone_staging'  # "issue1502_replaceable_thermal_zone_OA"
+ONLY_SHORT_TIME = False
+FROM_GIT_HUB = False
 
 
 CWD = os.getcwd()
@@ -61,7 +61,7 @@ def _simulate(spec):
     from buildingspy.simulate.Dymola import Dymola
     from buildingspy.simulate.Optimica import Optimica
 
-    useOptimica = False
+    useOptimica = True
 
     if not spec["simulate"]:
         return
@@ -92,7 +92,7 @@ def _simulate(spec):
         s=Dymola(spec["model"], outputDirectory=out_dir)
         s.addPreProcessingStatement("OutputCPUtime:= true;")
         s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
-        s.addPreProcessingStatement("Hidden.AvoidDoubleComputation=true;")
+        s.addPreProcessingStatement("Hidden.AvoidDoubleComputation = true;")
         s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
 
     if not 'solver' in spec:
