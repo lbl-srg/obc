@@ -857,7 +857,7 @@ Higher-level declarations override lower-level declarations.
    MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
 
 sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
-
+[**What if `con1` has another block called `subCon2` and also needs to generate the point list? It seems that the `instance` should be specified to be an array, like `{"subCon1", "subCon2"}`.**]
 
 Annotations for Connectors
 __________________________
@@ -886,54 +886,32 @@ propagated as
 ``__cdl(propagate(instance="subCon1", connection(hardwired=Boolean)))``
 or as
 ``__cdl(propagate(instance="subCon1", trend(interval=Real, enable=Boolean)))``.
-As in :numref:`sec_ann_cau_poi_lis`, the instance in ``instance=`` must exist, and higher-level declarations override lower-level declarations.
-
-
-**I don't think the paragraph below is needed anymore**
-
-[When translating the CDL sequences to ``CDL-JSON`` (:numref:`fig_cdl_pro_lin`),
-the ``modelica-json`` tool will create a list which shows how the annotations propagate
-from the top level controller to the subsequences.
-Because by the above convention, instance-level declarations have priority over class-level declarations,
-the ``modelica-json`` tool
-propagates block level annotations
-through the class instantiations.
-Similarly, it also propagates connector annotations through the ``connect`` statements **I don't think this propagation is needed**.
-The propagations will overwrite the corresponding annotations in the subsequences.]
-
-**I don't think the paragraph below is needed anymore**
-
-When in a subsequence a connector is specified as hardwired point while its upstream
-connector in top level is specified as software point, it will trigger a
-warning and the annotation in the subsequence will not be overwritten.
-However, by specifying a vendor annotation ``__cdl(connection(suppressWarning=true))`` will
-suppress the warning and allow the subsequence annotation being overwritten. The field
-``suppressWarning`` has default value of ``false`` and if it is not specified, the
-warning will not be suppressed.
-
-**I don't see a use for ``suppressWarning`` anymore**
-
+[**Is the `subCon1` the instance inside `con1`? Should the `instance="subCon1"` be `instance="con1"`, or even `instance={"con1", "con2"}`, as `con1` and `con2` connect to the connector?**]
+As in :numref:`sec_ann_cau_poi_lis`, the instance in ``instance=`` must exist, and higher-level
+declarations override lower-level declarations.
 
 [For example, consider the pseudo-code
 
 .. code-block:: modelica
 
    block Controller
-      ...
+
       Interfaces.RealInput u1
-        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true));
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
       Interfaces.RealInput u2
-        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true));
-      ...
-      MyController con1 annotation(__cdl(generatePointlist=true);
-      MyController con2 annotation(__cdl(generatePointlist=false);
-      ...
-   equation
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true),
+                         propagate(instance="con1", connection(hardwired=false), trend(interval=120, enable=true))));
+
+      MyController con1 annotation(__cdl(generatePointlist=true));
+      MyController con2 annotation(__cdl(generatePointlist=false,
+                                         propagate(instance={"subCon1", "subCon2"}, generatePointlist=true)));
+
+   equation 
       connect(u1, con1.u1);
       connect(u2, con1.u2);
       connect(u1, con2.u1);
-      connect(u2. con2.u2);
-      ...
+      connect(u2, con2.u2);
+
       annotation(__cdl(generatePointlist=true));
    end Controller;
 
@@ -941,15 +919,20 @@ warning will not be suppressed.
 
    block MyController
       Interfaces.RealInput u1
-        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true));
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true)));
       Interfaces.RealInput u2
-        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true));
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
+      ...
+      SubController1 subCon1;
+      SubController2 subCon2;
       ...
       annotation(__cdl(generatePointlist=true));
    end MyController;
 
 The translator will generate an annotation propagation list as shown below. There will be point
-list for ``Controller.con1`` but not for ``Controller.con2``.
+list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
+``Controller.con2.subCon1``. Also, the annotation `connection(hardwired=true), trend(interval=60, enable=true)`
+of `con1.u2` will be overridden as `connection(hardwired=false), trend(interval=120, enable=true)`.
 
 .. code-block:: JSON
 
@@ -980,20 +963,32 @@ list for ``Controller.con1`` but not for ``Controller.con2``.
        "points": [
          {
            "name": "u1",
-           "hardwired": true,
+           "hardwired": false,
            "trend": {
              "enable": true,
-             "interval": 60
+             "interval": 120
            }
          },
          {
            "name": "u2",
-           "hardwired": true,
+           "hardwired": false,
            "trend": {
              "enable": true,
-             "interval": 60
+             "interval": 120
            }
          }
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon1",
+       "points": [
+         ...
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon2",
+       "points": [
+         ...
        ]
      }
    ]
@@ -1018,7 +1013,7 @@ For an example of a point list generation, consider the pseudo-code shown below.
          annotation (__cdl(connection(hardwired=false),
                            trend(interval=60, enable=true)));
       ...
-   annotation (__cdl(generatePointlist=true));
+   annotation (__cdl(generatePointlist=true, controlledDevice="Terminal unit"));
 
 It specifies that a point list should be generated for the sequence, that ``uWin`` is a
 digital input point that is hardwired,  and that ``yVal`` is a analog output point that
