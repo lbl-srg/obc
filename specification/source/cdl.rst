@@ -835,7 +835,7 @@ generates a point list for `A.con1` only, while
 
 generates a point list for `A.con2` only.]
 
-The `generatePointlist` annotation can be propagated down in a hierarchical controller
+The `generatePointlist` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
 by specifying in the instantiantion clause the annotation
 
 .. code-block:: modelica
@@ -843,9 +843,11 @@ by specifying in the instantiantion clause the annotation
    __cdl(propagate(instance="subCon1", generatePointlist=true))
 
 Controllers deeper in the hierarchy are referred to using the dot notation, such as in
-``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance in ``subCon1``.
+``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance of an elementary or composite block in ``subCon1``.
 
-The instance in the ``instance=`` must exist, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
+The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_bui_blo`)
+or a composite block (see :numref:`sec_com_blo`). It
+must declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
 in which case the declaration can safely be ignored.
 
 Higher-level declarations override lower-level declarations.
@@ -857,12 +859,28 @@ Higher-level declarations override lower-level declarations.
    MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
 
 sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
-[**What if ``con1`` has another block called ``subCon2`` and also needs to generate the point list? It seems that the ``instance`` should be specified to be an array, like ``{"subCon1", "subCon2"}``.**]
+
+There can be any number of ``propagate(...)`` annotations for a controller.
+[Specifying multiple ``propagate(...)`` annotations is useful for composite controllers.
+For example,
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(
+       propagate(instance="subCon1",            generatePointlist=true),
+       propagate(instance="subCon1.subSubCon1", generatePointlist=true),
+       propagate(instance="subCon1.subSubCon2", generatePointlist=false)
+     )
+   );
+
+allows a finegrained propagation to individual blocks of a composite block.
+]
 
 Annotations for Connectors
 __________________________
 
-Connectors can have a vendor annotation of the form
+Connectors (see :numref:`sec_connectors`) can have a vendor annotation of the form
 
 .. code-block:: modelica
 
@@ -882,13 +900,40 @@ The field ``enable`` is optional, with default value of ``true``, and
 it can be used to overwrite the value used in the sequence declaration.
 
 Similar to ``generatePointlist``, the ``connection`` and ``trend`` annotations can be
-propagated as
-``__cdl(propagate(instance="subCon1", connection(hardwired=Boolean)))``
-or as
-``__cdl(propagate(instance="subCon1", trend(interval=Real, enable=Boolean)))``.
-[**Is the ``subCon1`` the instance inside ``con1``? Should the ``instance="subCon1"`` be ``instance="con1"``, or even ``instance={"con1", "con2"}``, as ``con1`` and ``con2`` connect to the connector?**]
-As in :numref:`sec_ann_cau_poi_lis`, the instance in ``instance=`` must exist, and higher-level
-declarations override lower-level declarations.
+propagated. If a composite block contains a block ``con1``, which in turn contains a block ``subCon1`` that
+has an input ``u``, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean)));
+
+can be used to set the type of connection of input (or output) ``con1.subCon1.u``.
+The value of ``instance==`` must be a connector.
+
+Similarly, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", trend(interval=Real, enable=Boolean)));
+
+can be used to set how to trend that input (or output).
+
+These statements can also be combined into
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean),
+                                           trend(interval=Real, enable=Boolean)));
+
+
+As in :numref:`sec_ann_cau_poi_lis`,
+
+- the instance in ``instance=`` must exist, (but it can be conditionally removed in which case the annotation can be ignored),
+- higher-level declarations override lower-level declarations, and
+- any number of ``propagate(...)`` annotations can be present.
 
 [For example, consider the pseudo-code
 
@@ -899,14 +944,18 @@ declarations override lower-level declarations.
       Interfaces.RealInput u1
         annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
       Interfaces.RealInput u2
-        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true),
-                         propagate(instance="con1", connection(hardwired=false), trend(interval=120, enable=true))));
+        annotation(__cdl(connection(hardwired=false),
+                         trend(interval=120, enable=true),
+                         propagate(instance="con1.u1",
+                           connection(hardwired=false),
+                           trend(interval=120, enable=true))));
 
       MyController con1 annotation(__cdl(generatePointlist=true));
       MyController con2 annotation(__cdl(generatePointlist=false,
-                                         propagate(instance={"subCon1", "subCon2"}, generatePointlist=true)));
+                                         propagate(instance="subCon1", generatePointlist=true),
+                                         propagate(instance="subCon2", generatePointlist=true)));
 
-   equation 
+   equation
       connect(u1, con1.u1);
       connect(u2, con1.u2);
       connect(u1, con2.u1);
@@ -921,7 +970,7 @@ declarations override lower-level declarations.
       Interfaces.RealInput u1
         annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true)));
       Interfaces.RealInput u2
-        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
+        annotation(__cdl(connection(hardwired=true),  trend(interval=60,  enable=true)));
       ...
       SubController1 subCon1;
       SubController2 subCon2;
@@ -934,7 +983,7 @@ list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
 ``Controller.con2.subCon1``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
 of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interval=120, enable=true)``.
 
-.. code-block:: JSON
+.. code-block:: javascript
 
    [
      {
