@@ -805,9 +805,11 @@ Annotations that Cause Point Lists to be Generated
 __________________________________________________
 
 
-The vendor annotation ``__cdl(generatePointlist=Boolean)`` at the class level specifies
+The vendor annotation ``__cdl(generatePointlist=Boolean, controlledDevice=String)`` at the class level specifies
 that a point list of the sequence is generated.
 If not specified, it is assumed that ``__cdl(generatePointlist=false)``.
+The key ``controlledDevice`` is optional. It can be used to list the device that is being controlled.
+Its value will be written to the point list, but not used otherwise, see :numref:`tab_sample_point_list` for an example.
 
 When instantiating a block, the ``__cdl(generatePointlist=Boolean)`` annotation
 can also be added to the instantiation clause,
@@ -1044,11 +1046,8 @@ of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interv
 
 ]
 
-Example for a Point List
-________________________
 
-
-For an example of a point list generation, consider the pseudo-code shown below.
+[For an example of a point list generation, consider the pseudo-code shown below.
 
 .. code-block:: modelica
 
@@ -1085,6 +1084,7 @@ The point list table will look as shown in :numref:`tab_sample_point_list`.
    ...                       ...          ...        ...         ...         ...
    ========================  ===========  =========  ==========  =========== ================================================
 
+]
 
 .. _sec_connectors:
 
