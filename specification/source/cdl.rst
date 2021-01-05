@@ -1064,7 +1064,8 @@ For an example of a point list generation, consider the pseudo-code shown below.
       ...
    annotation (__cdl(generatePointlist=true, controlledDevice="Terminal unit"));
 
-It specifies that a point list should be generated for the sequence, that ``uWin`` is a
+It specifies that a point list should be generated for the sequence that controls the
+system or equipment specified by ``controlledDevice``, that ``uWin`` is a
 digital input point that is hardwired,  and that ``yVal`` is a analog output point that
 is not hardwired. Both of them can be trended with a time interval of 1 minute.
 The point list table will look as shown in :numref:`tab_sample_point_list`.
