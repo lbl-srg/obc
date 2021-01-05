@@ -784,6 +784,308 @@ because if a building automation system cannot conditionally remove instances,
 then the block (or input connector) upstream of the output will always be present
 (or will have a default value).
 
+.. _sec_point_list:
+
+Point list
+..........
+
+From CDL-conforming sequences, point lists can be generated.
+[This could be accomplished using the ``modelica-json`` tool,
+see :numref:`fig_cdl_pro_lin`.]
+
+For point lists,
+
+* the connectors ``RealInput`` and ``IntegerInput`` are analog inputs.
+* the connectors ``RealOutput`` and ``IntegerOutput`` are analog outputs.
+* the connectors ``BooleanInput`` and ``BooleanOutput`` are digital inputs and outputs.
+
+.. _sec_ann_cau_poi_lis:
+
+Annotations that Cause Point Lists to be Generated
+__________________________________________________
+
+
+The vendor annotation ``__cdl(generatePointlist=Boolean, controlledDevice=String)`` at the class level specifies
+that a point list of the sequence is generated.
+If not specified, it is assumed that ``__cdl(generatePointlist=false)``.
+The key ``controlledDevice`` is optional. It can be used to list the device that is being controlled.
+Its value will be written to the point list, but not used otherwise, see :numref:`tab_sample_point_list` for an example.
+
+When instantiating a block, the ``__cdl(generatePointlist=Boolean)`` annotation
+can also be added to the instantiation clause,
+and it will override the class level declaration.
+
+[For example,
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=false));
+     annotation(__cdl(generatePointlist=true));
+   end A;
+
+generates a point list for `A.con1` only, while
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=true));
+     annotation(__cdl(generatePointlist=false));
+   end A;
+
+generates a point list for `A.con2` only.]
+
+The `generatePointlist` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
+by specifying in the instantiantion clause the annotation
+
+.. code-block:: modelica
+
+   __cdl(propagate(instance="subCon1", generatePointlist=true))
+
+Controllers deeper in the hierarchy are referred to using the dot notation, such as in
+``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance of an elementary or composite block in ``subCon1``.
+
+The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_bui_blo`)
+or a composite block (see :numref:`sec_com_blo`). It
+must declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
+in which case the declaration can safely be ignored.
+
+Higher-level declarations override lower-level declarations.
+
+[For example, assume `con1` has a block called `subCon1`. Then, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
+
+sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
+
+There can be any number of ``propagate(...)`` annotations for a controller.
+[Specifying multiple ``propagate(...)`` annotations is useful for composite controllers.
+For example,
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(
+       propagate(instance="subCon1",            generatePointlist=true),
+       propagate(instance="subCon1.subSubCon1", generatePointlist=true),
+       propagate(instance="subCon1.subSubCon2", generatePointlist=false)
+     )
+   );
+
+allows a finegrained propagation to individual blocks of a composite block.
+]
+
+Annotations for Connectors
+__________________________
+
+Connectors (see :numref:`sec_connectors`) can have a vendor annotation of the form
+
+.. code-block:: modelica
+
+   __cdl(connection(hardwired=Boolean))
+
+The field ``hardwired`` specifies whether the connection should be hardwired or not,
+the default value is ``false``.
+
+Connectors can also have a vendor annotation of the form
+
+.. code-block:: modelica
+
+   __cdl(trend(interval=Real, enable=Boolean))
+
+The field ``interval`` must be specified and its value is the trending interval in seconds.
+The field ``enable`` is optional, with default value of ``true``, and
+it can be used to overwrite the value used in the sequence declaration.
+
+Similar to ``generatePointlist``, the ``connection`` and ``trend`` annotations can be
+propagated. If a composite block contains a block ``con1``, which in turn contains a block ``subCon1`` that
+has an input ``u``, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean)));
+
+can be used to set the type of connection of input (or output) ``con1.subCon1.u``.
+The value of ``instance==`` must be a connector.
+
+Similarly, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", trend(interval=Real, enable=Boolean)));
+
+can be used to set how to trend that input (or output).
+
+These statements can also be combined into
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean),
+                                           trend(interval=Real, enable=Boolean)));
+
+
+As in :numref:`sec_ann_cau_poi_lis`,
+
+- the instance in ``instance=`` must exist, (but it can be conditionally removed in which case the annotation can be ignored),
+- higher-level declarations override lower-level declarations, and
+- any number of ``propagate(...)`` annotations can be present.
+
+[For example, consider the pseudo-code
+
+.. code-block:: modelica
+
+   block Controller
+
+      Interfaces.RealInput u1
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=false),
+                         trend(interval=120, enable=true),
+                         propagate(instance="con1.u1",
+                           connection(hardwired=false),
+                           trend(interval=120, enable=true))));
+
+      MyController con1 annotation(__cdl(generatePointlist=true));
+      MyController con2 annotation(__cdl(generatePointlist=false,
+                                         propagate(instance="subCon1", generatePointlist=true),
+                                         propagate(instance="subCon2", generatePointlist=true)));
+
+   equation
+      connect(u1, con1.u1);
+      connect(u2, con1.u2);
+      connect(u1, con2.u1);
+      connect(u2, con2.u2);
+
+      annotation(__cdl(generatePointlist=true));
+   end Controller;
+
+   ...
+
+   block MyController
+      Interfaces.RealInput u1
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true)));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=true),  trend(interval=60,  enable=true)));
+      ...
+      SubController1 subCon1;
+      SubController2 subCon2;
+      ...
+      annotation(__cdl(generatePointlist=true));
+   end MyController;
+
+The translator will generate an annotation propagation list as shown below. There will be point
+list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
+``Controller.con2.subCon1``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
+of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interval=120, enable=true)``.
+
+.. code-block:: javascript
+
+   [
+     {
+       "className": "Controller",
+       "points": [
+         {
+           "name": "u1",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 60
+           }
+         },
+         {
+           "name": "u2",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         }
+       ]
+     },
+     {
+       "className": "Controller.con1",
+       "points": [
+         {
+           "name": "u1",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         },
+         {
+           "name": "u2",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         }
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon1",
+       "points": [
+         ...
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon2",
+       "points": [
+         ...
+       ]
+     }
+   ]
+
+]
+
+
+[For an example of a point list generation, consider the pseudo-code shown below.
+
+.. code-block:: modelica
+
+   within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits
+   block Controller "Controller for room VAV box"
+      ...;
+      CDL.Interfaces.BooleanInput uWin "Windows status"
+         annotation (__cdl(connection(hardwired=true),
+                           trend(interval=60, enable=true)));
+      CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
+         annotation (__cdl(connection(hardwired=false),
+                           trend(interval=60, enable=true)));
+      ...
+   annotation (__cdl(generatePointlist=true, controlledDevice="Terminal unit"));
+
+It specifies that a point list should be generated for the sequence that controls the
+system or equipment specified by ``controlledDevice``, that ``uWin`` is a
+digital input point that is hardwired,  and that ``yVal`` is a analog output point that
+is not hardwired. Both of them can be trended with a time interval of 1 minute.
+The point list table will look as shown in :numref:`tab_sample_point_list`.
+
+.. _tab_sample_point_list:
+
+.. table:: Sample point list table generated by the ``modelica-json`` tool.
+   :class: longtable
+
+   ========================  ===========  =========  ==========  =========== ================================================
+   System/Equipment          Name         Type       Hardwired?  Trend [s]   Description
+   ========================  ===========  =========  ==========  =========== ================================================
+   Terminal unit             ``uWin``     DI         Yes         60          Windows status
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   Terminal unit             ``yVal``     AO         No          60          Signal for heating coil valve
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   ...                       ...          ...        ...         ...         ...
+   ========================  ===========  =========  ==========  =========== ================================================
+
+]
+
 .. _sec_connectors:
 
 Connectors
