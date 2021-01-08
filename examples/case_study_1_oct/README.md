@@ -5,7 +5,7 @@ library (see the "version.txt" files). The results are significantly different f
 https://github.com/lbl-srg/modelica-buildings/issues/2019
 https://github.com/lbl-srg/modelica-buildings/issues/2028
 https://github.com/lbl-srg/modelica-buildings/issues/2024
-This is explained in the corresponding OBC journal paper (2021).
+
 - The simulations were run with OCT.
 
 Also the python code in `run_simulations.py` and `post_process.ipynb`
