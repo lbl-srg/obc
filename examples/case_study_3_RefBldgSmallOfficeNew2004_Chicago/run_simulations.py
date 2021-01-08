@@ -61,7 +61,7 @@ def _simulate(spec):
     from buildingspy.simulate.Dymola import Dymola
     from buildingspy.simulate.Optimica import Optimica
 
-    useOptimica = True
+    useOptimica = False
 
     if not spec["simulate"]:
         return
