@@ -1,10 +1,15 @@
+import copy
+import glob
+import os
+import re
+
+
 def get_cases():
     ''' Return the simulation cases that are used for the case study.
 
         The cases are stored in this function as they are used
         for the simulation and for the post processing.
     '''
-    import copy
 
     cases = list()
     cases.append( \
@@ -72,19 +77,32 @@ def get_cases():
 
     return cases
 
+
 def get_case(name):
-    ''' Return the case with the specified `name`
-    '''
+    """Return the case with the specified `name`"""
+
     for c in get_cases():
         if c['name'] == name:
             return c
+
     raise(ValueError('Did not find case {}'.format(name)))
 
+
 def get_result_file_name(name):
-    ''' Return the result file name
-    '''
-    import os.path
+    """Return the result file name"""
+
     case = get_case(name)
     model_name = (os.path.splitext(case['model'])[1])[1:]
-    mat_name = "{}.mat".format( model_name )
-    return os.path.join("simulations", name, mat_name)
+    mat_name = "{}.mat".format(model_name)
+    mat_path = os.path.join("simulations", name, mat_name)
+    if not os.path.isfile(mat_path):  # Case not Dymola.
+        for c in get_cases():
+            if c['name'] == name:
+                mat_name = re.sub('\\.', '_', c['model'])
+                mat_name = f'{mat_name}_result.mat'
+                break
+        mat_path = os.path.join("simulations", name, mat_name)
+        if not os.path.isfile(mat_path):
+            raise(ValueError('Did not find mat file for case {}'.format(name)))
+
+    return mat_path
