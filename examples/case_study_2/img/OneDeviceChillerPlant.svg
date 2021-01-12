@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+   sodipodi:docname="OneDeviceChillerPlant.svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient52">
+      <stop
+         style="stop-color:#2a2aff;stop-opacity:1;"
+         offset="0"
+         id="stop48" />
+      <stop
+         style="stop-color:#2a2aff;stop-opacity:0;"
+         offset="1"
+         id="stop50" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient52"
+       id="linearGradient54"
+       x1="72.949409"
+       y1="79.563988"
+       x2="84.855659"
+       y2="63.311012"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1111113,0,0,0.97674423,-8.2944981,1.6613341)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="337.54402"
+     inkscape:cy="319.85373"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     inkscape:window-width="2157"
+     inkscape:window-height="1438"
+     inkscape:window-x="347"
+     inkscape:window-y="126"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid889" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#e580ff;fill-rule:evenodd;stroke-width:0.280352"
+       id="rect28"
+       width="18.520828"
+       height="15.875"
+       x="70.114586"
+       y="34.395832" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient54);fill-opacity:1;stroke-width:0.275633"
+       id="rect46"
+       width="13.229169"
+       height="15.875"
+       x="72.760414"
+       y="63.5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.260882px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 72.760417,67.46875 c -19.84375,0 -19.84375,0 -19.84375,0"
+       id="path883" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.263141px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 52.916667,67.468748 c 0,-25.135416 0,-25.135416 0,-25.135416 17.197916,1e-6 17.197916,1e-6 17.197916,1e-6"
+       id="path885" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.260882px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 85.989582,67.468752 c 19.843748,0 19.843748,0 19.843748,0"
+       id="path883-9" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.263141px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 105.83333,67.46875 c 0,-25.135417 0,-25.135417 0,-25.135417 -17.197914,10e-7 -17.197914,10e-7 -17.197914,10e-7"
+       id="path885-1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 72.760416,79.374999 c 13.229166,-15.875 13.229166,-15.875 13.229166,-15.875"
+       id="path924" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88056px;line-height:0.95;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="73.51889"
+       y="39.969833"
+       id="text27"><tspan
+         sodipodi:role="line"
+         id="tspan25"
+         x="73.51889"
+         y="39.969833"
+         style="font-size:3.88056px;stroke-width:0.264583">Data</tspan><tspan
+         sodipodi:role="line"
+         x="73.51889"
+         y="43.656364"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         id="tspan31">Center</tspan><tspan
+         sodipodi:role="line"
+         x="73.51889"
+         y="47.342896"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         id="tspan35">Zone</tspan></text>
+  </g>
+</svg>
