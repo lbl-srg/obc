@@ -198,6 +198,126 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
          id="path6181-3" />
     </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-2">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-0">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-1">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0-34"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-9">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-0">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-6">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-6-9">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1-0-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-0-5">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0-7-4"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -206,17 +326,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="137.2805"
-     inkscape:cy="120.40797"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="441.82814"
+     inkscape:cy="806.4466"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
-     showgrid="true"
-     inkscape:window-width="1932"
+     showgrid="false"
+     inkscape:window-width="2424"
      inkscape:window-height="1499"
-     inkscape:window-x="878"
-     inkscape:window-y="138"
+     inkscape:window-x="393"
+     inkscape:window-y="70"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -248,28 +368,28 @@
          id="tspan6028"
          x="0.99657476"
          y="3.8884242"
-         style="font-size:3.52778px;stroke-width:0.264583">Base-case plant enable control flowchart</tspan></text>
+         style="font-size:3.52778px;stroke-width:0.264583">Plant enable control flowchart [fig ena_con]</tspan></text>
     <rect
        style="fill:#53c864;fill-opacity:1;stroke:#000000;stroke-width:0.263;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0"
        id="rect6050"
        width="11.90625"
        height="10.583333"
-       x="2.6458313"
-       y="47.625" />
+       x="48.947914"
+       y="15.875001" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="2.4595537"
-       y="51.780941"
+       x="48.761639"
+       y="20.030943"
        id="text6066"><tspan
          sodipodi:role="line"
          id="tspan6064"
-         x="2.4595537"
-         y="51.780941"
+         x="48.761639"
+         y="20.030943"
          style="font-size:3.52778px;stroke-width:0.264583">Plant</tspan><tspan
          sodipodi:role="line"
-         x="2.4595537"
-         y="56.190666"
+         x="48.761639"
+         y="24.440668"
          style="font-size:3.52778px;stroke-width:0.264583"
          id="tspan6068">Enable</tspan></text>
     <rect
@@ -277,40 +397,40 @@
        id="rect6050-4"
        width="15.875"
        height="13.229168"
-       x="22.489582"
-       y="46.302082" />
+       x="68.791664"
+       y="14.552083" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="22.776052"
-       y="49.795105"
+       x="69.07814"
+       y="18.045107"
        id="text6066-7"><tspan
          sodipodi:role="line"
-         x="22.776052"
-         y="49.795105"
+         x="69.07814"
+         y="18.045107"
          style="font-size:3.52777px;stroke-width:0.264583"
          id="tspan6068-7">Initial </tspan><tspan
          sodipodi:role="line"
-         x="22.776052"
-         y="54.204819"
+         x="69.07814"
+         y="22.454821"
          style="font-size:3.52777px;stroke-width:0.264583"
          id="tspan6096">Stage</tspan><tspan
          sodipodi:role="line"
-         x="22.776052"
-         y="58.614529"
+         x="69.07814"
+         y="26.864531"
          style="font-size:3.52777px;stroke-width:0.264583"
          id="tspan7793">Selector</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="0.99747568"
-       y="42.347557"
+       x="58.112965"
+       y="40.934402"
        id="text6030-2"><tspan
          sodipodi:role="line"
          id="tspan6028-2"
-         x="0.99747568"
-         y="42.347557"
-         style="font-size:3.52777px;stroke-width:0.264583">RP1711 plant enable control flowchart</tspan></text>
+         x="58.112965"
+         y="40.934402"
+         style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
     <rect
        style="fill:#f7e924;fill-opacity:1;stroke:#000000;stroke-width:0.263;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0"
        id="rect6050-1"
@@ -358,8 +478,8 @@
          style="font-size:3.52777px;stroke-width:0.264583"
          id="tspan6096-6">Enable</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;marker-mid:url(#marker6716);marker-end:url(#EmptyTriangleOutL)"
-       d="m 14.552081,52.916664 c 7.9375,0 7.9375,0 7.9375,0"
+       style="fill:none;stroke:#000000;stroke-width:0.275;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-opacity:1;marker-mid:url(#marker6716);marker-end:url(#EmptyTriangleOutL)"
+       d="m 60.854166,21.166665 c 7.9375,0 7.9375,0 7.9375,0"
        id="path6152" />
     <rect
        style="fill:#f7e924;fill-opacity:1;stroke:#000000;stroke-width:0.263;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0"
@@ -400,5 +520,626 @@
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 18.52083,21.166667 c 0,7.9375 0,7.9375 0,7.9375"
        id="path7751" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="8.848897"
+       y="40.939495"
+       id="text6030-8"><tspan
+         sodipodi:role="line"
+         id="tspan6028-21"
+         x="8.848897"
+         y="40.939495"
+         style="font-size:3.52777px;stroke-width:0.264583">Base-case</tspan></text>
+    <path
+       style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 18.046516,75.987065 v 0"
+       id="path6094"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 29.985536,96.875019 v 0"
+       id="path7626"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
+       id="path4497-0"
+       d="m 65.641054,147.81465 c -8.375803,-0.61621 -15.196267,-2.39412 -18.752105,-4.88815 -1.688063,-1.18398 -2.193232,-1.96494 -2.193232,-3.3907 0,-1.41128 0.491816,-2.18621 2.128191,-3.35329 3.382628,-2.41232 9.554972,-4.08982 17.772557,-4.83022 3.626053,-0.32668 9.451839,-0.34922 13.048162,-0.0505 7.105837,0.59028 12.655281,1.84512 16.449236,3.71963 4.930125,2.43553 5.583689,5.41258 1.766235,8.04545 -3.350772,2.3113 -10.098359,4.06552 -18.056593,4.69441 -3.252558,0.25698 -9.048085,0.28232 -12.163248,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6)"
+       id="path4499-2"
+       d="M 72.290187,83.914045 V 131.05507"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 61.961576,131.51883 c -14.064911,-22.5854 2.31203,-47.502886 2.31203,-47.502886"
+       id="path4503-4"
+       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3)"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="57.753674"
+       y="78.02636"
+       id="text4487-8-5-3"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="57.753674"
+         y="78.02636"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823">Enable plant</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="4.167345"
+       y="96.553299"
+       id="text4487-4-1-0-3-4"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="4.167345"
+         y="96.553299"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6753-2-7-8">uSupFan = true</tspan><tspan
+         sodipodi:role="line"
+         x="4.167345"
+         y="102.47996"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6882">AND</tspan><tspan
+         sodipodi:role="line"
+         x="4.167345"
+         y="108.40662"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6884">uOpeMod = occupied</tspan><tspan
+         sodipodi:role="line"
+         x="4.167345"
+         y="114.33329"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6886">AND</tspan><tspan
+         sodipodi:role="line"
+         x="4.167345"
+         y="120.25994"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888">uFreProSta &lt;= stage 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="80.462433"
+       y="96.078285"
+       id="text4487-4-1-0-3-4-1"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="80.462433"
+         y="96.078285"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-9">uSupFan = false</tspan><tspan
+         sodipodi:role="line"
+         x="80.462433"
+         y="102.00494"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6934">OR</tspan><tspan
+         sodipodi:role="line"
+         x="80.462433"
+         y="107.93161"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6936">uOpeMod != occupied</tspan><tspan
+         sodipodi:role="line"
+         x="80.462433"
+         y="113.85827"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6938">OR</tspan><tspan
+         sodipodi:role="line"
+         x="80.462433"
+         y="119.78493"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6940">uFreProSta &gt; stage 1</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623622;stroke-opacity:0.666667"
+       id="path4497-0-4"
+       d="m 64.27445,84.016409 c -8.869061,-0.616274 -16.091191,-2.394374 -19.856441,-4.888685 -1.787467,-1.184116 -2.322385,-1.965159 -2.322385,-3.391081 0,-1.411438 0.520779,-2.186455 2.253522,-3.353667 3.581833,-2.41259 10.117671,-4.09027 18.819197,-4.830753 3.839596,-0.326728 10.008468,-0.349259 13.81658,-0.05045 7.524309,0.590342 13.400564,1.845318 17.417945,3.720036 5.220466,2.435798 5.912522,5.413186 1.870251,8.046357 -3.548099,2.31155 -10.693062,4.065972 -19.119961,4.694918 -3.444104,0.257022 -9.580934,0.282352 -12.879552,0.05286 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="56.499016"
+       y="140.82625"
+       id="text4487-8-5-3-0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="56.499016"
+         y="140.82625"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-7">Disable plant</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="63.898605"
+       y="156.82677"
+       id="text6030-2-3"><tspan
+         sodipodi:role="line"
+         id="tspan6028-2-8"
+         x="63.898605"
+         y="156.82677"
+         style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
+    <path
+       style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 17.857923,179.76652 v 0"
+       id="path6094-7"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 29.796943,200.65448 v 0"
+       id="path7626-7"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
+       id="path4497-0-6"
+       d="m 65.452463,251.59411 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04809,0.28232 -12.16325,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-2)"
+       id="path4499-2-9"
+       d="m 72.101593,187.6935 v 47.14103"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 61.772983,235.29829 c -14.06491,-22.5854 2.31203,-47.50289 2.31203,-47.50289"
+       id="path4503-4-1"
+       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-0)"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="57.565075"
+       y="181.80582"
+       id="text4487-8-5-3-1"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="57.565075"
+         y="181.80582"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-9">Enable plant</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="3.97875"
+       y="200.33275"
+       id="text4487-4-1-0-3-4-0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="3.97875"
+         y="200.33275"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6753-2-7-8-8">uSupFan = true</tspan><tspan
+         sodipodi:role="line"
+         x="3.97875"
+         y="206.25941"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6882-9">AND</tspan><tspan
+         sodipodi:role="line"
+         x="3.97875"
+         y="212.18607"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6884-8">uOpeMod = occupied</tspan><tspan
+         sodipodi:role="line"
+         x="3.97875"
+         y="218.11273"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6886-8">AND</tspan><tspan
+         sodipodi:role="line"
+         x="3.97875"
+         y="224.0394"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-0">uFreProSta &lt;= stage 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="80.273834"
+       y="199.85774"
+       id="text4487-4-1-0-3-4-1-3"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="80.273834"
+         y="199.85774"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-9-7">uSupFan = false</tspan><tspan
+         sodipodi:role="line"
+         x="80.273834"
+         y="205.78441"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6934-0">OR</tspan><tspan
+         sodipodi:role="line"
+         x="80.273834"
+         y="211.71106"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6936-6">uOpeMod != occupied</tspan><tspan
+         sodipodi:role="line"
+         x="80.273834"
+         y="217.63773"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6938-9">OR</tspan><tspan
+         sodipodi:role="line"
+         x="80.273834"
+         y="223.56439"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6940-2">uFreProSta &gt; stage 1</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
+       id="path4497-0-4-1"
+       d="m 64.085853,187.79587 c -8.86906,-0.61628 -16.09119,-2.39438 -19.85643,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.83959,-0.32673 10.00847,-0.34926 13.81658,-0.0504 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.22047,2.4358 5.912527,5.41318 1.87025,8.04635 -3.54809,2.31155 -10.69306,4.06598 -19.11996,4.69492 -3.4441,0.25702 -9.58093,0.28235 -12.87955,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="56.310421"
+       y="244.6057"
+       id="text4487-8-5-3-0-7"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="56.310421"
+         y="244.6057"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-7-7">Disable plant</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="63.710018"
+       y="260.60623"
+       id="text6030-2-3-9"><tspan
+         sodipodi:role="line"
+         id="tspan6028-2-8-7"
+         x="63.710018"
+         y="260.60623"
+         style="font-size:3.52777px;stroke-width:0.264583">Base-case</tspan></text>
+    <path
+       style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 165.63709,74.500618 v 0"
+       id="path6094-1"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 177.57611,95.388572 v 0"
+       id="path7626-9"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
+       id="path4497-0-5"
+       d="m 213.23163,146.3282 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04809,0.28232 -12.16325,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-1)"
+       id="path4499-2-7"
+       d="M 219.88076,82.427602 V 129.56862"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="M 209.55215,130.03238 C 195.48724,107.447 211.86418,82.529542 211.86418,82.529542"
+       id="path4503-4-4"
+       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-9)"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="200.05304"
+       y="76.539909"
+       id="text4487-8-5-3-12"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="200.05304"
+         y="76.539909"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-2">Initial WSE-enable</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="151.75792"
+       y="95.066849"
+       id="text4487-4-1-0-3-4-16"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="151.75792"
+         y="95.066849"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6753-2-7-8-2">uSupFan = true</tspan><tspan
+         sodipodi:role="line"
+         x="151.75792"
+         y="100.99351"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6882-0">AND</tspan><tspan
+         sodipodi:role="line"
+         x="151.75792"
+         y="106.92017"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6884-2">uOpeMod = occupied</tspan><tspan
+         sodipodi:role="line"
+         x="151.75792"
+         y="112.84683"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6886-2">AND</tspan><tspan
+         sodipodi:role="line"
+         x="151.75792"
+         y="118.7735"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-97">uFreProSta &lt;= stage 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="228.05299"
+       y="94.591835"
+       id="text4487-4-1-0-3-4-1-4"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="228.05299"
+         y="94.591835"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-9-3">uSupFan = false</tspan><tspan
+         sodipodi:role="line"
+         x="228.05299"
+         y="100.51849"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6934-5">OR</tspan><tspan
+         sodipodi:role="line"
+         x="228.05299"
+         y="106.44516"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6936-61">uOpeMod != occupied</tspan><tspan
+         sodipodi:role="line"
+         x="228.05299"
+         y="112.37183"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6938-4">OR</tspan><tspan
+         sodipodi:role="line"
+         x="228.05299"
+         y="118.29848"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6940-0">uFreProSta &gt; stage 1</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
+       id="path4497-0-4-3"
+       d="m 211.86502,82.529962 c -8.86906,-0.61627 -16.09119,-2.39437 -19.85643,-4.888685 -1.78747,-1.184116 -2.32239,-1.965159 -2.32239,-3.391081 0,-1.411438 0.52078,-2.186455 2.25352,-3.353667 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.830753 3.83959,-0.326728 10.00847,-0.349259 13.81658,-0.05045 7.52431,0.590342 13.40056,1.845318 17.41794,3.720036 5.22047,2.435798 5.91253,5.413186 1.87025,8.046357 -3.54809,2.311553 -10.69306,4.065973 -19.11996,4.694923 -3.4441,0.25702 -9.58093,0.28235 -12.87955,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="211.48918"
+       y="155.34032"
+       id="text6030-2-3-7"><tspan
+         sodipodi:role="line"
+         id="tspan6028-2-8-79"
+         x="211.48918"
+         y="155.34032"
+         style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="200.8262"
+       y="139.91325"
+       id="text4487-8-5-3-12-8"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="200.8262"
+         y="139.91325"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-2-1">Initial WSE-disable</tspan></text>
+    <path
+       style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 17.227202,286.54014 v 0"
+       id="path6094-10"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="opacity:0;fill:#333333;fill-rule:evenodd;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 29.166222,307.4281 v 0"
+       id="path7626-2"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
+       id="path4497-0-51"
+       d="m 64.821742,358.36773 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04808,0.28232 -12.16325,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-0)"
+       id="path4499-2-97"
+       d="m 71.470872,294.46712 v 47.14103"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       d="m 61.142262,342.07191 c -14.06491,-22.5854 2.31203,-47.50289 2.31203,-47.50289"
+       id="path4503-4-13"
+       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-6)"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="56.934364"
+       y="288.57944"
+       id="text4487-8-5-3-120"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="56.934364"
+         y="288.57944"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-6">Enable WSE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="3.348032"
+       y="307.10638"
+       id="text4487-4-1-0-3-4-8"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="3.348032"
+         y="307.10638"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6753-2-7-8-7">uSupFan = true</tspan><tspan
+         sodipodi:role="line"
+         x="3.348032"
+         y="313.03305"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6882-4">AND</tspan><tspan
+         sodipodi:role="line"
+         x="3.348032"
+         y="318.95972"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6884-9">uOpeMod = occupied</tspan><tspan
+         sodipodi:role="line"
+         x="3.348032"
+         y="324.88638"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6886-24">AND</tspan><tspan
+         sodipodi:role="line"
+         x="3.348032"
+         y="330.81302"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-4">uFreProSta &lt;= stage 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="79.64312"
+       y="306.63138"
+       id="text4487-4-1-0-3-4-1-5"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="79.64312"
+         y="306.63138"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6888-9-9">uSupFan = false</tspan><tspan
+         sodipodi:role="line"
+         x="79.64312"
+         y="312.55804"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6934-1">OR</tspan><tspan
+         sodipodi:role="line"
+         x="79.64312"
+         y="318.48471"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6936-2">uOpeMod != occupied</tspan><tspan
+         sodipodi:role="line"
+         x="79.64312"
+         y="324.41138"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6938-8">OR</tspan><tspan
+         sodipodi:role="line"
+         x="79.64312"
+         y="330.33801"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan6940-9">uFreProSta &gt; stage 1</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
+       id="path4497-0-4-6"
+       d="m 63.455142,294.56949 c -8.86907,-0.61628 -16.0912,-2.39438 -19.85644,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.8396,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.22047,2.4358 5.91253,5.41318 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.11996,4.69491 -3.4441,0.25703 -9.58093,0.28236 -12.87955,0.0529 z"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="55.67971"
+       y="351.37933"
+       id="text4487-8-5-3-0-0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         x="55.67971"
+         y="351.37933"
+         style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
+         id="tspan8823-7-6">Disable WSE</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="63.079292"
+       y="367.37985"
+       id="text6030-2-3-4"><tspan
+         sodipodi:role="line"
+         id="tspan6028-2-8-0"
+         x="63.079292"
+         y="367.37985"
+         style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="213.81503"
+       y="367.91153"
+       id="text6030-2-3-4-9"><tspan
+         sodipodi:role="line"
+         id="tspan6028-2-8-0-5"
+         x="213.81503"
+         y="367.91153"
+         style="font-size:3.52777px;stroke-width:0.264583">Base-case</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="195.23085"
+       y="350.50906"
+       id="text9400"><tspan
+         sodipodi:role="line"
+         id="tspan9398"
+         x="195.23085"
+         y="350.50906"
+         style="stroke-width:0.264583">Ref report</tspan></text>
   </g>
 </svg>
