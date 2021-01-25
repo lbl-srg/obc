@@ -621,6 +621,28 @@
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
     </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5381-6-6-12">
+      <path
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4488-0-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       overflow="visible"
+       id="marker5553-0-3-06">
+      <path
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         id="path4485-1-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -629,17 +651,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="1257.6599"
-     inkscape:cy="732.02655"
+     inkscape:zoom="0.5"
+     inkscape:cx="1101.1467"
+     inkscape:cy="452.92132"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="2715"
-     inkscape:window-height="1587"
-     inkscape:window-x="343"
-     inkscape:window-y="138"
+     inkscape:window-width="2339"
+     inkscape:window-height="1366"
+     inkscape:window-x="479"
+     inkscape:window-y="178"
      inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -857,103 +879,6 @@
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
-       id="path4497-0"
-       d="m -16.780549,158.78306 c -8.375803,-0.61621 -15.196267,-2.39412 -18.752105,-4.88815 -1.688063,-1.18398 -2.193232,-1.96494 -2.193232,-3.3907 0,-1.41128 0.491816,-2.18621 2.128191,-3.35329 3.382628,-2.41232 9.554972,-4.08982 17.772557,-4.83022 3.626053,-0.32668 9.4518388,-0.34922 13.0481618,-0.0505 7.105837,0.59028 12.655281,1.84512 16.4492372,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.0983552,4.06552 -18.0565892,4.69441 -3.252558,0.25698 -9.0480848,0.28232 -12.1632478,0.0529 z"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6)"
-       id="path4499-2"
-       d="m -10.131416,94.88246 v 47.14102"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <path
-       d="m -20.460027,142.48724 c -14.064911,-22.5854 2.31203,-47.502881 2.31203,-47.502881"
-       id="path4503-4"
-       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3)"
-       inkscape:connector-curvature="0"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-11.237898"
-       y="85.385971"
-       id="text4487-8-5-3"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         x="-11.237898"
-         y="85.385971"
-         style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
-         id="tspan8823">Enable plant</tspan><tspan
-         sodipodi:role="line"
-         x="-11.237898"
-         y="90.677635"
-         style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
-         id="tspan10394">15 min state hold</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-85.635948"
-       y="109.21486"
-       id="text4487-4-1-0-3-4"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         x="-85.635948"
-         y="109.21486"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6882">chiWatSupResReq &gt; ignReq</tspan><tspan
-         sodipodi:role="line"
-         x="-85.635948"
-         y="115.14152"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan10362">AND</tspan><tspan
-         sodipodi:role="line"
-         x="-85.635948"
-         y="121.06818"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6884">TOut &gt; TChiLocOut</tspan><tspan
-         sodipodi:role="line"
-         x="-85.635948"
-         y="126.99484"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6886">AND</tspan><tspan
-         sodipodi:role="line"
-         x="-85.635948"
-         y="132.92151"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888">schTab is active</tspan></text>
-    <path
-       inkscape:connector-curvature="0"
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623622;stroke-opacity:0.666667"
-       id="path4497-0-4"
-       d="m -18.147153,94.984824 c -8.869061,-0.616274 -16.091191,-2.394374 -19.856441,-4.888685 -1.787467,-1.184116 -2.322385,-1.965159 -2.322385,-3.391081 0,-1.411438 0.520779,-2.186455 2.253522,-3.353667 3.581833,-2.41259 10.117671,-4.09027 18.819197,-4.830753 3.839596,-0.326728 10.0084678,-0.349259 13.8165798,-0.05045 7.524309,0.590342 13.400564,1.845318 17.4179412,3.720036 5.22047,2.435798 5.91253,5.413186 1.87026,8.046357 -3.5481,2.31155 -10.6930672,4.065972 -19.1199662,4.694918 -3.444104,0.257022 -9.5809338,0.282352 -12.8795518,0.05286 z"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-9.6834011"
-       y="149.25537"
-       id="text4487-8-5-3-0"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         x="-9.6834011"
-         y="149.25537"
-         style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
-         id="tspan8823-7">Disable plant</tspan><tspan
-         sodipodi:role="line"
-         x="-9.6834011"
-         y="154.54703"
-         style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
-         id="tspan10396">15 min state hold</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -1132,46 +1057,46 @@
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
        id="path4497-0-5"
-       d="m 86.328268,271.29628 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.105842,0.59028 12.655282,1.84512 16.449242,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.056592,4.69441 -3.25256,0.25698 -9.04809,0.28232 -12.16325,0.0529 z"
+       d="m 81.300765,252.77777 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.105845,0.59028 12.655285,1.84512 16.449245,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.056595,4.69441 -3.25256,0.25698 -9.04809,0.28232 -12.16325,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-1)"
+       style="fill:none;stroke:#000000;stroke-width:0.156991;marker-end:url(#marker5381-6-6-1)"
        id="path4499-2-7"
-       d="M 92.977398,207.39567 V 254.5367"
+       d="m 88.12562,221.76167 v 14.52264"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
-       d="m 82.648788,255.00046 c -14.06491,-22.58538 2.31203,-47.50285 2.31203,-47.50285"
+       d="m 77.551365,236.42718 c -14.399415,-6.95783 2.367017,-14.63411 2.367017,-14.63411"
        id="path4503-4-4"
-       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-9)"
+       style="fill:none;stroke:#000000;stroke-width:0.184705px;marker-end:url(#marker5553-0-3-9)"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="91.108429"
-       y="197.50583"
+       x="87.643837"
+       y="212.06728"
        id="text4487-8-5-3-12"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="91.108429"
-         y="197.50583"
+         x="87.643837"
+         y="212.06728"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan10861">Initialize plant in </tspan><tspan
          sodipodi:role="line"
-         x="91.108429"
-         y="202.79749"
+         x="87.643837"
+         y="217.35893"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan10886">WSE-only mode</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
        id="path4497-0-4-3"
-       d="m 84.961658,207.49803 c -8.86906,-0.61627 -16.09119,-2.39437 -19.85643,-4.88868 -1.78747,-1.18412 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18646 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.83959,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.524312,0.59034 13.400562,1.84532 17.417942,3.72003 5.22047,2.4358 5.91253,5.41319 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.119962,4.69492 -3.4441,0.25702 -9.58093,0.28235 -12.87955,0.0529 z"
+       d="m 79.918382,221.79307 c -8.86906,-0.61627 -16.09119,-2.39437 -19.85643,-4.88868 -1.78747,-1.18412 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18646 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.83959,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.524318,0.59034 13.400568,1.84532 17.417948,3.72003 5.22047,2.4358 5.91253,5.41319 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.119968,4.69492 -3.4441,0.25702 -9.58093,0.28235 -12.87955,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
@@ -1223,98 +1148,98 @@
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
        id="path4497-0-51"
-       d="m 68.967898,429.41855 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.930122,2.43553 5.583692,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04808,0.28232 -12.16325,0.0529 z"
+       d="m 70.839881,466.08912 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.930119,2.43553 5.583689,5.41258 1.766229,8.04545 -3.350769,2.3113 -10.098359,4.06552 -18.056589,4.69441 -3.25256,0.25698 -9.04808,0.28232 -12.16325,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
        inkscape:connector-curvature="0"
-       style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-0)"
+       style="fill:none;stroke:#000000;stroke-width:0.1783;marker-end:url(#marker5381-6-6-0)"
        id="path4499-2-97"
-       d="m 75.617028,365.51794 v 47.14103"
+       d="m 77.463457,429.93816 v 19.24163"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
-       d="m 65.288418,413.12273 c -14.06491,-22.5854 2.31203,-47.50289 2.31203,-47.50289"
+       d="m 67.218326,449.7852 c -14.451512,-9.37822 2.375581,-19.72481 2.375581,-19.72481"
        id="path4503-4-13"
-       style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-6)"
+       style="fill:none;stroke:#000000;stroke-width:0.214825px;marker-end:url(#marker5553-0-3-6)"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="73.883545"
-       y="355.84888"
+       x="76.143639"
+       y="420.01135"
        id="text4487-8-5-3-120"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="73.883545"
-         y="355.84888"
+         x="76.143639"
+         y="420.01135"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan8823-6">Enable WSE</tspan><tspan
          sodipodi:role="line"
-         x="73.883545"
-         y="361.14053"
+         x="76.143639"
+         y="425.30301"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan11946">hold for holdPeriod</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
        id="path4497-0-4-6"
-       d="m 67.601298,365.62031 c -8.86907,-0.61628 -16.0912,-2.39438 -19.85644,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.8396,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.220472,2.4358 5.912532,5.41318 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.11996,4.69491 -3.4441,0.25703 -9.58093,0.28236 -12.87955,0.0529 z"
+       d="m 69.86139,429.7828 c -8.86907,-0.61628 -16.0912,-2.39438 -19.85644,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.8396,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.22047,2.4358 5.91253,5.41318 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.11996,4.69491 -3.4441,0.25703 -9.58093,0.28236 -12.87955,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="74.138214"
-       y="419.40503"
+       x="76.010201"
+       y="456.07559"
        id="text4487-8-5-3-0-0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="74.138214"
-         y="419.40503"
+         x="76.010201"
+         y="456.07559"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan8823-7-6">Disable WSE</tspan><tspan
          sodipodi:role="line"
-         x="74.138214"
-         y="424.69669"
+         x="76.010201"
+         y="461.36725"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan11950">hold for holdPeriod</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="67.225449"
-       y="438.43066"
+       x="69.097435"
+       y="475.10123"
        id="text6030-2-3-4"><tspan
          sodipodi:role="line"
          id="tspan6028-2-8-0"
-         x="67.225449"
-         y="438.43066"
+         x="69.097435"
+         y="475.10123"
          style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="261.80023"
-       y="403.82239"
+       x="263.67221"
+       y="440.49295"
        id="text6030-2-3-4-9"><tspan
          sodipodi:role="line"
          id="tspan6028-2-8-0-5"
-         x="261.80023"
-         y="403.82239"
+         x="263.67221"
+         y="440.49295"
          style="font-size:3.52777px;stroke-width:0.264583">Base-case</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="243.21605"
-       y="386.41992"
+       x="245.08803"
+       y="423.09048"
        id="text9400"><tspan
          sodipodi:role="line"
          id="tspan9398"
-         x="243.21605"
-         y="386.41992"
+         x="245.08803"
+         y="423.09048"
          style="stroke-width:0.264583">Ref report</tspan></text>
     <text
        xml:space="preserve"
@@ -1411,7 +1336,7 @@
          id="tspan6753">yRetDamPosMax</tspan></text>
     <path
        style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -82.634436,780.86245 9.228066,-0.0521"
+       d="m -82.634436,780.48184 9.228066,-0.0521"
        id="path6802"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -1421,7 +1346,7 @@
        inkscape:export-ydpi="96" />
     <path
        style="fill:#808080;fill-rule:evenodd;stroke:#000000;stroke-width:0.149;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.149, 0.298;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker11030)"
-       d="m -35.211169,780.73895 16.090257,0.0307"
+       d="m -35.211169,780.35834 16.038371,0.0306"
        id="path7028"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -1485,7 +1410,7 @@
          style="font-size:4.23333px;fill:#666666;stroke-width:0.264583">Sensor</tspan></text>
     <path
        style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -111.68204,780.79794 12.455807,0.0668"
+       d="m -111.6274,780.41762 12.401167,0.0665"
        id="path7640"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -1809,44 +1734,6 @@
          y="440.4321"><tspan>Potentially </tspan></tspan><tspan
          x="-90.917969"
          y="453.66123"><tspan>useful</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-6.3554101"
-       y="107.92551"
-       id="text4487-4-1-0-3-4-1"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="107.92551"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6882-3">chiWatSupResReq &lt;= ignReq</tspan><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="113.85217"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan10398">for at least reqThrTim</tspan><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="119.77884"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan10362-7">OR</tspan><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="125.7055"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6884-7">TOut &lt;= TChiLocOut - locDt</tspan><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="131.63216"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6886-1">OR</tspan><tspan
-         sodipodi:role="line"
-         x="-6.3554101"
-         y="137.55882"
-         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-2">schTab is inactive</tspan></text>
     <path
        style="fill:#333333;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -561.92807,-36.598647 v 0"
@@ -2032,55 +1919,55 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-42.992916"
-       y="233.02238"
+       x="-48.275444"
+       y="229.58644"
        id="text4487-4-1-0-3-4-1-4-9"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-42.992916"
-         y="233.02238"
+         x="-48.275444"
+         y="229.58644"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan6888-9-3-8">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &gt;=wseDt </tspan><tspan
          sodipodi:role="line"
-         x="-42.992916"
-         y="238.63155"
+         x="-48.275444"
+         y="235.1956"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan6940-0-1" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="92.728882"
-       y="261.40488"
+       x="87.701378"
+       y="242.88637"
        id="text4487-8-5-3-12-2"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="92.728882"
-         y="261.40488"
+         x="87.701378"
+         y="242.88637"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan10861-1">Initialize plant in </tspan><tspan
          sodipodi:role="line"
-         x="92.728882"
-         y="266.69653"
+         x="87.701378"
+         y="248.17802"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan10886-3">chiller-only mode</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="97.053055"
-       y="233.60339"
+       x="92.814873"
+       y="229.37508"
        id="text4487-4-1-0-3-4-1-4-9-2"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="97.053055"
-         y="233.60339"
+         x="92.814873"
+         y="229.37508"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8-7">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &lt;wseDt </tspan><tspan
+         id="tspan6888-9-3-8-7">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &lt; wseDt </tspan><tspan
          sodipodi:role="line"
-         x="97.053055"
-         y="239.21255"
+         x="92.814873"
+         y="234.98424"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan6940-0-1-3" /></text>
     <path
@@ -2390,42 +2277,52 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-58.734833"
-       y="388.86325"
+       x="-8.4455862"
+       y="437.44684"
        id="text4487-4-1-0-3-4-1-4-9-0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-58.734833"
-         y="388.86325"
+         x="-8.4455862"
+         y="437.44684"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8-2">TChiWatRet upstream WSE &gt; wseTOut.y + TOffsetEna </tspan><tspan
+         id="tspan6888-9-3-8-2">TChiWatRet (upstream WSE) &gt; </tspan><tspan
          sodipodi:role="line"
-         x="-58.734833"
-         y="394.47241"
+         x="-8.4455862"
+         y="443.3735"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan1517">wseTOut.y + TOffsetEna </tspan><tspan
+         sodipodi:role="line"
+         x="-8.4455862"
+         y="448.98267"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan6940-0-1-39" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="78.194626"
-       y="388.02042"
+       x="83.223976"
+       y="435.01242"
        id="text4487-4-1-0-3-4-1-4-9-0-4"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="78.194626"
-         y="388.02042"
+         x="83.223976"
+         y="435.01242"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8-2-4">TChiWatRetDow (downstream WSE) &gt; TChiWatRet - TOffsetDis</tspan><tspan
+         id="tspan6888-9-3-8-2-4">TChiWatRetDow (downstream WSE) &gt; </tspan><tspan
          sodipodi:role="line"
-         x="78.194626"
-         y="393.94708"
+         x="83.223976"
+         y="440.93909"
+         style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+         id="tspan1515">TChiWatRet (upstream WSE) - TOffsetDis</tspan><tspan
+         sodipodi:role="line"
+         x="83.223976"
+         y="446.86575"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12005">for delDis period of time</tspan><tspan
          sodipodi:role="line"
-         x="78.194626"
-         y="399.55624"
+         x="83.223976"
+         y="452.47491"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan6940-0-1-39-2" /></text>
     <path
@@ -2448,18 +2345,18 @@
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
        id="path4497-0-51-9"
-       d="m -174.28814,427.87983 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04808,0.28232 -12.16325,0.0529 z"
+       d="m -172.41616,464.5504 c -8.3758,-0.61621 -15.19627,-2.39412 -18.75211,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49182,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55498,-4.08982 17.77256,-4.83022 3.62605,-0.32668 9.45184,-0.34922 13.04816,-0.0505 7.10584,0.59028 12.65528,1.84512 16.44924,3.71963 4.93012,2.43553 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09836,4.06552 -18.05659,4.69441 -3.25256,0.25698 -9.04808,0.28232 -12.16325,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
        inkscape:connector-curvature="0"
        style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-0-0)"
        id="path4499-2-97-9"
-       d="m -167.63901,363.97922 v 47.14103"
+       d="m -165.76703,400.64979 v 47.14103"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
-       d="m -177.96762,411.58401 c -14.06491,-22.5854 2.31203,-47.50289 2.31203,-47.50289"
+       d="m -176.09564,448.25458 c -14.06491,-22.5854 2.31203,-47.50289 2.31203,-47.50289"
        id="path4503-4-13-2"
        style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-6-2)"
        inkscape:connector-curvature="0"
@@ -2468,106 +2365,106 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-169.37248"
-       y="354.31018"
+       x="-167.5005"
+       y="390.98074"
        id="text4487-8-5-3-120-3"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-169.37248"
-         y="354.31018"
+         x="-167.5005"
+         y="390.98074"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan8823-6-5">Enable WSE</tspan><tspan
          sodipodi:role="line"
-         x="-169.37248"
-         y="359.60184"
+         x="-167.5005"
+         y="396.2724"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan11946-4">hold for holdPeriod</tspan></text>
     <path
        inkscape:connector-curvature="0"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
        id="path4497-0-4-6-8"
-       d="m -175.65474,364.08159 c -8.86907,-0.61628 -16.0912,-2.39438 -19.85644,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.8396,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.22047,2.4358 5.91253,5.41318 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.11996,4.69491 -3.4441,0.25703 -9.58093,0.28236 -12.87955,0.0529 z"
+       d="m -173.78276,400.75216 c -8.86907,-0.61628 -16.0912,-2.39438 -19.85644,-4.88869 -1.78747,-1.18411 -2.32239,-1.96516 -2.32239,-3.39108 0,-1.41144 0.52078,-2.18645 2.25352,-3.35367 3.58183,-2.41259 10.11767,-4.09027 18.8192,-4.83075 3.8396,-0.32673 10.00847,-0.34926 13.81658,-0.0505 7.52431,0.59034 13.40056,1.84532 17.41794,3.72004 5.22047,2.4358 5.91253,5.41318 1.87025,8.04636 -3.54809,2.31155 -10.69306,4.06597 -19.11996,4.69491 -3.4441,0.25703 -9.58093,0.28236 -12.87955,0.0529 z"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-169.11781"
-       y="417.86636"
+       x="-167.24583"
+       y="454.53693"
        id="text4487-8-5-3-0-0-1"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-169.11781"
-         y="417.86636"
+         x="-167.24583"
+         y="454.53693"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan8823-7-6-0">Disable WSE</tspan><tspan
          sodipodi:role="line"
-         x="-169.11781"
-         y="423.15802"
+         x="-167.24583"
+         y="459.82858"
          style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
          id="tspan11950-7">hold for holdPeriod</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-176.03056"
-       y="436.892"
+       x="-174.15858"
+       y="473.56256"
        id="text6030-2-3-4-2"><tspan
          sodipodi:role="line"
          id="tspan6028-2-8-0-4"
-         x="-176.03056"
-         y="436.892"
+         x="-174.15858"
+         y="473.56256"
          style="font-size:3.52777px;stroke-width:0.264583">RP1711</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-266.98065"
-       y="382.75836"
+       x="-265.10867"
+       y="419.42892"
        id="text4487-4-1-0-3-4-1-4-9-0-9"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-266.98065"
-         y="382.75836"
+         x="-265.10867"
+         y="419.42892"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12526">The predicted downstream WSE CWT </tspan><tspan
          sodipodi:role="line"
-         x="-266.98065"
-         y="388.68503"
+         x="-265.10867"
+         y="425.35559"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12530">is sufficiently below the measured </tspan><tspan
          sodipodi:role="line"
-         x="-266.98065"
-         y="394.61169"
+         x="-265.10867"
+         y="431.28226"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12532">CWT upstream of WSE</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-163.94302"
-       y="382.26874"
+       x="-162.07104"
+       y="418.9393"
        id="text4487-4-1-0-3-4-1-4-9-0-9-7"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-163.94302"
-         y="382.26874"
+         x="-162.07104"
+         y="418.9393"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12526-8">The measured downstream WSE CWT </tspan><tspan
          sodipodi:role="line"
-         x="-163.94302"
-         y="388.1954"
+         x="-162.07104"
+         y="424.86597"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12530-2">is not sufficiently below the measured </tspan><tspan
          sodipodi:role="line"
-         x="-163.94302"
-         y="394.12207"
+         x="-162.07104"
+         y="430.79263"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12532-0">CWT upstream of WSE for at least a</tspan><tspan
          sodipodi:role="line"
-         x="-163.94302"
-         y="400.04874"
+         x="-162.07104"
+         y="436.7193"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
          id="tspan12558">defined time period</tspan></text>
     <text
@@ -2586,14 +2483,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-330.83026"
-       y="388.46326"
+       x="-328.95828"
+       y="425.13382"
        id="text4487-8-5-3-12-8-6-9"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
-         x="-330.83026"
-         y="388.46326"
+         x="-328.95828"
+         y="425.13382"
          style="font-size:4.23333px;fill:#000000;stroke-width:0.264583"
          id="tspan8823-2-1-5-3">WSE</tspan></text>
     <text
@@ -2617,15 +2514,15 @@
     <ellipse
        style="fill:#333333;fill-opacity:1;stroke:#2d2d2d;stroke-width:0.163;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path12923"
-       cx="-32.546879"
-       cy="69.517693"
+       cx="-17.831331"
+       cy="75.025726"
        rx="3.9640896"
        ry="4.1570687" />
     <ellipse
        style="fill:#333333;fill-opacity:1;stroke:#2d2d2d;stroke-width:0.17949;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path12925"
-       cx="74.258003"
-       cy="177.29509"
+       cx="64.737267"
+       cy="193.17003"
        rx="3.6955986"
        ry="3.694097" />
     <text
@@ -2679,5 +2576,113 @@
        cy="-31.312277"
        rx="3.7038436"
        ry="3.039737" />
+    <g
+       id="layer1-9"
+       transform="translate(-94.930784,68.328684)">
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0605999;stroke-opacity:0.666667"
+         id="path4497-0"
+         d="m 100.2663,90.830078 c -8.375801,-0.61621 -15.196261,-2.39412 -18.752101,-4.88815 -1.68806,-1.18398 -2.19323,-1.96494 -2.19323,-3.3907 0,-1.41128 0.49181,-2.18621 2.12819,-3.35329 3.38263,-2.41232 9.55497,-4.08982 17.77255,-4.83022 3.626061,-0.32668 9.451841,-0.34922 13.048171,-0.0505 7.10583,0.59028 12.65528,1.84512 16.44923,3.71963 4.93012,2.43552 5.58369,5.41258 1.76623,8.04545 -3.35077,2.3113 -10.09835,4.06552 -18.05658,4.69441 -3.25256,0.25698 -9.04809,0.28232 -12.16325,0.0529 z" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.279543;marker-end:url(#marker5381-6-6-12)"
+         id="path4499-2"
+         d="m 106.91544,26.929478 v 47.14102" />
+      <path
+         d="m 96.586829,74.534258 c -14.06492,-22.5854 2.31203,-47.50288 2.31203,-47.50288"
+         id="path4503-4"
+         style="fill:none;stroke:#000000;stroke-width:0.32889px;marker-end:url(#marker5553-0-3-06)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="104.87664"
+         y="16.097794"
+         id="text4487-8-5-3"><tspan
+           x="104.87664"
+           y="16.097794"
+           style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
+           id="tspan8823">Enable plant</tspan><tspan
+           x="104.87664"
+           y="21.559782"
+           style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
+           id="tspan10394"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono"
+   id="tspan13683">plaThrTim</tspan> state hold</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="31.410902"
+         y="41.261864"
+         id="text4487-4-1-0-3-4"><tspan
+           x="31.410902"
+           y="41.261864"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6882">chiWatSupResReq &gt; ignReq</tspan><tspan
+           x="31.410902"
+           y="47.188526"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan10362">AND</tspan><tspan
+           x="31.410902"
+           y="53.115189"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6884">TOut &gt; TChiLocOut</tspan><tspan
+           x="31.410902"
+           y="59.041847"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6886">AND</tspan><tspan
+           x="31.410902"
+           y="64.968513"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6888">schTab is active</tspan></text>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.0623623;stroke-opacity:0.666667"
+         id="path4497-0-4"
+         d="m 98.899699,27.031838 c -8.86906,-0.61627 -16.09119,-2.39437 -19.85644,-4.88868 -1.78747,-1.18412 -2.32239,-1.96516 -2.32239,-3.39109 0,-1.41143 0.52078,-2.18645 2.25352,-3.35366 3.58184,-2.412593 10.11768,-4.090273 18.8192,-4.830756 3.839601,-0.326728 10.008471,-0.349259 13.816581,-0.05045 7.52431,0.590342 13.40057,1.845318 17.41794,3.720036 5.22047,2.4358 5.91253,5.41319 1.87026,8.04636 -3.5481,2.31155 -10.69306,4.06597 -19.11996,4.69492 -3.44411,0.25702 -9.58094,0.28235 -12.879551,0.0529 z" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="106.69491"
+         y="80.098297"
+         id="text4487-8-5-3-0"><tspan
+           x="106.69491"
+           y="80.098297"
+           style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
+           id="tspan8823-7">Disable plant</tspan><tspan
+           x="106.69491"
+           y="85.560287"
+           style="font-size:4.23333px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.264583"
+           id="tspan10396"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:FreeMono;-inkscape-font-specification:'FreeMono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   id="tspan13695">plaThrTim</tspan> state hold</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="110.69144"
+         y="39.972519"
+         id="text4487-4-1-0-3-4-1"><tspan
+           x="110.69144"
+           y="39.972519"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6882-3">chiWatSupResReq ≤ ignReq</tspan><tspan
+           x="110.69144"
+           y="45.899181"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan10398">for at least reqThrTim</tspan><tspan
+           x="110.69144"
+           y="51.825844"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan10362-7">OR</tspan><tspan
+           x="110.69144"
+           y="57.752502"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6884-7">TOut ≤ TChiLocOut - locDt</tspan><tspan
+           x="110.69144"
+           y="63.679165"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6886-1">OR</tspan><tspan
+           x="110.69144"
+           y="69.605827"
+           style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
+           id="tspan6888-2">schTab is inactive</tspan></text>
+    </g>
   </g>
 </svg>
