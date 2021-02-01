@@ -1,0 +1,12 @@
+{
+	"TZonCooSetOcc": {"controller_point": "Occupied Cooling Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"},
+	"TZonHeaSetOcc": {"controller_point": "Occupied Heating Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"},
+	"TZonCooSetUno": {"controller_point": "Unoccupied Cooling Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"},
+	"TZonHeaSetUno": {"controller_point": "Unoccupied Heating Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"},
+	"setAdj": {"controller_point": "setpt_adj_1"},
+	"heaSetAdj": {"controller_point": "Heating Adjustment_1"},
+	"uOccSen": {"controller_point": "occ_sensor_bni_1", "cdl_unit": "int", "controller_unit": "bool"},
+	"uWinSta": {"controller_point": "window_sw_1", "cdl_unit": "int", "controller_unit": "bool"},
+	"TZonCooSet": {"controller_point": "Effective Cooling Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"},
+	"TZonHeaSet": {"controller_point": "Effective Heating Setpoint_1", "cdl_unit": "degK", "controller_unit": "degF"}
+}
