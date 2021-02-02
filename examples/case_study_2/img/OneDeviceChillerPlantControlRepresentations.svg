@@ -651,18 +651,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="1979.5426"
-     inkscape:cy="1332.9213"
+     inkscape:zoom="0.5"
+     inkscape:cx="1814.8633"
+     inkscape:cy="1671.1163"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1981"
-     inkscape:window-height="1218"
-     inkscape:window-x="67"
-     inkscape:window-y="34"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1620"
+     inkscape:window-height="1159"
+     inkscape:window-x="584"
+     inkscape:window-y="161"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -1928,7 +1928,7 @@
          x="-48.275444"
          y="229.58644"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8">TChiWatSupSet - wseTOut(PLRHeaExc = 1).y &gt;=wseDt </tspan><tspan
+         id="tspan6888-9-3-8">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &gt;=wseDt </tspan><tspan
          sodipodi:role="line"
          x="-48.275444"
          y="235.1956"
@@ -1964,7 +1964,7 @@
          x="92.814873"
          y="229.37508"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8-7">TChiWatSupSet &lt; wseTOut(PLRHeaExc = 1).y </tspan><tspan
+         id="tspan6888-9-3-8-7">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &lt; wseDt </tspan><tspan
          sodipodi:role="line"
          x="92.814873"
          y="234.98424"
@@ -2563,12 +2563,12 @@
          style="font-size:4.58611px;stroke-width:0.264583"
          id="tspan12955">regular operation)</tspan></text>
     <ellipse
-       style="fill:#ffffff;fill-opacity:1;stroke:#2d2d2d;stroke-width:0.163;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke:#2d2d2d;stroke-width:0.149658;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path12925-0"
-       cx="-222.71022"
+       cx="-222.11517"
        cy="-28.38623"
-       rx="3.7038436"
-       ry="3.039737" />
+       rx="3.1154606"
+       ry="3.0464082" />
     <ellipse
        style="fill:#ffffff;fill-opacity:1;stroke:#2d2d2d;stroke-width:0.163;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path12925-0-2"
