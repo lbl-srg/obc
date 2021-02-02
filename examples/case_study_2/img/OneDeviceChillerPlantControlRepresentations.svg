@@ -12,7 +12,7 @@
    viewBox="0 0 803.23938 934.00708"
    version="1.1"
    id="svg5445"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+   inkscape:version="1.0.1 (1.0.1+r75)"
    sodipodi:docname="OneDeviceChillerPlantControlRepresentations.svg">
   <defs
      id="defs5439">
@@ -651,18 +651,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="1101.1467"
-     inkscape:cy="452.92132"
+     inkscape:zoom="1"
+     inkscape:cx="1979.5426"
+     inkscape:cy="1332.9213"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="2339"
-     inkscape:window-height="1366"
-     inkscape:window-x="479"
-     inkscape:window-y="178"
-     inkscape:window-maximized="0"
+     inkscape:window-width="1981"
+     inkscape:window-height="1218"
+     inkscape:window-x="67"
+     inkscape:window-y="34"
+     inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -681,7 +681,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1928,7 +1928,7 @@
          x="-48.275444"
          y="229.58644"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &gt;=wseDt </tspan><tspan
+         id="tspan6888-9-3-8">TChiWatSupSet - wseTOut(PLRHeaExc = 1).y &gt;=wseDt </tspan><tspan
          sodipodi:role="line"
          x="-48.275444"
          y="235.1956"
@@ -1964,7 +1964,7 @@
          x="92.814873"
          y="229.37508"
          style="font-size:4.23333px;line-height:1.4;fill:#000000;stroke-width:0.264583"
-         id="tspan6888-9-3-8-7">wseTOut(PLRHeaExc = 1).y - TChiWatSupSet &lt; wseDt </tspan><tspan
+         id="tspan6888-9-3-8-7">TChiWatSupSet &lt; wseTOut(PLRHeaExc = 1).y </tspan><tspan
          sodipodi:role="line"
          x="92.814873"
          y="234.98424"
