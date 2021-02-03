@@ -11,6 +11,8 @@ FROM_GIT_HUB = False
 
 CASE_STUDY_PACKAGE = "ChillerPlant"
 
+from pdb import set_trace as bp
+
 
 CWD = os.getcwd()
 
@@ -69,7 +71,7 @@ def _simulate(spec):
 
     out_dir = os.path.join(wor_dir, "simulations", spec["name"])
     os.makedirs(out_dir)
-
+    bp()
     # Update MODELICAPATH to get the right library version
     os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
 
@@ -78,6 +80,8 @@ def _simulate(spec):
     shutil.copytree(os.path.join(CWD, CASE_STUDY_PACKAGE), os.path.join(wor_dir, CASE_STUDY_PACKAGE))
     # Change the working directory so that the right checkout is loaded
     os.chdir(os.path.join(wor_dir, CASE_STUDY_PACKAGE))
+
+
 
     # Write git information if the simulation is based on a github checkout
     if 'git' in spec:
@@ -143,7 +147,13 @@ if __name__=='__main__':
             case['git'] = d
 
     # Run all cases
-    po.map(_simulate, list_of_cases)
+
+    # bp()
+    # po.map(_simulate, list_of_cases)
+
+    for case in list_of_cases:
+        _simulate(case)
+        
 
     # Delete the checked out repository
     shutil.rmtree(lib_dir)
