@@ -63,7 +63,7 @@ def checkout_repository(working_directory, from_git_hub):
 def _simulate(spec):
     import os
 
-    from buildingspy.simulate.Dymola import Simulator
+    from buildingspy.simulate.Simulator import Simulator
     if not spec["simulate"]:
         return
 
@@ -71,7 +71,7 @@ def _simulate(spec):
 
     out_dir = os.path.join(wor_dir, "simulations", spec["name"])
     os.makedirs(out_dir)
-    bp()
+    # bp()
     # Update MODELICAPATH to get the right library version
     os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
 
@@ -149,10 +149,10 @@ if __name__=='__main__':
     # Run all cases
 
     # bp()
-    # po.map(_simulate, list_of_cases)
+    po.map(_simulate, list_of_cases)
 
-    for case in list_of_cases:
-        _simulate(case)
+    # for case in list_of_cases:
+    #     _simulate(case)
         
 
     # Delete the checked out repository
