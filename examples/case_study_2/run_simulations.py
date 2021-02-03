@@ -7,7 +7,7 @@ import os
 # MBL branch
 BRANCH="issue2330_images"
 ONLY_SHORT_TIME=False
-FROM_GIT_HUB = True
+FROM_GIT_HUB = False
 
 CASE_STUDY_PACKAGE = "ChillerPlant"
 
@@ -55,13 +55,13 @@ def checkout_repository(working_directory, from_git_hub):
         # This is a hack to get the local copy of the repository
         des = os.path.join(working_directory, "Buildings")
         print("*** Copying Buildings library to {}".format(des))
-        shutil.copytree("/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings", des)
+        shutil.copytree("/home/milicag/repos/modelica-buildings/Buildings", des)
     return d
 
 def _simulate(spec):
     import os
 
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Dymola import Simulator
     if not spec["simulate"]:
         return
 
