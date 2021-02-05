@@ -1,6 +1,6 @@
 within ChillerPlant.ClosedLoop1711;
-model DataCenterContinuousTimeControl
-  "Model of data center that approximates the trim and respond logic"
+model OneDeviceWithWSE
+  "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends Buildings.Examples.ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
@@ -21,7 +21,7 @@ equation
 
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/DataCenterContinuousTimeControl711.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSE1711.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -53,4 +53,4 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
             300}}), graphics),
     experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
-end DataCenterContinuousTimeControl;
+end OneDeviceWithWSE;
