@@ -8,15 +8,15 @@ def get_cases():
 
     cases = list()
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.DataCenterContinuousTimeControl",
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
          "name": "test_base",
          "start_time": 0,
-         "stop_time":  1*24*3600})
+         "stop_time":  10*24*3600})
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.DataCenterContinuousTimeControl",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
          "name": "test_1711",
          "start_time": 0,
-         "stop_time":  1*24*3600})
+         "stop_time":  10*24*3600})
 
     # # Add load diversity
     # cases_load_diversity = copy.deepcopy(cases)
