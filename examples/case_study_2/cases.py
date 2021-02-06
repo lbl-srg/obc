@@ -10,11 +10,13 @@ def get_cases():
     cases.append( \
         {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
          "name": "test_base",
+         "num_id":0,
          "start_time": 0,
          "stop_time":  10*24*3600})
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
          "name": "test_1711",
+         "num_id":1,
          "start_time": 0,
          "stop_time":  10*24*3600})
 
@@ -58,3 +60,13 @@ def get_result_file_name(name):
     model_name = (os.path.splitext(case['model'])[1])[1:]
     mat_name = "{}.mat".format( model_name )
     return os.path.join("simulations", name, mat_name)
+
+def get_list_of_case_names():
+    '''Return a list of all case names
+    '''
+    names = list()
+    for c in get_cases():
+        names.append(c["name"])
+
+    return names
+
