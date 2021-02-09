@@ -567,7 +567,7 @@ equation
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(mCWFlo.y, pumCW.m_flow_in) annotation (Line(
-      points={{81,200},{218,200},{218,200},{346,200}},
+      points={{81,200},{346,200}},
       color={0,0,127},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));

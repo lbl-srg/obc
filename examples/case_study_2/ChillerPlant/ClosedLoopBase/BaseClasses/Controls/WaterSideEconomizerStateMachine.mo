@@ -7,9 +7,13 @@ model WaterSideEconomizerStateMachine
     "WSE status setpoint, ON = true, OFF = false" annotation (Placement(
         transformation(extent={{180,-120},{220,-80}}), iconTransformation(
           extent={{180,-120},{220,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{140,-110},{160,-90}})));
 equation
-  connect(off.active, ySta) annotation (Line(points={{10,76.8},{10,-100},{200,-100}},
-        color={255,0,255}));
+  connect(ySta, not1.y)
+    annotation (Line(points={{200,-100},{162,-100}}, color={255,0,255}));
+  connect(off.active, not1.u) annotation (Line(points={{10,76.8},{10,-100},{138,
+          -100}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-20,180},{180,-160}},  lineColor={28,108,200}),
           Text(

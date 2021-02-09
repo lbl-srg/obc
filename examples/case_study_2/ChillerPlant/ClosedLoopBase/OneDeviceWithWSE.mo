@@ -61,7 +61,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.yOn, val3.y) annotation (Line(
-      points={{-116,112},{0,112},{0,-20},{60,-20},{60,-48}},
+      points={{-116,112},{0,112},{0,-18},{60,-18},{60,-48}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCHWLeaCoi.T, waterSideEconomizerOnOff.TChiWatRet) annotation (Line(
