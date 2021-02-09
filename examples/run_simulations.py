@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 #
-# Start the script for the directory that contains the package
-# with your model
+# Run the script from obc/examples/.
+#   A subdirectory with the name referenced with the variable
+#   `CASE_STUDY_DIR` below must exist under obc/examples/.
+#   and it must contain a `cases.py` file.
+#
 #############################################################
 import os
 import getpass
@@ -15,9 +18,9 @@ from git import Repo
 from multiprocessing import Pool
 from pathlib import Path
 
-CASE_STUDY_DIR = 'case_study_ang_1_oct_light'
+CASE_STUDY_DIR = 'case_study_1_oct_light'
 
-BRANCH = 'master'
+BRANCH = 'case_study_1_oct_light'
 MBL_PATH = os.environ['MBL']  # For working with local repo.
 GIT_URL = 'https://github.com/lbl-srg/modelica-buildings'  # For working with remote repo.
 ONLY_SHORT_TIME = False
