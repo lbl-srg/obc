@@ -1,12 +1,18 @@
 within ChillerPlant.ClosedLoop1711;
-model OneDeviceWithWSE
-  "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
+model OneDeviceWithWSE_CWReset
+  "Simple chiller plant with a water-side economizer with base controller enhanced with CW reset."
   extends Buildings.Examples.ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation
     triAndRes "Continuous time approximation for trim and respond controller"
     annotation (Placement(transformation(extent={{-194,216},{-174,236}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
+    heaPreCon(have_HeaPreConSig=true)
+    annotation (Placement(transformation(extent={{160,260},{180,280}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences.ControlLoop
+    chiHeaPreLoo
+    annotation (Placement(transformation(extent={{120,260},{140,280}})));
 equation
   connect(feedback.y, triAndRes.u) annotation (Line(
       points={{-191,200},{-194,200},{-194,226},{-196,226}},
@@ -50,7 +56,9 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
-            300}}), graphics),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
-end OneDeviceWithWSE;
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-360},{
+            400,400}}),
+                    graphics),
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    Icon(coordinateSystem(extent={{-400,-360},{400,400}})));
+end OneDeviceWithWSE_CWReset;

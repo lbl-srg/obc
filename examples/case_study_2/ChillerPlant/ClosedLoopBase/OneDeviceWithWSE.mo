@@ -1,24 +1,26 @@
 within ChillerPlant.ClosedLoopBase;
 model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
-  extends Buildings.Examples.ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
-  Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation
-    triAndRes "Continuous time approximation for trim and respond controller"
-    annotation (Placement(transformation(extent={{-194,216},{-174,236}})));
+  BaseClasses.Controls.CondenserWaterConstant condenserWaterConstant
+    annotation (Placement(transformation(extent={{-100,200},{-80,220}})));
 equation
-  connect(feedback.y, triAndRes.u) annotation (Line(
-      points={{-191,200},{-194,200},{-194,226},{-196,226}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(triAndRes.y, linPieTwo.u) annotation (Line(
-      points={{-173,226},{-148,226},{-148,200},{-122,200}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
 
+  connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
+      points={{-282,-88},{-260,-88},{-260,243},{219,243}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(condenserWaterConstant.yTowFanSpeSet, cooTow.y) annotation (Line(
+        points={{-78,215},{-20,215},{-20,260},{219,260},{219,247}}, color={0,0,127}));
+  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
+    annotation (Line(points={{-78,205},{-48,205},{-48,200},{308,200}},
+                                                   color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"
@@ -51,6 +53,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
-            300}}), graphics),
+            300}})),
     experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
 end OneDeviceWithWSE;
