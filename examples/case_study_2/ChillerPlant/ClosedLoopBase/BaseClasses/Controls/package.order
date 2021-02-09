@@ -1,3 +1,5 @@
 CondenserWaterConstant
-WSEOnOff
+ChillerOnOff
+WaterSideEconomizerStateMachine
+WaterSideEconomizerOnOff
 Examples
