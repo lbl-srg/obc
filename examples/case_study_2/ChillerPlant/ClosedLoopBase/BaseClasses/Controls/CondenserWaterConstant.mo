@@ -1,15 +1,20 @@
 within ChillerPlant.ClosedLoopBase.BaseClasses.Controls;
 model CondenserWaterConstant "Constant tower fan and CW pump speed control"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                   cooTowFanCon(k=1)
-    "Control singal for cooling tower fan" annotation (Placement(transformation(
+
+  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal
+   "Nominal mass flow rate at fan";
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooTowFanCon(
+    final k=1)
+    "Control singal for cooling tower fan"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-10,50})));
   Buildings.Controls.OBC.CDL.Logical.Or
                              or2
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal
-                                     mCWFlo(realTrue=mCW_flow_nominal)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mCWFlo(
+    final realTrue=mCW_flow_nominal)
     "Mass flow rate of condenser loop"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE

@@ -28,23 +28,25 @@ model WaterSideEconomizerOnOff "Water-side economizer status"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySta
     "Water-side economizer status"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=cooTowAppDes)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=cooTowAppDes)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(con.y, waterSideEconomizerBase.towTApp) annotation (Line(points={{-58,
           -30},{-30,-30},{-30,-5.88235},{-12,-5.88235}}, color={0,0,127}));
-  connect(TChiWatRet, waterSideEconomizerBase.wseCHWST) annotation (Line(points
-        ={{-120,60},{-40,60},{-40,12.9412},{-12,12.9412}}, color={0,0,127}));
-  connect(TWetBul, waterSideEconomizerBase.TWetBul) annotation (Line(points={{
-          -120,0},{-40,0},{-40,1.17647},{-12,1.17647}}, color={0,0,127}));
-  connect(TConWatSup, waterSideEconomizerBase.wseCWST) annotation (Line(points=
-          {{-120,-70},{-20,-70},{-20,-15.0588},{-12,-15.0588}}, color={0,0,127}));
+  connect(TChiWatRet, waterSideEconomizerBase.wseCHWST) annotation (Line(points={{-120,60},
+          {-40,60},{-40,12.9412},{-12,12.9412}},           color={0,0,127}));
+  connect(TWetBul, waterSideEconomizerBase.TWetBul) annotation (Line(points={{-120,
+          0},{-40,0},{-40,1.17647},{-12,1.17647}}, color={0,0,127}));
+  connect(TConWatSup, waterSideEconomizerBase.wseCWST) annotation (Line(points={{-120,
+          -70},{-20,-70},{-20,-15.0588},{-12,-15.0588}},       color={0,0,127}));
   connect(waterSideEconomizerBase.y1, yOn) annotation (Line(points={{11,3.52941},
           {60,3.52941},{60,60},{120,60}}, color={0,0,127}));
-  connect(waterSideEconomizerBase.y2, yOff) annotation (Line(points={{11,
-          -5.88235},{60,-5.88235},{60,0},{120,0}}, color={0,0,127}));
+  connect(waterSideEconomizerBase.y2, yOff) annotation (Line(points={{11,-5.88235},
+          {60,-5.88235},{60,0},{120,0}}, color={0,0,127}));
   connect(waterSideEconomizerBase.ySta, ySta) annotation (Line(points={{12,
-          -12.9412},{60,-12.9412},{60,-60},{120,-60}}, color={255,0,255}));
+          -12.9412},{60,-12.9412},{60,-60},{120,-60}},
+                                             color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(
