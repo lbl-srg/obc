@@ -27,6 +27,12 @@ model OneDeviceWithWSE
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
+    "Temperature of condenser water leaving the cooling tower"      annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        origin={270,119})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -78,7 +84,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TCWLeaTow.T, waterSideEconomizerOnOff.TConWatSup) annotation (Line(
-      points={{272,130},{-210,130},{-210,86},{-164,86}},
+      points={{270,130},{-210,130},{-210,86},{-164,86}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chillerOnOff.yChi, condenserWaterConstant.uChi) annotation (Line(
@@ -130,6 +136,38 @@ equation
       points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
+  connect(pumCW.port_b,TCWLeaTow. port_a)
+                                         annotation (Line(
+      points={{300,190},{300,119},{280,119}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(TCWLeaTow.port_b, wse.port_a1)
+                                        annotation (Line(
+      points={{260,119},{168,119},{168,99},{68,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(TCWLeaTow.port_b, chi.port_a1)
+                                        annotation (Line(
+      points={{260,119},{242,119},{242,99},{216,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
+      points={{242,-164},{300,-164},{300,30}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

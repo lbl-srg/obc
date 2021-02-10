@@ -1,7 +1,8 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_CWReset
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(
+    redeclare Buildings.Fluid.Movers.SpeedControlled_y pumCW);
   extends Modelica.Icons.Example;
 
   parameter Real dTChi(
@@ -11,25 +12,41 @@ model OneDeviceWithWSE_CWReset
     "Deadband to avoid chiller short-cycling"
     annotation(Dialog(group="Design parameters"));
 
-  ClosedLoopBase.BaseClasses.Controls.CondenserWaterConstant condenserWaterConstant(
-      mCW_flow_nominal=mCW_flow_nominal)
-    annotation (Placement(transformation(extent={{-100,200},{-60,240}})));
   ClosedLoopBase.BaseClasses.Controls.WaterSideEconomizerOnOff waterSideEconomizerOnOff(
-      cooTowAppDes=cooTowAppDes)
+      cooTowAppDes=cooTowAppDes) if WSEOnOff_base
     annotation (Placement(transformation(extent={{-160,80},{-120,120}})));
-  ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(dTChi=dTChi)
+
+  ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(
+    final dTChi=dTChi) if WSEOnOff_base
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
-  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
+
+  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset if CHWReset_base
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff
+
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff if plaOnOff_base
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
+
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
+    heaPreCon(
+    have_HeaPreConSig=false,
+    have_WSE=true,
+    fixSpePum=false)
+    annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
+    "Temperature of condenser water leaving the cooling tower"      annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        origin={270,119})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,243},{199,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{160,260},{160,243},{199,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -38,19 +55,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(condenserWaterConstant.yTowFanSpeSet, cooTow.y) annotation (Line(
-        points={{-56,230},{-20,230},{-20,260},{199,260},{199,247}}, color={0,0,127},
-      pattern=LinePattern.Dot));
 
-  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-56,210},{-20,210},{-20,200},{288,200}},
-                                                   color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(waterSideEconomizerOnOff.ySta, condenserWaterConstant.uWSE)
-    annotation (Line(
-      points={{-116,88},{-110,88},{-110,230},{-104,230}},
-      color={255,0,255},
-      pattern=LinePattern.DashDot));
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
       points={{-116,112},{-60,112},{-60,180},{28,180}},
       color={0,0,127},
@@ -77,13 +82,9 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TCWLeaTow.T, waterSideEconomizerOnOff.TConWatSup) annotation (Line(
-      points={{272,130},{-210,130},{-210,86},{-164,86}},
+      points={{270,130},{-210,130},{-210,86},{-164,86}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(chillerOnOff.yChi, condenserWaterConstant.uChi) annotation (Line(
-      points={{-116,34},{-110,34},{-110,210},{-104,210}},
-      color={255,0,255},
-      pattern=LinePattern.DashDot));
   connect(chillerOnOff.yChi, chi.on) annotation (Line(
       points={{-116,34},{-110,34},{-110,80},{234,80},{234,96},{218,96}},
       color={255,0,255},
@@ -129,6 +130,48 @@ equation
       points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
+  connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-78,200},
+          {-72,200},{-72,196},{-64,196}}, color={0,0,127}));
+  connect(chillerOnOff.yChi, heaPreCon.uChiHeaCon) annotation (Line(points={{
+          -116,34},{-72,34},{-72,220},{-64,220}}, color={255,0,255}));
+  connect(heaPreCon.uWSE, waterSideEconomizerOnOff.ySta) annotation (Line(
+        points={{-64,188},{-72,188},{-72,88},{-116,88}}, color={255,0,255}));
+  connect(heaPreCon.yMaxTowSpeSet, cooTow.y) annotation (Line(points={{-16,212},
+          {90,212},{90,247},{199,247}}, color={0,0,127}));
+  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
+          188},{0,188},{0,200},{288,200}}, color={0,0,127}));
+  connect(pumCW.port_b,TCWLeaTow. port_a)
+                                         annotation (Line(
+      points={{300,190},{300,119},{280,119}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(TCWLeaTow.port_b, wse.port_a1)
+                                        annotation (Line(
+      points={{260,119},{78,119},{78,99},{68,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(TCWLeaTow.port_b, chi.port_a1)
+                                        annotation (Line(
+      points={{260,119},{240,119},{240,99},{216,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
+      points={{242,-164},{300,-164},{300,30}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

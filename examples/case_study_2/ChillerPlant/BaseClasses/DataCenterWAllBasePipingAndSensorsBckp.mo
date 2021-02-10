@@ -1,5 +1,5 @@
 within ChillerPlant.BaseClasses;
-partial model DataCenter
+partial model DataCenterWAllBasePipingAndSensorsBckp
   "Primary only chiller plant system with water-side economizer without controls"
 
   // control parameters used in both base and 1711 cases
@@ -164,8 +164,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -177,6 +177,12 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={160,0})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
+    "Temperature of condenser water leaving the cooling tower"      annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        origin={272,119})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -305,6 +311,18 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(TCWLeaTow.port_b, chi.port_a1)
+                                        annotation (Line(
+      points={{262,119},{242,119},{242,99},{216,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(TCWLeaTow.port_b, wse.port_a1)
+                                        annotation (Line(
+      points={{262,119},{80,119},{80,99},{68,99}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(weaData.weaBus, weaBus) annotation (Line(
       points={{-300,-90},{-291,-90},{-291,-88},{-282,-88}},
       color={255,204,51},
@@ -331,6 +349,22 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(pumCW.port_b, TCWLeaTow.port_a)
+                                         annotation (Line(
+      points={{300,190},{300,119},{282,119}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
 
   connect(chi.port_b2, val6.port_a) annotation (Line(
       points={{216,87},{300,87},{300,50}},
@@ -350,6 +384,10 @@ equation
       points={{-299,-270},{-280,-270},{-280,-272},{-262,-272}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
+      points={{242,-164},{300,-164},{300,30}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),
@@ -419,4 +457,4 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-360,-300},{360,300}})));
-end DataCenter;
+end DataCenterWAllBasePipingAndSensorsBckp;
