@@ -43,10 +43,23 @@ model OneDeviceWithWSE_CWReset
      Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={270,119})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TConWatRetSen
+    "Condenser water return temperature sensor"
+    annotation (Placement(transformation(extent={{160,230},{180,250}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen
+    "Chilled water supply tempeature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={300,-110})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={300,-72})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,260},{160,260},{160,243},{199,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -137,7 +150,8 @@ equation
   connect(heaPreCon.uWSE, waterSideEconomizerOnOff.ySta) annotation (Line(
         points={{-64,188},{-72,188},{-72,88},{-116,88}}, color={255,0,255}));
   connect(heaPreCon.yMaxTowSpeSet, cooTow.y) annotation (Line(points={{-16,212},
-          {90,212},{90,247},{199,247}}, color={0,0,127}));
+          {90,212},{90,256},{194,256},{194,247},{199,247}},
+                                        color={0,0,127}));
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
           188},{0,188},{0,200},{288,200}}, color={0,0,127}));
   connect(pumCW.port_b,TCWLeaTow. port_a)
@@ -158,19 +172,17 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
-      points={{242,-164},{300,-164},{300,30}},
+  connect(cooTow.port_a, TConWatRetSen.port_b) annotation (Line(
+      points={{201,239},{194,239},{194,240},{180,240}},
       color={0,127,255},
       thickness=0.5));
-  connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{40,190},{40,239},{201,239}},
+  connect(val4.port_b, TConWatRetSen.port_a) annotation (Line(
+      points={{40,190},{40,240},{160,240}},
       color={0,127,255},
-      smooth=Smooth.None,
       thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+  connect(val5.port_b, TConWatRetSen.port_a) annotation (Line(
+      points={{160,190},{160,240}},
       color={0,127,255},
-      smooth=Smooth.None,
       thickness=0.5));
   annotation (
     __Dymola_Commands(file=
