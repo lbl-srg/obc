@@ -27,12 +27,22 @@ model OneDeviceWithWSE
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
         origin={270,119})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dp(start=214992),
+    use_inputFilter=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Condenser water pump" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={300,200})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -165,6 +175,11 @@ equation
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
       points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(cooTow.port_b,pumCW. port_a) annotation (Line(
+      points={{221,239},{300,239},{300,210}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));

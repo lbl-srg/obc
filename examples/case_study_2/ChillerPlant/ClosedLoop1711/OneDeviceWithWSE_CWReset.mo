@@ -1,8 +1,7 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_CWReset
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter(
-    redeclare Buildings.Fluid.Movers.SpeedControlled_y pumCW);
+  extends ChillerPlant.BaseClasses.DataCenter;
   extends Modelica.Icons.Example;
 
   parameter Real dTChi(
@@ -36,7 +35,7 @@ model OneDeviceWithWSE_CWReset
     fixSpePum=false)
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
-    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
+    annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
       = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
@@ -46,16 +45,21 @@ model OneDeviceWithWSE_CWReset
   Buildings.Fluid.Sensors.TemperatureTwoPort TConWatRetSen
     "Condenser water return temperature sensor"
     annotation (Placement(transformation(extent={{160,230},{180,250}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen
-    "Chilled water supply tempeature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={300,-110})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo annotation (Placement(
-        transformation(
+  Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen(m_flow_nominal=
+        mCWH_flow_nominal) "Chilled water supply tempeature" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={300,-72})));
+  Buildings.Fluid.Movers.SpeedControlled_y     pumCW(
+    redeclare package Medium = MediumW,
+    dp(start=214992),
+    use_inputFilter=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Condenser water pump" annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={300,200})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -143,8 +147,8 @@ equation
       points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-78,200},
-          {-72,200},{-72,196},{-64,196}}, color={0,0,127}));
+  connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
+          -82,200},{-82,196},{-64,196}},  color={0,0,127}));
   connect(chillerOnOff.yChi, heaPreCon.uChiHeaCon) annotation (Line(points={{
           -116,34},{-72,34},{-72,220},{-64,220}}, color={255,0,255}));
   connect(heaPreCon.uWSE, waterSideEconomizerOnOff.ySta) annotation (Line(
@@ -183,6 +187,23 @@ equation
   connect(val5.port_b, TConWatRetSen.port_a) annotation (Line(
       points={{160,190},{160,240}},
       color={0,127,255},
+      thickness=0.5));
+  connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
+      points={{300,30},{300,-62}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(TChiWatSupSen.port_b, cooCoi.port_a1) annotation (Line(
+      points={{300,-82},{300,-164},{242,-164}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{170,251},
+          {-74,251},{-74,212},{-64,212}}, color={0,0,127}));
+  connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
+          {330,-72},{330,270},{-78,270},{-78,204},{-64,204}}, color={0,0,127}));
+  connect(cooTow.port_b,pumCW. port_a) annotation (Line(
+      points={{221,239},{300,239},{300,210}},
+      color={0,127,255},
+      smooth=Smooth.None,
       thickness=0.5));
   annotation (
     __Dymola_Commands(file=
