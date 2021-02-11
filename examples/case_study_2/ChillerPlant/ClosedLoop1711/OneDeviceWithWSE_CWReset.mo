@@ -36,8 +36,8 @@ model OneDeviceWithWSE_CWReset
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -56,10 +56,16 @@ model OneDeviceWithWSE_CWReset
         origin={300,-72})));
   Buildings.Fluid.Movers.SpeedControlled_y     pumCW(
     redeclare package Medium = Buildings.Media.Water,
+    m_flow_small=0,
     dp(start=214992),
+    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,
+            mCW_flow_nominal,2*mCW_flow_nominal}, dp={2*dp_nominal,dp_nominal,0})),
+
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Condenser water pump" annotation (Placement(transformation(
+    "Condenser water pump - fixme: check the pump characteristics in the record w MW"
+                           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,200})));
