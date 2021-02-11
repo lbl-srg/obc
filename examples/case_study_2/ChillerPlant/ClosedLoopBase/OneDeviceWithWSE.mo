@@ -27,8 +27,8 @@ model OneDeviceWithWSE
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -42,7 +42,22 @@ model OneDeviceWithWSE
     "Condenser water pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={300,200})));
+        origin={300,180})));
+  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
+        cooTow.PFan + chi.P) "Power consumed by HVAC system"
+                             annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        origin={-332,-228})));
+  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
+    "Power consumed by IT"   annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        origin={-332,-258})));
+  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by HVAC"
+    annotation (Placement(transformation(extent={{-282,-240},{-262,-220}})));
+  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by IT"
+    annotation (Placement(transformation(extent={{-282,-270},{-262,-250}})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -59,10 +74,6 @@ equation
         points={{-56,230},{-20,230},{-20,260},{199,260},{199,247}}, color={0,0,127},
       pattern=LinePattern.Dot));
 
-  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-56,210},{-20,210},{-20,200},{288,200}},
-                                                   color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.ySta, condenserWaterConstant.uWSE)
     annotation (Line(
       points={{-116,88},{-110,88},{-110,230},{-104,230}},
@@ -146,12 +157,6 @@ equation
       points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(pumCW.port_b,TCWLeaTow. port_a)
-                                         annotation (Line(
-      points={{300,190},{300,119},{280,119}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(TCWLeaTow.port_b, wse.port_a1)
                                         annotation (Line(
       points={{260,119},{168,119},{168,99},{68,99}},
@@ -179,10 +184,26 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
-      points={{221,239},{300,239},{300,210}},
+      points={{221,239},{300,239},{300,190}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(pumCW.port_b, TCWLeaTow.port_a)
+                                         annotation (Line(
+      points={{300,170},{300,119},{280,119}},
+      color={0,127,255},
+      smooth=Smooth.None,
+      thickness=0.5));
+  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
+    annotation (Line(points={{-56,210},{288,210},{288,180}}, color={0,0,127}));
+  connect(PHVAC.y,EHVAC. u) annotation (Line(
+      points={{-321,-228},{-302,-228},{-302,-230},{-284,-230}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PIT.y,EIT. u) annotation (Line(
+      points={{-321,-258},{-302,-258},{-302,-260},{-284,-260}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

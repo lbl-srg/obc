@@ -12,17 +12,17 @@ model OneDeviceWithWSE_CWReset
     annotation(Dialog(group="Design parameters"));
 
   ClosedLoopBase.BaseClasses.Controls.WaterSideEconomizerOnOff waterSideEconomizerOnOff(
-      cooTowAppDes=cooTowAppDes) if WSEOnOff_base
+      cooTowAppDes=cooTowAppDes)
     annotation (Placement(transformation(extent={{-160,80},{-120,120}})));
 
   ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(
-    final dTChi=dTChi) if WSEOnOff_base
+    final dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
 
-  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset if CHWReset_base
+  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
 
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff if plaOnOff_base
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
 
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
@@ -36,8 +36,8 @@ model OneDeviceWithWSE_CWReset
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -60,6 +60,21 @@ model OneDeviceWithWSE_CWReset
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,200})));
+  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
+        cooTow.PFan + chi.P) "Power consumed by HVAC system"
+                             annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        origin={-350,-228})));
+  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
+    "Power consumed by IT"   annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        origin={-350,-258})));
+  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by HVAC"
+    annotation (Placement(transformation(extent={{-300,-240},{-280,-220}})));
+  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by IT"
+    annotation (Placement(transformation(extent={{-300,-270},{-280,-250}})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -205,6 +220,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(PHVAC.y,EHVAC. u) annotation (Line(
+      points={{-339,-228},{-320,-228},{-320,-230},{-302,-230}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PIT.y,EIT. u) annotation (Line(
+      points={{-339,-258},{-320,-258},{-320,-260},{-302,-260}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

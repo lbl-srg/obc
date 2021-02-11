@@ -71,9 +71,9 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={160,-120})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
-        MediumW, V_start=1) "Expansion vessel"
-    annotation (Placement(transformation(extent={{190,-147},{210,-127}})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{188,-149},{208,-129}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
@@ -86,16 +86,6 @@ partial model DataCenter
         transformation(
         extent={{-10,-10},{10,10}},
         origin={211,239})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
-    dp(start=214992),
-    use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Condenser water pump" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={300,200})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
@@ -164,8 +154,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -223,16 +213,6 @@ partial model DataCenter
       y_start=0) "Energy consumed by IT"
     annotation (Placement(transformation(extent={{-260,-282},{-240,-262}})));
 equation
-  connect(expVesCHW.port_a, cooCoi.port_b1) annotation (Line(
-      points={{200,-147},{200,-164},{222,-164}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(cooTow.port_b, pumCW.port_a) annotation (Line(
-      points={{221,239},{300,239},{300,210}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(val5.port_a, chi.port_b1) annotation (Line(
       points={{160,170},{160,99},{196,99}},
       color={0,127,255},
@@ -350,6 +330,10 @@ equation
       points={{-299,-270},{-280,-270},{-280,-272},{-262,-272}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(expVesCHW.ports[1], cooCoi.port_b1) annotation (Line(
+      points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),
