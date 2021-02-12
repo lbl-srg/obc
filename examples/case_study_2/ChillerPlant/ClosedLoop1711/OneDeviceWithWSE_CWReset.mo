@@ -60,7 +60,6 @@ model OneDeviceWithWSE_CWReset
     dp(start=214992),
     redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,
             mCW_flow_nominal,2*mCW_flow_nominal}, dp={2*dp_nominal,dp_nominal,0})),
-
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -69,6 +68,7 @@ model OneDeviceWithWSE_CWReset
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,200})));
+
   Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
         cooTow.PFan + chi.P) "Power consumed by HVAC system"
                              annotation (Placement(transformation(
@@ -172,16 +172,21 @@ equation
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
-          -82,200},{-82,196},{-64,196}},  color={0,0,127}));
+          -82,200},{-82,196},{-64,196}},  color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(chillerOnOff.yChi, heaPreCon.uChiHeaCon) annotation (Line(points={{
-          -116,34},{-72,34},{-72,220},{-64,220}}, color={255,0,255}));
+          -116,34},{-72,34},{-72,220},{-64,220}}, color={255,0,255},
+      pattern=LinePattern.DashDot));
   connect(heaPreCon.uWSE, waterSideEconomizerOnOff.ySta) annotation (Line(
-        points={{-64,188},{-72,188},{-72,88},{-116,88}}, color={255,0,255}));
+        points={{-64,188},{-72,188},{-72,88},{-116,88}}, color={255,0,255},
+      pattern=LinePattern.DashDot));
   connect(heaPreCon.yMaxTowSpeSet, cooTow.y) annotation (Line(points={{-16,212},
           {90,212},{90,256},{194,256},{194,247},{199,247}},
-                                        color={0,0,127}));
+                                        color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
-          188},{0,188},{0,200},{288,200}}, color={0,0,127}));
+          188},{0,188},{0,200},{288,200}}, color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(pumCW.port_b,TCWLeaTow. port_a)
                                          annotation (Line(
       points={{300,190},{300,119},{280,119}},
@@ -221,9 +226,11 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{178,251},
-          {-74,251},{-74,212},{-64,212}}, color={0,0,127}));
+          {-74,251},{-74,212},{-64,212}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
-          {330,-72},{330,270},{-78,270},{-78,204},{-64,204}}, color={0,0,127}));
+          {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
       points={{221,239},{300,239},{300,210}},
       color={0,127,255},

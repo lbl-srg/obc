@@ -195,7 +195,9 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-56,210},{288,210},{288,180}}, color={0,0,127}));
+    annotation (Line(points={{-56,210},{280,210},{280,180},{288,180}},
+                                                             color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(PHVAC.y,EHVAC. u) annotation (Line(
       points={{-321,-228},{-302,-228},{-302,-230},{-284,-230}},
       color={0,0,127},
