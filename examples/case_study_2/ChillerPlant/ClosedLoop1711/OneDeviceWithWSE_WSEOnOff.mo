@@ -14,9 +14,6 @@ model OneDeviceWithWSE_WSEOnOff
   ClosedLoopBase.BaseClasses.Controls.CondenserWaterConstant condenserWaterConstant(
       mCW_flow_nominal=mCW_flow_nominal)
     annotation (Placement(transformation(extent={{-100,200},{-60,240}})));
-  ClosedLoopBase.BaseClasses.Controls.WaterSideEconomizerOnOff waterSideEconomizerOnOff(
-      cooTowAppDes=cooTowAppDes)
-    annotation (Placement(transformation(extent={{-160,80},{-120,120}})));
   ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
   ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
@@ -26,8 +23,8 @@ model OneDeviceWithWSE_WSEOnOff
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -57,6 +54,20 @@ model OneDeviceWithWSE_WSEOnOff
   Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Energy consumed by IT"
     annotation (Placement(transformation(extent={{-282,-270},{-262,-250}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
+    wseSta
+    annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
+  Buildings.Fluid.Sensors.VolumeFlowRate VChiWatSen_flow(
+    final m_flow_nominal=mCHW_flow_nominal) "Chilled water supply volume flow rate sensor"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={300,-70})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOn "WSE is ON signal"
+    annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOff(realTrue=0,
+      realFalse=1) "WSE is OFF signal"
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
 equation
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
@@ -73,40 +84,6 @@ equation
         points={{-56,230},{-20,230},{-20,260},{199,260},{199,247}}, color={0,0,127},
       pattern=LinePattern.Dot));
 
-  connect(waterSideEconomizerOnOff.ySta, condenserWaterConstant.uWSE)
-    annotation (Line(
-      points={{-116,88},{-110,88},{-110,230},{-104,230}},
-      color={255,0,255},
-      pattern=LinePattern.DashDot));
-  connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-60,112},{-60,180},{28,180}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(waterSideEconomizerOnOff.yOff, val1.y) annotation (Line(
-      points={{-116,100},{-60,100},{-60,-40},{148,-40}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(waterSideEconomizerOnOff.yOn, val3.y) annotation (Line(
-      points={{-116,112},{0,112},{0,-18},{60,-18},{60,-48}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(TCHWLeaCoi.T, waterSideEconomizerOnOff.TChiWatRet) annotation (Line(
-      points={{149,-80},{-200,-80},{-200,112},{-164,112}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
-  connect(weaBus.TWetBul, waterSideEconomizerOnOff.TWetBul) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,100},{-164,100}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
-  connect(TCWLeaTow.T, waterSideEconomizerOnOff.TConWatSup) annotation (Line(
-      points={{270,130},{-210,130},{-210,86},{-164,86}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(chillerOnOff.yChi, condenserWaterConstant.uChi) annotation (Line(
       points={{-116,34},{-110,34},{-110,210},{-104,210}},
       color={255,0,255},
@@ -132,7 +109,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-28},{-20,-28},{-20,140},{228,140},{228,90},{218,90}},
+      points={{-116,-28},{-20,-28},{-20,140},{226,140},{226,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
@@ -168,10 +145,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(cooCoi.port_a1, val6.port_b) annotation (Line(
-      points={{242,-164},{300,-164},{300,30}},
-      color={0,127,255},
-      thickness=0.5));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
       points={{40,190},{40,239},{201,239}},
       color={0,127,255},
@@ -203,6 +176,64 @@ equation
       points={{-321,-258},{-302,-258},{-302,-260},{-284,-260}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(weaBus.TWetBul, wseSta.TOutWet) annotation (Line(
+      points={{-282,-88},{-260,-88},{-260,136},{-164,136}},
+      color={255,204,51},
+      thickness=0.5,
+      pattern=LinePattern.Dash), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(TCHWLeaCoi.T, wseSta.TChiWatRet) annotation (Line(
+      points={{149,-80},{-200,-80},{-200,128},{-164,128}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(TCHWEntChi.T, wseSta.TChiWatRetDow) annotation (Line(
+      points={{149,0},{140,0},{140,-10},{-190,-10},{-190,120},{-164,120}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(condenserWaterConstant.yTowFanSpeSet, wseSta.uTowFanSpeMax)
+    annotation (Line(
+      points={{-56,230},{-40,230},{-40,260},{-170,260},{-170,104},{-164,104}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(val6.port_b, VChiWatSen_flow.port_a) annotation (Line(
+      points={{300,30},{300,-60}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(VChiWatSen_flow.port_b, cooCoi.port_a1) annotation (Line(
+      points={{300,-80},{300,-164},{242,-164}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(VChiWatSen_flow.V_flow, wseSta.VChiWat_flow) annotation (Line(
+      points={{311,-70},{320,-70},{320,270},{-180,270},{-180,112},{-164,112}},
+      color={0,0,127},
+      pattern=LinePattern.Dash));
+  connect(wseSta.y, condenserWaterConstant.uWSE) annotation (Line(
+      points={{-118,120},{-110,120},{-110,230},{-104,230}},
+      color={255,0,255},
+      pattern=LinePattern.DashDot));
+  connect(wseSta.y, yOn.u) annotation (Line(
+      points={{-118,120},{-110,120},{-110,140},{-102,140}},
+      color={255,0,255},
+      pattern=LinePattern.Dot));
+  connect(wseSta.y, yOff.u) annotation (Line(
+      points={{-118,120},{-110,120},{-110,110},{-102,110}},
+      color={255,0,255},
+      pattern=LinePattern.Dot));
+  connect(yOn.y, val4.y) annotation (Line(
+      points={{-78,140},{-60,140},{-60,180},{28,180}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(yOn.y, val3.y) annotation (Line(
+      points={{-78,140},{-60,140},{-60,-40},{60,-40},{60,-48}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(yOff.y, val1.y) annotation (Line(
+      points={{-78,110},{0,110},{0,-30},{100,-30},{100,-40},{148,-40}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

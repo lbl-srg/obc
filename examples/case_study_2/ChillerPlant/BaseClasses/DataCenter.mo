@@ -154,8 +154,8 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,180})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -197,21 +197,6 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
-  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P) "Power consumed by HVAC system"
-                             annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-310,-240})));
-  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
-    "Power consumed by IT"   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-310,-270})));
-  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by HVAC"
-    annotation (Placement(transformation(extent={{-260,-252},{-240,-232}})));
-  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-260,-282},{-240,-262}})));
 equation
   connect(val5.port_a, chi.port_b1) annotation (Line(
       points={{160,170},{160,99},{196,99}},
@@ -322,14 +307,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(PHVAC.y, EHVAC.u) annotation (Line(
-      points={{-299,-240},{-280,-240},{-280,-242},{-262,-242}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PIT.y, EIT.u) annotation (Line(
-      points={{-299,-270},{-280,-270},{-280,-272},{-262,-272}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(expVesCHW.ports[1], cooCoi.port_b1) annotation (Line(
       points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
       color={0,127,255},

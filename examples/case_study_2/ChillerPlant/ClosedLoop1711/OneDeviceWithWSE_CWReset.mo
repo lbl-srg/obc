@@ -46,7 +46,7 @@ model OneDeviceWithWSE_CWReset
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCW_flow_nominal)
     "Condenser water return temperature sensor"
-    annotation (Placement(transformation(extent={{108,308},{128,328}})));
+    annotation (Placement(transformation(extent={{168,230},{188,250}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen(redeclare package
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCHW_flow_nominal) "Chilled water supply tempeature" annotation (
@@ -201,15 +201,15 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(cooTow.port_a, TConWatRetSen.port_b) annotation (Line(
-      points={{201,239},{194,239},{194,318},{128,318}},
+      points={{201,239},{194,239},{194,240},{188,240}},
       color={0,127,255},
       thickness=0.5));
   connect(val4.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{40,190},{40,318},{108,318}},
+      points={{40,190},{40,240},{168,240}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{160,190},{160,238},{86,238},{86,284},{98,284},{98,318},{108,318}},
+      points={{160,190},{160,240},{168,240}},
       color={0,127,255},
       thickness=0.5));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
@@ -220,8 +220,8 @@ equation
       points={{300,-82},{300,-164},{242,-164}},
       color={0,127,255},
       thickness=0.5));
-  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{118,329},
-          {-74,329},{-74,212},{-64,212}}, color={0,0,127}));
+  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{178,251},
+          {-74,251},{-74,212},{-64,212}}, color={0,0,127}));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
           {330,-72},{330,270},{-78,270},{-78,204},{-64,204}}, color={0,0,127}));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
