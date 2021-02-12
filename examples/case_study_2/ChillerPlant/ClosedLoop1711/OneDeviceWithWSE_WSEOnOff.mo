@@ -57,7 +57,8 @@ model OneDeviceWithWSE_WSEOnOff
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate VChiWatSen_flow(
+  Buildings.Fluid.Sensors.VolumeFlowRate VChiWatSen_flow(redeclare package
+      Medium = Buildings.Media.Water,
     final m_flow_nominal=mCHW_flow_nominal) "Chilled water supply volume flow rate sensor"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
