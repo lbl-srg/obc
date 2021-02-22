@@ -70,22 +70,13 @@ model OneDeviceWithWSE_CWReset
         rotation=270,
         origin={300,200})));
 
-  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P) "Power consumed by HVAC system"
-                             annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-350,-228})));
-  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
-    "Power consumed by IT"   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-350,-258})));
-  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by HVAC"
-    annotation (Placement(transformation(extent={{-300,-240},{-280,-220}})));
-  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-300,-270},{-280,-250}})));
 equation
+  PSupFan = fan.P;
+  PChiWatPum = pumCHW.P;
+  PConWatPum = pumCW.P;
+  PCooTowFan = cooTow.PFan;
+  PChi = chi.P;
+  QRooIntGai_flow = roo.QSou.Q_flow;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
@@ -237,14 +228,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(PHVAC.y,EHVAC. u) annotation (Line(
-      points={{-339,-228},{-320,-228},{-320,-230},{-302,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PIT.y,EIT. u) annotation (Line(
-      points={{-339,-258},{-320,-258},{-320,-260},{-302,-260}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"

@@ -2,6 +2,7 @@ within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_WSEOnOff
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
   parameter Real dTChi(
@@ -69,69 +70,13 @@ model OneDeviceWithWSE_WSEOnOff
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOff(realTrue=0,
       realFalse=1) "WSE is OFF signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Modelica.Blocks.Sources.RealExpression PAll(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P)
-    "Total power consumed by the data center chiller plant system" annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}}, origin={-574,68})));
-  Modelica.Blocks.Sources.RealExpression PIT1(y=roo.QSou.Q_flow)
-    "Power consumed by IT"   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-636,156})));
-  Modelica.Blocks.Continuous.Integrator PAllAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Meters total power consumption"
-    annotation (Placement(transformation(extent={{-524,66},{-504,86}})));
-  Modelica.Blocks.Continuous.Integrator EIT1(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-586,144},{-566,164}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPAll(samplePeriod=1)
-    "Total power consumption sampler"
-    annotation (Placement(transformation(extent={{-524,36},{-504,56}})));
-  Modelica.Blocks.Sources.RealExpression PCooTow(y=cooTow.PFan)
-    "Cooling tower power consumption" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-574,-72})));
-  Modelica.Blocks.Continuous.Integrator PCooTowAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Cooling tower power consumption meter"
-    annotation (Placement(transformation(extent={{-524,-74},{-504,-54}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPCooTow(samplePeriod=1)
-    "Cooling tower power consumption sampler"
-    annotation (Placement(transformation(extent={{-524,-104},{-504,-84}})));
-  Modelica.Blocks.Sources.RealExpression PChiWatPum(y=pumCHW.P)
-    "Chilled water pump power consumption" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-474,66})));
-  Modelica.Blocks.Continuous.Integrator PChiWatPumAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Chilled water pump power consumption meter"
-    annotation (Placement(transformation(extent={{-424,64},{-404,84}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPChiWatPum(samplePeriod=1)
-    "Chilled water pump power consumption sampler"
-    annotation (Placement(transformation(extent={{-424,34},{-404,54}})));
-  Modelica.Blocks.Sources.RealExpression PConWatPum(y=pumCW.P)
-    "Condensed water pump power consumption" annotation (Placement(
-        transformation(extent={{-10,-10},{10,10}}, origin={-474,-6})));
-  Modelica.Blocks.Continuous.Integrator PConWatPumAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Condensed water pump power consumption meter"
-    annotation (Placement(transformation(extent={{-424,-6},{-404,14}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPConWatPum(samplePeriod=1)
-    "Condensed water pump power consumption sampler"
-    annotation (Placement(transformation(extent={{-424,-36},{-404,-16}})));
-  Modelica.Blocks.Sources.RealExpression PChi(y=chi.P)
-    "Chiller power consumption" annotation (Placement(transformation(extent={{-10,
-            -10},{10,10}}, origin={-574,-2})));
-  Modelica.Blocks.Continuous.Integrator PChiAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Chiller power consumption meter"
-    annotation (Placement(transformation(extent={{-524,-4},{-504,16}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPChi(samplePeriod=1)
-    "Chiller power consumption sampler"
-    annotation (Placement(transformation(extent={{-524,-34},{-504,-14}})));
-  Modelica.Blocks.Sources.RealExpression PSupFan(y=fan.P)
-    "Supply air fan power consumption" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-474,-76})));
-  Modelica.Blocks.Continuous.Integrator PSupFanAgg(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Supply air fan power consumption meter"
-    annotation (Placement(transformation(extent={{-424,-76},{-404,-56}})));
-  Buildings.Controls.OBC.CDL.Discrete.Sampler samPSupFan(samplePeriod=1)
-    "Supply air fan power consumption sampler"
-    annotation (Placement(transformation(extent={{-424,-106},{-404,-86}})));
 equation
+  PSupFan = fan.P;
+  PChiWatPum = pumCHW.P;
+  PConWatPum = pumCW.P;
+  PCooTowFan = cooTow.PFan;
+  PChi = chi.P;
+  QRooIntGai_flow = roo.QSou.Q_flow;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,243},{199,243}},
@@ -298,48 +243,6 @@ equation
       points={{-78,110},{0,110},{0,-30},{100,-30},{100,-40},{148,-40}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(PAll.y,PAllAgg. u) annotation (Line(
-      points={{-563,68},{-544,68},{-544,76},{-526,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PIT1.y, EIT1.u) annotation (Line(
-      points={{-625,156},{-606,156},{-606,154},{-588,154}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PAll.y,samPAll. u) annotation (Line(points={{-563,68},{-544,68},{-544,
-          46},{-526,46}},     color={0,0,127}));
-  connect(PCooTow.y,PCooTowAgg. u) annotation (Line(
-      points={{-563,-72},{-544,-72},{-544,-64},{-526,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PCooTow.y,samPCooTow. u) annotation (Line(points={{-563,-72},{-544,
-          -72},{-544,-94},{-526,-94}},
-                                    color={0,0,127}));
-  connect(PChiWatPum.y,PChiWatPumAgg. u) annotation (Line(
-      points={{-463,66},{-444,66},{-444,74},{-426,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PChiWatPum.y,samPChiWatPum. u) annotation (Line(points={{-463,66},{
-          -444,66},{-444,44},{-426,44}}, color={0,0,127}));
-  connect(PConWatPum.y,PConWatPumAgg. u) annotation (Line(
-      points={{-463,-6},{-444,-6},{-444,4},{-426,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PConWatPum.y,samPConWatPum. u) annotation (Line(points={{-463,-6},{
-          -444,-6},{-444,-26},{-426,-26}},color={0,0,127}));
-  connect(PChi.y,PChiAgg. u) annotation (Line(
-      points={{-563,-2},{-544,-2},{-544,6},{-526,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PChi.y,samPChi. u) annotation (Line(points={{-563,-2},{-544,-2},{-544,
-          -24},{-526,-24}},   color={0,0,127}));
-  connect(PSupFan.y,PSupFanAgg. u) annotation (Line(
-      points={{-463,-76},{-444,-76},{-444,-66},{-426,-66}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PSupFan.y,samPSupFan. u) annotation (Line(points={{-463,-76},{-444,
-          -76},{-444,-96},{-426,-96}},
-                                    color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"
@@ -372,18 +275,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
-            300}}), graphics={
-        Text(
-          extent={{-584,120},{-498,96}},
-          lineColor={28,108,200},
-          textString="Power meters"),
-        Text(
-          extent={{-662,206},{-556,178}},
-          lineColor={28,108,200},
-          textString="Heat flow meters"),
-        Text(
-          extent={{-502,208},{-400,178}},
-          lineColor={28,108,200},
-          textString="Fluid flow meters")}),
+            300}})),
     experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
 end OneDeviceWithWSE_WSEOnOff;
