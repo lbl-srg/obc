@@ -2,6 +2,7 @@ within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_CWReset
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
   extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
   parameter Real dTChi(

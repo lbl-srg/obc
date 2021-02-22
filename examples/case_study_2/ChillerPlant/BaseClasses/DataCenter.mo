@@ -111,7 +111,7 @@ partial model DataCenter
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     use_inputFilter=false)
-    "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
+    "Bypass control valve for economizer. 1: disable economizer, 0: enable economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -182,7 +182,7 @@ partial model DataCenter
     dpValve_nominal=20902,
     dpFixed_nominal=59720 + 1000,
     use_inputFilter=false)
-    "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
+    "Control valve for economizer. 0: disable economizer, 1: enable economizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, origin={60,-60})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
       Medium = MediumW, m_flow_nominal=mCHW_flow_nominal)
