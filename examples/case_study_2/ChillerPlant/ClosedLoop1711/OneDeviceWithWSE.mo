@@ -1,5 +1,5 @@
 within ChillerPlant.ClosedLoop1711;
-model OneDeviceWithWSE_CWResetAndWSEOnOff
+model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
   extends ChillerPlant.BaseClasses.DataCenter;
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
@@ -81,6 +81,12 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
+    staSetCon(
+    nChi=1,
+    nSta=1,
+    staMat={{1}})
+    annotation (Placement(transformation(extent={{-350,84},{-310,168}})));
 
 equation
   PSupFan = fan.P;
@@ -89,8 +95,8 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
-  mConWat_flow = pumCW.VMachine_flow * 995.586;
-  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
+  mConWat_flow = 1;
+  mChiWat_flow = 1;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
@@ -104,7 +110,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(chillerOnOff.yChi, chi.on) annotation (Line(
-      points={{-116,34},{-110,34},{-110,80},{234,80},{234,96},{218,96}},
+      points={{-116,34},{-70,34},{-70,80},{234,80},{234,96},{218,96}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(chillerOnOff.yOn, val6.y) annotation (Line(
@@ -151,8 +157,8 @@ equation
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
           -82,200},{-82,196},{-64,196}},  color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(chillerOnOff.yChi, heaPreCon.uChiHeaCon) annotation (Line(points={{
-          -116,34},{-72,34},{-72,220},{-64,220}}, color={255,0,255},
+  connect(chillerOnOff.yChi, heaPreCon.uChiHeaCon) annotation (Line(points={{-116,34},
+          {-70,34},{-70,220},{-64,220}},          color={255,0,255},
       pattern=LinePattern.DashDot));
   connect(heaPreCon.yMaxTowSpeSet, cooTow.y) annotation (Line(points={{-16,212},
           {90,212},{90,256},{194,256},{194,247},{199,247}},
@@ -206,6 +212,10 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
+      points={{-599,-10},{-562,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
   connect(VChiWatSen_flow.port_b, cooCoi.port_a1) annotation (Line(
       points={{300,-118},{300,-164},{242,-164}},
       color={0,127,255},
@@ -295,8 +305,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
-    Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
-end OneDeviceWithWSE_CWResetAndWSEOnOff;
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
+end OneDeviceWithWSE;

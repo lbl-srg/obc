@@ -77,6 +77,8 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
+  mConWat_flow = pumCW.m_flow_actual;
+  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
@@ -259,7 +261,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE_CWReset;

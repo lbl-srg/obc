@@ -2,6 +2,7 @@ within ChillerPlant.ClosedLoopBase;
 model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
   parameter Real dTChi(
@@ -43,22 +44,15 @@ model OneDeviceWithWSE
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,180})));
-  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P) "Power consumed by HVAC system"
-                             annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-332,-228})));
-  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
-    "Power consumed by IT"   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-332,-258})));
-  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by HVAC"
-    annotation (Placement(transformation(extent={{-282,-240},{-262,-220}})));
-  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-282,-270},{-262,-250}})));
 equation
+  PSupFan = fan.P;
+  PChiWatPum = pumCHW.P;
+  PConWatPum = pumCW.P;
+  PCooTowFan = cooTow.PFan;
+  PChi = chi.P;
+  QRooIntGai_flow = roo.QSou.Q_flow;
+  mConWat_flow = pumCW.m_flow_actual;
+  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,243},{199,243}},
@@ -198,14 +192,6 @@ equation
     annotation (Line(points={{-56,210},{280,210},{280,180},{288,180}},
                                                              color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(PHVAC.y,EHVAC. u) annotation (Line(
-      points={{-321,-228},{-302,-228},{-302,-230},{-284,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PIT.y,EIT. u) annotation (Line(
-      points={{-321,-258},{-302,-258},{-302,-260},{-284,-260}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"
@@ -237,7 +223,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE;

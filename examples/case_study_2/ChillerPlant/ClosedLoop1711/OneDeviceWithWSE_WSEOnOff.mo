@@ -40,21 +40,6 @@ model OneDeviceWithWSE_WSEOnOff
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,180})));
-  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
-        cooTow.PFan + chi.P) "Power consumed by HVAC system"
-                             annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-332,-228})));
-  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
-    "Power consumed by IT"   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-332,-258})));
-  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by HVAC"
-    annotation (Placement(transformation(extent={{-282,-240},{-262,-220}})));
-  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
-      y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-282,-270},{-262,-250}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
@@ -77,6 +62,8 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
+  mConWat_flow = pumCW.m_flow_actual;
+  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,243},{199,243}},
@@ -177,12 +164,8 @@ equation
   connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
     annotation (Line(points={{-56,210},{288,210},{288,180}}, color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(PHVAC.y,EHVAC. u) annotation (Line(
-      points={{-321,-228},{-302,-228},{-302,-230},{-284,-230}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(PIT.y,EIT. u) annotation (Line(
-      points={{-321,-258},{-302,-258},{-302,-260},{-284,-260}},
+  connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
+      points={{-599,-10},{-562,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TWetBul, wseSta.TOutWet) annotation (Line(
@@ -274,7 +257,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{400,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200));
+    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE_WSEOnOff;
