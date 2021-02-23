@@ -7,18 +7,82 @@ def get_cases():
     import copy
 
     cases = list()
+    
+    # short test
     cases.append( \
         {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
-         "name": "test_base",
+         "name": "base_test",
+         "long_name": "Base-case",
+         "season" : "test",
          "num_id":0,
          "start_time": 0,
-         "stop_time":  10*24*3600})
+         "stop_time":  20*24*3600})
+
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
-         "name": "test_1711",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+         "name": "1711_cwreset_test",
+         "long_name": "Alternative sub-controller: CW reset",
+         "season" : "test",
          "num_id":1,
          "start_time": 0,
-         "stop_time":  10*24*3600})
+         "stop_time":  20*24*3600})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
+         "name": "1711_wse_test",
+         "long_name": "Alternative sub-controller: WSE on/off",
+         "season" : "test",
+         "num_id":2,
+         "start_time": 0,
+         "stop_time":  20*24*3600})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
+         "name": "1711_cwreset_wse_test",
+         "long_name": "Alternative sub-controller: CW reset and WSE on/off",
+         "season" : "test",
+         "num_id":3,
+         "start_time": 0,
+         "stop_time":  20*24*3600})
+
+
+    # # annual
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+    #      "name": "base_annual",
+    #      "long_name": "Base-case",
+    #      "season" : "annual",
+    #      "num_id":0,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+    #      "name": "1711_annual",
+    #      "long_name": "Alternative sub-controller: CW reset",
+    #      "season" : "annual",
+    #      "num_id":1,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+    #      "name": "1711_annual",
+    #      "long_name": "Alternative sub-controller: WSE on/off",
+    #      "season" : "annual",
+    #      "num_id":2,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+    #      "name": "1711_annual",
+    #      "long_name": "Alternative sub-controller: CW reset and WSE on/off",
+    #      "season" : "annual",
+    #      "num_id":3,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
 
     # # Add load diversity
     # cases_load_diversity = copy.deepcopy(cases)
@@ -69,4 +133,3 @@ def get_list_of_case_names():
         names.append(c["name"])
 
     return names
-
