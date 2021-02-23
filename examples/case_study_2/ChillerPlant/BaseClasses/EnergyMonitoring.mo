@@ -71,7 +71,7 @@ partial model EnergyMonitoring "Energy monitoring system"
 
   Modelica.Blocks.Sources.RealExpression PChi1(y=PChi)
     "Chiller power consumption" annotation (Placement(transformation(extent={{-10,
-            -10},{10,10}}, origin={-610,162})));
+            -10},{10,10}}, origin={-610,160})));
 
   Modelica.Blocks.Continuous.Integrator PChiAgg(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Chiller power consumption meter"
@@ -144,11 +144,12 @@ equation
   connect(PConWatPum1.y, samPConWatPum.u) annotation (Line(points={{-499,160},{-480,
           160},{-480,140},{-462,140}},    color={0,0,127}));
   connect(PChi1.y, PChiAgg.u) annotation (Line(
-      points={{-599,162},{-580,162},{-580,170},{-562,170}},
+      points={{-599,160},{-580,160},{-580,170},{-562,170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PChi1.y, samPChi.u) annotation (Line(points={{-599,162},{-580,162},{-580,
-          140},{-562,140}},   color={0,0,127}));
+  connect(PChi1.y, samPChi.u) annotation (Line(points={{-599,160},{-580,160},{
+          -580,140},{-562,140}},
+                              color={0,0,127}));
   connect(PSupFan1.y, PSupFanAgg.u) annotation (Line(
       points={{-499,90},{-480,90},{-480,100},{-462,100}},
       color={0,0,127},
@@ -173,7 +174,7 @@ equation
           lineColor={28,108,200},
           textString="Heat flow meters"),
         Text(
-          extent={{-500,50},{-398,20}},
+          extent={{-502,48},{-400,18}},
           lineColor={28,108,200},
           textString="Fluid flow meters")}),
 Documentation(info="<HTML>

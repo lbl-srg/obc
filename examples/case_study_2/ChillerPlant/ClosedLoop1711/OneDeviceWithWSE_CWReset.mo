@@ -77,7 +77,7 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
-  mConWat_flow = pumCW.m_flow_actual;
+  mConWat_flow = pumCW.VMachine_flow * 995.586;
   mChiWat_flow = pumCHW.VMachine_flow * 995.586;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
