@@ -63,7 +63,7 @@ def checkout_repository(working_directory, from_git_hub):
 def _simulate(spec):
     import os
 
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Dymola import Simulator
     if not spec["simulate"]:
         return
 
@@ -89,7 +89,8 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
+   # s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
+    s=Simulator(spec["model"], outputDirectory=out_dir)
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
 #    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
