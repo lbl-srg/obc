@@ -8,6 +8,7 @@ import os
 BRANCH="issue2330_images"
 ONLY_SHORT_TIME=False
 FROM_GIT_HUB = False
+USE_OPTIMICA = False
 
 CASE_STUDY_PACKAGE = "ChillerPlant"
 
@@ -62,8 +63,11 @@ def checkout_repository(working_directory, from_git_hub):
 
 def _simulate(spec):
     import os
+    if USE_OPTIMICA:
+        from buildingspy.simulate.Optimica import Simulator
+    else:
+        from buildingspy.simulate.Dymola import Simulator
 
-    from buildingspy.simulate.Dymola import Simulator
     if not spec["simulate"]:
         return
 
@@ -71,7 +75,7 @@ def _simulate(spec):
 
     out_dir = os.path.join(wor_dir, "simulations", spec["name"])
     os.makedirs(out_dir)
-    # bp()
+
     # Update MODELICAPATH to get the right library version
     os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
 
@@ -79,9 +83,10 @@ def _simulate(spec):
 #    print("Copying models from {} to {}".format(CWD, wor_dir))
     shutil.copytree(os.path.join(CWD, CASE_STUDY_PACKAGE), os.path.join(wor_dir, CASE_STUDY_PACKAGE))
     # Change the working directory so that the right checkout is loaded
-    os.chdir(os.path.join(wor_dir, CASE_STUDY_PACKAGE))
-
-
+    if USE_OPTIMICA:
+        os.chdir(os.path.join(wor_dir))
+    else:
+        os.chdir(os.path.join(wor_dir, CASE_STUDY_PACKAGE))
 
     # Write git information if the simulation is based on a github checkout
     if 'git' in spec:
@@ -91,17 +96,22 @@ def _simulate(spec):
 
    # s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
     s=Simulator(spec["model"], outputDirectory=out_dir)
-    s.addPreProcessingStatement("OutputCPUtime:= true;")
-    s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
-#    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
+    if not USE_OPTIMICA:
+        s.addPreProcessingStatement("OutputCPUtime:= true;")
+        s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
+        # s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
     if not 'solver' in spec:
-        s.setSolver("Cvode")
+        if USE_OPTIMICA:
+            s.setSolver("CVode")
+        else:
+            s.setSolver("Cvode")
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
     s.setTolerance(1E-5)
-    s.showGUI(False)
+    if not USE_OPTIMICA:
+        s.showGUI(False)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()
 
@@ -147,14 +157,12 @@ if __name__=='__main__':
         if FROM_GIT_HUB:
             case['git'] = d
 
+        # _simulate(case)
+
     # Run all cases
 
     # bp()
     po.map(_simulate, list_of_cases)
-
-    # for case in list_of_cases:
-    #     _simulate(case)
         
-
     # Delete the checked out repository
     shutil.rmtree(lib_dir)

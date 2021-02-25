@@ -52,7 +52,7 @@ equation
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
   mConWat_flow = pumCW.m_flow_actual;
-  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
+  mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,243},{199,243}},

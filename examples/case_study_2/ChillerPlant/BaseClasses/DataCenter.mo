@@ -2,6 +2,23 @@ within ChillerPlant.BaseClasses;
 partial model DataCenter
   "Primary only chiller plant system with water-side economizer without controls"
 
+  //parameter Modelica.Media.Water.WaterIF97_base.ThermodynamicState sta_default=Medium.setState_pTX(
+  //  T=Medium.T_default,
+  //  p=Medium.p_default,
+  //  X=Medium.X_default)
+  //  "State of the medium at the medium default properties";
+
+  //parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  //  "Density at the medium default properties";
+
+  parameter Buildings.Media.Water.ThermodynamicState sta_default=Buildings.Media.Water.setState_pTX(
+      T=Buildings.Media.Water.T_default,
+      p=Buildings.Media.Water.p_default,
+      X=Buildings.Media.Water.X_default);
+
+  parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
+    "Density, used to compute fluid volume";
+
   // control parameters used in both base and 1711 cases
   parameter Real cooTowAppDes(
     final unit="K",
@@ -198,6 +215,7 @@ partial model DataCenter
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
 equation
+
   connect(val5.port_a, chi.port_b1) annotation (Line(
       points={{160,170},{160,99},{196,99}},
       color={0,127,255},
