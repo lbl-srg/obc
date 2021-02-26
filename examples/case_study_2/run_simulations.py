@@ -8,7 +8,7 @@ import os
 BRANCH="issue2330_images"
 ONLY_SHORT_TIME=False
 FROM_GIT_HUB = False
-USE_OPTIMICA = False
+USE_OPTIMICA = True
 
 CASE_STUDY_PACKAGE = "ChillerPlant"
 
@@ -83,10 +83,7 @@ def _simulate(spec):
 #    print("Copying models from {} to {}".format(CWD, wor_dir))
     shutil.copytree(os.path.join(CWD, CASE_STUDY_PACKAGE), os.path.join(wor_dir, CASE_STUDY_PACKAGE))
     # Change the working directory so that the right checkout is loaded
-    if USE_OPTIMICA:
-        os.chdir(os.path.join(wor_dir))
-    else:
-        os.chdir(os.path.join(wor_dir, CASE_STUDY_PACKAGE))
+    os.chdir(os.path.join(wor_dir))
 
     # Write git information if the simulation is based on a github checkout
     if 'git' in spec:
