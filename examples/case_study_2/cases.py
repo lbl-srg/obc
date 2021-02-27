@@ -14,7 +14,7 @@ def get_cases():
          "name": "base_test",
          "long_name": "Base-case",
          "season" : "test",
-         "n_output_intervals" : 100,
+         "n_output_intervals" : 1000,
          "num_id":0,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -22,9 +22,9 @@ def get_cases():
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
          "name": "1711_cwreset_test",
-         "long_name": "Alternative sub-controller: CW reset",
+         "long_name": "Alternative CW reset",
          "season" : "test",
-         "n_output_intervals" : 100,
+         "n_output_intervals" : 1000,
          "num_id":1,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -32,9 +32,9 @@ def get_cases():
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
          "name": "1711_wse_test",
-         "long_name": "Alternative sub-controller: WSE on/off",
+         "long_name": "Alternative WSE on/off",
          "season" : "test",
-         "n_output_intervals" : 100,
+         "n_output_intervals" : 1000,
          "num_id":2,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -42,9 +42,9 @@ def get_cases():
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
          "name": "1711_cwreset_wse_test",
-         "long_name": "Alternative sub-controller: CW reset and WSE on/off",
+         "long_name": "Alternative CW reset and WSE on/off",
          "season" : "test",
-         "n_output_intervals" : 100,
+         "n_output_intervals" : 1000,
          "num_id":3,
          "start_time": 0,
          "stop_time":  20*24*3600})
