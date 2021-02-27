@@ -130,10 +130,15 @@ def get_result_fullpath(name, simulator):
 
     case = get_case(name)
     
+    mat_name = False
+
     for file in os.listdir(
         os.path.join("simulations", simulator, name)):
         if '.mat' in file:
             mat_name = file
+        
+    if not mat_name:
+        raise Exception("No *.mat file found.")
 
     return os.path.join("simulations", simulator, name, mat_name)
 
