@@ -8,7 +8,13 @@ import os
 BRANCH="issue2330_images"
 ONLY_SHORT_TIME=False
 FROM_GIT_HUB = False
-USE_OPTIMICA = True
+USE_OPTIMICA = False
+
+if USE_OPTIMICA:
+    sim_engine = "optimica"
+else:
+    sim_engine = "dymola"
+
 
 CASE_STUDY_PACKAGE = "ChillerPlant"
 
@@ -73,7 +79,7 @@ def _simulate(spec):
 
     wor_dir = create_working_directory()
 
-    out_dir = os.path.join(wor_dir, "simulations", spec["name"])
+    out_dir = os.path.join(wor_dir, "simulations", sim_engine, spec["name"])
     os.makedirs(out_dir)
 
     # Update MODELICAPATH to get the right library version
@@ -106,6 +112,7 @@ def _simulate(spec):
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])
     s.setStopTime(spec["stop_time"])
+    s.setNumberOfIntervals(spec["n_output_intervals"])
     s.setTolerance(1E-5)
     if not USE_OPTIMICA:
         s.showGUI(False)
@@ -113,7 +120,7 @@ def _simulate(spec):
     s.simulate()
 
     # Copy results back
-    res_des = os.path.join(CWD, "simulations", spec["name"])
+    res_des = os.path.join(CWD, "simulations", sim_engine, spec["name"])
     if os.path.isdir(res_des):
        shutil.rmtree(res_des)
     print("Copying results to {}".format(res_des))

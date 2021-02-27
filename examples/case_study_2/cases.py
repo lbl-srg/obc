@@ -14,6 +14,7 @@ def get_cases():
          "name": "base_test",
          "long_name": "Base-case",
          "season" : "test",
+         "n_output_intervals" : 100,
          "num_id":0,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -23,6 +24,7 @@ def get_cases():
          "name": "1711_cwreset_test",
          "long_name": "Alternative sub-controller: CW reset",
          "season" : "test",
+         "n_output_intervals" : 100,
          "num_id":1,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -32,6 +34,7 @@ def get_cases():
          "name": "1711_wse_test",
          "long_name": "Alternative sub-controller: WSE on/off",
          "season" : "test",
+         "n_output_intervals" : 100,
          "num_id":2,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -41,6 +44,7 @@ def get_cases():
          "name": "1711_cwreset_wse_test",
          "long_name": "Alternative sub-controller: CW reset and WSE on/off",
          "season" : "test",
+         "n_output_intervals" : 100,
          "num_id":3,
          "start_time": 0,
          "stop_time":  20*24*3600})
@@ -116,14 +120,22 @@ def get_case(name):
             return c
     raise(ValueError('Did not find case {}'.format(name)))
 
-def get_result_file_name(name):
+def get_result_fullpath(name, simulator):
     ''' Return the result file name
     '''
+    if simulator not in ["dymola", "optimica"]:
+        raise Exception("Unsupported simulator provided.")
+
     import os.path
+
     case = get_case(name)
-    model_name = (os.path.splitext(case['model'])[1])[1:]
-    mat_name = "{}.mat".format( model_name )
-    return os.path.join("simulations", name, mat_name)
+    
+    for file in os.listdir(
+        os.path.join("simulations", simulator, name)):
+        if '.mat' in file:
+            mat_name = file
+
+    return os.path.join("simulations", simulator, name, mat_name)
 
 def get_list_of_case_names():
     '''Return a list of all case names
