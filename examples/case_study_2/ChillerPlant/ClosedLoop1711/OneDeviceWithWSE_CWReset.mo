@@ -232,7 +232,7 @@ equation
       thickness=0.5));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/OneDeviceWithWSEBase.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_CWReset.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
