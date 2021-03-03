@@ -73,10 +73,11 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={300,-108})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOff(realTrue=0,
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yWSEOff(realTrue=0,
       realFalse=1) "WSE is OFF signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOn "WSE is ON signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yWSEOn
+    "WSE is ON signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta
@@ -210,11 +211,11 @@ equation
       points={{300,-118},{300,-164},{242,-164}},
       color={0,127,255},
       thickness=0.5));
-  connect(wseSta.y,yOn. u) annotation (Line(
+  connect(wseSta.y, yWSEOn.u) annotation (Line(
       points={{-118,120},{-110,120},{-110,140},{-102,140}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(wseSta.y,yOff. u) annotation (Line(
+  connect(wseSta.y, yWSEOff.u) annotation (Line(
       points={{-118,120},{-110,120},{-110,110},{-102,110}},
       color={255,0,255},
       pattern=LinePattern.Dot));
@@ -240,15 +241,15 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(yOn.y, val3.y) annotation (Line(
+  connect(yWSEOn.y, val3.y) annotation (Line(
       points={{-78,140},{-60,140},{-60,-40},{60,-40},{60,-48}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(yOn.y, val4.y) annotation (Line(
+  connect(yWSEOn.y, val4.y) annotation (Line(
       points={{-78,140},{-60,140},{-60,170},{20,170},{20,180},{28,180}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(yOff.y, val1.y) annotation (Line(
+  connect(yWSEOff.y, val1.y) annotation (Line(
       points={{-78,110},{0,110},{0,-30},{100,-30},{100,-40},{148,-40}},
       color={0,0,127},
       pattern=LinePattern.Dot));
