@@ -8,7 +8,7 @@ import os
 BRANCH="issue2330_images"
 ONLY_SHORT_TIME=False
 FROM_GIT_HUB = False
-USE_OPTIMICA = True
+USE_OPTIMICA = False
 
 if USE_OPTIMICA:
     sim_engine = "optimica"
