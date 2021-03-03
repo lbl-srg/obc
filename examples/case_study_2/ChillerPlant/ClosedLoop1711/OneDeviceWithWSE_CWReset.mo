@@ -1,7 +1,8 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_CWReset
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(chi(per=
+          Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD()));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -68,7 +69,7 @@ model OneDeviceWithWSE_CWReset
                            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={300,200})));
+        origin={302,200})));
 
 equation
   PSupFan = fan.P;
@@ -178,12 +179,12 @@ equation
           {90,212},{90,256},{194,256},{194,247},{199,247}},
                                         color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
-          188},{0,188},{0,200},{288,200}}, color={0,0,127},
+  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,188},
+          {0,188},{0,200},{290,200}},      color={0,0,127},
       pattern=LinePattern.Dot));
   connect(pumCW.port_b,TCWLeaTow. port_a)
                                          annotation (Line(
-      points={{300,190},{300,119},{280,119}},
+      points={{302,190},{302,119},{280,119}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -226,7 +227,7 @@ equation
           {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
-      points={{221,239},{300,239},{300,210}},
+      points={{221,239},{302,239},{302,210}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));

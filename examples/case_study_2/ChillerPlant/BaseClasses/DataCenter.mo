@@ -44,7 +44,7 @@ partial model DataCenter
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) "Nominal mass flow rate at condenser water";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal=500
+  parameter Modelica.SIunits.PressureDifference dp_nominal=10000
     "Nominal pressure difference";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
