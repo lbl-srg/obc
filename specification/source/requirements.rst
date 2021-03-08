@@ -53,9 +53,9 @@ CDL
 #. The CDL shall be declarative.
 #. CDL shall be able to express control sequences and their linkage to an object model which represents the plant.
 #. CDL shall represent control sequences as a set of blocks (see :numref:`sec_enc_block`) with inputs and outputs
-   through which blocks can be connnected.
+   through which blocks can be connected.
 #. It shall be possible to compose blocks hierarchically to form new blocks.
-#. The elementary building blocks [such as an gain] are defined through their input, outputs, parameters, and their response to given outputs.
+#. The elementary building blocks [such as a gain] are defined through their input, outputs, parameters, and their response to given outputs.
    The actual implementation is not part of the standard [as this is language dependent].
 #. Each block shall have tags that provide information about its general function/application [e.g. this is an AHU control block] and its specific application [e.g. this particular block controls AHU 2].
 #. It shall be possible to identify whether a block represents a physical sensor/actuator, or a logical signal source/sink. [As this is used for pricing.]
@@ -90,10 +90,7 @@ CDL
    Modelica environment.
 #. It shall be possible to simulate CDL-compliant control sequences in the Spawn of EnergyPlus.
 #. The object model must be rigorous, extensible and flexible.
-#. The object model must be relational, inherently defining connections between different objects.
-#. The system must support many-to-many relationships [For example, two parallel chilled water pumps
-   can serve three parallel chillers (see also Brick's "isPartOf" and "feeds").]
-#. Each distinct piece of equipment [e.g. return air temperature sensor]
+#. Each distinct piece of equipment [e.g. VAV terminal box controller]
    shall be represented by a unique instance.
 
 

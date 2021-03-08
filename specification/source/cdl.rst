@@ -114,9 +114,8 @@ Syntax
 ^^^^^^
 
 In order to use CDL with building energy simulation programs,
-and to not invent yet another language with new syntax, we use
-a subset of the Modelica 3.3 specification
-for the implementation of CDL :cite:`Modelica2012:1`.
+and to not invent yet another language with new syntax,
+the CDL syntax conforms to a subset of the Modelica 3.3 specification :cite:`Modelica2012:1`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no construct that
@@ -146,34 +145,217 @@ Also, the following Modelica language features are not supported in CDL:
 Permissible Data Types
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The basic data types are, in addition to the elementary building blocks,
-parameters of type
-``Real``, ``Integer``, ``Boolean``, ``String``, and ``enumeration``.
-[Parameters do not change their value as time progresses.]
-The use of ``Modelica.SIunits`` is not allowed.
-[Set instead the ``unit`` attribute of the ``Real`` data type.]
-See also the Modelica 3.3 specification, Chapter 3.
-All specifications in CDL shall be declaration of blocks,
-instances of blocks, or declarations of type ``parameter``,
-``constant``, or ``enumeration``.
-Variables are not allowed.
-[Variables are used in the elementary building blocks,
-but these can only be used as inputs to other blocks if they are declared
-as an output.]
+.. _sec_dat_typ:
 
-The declaration of such types is identical to the declaration
-in Modelica.
-[The keyword ``parameter`` is used
-before the type declaration, and typically a graphical user interface
-allows users to change the value of a parameter when the simulation
-or control sequence is not running.
-For example, to declare a real-valued parameter,
-use ``parameter Real k = 1 "A parameter with value 1";``.
-In contrast, a ``constant`` cannot be changed after the software is
-compiled, and is typically not shown in a graphical user interface menu.
-For example, a ``constant`` is used to specify latent heat of evaporation of water
-if used in a controller.
+Data Types
+..........
+
+This section defines the basic data types. The definition is a subset of Modelica
+in which we left out attributes that are not needed for CDL.
+
+The attributes that are present in Modelica but not in CDL are marked with ``//--``.
+
+[Note the following: The ``start`` attribute is not needed in CDL because the start value of states is
+declared through a `parameter`.
+The ``equation`` section has been removed because how to deal with variables that
+are out of limit should be left to the implementation of the control system.
 ]
+
+Real Type
+_________
+
+The following is the predefined ``Real`` type:
+
+.. code-block:: modelica
+
+   type Real // Note: Defined with Modelica syntax although predefined
+     RealType value; // Accessed without dot-notation
+     parameter StringType quantity    = "";
+     parameter StringType unit        = "" "Unit used in equations";
+     parameter StringType displayUnit = "" "Default display unit";
+     parameter RealType min=-Inf, max=+Inf; // Inf denotes a large value
+     //-- parameter RealType start    = 0; // Initial value
+     //-- parameter BooleanType fixed = true,  // default for parameter/constant;
+     //--                             = false; // default for other variables
+     parameter RealType nominal;            // Nominal value
+     //-- parameter BooleanType unbounded=false; // For error control
+     //-- parameter StateSelect stateSelect = StateSelect.default;
+   //-- equation
+   //--   assert(value >= min and value <= max, "Variable value out of limit");
+   end Real;
+
+``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
+
+The ``quantity`` attribute is optional, can take on the following values:
+
+- ``""``, which is the default, is considered as no quantity being specified.
+- ``Angle`` for area (such as used for sun position).
+- ``Area`` for area.
+- ``Energy`` for energy.
+- ``Frequency`` for frequency.
+- ``Illuminance`` for illuminance.
+- ``Irradiance`` for solar irradiance.
+- ``MassFlowRate`` for mass flow rate.
+- ``MassFraction`` for mass fraction.
+- ``Power`` for power.
+- ``PowerFactor`` for power factor.
+- ``Pressure`` for absolute pressure.
+- ``PressureDifference`` for pressure difference.
+- ``SpecificEnergy`` for specific energy.
+- ``TemperatureDifference`` for temperature difference.
+- ``Time`` for time.
+- ``ThermodynamicTemperature`` for absolute temperature.
+- ``Velocity`` for velocity.
+- ``VolumeFlowRate`` for volume flow rate.
+
+
+[These quantities are compatible with the quantities used in the Modelica Standard Library, to allow
+connecting CDL models to Modelica models, see also :numref:`sec_connections`.]
+
+[The `quantity` attribute could be used for example to declare in a sequence that a real signal is a ``AbsolutePressure``.
+This could be used to aid connecting signals or filtering data.
+Quantities serve a different purpose than tagged properties (:numref:`sec_tag_pro`).]
+
+The value of ``displayUnit`` is used as a recommendation for how to display units to the user.
+[For example, tools that implement CDL may convert the ``value`` from ``unit`` to ``displayUnit``
+before showing it in a GUI or a log file.
+Moreover, tools may have a global list where users can specify, for example,
+to display ``degC`` and ``K`` in ``degF``.]
+
+The nominal attribute is meant to be used for scaling purposes and to define tolerances, such as for integrators,
+in relative terms.
+
+Integer Type
+____________
+
+The following is the predefined ``Integer`` type:
+
+.. code-block:: modelica
+
+   type Integer // Note: Defined with Modelica syntax although predefined
+     IntegerType value; // Accessed without dot-notation
+     //-- parameter StringType quantity = "";
+     parameter IntegerType min=-Inf, max=+Inf;
+     //-- parameter IntegerType start = 0; // Initial value
+     //-- parameter BooleanType fixed = true,  // default for parameter/constant;
+     //--                             = false; // default for other variables
+   //-- equation
+   //--   assert(value >= min and value <= max, "Variable value out of limit");
+   end Integer;
+
+The minimal recommended number range for IntegerType is from
+:math:`-2147483648` to :math:`+2147483647`,
+corresponding to a two’s-complement 32-bit integer implementation.
+
+[The ``quantity`` attribute could be used for example to declare in a sequence that a integer signal is a ``NumberOfHeatingRequest``.
+This could be used to aid connecting signals or filtering data.]
+
+
+Boolean Type
+____________
+
+The following is the predefined ``Boolean`` type:
+
+.. code-block:: modelica
+
+   type Boolean // Note: Defined with Modelica syntax although predefined
+     BooleanType value; // Accessed without dot-notation
+   //--  parameter StringType quantity = "";
+   //--  parameter BooleanType start = false; // Initial value
+   //--  parameter BooleanType fixed = true,  // default for parameter/constant;
+   //--                              = false, // default for other variables
+   end Boolean;
+
+[The ``quantity`` attribute could be used for example to declare in a sequence that a boolean signal is a ``ChillerOn`` command.]
+
+String Type
+___________
+
+The following is the predefined ``String`` type:
+
+.. code-block:: modelica
+
+   type String // Note: Defined with Modelica syntax although predefined
+     StringType value; // Accessed without dot-notation
+   //--  parameter StringType quantity = "";
+   //--  parameter StringType start = "";     // Initial value
+   //--  parameter BooleanType fixed = true,  // default for parameter/constant;
+   //--                              = false, // default for other variables
+   end String;
+
+Enumeration Types
+_________________
+
+
+A declaration of the form
+
+.. code-block::
+
+   type E = enumeration([enumList]);
+
+defines an enumeration type ``E`` and the associated enumeration literals of the ``enumList``.
+The enumeration literals shall be distinct within the enumeration type.
+The names of the enumeration literals are defined inside the scope of ``E``.
+Each enumeration literal in the ``enumList`` has type ``E``.
+
+[Example:
+
+.. code-block:: modelica
+
+   type SimpleController = enumeration(P, PI, PD, PID);
+
+   parameter SimpleController = SimpleController.P;
+
+]
+
+An optional comment string can be specified with each enumeration literal.
+
+[Example:
+
+.. code-block::
+
+   type SimpleController = enumeration(
+       P "P controller",
+       PI "PI controller",
+       PD "PD controller",
+       PID "PID controller")
+     "Enumeration defining P, PI, PD, or PID simple controller type";
+
+]
+
+[Enumerations can for example be used to declare a list of mode of operations, such as ``on``, ``off``, ``startUp``, ``coolDown``.]
+
+
+Parameter and constant declarations
+...................................
+
+A ``parameter`` is a value that does not change as time progresses, except through
+stopping the executation of the control sequence,
+setting a new value through a user interaction or an API, and restarting the execution.
+In other words, the value of a ``parameter`` cannot be changed through an input connector (:numref:`sec_connectors`).
+Parameters are declared with the ``parameter`` prefix.
+
+[For example, to declare a proportional gain, use
+
+.. code-block::
+
+     parameter Real k(min=0) = 1 "Proportional gain of controller";
+
+]
+
+A ``constant`` is a value that is fixed at compilation time.
+Constants are declared with the ``constant`` prefix.
+
+[For example,
+
+.. code-block::
+
+   constant Real pi = 3.14159;
+
+]
+
+Arrays
+......
 
 Each of these data types, including the elementary building blocks,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
@@ -226,13 +408,12 @@ The functionality of elementary building blocks, but not their implementation,
 is part of the CDL specification.
 Thus, in the most general form, elementary building blocks can be considered
 as functions that for given parameters :math:`p`,
-time :math:`t` and internal state :math:`x(t)`,
-map inputs :math:`u(t)` to new values for the
-outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
+time :math:`t` and internal states :math:`x(t)`,
+map inputs :math:`u(t)` to new outputs :math:`y(t)`, e.g.,
 
 .. math::
 
-   (p, t, u(t), x(t)) \mapsto (y(t), x'(t)).
+   (p, t, u(t), x(t)) \mapsto y(t).
 
 Control providers who support CDL need to be able to implement the same
 functionality as is provided by the elementary CDL blocks.
@@ -255,11 +436,12 @@ to implement composite blocks (:numref:`sec_com_blo`).
        http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
      * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
        and open ``Buildings/package.mo`` in the graphical model editor of
-       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_ or
-       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_.
+       `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_,
+       `Impact <https://www.modelon.com/modelon-impact/>`_, or
+       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_.
        All models in the `Examples` and `Validation` packages can be simulated with these tools, as well
        as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_ and
-       with `JModelica <http://www.jmodelica.org/>`_.
+       with `JModelica <https://www.jmodelica.org/>`_.
 
 An actual implementation of an elementary building block
 looks as follows, where we omitted the annotations that are
@@ -457,11 +639,6 @@ Modelica, Simulink or LabVIEW,
 do not support the propagation of parameters,
 nor do they support the use of expressions in parameter assignments.
 
-.. note::
-
-   This feature is being implemented through https://github.com/lbl-srg/modelica-json/issues/102
-
-
 Consider the statement
 
 .. code-block:: modelica
@@ -582,16 +759,332 @@ Some building automation systems do not allow to conditionally removing instance
 of blocks, inputs and outputs, and their connections. Rather, these instances
 are always present, and a value for the input must be present.
 To accomodate this case, every input connector that can be conditionally removed
-must declare a default value of the form ``__cdl(default = value)``,
+can declare a default value of the form ``__cdl(default = value)``,
 where ``value`` is the default value that will be used
 if the building automation system does not support conditionally removing instances.
 The type of ``value`` must be the same as the type of the connector.
 For ``Boolean`` connectors, the allowed values are ``true`` and ``false``.
 
+If the ``__cdl(default = value)`` annotation is absent, then the following values are
+assumed as default:
+
+- For RealInput, the default values are:
+
+  - If ``unit=K``: If ``quantity="TemperatureDifference"``, the default is :math:`0` K, otherwise it is :math:`293.15` K.
+  - If ``unit=Pa``: If ``quantity="PressureDifference"``, the default is :math:`0` K, otherwise it is :math:`101325` Pa.
+  - For all other units, the default value is :math:`0`.
+
+- For ``IntegerInput``, the default value is :math:`0`.
+- For ``BooleanInput``, the default value is ``false``.
+- For ``DayTypeInput``, the default value is ``WorkingDay``.
+
+
 Note that output connectors must not have a specification of a default value,
 because if a building automation system cannot conditionally remove instances,
 then the block (or input connector) upstream of the output will always be present
 (or will have a default value).
+
+.. _sec_point_list:
+
+Point list
+..........
+
+From CDL-conforming sequences, point lists can be generated.
+[This could be accomplished using the ``modelica-json`` tool,
+see :numref:`fig_cdl_pro_lin`.]
+
+For point lists,
+
+* the connectors ``RealInput`` and ``IntegerInput`` are analog inputs.
+* the connectors ``RealOutput`` and ``IntegerOutput`` are analog outputs.
+* the connectors ``BooleanInput`` and ``BooleanOutput`` are digital inputs and outputs.
+
+.. _sec_ann_cau_poi_lis:
+
+Annotations that Cause Point Lists to be Generated
+__________________________________________________
+
+
+The vendor annotation ``__cdl(generatePointlist=Boolean, controlledDevice=String)`` at the class level specifies
+that a point list of the sequence is generated.
+If not specified, it is assumed that ``__cdl(generatePointlist=false)``.
+The key ``controlledDevice`` is optional. It can be used to list the device that is being controlled.
+Its value will be written to the point list, but not used otherwise, see :numref:`tab_sample_point_list` for an example.
+
+When instantiating a block, the ``__cdl(generatePointlist=Boolean)`` annotation
+can also be added to the instantiation clause,
+and it will override the class level declaration.
+
+[For example,
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=false));
+     annotation(__cdl(generatePointlist=true));
+   end A;
+
+generates a point list for `A.con1` only, while
+
+.. code-block:: modelica
+
+   block A
+     MyController con1;
+     MyController con2 annotation(__cdl(generatePointlist=true));
+     annotation(__cdl(generatePointlist=false));
+   end A;
+
+generates a point list for `A.con2` only.]
+
+The `generatePointlist` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
+by specifying in the instantiantion clause the annotation
+
+.. code-block:: modelica
+
+   __cdl(propagate(instance="subCon1", generatePointlist=true))
+
+Controllers deeper in the hierarchy are referred to using the dot notation, such as in
+``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance of an elementary or composite block in ``subCon1``.
+
+The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_bui_blo`)
+or a composite block (see :numref:`sec_com_blo`). It
+must declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
+in which case the declaration can safely be ignored.
+
+Higher-level declarations override lower-level declarations.
+
+[For example, assume `con1` has a block called `subCon1`. Then, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(__cdl(propagate(instance="subCon1", generatePointlist=true)));
+
+sets ``generatePointlist=true`` in the instance ``con1.subCon1``.]
+
+There can be any number of ``propagate(...)`` annotations for a controller.
+[Specifying multiple ``propagate(...)`` annotations is useful for composite controllers.
+For example,
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(
+       propagate(instance="subCon1",            generatePointlist=true),
+       propagate(instance="subCon1.subSubCon1", generatePointlist=true),
+       propagate(instance="subCon1.subSubCon2", generatePointlist=false)
+     )
+   );
+
+allows a finegrained propagation to individual blocks of a composite block.
+]
+
+Annotations for Connectors
+__________________________
+
+Connectors (see :numref:`sec_connectors`) can have a vendor annotation of the form
+
+.. code-block:: modelica
+
+   __cdl(connection(hardwired=Boolean))
+
+The field ``hardwired`` specifies whether the connection should be hardwired or not,
+the default value is ``false``.
+
+Connectors can also have a vendor annotation of the form
+
+.. code-block:: modelica
+
+   __cdl(trend(interval=Real, enable=Boolean))
+
+The field ``interval`` must be specified and its value is the trending interval in seconds.
+The field ``enable`` is optional, with default value of ``true``, and
+it can be used to overwrite the value used in the sequence declaration.
+
+Similar to ``generatePointlist``, the ``connection`` and ``trend`` annotations can be
+propagated. If a composite block contains a block ``con1``, which in turn contains a block ``subCon1`` that
+has an input ``u``, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean)));
+
+can be used to set the type of connection of input (or output) ``con1.subCon1.u``.
+The value of ``instance==`` must be a connector.
+
+Similarly, the declaration
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", trend(interval=Real, enable=Boolean)));
+
+can be used to set how to trend that input (or output).
+
+These statements can also be combined into
+
+.. code-block:: modelica
+
+   MyController con1 annotation(
+     __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean),
+                                           trend(interval=Real, enable=Boolean)));
+
+
+As in :numref:`sec_ann_cau_poi_lis`,
+
+- the instance in ``instance=`` must exist, (but it can be conditionally removed in which case the annotation can be ignored),
+- higher-level declarations override lower-level declarations, and
+- any number of ``propagate(...)`` annotations can be present.
+
+[For example, consider the pseudo-code
+
+.. code-block:: modelica
+
+   block Controller
+
+      Interfaces.RealInput u1
+        annotation(__cdl(connection(hardwired=true), trend(interval=60, enable=true)));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=false),
+                         trend(interval=120, enable=true),
+                         propagate(instance="con1.u1",
+                           connection(hardwired=false),
+                           trend(interval=120, enable=true))));
+
+      MyController con1 annotation(__cdl(generatePointlist=true));
+      MyController con2 annotation(__cdl(generatePointlist=false,
+                                         propagate(instance="subCon1", generatePointlist=true),
+                                         propagate(instance="subCon2", generatePointlist=true)));
+
+   equation
+      connect(u1, con1.u1);
+      connect(u2, con1.u2);
+      connect(u1, con2.u1);
+      connect(u2, con2.u2);
+
+      annotation(__cdl(generatePointlist=true));
+   end Controller;
+
+   ...
+
+   block MyController
+      Interfaces.RealInput u1
+        annotation(__cdl(connection(hardwired=false), trend(interval=120, enable=true)));
+      Interfaces.RealInput u2
+        annotation(__cdl(connection(hardwired=true),  trend(interval=60,  enable=true)));
+      ...
+      SubController1 subCon1;
+      SubController2 subCon2;
+      ...
+      annotation(__cdl(generatePointlist=true));
+   end MyController;
+
+The translator will generate an annotation propagation list as shown below. There will be point
+list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
+``Controller.con2.subCon1``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
+of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interval=120, enable=true)``.
+
+.. code-block:: javascript
+
+   [
+     {
+       "className": "Controller",
+       "points": [
+         {
+           "name": "u1",
+           "hardwired": true,
+           "trend": {
+             "enable": true,
+             "interval": 60
+           }
+         },
+         {
+           "name": "u2",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         }
+       ]
+     },
+     {
+       "className": "Controller.con1",
+       "points": [
+         {
+           "name": "u1",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         },
+         {
+           "name": "u2",
+           "hardwired": false,
+           "trend": {
+             "enable": true,
+             "interval": 120
+           }
+         }
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon1",
+       "points": [
+         ...
+       ]
+     },
+     {
+       "className": "Controller.con2.subCon2",
+       "points": [
+         ...
+       ]
+     }
+   ]
+
+]
+
+
+[For an example of a point list generation, consider the pseudo-code shown below.
+
+.. code-block:: modelica
+
+   within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits
+   block Controller "Controller for room VAV box"
+      ...;
+      CDL.Interfaces.BooleanInput uWin "Windows status"
+         annotation (__cdl(connection(hardwired=true),
+                           trend(interval=60, enable=true)));
+      CDL.Interfaces.RealOutput yVal "Signal for heating coil valve"
+         annotation (__cdl(connection(hardwired=false),
+                           trend(interval=60, enable=true)));
+      ...
+   annotation (__cdl(generatePointlist=true, controlledDevice="Terminal unit"));
+
+It specifies that a point list should be generated for the sequence that controls the
+system or equipment specified by ``controlledDevice``, that ``uWin`` is a
+digital input point that is hardwired,  and that ``yVal`` is a analog output point that
+is not hardwired. Both of them can be trended with a time interval of 1 minute.
+The point list table will look as shown in :numref:`tab_sample_point_list`.
+
+.. _tab_sample_point_list:
+
+.. table:: Sample point list table generated by the ``modelica-json`` tool.
+   :class: longtable
+
+   ========================  ===========  =========  ==========  =========== ================================================
+   System/Equipment          Name         Type       Hardwired?  Trend [s]   Description
+   ========================  ===========  =========  ==========  =========== ================================================
+   Terminal unit             ``uWin``     DI         Yes         60          Windows status
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   Terminal unit             ``yVal``     AO         No          60          Signal for heating coil valve
+   ------------------------  -----------  ---------  ----------  ----------- ------------------------------------------------
+   ...                       ...          ...        ...         ...         ...
+   ========================  ===========  =========  ==========  =========== ================================================
+
+]
 
 .. _sec_connectors:
 
@@ -715,6 +1208,39 @@ The order of the connections and the order of the arguments in the
 
    equation
      connect(gain.u, maxValue.y);
+
+]
+
+Only connectors that carry the same data type (:numref:`sec_dat_typ`)
+can be connected.
+
+Attributes of the variables that are connected are handled as follows:
+
+* If the ``quantity``, ``unit``, ``min`` or ``max`` attributes are set to a non-default value for both
+  connector variables, then they must be equal. Otherwise an error should be issued.
+* If only one of the two connector variables declares the
+  ``quantity``, ``unit``, ``min`` or ``max`` attribute, then this value is applied to both
+  connector variables.
+* If two connectors have different values for the ``displayUnit`` attribute, then either can be used.
+  [It is a quality of the implementation that a warning is issued if declarations are inconsistent.
+  However, because ``displayUnit`` does not affect the computations in the sequence, the connection
+  is still valid.]
+
+
+[For example,
+
+.. code-block:: modelica
+
+   Continuous.Max maxValue(y(unit="m/s")) "Output maximum value";
+   Continous.Gain gain(                     k=60) "Gain";
+   Continous.Gain gainOK(   u(unit="m/s" ), k=60) "Gain";
+   Continous.Gain gainWrong(u(unit="kg/s"), k=60) "Gain";
+
+   equation
+     connect(gain.u,      maxValue.y); // This sets gain.u(unit="m/s")
+                                       // as gain.u does not declare its unit
+     connect(gainOK.u,    maxValue.y); // Correct, because unit attributes are consistent
+     connect(gainWrong.u, maxValue.y); // Not allowed, because of inconsistent unit attributes
 
 ]
 

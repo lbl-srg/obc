@@ -93,7 +93,7 @@ are fed back to the controller to form the closed loop test.
 The model is available in the Modelica Buildings Library as the model
 ``Buildings.Air.Systems.SingleZone.VAV.Examples.Guideline36``.
 
-As of Spring 2020, additional sequences are being implemented
+As of Fall 2020, additional sequences are being implemented
 for chilled water plants and for boiler plants,
 following the ASHRAE Research Project Report 1711,
 and for optimal start-up (for heating) and cool down (for cooling).
