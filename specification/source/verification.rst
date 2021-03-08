@@ -524,23 +524,32 @@ To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a spe
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "sequence": "setPoiVAV",
-         "pointNameMapping": "realControllerPointMapping.json"
+         "pointNameMapping": "realControllerPointMapping.json",
+         "run_controller": false,
+         "controller_output": "test/real_outputs.csv"
        },
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
-         "outputs": [
-           { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
-         ],
-         "indicators": [
-           { "setPoiVAV1.TSup*": [ "fanSta.y" ] }
-         ],
+         "run_controller": true,
+         "controller_output": "test/real_outputs.csv",
+         "outputs": {
+           "setPoiVAV1.TSup*": { "atoly": 0.5 }
+         },
+         "indicators": {
+           "setPoiVAV1.TSup*": [ "fanSta.y" ]
+         },
          "sampling": 60
        }
      ],
      "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
-     "sampling": 120
+     "sampling": 120,
+     "controller": {
+       "network_address": "192.168.0.115/24",
+       "device_address": "192.168.0.227",
+       "device_id": 240001
+     }
    }
 
 This specifies two tests, one for the controller ``setPoiVAV`` and one for ``setPoiVAV1``.
@@ -548,13 +557,18 @@ This specifies two tests, one for the controller ``setPoiVAV`` and one for ``set
 input time series and/or parameters are different, and therefore their output time series will be different.)
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
-is provided in the file ``realControllerPointMapping.json``.
-The test for ``setPoiVAV1`` will use different tolerances on each output variable that matches
+is provided in the file ``realControllerPointMapping.json``. ``setPoiVAV`` will not run the controller
+during the test (as indicated by ``run_controller = false``), but will used the saved results ``test/real_outputs.csv``
+from a previous run. The test for ``setPoiVAV1`` will use different tolerances on each output variable that matches
 the regular expression ``setPoiVAV1.TSup*``. Moreover, for each variable that matches the regular
 expression, ``setPoiVAV1.TSup*``, the verification will be suspended whenever
 ``fanSta.y = false``, and the sampling rate is :math:`60` seconds. This test will also use
-``realControllerPointMapping.json`` to map the variables to points of the real controller.
-The tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
+``realControllerPointMapping.json`` to map the variables to points of the real controller. Additionally, this test
+will run the controller in real-time (because ``run_controller = true``) and save the time-series of the output
+variables in the file specified by ``controller_output``. The real controller's network configuration can be found
+under the ``controller`` section of the configuration where the ``network_address`` is the controller's
+BACnet subnet, the ``device_address`` is the controller's IP address and the ``device_id`` is the controller's BACnet
+device identifier. The tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
 variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
 in the control output variable.
 

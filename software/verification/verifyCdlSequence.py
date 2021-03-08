@@ -175,7 +175,7 @@ class VerificationTool:
 
             if run_controller:
                 real_outputs = self.execute_controller(inputs=ip_dataframe, op_list=op_list, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
-                real_outputs.to_csv('test/real_outputs.csv')
+                real_outputs.to_csv(test.get('controller_output', '{0}_real_outputs.csv'.format(sequence_name)))
                 print(real_outputs)
             else:
                 real_outputs = pd.read_csv(test.get('controller_output'), index_col=0)

@@ -12,6 +12,7 @@
      "sequence": "TZonSet",
      "pointNameMapping": "realControllerPointMapping.json",
      "run_controller": true,
+     "controller_output": "test/real_outputs.csv",
      "outputs": {
        "TZonSet.TZon*": { "atoly": 0.5 }
      },
