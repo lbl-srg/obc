@@ -1,23 +1,23 @@
 {
  "references": [
    {
-     "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures",
-     "sequence": "TZonSet",
+     "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+     "sequence": "setPoiVAV",
      "pointNameMapping": "realControllerPointMapping.json",
      "run_controller": false,
      "controller_output": "test/real_outputs.csv"
-   },
+    },
    {
-     "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
-     "sequence": "setPoiVAV1",
+     "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures",
+     "sequence": "TZonSet",
      "pointNameMapping": "realControllerPointMapping.json",
      "run_controller": true,
-     "outputs": [
-       { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
-     ],
-     "indicators": [
-       { "setPoiVAV1.TSup*": [ "fanSta.y" ] }
-     ],
+     "outputs": {
+       "TZonSet.TZon*": { "atoly": 0.5 }
+     },
+     "indicators": {
+       "TZonSet.TZon*": [ "uOccSen" ]
+     },
      "sampling": 60
    }
  ],

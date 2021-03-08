@@ -20,7 +20,6 @@ class VerificationTool:
 
         # TODO: dymola has a flag to specify output interval
         # TODO: find sampling rate
-        # TODO: maybe use indicator variable's value for reset
 
         self.controller_config = self.config.get('controller', {})
         self.real_controller = None
@@ -68,19 +67,17 @@ class VerificationTool:
             elif ref_controller_output and self.real_controller is None:
                 raise Exception("missing 'controller' configuration")
 
-
             ref_outputs = reference.get('outputs', None)
             ref_sampling_rate = reference.get('sampling', None)
             ref_model_json_directory = reference.get('modelJsonDirectory', None)
 
-            if ref_outputs is None:
-                if default_tolerances is None:
-                    raise Exception(
-                        "missing 'tolerances' for the model: {0} and sequence: {1}".format(ref_model, ref_sequence))
-                else:
-                    def_output = default_tolerances
-                    def_output['variable'] = ref_sequence+".*"
-                    reference['outputs'] = [def_output]
+            if ref_outputs is None and default_tolerances is None:
+                raise Exception(
+                    "missing 'tolerances' for the model: {0} and sequence: {1}".format(ref_model, ref_sequence))
+            elif ref_outputs is None:
+                reference['outputs'] = {ref_sequence+".*": default_tolerances}
+            else:
+                reference['outputs'][ref_sequence + ".*"] = default_tolerances
 
             if ref_sampling_rate is None:
                 if default_sampling_rate is None:
@@ -104,7 +101,6 @@ class VerificationTool:
                 reference['controller'] = self.real_controller
 
             self.test_list.append(reference)
-        # print(self.test_list)
 
     def execute_tests(self):
         """run each test for the particular sequence by running the CDL simulation and then comparing these reference
@@ -125,7 +121,8 @@ class VerificationTool:
                 point_name_mapping[cdl_name] = point_dict
 
             sample_rate = test.get('sampling')
-            output_config = test.get('outputs', None)
+            tolerance_config = test.get('outputs', None)
+            indicator_config = test.get('indicators', {})
             json_file_name = model_dir+model_name+'.json'
 
             test_parameters, test_io = self.extract_io(model=model_name, sequence=sequence_name, json_file=json_file_name)
@@ -149,6 +146,28 @@ class VerificationTool:
             for op in test_io.get('outputs'):
                 op_list.append(sequence_name+"."+op.get('name'))
 
+            output_variable_configurations = {}
+            for op in op_list:
+                output_variable_configurations[op] = tolerance_config[sequence_name+'.*'].copy()
+
+            for op_regex in tolerance_config:
+                if op_regex != sequence_name+".*":
+                    filtered_ops = self.regex_parser(regex=op_regex, point_list=op_list)
+                    for op in filtered_ops:
+                        tol = tolerance_config[op_regex]
+                        for tol_variable in tol:
+                            output_variable_configurations[op][tol_variable] = tol[tol_variable]
+
+            for op in op_list:
+                output_variable_configurations[op]['indicators'] = indicator_config.get(sequence_name + '.*', []).copy()
+
+            for op_regex in indicator_config:
+                if op_regex != sequence_name+".*":
+                    filtered_ops = self.regex_parser(regex=op_regex, point_list=op_list)
+                    for op in filtered_ops:
+                        indicators = indicator_config[op_regex]
+                        output_variable_configurations[op]['indicators'] = indicators
+
             simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir, ip_list=ip_list, op_list=op_list, sample_time=sample_rate)
 
             ip_dataframe = simulation_output[ip_list]
@@ -165,18 +184,29 @@ class VerificationTool:
             op_dataframe.index = pd.to_datetime(op_dataframe.index, unit='s')
             real_outputs.index = pd.to_datetime(real_outputs.index, unit='s')
 
+            ip_dataframe = ip_dataframe.resample('{}S'.format(sample_rate)).mean()
             op_dataframe = op_dataframe.resample('{}S'.format(sample_rate)).mean()
             real_outputs = real_outputs.resample('{}S'.format(sample_rate)).mean()
 
             validation = True
             for op in op_dataframe.columns:
-                controller_point = point_name_mapping.get(op.split('.')[1], {}).get('controller_point', None)
-                controller_unit = point_name_mapping.get(op.split('.')[1], {}).get('controller_unit', None)
+                device_point_name = point_name_mapping.get(op.split('.')[1], {}).get('device').get("name")
+                cdl_point_unit = point_name_mapping.get(op.split('.')[1], {}).get('cdl').get("unit")
                 if controller_point is not None:
                     print("comparing {}".format(op))
-                    #TODO: get correct tolerances
-                    validation = validation & self.compare_single_variable(cdl_output=op_dataframe[op], actual_output=real_outputs[op],
-                                                 output_config=output_config, variable=op, unit=controller_unit)
+
+                    cdl_output = op_dataframe[op]
+                    actual_output = real_outputs[op]
+
+                    for indicator_variable in output_variable_configurations[op]['indicators']:
+                        cdl_output = cdl_output * ip_dataframe[indicator_variable]
+                        actual_output = actual_output * ip_dataframe[indicator_variable]
+
+                    validation = validation & self.compare_single_variable(cdl_output=cdl_output,
+                                                                           actual_output=actual_output,
+                                                                           output_config=output_variable_configurations[op],
+                                                                           variable=device_point_name,
+                                                                           unit=cdl_point_unit)
                     print("\n")
             if validation:
                 print("SUCCESSFULLY VERIFIED SEQUENCE! ")
@@ -415,30 +445,30 @@ class VerificationTool:
         if not os.path.exists(results_dir):
             os.mkdir(results_dir)
 
-        for var_config in output_config:
-            atolx = var_config.get('atolx', None)
-            atoly = var_config.get('atoly', None)
-            rtolx = var_config.get('rtolx', None)
-            rtoly = var_config.get('rtoly', None)
+        atolx = output_config.get('atolx', None)
+        atoly = output_config.get('atoly', None)
+        rtolx = output_config.get('rtolx', None)
+        rtoly = output_config.get('rtoly', None)
 
-            pf.compareAndReport(
-                xReference=cdl_output.index.astype(np.int64) / 1E9,
-                xTest=actual_output.index.astype(np.int64) / 1E9,
-                yReference=cdl_output,
-                yTest=actual_output,
-                atolx=atolx,
-                atoly=atoly,
-                rtolx=rtolx,
-                rtoly=rtoly,
-                outputDirectory=results_dir)
-            verification_plot(output_folder=results_dir, plot_filename='variable.pdf', y_label=variable+" [{}]".format(unit))
+        pf.compareAndReport(
+            xReference=cdl_output.index.astype(np.int64) / 1E9,
+            xTest=actual_output.index.astype(np.int64) / 1E9,
+            yReference=cdl_output,
+            yTest=actual_output,
+            atolx=atolx,
+            atoly=atoly,
+            rtolx=rtolx,
+            rtoly=rtoly,
+            outputDirectory=results_dir)
+        verification_plot(output_folder=results_dir, plot_filename='{}.pdf'.format(variable),
+                          y_label="{0} [{1}]".format(variable, unit))
 
-            try:
-                assert error_df.y.max() == 0
-            except:
-                # TODO: maybe print report and trajectory of this output - when it fails (maybe markdown/html)
-                print("FAILED assertion for {}".format(variable))
-                return False
+        try:
+            assert error_df.y.max() == 0
+        except:
+            # TODO: maybe print report and trajectory of this output - when it fails (maybe markdown/html)
+            print("FAILED assertion for {}".format(variable))
+            return False
 
         return True
         # shutil.rmtree(results_dir)
