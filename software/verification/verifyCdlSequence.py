@@ -19,7 +19,6 @@ class VerificationTool:
             self.config = json.load(fp)
 
         # TODO: dymola has a flag to specify output interval
-        # TODO: add documentation
         # TODO: find sampling rate
         # TODO: maybe use indicator variable's value for reset
 
@@ -260,13 +259,22 @@ class VerificationTool:
                 return int(value)
 
     def execute_controller(self, inputs, op_list, point_name_mapping, sample_rate):
-        """
+        """function that interacts with a real controller device by setting and reading values
 
-        :param inputs:
-        :param op_list:
-        :param point_name_mapping:
-        :param sample_rate:
-        :return:
+        Parameters
+        ----------
+        inputs : pd.DataFrame
+                 timeseries of inputs from the CDL simulation
+        op_list : list
+                  list of output variables
+        point_name_mapping : dict
+                             dictionary containing point name, unit and type mapping for each input and output variable
+        sample_rate : rate at which values are read from the controller
+
+        Returns
+        -------
+        op_df : pd.DataFrame
+                timeseries of output values from the controller device based on CDL simulation inputs
         """
 
         t_start = time.time()
@@ -353,12 +361,45 @@ class VerificationTool:
         return op_df
 
     def regex_parser(self, regex, point_list):
+        """function that filters points based on a regular-expression
+
+        Parameters
+        ----------
+        regex : str
+               regular expression used to filter the necessary points
+        point_list : list
+                     list containing all elements (points from CDL simulation)
+
+        Returns
+        -------
+        selected_points : list
+                          subset of points after filtering, based on the regex
+        """
         r = re.compile(regex)
         selected_points = list(filter(r.match, point_list))
         return selected_points
 
     def compare_single_variable(self, cdl_output, actual_output, output_config, variable, unit):
-        # print("in comparing")
+        """compares one output variable from CDL simulation (reference) against controller device generated output,
+        produces comparison and error charts
+
+        Parameters
+        ----------
+        cdl_output : pd.Series
+                     reference timeseries of an output variable obtained from cdl simulation
+        actual_output : pd.Series
+                        timeseries of the same output variable obtained from the controller device
+        output_config : dict
+                        absolute and relative tolerance configuration for the output variable
+        variable : str
+                   variable name to be added to chart axis label
+        unit : str
+               variable unit in CDL to be added to the chart axis label
+        Returns
+        -------
+        success_failure : bool
+                          True if the actual output is within bounds of the reference output all the time, else False
+        """
 
         print("CDL OP:")
         ref_op = cdl_output.copy()
@@ -403,6 +444,25 @@ class VerificationTool:
         # shutil.rmtree(results_dir)
 
     def extract_io(self, model, sequence, json_file):
+        """extracts inputs, ouputs and parameters from the json translation of the modelica file for the particular
+        test sequence
+
+        Parameters
+        ----------
+        model : str
+                name of the modelica model
+        sequence : str
+                   name of the sequence being tested within the modelica model
+        json_file : str
+                    filename of the json translation of the modelica model
+        Returns
+        -------
+        test_parameters : list
+                          list of parameters extracted from the json file
+        test_io : dict
+                  dictionary with 2 keys: 'inputs' (input variables for the sequence) and 'ouputs' (output variables
+                  for the sequence)
+        """
         # print("in extract_io")
         with open(json_file) as fp:
             json_ops = json.load(fp)
@@ -448,6 +508,25 @@ class VerificationTool:
         return test_parameters, test_io
 
     def run_cdl_simulation(self, model, output_folder, ip_list, op_list, sample_time):
+        """function that runs the CDL simulation using OpenModelica; also converts the .mat output file to .csv
+
+        Parameters
+        ----------
+        model : str
+                name of the modelica model
+        output_folder : str
+                        name of the folder where the generated mat file with the results will be saved
+        ip_list : list
+                  list of input variables for this model
+        op_list : list
+                  list of output variables for this model
+        sample_time : int
+                      sample time in seconds
+        Returns
+        -------
+        simulation_output : pd.DataFrame
+                            timeseries of input and output variable values from the CDL simulation
+        """
         print("in running cdl simulation")
         omc = OMCSessionZMQ()
         if not omc.sendExpression("loadModel(Modelica)"):
@@ -477,7 +556,6 @@ class VerificationTool:
 
         simulation_output = pd.concat(df_list, axis=1).fillna(method='ffill')
         simulation_output = simulation_output.loc[~simulation_output.index.duplicated(keep='first')]
-        # simulation_output = simulation_output.drop_duplicates(keep='last')
         simulation_output.to_csv(output_folder+"/{}_res.csv".format(model))
         simulation_output.index = simulation_output.index.astype(float)
         simulation_output.index.name = 'time'
@@ -492,5 +570,4 @@ if __name__ == "__main__":
     config_file = args.config
 
     test = VerificationTool(config_file=config_file)
-    # test.start_test()
 
