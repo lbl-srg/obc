@@ -16,12 +16,12 @@
 		"device": {"name": "Unoccupied Heating Setpoint_1", "unit": "degF", "type": "float"}
 	},
 	{
-		"cdl": {"name": "setAdj", "type": "float"},
-		"device": {"name": "setpt_adj_1", "type": "float"}
+		"cdl": {"name": "setAdj", "unit": "K", "type": "float"},
+		"device": {"name": "setpt_adj_1", "unit": "degF", "type": "float"}
 	},
 	{
-		"cdl": {"name": "heaSetAdj", "type": "float"},
-		"device": {"name": "Heating Adjustment_1", "type": "float"}
+		"cdl": {"name": "heaSetAdj", "unit": "K", "type": "float"},
+		"device": {"name": "Heating Adjustment_1", "unit": "degF", "type": "float"}
 	},
 	{
 		"cdl": {"name": "uOccSen", "type": "int"},

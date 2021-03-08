@@ -13,14 +13,11 @@ import time
 import numpy as np
 import datetime
 
-#TODO: BACNET has tags in it
-
 class VerificationTool:
     def __init__(self, config_file="config.json"):
         with open(config_file, 'r') as fp:
             self.config = json.load(fp)
 
-        # TODO: check unit extracted from modelica-json v/s unit from config
         # TODO: dymola has a flag to specify output interval
         # TODO: add documentation
         # TODO: find sampling rate
@@ -140,7 +137,14 @@ class VerificationTool:
 
             ip_list = []
             for ip in test_io.get('inputs'):
-                ip_list.append(sequence_name+"."+ip.get('name'))
+                ip_name = ip.get('name')
+                ip_list.append(sequence_name+"."+ip_name)
+                unit = ip.get("unit", None)
+                if unit is not None:
+                    unit_from_seq = unit.get('value').split('"')[1]
+                    unit_from_cfg = point_name_mapping[ip_name].get("cdl").get("unit")
+                    if unit_from_cfg != unit_from_seq:
+                        print("CDL units don't match in CDL json file and pointNameMapping json file for {}".format(ip_name))
 
             op_list = []
             for op in test_io.get('outputs'):
