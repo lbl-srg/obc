@@ -557,10 +557,10 @@ This specifies two tests, one for the controller ``setPoiVAV`` and one for ``set
 input time series and/or parameters are different, and therefore their output time series will be different.)
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
-is provided in the file ``realControllerPointMapping.json``. ``setPoiVAV`` will not run the controller
-during the test (as indicated by ``run_controller = false``), but will used the saved results ``test/real_outputs.csv``
-from a previous run. The test for ``setPoiVAV1`` will use different tolerances on each output variable that matches
-the regular expression ``setPoiVAV1.TSup*``. Moreover, for each variable that matches the regular
+is provided in the file ``realControllerPointMapping.json`` (see :numref:`ver_poi_map`). ``setPoiVAV`` will not run
+the controller during the test (as indicated by ``run_controller = false``), but will used the saved results
+``test/real_outputs.csv`` from a previous run. The test for ``setPoiVAV1`` will use different tolerances on each output
+variable that matches the regular expression ``setPoiVAV1.TSup*``. Moreover, for each variable that matches the regular
 expression, ``setPoiVAV1.TSup*``, the verification will be suspended whenever
 ``fanSta.y = false``, and the sampling rate is :math:`60` seconds. This test will also use
 ``realControllerPointMapping.json`` to map the variables to points of the real controller. Additionally, this test
@@ -572,6 +572,59 @@ device identifier. The tolerances ``rtolx`` and ``atolx`` are relative and absol
 variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
 in the control output variable.
 
+.. code-block::
+   :name: ver_poi_map
+   :caption: Example pointNameMapping file
+
+   [
+        {
+            "cdl": {"name": "TZonCooSetOcc", "unit": "K", "type": "float"},
+            "device": {"name": "Occupied Cooling Setpoint_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "TZonHeaSetOcc", "unit": "K", "type": "float"},
+            "device": {"name": "Occupied Heating Setpoint_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "TZonCooSetUno", "unit": "K", "type": "float"},
+            "device": {"name": "Unoccupied Cooling Setpoint_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "TZonHeaSetUno", "unit": "K", "type": "float"},
+            "device": {"name": "Unoccupied Heating Setpoint_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "setAdj", "unit": "K", "type": "float"},
+            "device": {"name": "setpt_adj_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "heaSetAdj", "unit": "K", "type": "float"},
+            "device": {"name": "Heating Adjustment_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "uOccSen", "type": "int"},
+            "device": {"name": "occ_sensor_bni_1", "type": "bool"}
+        },
+        {
+            "cdl": {"name": "uWinSta", "type": "int"},
+            "device": {"name": "window_sw_1", "type": "bool"}
+        },
+        {
+            "cdl": {"name": "TZonCooSet", "unit": "K", "type": "float"},
+            "device": {"name": "Effective Cooling Setpoint_1", "unit": "degF", "type": "float"}
+        },
+        {
+            "cdl": {"name": "TZonHeaSet", "unit": "K", "type": "float"},
+            "device": {"name": "Effective Heating Setpoint_1", "unit": "degF", "type": "float"}
+        }
+   ]
+
+:numref:`ver_poi_map` is an example of the ``pointNameMapping`` file specified the configuration. It is a list of
+dictionaries, with each dictionaries having two parts. The ``cdl`` part specifies the ``name``, the ``unit`` and the
+``type`` of the point in the CDL sequence and the ``device`` part refers to the information about the corresponding
+point in the real controller. The ``type`` refers to the data type of the variable in the specific context (in CDL or
+in the actual controller). It should also be noted that some points may not have a unit, but only have a type
+(for example, ``uOccSen`` is a CDL point that is 1 if there is occupancy and 0 if there is no occupancy detected).
 
 To create test input and output time series, we generate CSV files. This needs to be done for each
 controller, and we will explain it only for the controller ``setPoiVAV``.
