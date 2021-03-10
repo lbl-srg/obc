@@ -32,6 +32,7 @@ model OneDeviceWithWSE_CWReset
             -210},{260,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon(
+    minChiLif = 10,
     have_HeaPreConSig=false,
     have_WSE=true,
     fixSpePum=false)
@@ -60,16 +61,17 @@ model OneDeviceWithWSE_CWReset
     redeclare package Medium = Buildings.Media.Water,
     m_flow_small=0,
     dp(start=214992),
-    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,
+    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
             mCW_flow_nominal,2*mCW_flow_nominal}, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
+    addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump - fixme: check the pump characteristics in the record w MW"
                            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={302,200})));
+        origin={300,200})));
 
 equation
   PSupFan = fan.P;
@@ -180,11 +182,11 @@ equation
                                         color={0,0,127},
       pattern=LinePattern.Dot));
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,188},
-          {0,188},{0,200},{290,200}},      color={0,0,127},
+          {0,188},{0,200},{288,200}},      color={0,0,127},
       pattern=LinePattern.Dot));
   connect(pumCW.port_b,TCWLeaTow. port_a)
                                          annotation (Line(
-      points={{302,190},{302,119},{280,119}},
+      points={{300,190},{300,119},{280,119}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -227,7 +229,7 @@ equation
           {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
-      points={{221,239},{302,239},{302,210}},
+      points={{221,239},{300,239},{300,210}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
