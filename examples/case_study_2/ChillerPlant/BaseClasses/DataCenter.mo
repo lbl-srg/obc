@@ -44,7 +44,7 @@ partial model DataCenter
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
       4200*6) "Nominal mass flow rate at condenser water";
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal=500
+  parameter Modelica.SIunits.PressureDifference dp_nominal=200000
     "Nominal pressure difference";
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = MediumA,
@@ -221,11 +221,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(expVesChi.port_a, chi.port_b1) annotation (Line(
-      points={{188,143},{188,99},{196,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(val4.port_a, wse.port_b1) annotation (Line(
       points={{40,170},{40,99},{48,99}},
       color={0,127,255},
@@ -329,6 +324,8 @@ equation
       points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
       color={0,127,255},
       thickness=0.5));
+  connect(expVesChi.port_a, cooTow.port_b) annotation (Line(points={{188,143},{
+          188,191.5},{222,191.5},{222,240}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),

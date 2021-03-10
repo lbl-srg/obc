@@ -57,12 +57,11 @@ model OneDeviceWithWSE_CWReset
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={300,-72})));
-  Buildings.Fluid.Movers.SpeedControlled_y     pumCW(
+  Buildings.Fluid.Movers.SpeedControlled_y pumCW(
     redeclare package Medium = Buildings.Media.Water,
-    m_flow_small=0,
     dp(start=214992),
     redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}, dp={2*dp_nominal,dp_nominal,0})),
+            mCW_flow_nominal,2*mCW_flow_nominal}/1000, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     addPowerToMedium=false,
     use_inputFilter=false,
