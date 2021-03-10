@@ -133,9 +133,6 @@ partial model DataCenter
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,-40})));
-  Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
-        MediumW, V_start=1)
-    annotation (Placement(transformation(extent={{178,143},{198,163}})));
   Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
@@ -214,6 +211,9 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{220,279},{240,299}})));
 equation
 
   connect(val5.port_a, chi.port_b1) annotation (Line(
@@ -324,8 +324,10 @@ equation
       points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
       color={0,127,255},
       thickness=0.5));
-  connect(expVesChi.port_a, cooTow.port_b) annotation (Line(points={{188,143},{
-          188,191.5},{222,191.5},{222,240}}, color={0,127,255}));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{240,289},{240,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),
