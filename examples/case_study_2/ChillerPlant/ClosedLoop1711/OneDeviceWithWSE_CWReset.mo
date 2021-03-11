@@ -61,13 +61,13 @@ model OneDeviceWithWSE_CWReset
     redeclare package Medium = Buildings.Media.Water,
     dp(start=214992),
     redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}/1000, dp={2*dp_nominal,dp_nominal,0})),
+            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/53)/
+            rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     addPowerToMedium=false,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Condenser water pump - fixme: check the pump characteristics in the record w MW"
-                           annotation (Placement(transformation(
+    "Condenser water pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,200})));
@@ -79,8 +79,8 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
-  mConWat_flow = pumCW.VMachine_flow * 995.586;
-  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
+  mConWat_flow = pumCW.VMachine_flow * rho_default;
+  mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},

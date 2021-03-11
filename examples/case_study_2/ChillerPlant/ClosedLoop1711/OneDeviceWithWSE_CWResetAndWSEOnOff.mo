@@ -51,12 +51,13 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={300,-72})));
-  Buildings.Fluid.Movers.SpeedControlled_y     pumCW(
+  Buildings.Fluid.Movers.SpeedControlled_y pumCW(
     redeclare package Medium = Buildings.Media.Water,
     m_flow_small=0,
     dp(start=214992),
-    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,
-            mCW_flow_nominal,2*mCW_flow_nominal}, dp={2*dp_nominal,dp_nominal,0})),
+    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
+            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/53)/
+            rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -90,8 +91,8 @@ equation
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
-  mConWat_flow = pumCW.VMachine_flow * 995.586;
-  mChiWat_flow = pumCHW.VMachine_flow * 995.586;
+  mConWat_flow = pumCW.VMachine_flow * rho_default;
+  mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
