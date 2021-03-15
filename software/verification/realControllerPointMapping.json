@@ -1,0 +1,42 @@
+[
+	{
+		"cdl": {"name": "TZonCooSetOcc", "unit": "K", "type": "float"},
+		"device": {"name": "Occupied Cooling Setpoint_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "TZonHeaSetOcc", "unit": "K", "type": "float"},
+		"device": {"name": "Occupied Heating Setpoint_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "TZonCooSetUno", "unit": "K", "type": "float"},
+		"device": {"name": "Unoccupied Cooling Setpoint_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "TZonHeaSetUno", "unit": "K", "type": "float"},
+		"device": {"name": "Unoccupied Heating Setpoint_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "setAdj", "unit": "K", "type": "float"},
+		"device": {"name": "setpt_adj_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "heaSetAdj", "unit": "K", "type": "float"},
+		"device": {"name": "Heating Adjustment_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "uOccSen", "type": "int"},
+		"device": {"name": "occ_sensor_bni_1", "type": "bool"}
+	},
+	{
+		"cdl": {"name": "uWinSta", "type": "int"},
+		"device": {"name": "window_sw_1", "type": "bool"}
+	},
+	{
+		"cdl": {"name": "TZonCooSet", "unit": "K", "type": "float"},
+		"device": {"name": "Effective Cooling Setpoint_1", "unit": "degF", "type": "float"}
+	},
+	{
+		"cdl": {"name": "TZonHeaSet", "unit": "K", "type": "float"},
+		"device": {"name": "Effective Heating Setpoint_1", "unit": "degF", "type": "float"}
+	}
+]

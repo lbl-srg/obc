@@ -335,14 +335,14 @@ hysteresis offset (see :numref:`fig_alc_hys_par`) and the controller gains
 .. figure:: img/verification/AlcEikon_OATHysteresis.*
     :width: 300 px
 
-    ALC EIKON outdoor air temperature hysteresis to enable/disable the controller
+    ALC EIKON outdoor air temperature hysteresis to enable/disable the controller.
 
 .. _fig_alc_con_par:
 
 .. figure:: img/verification/AlcEikon_PIParameters.*
     :width: 500 px
 
-    ALC EIKON PI controller parameters
+    ALC EIKON PI controller parameters.
 
 
 We configured the CDL PID controller parameters such that they correspond to the parameters of the
@@ -514,6 +514,7 @@ iii. Optionally, a boolean variable in the model that we call an indicator varia
 For example, consider the validation test
 `OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
 To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a specification may be
+as shown in :numref:`sec_ver_spe_tes_set`.
 
 .. code-block::
    :name: sec_ver_spe_tes_set
@@ -524,40 +525,120 @@ To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a spe
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "sequence": "setPoiVAV",
-         "pointNameMapping": "realControllerPointMapping.json"
+         "pointNameMapping": "realControllerPointMapping.json",
+         "run_controller": false,
+         "controller_output": "test/real_outputs.csv"
        },
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
-         "outputs": [
-           { "atoly": 0.5, "variable": "setPoiVAV1.TSup*" }
-         ],
-         "indicators": [
-           { "setPoiVAV1.TSup*": [ "fanSta.y" ] }
-         ],
+         "run_controller": true,
+         "controller_output": "test/real_outputs.csv",
+         "outputs": {
+           "setPoiVAV1.TSup*": { "atoly": 0.5 }
+         },
+         "indicators": {
+           "setPoiVAV1.TSup*": [ "fanSta.y" ]
+         },
          "sampling": 60
        }
      ],
      "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
-     "sampling": 120
+     "sampling": 120,
+     "controller": {
+       "network_address": "192.168.0.115/24",
+       "device_address": "192.168.0.227",
+       "device_id": 240001
+     }
    }
 
 This specifies two tests, one for the controller ``setPoiVAV`` and one for ``setPoiVAV1``.
-(In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence, but their
-input time series and/or parameters are different, and therefore their output time series will be different.)
+In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence, but their
+input time series and/or parameters are different, and therefore their output time series will be different.
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
-is provided in the file ``realControllerPointMapping.json``.
-The test for ``setPoiVAV1`` will use different tolerances on each output variable that matches
-the regular expression ``setPoiVAV1.TSup*``. Moreover, for each variable that matches the regular
-expression, ``setPoiVAV1.TSup*``, the verification will be suspended whenever
-``fanSta.y = false``, and the sampling rate is :math:`60` seconds. This test will also use
+is provided in the file ``realControllerPointMapping.json``, shown in :numref:`ver_poi_map`.
+The test ``setPoiVAV`` will not run
+the controller during the test because of the specification ``run_controller = false``.
+Rather, it will use the saved results ``test/real_outputs.csv`` from a previous run.
+The test for ``setPoiVAV1`` will use different tolerances on each output
+variable that matches the regular expression ``setPoiVAV1.TSup*``.
+Moreover, for each variable that matches the regular
+expression ``setPoiVAV1.TSup*``, the verification will be suspended whenever
+``fanSta.y = false``. The sampling rate is :math:`60` seconds. This test will also use
 ``realControllerPointMapping.json`` to map the variables to points of the real controller.
+Because ``run_controller = true``, this test
+will run the controller in real-time and save the time-series of the output
+variables in the file specified by ``controller_output``.
+The real controller's network configuration can be found
+under the ``controller`` section of the configuration.
+The ``network_address`` is the controller's
+BACnet subnet, the ``device_address`` is the controller's IP address and
+the ``device_id`` is the controller's BACnet
+device identifier.
 The tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
 variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
 in the control output variable.
 
+.. code-block::
+   :name: ver_poi_map
+   :caption: Example ``pointNameMapping`` file.
+
+   [
+      {
+          "cdl": {   "name": "TZonCooSetOcc",                 "unit": "K",    "type": "float"},
+          "device": {"name": "Occupied Cooling Setpoint_1",   "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "TZonHeaSetOcc",                 "unit": "K",    "type": "float"},
+          "device": {"name": "Occupied Heating Setpoint_1",   "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "TZonCooSetUno",                 "unit": "K",    "type": "float"},
+          "device": {"name": "Unoccupied Cooling Setpoint_1", "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "TZonHeaSetUno",                 "unit": "K",    "type": "float"},
+          "device": {"name": "Unoccupied Heating Setpoint_1", "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "setAdj",                        "unit": "K",    "type": "float"},
+          "device": {"name": "setpt_adj_1",                   "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "heaSetAdj",                     "unit": "K",    "type": "float"},
+          "device": {"name": "Heating Adjustment_1",          "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "uOccSen",                                       "type": "int"},
+          "device": {"name": "occ_sensor_bni_1",                              "type": "bool"}
+      },
+      {
+          "cdl": {   "name": "uWinSta",                                       "type": "int"},
+          "device": {"name": "window_sw_1",                                   "type": "bool"}
+      },
+      {
+          "cdl": {   "name": "TZonCooSet",                   "unit": "K",    "type": "float"},
+          "device": {"name": "Effective Cooling Setpoint_1", "unit": "degF", "type": "float"}
+      },
+      {
+          "cdl": {   "name": "TZonHeaSet",                   "unit": "K",    "type": "float"},
+          "device": {"name": "Effective Heating Setpoint_1", "unit": "degF", "type": "float"}
+      }
+   ]
+
+:numref:`ver_poi_map` is an example of the ``pointNameMapping`` file.
+It is a list of dictionaries, with each dictionaries having two parts:
+The ``cdl`` part specifies the ``name``, the ``unit`` and the
+``type`` of the point in the CDL sequence.
+Similarly, the ``device`` part specifies this information for the corresponding
+point in the real controller.
+The ``type`` refers to the data type of the variable in the specific context, i.e., in CDL or
+in the actual controller.
+It should also be noted that some points may not have a unit, but only have a type.
+For example, the input ``uOccSen`` is a CDL point that is 1 if there is occupancy and
+0 otherwise.
 
 To create test input and output time series, we generate CSV files. This needs to be done for each
 controller, and we will explain it only for the controller ``setPoiVAV``.
