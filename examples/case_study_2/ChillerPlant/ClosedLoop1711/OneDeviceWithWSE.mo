@@ -1,7 +1,8 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(weaData(filNam=
+          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Metro.AP.724839_TMY3.mos"));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
