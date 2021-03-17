@@ -19,6 +19,9 @@ partial model DataCenter
   parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
     "Density, used to compute fluid volume";
 
+  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
+    "Zone supply temperature setpoint";
+
   // control parameters used in both base and 1711 cases
   parameter Real cooTowAppDes(
     final unit="K",
@@ -207,7 +210,7 @@ partial model DataCenter
         rotation=270,
         origin={160,-80})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+        "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Exec.AP.724830_TMY3.mos")
     annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));

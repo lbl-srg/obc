@@ -2,7 +2,7 @@ within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_WSEOnOff
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter(weaData(filNam=
-          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Metro.AP.724839_TMY3.mos"));
+          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Exec.AP.724830_TMY3.mos"));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -20,7 +20,8 @@ model OneDeviceWithWSE_WSEOnOff
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
   ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
+        TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,

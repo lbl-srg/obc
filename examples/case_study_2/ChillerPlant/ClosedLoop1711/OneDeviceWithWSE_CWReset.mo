@@ -4,7 +4,7 @@ model OneDeviceWithWSE_CWReset
   extends ChillerPlant.BaseClasses.DataCenter(chi(per=
           Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD()),
       weaData(filNam=
-          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Metro.AP.724839_TMY3.mos"));
+          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Exec.AP.724830_TMY3.mos"));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -26,7 +26,8 @@ model OneDeviceWithWSE_CWReset
   ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
 
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
+        TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
 
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
