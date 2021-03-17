@@ -17,8 +17,13 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     final dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
 
-  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
-    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
+    chilledWaterReset(
+    dpChiWatPumMin=0.2*20*6485,
+    dpChiWatPumMax=1*20*6485,
+    TChiWatSupMin=273.15 + 5.56,
+    TChiWatSupMax=273.15 + 22)
+    annotation (Placement(transformation(extent={{-160,-72},{-120,-32}})));
 
   ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
         TZonSupSet)
@@ -35,8 +40,8 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -128,16 +133,18 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-28},{-20,-28},{-20,140},{228,140},{228,90},{218,90}},
+      points={{-116,-64},{-20,-64},{-20,140},{228,140},{228,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
-      points={{-116,-52},{-20,-52},{-20,-120},{148,-120}},
+      points={{-116,-40},{-20,-40},{-20,-120},{148,-120}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
-    annotation (Line(points={{-176,-120},{-170,-120},{-170,-40},{-164,-40}},
-        color={0,0,127}));
+    annotation (Line(
+      points={{-176,-120},{-170,-120},{-170,-52},{-164,-52}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(TAirSup.T, plantOnOff.TZonSup) annotation (Line(
       points={{230,-214},{230,-200},{-240,-200},{-240,-120},{-224,-120}},
       color={0,0,127},
@@ -149,7 +156,7 @@ equation
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chillerOnOff.TChiWatSupSet)
     annotation (Line(
-      points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
+      points={{-116,-64},{-100,-64},{-100,-20},{-180,-20},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{

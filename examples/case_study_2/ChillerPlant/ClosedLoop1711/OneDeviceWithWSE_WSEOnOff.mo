@@ -18,16 +18,14 @@ model OneDeviceWithWSE_WSEOnOff
     annotation (Placement(transformation(extent={{-100,200},{-60,240}})));
   ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
-  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
-    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
   ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
         TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -58,6 +56,13 @@ model OneDeviceWithWSE_WSEOnOff
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yWSEOff(realTrue=0,
       realFalse=1) "WSE is OFF signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
+    chilledWaterReset(
+    dpChiWatPumMin=0.2*20*6485,
+    dpChiWatPumMax=1*20*6485,
+    TChiWatSupMin=273.15 + 5.56,
+    TChiWatSupMax=273.15 + 22)
+    annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -106,17 +111,6 @@ equation
       points={{149,0},{140,0},{140,-10},{-180,-10},{-180,34},{-164,34}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-28},{-20,-28},{-20,140},{226,140},{226,90},{218,90}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
-      points={{-116,-52},{-20,-52},{-20,-120},{148,-120}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
-    annotation (Line(points={{-176,-120},{-170,-120},{-170,-40},{-164,-40}},
-        color={0,0,127}));
   connect(TAirSup.T, plantOnOff.TZonSup) annotation (Line(
       points={{230,-214},{230,-200},{-240,-200},{-240,-120},{-224,-120}},
       color={0,0,127},
@@ -126,11 +120,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(chilledWaterReset.TChiWatSupSet, chillerOnOff.TChiWatSupSet)
-    annotation (Line(
-      points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
-      color={0,0,127},
-      pattern=LinePattern.DashDot));
   connect(TCWLeaTow.port_b, wse.port_a1)
                                         annotation (Line(
       points={{260,119},{168,119},{168,99},{68,99}},
@@ -229,6 +218,24 @@ equation
       points={{-78,110},{0,110},{0,-30},{100,-30},{100,-40},{148,-40}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
+    annotation (Line(
+      points={{-176,-120},{-170,-120},{-170,-50},{-164,-50}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
+      points={{-116,-38},{36,-38},{36,-120},{148,-120}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(chi.TSet, chilledWaterReset.TChiWatSupSet) annotation (Line(
+      points={{218,90},{226,90},{226,140},{-40,140},{-40,-62},{-116,-62}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(chilledWaterReset.TChiWatSupSet, chillerOnOff.TChiWatSupSet)
+    annotation (Line(
+      points={{-116,-62},{-100,-62},{-100,-20},{-170,-20},{-170,6},{-164,6}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_WSEOnOff.mos"

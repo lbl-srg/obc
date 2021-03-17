@@ -23,8 +23,13 @@ model OneDeviceWithWSE_CWReset
     final dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
 
-  ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
-    annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
+    chilledWaterReset(
+    dpChiWatPumMin=0.2*20*6485,
+    dpChiWatPumMax=1*20*6485,
+    TChiWatSupMin=273.15 + 5.56,
+    TChiWatSupMax=273.15 + 22)
+    annotation (Placement(transformation(extent={{-160,-68},{-120,-28}})));
 
   ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
         TZonSupSet)
@@ -146,15 +151,15 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-28},{-20,-28},{-20,140},{228,140},{228,90},{218,90}},
+      points={{-116,-60},{-20,-60},{-20,140},{228,140},{228,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
-      points={{-116,-52},{-20,-52},{-20,-120},{148,-120}},
+      points={{-116,-36},{-20,-36},{-20,-120},{148,-120}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
-    annotation (Line(points={{-176,-120},{-170,-120},{-170,-40},{-164,-40}},
+    annotation (Line(points={{-176,-120},{-170,-120},{-170,-48},{-164,-48}},
         color={0,0,127}));
   connect(TAirSup.T, plantOnOff.TZonSup) annotation (Line(
       points={{230,-214},{230,-200},{-240,-200},{-240,-120},{-224,-120}},
@@ -167,7 +172,7 @@ equation
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chillerOnOff.TChiWatSupSet)
     annotation (Line(
-      points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
+      points={{-116,-60},{-100,-60},{-100,-10},{-180,-10},{-180,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
