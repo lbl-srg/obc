@@ -24,8 +24,8 @@ model OneDeviceWithWSE_WSEOnOff
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},

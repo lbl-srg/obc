@@ -19,14 +19,11 @@ partial model DataCenter
   parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
+  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 21
     "Zone supply temperature setpoint";
 
   // control parameters used in both base and 1711 cases
-  parameter Real cooTowAppDes(
-    final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC")=6
+  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes = 6
     "Design cooling tower approach"
     annotation(Dialog(group="Design parameters"));
 
