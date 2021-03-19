@@ -90,10 +90,10 @@ def get_cases():
          "start_time": 0,
          "stop_time":  365*24*3600})
 
-    # Modify any parameters in all cases
-    for ele in cases:
-        # switch between 27 and 21 to assess sensitivity
-        ele['parameters'] = {'TZonSupSet': 273.15 + 21}
+    # # Modify any parameters in all cases (works w dymola)
+    # for ele in cases:
+    #     # switch between 27 and 21 to assess sensitivity
+    #     ele['parameters'] = {'TZonSupSet': 273.15 + 21}
 
 
     # # annual

@@ -1,8 +1,7 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_CWResetAndWSEOnOff
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter(weaData(filNam=
-          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Exec.AP.724830_TMY3.mos"));
+  extends ChillerPlant.BaseClasses.DataCenter;
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -40,8 +39,8 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -133,7 +132,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-64},{-20,-64},{-20,140},{228,140},{228,90},{218,90}},
+      points={{-116,-64},{-30,-64},{-30,140},{228,140},{228,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(

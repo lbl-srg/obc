@@ -1,7 +1,7 @@
 CondenserWaterConstant
 ChilledWaterReset
 ChillerOnOff
-PlantOnOff
+PlantOnOffWithAnalogueTrimAndRespond
 WaterSideEconomizerOnOff
 WaterSideEconomizerStateMachine
 Examples

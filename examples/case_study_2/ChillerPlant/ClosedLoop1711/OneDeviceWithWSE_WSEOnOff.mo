@@ -1,8 +1,7 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE_WSEOnOff
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
-  extends ChillerPlant.BaseClasses.DataCenter(weaData(filNam=
-          "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.Exec.AP.724830_TMY3.mos"));
+  extends ChillerPlant.BaseClasses.DataCenter;
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
