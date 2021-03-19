@@ -19,8 +19,8 @@ model OneDeviceWithWSE
   ClosedLoopBase.BaseClasses.Controls.ChilledWaterReset chilledWaterReset
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
 
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
-        TZonSupSet)
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond
+    plantOnOff(TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
 
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)

@@ -24,8 +24,8 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     TChiWatSupMax=273.15 + 22)
     annotation (Placement(transformation(extent={{-160,-72},{-120,-32}})));
 
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
-        TZonSupSet)
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond
+    plantOnOff(TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
 
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)

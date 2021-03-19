@@ -17,8 +17,8 @@ model OneDeviceWithWSE_WSEOnOff
     annotation (Placement(transformation(extent={{-100,200},{-60,240}})));
   ClosedLoopBase.BaseClasses.Controls.ChillerOnOff chillerOnOff(dTChi=dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
-  ClosedLoopBase.BaseClasses.Controls.PlantOnOff plantOnOff(TZonSupSet=
-        TZonSupSet)
+  ClosedLoopBase.BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond
+    plantOnOff(TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,

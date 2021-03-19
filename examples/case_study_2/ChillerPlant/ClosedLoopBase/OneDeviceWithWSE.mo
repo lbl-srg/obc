@@ -1,7 +1,8 @@
 within ChillerPlant.ClosedLoopBase;
 model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(chi(per=
+          Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD()));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
