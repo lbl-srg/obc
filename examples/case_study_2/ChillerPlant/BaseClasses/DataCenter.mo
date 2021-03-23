@@ -19,7 +19,7 @@ partial model DataCenter
   parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
+  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 17
     "Zone supply temperature setpoint";
 
   // control parameters used in both base and 1711 cases
@@ -38,11 +38,11 @@ partial model DataCenter
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal=3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
-      4200*20) "Nominal mass flow rate at chilled water";
+parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=1.2 * roo.QRoo_flow/(
+      4200*10) "Nominal mass flow rate at chilled water";
 
-  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=2*roo.QRoo_flow/(
-      4200*6) "Nominal mass flow rate at condenser water";
+  parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal=1 * roo.QRoo_flow/(
+      4200*10) "Nominal mass flow rate at condenser water";
 
   parameter Modelica.SIunits.PressureDifference dp_nominal=200000
     "Nominal pressure difference";
@@ -75,7 +75,7 @@ partial model DataCenter
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
-    QRoo_flow=500000) "Room model" annotation (Placement(transformation(extent={
+    QRoo_flow=750000) "Room model" annotation (Placement(transformation(extent={
             {-10,10},{10,-10}}, origin={190,-238})));
   Buildings.Fluid.Movers.FlowControlled_dp pumCHW(
     redeclare package Medium = MediumW,
