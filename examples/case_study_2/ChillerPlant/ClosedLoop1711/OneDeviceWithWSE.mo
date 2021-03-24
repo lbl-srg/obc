@@ -27,8 +27,8 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -50,7 +50,7 @@ model OneDeviceWithWSE
     m_flow_small=0,
     dp(start=214992),
     redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/54)/
+            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/50)/
             rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,

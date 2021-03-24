@@ -67,7 +67,7 @@ model OneDeviceWithWSE_CWReset
     redeclare package Medium = Buildings.Media.Water,
     dp(start=214992),
     redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/53)/
+            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/50)/
             rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     addPowerToMedium=false,
