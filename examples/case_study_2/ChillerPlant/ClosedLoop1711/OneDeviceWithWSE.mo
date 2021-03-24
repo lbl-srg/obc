@@ -342,7 +342,7 @@ equation
   connect(pre.y, booToInt1.u) annotation (Line(points={{148,-266},{166,-266},{
           166,-272},{174,-272}}, color={255,0,255}));
   connect(booToInt1.y, staSetCon.uSta) annotation (Line(points={{198,-272},{210,
-          -272},{210,-310},{-30,-310},{-30,-118.762},{-5,-118.762}}, color={255,
+          -272},{210,-290},{-30,-290},{-30,-118.762},{-5,-118.762}}, color={255,
           127,0}));
   annotation (
     __Dymola_Commands(file=

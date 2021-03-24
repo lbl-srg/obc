@@ -49,6 +49,16 @@ def get_cases():
          "start_time": 171*24*3600,
          "stop_time":  265*24*3600})
 
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+         "name": "1711_all_summer",
+         "long_name": "Alternative all, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 10800,
+         "num_id":3,
+         "start_time": 171*24*3600,
+         "stop_time":  265*24*3600})
+
     # annual
     cases.append( \
         {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
@@ -84,6 +94,16 @@ def get_cases():
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
          "name": "1711_cwreset_wse_annual",
          "long_name": "Alternative CW reset and WSE on/off, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 10800,
+         "num_id":7,
+         "start_time": 0,
+         "stop_time":  365*24*3600})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+         "name": "1711_all_annual",
+         "long_name": "Alternative all, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
          "num_id":7,
