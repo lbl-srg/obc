@@ -68,10 +68,11 @@ model OneDeviceWithWSE
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={300,-108})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOff(realTrue=0,
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yWSEOff(realTrue=0,
       realFalse=1) "WSE is OFF signal"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yOn "WSE is ON signal"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yWSEOn
+    "WSE is ON signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta
@@ -88,7 +89,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{0,-198},{50,-94}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
-    chilledWaterReset1(
+    chilledWaterReset(
     dpChiWatPumMin=0.2*20*6485,
     dpChiWatPumMax=1*20*6485,
     TChiWatSupMin=273.15 + 5.56,
@@ -209,11 +210,11 @@ equation
       points={{300,-118},{300,-164},{242,-164}},
       color={0,127,255},
       thickness=0.5));
-  connect(wseSta.y,yOn. u) annotation (Line(
+  connect(wseSta.y, yWSEOn.u) annotation (Line(
       points={{-118,120},{-110,120},{-110,140},{-102,140}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(wseSta.y,yOff. u) annotation (Line(
+  connect(wseSta.y, yWSEOff.u) annotation (Line(
       points={{-118,120},{-110,120},{-110,110},{-102,110}},
       color={255,0,255},
       pattern=LinePattern.Dot));
@@ -239,15 +240,15 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(yOn.y, val3.y) annotation (Line(
+  connect(yWSEOn.y, val3.y) annotation (Line(
       points={{-78,140},{-60,140},{-60,-40},{60,-40},{60,-48}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(yOn.y, val4.y) annotation (Line(
+  connect(yWSEOn.y, val4.y) annotation (Line(
       points={{-78,140},{-60,140},{-60,170},{20,170},{20,180},{28,180}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(yOff.y, val1.y) annotation (Line(
+  connect(yWSEOff.y, val1.y) annotation (Line(
       points={{-78,110},{0,110},{0,-30},{100,-30},{100,-40},{148,-40}},
       color={0,0,127},
       pattern=LinePattern.Dot));
@@ -263,15 +264,15 @@ equation
       points={{-118,120},{-110,120},{-110,180},{-80,180},{-80,188},{-64,188}},
       color={255,0,255},
       pattern=LinePattern.Dot));
-  connect(chilledWaterReset1.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
+  connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
       points={{-116,-40},{116,-40},{116,-120},{148,-120}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chilledWaterReset1.TChiWatSupSet, chi.TSet) annotation (Line(
+  connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
       points={{-116,-64},{106,-64},{106,-220},{364,-220},{364,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(plantOnOff.yChiWatPlaRes, chilledWaterReset1.uChiWatPlaRes)
+  connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
     annotation (Line(
       points={{-176,-120},{-170,-120},{-170,-52},{-164,-52}},
       color={0,0,127},
@@ -303,16 +304,15 @@ equation
   connect(TChiWatSupSen.T, staSetCon.TChiWatSup) annotation (Line(points={{311,-72},
           {316,-72},{316,-86},{-10,-86},{-10,-131.143},{-5,-131.143}}, color={0,
           0,127}));
-  connect(chilledWaterReset1.TChiWatSupSet, staSetCon.TChiWatSupSet)
-    annotation (Line(points={{-116,-64},{-76,-64},{-76,-126.19},{-5,-126.19}},
-        color={0,0,127}));
-  connect(chilledWaterReset1.dpChiWatPumSet, staSetCon.dpChiWatPumSet)
+  connect(chilledWaterReset.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation
+    (Line(points={{-116,-64},{-76,-64},{-76,-126.19},{-5,-126.19}}, color={0,0,
+          127}));
+  connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPumSet)
     annotation (Line(points={{-116,-40},{-90,-40},{-90,-160},{-6,-160},{-6,
-          -160.857},{-5,-160.857}},
-                          color={0,0,127}));
-  connect(chilledWaterReset1.dpChiWatPumSet, staSetCon.dpChiWatPum) annotation (
-     Line(points={{-116,-40},{-84,-40},{-84,-156},{-44,-156},{-44,-155.905},{-5,
-          -155.905}}, color={0,0,127}));
+          -160.857},{-5,-160.857}}, color={0,0,127}));
+  connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPum) annotation (
+      Line(points={{-116,-40},{-84,-40},{-84,-156},{-44,-156},{-44,-155.905},{
+          -5,-155.905}}, color={0,0,127}));
   connect(VChiWatSen_flow.V_flow, staSetCon.VChiWat_flow) annotation (Line(
         points={{311,-108},{322,-108},{322,-208},{-36,-208},{-36,-195.524},{-5,
           -195.524}},
