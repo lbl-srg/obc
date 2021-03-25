@@ -140,7 +140,7 @@ partial model DataCenter
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_23XL_724kW_6_04COP_Vanes(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{216,83},{196,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -216,11 +216,6 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{220,279},{240,299}})));
 equation
 
-  connect(val5.port_a, chi.port_b1) annotation (Line(
-      points={{160,170},{160,99},{196,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(val4.port_a, wse.port_b1) annotation (Line(
       points={{40,170},{40,99},{48,99}},
       color={0,127,255},
@@ -328,6 +323,8 @@ equation
       points={{240,289},{240,239},{221,239}},
       color={0,127,255},
       thickness=0.5));
+  connect(val4.port_b, cooTow.port_a)
+    annotation (Line(points={{40,190},{40,239},{201,239}}, color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),

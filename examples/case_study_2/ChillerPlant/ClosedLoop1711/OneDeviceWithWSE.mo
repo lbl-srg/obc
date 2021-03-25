@@ -81,13 +81,15 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
     staSetCon(
     have_WSE=true,
+    anyVsdCen=false,
     nChi=1,
     chiDesCap={742000},
     chiMinCap={140980},
     chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement},
     nSta=1,
     staMat={{1}},
-    posDisMult=0.19) "Single chiller with WSE staging controller"
+    posDisMult=0.19,
+    TDif=2)          "Single chiller with WSE staging controller"
     annotation (Placement(transformation(extent={{0,-206},{50,-102}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
@@ -126,7 +128,7 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(k=0.9)
     "Setting this to always provide a true signal in the Down controller, as there seems to be an error in 1711 due to constant max tower fan speed from the head pressure controller when have WSE"
     annotation (Placement(transformation(extent={{-90,-224},{-70,-204}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=60)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=1000)
     annotation (Placement(transformation(extent={{-102,64},{-82,84}})));
 equation
   PSupFan = fan.P;
@@ -327,7 +329,7 @@ equation
   connect(invCon.y, valByp.y) annotation (Line(points={{102,-170},{118,-170},{118,
           50},{230,50},{230,32}}, color={0,0,127}));
   connect(staSetCon.ySta, intGreThr.u) annotation (Line(points={{55,-178.762},{
-          55,-178},{56,-178},{56,-184},{92,-184},{92,-266}},
+          55,-178},{70,-178},{70,-266},{92,-266}},
                                                  color={255,127,0}));
   connect(intGreThr.y, pre.u) annotation (Line(points={{116,-266},{122,-266},{
           122,-266},{124,-266}}, color={255,0,255}));
@@ -342,9 +344,11 @@ equation
   connect(con3.y, staSetCon.chaPro) annotation (Line(points={{-42,-56},{-22,-56},
           {-22,-109.429},{-5,-109.429}}, color={255,0,255}));
   connect(weaBus.TWetBul, staSetCon.TOutWet) annotation (Line(
-      points={{-282,-88},{-144,-88},{-144,-176.286},{-5,-176.286}},
+      points={{-282,-88},{-270,-88},{-270,-176.286},{-5,-176.286}},
       color={255,204,51},
-      thickness=0.5), Text(
+      thickness=0.5,
+      pattern=LinePattern.Dash),
+                      Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
@@ -403,8 +407,8 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StartTime=15046400,
-      StopTime=21651200,
+      StartTime=17046400,
+      StopTime=22651200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));

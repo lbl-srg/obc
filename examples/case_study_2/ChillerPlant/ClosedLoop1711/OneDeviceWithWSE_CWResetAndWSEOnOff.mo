@@ -35,7 +35,8 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     heaPreCon(
     have_HeaPreConSig=false,
     have_WSE=true,
-    fixSpePum=false)
+    fixSpePum=false,
+    minChiLif=5)
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
@@ -49,7 +50,7 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCW_flow_nominal)
     "Condenser water return temperature sensor"
-    annotation (Placement(transformation(extent={{168,230},{188,250}})));
+    annotation (Placement(transformation(extent={{162,100},{182,120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen(redeclare package
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCHW_flow_nominal) "Chilled water supply tempeature" annotation (
@@ -185,24 +186,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(cooTow.port_a, TConWatRetSen.port_b) annotation (Line(
-      points={{201,239},{194,239},{194,240},{188,240}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(val4.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{40,190},{40,240},{168,240}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(val5.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{160,190},{160,240},{168,240}},
-      color={0,127,255},
-      thickness=0.5));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
       points={{300,30},{300,-62}},
       color={0,127,255},
       thickness=0.5));
-  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{178,251},
-          {-74,251},{-74,212},{-64,212}}, color={0,0,127},
+  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{172,121},
+          {-74,121},{-74,212},{-64,212}}, color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
           {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
@@ -272,6 +261,12 @@ equation
       pattern=LinePattern.Dot));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
           66,200},{66,180},{148,180}}, color={0,0,127}));
+  connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
+          {188,99},{188,110},{182,110}}, color={0,0,127}));
+  connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{162,110},
+          {160,110},{160,170},{160,170}}, color={0,127,255}));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{180,
+          190},{180,239},{201,239}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_CWResetAndWSEOnOff.mos"
