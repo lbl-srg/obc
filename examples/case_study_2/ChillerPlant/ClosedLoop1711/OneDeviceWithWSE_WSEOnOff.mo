@@ -40,7 +40,7 @@ model OneDeviceWithWSE_WSEOnOff
         rotation=270,
         origin={300,180})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta
+    wseSta(cooTowAppDes(displayUnit="K") = cooTowAppDes)
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VChiWatSen_flow(redeclare package
       Medium = Buildings.Media.Water,

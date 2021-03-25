@@ -28,8 +28,8 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -76,7 +76,7 @@ model OneDeviceWithWSE
     "WSE is ON signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta
+    wseSta(cooTowAppDes(displayUnit="K") = cooTowAppDes)
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.SetpointController
     staSetCon(
@@ -128,8 +128,8 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(k=0.9)
     "Setting this to always provide a true signal in the Down controller, as there seems to be an error in 1711 due to constant max tower fan speed from the head pressure controller when have WSE"
     annotation (Placement(transformation(extent={{-90,-224},{-70,-204}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(samplePeriod=1000)
-    annotation (Placement(transformation(extent={{-102,64},{-82,84}})));
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=60)
+    annotation (Placement(transformation(extent={{-116,34},{-96,54}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -358,11 +358,8 @@ equation
   connect(staSetCon.yChiSet[1], pre1.u) annotation (Line(points={{55,-161.429},
           {55,-144},{64,-144},{64,-48},{62,-48},{62,48}}, color={255,0,255}));
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-118,110},
-          {-62,110},{-62,-181.238},{-5,-181.238}}, color={0,0,127}));
-  connect(wseSta.TChiWatRetDowPre, uniDel.u) annotation (Line(points={{-118,102},
-          {-110,102},{-110,74},{-104,74}}, color={0,0,127}));
-  connect(uniDel.y, staSetCon.TWsePre) annotation (Line(points={{-80,74},{-42,
-          74},{-42,-198.571},{-5,-198.571}}, color={0,0,127}));
+          {-108,110},{-108,90},{-68,90},{-68,-181.238},{-5,-181.238}},
+                                                   color={0,0,127}));
   connect(con4.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-68,-214},
           {-36,-214},{-36,-186.19},{-5,-186.19}}, color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
@@ -373,6 +370,10 @@ equation
           {164,155},{160,155},{160,170}}, color={0,127,255}));
   connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
           239},{201,239}}, color={0,127,255}));
+  connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
+          {-124,102},{-124,44},{-118,44}}, color={0,0,127}));
+  connect(staSetCon.TWsePre, movMea.y) annotation (Line(points={{-5,-198.571},{
+          -5,-80.762},{-94,-80.762},{-94,44}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"
@@ -407,8 +408,8 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StartTime=17046400,
-      StopTime=22651200,
+      StartTime=15046400,
+      StopTime=33651200,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));

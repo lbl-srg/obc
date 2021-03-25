@@ -88,7 +88,8 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     "WSE is ON signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta
+    wseSta(heaExcAppDes(displayUnit="K"), cooTowAppDes(displayUnit="K") =
+      cooTowAppDes)
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
 
 equation
