@@ -38,7 +38,7 @@ model OneDeviceWithWSE_CWReset
             -210},{260,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon(
-    minChiLif = 10,
+    minChiLif=5,
     have_HeaPreConSig=false,
     have_WSE=true,
     fixSpePum=false)
@@ -55,7 +55,7 @@ model OneDeviceWithWSE_CWReset
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCW_flow_nominal)
     "Condenser water return temperature sensor"
-    annotation (Placement(transformation(extent={{168,230},{188,250}})));
+    annotation (Placement(transformation(extent={{158,98},{178,118}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiWatSupSen(redeclare package
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCHW_flow_nominal) "Chilled water supply tempeature" annotation (
@@ -140,10 +140,6 @@ equation
       points={{-116,6},{120,6},{120,32},{230,32}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{100,20},{100,180},{148,180}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
       points={{149,0},{140,0},{140,-10},{-180,-10},{-180,34},{-164,34}},
       color={0,0,127},
@@ -195,29 +191,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(TCWLeaTow.port_b, wse.port_a1)
-                                        annotation (Line(
-      points={{260,119},{78,119},{78,99},{68,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(TCWLeaTow.port_b, chi.port_a1)
                                         annotation (Line(
       points={{260,119},{240,119},{240,99},{216,99}},
       color={0,127,255},
       smooth=Smooth.None,
-      thickness=0.5));
-  connect(cooTow.port_a, TConWatRetSen.port_b) annotation (Line(
-      points={{201,239},{194,239},{194,240},{188,240}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(val4.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{40,190},{40,240},{168,240}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(val5.port_b, TConWatRetSen.port_a) annotation (Line(
-      points={{160,190},{160,240},{168,240}},
-      color={0,127,255},
       thickness=0.5));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
       points={{300,30},{300,-62}},
@@ -227,8 +205,9 @@ equation
       points={{300,-82},{300,-164},{242,-164}},
       color={0,127,255},
       thickness=0.5));
-  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{178,251},
-          {-74,251},{-74,212},{-64,212}}, color={0,0,127},
+  connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{168,119},
+          {168,160},{-86,160},{-86,212},{-64,212}},
+                                          color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
           {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
@@ -238,6 +217,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
+          68,200},{68,180},{148,180}}, color={0,0,127}));
+  connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
+          {186,99},{186,108},{178,108}}, color={0,0,127}));
+  connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{158,108},
+          {160,108},{160,170}}, color={0,127,255}));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
+          239},{201,239}}, color={0,127,255}));
+  connect(TCWLeaTow.port_b, wse.port_a1) annotation (Line(points={{260,119},{
+          100,119},{100,99},{68,99}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_CWReset.mos"

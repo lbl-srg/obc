@@ -123,10 +123,6 @@ equation
       points={{-116,6},{120,6},{120,32},{230,32}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{100,20},{100,180},{148,180}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
       points={{149,0},{140,0},{140,-10},{-180,-10},{-180,34},{-164,34}},
       color={0,0,127},
@@ -274,6 +270,8 @@ equation
       points={{-118,120},{-110,120},{-110,180},{-80,180},{-80,188},{-64,188}},
       color={255,0,255},
       pattern=LinePattern.Dot));
+  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
+          66,200},{66,180},{148,180}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_CWResetAndWSEOnOff.mos"

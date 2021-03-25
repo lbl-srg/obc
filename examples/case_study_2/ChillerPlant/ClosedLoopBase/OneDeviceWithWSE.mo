@@ -121,7 +121,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{100,20},{100,180},{148,180}},
+      points={{-116,20},{102,20},{102,180},{148,180}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
@@ -194,6 +194,8 @@ equation
     annotation (Line(points={{-56,210},{280,210},{280,180},{288,180}},
                                                              color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,110},
+          {160,110},{160,170}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"

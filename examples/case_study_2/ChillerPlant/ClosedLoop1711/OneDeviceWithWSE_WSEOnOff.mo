@@ -235,6 +235,8 @@ equation
       points={{-116,-62},{-100,-62},{-100,-20},{-170,-20},{-170,6},{-164,6}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
+  connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,106},
+          {160,106},{160,170}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_WSEOnOff.mos"
