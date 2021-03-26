@@ -33,19 +33,15 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
             -210},{260,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon(
+    minHeaPreValPos=0.2,
     have_HeaPreConSig=false,
     have_WSE=true,
     fixSpePum=false,
-    minChiLif=5)
+    minChiLif=5,
+    Ti=20)
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
-    "Temperature of condenser water leaving the cooling tower"      annotation (
-     Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={270,119})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TConWatRetSen(redeclare package
       Medium = Buildings.Media.Water,
     m_flow_nominal = mCW_flow_nominal)
@@ -88,9 +84,11 @@ model OneDeviceWithWSE_CWResetAndWSEOnOff
     "WSE is ON signal"
     annotation (Placement(transformation(extent={{-100,130},{-80,150}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta(heaExcAppDes(displayUnit="K"), cooTowAppDes(displayUnit="K") =
-      cooTowAppDes)
-    annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
+    wseSta(heaExcAppDes(displayUnit="K"), cooTowAppDes(displayUnit="K")=
+      cooTowAppDes,
+    TOutWetDes=TWetBulDes,
+    VHeaExcDes_flow=mCHW_flow_nominal/rho_default)
+    annotation (Placement(transformation(extent={{-160,102},{-120,142}})));
 
 equation
   PSupFan = fan.P;
@@ -169,24 +167,6 @@ equation
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
           188},{0,188},{0,200},{288,200}}, color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(pumCW.port_b,TCWLeaTow. port_a)
-                                         annotation (Line(
-      points={{300,190},{300,119},{280,119}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(TCWLeaTow.port_b, wse.port_a1)
-                                        annotation (Line(
-      points={{260,119},{78,119},{78,99},{68,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(TCWLeaTow.port_b, chi.port_a1)
-                                        annotation (Line(
-      points={{260,119},{240,119},{240,99},{216,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
       points={{300,30},{300,-62}},
       color={0,127,255},
@@ -207,28 +187,28 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(wseSta.y, yWSEOn.u) annotation (Line(
-      points={{-118,120},{-110,120},{-110,140},{-102,140}},
+      points={{-118,122},{-110,122},{-110,140},{-102,140}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(wseSta.y, yWSEOff.u) annotation (Line(
-      points={{-118,120},{-110,120},{-110,110},{-102,110}},
+      points={{-118,122},{-110,122},{-110,110},{-102,110}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(VChiWatSen_flow.V_flow,wseSta. VChiWat_flow) annotation (Line(
-      points={{311,-108},{330,-108},{330,270},{-180,270},{-180,112},{-164,112}},
+      points={{311,-108},{330,-108},{330,270},{-180,270},{-180,114},{-164,114}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TCHWLeaCoi.T,wseSta. TChiWatRet) annotation (Line(
-      points={{149,-80},{-200,-80},{-200,128},{-164,128}},
+      points={{149,-80},{-200,-80},{-200,130},{-164,130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TCHWEntChi.T,wseSta. TChiWatRetDow) annotation (Line(
       points={{149,2.22045e-15},{140,2.22045e-15},{140,-10},{-190,-10},{-190,
-          120},{-164,120}},
+          122},{-164,122}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(weaBus.TWetBul,wseSta. TOutWet) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,136},{-164,136}},
+      points={{-282,-88},{-260,-88},{-260,138},{-164,138}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -253,11 +233,11 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(con.y, wseSta.uTowFanSpeMax) annotation (Line(
-      points={{-98,200},{-90,200},{-90,250},{-170,250},{-170,104},{-164,104}},
+      points={{-98,200},{-90,200},{-90,250},{-170,250},{-170,106},{-164,106}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(wseSta.y, heaPreCon.uWSE) annotation (Line(
-      points={{-118,120},{-110,120},{-110,180},{-80,180},{-80,188},{-64,188}},
+      points={{-118,122},{-110,122},{-110,180},{-80,180},{-80,188},{-64,188}},
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
@@ -268,6 +248,14 @@ equation
           {160,110},{160,170},{160,170}}, color={0,127,255}));
   connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{180,
           190},{180,239},{201,239}}, color={0,127,255}));
+  connect(chi.port_a1, pumCW.port_b) annotation (Line(
+      points={{216,99},{300,99},{300,190}},
+      color={28,108,200},
+      thickness=0.5));
+  connect(pumCW.port_b, wse.port_a1) annotation (Line(
+      points={{300,190},{300,132},{140,132},{140,99},{68,99}},
+      color={28,108,200},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_CWResetAndWSEOnOff.mos"
@@ -301,6 +289,9 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    experiment(
+      StopTime=30651200,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE_CWResetAndWSEOnOff;

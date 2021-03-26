@@ -154,13 +154,13 @@ equation
       pattern=LinePattern.DashDot));
   connect(TCWLeaTow.port_b, wse.port_a1)
                                         annotation (Line(
-      points={{260,119},{168,119},{168,99},{68,99}},
+      points={{260,119},{260,120},{180,120},{180,99},{68,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCWLeaTow.port_b, chi.port_a1)
                                         annotation (Line(
-      points={{260,119},{242,119},{242,99},{216,99}},
+      points={{260,119},{260,120},{240,120},{240,99},{216,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -185,7 +185,7 @@ equation
       thickness=0.5));
   connect(pumCW.port_b, TCWLeaTow.port_a)
                                          annotation (Line(
-      points={{300,170},{300,119},{280,119}},
+      points={{300,170},{300,120},{280,120},{280,119}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -194,7 +194,8 @@ equation
                                                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,110},
-          {160,110},{160,170}}, color={0,0,127}));
+          {160,110},{160,170}}, color={0,128,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"

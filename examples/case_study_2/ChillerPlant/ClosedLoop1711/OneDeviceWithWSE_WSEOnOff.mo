@@ -23,12 +23,6 @@ model OneDeviceWithWSE_WSEOnOff
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
-    "Temperature of condenser water leaving the cooling tower"      annotation (
-     Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        origin={270,119})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
@@ -40,7 +34,10 @@ model OneDeviceWithWSE_WSEOnOff
         rotation=270,
         origin={300,180})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta(cooTowAppDes(displayUnit="K") = cooTowAppDes)
+    wseSta(
+    cooTowAppDes(displayUnit="K") = cooTowAppDes,
+    TOutWetDes=TWetBulDes,
+    VHeaExcDes_flow=mCHW_flow_nominal/rho_default)
     annotation (Placement(transformation(extent={{-160,100},{-120,140}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VChiWatSen_flow(redeclare package
       Medium = Buildings.Media.Water,
@@ -119,18 +116,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(TCWLeaTow.port_b, wse.port_a1)
-                                        annotation (Line(
-      points={{260,119},{168,119},{168,99},{68,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(TCWLeaTow.port_b, chi.port_a1)
-                                        annotation (Line(
-      points={{260,119},{242,119},{242,99},{216,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
       points={{40,190},{40,239},{201,239}},
       color={0,127,255},
@@ -143,12 +128,6 @@ equation
       thickness=0.5));
   connect(cooTow.port_b,pumCW. port_a) annotation (Line(
       points={{221,239},{300,239},{300,190}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(pumCW.port_b, TCWLeaTow.port_a)
-                                         annotation (Line(
-      points={{300,170},{300,119},{280,119}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -236,7 +215,16 @@ equation
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,106},
-          {160,106},{160,170}}, color={0,0,127}));
+          {160,106},{160,170}}, color={0,128,255},
+      thickness=0.5));
+  connect(pumCW.port_b, wse.port_a1) annotation (Line(
+      points={{300,170},{300,120},{180,120},{180,99},{68,99}},
+      color={0,128,255},
+      thickness=0.5));
+  connect(chi.port_a1, pumCW.port_b) annotation (Line(
+      points={{216,99},{300,99},{300,170}},
+      color={0,128,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_WSEOnOff.mos"
@@ -270,6 +258,10 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    experiment(
+      StartTime=22896000,
+      StopTime=30896000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE_WSEOnOff;

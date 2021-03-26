@@ -22,9 +22,13 @@ partial model DataCenter
   parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
     "Zone supply temperature setpoint";
 
-  // control parameters used in both base and 1711 cases
-  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes = 6
+  // control parameters
+  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes = 3
     "Design cooling tower approach"
+    annotation(Dialog(group="Design parameters"));
+
+  parameter Modelica.SIunits.ThermodynamicTemperature TWetBulDes = 273.15 + 22
+    "Design wet bulb temperature"
     annotation(Dialog(group="Design parameters"));
 
   replaceable package MediumA = Buildings.Media.Air "Medium model";
@@ -33,11 +37,11 @@ partial model DataCenter
       *15) "Nominal mass flow rate at fan";
   parameter Modelica.SIunits.Power P_nominal=80E3
     "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=6
     "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=6
     "Temperature difference condenser outlet-inlet";
-  parameter Real COPc_nominal=3 "Chiller COP";
+  parameter Real COPc_nominal=5 "Chiller COP";
   parameter Modelica.SIunits.MassFlowRate mCHW_flow_nominal=2*roo.QRoo_flow/(
       4200*20) "Nominal mass flow rate at chilled water";
 
@@ -140,7 +144,7 @@ partial model DataCenter
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_23XL_724kW_6_04COP_Vanes(),
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{216,83},{196,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -324,7 +328,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(val4.port_b, cooTow.port_a)
-    annotation (Line(points={{40,190},{40,239},{201,239}}, color={0,127,255}));
+    annotation (Line(points={{40,190},{40,239},{201,239}}, color={0,127,255},
+      thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),

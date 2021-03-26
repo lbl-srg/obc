@@ -16,7 +16,7 @@ def get_cases():
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":0,
-         "start_time": 171*24*3600,
+         "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
     cases.append( \
@@ -26,7 +26,7 @@ def get_cases():
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":1,
-         "start_time": 171*24*3600,
+         "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
     cases.append( \
@@ -36,7 +36,7 @@ def get_cases():
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":2,
-         "start_time": 171*24*3600,
+         "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
     cases.append( \
@@ -46,7 +46,7 @@ def get_cases():
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":3,
-         "start_time": 171*24*3600,
+         "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
     cases.append( \
@@ -56,7 +56,7 @@ def get_cases():
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":3,
-         "start_time": 171*24*3600,
+         "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
     # annual
