@@ -241,13 +241,14 @@ equation
       color={255,0,255},
       pattern=LinePattern.Dot));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          66,200},{66,180},{148,180}}, color={0,0,127}));
+          66,200},{66,180},{148,180}}, color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {188,99},{188,110},{182,110}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{162,110},
           {160,110},{160,170},{160,170}}, color={0,127,255}));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{180,
-          190},{180,239},{201,239}}, color={0,127,255}));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
+          239},{201,239}},           color={0,127,255}));
   connect(chi.port_a1, pumCW.port_b) annotation (Line(
       points={{216,99},{300,99},{300,190}},
       color={28,108,200},
