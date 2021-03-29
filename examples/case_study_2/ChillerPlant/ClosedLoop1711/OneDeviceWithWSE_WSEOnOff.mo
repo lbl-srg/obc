@@ -19,7 +19,7 @@ model OneDeviceWithWSE_WSEOnOff
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
   ClosedLoopBase.BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond
     plantOnOff(TZonSupSet=TZonSupSet)
-    annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
+    annotation (Placement(transformation(extent={{-240,-160},{-180,-100}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
@@ -108,7 +108,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TAirSup.T, plantOnOff.TZonSup) annotation (Line(
-      points={{230,-214},{230,-200},{-240,-200},{-240,-120},{-224,-120}},
+      points={{230,-214},{230,-200},{-260,-200},{-260,-130},{-246,-130}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(mFanFlo.y, fan.m_flow_in) annotation (Line(
@@ -198,7 +198,7 @@ equation
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
     annotation (Line(
-      points={{-176,-120},{-170,-120},{-170,-50},{-164,-50}},
+      points={{-174,-130},{-170,-130},{-170,-50},{-164,-50}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
