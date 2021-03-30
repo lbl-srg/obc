@@ -48,4 +48,7 @@ specification/build
 # Simulation results of case study
 #########################
 examples/case_study_1/simulations
-examples/case_study_1/img
+
+# certain png and pdf images
+examples/case_study_1/img/*.png
+examples/case_study_1/img/*.pdf
