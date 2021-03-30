@@ -123,9 +123,6 @@ model OneDeviceWithWSE_TowerSpeed
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant sigSub2(k=false)
     "Assume change process completes within the 15 minute stage change delay."
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub(k=0.9)
-    "Addresses a deficiency in 1711. Setting the value to enable a true signal generation in the Down controller. This is as current head pressure controller sets a constant maximum tower fan speed when have WSE"
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=60)
     annotation (Placement(transformation(extent={{-114,34},{-102,46}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller
@@ -149,11 +146,11 @@ model OneDeviceWithWSE_TowerSpeed
     annotation (Placement(transformation(extent={{-20,330},{0,350}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     annotation (Placement(transformation(extent={{160,380},{180,400}})));
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=1)
-    annotation (Placement(transformation(extent={{172,310},{184,322}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub4(k=1)
     "Input signal filler, as these inputs have no effect for this plant"
     annotation (Placement(transformation(extent={{0,290},{20,310}})));
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=60)
+    annotation (Placement(transformation(extent={{160,340},{180,360}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -367,8 +364,6 @@ equation
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-118,110},
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
-  connect(sigSub.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-218,-90},
-          {-210,-90},{-210,-56.2857},{-61.4,-56.2857}}, color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
           50,200},{50,192},{100,192},{100,180},{148,180}},
                                        color={0,0,127}));
@@ -424,10 +419,6 @@ equation
           390},{190,442},{54,442},{54,369},{74,369}}, color={255,0,255}));
   connect(plaEna.yPla, towCon.uPla) annotation (Line(points={{-79,-214},{-80,
           -214},{-80,363},{74,363}}, color={255,0,255}));
-  connect(towCon.yFanSpe[1], movMea1.u) annotation (Line(points={{146,327},{160,
-          327},{160,316},{170.8,316}}, color={0,0,127}));
-  connect(movMea1.y, towCon.uFanSpe) annotation (Line(points={{185.2,316},{192,
-          316},{192,294},{66,294},{66,399},{74,399}}, color={0,0,127}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet[1]) annotation (Line(
         points={{-16,212},{32,212},{32,375},{74,375}}, color={0,0,127}));
   connect(towCon.uConWatPumSpe[1], pumCW.y) annotation (Line(points={{74,351},{
@@ -438,8 +429,6 @@ equation
           {50,303},{74,303}}, color={0,0,127}));
   connect(TConWatRetSen.T, towCon.TConWatRet) annotation (Line(points={{174,151},
           {62,151},{62,356},{68,356},{68,357},{74,357}}, color={0,0,127}));
-  connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{146,327},{156,
-          327},{156,310},{160,310},{160,247},{199,247}}, color={0,0,127}));
   connect(TChiWatSupSen.T, towCon.TChiWatSup) annotation (Line(points={{311,-72},
           {46,-72},{46,392},{60,392},{60,393},{74,393}}, color={0,0,127}));
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
@@ -451,6 +440,13 @@ equation
           251},{74,251},{74,417}}, color={0,0,127}));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{32,84},
           {32,416},{54,416},{54,417},{74,417}}, color={0,0,127}));
+  connect(towCon.yFanSpe[1], movMea1.u)
+    annotation (Line(points={{146,327},{158,327},{158,350}}, color={0,0,127}));
+  connect(movMea1.y, towCon.uFanSpe) annotation (Line(points={{182,350},{202,
+          350},{202,446},{48,446},{48,399},{74,399}}, color={0,0,127}));
+  connect(movMea1.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{182,350},
+          {186,350},{186,290},{-92,290},{-92,-56.2857},{-61.4,-56.2857}}, color
+        ={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_TowerSpeed.mos"
