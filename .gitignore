@@ -50,5 +50,5 @@ specification/build
 examples/case_study_1/simulations
 
 # certain png and pdf images
-examples/case_study_1/img/*.png
-examples/case_study_1/img/*.pdf
+examples/case_study_2/img/*.png
+examples/case_study_2/img/*.pdf
