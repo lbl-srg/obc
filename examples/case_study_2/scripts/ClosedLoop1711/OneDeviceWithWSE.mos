@@ -1,4 +1,4 @@
-﻿simulateModel("ChillerPlant.ClosedLoop1711.OneDeviceWithWSE", startTime=170*24*3600, stopTime=265*24*3600, method="Cvode", tolerance=1e-6, resultFile="OneDeviceWithWSE1711");
+﻿simulateModel("ChillerPlant.ClosedLoop1711.OneDeviceWithWSE", startTime=170*24*3600, stopTime=265*24*3600, method="Cvode", tolerance=1e-5, resultFile="OneDeviceWithWSE1711");
 createPlot(id = 1,
  position = {10, 30, 719, 536},
  y = {"TAirSup.T", "weaBus.TWetBul"},
