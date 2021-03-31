@@ -8,105 +8,147 @@ def get_cases():
 
     cases = list()
     
-    # summer time
+    # # summer time
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+    #      "name": "base_summer",
+    #      "long_name": "Base-case, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":0,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+    #      "name": "1711_cwreset_summer",
+    #      "long_name": "Alternative CW reset, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":1,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
+    #      "name": "1711_wse_summer",
+    #      "long_name": "Alternative WSE on/off, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":2,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
+    #      "name": "1711_cwreset_wse_summer",
+    #      "long_name": "Alternative CW reset and WSE on/off, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":3,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+    #      "name": "1711_all_summer",
+    #      "long_name": "Alternative all, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":4,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
-         "name": "base_summer",
-         "long_name": "Base-case, Summer",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_TowerSpeed",
+         "name": "1711_all_summer_w_tf",
+         "long_name": "Alternative all with tower fan modulation, Summer",
          "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":0,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
-
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
-         "name": "1711_cwreset_summer",
-         "long_name": "Alternative CW reset, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":1,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
-
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
-         "name": "1711_wse_summer",
-         "long_name": "Alternative WSE on/off, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":2,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
-
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
-         "name": "1711_cwreset_wse_summer",
-         "long_name": "Alternative CW reset and WSE on/off, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":3,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
-
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
-         "name": "1711_all_summer",
-         "long_name": "Alternative all, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":3,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
-
-    # annual
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
-         "name": "base_annual",
-         "long_name": "Base-case, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":4,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
-
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
-         "name": "1711_cwreset_annual",
-         "long_name": "Alternative CW reset, Annual",
-         "season" : "annual",
          "n_output_intervals" : 10800,
          "num_id":5,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
-         "name": "1711_wse_annual",
-         "long_name": "Alternative WSE on/off, Annual",
-         "season" : "annual",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_TowerSpeed_wo_down",
+         "name": "1711_all_summer_w_tf_n_down",
+         "long_name": "Alternative all with tower fan modulation w/o stage down input, Summer",
+         "season" : "summer",
          "n_output_intervals" : 10800,
-         "num_id":6,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+         "num_id":13,
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600})
+
+    # # annual
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+    #      "name": "base_annual",
+    #      "long_name": "Base-case, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":6,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWReset",
+    #      "name": "1711_cwreset_annual",
+    #      "long_name": "Alternative CW reset, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":7,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
+    #      "name": "1711_wse_annual",
+    #      "long_name": "Alternative WSE on/off, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":8,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
+    #      "name": "1711_cwreset_wse_annual",
+    #      "long_name": "Alternative CW reset and WSE on/off, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":9,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+    #      "name": "1711_all_annual",
+    #      "long_name": "Alternative all, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":10,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_CWResetAndWSEOnOff",
-         "name": "1711_cwreset_wse_annual",
-         "long_name": "Alternative CW reset and WSE on/off, Annual",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_TowerSpeed",
+         "name": "1711_all_annual_w_tf",
+         "long_name": "Alternative all with tower fan modulation, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
-         "num_id":7,
+         "num_id":11,
          "start_time": 0,
          "stop_time":  365*24*3600})
+        #  "start_time": 471686 + 5,
+        #  "stop_time":  365*24*3600+471686 + 5})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
-         "name": "1711_all_annual",
-         "long_name": "Alternative all, Annual",
+        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_TowerSpeed_wo_down",
+         "name": "1711_all_annual_w_tf_n_down",
+         "long_name": "Alternative all with tower fan modulation w/o stage down input, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
-         "num_id":7,
+         "num_id":12,
          "start_time": 0,
          "stop_time":  365*24*3600})
 

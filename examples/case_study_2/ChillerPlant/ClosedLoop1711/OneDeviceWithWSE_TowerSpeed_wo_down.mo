@@ -1,5 +1,5 @@
 within ChillerPlant.ClosedLoop1711;
-model OneDeviceWithWSE
+model OneDeviceWithWSE_TowerSpeed_wo_down
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
   extends ChillerPlant.BaseClasses.DataCenter;
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
@@ -99,7 +99,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-160,-168},{-120,-128}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable
     plaEna(TChiLocOut=271.15)
-    annotation (Placement(transformation(extent={{-100,-224},{-80,-204}})));
+    annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     annotation (Placement(transformation(extent={{-130,-220},{-110,-200}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
@@ -123,11 +123,39 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant sigSub2(k=false)
     "Assume change process completes within the 15 minute stage change delay."
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub(k=0.9)
-    "Addresses a deficiency in 1711. Setting the value to enable a true signal generation in the Down controller. This is as current head pressure controller sets a constant maximum tower fan speed when have WSE"
-    annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=60)
     annotation (Placement(transformation(extent={{-114,34},{-102,46}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller
+    towCon(
+    nChi=1,
+    totChiSta=3,
+    nTowCel=1,
+    nConWatPum=1,
+    closeCoupledPlant=true,
+    desCap=742000,
+    chiMinCap={140980},
+    TiIntOpe=120,
+    TiWSE=120,
+    LIFT_min(displayUnit="K") = {5},
+    TConWatSup_nominal={293.15},
+    TConWatRet_nominal={303.15},
+    TChiWatSupMin={278.71},
+    staVec={0,0.5,1},
+    towCelOnSet={0,1,1})
+    annotation (Placement(transformation(extent={{80,300},{140,420}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant sigSub3(k=false)
+    "Assume change process completes within the 15 minute stage change delay."
+    annotation (Placement(transformation(extent={{-20,330},{0,350}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    annotation (Placement(transformation(extent={{160,380},{180,400}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub4(k=1)
+    "Input signal filler, as these inputs have no effect for this plant"
+    annotation (Placement(transformation(extent={{0,290},{20,310}})));
+  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=60)
+    annotation (Placement(transformation(extent={{160,340},{180,360}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub(k=0.9)
+    "Addresses a deficiency in 1711. Setting the value to enable a true signal generation in the Down controller. This is as current head pressure controller sets a constant maximum tower fan speed when have WSE"
+    annotation (Placement(transformation(extent={{-248,-78},{-228,-58}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -161,10 +189,6 @@ equation
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
           -82,200},{-82,196},{-64,196}},  color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(heaPreCon.yMaxTowSpeSet, cooTow.y) annotation (Line(points={{-16,212},
-          {90,212},{90,256},{194,256},{194,247},{199,247}},
-                                        color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
           188},{0,188},{0,200},{288,200}}, color={0,0,127},
       pattern=LinePattern.Dot));
@@ -260,7 +284,7 @@ equation
       pattern=LinePattern.DashDot));
   connect(weaBus.TDryBul, plaEna.TOut) annotation (Line(
       points={{-282,-88},{-260,-88},{-260,-292},{-104,-292},{-104,-218},{-102,
-          -218},{-102,-218.2}},
+          -218},{-102,-214.2}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -275,9 +299,10 @@ equation
   connect(greThr.y, booToInt.u)
     annotation (Line(points={{-138,-210},{-132,-210}}, color={255,0,255}));
   connect(booToInt.y, plaEna.chiWatSupResReq) annotation (Line(points={{-108,
-          -210},{-102,-210}},                color={255,127,0}));
-  connect(plaEna.yPla, staSetCon.uPla) annotation (Line(points={{-79,-214},{-70,
-          -214},{-70,44},{-61.4,44}},          color={255,0,255}));
+          -210},{-106,-210},{-106,-206},{-102,-206}},
+                                             color={255,127,0}));
+  connect(plaEna.yPla, staSetCon.uPla) annotation (Line(points={{-79,-210},{-70,
+          -210},{-70,44},{-61.4,44}},          color={255,0,255}));
   connect(sigSub1.y, staSetCon.uChiAva[1]) annotation (Line(points={{-158,30},{
           -140,30},{-140,52},{-100,52},{-100,51.4286},{-61.4,51.4286}}, color={
           255,0,255}));
@@ -345,10 +370,9 @@ equation
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-118,110},
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
-  connect(sigSub.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-218,-90},
-          {-210,-90},{-210,-56.2857},{-61.4,-56.2857}}, color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          66,200},{66,180},{148,180}}, color={0,0,127}));
+          50,200},{50,192},{100,192},{100,180},{148,180}},
+                                       color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
@@ -381,9 +405,60 @@ equation
           -61.4,-82.2857}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(booToInt1.y, towCon.uChiSta) annotation (Line(points={{62,-130},{40,
+          -130},{40,340},{58,340},{58,339},{74,339}}, color={255,127,0}));
+  connect(staSetCon.ySta, towCon.uChiStaSet) annotation (Line(points={{27.4,
+          -45.1429},{27.4,334},{74,334},{74,333}}, color={255,127,0}));
+  connect(sigSub3.y, towCon.uTowStaCha) annotation (Line(points={{2,340},{42,
+          340},{42,327},{74,327}}, color={255,0,255}));
+  connect(plaEna.yPla, towCon.uLeaConWatPum) annotation (Line(points={{-79,-210},
+          {-76,-210},{-76,322},{74,322},{74,321}}, color={255,0,255}));
+  connect(sigSub3.y, towCon.uChaCel[1]) annotation (Line(points={{2,340},{40,
+          340},{40,315},{74,315}}, color={255,0,255}));
+  connect(staSetCon.yChiSet, towCon.uChi) annotation (Line(points={{27.4,
+          -19.1429},{27.4,410},{74,410},{74,411}}, color={255,0,255}));
+  connect(wseSta.y, towCon.uWse) annotation (Line(points={{-118,120},{-112,120},
+          {-112,405},{74,405}}, color={255,0,255}));
+  connect(towCon.yLeaCel, pre1.u) annotation (Line(points={{146,393},{152,393},
+          {152,390},{158,390}}, color={255,0,255}));
+  connect(pre1.y, towCon.uTowSta[1]) annotation (Line(points={{182,390},{190,
+          390},{190,442},{54,442},{54,369},{74,369}}, color={255,0,255}));
+  connect(plaEna.yPla, towCon.uPla) annotation (Line(points={{-79,-210},{-80,
+          -210},{-80,363},{74,363}}, color={255,0,255}));
+  connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet[1]) annotation (Line(
+        points={{-16,212},{32,212},{32,375},{74,375}}, color={0,0,127}));
+  connect(towCon.uConWatPumSpe[1], pumCW.y) annotation (Line(points={{74,351},{
+          58,351},{58,200},{288,200}}, color={0,0,127}));
+  connect(sigSub4.y, towCon.uIsoVal[1]) annotation (Line(points={{22,300},{50,
+          300},{50,309},{74,309}}, color={0,0,127}));
+  connect(sigSub4.y, towCon.watLev) annotation (Line(points={{22,300},{50,300},
+          {50,303},{74,303}}, color={0,0,127}));
+  connect(TConWatRetSen.T, towCon.TConWatRet) annotation (Line(points={{174,151},
+          {62,151},{62,356},{68,356},{68,357},{74,357}}, color={0,0,127}));
+  connect(TChiWatSupSen.T, towCon.TChiWatSup) annotation (Line(points={{311,-72},
+          {46,-72},{46,392},{60,392},{60,393},{74,393}}, color={0,0,127}));
+  connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
+      Line(points={{-116,-160},{-102,-160},{-102,388},{74,388},{74,387}}, color=
+         {0,0,127}));
+  connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{27.4,
+          -82.2857},{27.4,381},{74,381}}, color={0,0,127}));
+  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,
+          186},{134,186},{134,282},{66,282},{66,348},{74,348},{74,417}},
+                                   color={0,0,127}));
+  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{32,84},
+          {32,416},{54,416},{54,417},{74,417}}, color={0,0,127}));
+  connect(towCon.yFanSpe[1], movMea1.u)
+    annotation (Line(points={{146,327},{158,327},{158,350}}, color={0,0,127}));
+  connect(movMea1.y, towCon.uFanSpe) annotation (Line(points={{182,350},{202,
+          350},{202,446},{48,446},{48,399},{74,399}}, color={0,0,127}));
+  connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{146,327},{174,
+          327},{174,247},{199,247}}, color={0,0,127}));
+  connect(sigSub.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-226,-68},
+          {-220,-68},{-220,-56},{-140,-56},{-140,-56.2857},{-61.4,-56.2857}},
+                                                        color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_TowerSpeed.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -413,11 +488,10 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
-            400,300}})),
+            400,480}})),
     experiment(
-      StartTime=10000000,
-      StopTime=22896000,
+      StopTime=700000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
-end OneDeviceWithWSE;
+    Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
+end OneDeviceWithWSE_TowerSpeed_wo_down;
