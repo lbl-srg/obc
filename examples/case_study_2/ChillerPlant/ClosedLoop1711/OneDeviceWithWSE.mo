@@ -133,6 +133,7 @@ model OneDeviceWithWSE
     nConWatPum=1,
     closeCoupledPlant=true,
     desCap=742000,
+    fanSpeMin=0.2,
     chiMinCap={140980},
     TiIntOpe=120,
     TiWSE=120,
@@ -140,6 +141,7 @@ model OneDeviceWithWSE
     TConWatSup_nominal={293.15},
     TConWatRet_nominal={303.15},
     TChiWatSupMin={278.71},
+    TiCouPla=120,
     staVec={0,0.5,1},
     towCelOnSet={0,1,1})
     annotation (Placement(transformation(extent={{80,300},{140,420}})));

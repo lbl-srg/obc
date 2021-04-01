@@ -23,7 +23,7 @@ partial model DataCenter
     "Zone supply temperature setpoint";
 
   // control parameters
-  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes = 3
+  parameter Modelica.SIunits.TemperatureDifference cooTowAppDes = 4
     "Design cooling tower approach"
     annotation(Dialog(group="Design parameters"));
 
