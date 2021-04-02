@@ -156,6 +156,17 @@ model OneDeviceWithWSE_TowerSpeed_wo_down
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant sigSub(k=0.9)
     "Addresses a deficiency in 1711. Setting the value to enable a true signal generation in the Down controller. This is as current head pressure controller sets a constant maximum tower fan speed when have WSE"
     annotation (Placement(transformation(extent={{-248,-78},{-228,-58}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={166,178})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -371,14 +382,14 @@ equation
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          50,200},{50,192},{100,192},{100,180},{148,180}},
+          50,200},{50,192},{100,192},{100,178},{154,178}},
                                        color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
-          {160,140},{160,170}},           color={0,127,255},
+          {166,140},{166,168}},           color={0,127,255},
       thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{166,188},{166,
           239},{201,239}}, color={0,128,255},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
@@ -456,6 +467,10 @@ equation
   connect(sigSub.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-226,-68},
           {-220,-68},{-220,-56},{-140,-56},{-140,-56.2857},{-61.4,-56.2857}},
                                                         color={0,0,127}));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"

@@ -128,6 +128,17 @@ model OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging
     annotation (Placement(transformation(extent={{-240,-100},{-220,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(delta=60)
     annotation (Placement(transformation(extent={{-114,34},{-102,46}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,182})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -348,13 +359,13 @@ equation
   connect(sigSub.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{-218,-90},
           {-210,-90},{-210,-56.2857},{-61.4,-56.2857}}, color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          66,200},{66,180},{148,180}}, color={0,0,127}));
+          66,200},{66,182},{148,182}}, color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
-          {160,140},{160,170}},           color={0,127,255},
+          {160,140},{160,172}},           color={0,127,255},
       thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,192},{160,
           239},{201,239}}, color={0,128,255},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
@@ -381,6 +392,10 @@ equation
           -61.4,-82.2857}},
       color={0,0,127},
       pattern=LinePattern.Dash));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging.mos"

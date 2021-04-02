@@ -155,6 +155,17 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{0,290},{20,310}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=60)
     annotation (Placement(transformation(extent={{160,340},{180,360}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={162,176})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -366,14 +377,14 @@ equation
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          50,200},{50,192},{100,192},{100,180},{148,180}},
+          50,200},{50,192},{100,192},{100,176},{150,176}},
                                        color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
-          {160,140},{160,170}},           color={0,127,255},
+          {164,166},{162,166}},           color={0,127,255},
       thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{162,186},{162,
           239},{201,239}}, color={0,128,255},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
@@ -455,6 +466,10 @@ equation
       points={{182,350},{202,350},{202,446},{-196,446},{-196,104},{-164,104}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"
@@ -474,6 +489,10 @@ for an implementation with the discrete time trim and respond logic.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April xx, 2021, by Milica Grahovac:<br/>
+Added 1711-based controls with the corresponding instrumentation and parametrization.
+</li>
 <li>
 January 13, 2015, by Michael Wetter:<br/>
 Moved base model to
