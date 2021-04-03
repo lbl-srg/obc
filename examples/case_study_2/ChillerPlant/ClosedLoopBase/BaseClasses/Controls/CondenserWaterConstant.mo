@@ -4,12 +4,6 @@ model CondenserWaterConstant "Constant tower fan and CW pump speed control"
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal = 1
    "Nominal mass flow rate at fan";
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooTowFanCon(
-    final k=1)
-    "Control singal for cooling tower fan"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        origin={-10,50})));
   Buildings.Controls.OBC.CDL.Logical.Or
                              or2
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -29,14 +23,15 @@ model CondenserWaterConstant "Constant tower fan and CW pump speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mConWatPumSet_flow
     "Condenser water pump mass flow set-point"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mCWFlo1(final realTrue=1)
+    "Mass flow rate of condenser loop"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 equation
   connect(or2.y,mCWFlo. u) annotation (Line(
       points={{2,0},{18,0}},
       color={255,0,255},
       pattern=LinePattern.Dash,
       smooth=Smooth.None));
-  connect(cooTowFanCon.y, yTowFanSpeSet)
-    annotation (Line(points={{2,50},{120,50}}, color={0,0,127}));
   connect(mCWFlo.y, mConWatPumSet_flow) annotation (Line(points={{42,0},{60,0},
           {60,-50},{120,-50}}, color={0,0,127}));
   connect(uWSE, or2.u1) annotation (Line(points={{-120,50},{-60,50},{-60,0},{
@@ -45,6 +40,10 @@ equation
           {-22,-8}}, color={255,0,255}));
   connect(mConWatPumSet_flow, mConWatPumSet_flow)
     annotation (Line(points={{120,-50},{120,-50}}, color={0,0,127}));
+  connect(or2.y, mCWFlo1.u) annotation (Line(points={{2,0},{10,0},{10,50},{18,
+          50}}, color={255,0,255}));
+  connect(mCWFlo1.y, yTowFanSpeSet)
+    annotation (Line(points={{42,50},{120,50}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(
