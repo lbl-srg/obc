@@ -1,7 +1,8 @@
 within ChillerPlant.ClosedLoopBase;
 model OneDeviceWithWSE_dedicatedCWP
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(chi(m1_flow_nominal=
+          mCW_flow_nominal/2));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -29,8 +30,8 @@ model OneDeviceWithWSE_dedicatedCWP
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -55,11 +56,17 @@ model OneDeviceWithWSE_dedicatedCWP
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={40,212})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayLinear val annotation (Placement(
+  Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
+    portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    fraK=1)                                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={300,160})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+    annotation (Placement(transformation(extent={{320,190},{340,210}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -178,8 +185,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-56,210},{112,210},{112,214},{280,214},{280,120},
-          {172,120}},                                        color={0,0,127},
+    annotation (Line(points={{-56,210},{-20,210},{-20,196},{112,196},{112,214},
+          {280,214},{280,120},{172,120}},                    color={0,0,127},
       pattern=LinePattern.Dot));
   connect(val4.port_b, pumCW1.port_a)
     annotation (Line(points={{40,190},{40,202}}, color={0,127,255}));
@@ -195,14 +202,25 @@ equation
       points={{221,239},{240,239},{240,200},{80,200},{80,99},{68,99}},
       color={0,127,255},
       thickness=0.5));
-  connect(pumCW.port_b, cooTow.port_a) annotation (Line(points={{160,130},{160,
-          240},{201,240},{201,239}}, color={0,0,127}));
   connect(val.port_2, TCWLeaTow.port_a) annotation (Line(points={{300,150},{300,
-          119},{280,119}}, color={0,127,255}));
-  connect(cooTow.port_b, val.port_1) annotation (Line(points={{221,239},{260,
-          239},{260,240},{300,240},{300,170}}, color={0,127,255}));
+          119},{280,119}}, color={0,127,255},
+      thickness=0.5));
+  connect(cooTow.port_b, val.port_1) annotation (Line(points={{221,239},{220,
+          239},{220,240},{300,240},{300,170}}, color={0,127,255},
+      thickness=0.5));
   connect(val.port_3, pumCW.port_b) annotation (Line(points={{290,160},{160,160},
-          {160,130}}, color={0,127,255}));
+          {160,130}}, color={0,127,255},
+      thickness=0.5));
+  connect(pumCW.port_b, val5.port_a) annotation (Line(
+      points={{160,130},{160,170}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(con.y, val.y) annotation (Line(points={{342,200},{350,200},{350,160},
+          {312,160}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"

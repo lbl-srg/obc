@@ -211,7 +211,8 @@ equation
           {160,148},{160,170}},           color={0,127,255},
       thickness=0.5));
   connect(chi.port_b1,TConWatRetSen. port_b) annotation (Line(points={{196,99},{
-          194,99},{194,148},{188,148}},  color={0,0,127}));
+          194,99},{194,148},{188,148}},  color={0,128,255},
+      thickness=0.5));
   connect(val6.port_b,TChiWatSupSen. port_a) annotation (Line(
       points={{300,30},{300,-62}},
       color={0,127,255},

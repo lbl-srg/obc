@@ -120,7 +120,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=89580,
+    dpFixed_nominal=89580 + 15000,
     y_start=1,
     use_inputFilter=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
@@ -164,7 +164,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=59720,
+    dpFixed_nominal=59720 + 15000,
     y_start=0,
     use_inputFilter=false)
     "Control valve for condenser water loop of economizer" annotation (
