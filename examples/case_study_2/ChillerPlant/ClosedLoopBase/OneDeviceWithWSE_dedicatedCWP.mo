@@ -30,8 +30,8 @@ model OneDeviceWithWSE_dedicatedCWP
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -49,13 +49,13 @@ model OneDeviceWithWSE_dedicatedCWP
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW1(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=214992 + 15000),
+    dp(start=214992 + 150000),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={40,212})));
+        rotation=-90,
+        origin={126,204})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -68,8 +68,14 @@ model OneDeviceWithWSE_dedicatedCWP
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={300,160})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.99)
     annotation (Placement(transformation(extent={{320,190},{340,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{-18,150},{2,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=0.5)
+    annotation (Placement(transformation(extent={{4,222},{24,242}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+    annotation (Placement(transformation(extent={{114,272},{134,292}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -99,10 +105,6 @@ equation
       points={{-116,88},{-110,88},{-110,230},{-104,230}},
       color={255,0,255},
       pattern=LinePattern.DashDot));
-  connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-60,112},{-60,180},{28,180}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.yOff, val1.y) annotation (Line(
       points={{-116,100},{-60,100},{-60,-40},{148,-40}},
       color={0,0,127},
@@ -187,23 +189,9 @@ equation
       points={{242,-164},{300,-164},{300,30}},
       color={0,127,255},
       thickness=0.5));
-  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-56,210},{-20,210},{-20,196},{112,196},{112,120},{
-          172,120}},                                         color={0,0,127},
-      pattern=LinePattern.Dot));
-  connect(val4.port_b, pumCW1.port_a)
-    annotation (Line(points={{40,190},{40,202}}, color={0,127,255}));
-  connect(pumCW1.port_b, cooTow.port_a) annotation (Line(
-      points={{40,222},{40,239},{201,239}},
-      color={0,127,255},
-      thickness=0.5));
   connect(chi.port_b1, pumCW.port_a) annotation (Line(
       points={{196,99},{196,100},{160,100},{160,110}},
       color={0,128,255},
-      thickness=0.5));
-  connect(cooTow.port_b, wse.port_a1) annotation (Line(
-      points={{221,239},{240,239},{240,200},{80,200},{80,99},{68,99}},
-      color={0,127,255},
       thickness=0.5));
   connect(val.port_2, TCWLeaTow.port_a) annotation (Line(points={{300,150},{300,
           121},{282,121}}, color={0,127,255},
@@ -224,8 +212,32 @@ equation
       thickness=0.5));
   connect(con.y, val.y) annotation (Line(points={{342,200},{350,200},{350,160},{
           312,160}}, color={0,0,127}));
-  connect(condenserWaterConstant.mConWatPumSet_flow, pumCW1.m_flow_in)
-    annotation (Line(points={{-56,210},{0,210},{0,212},{52,212}}, color={0,0,127}));
+  connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{44,99},{
+          44,100},{40,100},{40,170}}, color={0,127,255}));
+  connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
+      points={{-116,112},{-62,112},{-62,180},{28,180}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(cooTow.port_b, pumCW1.port_a) annotation (Line(points={{221,239},{226,
+          239},{226,214},{126,214}}, color={0,127,255}));
+  connect(pumCW1.port_b, wse.port_a1) annotation (Line(points={{126,194},{126,
+          147.5},{68,147.5},{68,99}}, color={0,0,127}));
+  connect(cooTow.port_a, val4.port_b)
+    annotation (Line(points={{201,239},{40,239},{40,190}}, color={0,0,127}));
+  connect(waterSideEconomizerOnOff.yOn, pro.u2) annotation (Line(points={{-116,
+          112},{-62,112},{-62,154},{-20,154}}, color={0,0,127}));
+  connect(condenserWaterConstant.mConWatPumSet_flow, gai.u) annotation (Line(
+        points={{-56,210},{-26,210},{-26,232},{2,232}}, color={0,0,127}));
+  connect(condenserWaterConstant.mConWatPumSet_flow, pro.u1) annotation (Line(
+        points={{-56,210},{-38,210},{-38,166},{-20,166}}, color={0,0,127}));
+  connect(pro.y, pumCW1.m_flow_in) annotation (Line(points={{4,160},{60,160},{
+          60,204},{114,204}}, color={0,0,127}));
+  connect(gai.y, pro1.u2) annotation (Line(points={{26,232},{70,232},{70,276},{
+          112,276}}, color={0,0,127}));
+  connect(pro1.y, pumCW.m_flow_in) annotation (Line(points={{136,282},{192,282},
+          {192,120},{172,120}}, color={0,0,127}));
+  connect(chillerOnOff.yOn, pro1.u1) annotation (Line(points={{-116,20},{-116,
+          282},{112,282},{112,288}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_dedicatedCWP.mos"
@@ -259,6 +271,9 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
-    experiment(StartTime=13046400, Tolerance=1e-6, StopTime=13651200),
+    experiment(
+      StopTime=13651200,
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE_dedicatedCWP;

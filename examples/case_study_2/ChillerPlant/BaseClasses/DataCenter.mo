@@ -118,7 +118,7 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
+    m_flow_nominal=mCW_flow_nominal/2,
     dpValve_nominal=20902,
     dpFixed_nominal=89580 + 15000,
     y_start=1,
@@ -220,12 +220,6 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{220,279},{240,299}})));
 equation
 
-  connect(val4.port_a, wse.port_b1) annotation (Line(
-      points={{40,170},{40,99},{48,99}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-
   connect(cooCoi.port_b2, fan.port_a) annotation (Line(
       points={{242,-176},{301,-176},{301,-225},{290,-225}},
       color={0,127,255},
@@ -326,9 +320,6 @@ equation
   connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
       points={{240,289},{240,239},{221,239}},
       color={0,127,255},
-      thickness=0.5));
-  connect(val4.port_b, cooTow.port_a)
-    annotation (Line(points={{40,190},{40,239},{201,239}}, color={0,127,255},
       thickness=0.5));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
