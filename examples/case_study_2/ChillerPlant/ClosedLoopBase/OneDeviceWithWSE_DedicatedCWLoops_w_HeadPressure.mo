@@ -1,5 +1,5 @@
 within ChillerPlant.ClosedLoopBase;
-model OneDeviceWithWSE_DedicatedCWLoops
+model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter(
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*10),
@@ -189,8 +189,8 @@ equation
   connect(val.port_2, TCWLeaTow.port_a) annotation (Line(points={{300,150},{300,
           121},{282,121}}, color={0,127,255},
       thickness=0.5));
-  connect(cooTow.port_b, val.port_1) annotation (Line(points={{221,239},{220,
-          239},{220,238},{300,238},{300,170}}, color={0,127,255},
+  connect(cooTow.port_b, val.port_1) annotation (Line(points={{221,239},{220,239},
+          {220,238},{300,238},{300,170}},      color={0,127,255},
       thickness=0.5));
   connect(val.port_3, pumCW.port_b) annotation (Line(points={{290,160},{160,160},
           {160,130}}, color={0,127,255},
@@ -213,12 +213,13 @@ equation
       points={{-116,112},{-20,112},{-20,180},{28,180}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(cooTow.port_b, pumCWWSE.port_a) annotation (Line(points={{221,239},{
-          240,239},{240,140},{120,140},{120,130}},
+  connect(cooTow.port_b, pumCWWSE.port_a) annotation (Line(points={{221,239},{240,
+          239},{240,140},{120,140},{120,130}},
                                      color={0,127,255},
       thickness=0.5));
   connect(pumCWWSE.port_b, wse.port_a1) annotation (Line(points={{120,110},{120,
-          100},{68,100},{68,99}},     color={0,0,127}));
+          100},{68,100},{68,99}},     color={0,128,255},
+      thickness=0.5));
   connect(cooTow.port_a, val4.port_b)
     annotation (Line(points={{201,239},{40,239},{40,190}}, color={0,128,255},
       thickness=0.5));
@@ -232,10 +233,10 @@ equation
         color={0,0,127},
       pattern=LinePattern.Dot));
   connect(condenserWaterConstantTwoLoops.mChiConWatPumSet_flow, pumCW.m_flow_in)
-    annotation (Line(points={{-36,198},{80,198},{80,152},{180,152},{180,120},{
-          172,120}},                                                   color={0,0,127},
-
+    annotation (Line(points={{-36,198},{80,198},{80,152},{180,152},{180,120},{172,
+          120}},                                                       color={0,0,127},
       pattern=LinePattern.Dot));
+
   connect(condenserWaterConstantTwoLoops.mWSEConWatPumSet_flow, pumCWWSE.m_flow_in)
     annotation (Line(points={{-36,188},{-10,188},{-10,120},{108,120}},
                  color={0,0,127},
@@ -246,7 +247,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -282,4 +283,4 @@ First implementation.
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
-end OneDeviceWithWSE_DedicatedCWLoops;
+end OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure;
