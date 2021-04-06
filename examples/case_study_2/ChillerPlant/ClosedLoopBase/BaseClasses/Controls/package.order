@@ -1,6 +1,7 @@
-CondenserWaterConstant
 ChilledWaterReset
 ChillerOnOff
+CondenserWaterConstant
+CondenserWaterConstantTwoLoops
 PlantOnOffWithAnalogueTrimAndRespond
 WaterSideEconomizerOnOff
 WaterSideEconomizerStateMachine

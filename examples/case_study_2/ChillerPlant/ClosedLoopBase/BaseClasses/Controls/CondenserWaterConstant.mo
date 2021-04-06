@@ -2,7 +2,7 @@ within ChillerPlant.ClosedLoopBase.BaseClasses.Controls;
 model CondenserWaterConstant "Constant tower fan and CW pump speed control"
 
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal = 1
-   "Nominal mass flow rate at fan";
+   "Nominal condenser water mass flow rate";
 
   Buildings.Controls.OBC.CDL.Logical.Or
                              or2
