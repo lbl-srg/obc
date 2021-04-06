@@ -1,10 +1,13 @@
 within ChillerPlant.ClosedLoopBase;
 model OneDeviceWithWSE_DedicatedCWLoops
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
-  extends ChillerPlant.BaseClasses.DataCenter(chi(m1_flow_nominal=
-          mCW_flow_nominal/2));
+  extends ChillerPlant.BaseClasses.DataCenter(
+    mCW_flow_nominal = 2*roo.QRoo_flow/(4200*10),
+    chi(m1_flow_nominal=mCW_flow_nominal/2));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
+
+  Modelica.SIunits.Power PWSEWatPum;
 
   parameter Real dTChi(
     final unit="K",
@@ -266,7 +269,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StopTime=30651200,
+      StopTime=31500000,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));

@@ -234,6 +234,10 @@ equation
   connect(TCWLeaTow.port_b, wse.port_a1) annotation (Line(points={{260,119},{98,
           119},{98,99},{68,99}},      color={0,128,255},
       thickness=0.5));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(points={{40,190},{40,240},
+          {201,240},{201,239}}, color={0,127,255}));
+  connect(wse.port_b1, val4.port_a)
+    annotation (Line(points={{48,99},{40,99},{40,170}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_HeaPreVal.mos"

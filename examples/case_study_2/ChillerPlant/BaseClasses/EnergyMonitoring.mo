@@ -4,7 +4,6 @@ partial model EnergyMonitoring "Energy monitoring system"
   Modelica.SIunits.Power PSupFan;
   Modelica.SIunits.Power PChiWatPum;
   Modelica.SIunits.Power PConWatPum;
-  Modelica.SIunits.Power PWSEWatPum;
   Modelica.SIunits.Power PCooTowFan;
   Modelica.SIunits.Power PChi;
 

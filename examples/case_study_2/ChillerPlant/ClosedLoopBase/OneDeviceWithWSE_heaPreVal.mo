@@ -234,6 +234,8 @@ equation
           {-12,-72},{-12,278},{6,278}}, color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{54,274},{102,
           274},{102,180},{148,180}}, color={0,0,127}));
+  connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{42,99},{
+          42,170},{40,170}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_heaPreVal.mos"

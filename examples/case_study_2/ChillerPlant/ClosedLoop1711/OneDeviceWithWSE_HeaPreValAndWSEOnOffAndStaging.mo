@@ -194,10 +194,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
-      points={{-599,-10},{-562,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(VChiWatSen_flow.port_b, cooCoi.port_a1) annotation (Line(
       points={{300,-118},{300,-164},{242,-164}},
       color={0,127,255},
@@ -394,6 +390,10 @@ equation
       pattern=LinePattern.Dash));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
       points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(wse.port_b1, val4.port_a) annotation (Line(
+      points={{48,99},{48,100},{40,100},{40,170}},
       color={0,127,255},
       thickness=0.5));
   annotation (

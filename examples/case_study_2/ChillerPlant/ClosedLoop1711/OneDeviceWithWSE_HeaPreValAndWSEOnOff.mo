@@ -257,6 +257,14 @@ equation
       points={{300,190},{300,132},{140,132},{140,99},{68,99}},
       color={28,108,200},
       thickness=0.5));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{40,190},{40,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(wse.port_b1, val4.port_a) annotation (Line(
+      points={{48,99},{42,99},{42,170},{40,170}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_HeaPreValAndWSEOnOff.mos"
