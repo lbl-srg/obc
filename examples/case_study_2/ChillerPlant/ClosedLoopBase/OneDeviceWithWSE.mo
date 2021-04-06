@@ -196,6 +196,10 @@ equation
   connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,110},
           {160,110},{160,170}}, color={0,128,255},
       thickness=0.5));
+  connect(val4.port_a, wse.port_b1) annotation (Line(
+      points={{40,170},{40,99},{48,99}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"

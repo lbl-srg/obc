@@ -20,6 +20,16 @@ def get_cases():
          "stop_time":  265*24*3600})
 
     cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops",
+         "name": "base_2loop_summer",
+         "long_name": "Base-case w 2 CW loops, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 10800,
+         "num_id":0,
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600})
+
+    cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreVal",
          "name": "1711_heapreval_summer",
          "long_name": "Adds head pressure valve modulation, Summer",
@@ -77,6 +87,16 @@ def get_cases():
          "season" : "annual",
          "n_output_intervals" : 10800,
          "num_id":6,
+         "start_time": 0,
+         "stop_time":  365*24*3600})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops",
+         "name": "base_2loop_annual",
+         "long_name": "Base-case w 2 CW loops, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 10800,
+         "num_id":0,
          "start_time": 0,
          "stop_time":  365*24*3600})
 

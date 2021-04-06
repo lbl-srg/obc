@@ -4,6 +4,7 @@ partial model EnergyMonitoring "Energy monitoring system"
   Modelica.SIunits.Power PSupFan;
   Modelica.SIunits.Power PChiWatPum;
   Modelica.SIunits.Power PConWatPum;
+  Modelica.SIunits.Power PWSEWatPum;
   Modelica.SIunits.Power PCooTowFan;
   Modelica.SIunits.Power PChi;
 
@@ -19,7 +20,7 @@ partial model EnergyMonitoring "Energy monitoring system"
 
   Modelica.Blocks.Sources.RealExpression QRooIntGai1_flow(y=QRooIntGai_flow)
     "Power consumed by IT" annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}}, origin={-610,-10})));
+            {10,10}}, origin={-610,-100})));
 
   Modelica.Blocks.Continuous.Integrator PAllAgg(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Meters total power consumption"
@@ -27,7 +28,7 @@ partial model EnergyMonitoring "Energy monitoring system"
 
   Modelica.Blocks.Continuous.Integrator QRooIntGaiAgg(initType=Modelica.Blocks.Types.Init.InitialState,
       y_start=0) "Energy consumed by IT"
-    annotation (Placement(transformation(extent={{-560,-20},{-540,0}})));
+    annotation (Placement(transformation(extent={{-560,-110},{-540,-90}})));
 
   Modelica.Blocks.Sources.RealExpression PCooTowFan1(y=PCooTowFan)
     "Cooling tower power consumption" annotation (Placement(transformation(
@@ -71,11 +72,11 @@ partial model EnergyMonitoring "Energy monitoring system"
 
   Modelica.Blocks.Sources.RealExpression mConWat1_flow(y=mConWat_flow)
     "Flow in the condensed water loop" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-490,-10})));
+          extent={{-10,-10},{10,10}}, origin={-490,-100})));
 
   Modelica.Blocks.Sources.RealExpression mChiWat1_flow(y=mChiWat_flow)
     "Flow in the chilled water loop" annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}}, origin={-490,-50})));
+          extent={{-10,-10},{10,10}}, origin={-490,-140})));
 
 equation
 
@@ -84,7 +85,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
-      points={{-599,-10},{-562,-10}},
+      points={{-599,-100},{-562,-100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PCooTowFan1.y, PCooTowAgg.u) annotation (Line(
@@ -115,11 +116,11 @@ equation
           lineColor={28,108,200},
           textString="Power meters"),
         Text(
-          extent={{-620,48},{-514,20}},
+          extent={{-620,-42},{-514,-70}},
           lineColor={28,108,200},
           textString="Heat flow meters"),
         Text(
-          extent={{-502,48},{-400,18}},
+          extent={{-502,-42},{-400,-72}},
           lineColor={28,108,200},
           textString="Fluid flow meters")}),
 Documentation(info="<HTML>

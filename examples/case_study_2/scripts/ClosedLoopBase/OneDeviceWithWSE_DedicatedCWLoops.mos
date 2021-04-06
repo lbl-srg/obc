@@ -1,4 +1,4 @@
-﻿simulateModel("ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_dedicatedCWP", startTime=13046400, stopTime=13651200, method="Cvode", tolerance=1e-5, resultFile="OneDeviceWithWSE_dedicatedCWP");
+﻿simulateModel("ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops", startTime=13046400, stopTime=13651200, method="Cvode", tolerance=1e-5, resultFile="OneDeviceWithWSE_DedicatedCWLoops");
 createPlot(id = 1,
  position = {10, 30, 719, 536},
  y = {"TAirSup.T", "weaBus.TWetBul"},
@@ -13,7 +13,7 @@ createPlot(id = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {10, 30, 719, 175},
- y = {"pumCW.m_flow", "pumCHW.m_flow"},
+ y = {"pumCW.m_flow", "pumCHW.m_flow", "pumCWWSE.m_flow", "pumCHWWSE.m_flow"},
  range = {0, 180000.0, 80.0, 0},
  autoscale = true,
  autoerase = true,
