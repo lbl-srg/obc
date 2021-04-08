@@ -155,17 +155,6 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{0,290},{20,310}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=60)
     annotation (Placement(transformation(extent={{160,340},{180,360}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=89580,
-    y_start=1,
-    use_inputFilter=false) "Control valve for condenser water loop of chiller"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={162,176})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -199,8 +188,9 @@ equation
   connect(con.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-98,200},{
           -82,200},{-82,196},{-64,196}},  color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
-          188},{0,188},{0,200},{288,200}}, color={0,0,127},
+  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,188},
+          {0,188},{0,196},{120,196},{120,200},{288,200}},
+                                           color={0,0,127},
       pattern=LinePattern.Dot));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
       points={{300,30},{300,-62}},
@@ -377,17 +367,8 @@ equation
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-118,110},
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
-  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          50,200},{50,192},{100,192},{100,176},{150,176}},
-                                       color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
-  connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
-          {164,166},{162,166}},           color={0,127,255},
-      thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{162,186},{162,
-          239},{201,239}}, color={0,128,255},
-      thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
           {-114,102},{-114,40},{-115.2,40}},
                                            color={0,0,127},
@@ -433,9 +414,11 @@ equation
   connect(plaEna.yPla, towCon.uPla) annotation (Line(points={{-79,-210},{-80,
           -210},{-80,363},{74,363}}, color={255,0,255}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet[1]) annotation (Line(
-        points={{-16,212},{32,212},{32,375},{74,375}}, color={0,0,127}));
+        points={{-16,212},{32,212},{32,375},{74,375}}, color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(towCon.uConWatPumSpe[1], pumCW.y) annotation (Line(points={{74,351},{
-          58,351},{58,200},{288,200}}, color={0,0,127}));
+          54,351},{54,210},{280,210},{280,200},{288,200}},
+                                       color={0,0,127}));
   connect(sigSub4.y, towCon.uIsoVal[1]) annotation (Line(points={{22,300},{50,
           300},{50,309},{74,309}}, color={0,0,127}));
   connect(sigSub4.y, towCon.watLev) annotation (Line(points={{22,300},{50,300},
@@ -450,8 +433,9 @@ equation
   connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{27.4,
           -82.2857},{27.4,381},{74,381}}, color={0,0,127}));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,
-          186},{134,186},{134,282},{66,282},{66,348},{74,348},{74,417}},
-                                   color={0,0,127}));
+          112},{194,112},{194,194},{134,194},{134,282},{66,282},{66,346},{74,
+          346},{74,417}},          color={0,0,127},
+      pattern=LinePattern.Dot));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{32,84},
           {32,416},{54,416},{54,417},{74,417}}, color={0,0,127}));
   connect(towCon.yFanSpe[1], movMea1.u)
@@ -475,6 +459,18 @@ equation
       points={{48,99},{40,99},{40,170}},
       color={0,127,255},
       thickness=0.5));
+  connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(
+      points={{164,140},{160,140},{160,170},{160,170}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{160,190},{160,239},{201,239}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
+      points={{-16,200},{106,200},{106,180},{148,180}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"

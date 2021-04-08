@@ -80,6 +80,26 @@ model OneDeviceWithWSE_DedicatedCWLoops
       y_start=0)
     "Condensed water pump power consumption meter for the WSE loop"
     annotation (Placement(transformation(extent={{-460,20},{-440,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset loaCon(
+    final controllerType=conTyp,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=1,
+    final yMin=0.2,
+    reverseActing=true,
+    final y_reset=yMax)
+    "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
+    annotation (Placement(transformation(extent={{380,240},{400,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Division div1
+                                                     "Output first input divided by second input"
+    annotation (Placement(transformation(extent={{362,124},{382,144}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR1(k=0.2)
+    "Minimum part load ratio"
+    annotation (Placement(transformation(extent={{320,240},{340,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR2(k=0.2)
+    "Minimum part load ratio"
+    annotation (Placement(transformation(extent={{346,48},{366,68}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -244,6 +264,8 @@ equation
       points={{-499,20},{-480,20},{-480,30},{-462,30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(minPLR1.y, loaCon.u_s)
+    annotation (Line(points={{342,250},{378,250}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops.mos"
