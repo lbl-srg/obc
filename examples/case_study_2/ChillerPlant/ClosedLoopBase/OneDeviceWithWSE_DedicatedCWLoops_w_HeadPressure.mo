@@ -30,8 +30,8 @@ model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -81,7 +81,7 @@ model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
     annotation (Placement(transformation(extent={{-460,20},{-440,40}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPreCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=10,
+    final k=1,
     final Ti=120,
     final Td=120,
     final yMax=1,
@@ -89,7 +89,7 @@ model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
     reverseActing=true,
     final y_reset=1)
     "Controls the recirculation valve to maintain the CW supply temperature sufficiently above the evaporator side one"
-    annotation (Placement(transformation(extent={{-54,150},{-34,170}})));
+    annotation (Placement(transformation(extent={{-52,150},{-32,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR1(k=1.1*chi.per.PLRMinUnl)
     "Minimum part load ratio"
     annotation (Placement(transformation(extent={{-92,118},{-72,138}})));
@@ -246,8 +246,8 @@ equation
       points={{-499,20},{-480,20},{-480,30},{-462,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(chillerOnOff.yChi, heaPreCon.trigger) annotation (Line(points={{-116,
-          34},{-50,34},{-50,148}}, color={255,0,255}));
+  connect(chillerOnOff.yChi, heaPreCon.trigger) annotation (Line(points={{-116,34},
+          {-48,34},{-48,148}},     color={255,0,255}));
   connect(val.port_2, chi.port_a1) annotation (Line(points={{300,150},{300,100},
           {258,100},{258,99},{216,99}}, color={0,127,255}));
   connect(pumCWWSE.port_b, wse.port_a1) annotation (Line(
@@ -263,15 +263,15 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(one.y, heaPreCon.u_s)
-    annotation (Line(points={{-68,160},{-56,160}}, color={0,0,127}));
+    annotation (Line(points={{-68,160},{-54,160}}, color={0,0,127}));
   connect(heaPreCon.y, addPar.u)
-    annotation (Line(points={{-32,160},{-2,160}}, color={0,0,127}));
+    annotation (Line(points={{-30,160},{-2,160}}, color={0,0,127}));
   connect(minPLR1.y, div1.u2) annotation (Line(points={{-70,128},{-56,128},{-56,
           88},{-46,88}}, color={0,0,127}));
   connect(chi.yPLR1, div1.u1) annotation (Line(points={{217,102},{224,102},{224,
           72},{-64,72},{-64,100},{-46,100}}, color={0,0,127}));
   connect(div1.y, heaPreCon.u_m) annotation (Line(points={{-22,94},{-14,94},{
-          -14,130},{-44,130},{-44,148}}, color={0,0,127}));
+          -14,130},{-42,130},{-42,148}}, color={0,0,127}));
   connect(addPar.y, val.y)
     annotation (Line(points={{22,160},{312,160}}, color={0,0,127}));
   annotation (

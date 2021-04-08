@@ -20,7 +20,7 @@ def get_cases():
          "stop_time":  265*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops",
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
          "name": "base_2loop_summer",
          "long_name": "Base-case w 2 CW loops, Summer",
          "season" : "summer",
@@ -91,7 +91,7 @@ def get_cases():
          "stop_time":  365*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops",
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
          "name": "base_2loop_annual",
          "long_name": "Base-case w 2 CW loops, Annual",
          "season" : "annual",
