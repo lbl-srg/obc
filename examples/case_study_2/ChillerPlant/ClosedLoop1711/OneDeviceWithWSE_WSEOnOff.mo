@@ -135,7 +135,8 @@ equation
     annotation (Line(points={{-56,210},{288,210},{288,180}}, color={0,0,127},
       pattern=LinePattern.Dot));
   connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
-      points={{-599,-10},{-562,-10}},
+      points={{-599,-100},{-590,-100},{-590,-190},{-580,-190},{-580,-100},{-562,
+          -100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TWetBul, wseSta.TOutWet) annotation (Line(
@@ -224,6 +225,10 @@ equation
   connect(chi.port_a1, pumCW.port_b) annotation (Line(
       points={{216,99},{300,99},{300,170}},
       color={0,128,255},
+      thickness=0.5));
+  connect(wse.port_b1, val4.port_a) annotation (Line(
+      points={{48,99},{40,99},{40,170},{40,170}},
+      color={0,127,255},
       thickness=0.5));
   annotation (
     __Dymola_Commands(file=

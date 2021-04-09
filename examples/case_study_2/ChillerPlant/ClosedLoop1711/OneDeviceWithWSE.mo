@@ -207,11 +207,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(QRooIntGai1_flow.y, QRooIntGaiAgg.u) annotation (Line(
-      points={{-599,-100},{-590,-100},{-590,-190},{-580,-190},{-580,-100},{-562,
-          -100}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(VChiWatSen_flow.port_b, cooCoi.port_a1) annotation (Line(
       points={{300,-118},{300,-164},{242,-164}},
       color={0,127,255},
