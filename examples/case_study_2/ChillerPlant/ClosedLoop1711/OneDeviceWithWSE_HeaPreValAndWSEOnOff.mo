@@ -90,6 +90,17 @@ model OneDeviceWithWSE_HeaPreValAndWSEOnOff
     VHeaExcDes_flow=mCHW_flow_nominal/rho_default)
     annotation (Placement(transformation(extent={{-160,102},{-120,142}})));
 
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,180})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -246,7 +257,7 @@ equation
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {188,99},{188,110},{182,110}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{162,110},
-          {160,110},{160,170},{160,170}}, color={0,127,255}));
+          {160,110},{160,170}},           color={0,127,255}));
   connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,190},{160,
           239},{201,239}},           color={0,127,255}));
   connect(chi.port_a1, pumCW.port_b) annotation (Line(

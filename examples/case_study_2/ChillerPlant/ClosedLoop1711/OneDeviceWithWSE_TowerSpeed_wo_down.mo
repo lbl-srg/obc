@@ -166,7 +166,7 @@ model OneDeviceWithWSE_TowerSpeed_wo_down
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={166,178})));
+        origin={160,170})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -378,14 +378,14 @@ equation
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-61.4,-48.8571}},
                                                    color={0,0,127}));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{-16,200},{
-          50,200},{50,192},{100,192},{100,178},{154,178}},
+          50,200},{50,192},{100,192},{100,170},{148,170}},
                                        color={0,0,127}));
   connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
           {190,99},{190,140},{184,140}}, color={0,0,127}));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{164,140},
-          {166,140},{166,168}},           color={0,127,255},
+          {160,140},{160,160}},           color={0,127,255},
       thickness=0.5));
-  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{166,188},{166,
+  connect(val5.port_b, cooTow.port_a) annotation (Line(points={{160,180},{160,
           239},{201,239}}, color={0,128,255},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},

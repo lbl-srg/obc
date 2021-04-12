@@ -45,6 +45,17 @@ model OneDeviceWithWSE
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,180})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,160})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -120,7 +131,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{102,20},{102,180},{148,180}},
+      points={{-116,20},{102,20},{102,160},{148,160}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
@@ -174,7 +185,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{160,170},{160,239},{201,239}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -194,7 +205,7 @@ equation
                                                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chi.port_b1, val5.port_a) annotation (Line(points={{196,99},{196,110},
-          {160,110},{160,170}}, color={0,128,255},
+          {160,110},{160,150}}, color={0,128,255},
       thickness=0.5));
   connect(val4.port_a, wse.port_b1) annotation (Line(
       points={{40,170},{40,99},{48,99}},

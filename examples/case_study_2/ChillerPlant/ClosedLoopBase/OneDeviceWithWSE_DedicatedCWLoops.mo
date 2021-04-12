@@ -80,26 +80,17 @@ model OneDeviceWithWSE_DedicatedCWLoops
       y_start=0)
     "Condensed water pump power consumption meter for the WSE loop"
     annotation (Placement(transformation(extent={{-460,20},{-440,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset loaCon(
-    final controllerType=conTyp,
-    final k=k,
-    final Ti=Ti,
-    final Td=Td,
-    final yMax=1,
-    final yMin=0.2,
-    reverseActing=true,
-    final y_reset=yMax)
-    "Controller to maintain chiller load at the sum of minimum cycling load of operating chillers"
-    annotation (Placement(transformation(extent={{380,240},{400,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
-                                                     "Output first input divided by second input"
-    annotation (Placement(transformation(extent={{362,124},{382,144}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR1(k=0.2)
-    "Minimum part load ratio"
-    annotation (Placement(transformation(extent={{320,240},{340,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR2(k=0.2)
-    "Minimum part load ratio"
-    annotation (Placement(transformation(extent={{346,48},{366,68}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,190})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -160,7 +151,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{102,20},{102,180},{148,180}},
+      points={{-116,20},{102,20},{102,190},{148,190}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
@@ -216,11 +207,11 @@ equation
           {160,130}}, color={0,127,255},
       thickness=0.5));
   connect(pumCW.port_b, val5.port_a) annotation (Line(
-      points={{160,130},{160,170}},
+      points={{160,130},{160,180}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{160,200},{160,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(con.y, val.y) annotation (Line(points={{342,200},{350,200},{350,160},{
@@ -254,8 +245,8 @@ equation
   connect(condenserWaterConstantTwoLoops.mChiConWatPumSet_flow, pumCW.m_flow_in)
     annotation (Line(points={{-36,198},{80,198},{80,152},{180,152},{180,120},{
           172,120}},                                                   color={0,0,127},
-
       pattern=LinePattern.Dot));
+
   connect(condenserWaterConstantTwoLoops.mWSEConWatPumSet_flow, pumCWWSE.m_flow_in)
     annotation (Line(points={{-36,188},{-10,188},{-10,120},{108,120}},
                  color={0,0,127},
@@ -264,8 +255,6 @@ equation
       points={{-499,20},{-480,20},{-480,30},{-462,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(minPLR1.y, loaCon.u_s)
-    annotation (Line(points={{342,250},{378,250}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops.mos"

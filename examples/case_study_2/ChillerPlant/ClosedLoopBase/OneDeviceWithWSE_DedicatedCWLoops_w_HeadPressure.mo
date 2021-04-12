@@ -84,22 +84,29 @@ model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
     final k=0.5,
     final Ti=120,
     final Td=120,
+    r=chi.per.PLRMinUnl,
     final yMax=1,
     final yMin=0,
     reverseActing=true,
     final y_reset=1)
     "Controls the recirculation valve to maintain the CW supply temperature sufficiently above the evaporator side one"
     annotation (Placement(transformation(extent={{-50,170},{-30,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPLR1(k=chi.per.PLRMinUnl)
-    "Minimum part load ratio"
-    annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=1) "Constant"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(k=chi.per.PLRMinUnl)
+                                                                  "Constant"
     annotation (Placement(transformation(extent={{-90,170},{-70,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
-    "Measurement divided by the setpoint"
-    annotation (Placement(transformation(extent={{-52,130},{-32,150}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1, k=-0.95)
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,190})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -160,7 +167,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chillerOnOff.yOn, val5.y) annotation (Line(
-      points={{-116,20},{100,20},{100,180},{148,180}},
+      points={{-116,20},{100,20},{100,190},{148,190}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
@@ -208,11 +215,11 @@ equation
           {160,130}}, color={0,127,255},
       thickness=0.5));
   connect(pumCW.port_b, val5.port_a) annotation (Line(
-      points={{160,130},{160,170}},
+      points={{160,130},{160,180}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{160,200},{160,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{44,99},{
@@ -251,7 +258,8 @@ equation
           {-60,34},{-60,160},{-46,160},{-46,168}},
                                    color={255,0,255}));
   connect(val.port_2, chi.port_a1) annotation (Line(points={{300,150},{300,100},
-          {258,100},{258,99},{216,99}}, color={0,127,255}));
+          {258,100},{258,99},{216,99}}, color={0,127,255},
+      thickness=0.5));
   connect(pumCWWSE.port_b, wse.port_a1) annotation (Line(
       points={{120,110},{120,99},{68,99}},
       color={0,127,255},
@@ -269,17 +277,12 @@ equation
   connect(heaPreCon.y, addPar.u)
     annotation (Line(points={{-28,180},{-14,180},{-14,150},{-2,150}},
                                                   color={0,0,127}));
-  connect(minPLR1.y, div1.u2) annotation (Line(points={{-68,140},{-56,140},{-56,
-          134},{-54,134}},
-                         color={0,0,127}));
-  connect(chi.yPLR1, div1.u1) annotation (Line(points={{217,102},{224,102},{224,
-          72},{-64,72},{-64,146},{-54,146}}, color={0,0,127}));
-  connect(div1.y, heaPreCon.u_m) annotation (Line(points={{-30,140},{-30,160},{-40,
-          160},{-40,168}},               color={0,0,127}));
   connect(addPar.y, val.y)
     annotation (Line(points={{22,150},{280,150},{280,180},{320,180},{320,160},{312,
           160}},                                  color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(chi.yPLR1, heaPreCon.u_m) annotation (Line(points={{217,102},{238,102},
+          {238,138},{-40,138},{-40,168}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure.mos"

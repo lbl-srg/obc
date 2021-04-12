@@ -59,6 +59,17 @@ model OneDeviceWithWSE_WSEOnOff
     TChiWatSupMin=273.15 + 5.56,
     TChiWatSupMax=273.15 + 22)
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,180})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;

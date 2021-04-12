@@ -155,6 +155,17 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{0,290},{20,310}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea1(delta=60)
     annotation (Placement(transformation(extent={{160,340},{180,360}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={162,176})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -455,15 +466,15 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(
-      points={{164,140},{160,140},{160,170},{160,170}},
+      points={{164,140},{160,140},{160,166},{162,166}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{162,186},{162,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
-      points={{-16,200},{106,200},{106,180},{148,180}},
+      points={{-16,200},{106,200},{106,176},{150,176}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   annotation (

@@ -67,6 +67,17 @@ model OneDeviceWithWSE_heaPreVal
     annotation (Placement(transformation(extent={{10,254},{50,294}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-98,256},{-78,276}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={156,184})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -188,7 +199,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{156,194},{156,239},{201,239}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -208,7 +219,7 @@ equation
                                                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(points={{168,148},
-          {160,148},{160,170}},           color={0,127,255},
+          {156,148},{156,174}},           color={0,127,255},
       thickness=0.5));
   connect(chi.port_b1,TConWatRetSen. port_b) annotation (Line(points={{196,99},{
           194,99},{194,148},{188,148}},  color={0,128,255},
@@ -232,8 +243,9 @@ equation
           {-18,159},{-18,286},{6,286}}, color={0,0,127}));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
           {-12,-72},{-12,278},{6,278}}, color={0,0,127}));
-  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{54,274},{102,
-          274},{102,180},{148,180}}, color={0,0,127}));
+  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(points={{54,274},{
+          102,274},{102,184},{144,184}},
+                                     color={0,0,127}));
   connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{42,99},{
           42,170},{40,170}}, color={0,127,255}));
   annotation (

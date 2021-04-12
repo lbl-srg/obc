@@ -80,6 +80,17 @@ model OneDeviceWithWSE_HeaPreVal
         rotation=270,
         origin={300,200})));
 
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal/2,
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580,
+    y_start=1,
+    use_inputFilter=false) "Control valve for condenser water loop of chiller"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={160,180})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
