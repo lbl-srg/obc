@@ -78,6 +78,21 @@ model OneDeviceWithWSE_heaPreVal
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={156,184})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={42,176})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{240,281},{260,301}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -108,7 +123,7 @@ equation
       color={255,0,255},
       pattern=LinePattern.DashDot));
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-60,112},{-60,180},{28,180}},
+      points={{-116,112},{-60,112},{-60,176},{30,176}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.yOff, val1.y) annotation (Line(
@@ -194,7 +209,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{40,190},{40,239},{201,239}},
+      points={{42,186},{42,239},{201,239}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -247,7 +262,11 @@ equation
           102,274},{102,184},{144,184}},
                                      color={0,0,127}));
   connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{42,99},{
-          42,170},{40,170}}, color={0,127,255}));
+          42,166}},          color={0,127,255}));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{260,291},{260,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_heaPreVal.mos"

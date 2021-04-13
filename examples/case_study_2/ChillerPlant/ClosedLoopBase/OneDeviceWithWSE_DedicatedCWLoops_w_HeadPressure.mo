@@ -107,6 +107,21 @@ model OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,190})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,192})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{240,281},{260,301}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -223,14 +238,14 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{44,99},{
-          44,100},{40,100},{40,170}}, color={0,127,255},
+          44,100},{40,100},{40,182}}, color={0,127,255},
       thickness=0.5));
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-20,112},{-20,180},{28,180}},
+      points={{-116,112},{-20,112},{-20,192},{28,192}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(cooTow.port_a, val4.port_b)
-    annotation (Line(points={{201,239},{40,239},{40,190}}, color={0,128,255},
+    annotation (Line(points={{201,239},{40,239},{40,202}}, color={0,128,255},
       thickness=0.5));
   connect(waterSideEconomizerOnOff.ySta, condenserWaterConstantTwoLoops.uWSE)
     annotation (Line(points={{-116,88},{-108,88},{-108,230},{-84,230}}, color={255,
@@ -283,6 +298,10 @@ equation
       pattern=LinePattern.Dot));
   connect(chi.yPLR1, heaPreCon.u_m) annotation (Line(points={{217,102},{238,102},
           {238,138},{-40,138},{-40,168}}, color={0,0,127}));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{260,291},{260,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure.mos"

@@ -179,6 +179,9 @@ model OneDeviceWithWSE_TowerSpeed_wo_down
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={56,168})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{238,281},{258,301}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -481,6 +484,10 @@ equation
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(
       points={{48,99},{48,158},{56,158}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{258,291},{258,239},{221,239}},
       color={0,127,255},
       thickness=0.5));
   annotation (

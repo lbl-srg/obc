@@ -91,6 +91,21 @@ model OneDeviceWithWSE_DedicatedCWLoops
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,190})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={42,180})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{240,279},{260,299}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -218,10 +233,10 @@ equation
           312,160}}, color={0,0,127},
       pattern=LinePattern.Dot));
   connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{44,99},{
-          44,100},{40,100},{40,170}}, color={0,127,255},
+          44,100},{42,100},{42,170}}, color={0,127,255},
       thickness=0.5));
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-20,112},{-20,180},{28,180}},
+      points={{-116,112},{-20,112},{-20,180},{30,180}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(cooTow.port_b, pumCWWSE.port_a) annotation (Line(points={{221,239},{
@@ -231,7 +246,7 @@ equation
   connect(pumCWWSE.port_b, wse.port_a1) annotation (Line(points={{120,110},{120,
           100},{68,100},{68,99}},     color={0,0,127}));
   connect(cooTow.port_a, val4.port_b)
-    annotation (Line(points={{201,239},{40,239},{40,190}}, color={0,128,255},
+    annotation (Line(points={{201,239},{42,239},{42,190}}, color={0,128,255},
       thickness=0.5));
   connect(waterSideEconomizerOnOff.ySta, condenserWaterConstantTwoLoops.uWSE)
     annotation (Line(points={{-116,88},{-108,88},{-108,210},{-84,210}}, color={255,
@@ -255,6 +270,10 @@ equation
       points={{-499,20},{-480,20},{-480,30},{-462,30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{260,289},{260,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_DedicatedCWLoops.mos"

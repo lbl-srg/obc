@@ -178,6 +178,9 @@ model OneDeviceWithWSE
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={54,170})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{260,281},{280,301}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -489,6 +492,10 @@ equation
       points={{-16,200},{106,200},{106,176},{150,176}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{280,291},{280,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"

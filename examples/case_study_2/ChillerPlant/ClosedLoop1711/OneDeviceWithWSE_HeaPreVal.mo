@@ -47,8 +47,8 @@ model OneDeviceWithWSE_HeaPreVal
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
     annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -91,6 +91,21 @@ model OneDeviceWithWSE_HeaPreVal
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,180})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,174})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{220,293},{240,313}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -113,7 +128,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
 
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-60,112},{-60,180},{28,180}},
+      points={{-116,112},{-60,112},{-60,174},{28,174}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.yOff, val1.y) annotation (Line(
@@ -245,10 +260,15 @@ equation
   connect(TCWLeaTow.port_b, wse.port_a1) annotation (Line(points={{260,119},{98,
           119},{98,99},{68,99}},      color={0,128,255},
       thickness=0.5));
-  connect(val4.port_b, cooTow.port_a) annotation (Line(points={{40,190},{40,240},
+  connect(val4.port_b, cooTow.port_a) annotation (Line(points={{40,184},{40,240},
           {201,240},{201,239}}, color={0,127,255}));
   connect(wse.port_b1, val4.port_a)
-    annotation (Line(points={{48,99},{40,99},{40,170}}, color={0,127,255}));
+    annotation (Line(points={{48,99},{48,98},{40,98},{40,164}},
+                                                        color={0,127,255}));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{240,303},{240,250},{230,250},{230,239},{221,239}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE_HeaPreVal.mos"
