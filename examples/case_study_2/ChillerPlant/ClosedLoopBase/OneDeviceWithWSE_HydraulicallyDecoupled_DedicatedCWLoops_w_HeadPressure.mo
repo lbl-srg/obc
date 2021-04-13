@@ -3,11 +3,14 @@ model OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter(
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
-    chi(m1_flow_nominal=mCW_flow_nominal/2, dp1_nominal=89580));
+    chi(m1_flow_nominal=mCW_flow_nominal/2, dp1_nominal=89580),
+    wse(dp1_nominal=59720));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
   Modelica.SIunits.Power PWSEWatPum;
+
+  Modelica.SIunits.Power PCooTowWatPum;
 
   parameter Real dTChi(
     final unit="K",
@@ -30,12 +33,12 @@ model OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
-        origin={240,201},
+        origin={300,227},
         rotation=90)));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
@@ -54,9 +57,9 @@ model OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={120,120})));
+        origin={40,170})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -68,7 +71,7 @@ model OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={300,160})));
+        origin={300,144})));
   BaseClasses.Controls.CondenserWaterConstantTwoLoops
     condenserWaterConstantTwoLoops(mCW_flow_nominal=mCW_flow_nominal)
     annotation (Placement(transformation(extent={{-80,200},{-40,240}})));
@@ -96,25 +99,65 @@ model OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1, k=-0.95)
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  Buildings.Fluid.FixedResistances.Junction spl "Splits flow"
-    annotation (Placement(transformation(extent={{276,224},{296,244}})));
-  Buildings.Fluid.FixedResistances.Junction mix "Joins two flows"
-    annotation (Placement(transformation(extent={{90,190},{110,210}})));
+  Buildings.Fluid.FixedResistances.Junction spl(
+    redeclare package Medium = Buildings.Media.Water,
+    m_flow_nominal={2*mCW_flow_nominal,-1.5*mCW_flow_nominal,-0.5*
+        mCW_flow_nominal},
+    dp_nominal=200*{1,-1,-1})                   "Splits flow"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={300,200})));
+  Buildings.Fluid.FixedResistances.Junction mix(
+    redeclare package Medium = Buildings.Media.Water,
+    m_flow_nominal={1.5*mCW_flow_nominal,-2*mCW_flow_nominal,0.5*
+        mCW_flow_nominal},
+    dp_nominal=200*{1,-1,1})                    "Joins two flows"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={100,200})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCT(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=1.5*mCW_flow_nominal,
+    redeclare package Medium = Buildings.Media.Water,
+    m_flow_nominal=2*mCW_flow_nominal,
     dp(start=214992),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower loop pump" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={270,240})));
+  Buildings.Controls.OBC.CDL.Continuous.Add addFlo
+    "Adds WSE and chiller condenser side flow "
+    annotation (Placement(transformation(extent={{20,230},{40,250}})));
+  Buildings.Fluid.Sources.Boundary_pT expVesChi(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{190,109},{210,129}})));
+  Buildings.Fluid.Sources.Boundary_pT expVesWSE(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{50,111},{70,131}})));
+  Modelica.Blocks.Sources.RealExpression PCTWatPum(y=PCooTowWatPum)
+    "Cooling tower water pump power consumption" annotation (Placement(
+        transformation(extent={{-10,-10},{10,10}}, origin={-510,-20})));
+  Modelica.Blocks.Continuous.Integrator PCooTowWatPumAgg(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Cooling tower pump power consumption meter for the WSE loop"
+    annotation (Placement(transformation(extent={{-460,-20},{-440,0}})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=0,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={138,220})));
+        origin={190,176})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
   PConWatPum = pumCW.P;
   PWSEWatPum = pumCWWSE.P;
+  PCooTowWatPum = pumCT.P;
   PCooTowFan = cooTow.PFan;
   PChi = chi.P;
   QRooIntGai_flow = roo.QSou.Q_flow;
@@ -122,7 +165,7 @@ equation
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,243},{199,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{170,260},{170,243},{199,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -154,7 +197,7 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(TCWLeaTow.T, waterSideEconomizerOnOff.TConWatSup) annotation (Line(
-      points={{229,201},{180,201},{180,260},{-230,260},{-230,86},{-164,86}},
+      points={{289,227},{248,227},{248,272},{-230,272},{-230,86},{-164,86}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chillerOnOff.yChi, chi.on) annotation (Line(
@@ -205,25 +248,18 @@ equation
       thickness=0.5));
   connect(chi.port_b1, pumCW.port_a) annotation (Line(
       points={{196,99},{196,100},{160,100},{160,110}},
-      color={0,128,255},
+      color={28,108,200},
       thickness=0.5));
-  connect(val.port_3, pumCW.port_b) annotation (Line(points={{290,160},{160,160},
-          {160,130}}, color={0,127,255},
+  connect(val.port_3, pumCW.port_b) annotation (Line(points={{290,144},{160,144},
+          {160,130}}, color={28,108,200},
       thickness=0.5));
-  connect(wse.port_b1, val4.port_a) annotation (Line(points={{48,99},{44,99},{
-          44,100},{40,100},{40,170}}, color={0,127,255},
-      thickness=0.5));
-  connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(
-      points={{-116,112},{-6,112},{-6,180},{28,180}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(waterSideEconomizerOnOff.ySta, condenserWaterConstantTwoLoops.uWSE)
     annotation (Line(points={{-116,88},{-108,88},{-108,230},{-84,230}}, color={255,
           0,255}));
   connect(chillerOnOff.yChi, condenserWaterConstantTwoLoops.uChi) annotation (
       Line(points={{-116,34},{-100,34},{-100,210},{-84,210}}, color={255,0,255}));
   connect(condenserWaterConstantTwoLoops.yTowFanSpeSet, cooTow.y) annotation (
-      Line(points={{-36,230},{-10,230},{-10,252},{194,252},{194,247},{199,247}},
+      Line(points={{-36,230},{-8,230},{-8,270},{194,270},{194,247},{199,247}},
         color={0,0,127},
       pattern=LinePattern.Dot));
   connect(condenserWaterConstantTwoLoops.mChiConWatPumSet_flow, pumCW.m_flow_in)
@@ -232,7 +268,7 @@ equation
       pattern=LinePattern.Dot));
 
   connect(condenserWaterConstantTwoLoops.mWSEConWatPumSet_flow, pumCWWSE.m_flow_in)
-    annotation (Line(points={{-36,208},{-10,208},{-10,120},{108,120}},
+    annotation (Line(points={{-36,208},{-10,208},{-10,170},{28,170}},
                  color={0,0,127},
       pattern=LinePattern.Dot));
   connect(PWSEWatPum1.y, PWSEWatPumAgg.u) annotation (Line(
@@ -241,20 +277,8 @@ equation
       smooth=Smooth.None));
   connect(chillerOnOff.yChi, heaPreCon.trigger) annotation (Line(points={{-116,34},
           {-36,34},{-36,168}},     color={255,0,255}));
-  connect(val.port_2, chi.port_a1) annotation (Line(points={{300,150},{300,100},
-          {258,100},{258,99},{216,99}}, color={0,127,255},
-      thickness=0.5));
-  connect(pumCWWSE.port_b, wse.port_a1) annotation (Line(
-      points={{120,110},{120,99},{68,99}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TCWLeaTow.port_a, cooTow.port_b) annotation (Line(
-      points={{240,211},{240,239},{221,239}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(TCWLeaTow.port_b, pumCWWSE.port_a) annotation (Line(
-      points={{240,191},{240,144},{120,144},{120,130}},
-      color={0,127,255},
+  connect(val.port_2, chi.port_a1) annotation (Line(points={{300,134},{300,99},{
+          216,99}},                     color={28,108,200},
       thickness=0.5));
   connect(one.y, heaPreCon.u_s)
     annotation (Line(points={{-58,180},{-42,180}}, color={0,0,127},
@@ -264,15 +288,64 @@ equation
                                                   color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(addPar.y, val.y)
-    annotation (Line(points={{22,150},{280,150},{280,180},{320,180},{320,160},{312,
-          160}},                                  color={0,0,127},
+    annotation (Line(points={{22,150},{280,150},{280,174},{320,174},{320,144},{
+          312,144}},                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chi.yPLR1, heaPreCon.u_m) annotation (Line(
       points={{217,102},{240,102},{240,140},{-30,140},{-30,168}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(val4.port_b, mix.port_1)
-    annotation (Line(points={{40,190},{40,200},{90,200}}, color={0,127,255}));
+  connect(TCWLeaTow.port_b, spl.port_1)
+    annotation (Line(points={{300,217},{300,210}}, color={0,127,255}));
+  connect(mix.port_3, spl.port_3)
+    annotation (Line(points={{110,200},{290,200}}, color={0,127,255}));
+  connect(spl.port_2, val.port_1) annotation (Line(
+      points={{300,190},{300,154}},
+      color={28,108,200},
+      thickness=0.5));
+  connect(pumCW.port_b, mix.port_1) annotation (Line(
+      points={{160,130},{160,168},{100,168},{100,190}},
+      color={28,108,200},
+      thickness=0.5));
+  connect(condenserWaterConstantTwoLoops.mChiConWatPumSet_flow, addFlo.u1)
+    annotation (Line(
+      points={{-36,218},{10,218},{10,246},{18,246}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(condenserWaterConstantTwoLoops.mWSEConWatPumSet_flow, addFlo.u2)
+    annotation (Line(
+      points={{-36,208},{0,208},{0,234},{18,234}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(addFlo.y, pumCT.m_flow_in) annotation (Line(
+      points={{42,240},{80,240},{80,220},{270,220},{270,228}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
+  connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{260,
+          99},{260,120},{236,120},{236,119},{210,119}}, color={255,0,255}));
+  connect(wse.port_a1, expVesWSE.ports[1]) annotation (Line(points={{68,99},{80,
+          99},{80,121},{70,121}},color={0,127,255}));
+  connect(PCTWatPum.y, PCooTowWatPumAgg.u) annotation (Line(
+      points={{-499,-20},{-480,-20},{-480,-10},{-462,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(points={{-116,
+          112},{-6,112},{-6,176},{178,176}},
+                                        color={0,0,127}));
+  connect(spl.port_2, val4.port_b) annotation (Line(points={{300,190},{190,190},
+          {190,186}}, color={0,127,255}));
+  connect(val4.port_a, wse.port_a1) annotation (Line(points={{190,166},{136,166},
+          {136,99},{68,99}}, color={0,127,255}));
+  connect(cooTow.port_b, pumCT.port_a) annotation (Line(points={{221,239},{
+          240.5,239},{240.5,240},{260,240}}, color={0,127,255}));
+  connect(pumCT.port_b, TCWLeaTow.port_a) annotation (Line(points={{280,240},{
+          300,240},{300,237}}, color={0,127,255}));
+  connect(mix.port_2, cooTow.port_a) annotation (Line(points={{100,210},{100,
+          239},{201,239}}, color={0,127,255}));
+  connect(wse.port_b1, pumCWWSE.port_a)
+    annotation (Line(points={{48,99},{40,99},{40,160}}, color={0,127,255}));
+  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,180},{100,
+          180},{100,190}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure.mos"

@@ -116,17 +116,6 @@ partial model DataCenter
     dp2_nominal=0,
     dp1_nominal=0) "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal/2,
-    dpValve_nominal=20902,
-    dpFixed_nominal=89580,
-    y_start=1,
-    use_inputFilter=false) "Control valve for condenser water loop of chiller"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={160,180})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -160,18 +149,6 @@ partial model DataCenter
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,40})));
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=59720,
-    y_start=0,
-    use_inputFilter=false)
-    "Control valve for condenser water loop of economizer" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={40,180})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
         MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(

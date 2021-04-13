@@ -166,6 +166,18 @@ model OneDeviceWithWSE
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={162,176})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={54,170})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -257,7 +269,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(yWSEOn.y, val4.y) annotation (Line(
-      points={{-78,140},{-60,140},{-60,170},{20,170},{20,180},{28,180}},
+      points={{-78,140},{-60,140},{-60,170},{42,170}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(yWSEOff.y, val1.y) annotation (Line(
@@ -458,11 +470,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{40,190},{40,239},{201,239}},
+      points={{54,180},{54,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(
-      points={{48,99},{40,99},{40,170}},
+      points={{48,99},{48,160},{54,160}},
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(
