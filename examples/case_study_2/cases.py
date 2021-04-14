@@ -7,67 +7,78 @@ def get_cases():
     import copy
 
     cases = list()
+
     
-    # summer time
+    # # summer time
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+    #      "name": "base_summer",
+    #      "long_name": "Base-case, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":0,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
+
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
-         "name": "base_summer",
-         "long_name": "Base-case, Summer",
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure",
+         "name": "base_hyd_dec_summer",
+         "long_name": "Base-case w hydraulic decoupling, Summer",
          "season" : "summer",
          "n_output_intervals" : 10800,
          "num_id":0,
          "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
-         "name": "base_2loop_summer",
-         "long_name": "Base-case w 2 CW loops, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":0,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
+    #      "name": "base_2loop_summer",
+    #      "long_name": "Base-case w 2 CW loops, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":0,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreVal",
-         "name": "1711_heapreval_summer",
-         "long_name": "Adds head pressure valve modulation, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":1,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreVal",
+    #      "name": "1711_heapreval_summer",
+    #      "long_name": "Adds head pressure valve modulation, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":1,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
-         "name": "1711_wse_summer",
-         "long_name": "Uses alternative WSE on/off, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":2,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
+    #      "name": "1711_wse_summer",
+    #      "long_name": "Uses alternative WSE on/off, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":2,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOff",
-         "name": "1711_heapreval_wse_summer",
-         "long_name": "Adds head pressure valve modulation and uses alternative WSE on/off, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":3,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOff",
+    #      "name": "1711_heapreval_wse_summer",
+    #      "long_name": "Adds head pressure valve modulation and uses alternative WSE on/off, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":3,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging",
-         "name": "1711_heapreval_wse_sta_summer",
-         "long_name": "Head pressure valve modulation, alternative WSE on/off and staging, Summer",
-         "season" : "summer",
-         "n_output_intervals" : 10800,
-         "num_id":4,
-         "start_time": 170*24*3600,
-         "stop_time":  265*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging",
+    #      "name": "1711_heapreval_wse_sta_summer",
+    #      "long_name": "Head pressure valve modulation, alternative WSE on/off and staging, Summer",
+    #      "season" : "summer",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":4,
+    #      "start_time": 170*24*3600,
+    #      "stop_time":  265*24*3600})
 
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
@@ -79,66 +90,76 @@ def get_cases():
          "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
-    # annual
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
-         "name": "base_annual",
-         "long_name": "Base-case, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":6,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+    # # annual
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+    #      "name": "base_annual",
+    #      "long_name": "Base-case, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":6,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
-         "name": "base_2loop_annual",
-         "long_name": "Base-case w 2 CW loops, Annual",
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_HydraulicallyDecoupled_DedicatedCWLoops_w_HeadPressure",
+         "name": "base_hyd_dec_annual",
+         "long_name": "Base-case w hydraulic decoupling, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
          "num_id":0,
          "start_time": 0,
          "stop_time":  365*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreVal",
-         "name": "1711_heapreval_annual",
-         "long_name": "Adds head pressure valve modulation, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":7,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_DedicatedCWLoops_w_HeadPressure",
+    #      "name": "base_2loop_annual",
+    #      "long_name": "Base-case w 2 CW loops, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":0,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
-         "name": "1711_wse_annual",
-         "long_name": "Uses alternative WSE on/off, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":8,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreVal",
+    #      "name": "1711_heapreval_annual",
+    #      "long_name": "Adds head pressure valve modulation, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":7,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOff",
-         "name": "1711_heapreval_wse_annual",
-         "long_name": "Adds head pressure valve modulation and uses alternative WSE on/off, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":9,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_WSEOnOff",
+    #      "name": "1711_wse_annual",
+    #      "long_name": "Uses alternative WSE on/off, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":8,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
-    cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging",
-         "name": "1711_heapreval_wse_sta_annual",
-         "long_name": "Head pressure valve modulation, alternative WSE on/off and staging, Annual",
-         "season" : "annual",
-         "n_output_intervals" : 10800,
-         "num_id":10,
-         "start_time": 0,
-         "stop_time":  365*24*3600})
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOff",
+    #      "name": "1711_heapreval_wse_annual",
+    #      "long_name": "Adds head pressure valve modulation and uses alternative WSE on/off, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":9,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
+
+    # cases.append( \
+    #     {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE_HeaPreValAndWSEOnOffAndStaging",
+    #      "name": "1711_heapreval_wse_sta_annual",
+    #      "long_name": "Head pressure valve modulation, alternative WSE on/off and staging, Annual",
+    #      "season" : "annual",
+    #      "n_output_intervals" : 10800,
+    #      "num_id":10,
+    #      "start_time": 0,
+    #      "stop_time":  365*24*3600})
 
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",

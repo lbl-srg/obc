@@ -133,7 +133,7 @@ partial model DataCenter
     m2_flow_nominal=mCHW_flow_nominal,
     dp2_nominal=0,
     dp1_nominal=0,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD(),
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{216,83},{196,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
@@ -192,9 +192,6 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
-  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
-        MediumW, nPorts=1) "Represents an expansion vessel"
-    annotation (Placement(transformation(extent={{220,279},{240,299}})));
 equation
 
   connect(cooCoi.port_b2, fan.port_a) annotation (Line(
@@ -292,10 +289,6 @@ equation
       thickness=0.5));
   connect(expVesCHW.ports[1], cooCoi.port_b1) annotation (Line(
       points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
-      points={{240,289},{240,239},{221,239}},
       color={0,127,255},
       thickness=0.5));
   annotation (

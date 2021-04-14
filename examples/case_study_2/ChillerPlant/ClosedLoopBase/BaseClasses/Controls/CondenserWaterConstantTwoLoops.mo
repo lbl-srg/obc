@@ -10,11 +10,11 @@ model CondenserWaterConstantTwoLoops
 
   Buildings.Controls.OBC.CDL.Logical.Or
                              or2
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mCWFlo(
     final realTrue=mCW_flow_nominal)
     "Mass flow rate of condenser loop"
-    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWSE
     "Status of water side economizer: true = ON, false = OFF"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
@@ -29,38 +29,45 @@ model CondenserWaterConstantTwoLoops
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mCWFlo1(final realTrue=1)
     "Mass flow rate of condenser loop"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=chiFloDivWseFlo)
     "Flow multiplier"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput mChiConWatPumSet_flow
     "Condenser water pump mass flow set-point for the chiller condenser loop"
     annotation (Placement(transformation(extent={{100,-30},{140,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mCWFlo2(final realTrue=
         mCW_flow_nominal)
     "Mass flow rate of condenser loop"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(k1=-1, k2=1)
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 equation
-  connect(uWSE, or2.u1) annotation (Line(points={{-120,50},{-42,50}},
+  connect(uWSE, or2.u1) annotation (Line(points={{-120,50},{-62,50}},
                    color={255,0,255}));
-  connect(uChi, or2.u2) annotation (Line(points={{-120,-50},{-60,-50},{-60,42},{
-          -42,42}},  color={255,0,255}));
+  connect(uChi, or2.u2) annotation (Line(points={{-120,-50},{-80,-50},{-80,42},
+          {-62,42}}, color={255,0,255}));
   connect(mWSEConWatPumSet_flow, mWSEConWatPumSet_flow)
     annotation (Line(points={{120,-60},{120,-60}}, color={0,0,127}));
-  connect(or2.y, mCWFlo1.u) annotation (Line(points={{-18,50},{-2,50}},
+  connect(or2.y, mCWFlo1.u) annotation (Line(points={{-38,50},{-22,50}},
                 color={255,0,255}));
   connect(mCWFlo1.y, yTowFanSpeSet)
-    annotation (Line(points={{22,50},{120,50}}, color={0,0,127}));
-  connect(uChi, mCWFlo.u) annotation (Line(points={{-120,-50},{-50,-50},{-50,-10},
-          {-2,-10}}, color={255,0,255}));
-  connect(uWSE, mCWFlo2.u) annotation (Line(points={{-120,50},{-70,50},{-70,-60},
-          {-2,-60}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{120,50}},  color={0,0,127}));
+  connect(uChi, mCWFlo.u) annotation (Line(points={{-120,-50},{-72,-50},{-72,
+          -10},{-22,-10}},
+                     color={255,0,255}));
+  connect(uWSE, mCWFlo2.u) annotation (Line(points={{-120,50},{-88,50},{-88,-60},
+          {-22,-60}},color={255,0,255}));
   connect(mCWFlo.y, gai.u)
-    annotation (Line(points={{22,-10},{38,-10}}, color={0,0,127}));
+    annotation (Line(points={{2,-10},{18,-10}},  color={0,0,127}));
+  connect(mWSEConWatPumSet_flow, add2.y)
+    annotation (Line(points={{120,-60},{82,-60}}, color={0,0,127}));
+  connect(gai.y, add2.u1) annotation (Line(points={{42,-10},{50,-10},{50,-54},{
+          58,-54}}, color={0,0,127}));
+  connect(mCWFlo2.y, add2.u2) annotation (Line(points={{2,-60},{20,-60},{20,-66},
+          {58,-66}}, color={0,0,127}));
   connect(gai.y, mChiConWatPumSet_flow)
-    annotation (Line(points={{62,-10},{120,-10}}, color={0,0,127}));
-  connect(mCWFlo2.y, mWSEConWatPumSet_flow)
-    annotation (Line(points={{22,-60},{120,-60}}, color={0,0,127}));
+    annotation (Line(points={{42,-10},{120,-10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(

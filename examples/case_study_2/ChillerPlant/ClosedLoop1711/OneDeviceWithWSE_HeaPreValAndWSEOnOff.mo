@@ -101,6 +101,21 @@ model OneDeviceWithWSE_HeaPreValAndWSEOnOff
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,180})));
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mCW_flow_nominal,
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720,
+    y_start=0,
+    use_inputFilter=false)
+    "Control valve for condenser water loop of economizer" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,164})));
+  Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
+        MediumW, nPorts=1) "Represents an expansion vessel"
+    annotation (Placement(transformation(extent={{238,281},{258,301}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -232,7 +247,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(yWSEOn.y, val4.y) annotation (Line(
-      points={{-78,140},{-60,140},{-60,170},{20,170},{20,180},{28,180}},
+      points={{-78,140},{-60,140},{-60,170},{20,170},{20,164},{28,164}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(yWSEOff.y, val1.y) annotation (Line(
@@ -269,11 +284,15 @@ equation
       color={28,108,200},
       thickness=0.5));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{40,190},{40,239},{201,239}},
+      points={{40,174},{40,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(
-      points={{48,99},{42,99},{42,170},{40,170}},
+      points={{48,99},{42,99},{42,154},{40,154}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
+      points={{258,291},{258,239},{221,239}},
       color={0,127,255},
       thickness=0.5));
   annotation (
