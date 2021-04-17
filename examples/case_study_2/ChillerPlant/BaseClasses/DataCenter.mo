@@ -93,16 +93,17 @@ partial model DataCenter
         rotation=270,
         origin={160,-120})));
   Buildings.Fluid.Sources.Boundary_pT expVesCHW(redeclare package Medium =
-        MediumW, nPorts=1) "Represents an expansion vessel"
+        MediumW,
+    p=100000,    nPorts=1) "Represents an expansion vessel"
     annotation (Placement(transformation(extent={{188,-149},{208,-129}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    PFan_nominal=6000,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=cooTowAppDes,
     dp_nominal=14930 + 14930 + 74650,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    PFan_nominal=6000)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

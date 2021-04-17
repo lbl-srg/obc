@@ -1,7 +1,7 @@
 within ChillerPlant.ClosedLoop1711;
 model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
-  extends ChillerPlant.BaseClasses.DataCenter;
+  extends ChillerPlant.BaseClasses.DataCenter(expVesCHW(p=100000));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -179,7 +179,8 @@ model OneDeviceWithWSE
         rotation=90,
         origin={54,170})));
   Buildings.Fluid.Sources.Boundary_pT expVesCHW1(redeclare package Medium =
-        MediumW, nPorts=1) "Represents an expansion vessel"
+        MediumW,
+    p=100000,    nPorts=1) "Represents an expansion vessel"
     annotation (Placement(transformation(extent={{260,281},{280,301}})));
 equation
   PSupFan = fan.P;
