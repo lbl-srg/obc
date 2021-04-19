@@ -46,8 +46,8 @@ model OneDeviceWithWSE
     redeclare package Medium = Buildings.Media.Water,
     m_flow_small=0,
     dp(start=214992),
-    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/50)/
+    redeclare Buildings.Fluid.Movers.Data.Generic per(
+            pressure(V_flow={0,1,2}*(mCW_flow_nominal/1.2)/
             rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
@@ -165,7 +165,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={162,176})));
+        origin={160,176})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
@@ -216,7 +216,7 @@ equation
           -82,200},{-82,196},{-64,196}},  color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,188},
-          {0,188},{0,196},{120,196},{120,200},{288,200}},
+          {0,188},{0,198},{200,198},{200,200},{288,200}},
                                            color={0,0,127},
       pattern=LinePattern.Dot));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
@@ -478,19 +478,19 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(
-      points={{48,99},{48,160},{54,160}},
+      points={{48,99},{48,140},{54,140},{54,160}},
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(
-      points={{164,140},{160,140},{160,166},{162,166}},
+      points={{164,140},{160,140},{160,166}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{162,186},{162,239},{201,239}},
+      points={{160,186},{160,239},{201,239}},
       color={0,127,255},
       thickness=0.5));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
-      points={{-16,200},{106,200},{106,176},{150,176}},
+      points={{-16,200},{106,200},{106,176},{148,176}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(

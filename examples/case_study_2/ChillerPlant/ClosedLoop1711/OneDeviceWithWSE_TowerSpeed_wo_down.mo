@@ -46,8 +46,8 @@ model OneDeviceWithWSE_TowerSpeed_wo_down
     redeclare package Medium = Buildings.Media.Water,
     m_flow_small=0,
     dp(start=214992),
-    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/50)/
+    redeclare Buildings.Fluid.Movers.Data.Generic per(
+            pressure(V_flow={0,1,2}*(mCW_flow_nominal/1.2)/
             rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,

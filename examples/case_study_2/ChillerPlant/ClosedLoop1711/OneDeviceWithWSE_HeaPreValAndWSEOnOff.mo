@@ -58,8 +58,7 @@ model OneDeviceWithWSE_HeaPreValAndWSEOnOff
     redeclare package Medium = Buildings.Media.Water,
     m_flow_small=0,
     dp(start=214992),
-    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1*
-            mCW_flow_nominal,2*mCW_flow_nominal}*(mCW_flow_nominal/50)/
+    redeclare Buildings.Fluid.Movers.Data.Generic per(pressure(V_flow={0,1,2}*(mCW_flow_nominal/1.2)/
             rho_default, dp={2*dp_nominal,dp_nominal,0})),
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
@@ -190,8 +189,8 @@ equation
           {90,212},{90,256},{194,256},{194,247},{199,247}},
                                         color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,
-          188},{0,188},{0,200},{288,200}}, color={0,0,127},
+  connect(heaPreCon.yConWatPumSpeSet, pumCW.y) annotation (Line(points={{-16,188},
+          {12,188},{12,200},{288,200}},    color={0,0,127},
       pattern=LinePattern.Dot));
   connect(val6.port_b, TChiWatSupSen.port_a) annotation (Line(
       points={{300,30},{300,-62}},
