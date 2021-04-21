@@ -6,17 +6,26 @@ model OneDeviceWithWSE
     chi(
       m1_flow_nominal=mCW_flow_nominal/2,
       m2_flow_nominal=mCHW_flow_nominal,
-      dp1_nominal=89580),
-    wse(dp1_nominal=59720),
-    pumCHW(m_flow_nominal=mCHW_flow_nominal),
+      dp1_nominal=44790 + 1244,
+      dp2_nominal=44790),
+    pumCHW(m_flow_nominal=mCHW_flow_nominal, dp(start=44790 + 1000 + 44790 +
+            3500)),
     cooCoi(m1_flow_nominal=mCHW_flow_nominal),
-    val1(m_flow_nominal=mCHW_flow_nominal),
+    val1(m_flow_nominal=mCHW_flow_nominal,
+      dpValve_nominal=200,
+      dpFixed_nominal=800),
     TCHWEntChi(m_flow_nominal=mCHW_flow_nominal),
-    valByp(m_flow_nominal=mCHW_flow_nominal),
-    val6(m_flow_nominal=mCHW_flow_nominal),
+    valByp(m_flow_nominal=mCHW_flow_nominal,
+      dpValve_nominal=200,
+      dpFixed_nominal=3300),
+    val6(m_flow_nominal=mCHW_flow_nominal,
+      dpValve_nominal=200,
+      dpFixed_nominal=3300),
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal,
+      dp_nominal=37325 + 2487,
       PFan_nominal=6000),
-    expVesCHW(p=100000));
+    expVesCHW(p=100000),
+    val3(dpValve_nominal=200, dpFixed_nominal=800));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -42,9 +51,6 @@ model OneDeviceWithWSE
   BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond plantOnOff(
       TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
-  Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
-    "Mass flow rate of fan"
-    annotation (Placement(transformation(extent={{240,-210},{260,-190}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
         MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
@@ -71,7 +77,7 @@ model OneDeviceWithWSE
     "Condenser water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={40,164})));
+        origin={42,162})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -79,7 +85,7 @@ model OneDeviceWithWSE
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
     riseTime=30,
     m_flow_nominal=mCW_flow_nominal/2,
-    dpValve_nominal=20902,
+    dpValve_nominal=200,
     fraK=1)                                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -112,7 +118,7 @@ model OneDeviceWithWSE
                                                                   "Constant"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1, k=-1)
-    annotation (Placement(transformation(extent={{0,138},{20,158}})));
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -161,8 +167,8 @@ model OneDeviceWithWSE
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    dpValve_nominal=20902,
-    dpFixed_nominal=0,
+    dpValve_nominal=200,
+    dpFixed_nominal=1244,
     y_start=0,
     use_inputFilter=false)
     "Control valve for condenser water loop of economizer" annotation (
@@ -173,7 +179,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Sources.Boundary_pT expVesChi(redeclare package Medium =
         MediumW,
     p=100000,    nPorts=1) "Represents an expansion vessel"
-    annotation (Placement(transformation(extent={{252,111},{272,131}})));
+    annotation (Placement(transformation(extent={{212,111},{232,131}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -254,11 +260,6 @@ equation
       points={{230,-214},{230,-200},{-240,-200},{-240,-120},{-224,-120}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(mFanFlo.y, fan.m_flow_in) annotation (Line(
-      points={{261,-200},{280,-200},{280,-213}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, chillerOnOff.TChiWatSupSet)
     annotation (Line(
       points={{-116,-28},{-100,-28},{-100,-10},{-180,-10},{-180,6},{-164,6}},
@@ -299,7 +300,7 @@ equation
 
   connect(condenserWaterConstantTwoLoops_SameFlow.mWSEConWatPumSet_flow,
     pumCWWSE.m_flow_in) annotation (Line(
-      points={{-36,208},{-10,208},{-10,164},{28,164}},
+      points={{-36,208},{-10,208},{-10,162},{30,162}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(PWSEWatPum1.y, PWSEWatPumAgg.u) annotation (Line(
@@ -316,11 +317,11 @@ equation
     annotation (Line(points={{-58,180},{-42,180}}, color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(heaPreCon.y, addPar.u)
-    annotation (Line(points={{-18,180},{-14,180},{-14,148},{-2,148}},
+    annotation (Line(points={{-18,180},{-14,180},{-14,140},{-2,140}},
                                                   color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(addPar.y, val.y)
-    annotation (Line(points={{22,148},{280,148},{280,174},{320,174},{320,144},{
+    annotation (Line(points={{22,140},{280,140},{280,174},{320,174},{320,144},{
           312,144}},                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCWLeaTow.port_b, spl.port_1)
@@ -368,14 +369,14 @@ equation
                              color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, pumCWWSE.port_a)
-    annotation (Line(points={{48,99},{40,99},{40,154}}, color={0,127,255},
+    annotation (Line(points={{48,99},{42,99},{42,152}}, color={0,127,255},
       thickness=0.5));
-  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,174},{40,
+  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{42,172},{42,
           180},{100,180},{100,190}},
                            color={0,127,255},
       thickness=0.5));
   connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{
-          280,99},{280,120},{276,120},{276,121},{272,121}},
+          228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
                                             color={28,108,200}));
   connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
           240},{176,239},{201,239}}, color={0,127,255}));

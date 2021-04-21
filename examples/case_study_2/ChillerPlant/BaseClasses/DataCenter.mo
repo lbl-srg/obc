@@ -69,7 +69,7 @@ partial model DataCenter
     dp2_nominal=249*3,
     UA_nominal=mAir_flow_nominal*1006*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dp1_nominal(displayUnit="Pa") = 1000 + 89580)
+    dp1_nominal(displayUnit="Pa") = 45290)
     "Cooling coil"
     annotation (Placement(transformation(extent={{242,-180},{222,-160}})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
@@ -101,7 +101,7 @@ partial model DataCenter
     m_flow_nominal=mCW_flow_nominal,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=cooTowAppDes,
-    dp_nominal=14930 + 14930 + 74650,
+    dp_nominal=37325,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     PFan_nominal=6000)
     "Cooling tower"                                   annotation (Placement(
@@ -111,11 +111,12 @@ partial model DataCenter
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
-    m1_flow_nominal=mCW_flow_nominal,
+    m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
     eps=0.8,
-    dp2_nominal=0,
-    dp1_nominal=0) "Water side economizer (Heat exchanger)"
+    dp2_nominal=34000,
+    dp1_nominal=44790)
+                   "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumW,
@@ -130,10 +131,10 @@ partial model DataCenter
   Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
-    m1_flow_nominal=mCW_flow_nominal,
+    m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
-    dp2_nominal=0,
-    dp1_nominal=0,
+    dp2_nominal=44790,
+    dp1_nominal=44790,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{216,83},{196,103}})));
@@ -150,8 +151,8 @@ partial model DataCenter
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,40})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -167,9 +168,10 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
+    riseTime=60,
     dpFixed_nominal=14930,
     y_start=0,
-    use_inputFilter=false,
+    use_inputFilter=true,
     from_dp=true)          "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={230,20})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
@@ -193,6 +195,9 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
+  Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
+    "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
+            -210},{260,-190}})));
 equation
 
   connect(cooCoi.port_b2, fan.port_a) annotation (Line(
@@ -292,6 +297,8 @@ equation
       points={{208,-139},{208,-140},{220,-140},{220,-164},{222,-164}},
       color={0,127,255},
       thickness=0.5));
+  connect(mFanFlo.y, fan.m_flow_in) annotation (Line(points={{261,-200},{280,
+          -200},{280,-213}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-360,-300},{360,
             300}})),
