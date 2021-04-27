@@ -103,7 +103,7 @@ partial model DataCenter
     TApp_nominal=cooTowAppDes,
     dp_nominal=37325,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    PFan_nominal=6000)
+    PFan_nominal=1)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -151,8 +151,8 @@ partial model DataCenter
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,40})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
-      = MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -171,7 +171,7 @@ partial model DataCenter
     riseTime=60,
     dpFixed_nominal=14930,
     y_start=0,
-    use_inputFilter=true,
+    use_inputFilter=false,
     from_dp=true)          "Bypass valve for chiller." annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, origin={230,20})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
