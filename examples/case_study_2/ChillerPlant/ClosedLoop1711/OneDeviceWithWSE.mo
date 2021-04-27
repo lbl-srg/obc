@@ -3,7 +3,6 @@ model OneDeviceWithWSE
   "Simple chiller plant with a water-side economizer. Base controls enhanced in 1711 CW reset."
   extends ChillerPlant.BaseClasses.DataCenter(expVesCHW(p=100000),
     chi(m1_flow_nominal=mCW_flow_nominal/2,
-      dp2_nominal=44790,
       massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
                                             per=
           Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes()),
@@ -287,7 +286,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-116,-160},{106,-160},{106,-220},{350,-220},{350,90},{218,90}},
+      points={{-116,-160},{106,-160},{106,-220},{350,-220},{350,92},{218,92}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
@@ -342,7 +341,7 @@ equation
       pattern=LinePattern.Dash));
 
   connect(staSetCon.yChiSet[1], chi.on) annotation (Line(points={{23.4,-19.1429},
-          {50,-19.1429},{50,-20},{74,-20},{74,114},{228,114},{228,96},{218,96}},
+          {50,-19.1429},{50,-20},{74,-20},{74,114},{228,114},{228,98},{218,98}},
                                                                 color={255,0,255}));
   connect(staSetCon.yChiSet[1], con2.u) annotation (Line(points={{23.4,-19.1429},
           {74,-19.1429},{74,70},{98,70}},        color={255,0,255}));
@@ -383,8 +382,8 @@ equation
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-118,110},
           {-108,110},{-108,90},{-68,90},{-68,-48.8571},{-65.4,-48.8571}},
                                                    color={0,0,127}));
-  connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,99},
-          {190,99},{190,140},{184,140}}, color={28,108,200},
+  connect(chi.port_b1, TConWatRetSen.port_b) annotation (Line(points={{196,101},
+          {190,101},{190,140},{184,140}},color={28,108,200},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
           {-114,102},{-114,40},{-115.2,40}},
@@ -440,7 +439,7 @@ equation
   connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{23.4,
           -82.2857},{23.4,-82},{32,-82},{32,380},{52,380},{52,381},{74,381}},
                                           color={0,0,127}));
-  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,
+  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,86},{195,
           112},{194,112},{194,194},{134,194},{134,282},{66,282},{66,416},{74,
           416},{74,417}},          color={0,0,127},
       pattern=LinePattern.Dot));
@@ -501,7 +500,8 @@ equation
   connect(sigSub4.y, towCon.uConWatPumSpe[1]) annotation (Line(points={{22,300},
           {50,300},{50,351},{74,351}}, color={0,0,127}));
   connect(pumCW.port_b, chi.port_a1)
-    annotation (Line(points={{300,160},{300,99},{216,99}}, color={0,127,255}));
+    annotation (Line(points={{300,160},{300,101},{216,101}},
+                                                           color={0,127,255}));
   connect(pumCW.port_b, wse.port_a1) annotation (Line(points={{300,160},{300,
           108},{94,108},{94,99},{68,99}}, color={0,127,255}));
   annotation (
