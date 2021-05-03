@@ -524,6 +524,7 @@ as shown in :numref:`sec_ver_spe_tes_set`.
      "references": [
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "generate_json": false,
          "sequence": "setPoiVAV",
          "pointNameMapping": "realControllerPointMapping.json",
          "run_controller": false,
@@ -531,6 +532,7 @@ as shown in :numref:`sec_ver_spe_tes_set`.
        },
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "generate_json": true,
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
          "run_controller": true,
@@ -544,6 +546,7 @@ as shown in :numref:`sec_ver_spe_tes_set`.
          "sampling": 60
        }
      ],
+     "modelJsonDirectory": "test",
      "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
      "sampling": 120,
      "controller": {
@@ -556,7 +559,9 @@ as shown in :numref:`sec_ver_spe_tes_set`.
 This specifies two tests, one for the controller ``setPoiVAV`` and one for ``setPoiVAV1``.
 In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence, but their
 input time series and/or parameters are different, and therefore their output time series will be different.
-The test for ``setPoiVAV`` will use the globally specified tolerances, and use
+The ``generate_json`` flag will determine if the json translation for the specified model under test
+must be generated during the test using the ``modelica-json`` tool or if it is already present in the directory
+mentioned in ``modelJsonDirectory``. The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
 is provided in the file ``realControllerPointMapping.json``, shown in :numref:`ver_poi_map`.
 The test ``setPoiVAV`` will not run
