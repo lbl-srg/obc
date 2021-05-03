@@ -2,13 +2,15 @@
  "references": [
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+     "generate_json": false,
      "sequence": "setPoiVAV",
      "pointNameMapping": "realControllerPointMapping.json",
      "run_controller": false,
-     "controller_output": "test/real_outputs.csv"
+     "controller_output": "test/real_outputs.csv",
     },
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures",
+     "generate_json": true,
      "sequence": "TZonSet",
      "pointNameMapping": "realControllerPointMapping.json",
      "run_controller": true,
