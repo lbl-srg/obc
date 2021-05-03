@@ -103,7 +103,7 @@ partial model DataCenter
     TApp_nominal=cooTowAppDes,
     dp_nominal=37325,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    PFan_nominal=1)
+    PFan_nominal=6500)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

@@ -22,8 +22,7 @@ model OneDeviceWithWSE
       dpValve_nominal=200,
       dpFixed_nominal=3300),
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal,
-      dp_nominal=37325 + 2487,
-      PFan_nominal=6000),
+      dp_nominal=37325 + 2487),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
