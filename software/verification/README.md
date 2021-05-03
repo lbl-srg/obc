@@ -13,6 +13,7 @@ Check documentation [here](obc.lbl.gov/specification/verification.html).
 * [OpenModelica](https://www.openmodelica.org/download/download-linux)
 * [OMPython](https://github.com/OpenModelica/OMPython)
 * [pyfunnel](https://github.com/lbl-srg/funnel/)
+* conda install -c plotly plotly-orca
 * [modelica-json](https://github.com/lbl-srg/modelica-json)
 * Ensure that `$MODELICAPATH` and `$MODELICAJSONPATH` environmental variables have been set
 
