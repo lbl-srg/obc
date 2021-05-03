@@ -66,7 +66,7 @@ class Verification_Tool:
                 raise Exception("missing 'pointNameMapping' keyword for a test")
             if not ref_run_controller_flag and ref_controller_output is None:
                 raise Exception("missing 'controller_output' keyword for a test")
-            elif ref_controller_output and self.real_controller is None:
+            elif ref_run_controller_flag and self.real_controller is None:
                 raise Exception("missing 'controller' configuration")
 
             ref_outputs = reference.get('outputs', None)
@@ -105,12 +105,25 @@ class Verification_Tool:
             self.test_list.append(reference)
 
     def run_modelica_json(self, model, model_dir):
-        """this function uses the modelica-json tool to convert modelica files to json"""
+        """this function uses the modelica-json tool to convert modelica files to json
+
+        Parameters:
+        -----------
+        model : str
+                name of modelica model to be translated to json
+        model_dir : str
+                    directory where to store the json output
+        """
         app_js_path = os.path.join(self.modelica_json_path, 'app.js')
         model_path = model.replace('.', '/') + '.mo'
         print("running modelica-json tool for {0}".format(model))
         result = subprocess.run(['node {0} -f {1} -d {2} -o json'.format(app_js_path, model_path, model_dir)],
                                 stdout=subprocess.PIPE, shell=True)
+
+        shutil.move(model_dir+'json/'+model+'.json', model_dir+model+'.json')
+        if len(os.listdir(model_dir+'json')) == 0:
+            os.rmdir(model_dir+'json')
+
         if result.returncode != 0:
             raise Exception("Error while converting modelica file to json = {0}".format(result.stdout.decode("utf-8")))
         else:
@@ -188,6 +201,7 @@ class Verification_Tool:
                         output_variable_configurations[op]['indicators'] = indicators
 
             simulation_output = self.run_cdl_simulation(model=model_name, output_folder=model_dir, ip_list=ip_list, op_list=op_list, sample_time=sample_rate)
+            simulation_output.index = pd.to_datetime(simulation_output.index, unit='s')
 
             ip_dataframe = simulation_output[ip_list]
             op_dataframe = simulation_output[op_list]
@@ -195,12 +209,10 @@ class Verification_Tool:
             if run_controller:
                 real_outputs = self.execute_controller(inputs=ip_dataframe, op_list=op_list, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
                 real_outputs.to_csv(test.get('controller_output', '{0}_real_outputs.csv'.format(sequence_name)))
-                print(real_outputs)
             else:
                 real_outputs = pd.read_csv(test.get('controller_output'), index_col=0)
 
             # TODO: fix sampling
-            op_dataframe.index = pd.to_datetime(op_dataframe.index, unit='s')
             real_outputs.index = pd.to_datetime(real_outputs.index, unit='s')
 
             ip_dataframe = ip_dataframe.resample('{}S'.format(sample_rate)).mean()
@@ -209,9 +221,9 @@ class Verification_Tool:
 
             validation = True
             for op in op_dataframe.columns:
-                device_point_name = point_name_mapping.get(op.split('.')[1], {}).get('device').get("name")
-                cdl_point_unit = point_name_mapping.get(op.split('.')[1], {}).get('cdl').get("unit")
-                if controller_point is not None:
+                device_point_name = point_name_mapping.get(op.split('.')[1], {}).get('device', {}).get("name", None)
+                cdl_point_unit = point_name_mapping.get(op.split('.')[1], {}).get('cdl', {}).get("unit", "")
+                if device_point_name is not None:
                     print("comparing {}".format(op))
 
                     cdl_output = op_dataframe[op]
@@ -225,7 +237,8 @@ class Verification_Tool:
                                                                            actual_output=actual_output,
                                                                            output_config=output_variable_configurations[op],
                                                                            variable=device_point_name,
-                                                                           unit=cdl_point_unit)
+                                                                           unit=cdl_point_unit,
+                                                                           output_folder=model_dir)
                     print("\n")
             if validation:
                 print("SUCCESSFULLY VERIFIED SEQUENCE! ")
@@ -428,9 +441,9 @@ class Verification_Tool:
         selected_points = list(filter(r.match, point_list))
         return selected_points
 
-    def compare_single_variable(self, cdl_output, actual_output, output_config, variable, unit):
+    def compare_single_variable(self, cdl_output, actual_output, output_config, variable, unit, output_folder):
         """compares one output variable from CDL simulation (reference) against controller device generated output,
-        produces comparison and error charts
+        , output_folderproduces comparison and error charts
 
         Parameters
         ----------
@@ -460,9 +473,9 @@ class Verification_Tool:
         controller_op.index = controller_op.index.strftime("%H:%M:%S")
         print(controller_op.round(decimals=2))
 
-        results_dir = os.path.join('.', 'tmp')
-        if not os.path.exists(results_dir):
-            os.mkdir(results_dir)
+        errors_dir = os.path.join('.', 'tmp')
+        if not os.path.exists(errors_dir):
+            os.mkdir(errors_dir)
 
         atolx = output_config.get('atolx', None)
         atoly = output_config.get('atoly', None)
@@ -478,10 +491,11 @@ class Verification_Tool:
             atoly=atoly,
             rtolx=rtolx,
             rtoly=rtoly,
-            outputDirectory=results_dir)
-        verification_plot(output_folder=results_dir, plot_filename='{}.pdf'.format(variable),
+            outputDirectory=errors_dir)
+        verification_plot(error_folder=errors_dir, output_folder=output_folder, plot_filename='{}.pdf'.format(variable),
                           y_label="{0} [{1}]".format(variable, unit))
 
+        shutil.rmtree('tmp')
         try:
             assert error_df.y.max() == 0
         except:
@@ -586,10 +600,14 @@ class Verification_Tool:
             err = omc.sendExpression("getErrorString()")
             print("error while loading Modelica Buildings Library: {}".format(err))
 
-        shutil.move("{}_res.mat".format(model), output_folder+"/{}_res.mat".format(model))
-        for file in os.listdir('.'):
-            if file.startswith(model):
-                os.remove(file)
+        if not omc.sendExpression("simulate({}, outputFormat=\"mat\")".format(model)):
+            err = omc.sendExpression("getErrorString()")
+            print("error while running the simulation: {}".format(err))
+
+        shutil.move("{}_res.mat".format(model), output_folder+"{}_res.mat".format(model))
+        for fp in os.listdir('.'):
+            if fp.startswith(model):
+                os.remove(fp)
 
         r = Reader(output_folder+"/{}_res.mat".format(model), 'dymola')
 
