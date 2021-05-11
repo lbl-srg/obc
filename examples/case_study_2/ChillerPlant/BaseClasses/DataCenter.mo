@@ -66,10 +66,10 @@ partial model DataCenter
     m1_flow_nominal=mCHW_flow_nominal,
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
-    dp2_nominal=249*3,
+    dp2_nominal=200,
     UA_nominal=mAir_flow_nominal*1006*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dp1_nominal(displayUnit="Pa") = 45290)
+    dp1_nominal(displayUnit="Pa") = 24000)
     "Cooling coil"
     annotation (Placement(transformation(extent={{242,-180},{222,-160}})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
@@ -101,21 +101,21 @@ partial model DataCenter
     m_flow_nominal=mCW_flow_nominal,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=cooTowAppDes,
-    dp_nominal=37325,
+    dp_nominal=15000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     PFan_nominal=6500)
     "Cooling tower"                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        origin={211,239})));
+        origin={209,239})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
     eps=0.8,
-    dp2_nominal=34000,
-    dp1_nominal=44790)
+    dp2_nominal=12000,
+    dp1_nominal=33000)
                    "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(
@@ -133,10 +133,10 @@ partial model DataCenter
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
-    dp2_nominal=44790,
-    dp1_nominal=44790,
+    dp2_nominal=15000,
+    dp1_nominal=33000,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes(),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) "Chiller"
     annotation (Placement(transformation(extent={{216,83},{196,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumW,

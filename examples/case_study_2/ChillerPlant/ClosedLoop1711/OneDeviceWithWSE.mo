@@ -11,7 +11,8 @@ model OneDeviceWithWSE
     val1(dpValve_nominal=200, dpFixed_nominal=800),
     valByp(dpValve_nominal=200, dpFixed_nominal=3300),
     val6(dpValve_nominal=200, dpFixed_nominal=3300),
-    pumCHW(dp(start=44790 + 1000 + 44790 + 3500)));
+    pumCHW(dp(start=44790 + 1000 + 44790 + 3500)),
+    cooTow(PFan_nominal=6500));
 
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
@@ -203,7 +204,7 @@ equation
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{199,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{198,260},{198,243},{197,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -451,13 +452,13 @@ equation
           {186,350},{186,290},{-92,290},{-92,-56.2857},{-65.4,-56.2857}}, color=
          {0,0,127}));
   connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{146,327},{174,
-          327},{174,247},{199,247}}, color={0,0,127}));
+          327},{174,247},{197,247}}, color={0,0,127}));
   connect(movMea1.y, wseSta.uTowFanSpeMax) annotation (Line(
       points={{182,350},{202,350},{202,446},{-196,446},{-196,104},{-164,104}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{54,180},{54,239},{201,239}},
+      points={{54,180},{54,239},{199,239}},
       color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, val4.port_a) annotation (Line(
@@ -469,7 +470,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,186},{160,239},{201,239}},
+      points={{160,186},{160,239},{199,239}},
       color={0,127,255},
       thickness=0.5));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
@@ -477,7 +478,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
-      points={{280,291},{280,239},{221,239}},
+      points={{280,291},{280,239},{219,239}},
       color={0,127,255},
       thickness=0.5));
   connect(add2.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-118,200},
@@ -490,7 +491,7 @@ equation
           -19.1429},{26,-19.1429},{26,156},{-188,156},{-188,170},{-182,170}},
         color={255,0,255}));
   connect(cooTow.port_b, pumCW.port_a) annotation (Line(
-      points={{221,239},{300,239},{300,180}},
+      points={{219,239},{300,239},{300,180}},
       color={0,127,255},
       thickness=0.5));
   connect(heaPreCon.yConWatPumSpeSet, gai.u) annotation (Line(points={{-16,188},
@@ -541,7 +542,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StopTime=30896000,
+      StopTime=3000000,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));

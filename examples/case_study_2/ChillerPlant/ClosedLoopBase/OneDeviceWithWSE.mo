@@ -5,9 +5,7 @@ model OneDeviceWithWSE
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
     chi(
       m1_flow_nominal=mCW_flow_nominal/2,
-      m2_flow_nominal=mCHW_flow_nominal,
-      dp1_nominal=44790 + 1244,
-      dp2_nominal=44790),
+      m2_flow_nominal=mCHW_flow_nominal),
     pumCHW(m_flow_nominal=mCHW_flow_nominal, dp(start=44790 + 1000 + 44790 +
             3500)),
     cooCoi(m1_flow_nominal=mCHW_flow_nominal),
