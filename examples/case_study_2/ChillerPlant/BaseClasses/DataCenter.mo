@@ -85,7 +85,7 @@ partial model DataCenter
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
-    dp(start=325474),
+    dp(start=1000 + 12000 + 15000 + 3500 + 24000),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chilled water pump" annotation (Placement(transformation(
@@ -164,7 +164,7 @@ partial model DataCenter
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={160,0})));
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear          valByp(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,

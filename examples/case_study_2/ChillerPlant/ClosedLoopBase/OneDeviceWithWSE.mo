@@ -5,9 +5,10 @@ model OneDeviceWithWSE
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
     chi(
       m1_flow_nominal=mCW_flow_nominal/2,
-      m2_flow_nominal=mCHW_flow_nominal),
-    pumCHW(m_flow_nominal=mCHW_flow_nominal, dp(start=44790 + 1000 + 44790 +
-            3500)),
+      m2_flow_nominal=mCHW_flow_nominal,
+      dp1_nominal=33000 + 1444 - 200),
+    pumCHW(m_flow_nominal=mCHW_flow_nominal, dp_nominal=1000 + 12000 + 15000 +
+          3500 + 24000),
     cooCoi(m1_flow_nominal=mCHW_flow_nominal),
     val1(m_flow_nominal=mCHW_flow_nominal,
       dpValve_nominal=200,
@@ -15,12 +16,12 @@ model OneDeviceWithWSE
     TCHWEntChi(m_flow_nominal=mCHW_flow_nominal),
     valByp(m_flow_nominal=mCHW_flow_nominal,
       dpValve_nominal=200,
+      use_inputFilter=false,
       dpFixed_nominal=3300),
     val6(m_flow_nominal=mCHW_flow_nominal,
       dpValve_nominal=200,
       dpFixed_nominal=3300),
-    cooTow(m_flow_nominal=1.1*mCW_flow_nominal,
-      dp_nominal=37325 + 2487),
+    cooTow(m_flow_nominal=1.1*mCW_flow_nominal, dp_nominal=15000 + 2887 - 400),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
@@ -58,7 +59,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal/2,
-    dp(start=214992),
+    dp(start=33000 + 1444),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -68,7 +69,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCWWSE(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=214992),
+    dp(start=33000 + 1444 + 200),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -141,7 +142,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCT(
     redeclare package Medium = Buildings.Media.Water,
     m_flow_nominal=1.1*mCW_flow_nominal,
-    dp(start=214992),
+    dp(start=15000 + 2887),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Cooling tower loop pump" annotation (Placement(transformation(
@@ -190,7 +191,7 @@ equation
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,260},{170,260},{170,243},{199,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{170,260},{170,243},{197,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -286,7 +287,7 @@ equation
 
   connect(condenserWaterConstantTwoLoops_SameFlow.yTowFanSpeSet, cooTow.y)
     annotation (Line(
-      points={{-36,230},{-8,230},{-8,270},{194,270},{194,247},{199,247}},
+      points={{-36,230},{-8,230},{-8,270},{194,270},{194,247},{197,247}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(condenserWaterConstantTwoLoops_SameFlow.mChiConWatPumSet_flow, pumCW.m_flow_in)
@@ -376,10 +377,10 @@ equation
           228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
                                             color={28,108,200}));
   connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
-          240},{176,239},{201,239}}, color={0,127,255}));
+          240},{176,239},{199,239}}, color={0,127,255}));
   connect(mix.port_2, pumCT.port_a) annotation (Line(points={{100,210},{100,240},
           {130,240}},           color={0,127,255}));
-  connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{221,239},{
+  connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{219,239},{
           298,239},{298,237},{300,237}}, color={0,127,255}));
   connect(chi.QEva, heaPreCon.u_m) annotation (Line(
       points={{195,84},{196,84},{196,74},{-30,74},{-30,168}},
@@ -419,7 +420,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StopTime=30651200,
+      StopTime=33651200,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));

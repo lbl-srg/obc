@@ -7,12 +7,17 @@ model OneDeviceWithWSE
                                             per=
           Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes()),
     wse(m1_flow_nominal=mCW_flow_nominal/2),
+    valByp(
+      dpValve_nominal=200,
+      use_inputFilter=true,
+      riseTime=180,
+      init=Modelica.Blocks.Types.Init.InitialState,
+      dpFixed_nominal=3300),
+    cooTow(PFan_nominal=6500),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
     val1(dpValve_nominal=200, dpFixed_nominal=800),
-    valByp(dpValve_nominal=200, dpFixed_nominal=3300),
     val6(dpValve_nominal=200, dpFixed_nominal=3300),
-    pumCHW(dp(start=44790 + 1000 + 44790 + 3500)),
-    cooTow(PFan_nominal=6500));
+    pumCHW(dp_nominal=1000 + 12000 + 15000 + 3500 + 24000));
 
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
@@ -106,7 +111,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal invCon(realTrue=0,
       realFalse=1) "Boolean to real conversion that inverts input signal"
-    annotation (Placement(transformation(extent={{100,32},{120,52}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(t=0)
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre
@@ -184,7 +189,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=44790 + 1965 + 200 + 37325),
+    dp(start=33000 + 1965 + 200 + 33000),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -347,11 +352,11 @@ equation
   connect(staSetCon.yChiSet[1], con2.u) annotation (Line(points={{23.4,-19.1429},
           {74,-19.1429},{74,70},{98,70}},        color={255,0,255}));
   connect(staSetCon.yChiSet[1], invCon.u) annotation (Line(points={{23.4,
-          -19.1429},{74,-19.1429},{74,42},{98,42}},
+          -19.1429},{74,-19.1429},{74,40},{98,40}},
                                                   color={255,0,255}));
   connect(con2.y, val6.y) annotation (Line(points={{122,70},{260,70},{260,40},{
           288,40}},  color={0,0,127}));
-  connect(invCon.y, valByp.y) annotation (Line(points={{122,42},{230,42},{230,
+  connect(invCon.y, valByp.y) annotation (Line(points={{122,40},{230,40},{230,
           32}},                   color={0,0,127}));
   connect(staSetCon.ySta, intGreThr.u) annotation (Line(points={{23.4,-45.1429},
           {23.4,-46},{34,-46},{34,-100},{-48,-100},{-48,-130},{-42,-130}},
@@ -542,7 +547,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StopTime=3000000,
+      StopTime=33896000,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
