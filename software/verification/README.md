@@ -5,7 +5,7 @@ The reference sequences to be tested must be present in the [Modelica Buildings]
 
 ## Details
 
-Check documentation [here](obc.lbl.gov/specification/verification.html).
+Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 
 ## Setup
 
