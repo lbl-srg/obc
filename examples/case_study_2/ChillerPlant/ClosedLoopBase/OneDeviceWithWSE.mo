@@ -68,7 +68,7 @@ model OneDeviceWithWSE
         origin={160,120})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCWWSE(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mCW_flow_nominal,
+    m_flow_nominal=mCW_flow_nominal/2,
     dp(start=33000 + 1444 + 200),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
