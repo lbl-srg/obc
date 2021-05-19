@@ -42,8 +42,6 @@ model OneDeviceWithWSE
     minChiLif=5,
     Ti=20)
     annotation (Placement(transformation(extent={{-60,180},{-20,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=1)
-    annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TConWatRetSen(redeclare package
       Medium = Buildings.Media.Water, m_flow_nominal=mCW_flow_nominal/2)
     "Condenser water return temperature sensor"
@@ -99,7 +97,7 @@ model OneDeviceWithWSE
     plaEna(schTab=[0,1; 6*3600,1; 19*3600,1; 24*3600,1], TChiLocOut=271.15)
     annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
-    annotation (Placement(transformation(extent={{-130,-220},{-110,-200}})));
+    annotation (Placement(transformation(extent={{-130,-240},{-110,-220}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     "Generates requests"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
@@ -180,11 +178,11 @@ model OneDeviceWithWSE
         MediumW,
     p=100000,    nPorts=1) "Represents an expansion vessel"
     annotation (Placement(transformation(extent={{260,281},{280,301}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(k2=-1)
-    "Emulates a two stage pump, one for WSE only operation, and the other one for the integrated operation"
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Emulates a two stage pump, for instance one stage for WSE only operation, and an additional stage for the integrated operation"
     annotation (Placement(transformation(extent={{-140,190},{-120,210}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=0,
-      realFalse=0.5)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=0.5,
+      realFalse=0)
     annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
@@ -198,6 +196,13 @@ model OneDeviceWithWSE
         origin={300,170})));
   Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=mCW_flow_nominal)
     annotation (Placement(transformation(extent={{240,160},{260,180}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal    booToRea1
+    annotation (Placement(transformation(extent={{-50,-220},{-30,-200}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2(realTrue=0.5,
+      realFalse=0)
+    annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -228,7 +233,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.T, heaPreCon.TConWatRet) annotation (Line(points={{174,151},
-          {-74,151},{-74,212},{-64,212}}, color={0,0,127},
+          {174,152},{-74,152},{-74,212},{-64,212}},
+                                          color={0,0,127},
       pattern=LinePattern.Dash));
   connect(TChiWatSupSen.T, heaPreCon.TChiWatSup) annotation (Line(points={{311,-72},
           {330,-72},{330,270},{-80,270},{-80,204},{-64,204}}, color={0,0,127},
@@ -283,14 +289,6 @@ equation
       points={{300,-98},{300,-82},{300,-82}},
       color={0,127,255},
       thickness=0.5));
-  connect(wseSta.y, heaPreCon.uWSE) annotation (Line(
-      points={{-118,120},{-110,120},{-110,180},{-80,180},{-80,188},{-64,188}},
-      color={255,0,255},
-      pattern=LinePattern.Dot));
-  connect(chilledWaterReset.dpChiWatPumSet, pumCHW.dp_in) annotation (Line(
-      points={{-116,-136},{-60,-136},{-60,-110},{120,-110},{120,-120},{148,-120}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
       points={{-116,-160},{106,-160},{106,-220},{350,-220},{350,90},{218,90}},
       color={0,0,127},
@@ -315,9 +313,10 @@ equation
     annotation (Line(points={{-174,-210},{-162,-210}}, color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(greThr.y, booToInt.u)
-    annotation (Line(points={{-138,-210},{-132,-210}}, color={255,0,255}));
+    annotation (Line(points={{-138,-210},{-136,-210},{-136,-230},{-132,-230}},
+                                                       color={255,0,255}));
   connect(booToInt.y, plaEna.chiWatSupResReq) annotation (Line(points={{-108,
-          -210},{-106,-210},{-106,-206},{-102,-206}},
+          -230},{-106,-230},{-106,-206},{-102,-206}},
                                              color={255,127,0}));
   connect(plaEna.yPla, staSetCon.uPla) annotation (Line(points={{-79,-210},{-70,
           -210},{-70,44},{-65.4,44}},          color={255,0,255}));
@@ -392,7 +391,7 @@ equation
           {190,99},{190,140},{184,140}}, color={28,108,200},
       thickness=0.5));
   connect(wseSta.TChiWatRetDowPre, movMea.u) annotation (Line(points={{-118,102},
-          {-114,102},{-114,40},{-115.2,40}},
+          {-116,102},{-116,40},{-115.2,40}},
                                            color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(staSetCon.TWsePre, movMea.y) annotation (Line(points={{-65.4,-74.8571},
@@ -428,23 +427,29 @@ equation
   connect(plaEna.yPla, towCon.uPla) annotation (Line(points={{-79,-210},{-80,
           -210},{-80,363},{74,363}}, color={255,0,255}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet[1]) annotation (Line(
-        points={{-16,212},{32,212},{32,375},{74,375}}, color={0,0,127},
+        points={{-16,212},{36,212},{36,375},{74,375}}, color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(sigSub4.y, towCon.uIsoVal[1]) annotation (Line(points={{22,300},{50,
-          300},{50,309},{74,309}}, color={0,0,127}));
+          300},{50,309},{74,309}}, color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(sigSub4.y, towCon.watLev) annotation (Line(points={{22,300},{50,300},
-          {50,303},{74,303}}, color={0,0,127}));
+          {50,303},{74,303}}, color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(TConWatRetSen.T, towCon.TConWatRet) annotation (Line(points={{174,151},
-          {62,151},{62,356},{68,356},{68,357},{74,357}}, color={0,0,127}));
+          {174,152},{80,152},{80,357},{74,357}},         color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(TChiWatSupSen.T, towCon.TChiWatSup) annotation (Line(points={{311,-72},
-          {320,-72},{320,-30},{44,-30},{44,392},{60,392},{60,393},{74,393}},
-                                                         color={0,0,127}));
+          {320,-72},{320,-30},{44,-30},{44,393},{74,393}},
+                                                         color={0,0,127},
+      pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
-      Line(points={{-116,-160},{-102,-160},{-102,388},{74,388},{74,387}}, color=
-         {0,0,127}));
+      Line(points={{-116,-160},{-102,-160},{-102,388},{74,388},{74,387}}, color={0,0,127},
+      pattern=LinePattern.DashDot));
+
   connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{23.4,
-          -82.2857},{23.4,-82},{32,-82},{32,380},{52,380},{52,381},{74,381}},
-                                          color={0,0,127}));
+          -82.2857},{23.4,-82},{32,-82},{32,381},{74,381}},
+                                          color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,
           112},{194,112},{194,194},{134,194},{134,282},{66,282},{66,416},{74,
           416},{74,417}},          color={0,0,127},
@@ -488,8 +493,6 @@ equation
       thickness=0.5));
   connect(add2.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{-118,200},
           {-86,200},{-86,196},{-64,196}}, color={0,0,127}));
-  connect(con.y, add2.u1) annotation (Line(points={{-158,210},{-150,210},{-150,
-          206},{-142,206}}, color={0,0,127}));
   connect(booToRea.y, add2.u2) annotation (Line(points={{-158,170},{-150,170},{
           -150,194},{-142,194}}, color={0,0,127}));
   connect(staSetCon.yChiSet[1], booToRea.u) annotation (Line(points={{23.4,
@@ -504,11 +507,32 @@ equation
   connect(gai.y, pumCW.m_flow_in)
     annotation (Line(points={{262,170},{288,170}}, color={0,0,127}));
   connect(sigSub4.y, towCon.uConWatPumSpe[1]) annotation (Line(points={{22,300},
-          {50,300},{50,351},{74,351}}, color={0,0,127}));
+          {50,300},{50,351},{74,351}}, color={0,0,127},
+      pattern=LinePattern.DashDot));
   connect(pumCW.port_b, chi.port_a1)
     annotation (Line(points={{300,160},{300,99},{216,99}}, color={0,127,255}));
   connect(pumCW.port_b, wse.port_a1) annotation (Line(points={{300,160},{300,
           108},{94,108},{94,99},{68,99}}, color={0,127,255}));
+  connect(wseSta.y, heaPreCon.uWSE) annotation (Line(points={{-118,120},{-114,
+          120},{-114,188},{-64,188}}, color={255,0,255}));
+  connect(chilledWaterReset.dpChiWatPumSet, pro.u1) annotation (Line(
+      points={{-116,-136},{-60,-136},{-60,-164},{18,-164}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(booToRea1.y, pro.u2) annotation (Line(
+      points={{-28,-210},{-20,-210},{-20,-176},{18,-176}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(pro.y, pumCHW.dp_in) annotation (Line(
+      points={{42,-170},{100,-170},{100,-120},{148,-120}},
+      color={0,0,127},
+      pattern=LinePattern.DashDot));
+  connect(plaEna.yPla, booToRea1.u)
+    annotation (Line(points={{-79,-210},{-52,-210}}, color={255,0,255}));
+  connect(booToRea2.y, add2.u1) annotation (Line(points={{-158,210},{-150,210},
+          {-150,206},{-142,206}}, color={0,0,127}));
+  connect(wseSta.y, booToRea2.u) annotation (Line(points={{-118,120},{-118,190},
+          {-188,190},{-188,210},{-182,210}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"
@@ -547,8 +571,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StartTime=1000,
-      StopTime=32897000,
+      StopTime=1800,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
