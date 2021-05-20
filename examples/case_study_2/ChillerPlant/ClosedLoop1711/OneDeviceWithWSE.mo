@@ -96,7 +96,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     annotation (Placement(transformation(extent={{-130,-220},{-110,-200}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(h=0.1)
     "Generates requests"
     annotation (Placement(transformation(extent={{-160,-220},{-140,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant sigSub1(k=true)
@@ -202,6 +202,7 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.CDL.Continuous.Product pro
     annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
+    "Enables WSE if the plant is enabled and the WSE enable conditions are satisfied"
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
 equation
   PSupFan = fan.P;
@@ -569,7 +570,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StopTime=30896000,
+      StopTime=15000,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
