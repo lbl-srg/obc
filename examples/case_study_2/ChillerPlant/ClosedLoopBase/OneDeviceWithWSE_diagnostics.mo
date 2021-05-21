@@ -1,5 +1,5 @@
 within ChillerPlant.ClosedLoopBase;
-model OneDeviceWithWSE
+model OneDeviceWithWSE_diagnostics
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter(
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
@@ -51,7 +51,7 @@ model OneDeviceWithWSE
       TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+        MediumW, m_flow_nominal=1.1*mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -178,7 +178,50 @@ model OneDeviceWithWSE
   Buildings.Fluid.Sources.Boundary_pT expVesChi(redeclare package Medium =
         MediumW,
     p=100000,    nPorts=1) "Represents an expansion vessel"
-    annotation (Placement(transformation(extent={{212,111},{232,131}})));
+    annotation (Placement(transformation(extent={{212,113},{232,133}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow1(redeclare package
+      Medium = Buildings.Media.Water, m_flow_nominal=1.1*mCW_flow_nominal)
+    "Temperature of condenser water leaving the cooling tower"      annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        origin={190,219},
+        rotation=0)));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+        Buildings.Media.Water)
+    annotation (Placement(transformation(extent={{154,210},{174,230}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2(k2=-1)
+    annotation (Placement(transformation(extent={{320,280},{340,300}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro
+    annotation (Placement(transformation(extent={{360,240},{380,260}})));
+  Modelica.Blocks.Continuous.Integrator QCooTowInt(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Total tower heat exchange integrator"
+    annotation (Placement(transformation(extent={{442,240},{462,260}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+    annotation (Placement(transformation(extent={{438,180},{458,200}})));
+  Modelica.Blocks.Continuous.Integrator QCooTowIntNoP(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0)
+    "Total tower heat exchange integrator without the compressor power"
+    annotation (Placement(transformation(extent={{500,180},{520,200}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai(k=4182)
+    "Specific heat capacity"
+    annotation (Placement(transformation(extent={{400,240},{420,260}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirToCoil(redeclare package
+      Medium = Buildings.Media.Air, m_flow_nominal=mAir_flow_nominal)
+    "Supply air temperature after the data center" annotation (Placement(
+        transformation(extent={{10,-10},{-10,10}}, origin={142,-229})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
+        Buildings.Media.Air)
+    annotation (Placement(transformation(extent={{122,-190},{142,-170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add3(k1=-1, k2=1)
+    annotation (Placement(transformation(extent={{342,-260},{362,-240}})));
+  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+    annotation (Placement(transformation(extent={{382,-270},{402,-250}})));
+  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(k=993)
+    "Specific heat capacity"
+    annotation (Placement(transformation(extent={{420,-270},{440,-250}})));
+  Modelica.Blocks.Continuous.Integrator QRooInt(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Total tower heat exchange integrator"
+    annotation (Placement(transformation(extent={{460,-270},{480,-250}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -192,7 +235,7 @@ equation
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-330,-90},{-260,-90},{-260,260},{170,260},{170,243},{197,243}},
+      points={{-282,-88},{-260,-88},{-260,260},{170,260},{170,243},{197,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -215,7 +258,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(weaBus.TWetBul, waterSideEconomizerOnOff.TWetBul) annotation (Line(
-      points={{-330,-90},{-260,-90},{-260,100},{-164,100}},
+      points={{-282,-88},{-260,-88},{-260,100},{-164,100}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -375,10 +418,8 @@ equation
                            color={0,127,255},
       thickness=0.5));
   connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{
-          228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
+          228,99},{228,100},{240,100},{240,122},{236,122},{236,123},{232,123}},
                                             color={28,108,200}));
-  connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
-          240},{176,239},{199,239}}, color={0,127,255}));
   connect(mix.port_2, pumCT.port_a) annotation (Line(points={{100,210},{100,240},
           {130,240}},           color={0,127,255}));
   connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{219,239},{
@@ -387,14 +428,54 @@ equation
       points={{195,84},{196,84},{196,74},{-30,74},{-30,168}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{190.45,-229.3},{188,-229.3},{188,-226},{160,-226},{160,-176},{
-          222,-176}},
-      color={0,127,255},
-      thickness=0.5));
+  connect(senMasFlo.port_b, TCWLeaTow1.port_b) annotation (Line(points={{174,
+          220},{180,220},{180,219}}, color={0,127,255}));
+  connect(pumCT.port_b, senMasFlo.port_a)
+    annotation (Line(points={{150,240},{150,220},{154,220}}, color={0,0,127}));
+  connect(TCWLeaTow1.port_a, cooTow.port_a) annotation (Line(points={{200,219},
+          {200,239},{199,239}}, color={0,127,255}));
+  connect(TCWLeaTow1.T, add2.u1)
+    annotation (Line(points={{190,230},{190,296},{318,296}}, color={0,0,127}));
+  connect(TCWLeaTow.T, add2.u2) annotation (Line(points={{289,227},{274,227},{
+          274,228},{260,228},{260,284},{318,284}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, pro.u2) annotation (Line(points={{164,231},{164,264},
+          {280,264},{280,244},{358,244}}, color={0,0,127}));
+  connect(add2.y, pro.u1) annotation (Line(points={{342,290},{352,290},{352,256},
+          {358,256}}, color={0,0,127}));
+  connect(chi.P, add1.u2) annotation (Line(points={{195,102},{198,102},{198,98},
+          {196,98},{196,96},{184,96},{184,110},{358,110},{358,184},{436,184}},
+        color={0,0,127}));
+  connect(pro.y, gai.u)
+    annotation (Line(points={{382,250},{398,250}}, color={0,0,127}));
+  connect(gai.y, QCooTowInt.u)
+    annotation (Line(points={{422,250},{440,250}}, color={0,0,127}));
+  connect(add3.y, pro1.u1) annotation (Line(points={{364,-250},{370,-250},{370,
+          -254},{380,-254}}, color={0,0,127}));
+  connect(gai2.y, QRooInt.u)
+    annotation (Line(points={{442,-260},{458,-260}}, color={0,0,127}));
+  connect(pro1.y, gai2.u)
+    annotation (Line(points={{404,-260},{418,-260}}, color={0,0,127}));
+  connect(TAirSup.T, add3.u1) annotation (Line(points={{230,-214},{238,-214},{
+          238,-220},{244,-220},{244,-244},{340,-244}}, color={0,0,127}));
+  connect(TAirToCoil.T, add3.u2) annotation (Line(points={{142,-218},{142,-210},
+          {122,-210},{122,-260},{322,-260},{322,-256},{340,-256}}, color={0,0,
+          127}));
+  connect(TAirToCoil.port_b, senMasFlo1.port_a) annotation (Line(points={{132,
+          -229},{102,-229},{102,-180},{122,-180}}, color={0,127,255}));
+  connect(senMasFlo1.port_b, cooCoi.port_a2) annotation (Line(points={{142,-180},
+          {182,-180},{182,-176},{222,-176}}, color={0,127,255}));
+  connect(senMasFlo1.m_flow, pro1.u2) annotation (Line(points={{132,-169},{132,
+          -166},{80,-166},{80,-290},{374,-290},{374,-266},{380,-266}}, color={0,
+          0,127}));
+  connect(roo.airPorts[2], TAirToCoil.port_a) annotation (Line(points={{188.425,
+          -229.3},{179.225,-229.3},{179.225,-229},{152,-229}}, color={0,127,255}));
+  connect(add1.y, QCooTowIntNoP.u)
+    annotation (Line(points={{460,190},{498,190}}, color={0,0,127}));
+  connect(gai.y, add1.u1) annotation (Line(points={{422,250},{430,250},{430,196},
+          {436,196}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_diagnostics.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -426,8 +507,8 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StopTime=31651200,
+      StopTime=30651200,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
-end OneDeviceWithWSE;
+end OneDeviceWithWSE_diagnostics;

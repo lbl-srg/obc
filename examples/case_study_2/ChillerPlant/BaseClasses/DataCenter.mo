@@ -74,7 +74,7 @@ partial model DataCenter
     annotation (Placement(transformation(extent={{242,-180},{222,-160}})));
   Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
     redeclare package Medium = MediumA,
-    nPorts=2,
+    nPorts=1,
     rooLen=50,
     rooWid=30,
     rooHei=3,
@@ -151,8 +151,8 @@ partial model DataCenter
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={300,40})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
+      = MediumA, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -192,9 +192,9 @@ partial model DataCenter
         origin={160,-80})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
         "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.724835_TMY2.mos")
-    annotation (Placement(transformation(extent={{-320,-100},{-300,-80}})));
+    annotation (Placement(transformation(extent={{-398,-102},{-378,-82}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-292,-98},{-272,-78}})));
+    annotation (Placement(transformation(extent={{-340,-100},{-320,-80}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,
             -210},{260,-190}})));
@@ -217,12 +217,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[1],TAirSup. port_b) annotation (Line(
-      points={{192.475,-229.3},{192.475,-225},{220,-225}},
-      color={0,127,255},
-      smooth=Smooth.None,
-      thickness=0.5));
-  connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{188.425,-229.3},{188.425,-225},{160,-225},{160,-176},{222,-176}},
+      points={{190.45,-229.3},{190.45,-225},{220,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
@@ -257,7 +252,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(weaData.weaBus, weaBus) annotation (Line(
-      points={{-300,-90},{-291,-90},{-291,-88},{-282,-88}},
+      points={{-378,-92},{-328,-92},{-328,-88},{-330,-88},{-330,-90}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
