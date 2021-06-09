@@ -16,7 +16,7 @@ def get_cases():
          "long_name": "Base-case, Summer",
          "season" : "summer",
          "n_output_intervals" : 10800,
-         "num_id":0,
+         "num_id": 0,
          "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
 
@@ -43,17 +43,17 @@ def get_cases():
          "long_name": "Base-case, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
-         "num_id":2,
+         "num_id": 2,
          "start_time": 0,
          "stop_time":  365*24*3600})
 
     cases.append( \
         {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
          "name": "alt_annual",
-         "long_name": "Alternative, annual",
+         "long_name": "Alternative, Annual",
          "season" : "annual",
          "n_output_intervals" : 10800,
-         "num_id":3,
+         "num_id": 3,
          "start_time": 0,
          "stop_time":  365*24*3600})
 

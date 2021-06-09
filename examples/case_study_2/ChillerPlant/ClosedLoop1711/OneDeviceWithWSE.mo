@@ -82,6 +82,8 @@ model OneDeviceWithWSE
     nSta=1,
     staMat={{1}},
     posDisMult=0.19,
+    smallTDif=2.2,
+    largeTDif(displayUnit="degC") = 2.2,
     TDif=2)          "Single chiller with WSE staging controller"
     annotation (Placement(transformation(extent={{-58,-44},{-18,40}})));
 
@@ -466,8 +468,8 @@ equation
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
       Line(points={{-154,-142},{-102,-142},{-102,386},{49.4,386},{49.4,404.5}},
                                                                           color={0,0,127},
-
       pattern=LinePattern.DashDot));
+
   connect(staSetCon.yCapReq, towCon.reqPlaCap) annotation (Line(points={{-14,-42},
           {30,-42},{30,399.5},{49.4,399.5}},
                                           color={0,0,127},
@@ -489,14 +491,14 @@ equation
       pattern=LinePattern.DashDot));
   connect(movMea1.y, staSetCon.uTowFanSpeMax) annotation (Line(points={{162,380},
           {180,380},{180,300},{-92,300},{-92,-28},{-62,-28}},             color={0,0,127},
-
       pattern=LinePattern.DashDot));
+
   connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{104.6,354.5},{
           160,354.5},{160,260},{198,260},{198,247},{197,247}},
                                      color={0,0,127},
       pattern=LinePattern.Dot));
   connect(movMea1.y, wseSta.uTowFanSpeMax) annotation (Line(
-      points={{162,380},{180,380},{180,474},{-254,474},{-254,104},{-244,104}},
+      points={{162,380},{180,380},{180,474},{-248,474},{-248,104},{-244,104}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
@@ -643,8 +645,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StopTime=33651200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=32651200,
+      Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
 end OneDeviceWithWSE;

@@ -426,8 +426,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{400,
             300}})),
     experiment(
-      StopTime=31651200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      StopTime=33651200,
+      Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE;

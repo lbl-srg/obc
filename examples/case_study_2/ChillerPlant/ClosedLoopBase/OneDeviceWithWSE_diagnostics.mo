@@ -24,7 +24,8 @@ model OneDeviceWithWSE_diagnostics
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal, dp_nominal=15000 + 2887 - 400),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
-    roo(nPorts=2));
+    roo(nPorts=2),
+    fan(addPowerToMedium=true));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -235,7 +236,7 @@ equation
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
 
   connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,260},{170,260},{170,243},{197,243}},
+      points={{-330,-90},{-260,-90},{-260,260},{170,260},{170,243},{197,243}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash),
@@ -258,7 +259,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(weaBus.TWetBul, waterSideEconomizerOnOff.TWetBul) annotation (Line(
-      points={{-282,-88},{-260,-88},{-260,100},{-164,100}},
+      points={{-330,-90},{-260,-90},{-260,100},{-164,100}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash), Text(
@@ -467,7 +468,7 @@ equation
   connect(senMasFlo1.m_flow, pro1.u2) annotation (Line(points={{132,-169},{132,
           -166},{80,-166},{80,-290},{374,-290},{374,-266},{380,-266}}, color={0,
           0,127}));
-  connect(roo.airPorts[2], TAirToCoil.port_a) annotation (Line(points={{188.425,
+  connect(roo.airPorts[2], TAirToCoil.port_a) annotation (Line(points={{190.45,
           -229.3},{179.225,-229.3},{179.225,-229},{152,-229}}, color={0,127,255}));
   connect(add1.y, QCooTowIntNoP.u)
     annotation (Line(points={{460,190},{498,190}}, color={0,0,127}));
