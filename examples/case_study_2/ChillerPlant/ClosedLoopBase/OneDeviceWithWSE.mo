@@ -24,7 +24,8 @@ model OneDeviceWithWSE
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal, dp_nominal=15000 + 2887 - 400),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
-    roo(nPorts=2));
+    roo(nPorts=2),
+    mFanFlo(k=mAir_flow_nominal));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -45,7 +46,7 @@ model OneDeviceWithWSE
   BaseClasses.Controls.ChillerOnOff chillerOnOff(
     dTChi = dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
-  BaseClasses.Controls.ChilledWaterReset chilledWaterReset
+  BaseClasses.Controls.ChilledWaterReset chilledWaterReset(linPieTwo(y10=0.1))
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
   BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond plantOnOff(
       TZonSupSet=TZonSupSet)
@@ -76,7 +77,7 @@ model OneDeviceWithWSE
     "Condenser water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={42,162})));
+        origin={40,162})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -85,14 +86,15 @@ model OneDeviceWithWSE
     riseTime=30,
     m_flow_nominal=mCW_flow_nominal/2,
     dpValve_nominal=200,
-    fraK=1)                                           annotation (Placement(
+    fraK=1) "Chiller head pressure bypass valve"      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={300,144})));
   BaseClasses.Controls.CondenserWaterConstantTwoLoops_SameFlow
     condenserWaterConstantTwoLoops_SameFlow(
-                                   mCW_flow_nominal=mCW_flow_nominal)
+                                   mCW_flow_nominal=mCW_flow_nominal,
+      chiFloDivWseFlo=0.5)
     annotation (Placement(transformation(extent={{-80,200},{-40,240}})));
   Modelica.Blocks.Sources.RealExpression PWSEWatPum1(y=PWSEWatPum)
     "WSE water pump power consumption" annotation (Placement(transformation(
@@ -103,7 +105,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-460,20},{-440,40}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPreCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=1,
+    final k=10,
     final Ti=60,
     final Td=120,
     r=chi.per.PLRMinUnl,
@@ -299,7 +301,7 @@ equation
 
   connect(condenserWaterConstantTwoLoops_SameFlow.mWSEConWatPumSet_flow,
     pumCWWSE.m_flow_in) annotation (Line(
-      points={{-36,208},{-10,208},{-10,162},{30,162}},
+      points={{-36,208},{-10,208},{-10,162},{28,162}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(PWSEWatPum1.y, PWSEWatPumAgg.u) annotation (Line(
@@ -368,9 +370,10 @@ equation
                              color={0,127,255},
       thickness=0.5));
   connect(wse.port_b1, pumCWWSE.port_a)
-    annotation (Line(points={{48,99},{42,99},{42,152}}, color={0,127,255},
+    annotation (Line(points={{48,99},{44,99},{44,100},{40,100},{40,152}},
+                                                        color={0,127,255},
       thickness=0.5));
-  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{42,172},{42,
+  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,172},{40,
           180},{100,180},{100,190}},
                            color={0,127,255},
       thickness=0.5));
@@ -383,15 +386,15 @@ equation
           {130,240}},           color={0,127,255}));
   connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{219,239},{
           298,239},{298,237},{300,237}}, color={0,127,255}));
-  connect(chi.QEva, heaPreCon.u_m) annotation (Line(
-      points={{195,84},{196,84},{196,74},{-30,74},{-30,168}},
-      color={0,0,127},
-      pattern=LinePattern.Dash));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
       points={{190.45,-229.3},{188,-229.3},{188,-226},{160,-226},{160,-176},{
           222,-176}},
       color={0,127,255},
       thickness=0.5));
+  connect(chi.yPLR1, heaPreCon.u_m) annotation (Line(
+      points={{217,102},{226,102},{226,68},{-30,68},{-30,168}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"
@@ -427,6 +430,7 @@ First implementation.
             300}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05),
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE;
