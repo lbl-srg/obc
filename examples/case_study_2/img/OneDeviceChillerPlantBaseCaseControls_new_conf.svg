@@ -4518,17 +4518,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710682"
-     inkscape:cx="1196.7441"
-     inkscape:cy="770.03245"
+     inkscape:zoom="0.50000003"
+     inkscape:cx="636.60792"
+     inkscape:cy="668.0653"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="2362"
      inkscape:window-height="1490"
-     inkscape:window-x="646"
-     inkscape:window-y="119"
+     inkscape:window-x="511"
+     inkscape:window-y="84"
      inkscape:window-maximized="0"
      inkscape:pagecheckerboard="0">
     <inkscape:grid
@@ -6625,7 +6625,7 @@
          x="-11.623174"
          y="-254.22798"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.7611px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#666666;stroke-width:0.264583"
-         id="tspan49272">bypass</tspan></text>
+         id="tspan49272">bypass (minimum lift)</tspan></text>
     <path
        style="opacity:1;fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.3, 0.9;stroke-dashoffset:0;stroke-opacity:1"
        d="m -446.77322,128.79171 c 125.87525,0 126.27727,0 126.27727,0"
@@ -7379,7 +7379,7 @@
          id="tspan2174-3"
          x="-354.26202"
          y="-15.632884"
-         style="font-size:6.41333px;stroke-width:0.240499">T&amp;R</tspan></text>
+         style="font-size:6.41333px;stroke-width:0.240499" /></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.190312px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -359.44583,-25.802104 c 8.03143,7.560404 8.03143,7.560404 8.03143,7.560404 -8.03143,7.095692 -8.03143,7.095692 -8.03143,7.095692"
@@ -11493,5 +11493,17 @@
          y="-6.0310316"
          style="font-size:5.29167px;text-align:center;text-anchor:middle;fill:#000000;stroke-width:0.306288"
          id="tspan16799">of any required WSE and CW flow </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.98964px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.224611"
+       x="-297.34851"
+       y="-19.585384"
+       id="text2176-7"
+       transform="scale(1.1779603,0.84892504)"><tspan
+         sodipodi:role="line"
+         id="tspan2174-4"
+         x="-297.34851"
+         y="-19.585384"
+         style="font-size:5.98964px;stroke-width:0.224611">Lift</tspan></text>
   </g>
 </svg>
