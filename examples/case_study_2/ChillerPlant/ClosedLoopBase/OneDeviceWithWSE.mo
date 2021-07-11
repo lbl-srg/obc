@@ -6,7 +6,8 @@ model OneDeviceWithWSE
     chi(
       m1_flow_nominal=mCW_flow_nominal/2,
       m2_flow_nominal=mCHW_flow_nominal,
-      dp1_nominal=33000 + 1444 - 200),
+      dp1_nominal=42000 + 1444 - 200,
+      dp2_nominal=19000),
     pumCHW(m_flow_nominal=mCHW_flow_nominal, dp_nominal=1000 + 12000 + 15000 +
           3500 + 24000),
     cooCoi(m1_flow_nominal=mCHW_flow_nominal),
@@ -373,8 +374,8 @@ equation
     annotation (Line(points={{48,99},{44,99},{44,100},{40,100},{40,152}},
                                                         color={0,127,255},
       thickness=0.5));
-  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,172},{40,
-          180},{100,180},{100,190}},
+  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,172},{40,180},
+          {100,180},{100,190}},
                            color={0,127,255},
       thickness=0.5));
   connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{
@@ -430,7 +431,6 @@ First implementation.
             300}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE;

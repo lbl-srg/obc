@@ -133,8 +133,8 @@ partial model DataCenter
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
-    dp2_nominal=15000,
-    dp1_nominal=33000,
+    dp2_nominal=19000,
+    dp1_nominal=42000,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) "Chiller"
     annotation (Placement(transformation(extent={{216,83},{196,103}})));

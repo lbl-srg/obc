@@ -89,7 +89,7 @@ model OneDeviceWithWSE
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply
     chilledWaterReset(
-    dpChiWatPumMin=0.2*20*6485,
+    dpChiWatPumMin=0.1*20*6485,
     dpChiWatPumMax=1*20*6485,
     TChiWatSupMin=273.15 + 5.56,
     TChiWatSupMax=273.15 + 22)
@@ -415,15 +415,15 @@ equation
           {34,364.5},{49.4,364.5}},                   color={255,127,0},
       pattern=LinePattern.DashDot));
   connect(staSetCon.ySta, towCon.uChiStaSet) annotation (Line(points={{-14,-22},
-          {28,-22},{28,332},{49.4,332},{49.4,359.5}},
+          {28,-22},{28,360},{49.4,360},{49.4,359.5}},
                                                    color={255,127,0},
       pattern=LinePattern.DashDot));
   connect(sigSub3.y, towCon.uTowStaCha) annotation (Line(points={{-78,370},{-70,
           370},{-70,354.5},{49.4,354.5}},
                                    color={255,0,255},
       pattern=LinePattern.DashDot));
-  connect(plaEna.yPla, towCon.uLeaConWatPum) annotation (Line(points={{-117,
-          -210},{-112,-210},{-112,354},{49.4,354},{49.4,349.5}},
+  connect(plaEna.yPla, towCon.uLeaConWatPum) annotation (Line(points={{-117,-210},
+          {-112,-210},{-112,350},{49.4,350},{49.4,349.5}},
                                                    color={255,0,255},
       pattern=LinePattern.DashDot));
   connect(sigSub3.y, towCon.uChaCel[1]) annotation (Line(points={{-78,370},{-60,
@@ -466,7 +466,7 @@ equation
                                                          color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
-      Line(points={{-154,-142},{-102,-142},{-102,386},{49.4,386},{49.4,404.5}},
+      Line(points={{-154,-142},{-106,-142},{-106,404},{49.4,404},{49.4,404.5}},
                                                                           color={0,0,127},
       pattern=LinePattern.DashDot));
 
@@ -474,8 +474,8 @@ equation
           {30,-42},{30,399.5},{49.4,399.5}},
                                           color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,
-          112},{192,112},{192,280},{-38,280},{-38,346},{49.4,346},{49.4,429.5}},
+  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,112},
+          {192,112},{192,280},{-34,280},{-34,370},{49.4,370},{49.4,429.5}},
                                    color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{32,84},
@@ -493,8 +493,8 @@ equation
           {180,380},{180,300},{-92,300},{-92,-28},{-62,-28}},             color={0,0,127},
       pattern=LinePattern.DashDot));
 
-  connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{104.6,354.5},{
-          160,354.5},{160,260},{198,260},{198,247},{197,247}},
+  connect(towCon.yFanSpe[1], cooTow.y) annotation (Line(points={{104.6,354.5},{160,
+          354.5},{160,260},{200,260},{200,247},{197,247}},
                                      color={0,0,127},
       pattern=LinePattern.Dot));
   connect(movMea1.y, wseSta.uTowFanSpeMax) annotation (Line(
@@ -645,7 +645,7 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
             400,480}})),
     experiment(
-      StopTime=32651200,
+      StopTime=33651200,
       Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
 end OneDeviceWithWSE;
