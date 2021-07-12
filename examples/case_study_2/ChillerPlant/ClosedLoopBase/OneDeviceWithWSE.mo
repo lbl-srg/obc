@@ -6,7 +6,7 @@ model OneDeviceWithWSE
     chi(
       m1_flow_nominal=mCW_flow_nominal/2,
       m2_flow_nominal=mCHW_flow_nominal,
-      dp1_nominal=42000 + 1444 - 200,
+      dp1_nominal=42000 + 1444/2,
       dp2_nominal=19000),
     pumCHW(m_flow_nominal=mCHW_flow_nominal, dp_nominal=1000 + 12000 + 15000 +
           3500 + 24000),
@@ -26,7 +26,8 @@ model OneDeviceWithWSE
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
     roo(nPorts=2),
-    mFanFlo(k=mAir_flow_nominal));
+    mFanFlo(k=mAir_flow_nominal),
+    wse(dp1_nominal=42000 + 1444/2));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
   extends Modelica.Icons.Example;
 
@@ -86,12 +87,12 @@ model OneDeviceWithWSE
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
     riseTime=30,
     m_flow_nominal=mCW_flow_nominal/2,
-    dpValve_nominal=200,
+    dpValve_nominal=6000,
     fraK=1) "Chiller head pressure bypass valve"      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={300,144})));
+        origin={302,144})));
   BaseClasses.Controls.CondenserWaterConstantTwoLoops_SameFlow
     condenserWaterConstantTwoLoops_SameFlow(
                                    mCW_flow_nominal=mCW_flow_nominal,
@@ -275,7 +276,7 @@ equation
       points={{196,99},{196,100},{160,100},{160,110}},
       color={28,108,200},
       thickness=0.5));
-  connect(val.port_3, pumCW.port_b) annotation (Line(points={{290,144},{160,144},
+  connect(val.port_3, pumCW.port_b) annotation (Line(points={{292,144},{160,144},
           {160,130}}, color={28,108,200},
       thickness=0.5));
   connect(waterSideEconomizerOnOff.ySta,
@@ -312,7 +313,7 @@ equation
   connect(chillerOnOff.yChi, heaPreCon.trigger) annotation (Line(points={{-116,34},
           {-36,34},{-36,168}},     color={255,0,255},
       pattern=LinePattern.DashDot));
-  connect(val.port_2, chi.port_a1) annotation (Line(points={{300,134},{300,99},
+  connect(val.port_2, chi.port_a1) annotation (Line(points={{302,134},{302,99},
           {216,99}},                    color={28,108,200},
       thickness=0.5));
   connect(set.y, heaPreCon.u_s)
@@ -324,14 +325,14 @@ equation
       pattern=LinePattern.DashDot));
   connect(addPar.y, val.y)
     annotation (Line(points={{22,140},{280,140},{280,174},{320,174},{320,144},{
-          312,144}},                              color={0,0,127},
+          314,144}},                              color={0,0,127},
       pattern=LinePattern.Dot));
   connect(TCWLeaTow.port_b, spl.port_1)
     annotation (Line(points={{300,217},{300,210}}, color={0,127,255}));
   connect(mix.port_3, spl.port_3)
     annotation (Line(points={{110,200},{290,200}}, color={0,127,255}));
   connect(spl.port_2, val.port_1) annotation (Line(
-      points={{300,190},{300,154}},
+      points={{300,190},{300,154},{302,154}},
       color={28,108,200},
       thickness=0.5));
   connect(pumCW.port_b, mix.port_1) annotation (Line(
@@ -431,6 +432,7 @@ First implementation.
             300}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05),
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-640,-300},{400,300}})));
 end OneDeviceWithWSE;

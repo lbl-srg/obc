@@ -114,8 +114,8 @@ partial model DataCenter
     m1_flow_nominal=mCW_flow_nominal/2,
     m2_flow_nominal=mCHW_flow_nominal,
     eps=0.8,
-    dp2_nominal=12000,
-    dp1_nominal=33000)
+    dp2_nominal=15000,
+    dp1_nominal=42000)
                    "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val1(

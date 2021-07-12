@@ -155,7 +155,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal/2,
-    dpValve_nominal=200,
+    dpValve_nominal=6000,
     dpFixed_nominal=1965,
     y_start=1,
     use_inputFilter=false) "Control valve for condenser water loop of chiller"
