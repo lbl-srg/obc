@@ -156,13 +156,13 @@ model OneDeviceWithWSE
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal/2,
     dpValve_nominal=6000,
-    dpFixed_nominal=1965,
+    dpFixed_nominal=2165,
     y_start=1,
     use_inputFilter=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={162,176})));
+        origin={162,178})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal/2,
@@ -188,7 +188,7 @@ model OneDeviceWithWSE
   Buildings.Fluid.Movers.FlowControlled_m_flow pumCW(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=33000 + 1965 + 200 + 33000),
+    dp(start=42000 + 1965*2 + 6000 + 200 + 42000 + 15000),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -474,8 +474,8 @@ equation
           {30,-42},{30,399.5},{49.4,399.5}},
                                           color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,112},
-          {192,112},{192,280},{-34,280},{-34,370},{49.4,370},{49.4,429.5}},
+  connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{195,86},
+          {192,86},{192,280},{-34,280},{-34,370},{49.4,370},{49.4,429.5}},
                                    color={0,0,127},
       pattern=LinePattern.Dot));
   connect(chi.QEva, towCon.chiLoa[1]) annotation (Line(points={{195,84},{32,84},
@@ -510,15 +510,15 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(TConWatRetSen.port_a, val5.port_a) annotation (Line(
-      points={{164,140},{162,140},{162,166}},
+      points={{164,140},{162,140},{162,168}},
       color={0,127,255},
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{162,186},{162,239},{199,239}},
+      points={{162,188},{162,239},{199,239}},
       color={0,127,255},
       thickness=0.5));
   connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
-      points={{-16,200},{106,200},{106,176},{150,176}},
+      points={{-16,200},{106,200},{106,178},{150,178}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
@@ -646,6 +646,7 @@ First implementation.
             400,480}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05),
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
 end OneDeviceWithWSE;
