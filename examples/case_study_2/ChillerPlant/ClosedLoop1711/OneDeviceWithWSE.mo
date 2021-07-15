@@ -129,7 +129,7 @@ model OneDeviceWithWSE
     nTowCel=1,
     nConWatPum=1,
     closeCoupledPlant=true,
-    desCap=742000,
+    desCap=471000,
     fanSpeMin=0.2,
     chiMinCap={140980},
     TiIntOpe=120,
@@ -140,7 +140,7 @@ model OneDeviceWithWSE
     TChiWatSupMin={278.71},
     TiCouPla=120,
     staVec={0,0.5,1},
-    towCelOnSet={0,1,1})
+    towCelOnSet={0,1,1}) "Cooling tower fan speed controller"
     annotation (Placement(transformation(extent={{54,332},{100,432}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant sigSub3(k=false)
     "Assume change process completes within the 15 minute stage change delay."
