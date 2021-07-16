@@ -19,8 +19,8 @@ equation
           Text(
           extent={{-6,100},{160,-54}},
           lineColor={28,108,200},
-          textString="Base
-WSE")}),Diagram(coordinateSystem(preserveAspectRatio=false), graphics={Text(
+          textString="WSE")}),
+        Diagram(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-74,148},{-8,144}},
           lineColor={28,108,200},
           textString="fixme: this input is effectivelly 

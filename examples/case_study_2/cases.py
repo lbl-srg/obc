@@ -21,7 +21,7 @@ def get_cases():
          "stop_time":  265*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
          "name": "alt_summer",
          "long_name": "Alternative, Summer",
          "season" : "summer",
@@ -48,7 +48,7 @@ def get_cases():
          "stop_time":  365*24*3600})
 
     cases.append( \
-        {'model': "ChillerPlant.ClosedLoop1711.OneDeviceWithWSE",
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
          "name": "alt_annual",
          "long_name": "Alternative, Annual",
          "season" : "annual",

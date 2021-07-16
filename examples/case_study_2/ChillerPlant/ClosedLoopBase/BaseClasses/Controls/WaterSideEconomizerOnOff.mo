@@ -52,6 +52,7 @@ equation
           Text(
           extent={{-88,86},{84,-74}},
           lineColor={28,108,200},
-          textString="Base
-WSE")}),Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="WSE
+On/Off")}),
+        Diagram(coordinateSystem(preserveAspectRatio=false)));
 end WaterSideEconomizerOnOff;

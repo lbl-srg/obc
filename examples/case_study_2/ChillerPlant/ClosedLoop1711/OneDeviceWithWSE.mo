@@ -642,11 +642,11 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-640,-300},{
-            400,480}})),
+    Diagram(coordinateSystem(
+      preserveAspectRatio=false, extent={{-640,-300},{400,480}})),
     experiment(
       StopTime=33651200,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
-    Icon(coordinateSystem(extent={{-640,-300},{400,480}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;

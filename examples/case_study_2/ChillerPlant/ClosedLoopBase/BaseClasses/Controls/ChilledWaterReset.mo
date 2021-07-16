@@ -43,10 +43,9 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(
-          extent={{-82,88},{84,-66}},
+          extent={{-54,34},{44,-28}},
           lineColor={28,108,200},
-          textString="Base
-CHW
+          textString="CHW
 Reset")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ChilledWaterReset;

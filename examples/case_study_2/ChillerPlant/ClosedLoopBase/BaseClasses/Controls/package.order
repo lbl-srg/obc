@@ -1,10 +1,7 @@
 ChilledWaterReset
 ChillerOnOff
-ChillerOnOffwHeaPreGuard
-CondenserWaterConstant
-CondenserWaterConstantTwoLoops
+CondenserWater
 PlantOnOffWithAnalogueTrimAndRespond
 WaterSideEconomizerOnOff
 WaterSideEconomizerStateMachine
 Examples
-CondenserWaterConstantTwoLoops_SameFlow

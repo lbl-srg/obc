@@ -44,10 +44,9 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(
-          extent={{-82,88},{84,-66}},
+          extent={{-60,62},{62,-56}},
           lineColor={28,108,200},
-          textString="Base
-Plant
+          textString="Plant
 On/Off")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)));
 end PlantOnOffWithAnalogueTrimAndRespond;

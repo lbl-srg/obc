@@ -49,10 +49,9 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(
-          extent={{-82,88},{84,-66}},
+          extent={{-56,50},{54,-44}},
           lineColor={28,108,200},
-          textString="Base
-Chiller
+          textString="Chiller
 On/Off")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ChillerOnOff;
