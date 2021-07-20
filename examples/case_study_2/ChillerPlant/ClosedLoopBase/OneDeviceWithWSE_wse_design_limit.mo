@@ -1,5 +1,5 @@
 within ChillerPlant.ClosedLoopBase;
-model OneDeviceWithWSE
+model OneDeviceWithWSE_wse_design_limit
   "Simple chiller plant with a water-side economizer and one of each: chiller, cooling tower cell, condenser, and chiller water pump."
   extends ChillerPlant.BaseClasses.DataCenter(
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
@@ -25,8 +25,7 @@ model OneDeviceWithWSE
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal, dp_nominal=15000 + 2887 - 400),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
-    roo(QRoo_flow=250000,
-        nPorts=2),
+    roo(nPorts=2),
     mFanFlo(k=mAir_flow_nominal),
     wse(dp1_nominal=42000 + 1444/2));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
@@ -164,6 +163,12 @@ model OneDeviceWithWSE
         MediumW,
     p=100000,    nPorts=1) "Represents an expansion vessel"
     annotation (Placement(transformation(extent={{212,111},{232,131}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TwtBulDes(
+    height=12.5,
+    duration=70*3600,
+    offset=273.15 + 10,
+    startTime=3600*1) "Build-up to stationary design condition"
+    annotation (Placement(transformation(extent={{-328,116},{-308,136}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -175,17 +180,6 @@ equation
   QRooIntGai_flow = roo.QSou.Q_flow;
   mConWat_flow = pumCW.m_flow_actual;
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
-
-  connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-330,-90},{-260,-90},{-260,260},{170,260},{170,243},{197,243}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash),
-                      Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
   connect(waterSideEconomizerOnOff.yOff, val1.y) annotation (Line(
       points={{-116,100},{-60,100},{-60,-40},{148,-40}},
@@ -199,15 +193,6 @@ equation
       points={{149,-80},{-200,-80},{-200,112},{-164,112}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(weaBus.TWetBul, waterSideEconomizerOnOff.TWetBul) annotation (Line(
-      points={{-330,-90},{-260,-90},{-260,100},{-164,100}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(TCWLeaTow.T, waterSideEconomizerOnOff.TConWatSup) annotation (Line(
       points={{289,227},{248,227},{248,272},{-230,272},{-230,86},{-164,86}},
       color={0,0,127},
@@ -358,9 +343,17 @@ equation
       points={{314,144},{322,144},{322,174},{68,174},{68,204},{-36,204}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(TwtBulDes.y, waterSideEconomizerOnOff.TWetBul) annotation (Line(
+        points={{-306,126},{-242,126},{-242,100},{-164,100}}, color={255,255,0},
+      thickness=0.5));
+
+  connect(TwtBulDes.y, cooTow.TAir) annotation (Line(points={{-306,126},{-242,
+          126},{-242,262},{170,262},{170,243},{197,243}},
+                                                     color={255,255,0},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE_wse_design_limit.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -395,8 +388,8 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
-      StopTime=255600,
+      StopTime=295200,
       Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end OneDeviceWithWSE;
+end OneDeviceWithWSE_wse_design_limit;

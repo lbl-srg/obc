@@ -124,65 +124,12 @@ equation
           textString="Fluid flow meters")}),
 Documentation(info="<HTML>
 <p>
-This model is the chilled water plant with discrete time control and
-trim and respond logic for a data center. The model is described at
-<a href=\"Buildings.Examples.ChillerPlant\">
-Buildings.Examples.ChillerPlant</a>.
+Energy metering panel.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-September 21, 2017, by Michael Wetter:<br/>
-Set <code>from_dp = true</code> in <code>val6</code> and in <code>valByp</code>
-which is needed for Dymola 2018FD01 beta 2 for
-<a href=\"modelica://Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl\">
-Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</a>
-to converge.
-</li>
-<li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-January 13, 2015 by Michael Wetter:<br/>
-Moved model to <code>BaseClasses</code> because the continuous and discrete time
-implementation of the trim and respond logic do not extend from a common class,
-and hence the <code>constrainedby</code> operator is not applicable.
-Moving the model here allows to implement both controllers without using a
-<code>replaceable</code> class.
-</li>
-<li>
-January 12, 2015 by Michael Wetter:<br/>
-Made media instances replaceable, and used the same instance for both
-water loops.
-This was done to simplify the numerical benchmarks.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-March 25, 2014, by Michael Wetter:<br/>
-Updated model with new expansion vessel.
-</li>
-<li>
-December 5, 2012, by Michael Wetter:<br/>
-Removed the filtered speed calculation for the valves to reduce computing time by 25%.
-</li>
-<li>
-October 16, 2012, by Wangda Zuo:<br/>
-Reimplemented the controls.
-</li>
-<li>
-July 20, 2011, by Wangda Zuo:<br/>
-Added comments and merge to library.
-</li>
-<li>
-January 18, 2011, by Wangda Zuo:<br/>
+April 18, 2021, by Milica Grahovac:<br/>
 First implementation.
 </li>
 </ul>

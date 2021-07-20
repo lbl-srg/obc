@@ -307,6 +307,10 @@ Buildings.Examples.ChillerPlant</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+July xx, 2021, by Milica Grahovac:<br/>
+Revised pressure drops, removed elements per OBC data center chiller plant case study needs.
+</li>
+<li>
 September 21, 2017, by Michael Wetter:<br/>
 Set <code>from_dp = true</code> in <code>val6</code> and in <code>valByp</code>
 which is needed for Dymola 2018FD01 beta 2 for
