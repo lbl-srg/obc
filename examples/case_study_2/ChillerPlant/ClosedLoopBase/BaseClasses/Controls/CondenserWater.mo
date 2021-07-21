@@ -57,7 +57,7 @@ model CondenserWater
     final r=PLRMinUnl,
     final yMax=1,
     final yMin=0,
-    reverseActing=true,
+    reverseActing=false,
     final y_reset=1)
     "Controls the recirculation valve to maintain the CW supply temperature sufficiently above the evaporator side one"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
