@@ -1,4 +1,4 @@
-within ChillerPlant.ClosedLoop1711.BaseClasses.Controls;
+within ChillerPlant.ClosedLoopAlternative.BaseClasses.Controls;
 package Examples "Test of components"
 extends Modelica.Icons.ExamplesPackage;
 

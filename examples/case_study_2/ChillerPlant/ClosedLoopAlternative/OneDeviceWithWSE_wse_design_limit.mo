@@ -1,5 +1,5 @@
-within ChillerPlant.ClosedLoop1711;
-model OneDeviceWithWSE
+within ChillerPlant.ClosedLoopAlternative;
+model OneDeviceWithWSE_wse_design_limit
   "Simple chiller plant with a water-side economizer. Alternative controller based on 1711"
   extends ChillerPlant.BaseClasses.DataCenter(
     expVesCHW(p=100000),
@@ -207,6 +207,12 @@ model OneDeviceWithWSE
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Enables WSE if the plant is enabled and the WSE enable conditions are satisfied"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TwtBulDes(
+    height=11.5,
+    duration=70*3600,
+    offset=273.15 + 10,
+    startTime=3600*1) "Build-up to stationary design condition"
+    annotation (Placement(transformation(extent={{-380,20},{-360,40}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -216,17 +222,6 @@ equation
   QRooIntGai_flow = roo.QSou.Q_flow;
   mConWat_flow = pumCW.m_flow_actual;
   mChiWat_flow = pumCHW.VMachine_flow * rho_default;
-
-  connect(weaBus.TWetBul, cooTow.TAir) annotation (Line(
-      points={{-330,-90},{-330,262},{198,262},{198,243},{197,243}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash),
-                      Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
   connect(TAirSup.T, plantOnOff.TZonSup) annotation (Line(
       points={{230,-214},{230,-204},{140,-204},{140,-258},{-322,-258},{-322,
@@ -265,15 +260,6 @@ equation
           -244,120}},
       color={0,0,127},
       pattern=LinePattern.Dash));
-  connect(weaBus.TWetBul,wseSta. TOutWet) annotation (Line(
-      points={{-330,-90},{-330,136},{-244,136}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(yWSEOn.y, val3.y) annotation (Line(
       points={{-123.2,140},{20,140},{20,-40},{60,-40},{60,-48}},
       color={0,0,127},
@@ -299,16 +285,6 @@ equation
       points={{-234,-210},{-228,-210},{-228,-130},{-202,-130}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(weaBus.TDryBul, plaEna.TOut) annotation (Line(
-      points={{-330,-90},{-330,-280},{-150,-280},{-150,-218},{-140,-218},{-140,
-          -214.2}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
 
   connect(plantOnOff.yChiWatPlaRes, greThr.u)
     annotation (Line(points={{-234,-210},{-222,-210}}, color={0,0,127},
@@ -379,16 +355,6 @@ equation
           70},{-100,34},{-62,34}},                                 color={255,0,
           255},
       pattern=LinePattern.DashDot));
-  connect(weaBus.TWetBul, staSetCon.TOutWet) annotation (Line(
-      points={{-330,-90},{-330,-42},{-196,-42},{-196,-20},{-62,-20}},
-      color={255,204,51},
-      thickness=0.5,
-      pattern=LinePattern.Dash),
-                      Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-198,110},
           {-108,110},{-108,88},{-68,88},{-68,-24},{-62,-24}},
                                                    color={0,0,127},
@@ -607,9 +573,25 @@ equation
           222,-176}},
       color={0,127,255},
       thickness=0.5));
+  connect(staSetCon.TOutWet, TwtBulDes.y) annotation (Line(
+      points={{-62,-20},{-346,-20},{-346,30},{-358,30}},
+      color={255,255,0},
+      thickness=0.5));
+  connect(wseSta.TOutWet, TwtBulDes.y) annotation (Line(
+      points={{-244,136},{-346,136},{-346,30},{-358,30}},
+      color={255,255,0},
+      thickness=0.5));
+  connect(cooTow.TAir, TwtBulDes.y) annotation (Line(
+      points={{197,243},{-74,243},{-74,244},{-346,244},{-346,30},{-358,30}},
+      color={255,255,0},
+      thickness=0.5));
+  connect(plaEna.TOut, TwtBulDes.y) annotation (Line(
+      points={{-140,-214.2},{-140,-266},{-346,-266},{-346,30},{-358,30}},
+      color={255,255,0},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
-          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoop1711/OneDeviceWithWSE.mos"
+          "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopAlternative/OneDeviceWithWSE_wse_design_limit.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is the chilled water plant with continuous time control.
@@ -617,6 +599,9 @@ The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
+
+The outdoor air wet bulb temperature is set to a near-stationary ramp as this model
+is made for system wet bulb WSE limit.
 </p>
 <p>
 See
@@ -627,18 +612,8 @@ for an implementation with the discrete time trim and respond logic.
 </html>", revisions="<html>
 <ul>
 <li>
-April xx, 2021, by Milica Grahovac:<br/>
-Added 1711-based controls with the corresponding instrumentation and parametrization.
-</li>
-<li>
-January 13, 2015, by Michael Wetter:<br/>
-Moved base model to
-<a href=\"Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
-Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
-</li>
-<li>
-December 5, 2012, by Michael Wetter:<br/>
-First implementation.
+July xx, 2021, by Milica Grahovac:<br/>
+First implementation of the design limit testing model.
 </li>
 </ul>
 </html>"),
@@ -649,4 +624,4 @@ First implementation.
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end OneDeviceWithWSE;
+end OneDeviceWithWSE_wse_design_limit;

@@ -15,7 +15,7 @@ def get_cases():
          "name": "base_summer",
          "long_name": "Base-case, Summer",
          "season" : "summer",
-         "n_output_intervals" : 10800,
+         "n_output_intervals" : 27360,
          "num_id": 0,
          "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
@@ -25,7 +25,7 @@ def get_cases():
          "name": "alt_summer",
          "long_name": "Alternative, Summer",
          "season" : "summer",
-         "n_output_intervals" : 10800,
+         "n_output_intervals" : 27360,
          "num_id":1,
          "start_time": 170*24*3600,
          "stop_time":  265*24*3600})
@@ -42,7 +42,7 @@ def get_cases():
          "name": "base_annual",
          "long_name": "Base-case, Annual",
          "season" : "annual",
-         "n_output_intervals" : 10800,
+         "n_output_intervals" : 105120,
          "num_id": 2,
          "start_time": 0,
          "stop_time":  365*24*3600})
@@ -52,7 +52,7 @@ def get_cases():
          "name": "alt_annual",
          "long_name": "Alternative, Annual",
          "season" : "annual",
-         "n_output_intervals" : 10800,
+         "n_output_intervals" : 105120,
          "num_id": 3,
          "start_time": 0,
          "stop_time":  365*24*3600})

@@ -1,4 +1,4 @@
-within ChillerPlant.ClosedLoop1711.BaseClasses;
+within ChillerPlant.ClosedLoopAlternative.BaseClasses;
 package Controls "Package with control components for Buildings.Examples.ChillerPlant"
 extends Modelica.Icons.VariantsPackage;
 

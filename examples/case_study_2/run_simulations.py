@@ -108,7 +108,7 @@ def _simulate(spec):
         if USE_OPTIMICA:
             s.setSolver("CVode")
         else:
-            s.setSolver("Cvode")
+            s.setSolver("Dassl")
     if 'parameters' in spec:
         s.addParameters(spec['parameters'])
     s.setStartTime(spec["start_time"])

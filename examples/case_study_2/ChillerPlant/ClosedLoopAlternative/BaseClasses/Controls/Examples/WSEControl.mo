@@ -1,4 +1,4 @@
-within ChillerPlant.ClosedLoop1711.BaseClasses.Controls.Examples;
+within ChillerPlant.ClosedLoopAlternative.BaseClasses.Controls.Examples;
 model WSEControl "Test model for WSEControl"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Pulse wseCHWST(

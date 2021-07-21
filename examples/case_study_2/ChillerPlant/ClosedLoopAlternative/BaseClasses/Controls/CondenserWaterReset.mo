@@ -1,4 +1,4 @@
-within ChillerPlant.ClosedLoop1711.BaseClasses.Controls;
+within ChillerPlant.ClosedLoopAlternative.BaseClasses.Controls;
 model CondenserWaterReset "Tower fan and CW pump speed control with reset"
 
   parameter Modelica.SIunits.MassFlowRate mCW_flow_nominal = 1

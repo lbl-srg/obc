@@ -25,8 +25,7 @@ model OneDeviceWithWSE
     cooTow(m_flow_nominal=1.1*mCW_flow_nominal, dp_nominal=15000 + 2887 - 400),
     expVesCHW(p=100000),
     val3(dpValve_nominal=200, dpFixed_nominal=800),
-    roo(QRoo_flow=250000,
-        nPorts=2),
+    roo(nPorts=2),
     mFanFlo(k=mAir_flow_nominal),
     wse(dp1_nominal=42000 + 1444/2));
   extends ChillerPlant.BaseClasses.EnergyMonitoring;
@@ -395,7 +394,7 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
-      StopTime=255600,
+      StopTime=33651200,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

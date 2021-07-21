@@ -361,6 +361,9 @@ The trim and respond logic is approximated by a PI controller which
 significantly reduces computing time. The model is described at
 <a href=\"Buildings.Examples.ChillerPlant\">
 Buildings.Examples.ChillerPlant</a>.
+
+The outdoor air wet bulb temperature is set to a near-stationary ramp as this model
+is made for system wet bulb WSE limit.
 </p>
 <p>
 See
@@ -372,17 +375,7 @@ for an implementation with the discrete time trim and respond logic.
 <ul>
 <li>
 July xx, 2021, by Milica Grahovac:<br/>
-Revised pressure drops, packaged sub-controllers, and added metering panel.
-</li>
-<li>
-January 13, 2015, by Michael Wetter:<br/>
-Moved base model to
-<a href=\"Buildings.Examples.ChillerPlant.BaseClasses.DataCenter\">
-Buildings.Examples.ChillerPlant.BaseClasses.DataCenter</a>.
-</li>
-<li>
-December 5, 2012, by Michael Wetter:<br/>
-First implementation.
+First implementation of the design limit testing model.
 </li>
 </ul>
 </html>"),
