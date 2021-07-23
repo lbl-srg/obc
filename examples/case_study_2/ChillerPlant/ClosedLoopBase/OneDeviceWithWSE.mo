@@ -92,11 +92,12 @@ model OneDeviceWithWSE
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={302,144})));
+        origin={300,140})));
   BaseClasses.Controls.CondenserWater condenserWater(
     mCW_flow_nominal=mCW_flow_nominal,
     chiFloDivWseFlo=0.5,
-    PLRMinUnl=chi.per.PLRMinUnl)
+    PLRMinUnl=chi.per.PLRMinUnl,
+    heaPreCon(reverseActing=true))
     annotation (Placement(transformation(extent={{-80,200},{-40,240}})));
   Modelica.Blocks.Sources.RealExpression PWSEWatPum1(y=PWSEWatPum)
     "WSE water pump power consumption" annotation (Placement(transformation(
@@ -223,7 +224,7 @@ equation
       points={{-116,6},{120,6},{120,38},{230,38},{230,32}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
+  connect(TCHWEntChi.T, chillerOnOff.TChiWatRetDow) annotation (Line(
       points={{149,0},{140,0},{140,-10},{-180,-10},{-180,34},{-164,34}},
       color={0,0,127},
       pattern=LinePattern.Dash));
@@ -256,9 +257,6 @@ equation
       points={{196,99},{196,100},{160,100},{160,110}},
       color={28,108,200},
       thickness=0.5));
-  connect(val.port_3, pumCW.port_b) annotation (Line(points={{292,144},{160,144},
-          {160,130}}, color={28,108,200},
-      thickness=0.5));
   connect(waterSideEconomizerOnOff.ySta,
     condenserWater.uWSE) annotation (Line(
       points={{-116,88},{-108,88},{-108,236},{-84,236}},
@@ -277,7 +275,7 @@ equation
       pattern=LinePattern.Dot));
   connect(condenserWater.mChiConWatPumSet_flow, pumCW.m_flow_in)
     annotation (Line(
-      points={{-36,228},{80,228},{80,152},{180,152},{180,120},{172,120}},
+      points={{-36,228},{80,228},{80,160},{180,160},{180,120},{172,120}},
       color={0,0,127},
       pattern=LinePattern.Dot));
 
@@ -290,21 +288,14 @@ equation
       points={{-499,20},{-480,20},{-480,30},{-462,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(val.port_2, chi.port_a1) annotation (Line(points={{302,134},{302,99},{
-          216,99}},                     color={28,108,200},
+  connect(val.port_2, chi.port_a1) annotation (Line(points={{300,130},{300,99},{
+          216,99}},                     color={0,128,255},
       thickness=0.5));
   connect(TCWLeaTow.port_b, spl.port_1)
-    annotation (Line(points={{300,217},{300,210}}, color={0,127,255}));
+    annotation (Line(points={{300,217},{300,210}}, color={0,127,255},
+      thickness=0.5));
   connect(mix.port_3, spl.port_3)
     annotation (Line(points={{110,200},{290,200}}, color={0,127,255}));
-  connect(spl.port_2, val.port_1) annotation (Line(
-      points={{300,190},{300,154},{302,154}},
-      color={28,108,200},
-      thickness=0.5));
-  connect(pumCW.port_b, mix.port_1) annotation (Line(
-      points={{160,130},{160,168},{100,168},{100,190}},
-      color={28,108,200},
-      thickness=0.5));
   connect(wse.port_a1, expVesWSE.ports[1]) annotation (Line(points={{68,99},{80,
           99},{80,121},{70,121}},color={0,127,255}));
   connect(PCTWatPum.y, PCooTowWatPumAgg.u) annotation (Line(
@@ -315,10 +306,6 @@ equation
           112},{0,112},{0,70},{100,70},{100,120},{108,120}},
                                         color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(spl.port_2, val4.port_b) annotation (Line(points={{300,190},{300,180},
-          {120,180},{120,130}},
-                      color={0,127,255},
-      thickness=0.5));
   connect(val4.port_a, wse.port_a1) annotation (Line(points={{120,110},{120,100},
           {80,100},{80,99},{68,99}},
                              color={0,127,255},
@@ -335,11 +322,15 @@ equation
           228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
                                             color={28,108,200}));
   connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
-          240},{176,239},{199,239}}, color={0,127,255}));
+          240},{176,239},{199,239}}, color={0,127,255},
+      thickness=0.5));
   connect(mix.port_2, pumCT.port_a) annotation (Line(points={{100,210},{100,240},
-          {130,240}},           color={0,127,255}));
-  connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{219,239},{
-          298,239},{298,237},{300,237}}, color={0,127,255}));
+          {130,240}},           color={0,127,255},
+      thickness=0.5));
+  connect(cooTow.port_b, TCWLeaTow.port_a) annotation (Line(points={{219,239},{260,
+          239},{260,240},{300,240},{300,237}},
+                                         color={0,127,255},
+      thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
       points={{190.45,-229.3},{188,-229.3},{188,-226},{160,-226},{160,-176},{
           222,-176}},
@@ -354,9 +345,17 @@ equation
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(val.y, condenserWater.yChiConMix) annotation (Line(
-      points={{314,144},{322,144},{322,174},{68,174},{68,204},{-36,204}},
+      points={{312,140},{322,140},{322,174},{68,174},{68,204},{-36,204}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(pumCW.port_b, mix.port_1) annotation (Line(points={{160,130},{160,170},
+          {100,170},{100,190}}, color={0,127,255}));
+  connect(pumCW.port_b, val.port_3) annotation (Line(points={{160,130},{160,140},
+          {290,140}}, color={0,127,255}));
+  connect(spl.port_2, val.port_1) annotation (Line(points={{300,190},{300,150},
+          {300,150}}, color={0,127,255}));
+  connect(val4.port_b, spl.port_2) annotation (Line(points={{120,130},{120,180},
+          {300,180},{300,190}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"
@@ -395,7 +394,7 @@ First implementation.
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;

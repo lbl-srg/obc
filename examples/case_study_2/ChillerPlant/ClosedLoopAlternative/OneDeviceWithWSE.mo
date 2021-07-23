@@ -517,10 +517,6 @@ equation
       points={{162,188},{162,239},{199,239}},
       color={0,127,255},
       thickness=0.5));
-  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
-      points={{-16,200},{106,200},{106,178},{150,178}},
-      color={0,0,127},
-      pattern=LinePattern.Dot));
   connect(expVesCHW1.ports[1], cooTow.port_b) annotation (Line(
       points={{250,269},{250,239},{219,239}},
       color={0,127,255},
@@ -607,6 +603,10 @@ equation
           222,-176}},
       color={0,127,255},
       thickness=0.5));
+  connect(heaPreCon.yHeaPreConVal, val5.y) annotation (Line(
+      points={{-16,200},{120,200},{120,178},{150,178}},
+      color={0,0,127},
+      pattern=LinePattern.Dot));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopAlternative/OneDeviceWithWSE.mos"
@@ -646,7 +646,6 @@ First implementation.
       preserveAspectRatio=false, extent={{-640,-300},{400,480}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-05),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;

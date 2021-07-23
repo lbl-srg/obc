@@ -57,12 +57,9 @@ model CondenserWater
     final r=PLRMinUnl,
     final yMax=1,
     final yMin=0,
-    reverseActing=false,
-    final y_reset=1)
+    reverseActing=true)
     "Controls the recirculation valve to maintain the CW supply temperature sufficiently above the evaporator side one"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1, k=-1)
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addFlo
     "Adds WSE and chiller condenser side flow "
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
@@ -76,6 +73,8 @@ model CondenserWater
     "Measured chiller part load ratio" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-100},
             {-100,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1, k=-1)
+    annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 equation
   connect(uWSE, or2.u1) annotation (Line(points={{-120,80},{-62,80}},
                    color={255,0,255}));
@@ -102,9 +101,6 @@ equation
   connect(set.y,heaPreCon. u_s)
     annotation (Line(points={{-38,-80},{-22,-80}}, color={0,0,127},
       pattern=LinePattern.DashDot));
-  connect(heaPreCon.y,addPar. u)
-    annotation (Line(points={{2,-80},{18,-80}},   color={0,0,127},
-      pattern=LinePattern.DashDot));
   connect(gai.y, addFlo.u1) annotation (Line(points={{42,40},{50,40},{50,-34},{58,
           -34}}, color={0,0,127}));
   connect(gai1.y, addFlo.u2) annotation (Line(points={{42,-10},{48,-10},{48,-46},
@@ -113,12 +109,14 @@ equation
     annotation (Line(points={{82,-40},{120,-40}}, color={0,0,127}));
   connect(yChiConMix, yChiConMix)
     annotation (Line(points={{120,-80},{120,-80}}, color={0,0,127}));
-  connect(addPar.y, yChiConMix)
-    annotation (Line(points={{42,-80},{120,-80}}, color={0,0,127}));
   connect(uChi, heaPreCon.trigger) annotation (Line(points={{-120,0},{-80,0},{
           -80,-96},{-16,-96},{-16,-92}},  color={255,0,255}));
   connect(uChiPLR, heaPreCon.u_m) annotation (Line(points={{-120,-60},{-90,-60},
           {-90,-98},{-10,-98},{-10,-92}}, color={0,0,127}));
+  connect(heaPreCon.y, addPar.u)
+    annotation (Line(points={{2,-80},{38,-80}}, color={0,0,127}));
+  connect(addPar.y, yChiConMix)
+    annotation (Line(points={{62,-80},{120,-80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200}),
           Text(

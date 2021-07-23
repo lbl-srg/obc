@@ -209,7 +209,7 @@ equation
       points={{-116,6},{120,6},{120,38},{230,38},{230,32}},
       color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(TCHWEntChi.T, chillerOnOff.TChiWatSup) annotation (Line(
+  connect(TCHWEntChi.T, chillerOnOff.TChiWatRetDow) annotation (Line(
       points={{149,0},{140,0},{140,-10},{-180,-10},{-180,34},{-164,34}},
       color={0,0,127},
       pattern=LinePattern.Dash));

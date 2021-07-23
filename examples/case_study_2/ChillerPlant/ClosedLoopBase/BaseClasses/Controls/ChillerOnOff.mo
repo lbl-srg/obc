@@ -14,8 +14,8 @@ model ChillerOnOff "Chiller status"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal invCon(realTrue=0,
       realFalse=1) "Boolean to real conversion that inverts input signal"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup
-    "Chilled water supply temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow
+    "Chilled water return temperature downstream of WSE"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet
     "Chilled water supply temperature set-point"
@@ -32,8 +32,8 @@ model ChillerOnOff "Chiller status"
       realFalse=0) "Boolean to real conversion of input signal"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 equation
-  connect(TChiWatSup, chiSwi.chiCHWST) annotation (Line(points={{-120,70},{-70,70},
-          {-70,17},{-21,17}}, color={0,0,127}));
+  connect(TChiWatRetDow, chiSwi.chiCHWST) annotation (Line(points={{-120,70},{-70,
+          70},{-70,17},{-21,17}}, color={0,0,127}));
   connect(TChiWatSupSet, chiSwi.TSet) annotation (Line(points={{-120,-70},{-70,-70},
           {-70,5},{-21,5}}, color={0,0,127}));
   connect(chiSwi.y, yChi) annotation (Line(points={{1,9.4},{20,9.4},{20,70},{120,
