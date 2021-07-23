@@ -51,8 +51,8 @@ model CondenserWater
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPreCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=10,
-    final Ti=60,
+    final k=100,
+    final Ti=0.5,
     final Td=120,
     final r=PLRMinUnl,
     final yMax=1,
