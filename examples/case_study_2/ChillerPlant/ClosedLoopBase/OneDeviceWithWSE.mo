@@ -4,6 +4,7 @@ model OneDeviceWithWSE
   extends ChillerPlant.BaseClasses.DataCenter(
     mCW_flow_nominal = 2*roo.QRoo_flow/(4200*6),
     chi(
+      allowFlowReversal1=false,
       m1_flow_nominal=mCW_flow_nominal/2,
       m2_flow_nominal=mCHW_flow_nominal,
       dp1_nominal=42000 + 1444/2,
@@ -53,8 +54,8 @@ model OneDeviceWithWSE
   BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond plantOnOff(
       TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
-        MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
+      = MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -79,16 +80,18 @@ model OneDeviceWithWSE
     "Condenser water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={40,162})));
+        origin={40,160})));
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Entering,
+    use_inputFilter=false,
     riseTime=30,
     m_flow_nominal=mCW_flow_nominal/2,
     dpValve_nominal=6000,
-    fraK=1) "Chiller head pressure bypass valve"      annotation (Placement(
+    fraK=0.7)
+            "Chiller head pressure bypass valve"      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -108,6 +111,7 @@ model OneDeviceWithWSE
     annotation (Placement(transformation(extent={{-460,20},{-440,40}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare package Medium = Buildings.Media.Water,
+    from_dp=true,
     portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Entering,
     portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Leaving,
     portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Leaving,
@@ -158,12 +162,8 @@ model OneDeviceWithWSE
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
+        rotation=-90,
         origin={120,120})));
-  Buildings.Fluid.Sources.Boundary_pT expVesChi(redeclare package Medium =
-        MediumW,
-    p=100000,    nPorts=1) "Represents an expansion vessel"
-    annotation (Placement(transformation(extent={{212,111},{232,131}})));
 equation
   PSupFan = fan.P;
   PChiWatPum = pumCHW.P;
@@ -281,7 +281,7 @@ equation
 
   connect(condenserWater.mWSEConWatPumSet_flow,
     pumCWWSE.m_flow_in) annotation (Line(
-      points={{-36,220},{-10,220},{-10,162},{28,162}},
+      points={{-36,220},{-10,220},{-10,160},{28,160}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(PWSEWatPum1.y, PWSEWatPumAgg.u) annotation (Line(
@@ -303,24 +303,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(waterSideEconomizerOnOff.yOn, val4.y) annotation (Line(points={{-116,
-          112},{0,112},{0,70},{100,70},{100,120},{108,120}},
+          112},{0,112},{0,70},{100,70},{100,120},{132,120}},
                                         color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(val4.port_a, wse.port_a1) annotation (Line(points={{120,110},{120,100},
-          {80,100},{80,99},{68,99}},
-                             color={0,127,255},
-      thickness=0.5));
   connect(wse.port_b1, pumCWWSE.port_a)
-    annotation (Line(points={{48,99},{44,99},{44,100},{40,100},{40,152}},
+    annotation (Line(points={{48,99},{44,99},{44,100},{40,100},{40,150}},
                                                         color={0,127,255},
       thickness=0.5));
-  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,172},{40,180},
-          {100,180},{100,190}},
+  connect(pumCWWSE.port_b, mix.port_1) annotation (Line(points={{40,170},{40,
+          180},{100,180},{100,190}},
                            color={0,127,255},
       thickness=0.5));
-  connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{
-          228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
-                                            color={28,108,200}));
   connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
           240},{176,239},{199,239}}, color={0,127,255},
       thickness=0.5));
@@ -352,10 +345,12 @@ equation
           {100,170},{100,190}}, color={0,127,255}));
   connect(pumCW.port_b, val.port_3) annotation (Line(points={{160,130},{160,140},
           {290,140}}, color={0,127,255}));
-  connect(spl.port_2, val.port_1) annotation (Line(points={{300,190},{300,150},
-          {300,150}}, color={0,127,255}));
-  connect(val4.port_b, spl.port_2) annotation (Line(points={{120,130},{120,180},
-          {300,180},{300,190}}, color={0,127,255}));
+  connect(val4.port_b, wse.port_a1)
+    annotation (Line(points={{120,110},{120,99},{68,99}}, color={0,127,255}));
+  connect(spl.port_2, val.port_1)
+    annotation (Line(points={{300,190},{300,150}}, color={0,127,255}));
+  connect(spl.port_2, val4.port_a) annotation (Line(points={{300,190},{300,160},
+          {120,160},{120,130}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopBase/OneDeviceWithWSE.mos"
@@ -394,7 +389,7 @@ First implementation.
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-06,
+      Tolerance=1e-05,
       __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;
