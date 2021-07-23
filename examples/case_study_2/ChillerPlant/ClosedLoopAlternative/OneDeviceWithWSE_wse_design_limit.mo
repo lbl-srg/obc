@@ -208,7 +208,7 @@ model OneDeviceWithWSE_wse_design_limit
     "Enables WSE if the plant is enabled and the WSE enable conditions are satisfied"
     annotation (Placement(transformation(extent={{-180,120},{-160,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TwtBulDes(
-    height=11.5,
+    height=15,
     duration=70*3600,
     offset=273.15 + 10,
     startTime=3600*1) "Build-up to stationary design condition"

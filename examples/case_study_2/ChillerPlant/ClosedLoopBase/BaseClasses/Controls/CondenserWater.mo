@@ -52,7 +52,7 @@ model CondenserWater
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaPreCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=100,
-    final Ti=0.5,
+    final Ti=0.1,
     final Td=120,
     final r=PLRMinUnl,
     final yMax=1,

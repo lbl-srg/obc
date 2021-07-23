@@ -54,8 +54,8 @@ model OneDeviceWithWSE
   BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond plantOnOff(
       TZonSupSet=TZonSupSet)
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
-      = MediumW, m_flow_nominal=mCW_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
+        MediumW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -388,8 +388,9 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
-      StopTime=33651200,
+      StartTime=16002000,
+      StopTime=16092000,
       Tolerance=1e-05,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;

@@ -57,6 +57,27 @@ def get_cases():
          "start_time": 0,
          "stop_time":  365*24*3600})
 
+    # wse limit test with near-stationary ramp
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_wse_design_limit",
+         "name": "base_wse_limit",
+         "long_name": "Base-case, WSE Limit Test",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 4,
+         "start_time": 0,
+         "stop_time":  300000})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE_wse_design_limit",
+         "name": "alt_wse_limit",
+         "long_name": "Alternative, WSE Limit Test",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 5,
+         "start_time": 0,
+         "stop_time":  300000})
+
 
     # # Add load diversity
     # cases_load_diversity = copy.deepcopy(cases)
