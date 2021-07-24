@@ -63,7 +63,7 @@ def get_cases():
          "name": "base_wse_limit",
          "long_name": "Base-case, WSE Limit Test",
          "season" : "annual",
-         "n_output_intervals" : 105120,
+         "n_output_intervals" : 1000,
          "num_id": 4,
          "start_time": 0,
          "stop_time":  300000})
@@ -73,7 +73,7 @@ def get_cases():
          "name": "alt_wse_limit",
          "long_name": "Alternative, WSE Limit Test",
          "season" : "annual",
-         "n_output_intervals" : 105120,
+         "n_output_intervals" : 1000,
          "num_id": 5,
          "start_time": 0,
          "stop_time":  300000})

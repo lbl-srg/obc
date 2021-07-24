@@ -159,12 +159,8 @@ model OneDeviceWithWSE_wse_design_limit
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,120})));
-  Buildings.Fluid.Sources.Boundary_pT expVesChi(redeclare package Medium =
-        MediumW,
-    p=100000,    nPorts=1) "Represents an expansion vessel"
-    annotation (Placement(transformation(extent={{212,111},{232,131}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TwtBulDes(
-    height=12.5,
+    height=15,
     duration=70*3600,
     offset=273.15 + 10,
     startTime=3600*1) "Build-up to stationary design condition"
@@ -317,9 +313,6 @@ equation
           {100,180},{100,190}},
                            color={0,127,255},
       thickness=0.5));
-  connect(chi.port_a1, expVesChi.ports[1]) annotation (Line(points={{216,99},{
-          228,99},{228,100},{240,100},{240,120},{238,120},{238,121},{232,121}},
-                                            color={28,108,200}));
   connect(pumCT.port_b, cooTow.port_a) annotation (Line(points={{150,240},{176,
           240},{176,239},{199,239}}, color={0,127,255}));
   connect(mix.port_2, pumCT.port_a) annotation (Line(points={{100,210},{100,240},
