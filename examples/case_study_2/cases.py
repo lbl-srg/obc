@@ -66,7 +66,8 @@ def get_cases():
          "n_output_intervals" : 1000,
          "num_id": 4,
          "start_time": 0,
-         "stop_time":  300000})
+         "stop_time":  300000,
+         "parameters": {'TwtBulDes.height': 15}})
 
     cases.append( \
         {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE_wse_design_limit",
@@ -76,7 +77,30 @@ def get_cases():
          "n_output_intervals" : 1000,
          "num_id": 5,
          "start_time": 0,
-         "stop_time":  300000})
+         "stop_time":  300000,
+         "parameters": {'TwtBulDes.height': 15}})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_wse_design_limit",
+         "name": "base_below_wse_limit",
+         "long_name": "Base-case, Below WSE Limit Test",
+         "season" : "annual",
+         "n_output_intervals" : 1000,
+         "num_id": 6,
+         "start_time": 0,
+         "stop_time":  300000,
+         "parameters": {'TwtBulDes.height': 12.}})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE_wse_design_limit",
+         "name": "alt_below_wse_limit",
+         "long_name": "Alternative, Below WSE Limit Test",
+         "season" : "annual",
+         "n_output_intervals" : 1000,
+         "num_id": 7,
+         "start_time": 0,
+         "stop_time":  300000,
+         "parameters": {'TwtBulDes.height': 11.5}})
 
 
     # # Add load diversity
