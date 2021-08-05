@@ -57,6 +57,115 @@ def get_cases():
          "start_time": 0,
          "stop_time":  365*24*3600})
 
+    # zone air set-point temeprature sensitivity analysis
+
+    # + 2 degC (29 degC)
+
+    # summer time
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+         "name": "base_summer_plus_two",
+         "long_name": "Base-case, +2 Zone Set, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 27360,
+         "num_id": 0,
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600,
+         "parameters": {'TZonSupSet': 302.15,
+                        'chilledWaterReset.linPieTwo.y20': 297.15}})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
+         "name": "alt_summer_plus_two",
+         "long_name": "Alternative, +2 Zone Set, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 27360,
+         "num_id":1,
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600,
+         "parameters": {'TZonSupSet': 302.15,
+                        'chilledWaterReset.TChiWatSupMax': 297.15}})
+    
+    # annual
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+         "name": "base_annual_plus_two",
+         "long_name": "Base-case, +2 Zone Set, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 2,
+         "start_time": 0,
+         "stop_time":  365*24*3600,
+         "parameters": {'TZonSupSet': 302.15,
+                        'chilledWaterReset.linPieTwo.y20': 297.15}})
+
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
+         "name": "alt_annual_plus_two",
+         "long_name": "Alternative, +2 Zone Set, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 3,
+         "start_time": 0,
+         "stop_time":  365*24*3600,
+         "parameters": {'TZonSupSet': 302.15,
+                        'chilledWaterReset.TChiWatSupMax': 297.15}})
+
+
+    # - 2 degC (25 degC), and - 2 degC in maximum chilled water supply
+
+    # summer time
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+         "name": "base_summer_less_two",
+         "long_name": "Base-case, -2 Zone Set, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 27360,
+         "num_id": 0,
+         "start_time": 170*24*3600, 
+         "stop_time":  265*24*3600,
+         "parameters": {'TZonSupSet': 298.15,
+                        'chilledWaterReset.linPieTwo.y20': 293.15}})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
+         "name": "alt_summer_less_two",
+         "long_name": "Alternative, -2 Zone Set, Summer",
+         "season" : "summer",
+         "n_output_intervals" : 27360,
+         "num_id":1,
+         "start_time": 170*24*3600,
+         "stop_time":  265*24*3600,
+         "parameters": {'TZonSupSet': 298.15,
+                        'chilledWaterReset.TChiWatSupMax': 293.15}})
+    
+    # annual
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE",
+         "name": "base_annual_less_two",
+         "long_name": "Base-case, -2 Zone Set, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 2,
+         "start_time": 0,
+         "stop_time":  365*24*3600,
+         "parameters": {'TZonSupSet': 298.15,
+                        'chilledWaterReset.linPieTwo.y20': 293.15}})
+
+    cases.append( \
+        {'model': "ChillerPlant.ClosedLoopAlternative.OneDeviceWithWSE",
+         "name": "alt_annual_less_two",
+         "long_name": "Alternative, -2 Zone Set, Annual",
+         "season" : "annual",
+         "n_output_intervals" : 105120,
+         "num_id": 3,
+         "start_time": 0,
+         "stop_time":  365*24*3600,
+         "parameters": {'TZonSupSet': 298.15,
+                        'chilledWaterReset.TChiWatSupMax': 293.15}})
+
+
     # wse limit test with near-stationary ramp
     cases.append( \
         {'model': "ChillerPlant.ClosedLoopBase.OneDeviceWithWSE_wse_design_limit",

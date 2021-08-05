@@ -44,15 +44,16 @@ model OneDeviceWithWSE
     annotation(Dialog(group="Design parameters"));
 
   BaseClasses.Controls.WaterSideEconomizerOnOff waterSideEconomizerOnOff(
-      cooTowAppDes=cooTowAppDes)
+      cooTowAppDes=cooTowAppDes) "Water-side economizer enable/disable"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}})));
   BaseClasses.Controls.ChillerOnOff chillerOnOff(
     dTChi = dTChi)
     annotation (Placement(transformation(extent={{-160,0},{-120,40}})));
   BaseClasses.Controls.ChilledWaterReset chilledWaterReset(linPieTwo(y10=0.1))
+    "Chilled water reset controller"
     annotation (Placement(transformation(extent={{-160,-60},{-120,-20}})));
   BaseClasses.Controls.PlantOnOffWithAnalogueTrimAndRespond plantOnOff(
-      TZonSupSet=TZonSupSet)
+      TZonSupSet=TZonSupSet) "Plant enable/disable status"
     annotation (Placement(transformation(extent={{-220,-140},{-180,-100}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium =
         MediumW, m_flow_nominal=mCW_flow_nominal)
@@ -100,7 +101,7 @@ model OneDeviceWithWSE
     mCW_flow_nominal=mCW_flow_nominal,
     chiFloDivWseFlo=0.5,
     PLRMinUnl=chi.per.PLRMinUnl,
-    heaPreCon(reverseActing=true))
+    heaPreCon(reverseActing=true)) "Condenser water controller"
     annotation (Placement(transformation(extent={{-80,200},{-40,240}})));
   Modelica.Blocks.Sources.RealExpression PWSEWatPum1(y=PWSEWatPum)
     "WSE water pump power consumption" annotation (Placement(transformation(
@@ -388,8 +389,7 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-640,-280},{340,280}})),
     experiment(
-      StartTime=16002000,
-      StopTime=16092000,
+      StopTime=33651200,
       Tolerance=1e-05,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));

@@ -34,6 +34,7 @@ model OneDeviceWithWSE
             -210},{260,-190}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Controller
     heaPreCon(
+    minConWatPumSpe=1,
     minHeaPreValPos=0.2,
     have_HeaPreConSig=false,
     have_WSE=true,
@@ -67,7 +68,8 @@ model OneDeviceWithWSE
     "WSE is ON signal"
     annotation (Placement(transformation(extent={{-132,136},{-124,144}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
-    wseSta(cooTowAppDes(displayUnit="K") = cooTowAppDes,
+    wseSta(
+    cooTowAppDes(displayUnit="K") = cooTowAppDes,
     TOutWetDes=TWetBulDes,
     VHeaExcDes_flow=mCHW_flow_nominal/rho_default)
     annotation (Placement(transformation(extent={{-240,100},{-200,140}})));
@@ -92,8 +94,8 @@ model OneDeviceWithWSE
     dpChiWatPumMin=0.1*20*6485,
     dpChiWatPumMax=1*20*6485,
     TChiWatSupMin=273.15 + 5.56,
-    TChiWatSupMax=273.15 + 22)
-    annotation (Placement(transformation(extent={{-198,-150},{-158,-110}})));
+    TChiWatSupMax=273.15 + 20) "Chilled water reset controller"
+    annotation (Placement(transformation(extent={{-200,-152},{-160,-112}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable
     plaEna(schTab=[0,1; 6*3600,1; 19*3600,1; 24*3600,1], TChiLocOut=271.15)
     annotation (Placement(transformation(extent={{-138,-220},{-118,-200}})));
@@ -189,6 +191,7 @@ model OneDeviceWithWSE
     redeclare package Medium = MediumW,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=42000 + 1965*2 + 6000 + 200 + 42000 + 15000),
+    inputType=Buildings.Fluid.Types.InputType.Continuous,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Condenser water pump" annotation (Placement(transformation(
@@ -291,12 +294,12 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-154,-142},{112,-142},{112,70},{238,70},{238,90},{218,90}},
+      points={{-156,-144},{112,-144},{112,70},{238,70},{238,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
     annotation (Line(
-      points={{-234,-210},{-228,-210},{-228,-130},{-202,-130}},
+      points={{-234,-210},{-228,-210},{-228,-132},{-204,-132}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(weaBus.TDryBul, plaEna.TOut) annotation (Line(
@@ -332,15 +335,15 @@ equation
       pattern=LinePattern.Dash));
 
   connect(chilledWaterReset.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation (
-     Line(points={{-154,-142},{-80,-142},{-80,14},{-62,14}},        color={0,0,127},
+     Line(points={{-156,-144},{-80,-144},{-80,14},{-62,14}},        color={0,0,127},
       pattern=LinePattern.DashDot));
 
   connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPumSet)
-    annotation (Line(points={{-154,-118},{-90,-118},{-90,-14},{-62,-14}},
+    annotation (Line(points={{-156,-120},{-90,-120},{-90,-14},{-62,-14}},
                                     color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPum) annotation (
-      Line(points={{-154,-118},{-86,-118},{-86,-10},{-62,-10}},
+      Line(points={{-156,-120},{-86,-120},{-86,-10},{-62,-10}},
                          color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(TCHWLeaCoi.T, staSetCon.TChiWatRet) annotation (Line(points={{149,-80},
@@ -466,7 +469,7 @@ equation
                                                          color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
-      Line(points={{-154,-142},{-106,-142},{-106,404},{49.4,404},{49.4,404.5}},
+      Line(points={{-156,-144},{-106,-144},{-106,404},{49.4,404},{49.4,404.5}},
                                                                           color={0,0,127},
       pattern=LinePattern.DashDot));
 
@@ -535,14 +538,6 @@ equation
       points={{219,239},{300,239},{300,180}},
       color={0,127,255},
       thickness=0.5));
-  connect(pumCW.port_b, chi.port_a1) annotation (Line(
-      points={{300,160},{300,99},{216,99}},
-      color={0,127,255},
-      thickness=0.5));
-  connect(pumCW.port_b, wse.port_a1) annotation (Line(
-      points={{300,160},{300,120},{140,120},{140,98},{102,98},{102,99},{68,99}},
-      color={0,127,255},
-      thickness=0.5));
   connect(heaPreCon.yConWatPumSpeSet, gai.u) annotation (Line(points={{-16,188},
           {-1.2,188}},                                    color={0,0,127},
       pattern=LinePattern.Dot));
@@ -560,8 +555,8 @@ equation
   connect(pumCHW.dp_in, pro.y)
     annotation (Line(points={{148,-120},{142,-120}}, color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chilledWaterReset.dpChiWatPumSet, pro.u1) annotation (Line(points={{-154,
-          -118},{-68,-118},{-68,-108},{100,-108},{100,-114},{118,-114}},
+  connect(chilledWaterReset.dpChiWatPumSet, pro.u1) annotation (Line(points={{-156,
+          -120},{-68,-120},{-68,-108},{100,-108},{100,-114},{118,-114}},
         color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(booToRea2.y, pro.u2) annotation (Line(points={{-58,-210},{100,-210},{
@@ -607,6 +602,14 @@ equation
       points={{-16,200},{120,200},{120,178},{150,178}},
       color={0,0,127},
       pattern=LinePattern.Dot));
+  connect(wse.port_a1, pumCW.port_b) annotation (Line(
+      points={{68,99},{180,99},{180,114},{300,114},{300,160}},
+      color={0,127,255},
+      thickness=0.5));
+  connect(pumCW.port_b, chi.port_a1) annotation (Line(
+      points={{300,160},{300,99},{216,99}},
+      color={0,127,255},
+      thickness=0.5));
   annotation (
     __Dymola_Commands(file=
           "/home/milicag/repos/obc/examples/case_study_2/scripts/ClosedLoopAlternative/OneDeviceWithWSE.mos"
@@ -646,6 +649,7 @@ First implementation.
       preserveAspectRatio=false, extent={{-640,-300},{400,480}})),
     experiment(
       StopTime=33651200,
-      Tolerance=1e-05),
+      Tolerance=1e-05,
+      __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end OneDeviceWithWSE;

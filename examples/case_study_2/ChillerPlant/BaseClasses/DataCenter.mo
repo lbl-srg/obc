@@ -19,7 +19,7 @@ partial model DataCenter
   parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
+  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 25
     "Zone supply temperature setpoint";
 
   // control parameters
@@ -192,7 +192,7 @@ partial model DataCenter
         origin={160,-80})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
         "/home/milicag/repos/obc/examples/case_study_2/weatherdata/USA_CA_Sacramento.724835_TMY2.mos")
-    annotation (Placement(transformation(extent={{-398,-102},{-378,-82}})));
+    annotation (Placement(transformation(extent={{-400,-100},{-380,-80}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-340,-100},{-320,-80}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
@@ -252,7 +252,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(weaData.weaBus, weaBus) annotation (Line(
-      points={{-378,-92},{-328,-92},{-328,-88},{-330,-88},{-330,-90}},
+      points={{-380,-90},{-328,-90},{-328,-88},{-330,-88},{-330,-90}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

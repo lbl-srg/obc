@@ -92,8 +92,8 @@ model OneDeviceWithWSE_wse_design_limit
     dpChiWatPumMin=0.1*20*6485,
     dpChiWatPumMax=1*20*6485,
     TChiWatSupMin=273.15 + 5.56,
-    TChiWatSupMax=273.15 + 22)
-    annotation (Placement(transformation(extent={{-198,-150},{-158,-110}})));
+    TChiWatSupMax=273.15 + 22) "Chilled Water Reset Controller"
+    annotation (Placement(transformation(extent={{-200,-150},{-160,-110}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable
     plaEna(schTab=[0,1; 6*3600,1; 19*3600,1; 24*3600,1], TChiLocOut=271.15)
     annotation (Placement(transformation(extent={{-138,-220},{-118,-200}})));
@@ -277,12 +277,12 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(chilledWaterReset.TChiWatSupSet, chi.TSet) annotation (Line(
-      points={{-154,-142},{112,-142},{112,70},{238,70},{238,90},{218,90}},
+      points={{-156,-142},{112,-142},{112,70},{238,70},{238,90},{218,90}},
       color={0,0,127},
       pattern=LinePattern.Dot));
   connect(plantOnOff.yChiWatPlaRes, chilledWaterReset.uChiWatPlaRes)
     annotation (Line(
-      points={{-234,-210},{-228,-210},{-228,-130},{-202,-130}},
+      points={{-234,-210},{-228,-210},{-228,-130},{-204,-130}},
       color={0,0,127},
       pattern=LinePattern.DashDot));
 
@@ -308,15 +308,15 @@ equation
       pattern=LinePattern.Dash));
 
   connect(chilledWaterReset.TChiWatSupSet, staSetCon.TChiWatSupSet) annotation (
-     Line(points={{-154,-142},{-80,-142},{-80,14},{-62,14}},        color={0,0,127},
+     Line(points={{-156,-142},{-80,-142},{-80,14},{-62,14}},        color={0,0,127},
       pattern=LinePattern.DashDot));
 
   connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPumSet)
-    annotation (Line(points={{-154,-118},{-90,-118},{-90,-14},{-62,-14}},
+    annotation (Line(points={{-156,-118},{-90,-118},{-90,-14},{-62,-14}},
                                     color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(chilledWaterReset.dpChiWatPumSet, staSetCon.dpChiWatPum) annotation (
-      Line(points={{-154,-118},{-86,-118},{-86,-10},{-62,-10}},
+      Line(points={{-156,-118},{-86,-118},{-86,-10},{-62,-10}},
                          color={0,0,127},
       pattern=LinePattern.DashDot));
   connect(TCHWLeaCoi.T, staSetCon.TChiWatRet) annotation (Line(points={{149,-80},
@@ -432,7 +432,7 @@ equation
                                                          color={0,0,127},
       pattern=LinePattern.Dash));
   connect(chilledWaterReset.TChiWatSupSet, towCon.TChiWatSupSet) annotation (
-      Line(points={{-154,-142},{-106,-142},{-106,404},{49.4,404},{49.4,404.5}},
+      Line(points={{-156,-142},{-106,-142},{-106,404},{49.4,404},{49.4,404.5}},
                                                                           color={0,0,127},
       pattern=LinePattern.DashDot));
 
@@ -530,7 +530,7 @@ equation
   connect(pumCHW.dp_in, pro.y)
     annotation (Line(points={{148,-120},{142,-120}}, color={0,0,127},
       pattern=LinePattern.Dot));
-  connect(chilledWaterReset.dpChiWatPumSet, pro.u1) annotation (Line(points={{-154,
+  connect(chilledWaterReset.dpChiWatPumSet, pro.u1) annotation (Line(points={{-156,
           -118},{-68,-118},{-68,-108},{100,-108},{100,-114},{118,-114}},
         color={0,0,127},
       pattern=LinePattern.DashDot));
