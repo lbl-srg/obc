@@ -19,7 +19,7 @@ partial model DataCenter
   parameter Modelica.SIunits.Density rho_default=Buildings.Media.Water.density(sta_default)
     "Density, used to compute fluid volume";
 
-  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 25
+  parameter Modelica.SIunits.ThermodynamicTemperature TZonSupSet = 273.15 + 27
     "Zone supply temperature setpoint";
 
   // control parameters

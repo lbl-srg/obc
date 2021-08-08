@@ -94,7 +94,7 @@ model OneDeviceWithWSE
     dpChiWatPumMin=0.1*20*6485,
     dpChiWatPumMax=1*20*6485,
     TChiWatSupMin=273.15 + 5.56,
-    TChiWatSupMax=273.15 + 20) "Chilled water reset controller"
+    TChiWatSupMax=273.15 + 22) "Chilled water reset controller"
     annotation (Placement(transformation(extent={{-200,-152},{-160,-112}})));
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable
     plaEna(schTab=[0,1; 6*3600,1; 19*3600,1; 24*3600,1], TChiLocOut=271.15)
