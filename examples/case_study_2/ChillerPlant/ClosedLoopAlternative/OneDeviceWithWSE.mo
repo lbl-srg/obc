@@ -80,7 +80,7 @@ model OneDeviceWithWSE
     nChi=1,
     chiDesCap={471000},
     chiMinCap={0.1*471000},
-    chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement},
+    chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.constantSpeedCentrifugal},
     nSta=1,
     staMat={{1}},
     posDisMult=0.19,
