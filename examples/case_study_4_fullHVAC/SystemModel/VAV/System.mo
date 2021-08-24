@@ -1,7 +1,7 @@
-within ;
-model VAV
+within SystemModel.VAV;
+model System
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
-  extends Buildings.Examples.VAVReheat.Guideline36(
+  extends BaseClasses.Guideline36(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
     constrainedby
       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
@@ -19,12 +19,12 @@ model VAV
       Tolerance=1e-07),
     Icon(
       coordinateSystem(
-        extent={{-100,-100},{100,100}},
+        extent={{-400,-400},{1380,680}},
         preserveAspectRatio=true)),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-400,-320},{1380,680}})),
+        extent={{-400,-400},{1380,680}})),
     Documentation(
       info="<html>
 <p>
@@ -74,6 +74,5 @@ Impementation of <a href=\"modelica://Buildings.Examples.VAVReheat.Guideline36\"
 Buildings.Examples.VAVReheat.Guideline36</a> model with an EnergyPlus thermal zone instance.
 </li>
 </ul>
-</html>"),
-    uses(Buildings(version="9.0.0")));
-end VAV;
+</html>"));
+end System;
