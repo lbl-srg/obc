@@ -17,6 +17,8 @@ To simulate them, run
 
 (This sets the system variable, which `runSimulations.py` does not do.)
 
+After this command, the output files and scripts will be in the directory `simulations`.
+
 To post process the simulations, run
 
 >./post_process.py
