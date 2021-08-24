@@ -22,12 +22,15 @@ get_repo(){
     fi;
     cd $TMPDIR
     # Switch to specific commit (head of master as of Aug. 23, 2021)
+    git fetch
     git checkout $HASH
     echo "Cloned repository into `pwd`"
 }
 
+echo "Updating Modelica Buildings Library"
 get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git de7086531d241bc074f0e74e3b26cf99eccee235
-get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git 459e042f4257f5552ddbb08aa4b5a2e234ba9956
+echo "Updating BuildingsPy"
+get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git 16ddd17cce0c802f82e0a138b1b0f3305cb4bcb0
 
 echo "Don't forget to set export MODELICAPATH=$TMP_MBL"
 echo "Don't forget to set export PYTHONPATH=$TMP_BUP:$PYTHONPATH"

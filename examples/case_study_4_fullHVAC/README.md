@@ -13,9 +13,13 @@ The models used for the case study are in `SystemModel`.
 The file `cases.py` contains a list of all cases to be simulate.
 To simulate them, run
 
->./run_simulations.py
+>./run_simulations.sh
+
+(This sets the system variable, which `runSimulations.py` does not do.)
 
 To post process the simulations, run
 
 >./post_process.py
+
+(This is not yet implemented.)
 

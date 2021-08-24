@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Start the script for the directory that contains the package
 # with your model
@@ -7,8 +7,17 @@ import os
 
 ONLY_SHORT_TIME=False
 
+# Set environment variables
+USER=os.environ['USER']
+MODELICAPATH = f"/tmp/{USER}_obc_caseStudy_full_install/modelica-buildings"
+if "MODELICAPATH" in os.environ:
+    os.environ['MODELICAPATH'] = f"{MODELICAPATH}:{os.environ['MODELICAPATH']}"
+else:
+    os.environ['MODELICAPATH'] = MODELICAPATH
+
 CWD = os.getcwd()
 
+################################
 def sh(cmd, path):
     ''' Run the command ```cmd``` command in the directory ```path```
     '''
@@ -35,17 +44,18 @@ def create_working_directory():
 def _simulate(spec):
     import os
 
-    from buildingspy.simulate.Simulator import Simulator
+    from buildingspy.simulate.Dymola import Simulator
     if not spec["simulate"]:
         return
 
     wor_dir = create_working_directory()
 
     out_dir = os.path.join(wor_dir, "simulations", spec["name"])
+    print(f"Output dir is {out_dir}")
     os.makedirs(out_dir)
 
     # Update MODELICAPATH to get the right library version
-    os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
+    #os.environ["MODELICAPATH"] = ":".join([spec['lib_dir'], out_dir])
 
     # Copy the models
 #    print("Copying models from {} to {}".format(CWD, wor_dir))
@@ -59,7 +69,7 @@ def _simulate(spec):
             text_file.write("branch={}\n".format(spec['git']['branch']))
             text_file.write("commit={}\n".format(spec['git']['commit']))
 
-    s=Simulator(spec["model"], "dymola", outputDirectory=out_dir)
+    s=Simulator(spec["model"], outputDirectory=out_dir)
     s.addPreProcessingStatement("OutputCPUtime:= true;")
     s.addPreProcessingStatement("Advanced.ParallelizeCode = false;")
 #    s.addPreProcessingStatement("Advanced.EfficientMinorEvents = true;")
@@ -71,6 +81,7 @@ def _simulate(spec):
     s.setStopTime(spec["stop_time"])
     s.setTolerance(1E-5)
     s.showGUI(False)
+    s.exitSimulator(True)
     print("Starting simulation in {}".format(out_dir))
     s.simulate()
 
@@ -108,14 +119,14 @@ if __name__=='__main__':
     nPro = multiprocessing.cpu_count()
     po = Pool(nPro)
 
-    lib_dir = create_working_directory()
+#    lib_dir = create_working_directory()
 
     # Add the directory where the library has been checked out
-    for case in list_of_cases:
-        case['lib_dir'] = lib_dir
+#    for case in list_of_cases:
+#        case['lib_dir'] = lib_dir
 
     # Run all cases
     po.map(_simulate, list_of_cases)
 
     # Delete the checked out repository
-    shutil.rmtree(lib_dir)
+#    shutil.rmtree(lib_dir)
