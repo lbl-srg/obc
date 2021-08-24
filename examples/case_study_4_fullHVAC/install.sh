@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 TMP=/tmp/$USER/obc_caseStudy_full_install
-TMP_MBL=/tmp/${USER}_obc_caseStudy_full_install/modelica-buidings
+TMP_MBL=/tmp/${USER}_obc_caseStudy_full_install/modelica-buildings
 TMP_BUP=/tmp/${USER}_obc_caseStudy_full_install/BuildingsPy
 
 get_repo(){
@@ -26,7 +26,7 @@ get_repo(){
     echo "Cloned repository into `pwd`"
 }
 
-get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git 2452b93d01835350c4030d5f799bab9456836ecc
+get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git de7086531d241bc074f0e74e3b26cf99eccee235
 get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git 459e042f4257f5552ddbb08aa4b5a2e234ba9956
 
 echo "Don't forget to set export MODELICAPATH=$TMP_MBL"
