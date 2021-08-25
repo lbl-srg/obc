@@ -1,5 +1,6 @@
-within SystemModel;
+within SystemModel.VAV.Validation;
 model System
+  extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
@@ -17,7 +18,7 @@ model System
         rotation=0,
         origin={-50,-30})));
   VAV.System vav(
-    redeclare finalpackage MediumA = MediumA,
+    redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
     final lat=lat,
     final THotWatInl_nominal=THotWatInl_nominal) "VAV and building model"
@@ -72,18 +73,22 @@ equation
   connect(souCoo.ports[1],vav. portCooCoiSup) annotation (Line(points={{-40,
           -102},{31.3258,-102},{31.3258,30}},
                                         color={0,127,255}));
-  connect(souHeaTer.ports[1],vav. portHeaTerRet) annotation (Line(points={{-40,
-          -150},{35.6809,-150},{35.6809,29.9148}},
-                                             color={0,127,255}));
-  connect(sinHeaTer.ports[1],vav. portHeaTerSup) annotation (Line(points={{-40,
-          -180},{39.0112,-180},{39.0112,30}},
-                                        color={0,127,255}));
   connect(weaDat.weaBus,vav. weaBus) annotation (Line(
       points={{-60,50},{-2,50},{-2,54.7037},{6.13483,54.7037}},
       color={255,204,51},
       thickness=0.5));
+  connect(souHeaTer.ports[1], vav.portHeaTerSup) annotation (Line(points={{-40,
+          -150},{40,-150},{40,30},{39.0112,30}}, color={0,127,255}));
+  connect(sinHeaTer.ports[1], vav.portHeaTerRet) annotation (Line(points={{-40,
+          -180},{35.6809,-180},{35.6809,29.9148}}, color={0,127,255}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,
+      __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/VAV/Validation/System.mos"
+        "Simulate and plot"),
+    experiment(
+      StopTime=86400,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{
             100,100}})));

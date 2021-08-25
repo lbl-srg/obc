@@ -209,8 +209,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
-      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
+        MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -445,6 +445,7 @@ partial model PartialOpenLoop
   Results res(
     final A=ATot,
     PFan=fanSup.P + 0,
+    PPum=pumHeaCoi.P + pumCooCoi.P,
     PHea=heaCoi.Q2_flow + cor.terHea.Q2_flow + nor.terHea.Q2_flow + wes.terHea.Q2_flow + eas.terHea.Q2_flow + sou.terHea.Q2_flow,
     PCooSen=cooCoi.QSen2_flow,
     PCooLat=cooCoi.QLat2_flow) "Results of the simulation";
@@ -538,7 +539,7 @@ partial model PartialOpenLoop
         origin={180,-166})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCooCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mCooWat_flow_nominal/1.2*2}, dp=2*{3000,0})),
+    per(pressure(V_flow={0,mCooWat_flow_nominal/1000*2}, dp=2*{3000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -546,37 +547,37 @@ partial model PartialOpenLoop
         origin={180,-120})));
   Buildings.Fluid.Movers.SpeedControlled_y pumHeaCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mHeaWat_flow_nominal/1.2*2}, dp=2*{6000,0})),
+    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{6000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Pump for heating coil" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={140,-120})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium
-      = MediumW) "Heating coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium =
+        MediumW) "Heating coil loop supply"
     annotation (Placement(transformation(extent={{130,-410},{150,-390}}),
         iconTransformation(extent={{92,-412},{112,-392}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portHeaCoiRet(redeclare package Medium
-      = MediumW) "Heating coil loop return" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaCoiRet(redeclare package Medium =
+        MediumW) "Heating coil loop return" annotation (Placement(
         transformation(extent={{50,-410},{70,-390}}), iconTransformation(extent={{12,-412},
             {32,-392}})));
-  Modelica.Fluid.Interfaces.FluidPort_a portHeaTerSup(redeclare package Medium
-      = MediumW) "Terminal heat loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaTerSup(redeclare package Medium =
+        MediumW) "Terminal heat loop supply"
     annotation (Placement(transformation(extent={{450,-410},{470,-390}}),
         iconTransformation(extent={{410,-410},{430,-390}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portHeaTerRet(redeclare package Medium
-      = MediumW) "Terminal heat loop return" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaTerRet(redeclare package Medium =
+        MediumW) "Terminal heat loop return" annotation (Placement(
         transformation(extent={{370,-410},{390,-390}}),
                                                       iconTransformation(extent={{332,
             -412},{352,-392}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium
-      = MediumW) "Cooling coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium =
+        MediumW) "Cooling coil loop supply"
     annotation (Placement(transformation(extent={{250,-410},{270,-390}}),
         iconTransformation(extent={{230,-410},{250,-390}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium
-      = MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium =
+        MediumW)
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{170,-410},{190,-390}})));
 
@@ -590,6 +591,7 @@ protected
   model Results "Model to store the results of the simulation"
     parameter Modelica.SIunits.Area A "Floor area";
     input Modelica.SIunits.Power PFan "Fan energy";
+    input Modelica.SIunits.Power PPum "Pump energy";
     input Modelica.SIunits.Power PHea "Heating energy";
     input Modelica.SIunits.Power PCooSen "Sensible cooling energy";
     input Modelica.SIunits.Power PCooLat "Latent cooling energy";
@@ -599,6 +601,11 @@ protected
       start=0,
       nominal=1E5,
       fixed=true) "Fan energy";
+    Real EPum(
+      unit="J/m2",
+      start=0,
+      nominal=1E5,
+      fixed=true) "Pump energy";
     Real EHea(
       unit="J/m2",
       start=0,
@@ -618,6 +625,7 @@ protected
   equation
 
     A*der(EFan) = PFan;
+    A*der(EPum) = PPum;
     A*der(EHea) = PHea;
     A*der(ECooSen) = PCooSen;
     A*der(ECooLat) = PCooLat;
@@ -710,8 +718,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{906.052,
-          520.667}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{
+          906.052,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
@@ -727,8 +735,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{817.635,
-          520.667}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
+          817.635,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -767,15 +775,18 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,520.667}},
+      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,583}},
+      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
+          583}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,520.667}},
+      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
 
@@ -843,7 +854,7 @@ equation
   connect(portHeaTerSup, cor.port_aHotWat) annotation (Line(points={{460,-400},{
           460,-80},{520,-80},{520,42},{570,42}}, color={0,127,255}));
   connect(portHeaTerSup, sou.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{720,-80},{720,40},{748,40}}, color={0,127,255}));
+          460,-80},{720,-80},{720,40},{750,40}}, color={0,127,255}));
   connect(portHeaTerSup, eas.port_aHotWat) annotation (Line(points={{460,-400},{
           460,-80},{900,-80},{900,40},{930,40}}, color={0,127,255}));
   connect(portHeaTerSup, nor.port_aHotWat) annotation (Line(points={{460,-400},{
@@ -853,13 +864,13 @@ equation
   connect(portHeaTerRet, cor.port_bHotWat) annotation (Line(points={{380,-400},{
           380,-120},{540,-120},{540,30},{570,30}}, color={0,127,255}));
   connect(portHeaTerRet, sou.port_bHotWat) annotation (Line(points={{380,-400},{
-          380,-120},{732,-120},{732,28},{752,28}}, color={0,127,255}));
+          380,-120},{732,-120},{732,28},{750,28}}, color={0,127,255}));
   connect(portHeaTerRet, eas.port_bHotWat) annotation (Line(points={{380,-400},{
-          380,-120},{910,-120},{910,26},{932,26}}, color={0,127,255}));
+          380,-120},{910,-120},{910,28},{930,28}}, color={0,127,255}));
   connect(portHeaTerRet, nor.port_bHotWat) annotation (Line(points={{380,-400},{
-          380,-120},{1072,-120},{1072,26},{1090,26}}, color={0,127,255}));
+          380,-120},{1072,-120},{1072,28},{1090,28}}, color={0,127,255}));
   connect(portHeaTerRet, wes.port_bHotWat) annotation (Line(points={{380,-400},{
-          380,-120},{1270,-120},{1270,28},{1292,28}}, color={0,127,255}));
+          380,-120},{1270,-120},{1270,28},{1290,28}}, color={0,127,255}));
   annotation (
       Icon(
       coordinateSystem(

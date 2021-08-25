@@ -1,7 +1,7 @@
 within SystemModel.VAV;
 model System
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
-  extends BaseClasses.Guideline36(
+  extends SystemModel.VAV.BaseClasses.Guideline36(
     redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
     constrainedby
       Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
