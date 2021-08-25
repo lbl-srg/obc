@@ -8,32 +8,32 @@ def get_cases():
 
     cases = list()
 #    cases.append( \
-#        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+#        {'model': "SystemModel.VAV.Validation.System",
 #         "name": "annual_g36",
 #         "start_time": 0,
 #         "stop_time":  365*24*3600})
 #    cases.append( \
-#        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+#        {'model': "SystemModel.VAV.Validation.System",
 #         "name": "winter_g36",
 #         "start_time": 0,
 #         "stop_time":  14*24*3600})
 #    cases.append( \
-#        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+#        {'model': "SystemModel.VAV.Validation.System",
 #         "name": "summer_g36",
 #         "start_time": 190*24*3600,
 #         "stop_time":  204*24*3600})
 #    cases.append( \
-#        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+#        {'model': "SystemModel.VAV.Validation.System",
 #         "name": "spring_g36",
 #         "start_time": 80*24*3600,
 #         "stop_time":  94*24*3600})
     cases.append( \
-        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+        {'model': "SystemModel.VAV.Validation.System",
          "name": "winter_one_day_g36",
          "start_time": 0,
          "stop_time":  1*24*3600})
     cases.append( \
-        {'model': "Buildings.Examples.VAVReheat.Guideline36",
+        {'model': "SystemModel.VAV.Validation.System",
          "name": "summer_one_day_g36",
          "start_time": 190*24*3600,
          "stop_time":  191*24*3600})

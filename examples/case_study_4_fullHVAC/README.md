@@ -15,7 +15,8 @@ To simulate them, run
 
 >./run_simulations.sh
 
-(This sets the system variable, which `runSimulations.py` does not do.)
+This bash script sets the system variable, which `run_simulations.py` does not do,
+hence you should run the `.sh` rather than the `.py` file.
 
 After this command, the output files and scripts will be in the directory `simulations`.
 
