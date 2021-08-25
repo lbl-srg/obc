@@ -20,6 +20,12 @@ hence you should run the `.sh` rather than the `.py` file.
 
 After this command, the output files and scripts will be in the directory `simulations`.
 
+To run the regression tests, run
+
+> ./install.sh
+> export MODELICAPATH=/tmp/${USER}_obc_caseStudy_full_install/modelica-buildings
+> ( cd SystemModel && ../bin/runUnitTests.py )
+
 To post process the simulations, run
 
 >./post_process.py

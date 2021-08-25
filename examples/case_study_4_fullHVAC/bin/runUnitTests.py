@@ -91,7 +91,7 @@ def _runUnitTests(batch, tool, package, path, n_pro, show_gui, skip_verification
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 
-    ut.writeOpenModelicaResultDictionary()
+#    ut.writeOpenModelicaResultDictionary()
     # Run the regression tests
 
     retVal = ut.run()
