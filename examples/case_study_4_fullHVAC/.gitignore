@@ -1,1 +1,6 @@
 simulations
+SystemModel/comparison-dymola.log
+SystemModel/failed-simulator-dymola.log
+SystemModel/funnel_comp/
+SystemModel/simulator-dymola.log
+SystemModel/unitTests-dymola.log
