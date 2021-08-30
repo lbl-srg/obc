@@ -65,7 +65,7 @@ class Verification_Tool:
             if ref_point_name_mapping is None:
                 raise Exception("missing 'pointNameMapping' keyword for a test")
             if not ref_run_controller_flag and ref_controller_output is None:
-                raise Exception("missing 'controller_output' keyword for a test")
+                raise Exception("missing 'controllerOutput' keyword for a test")
             elif ref_run_controller_flag and self.real_controller is None:
                 raise Exception("missing 'controller' configuration")
 
@@ -211,9 +211,9 @@ class Verification_Tool:
 
             if run_controller:
                 real_outputs = self.execute_controller(inputs=ip_dataframe, op_list=op_list, point_name_mapping=point_name_mapping, sample_rate=sample_rate)
-                real_outputs.to_csv(test.get('controller_output', '{0}_real_outputs.csv'.format(sequence_name)))
+                real_outputs.to_csv(test.get('controllerOutput', '{0}_real_outputs.csv'.format(sequence_name)))
             else:
-                real_outputs = pd.read_csv(test.get('controller_output'), index_col=0)
+                real_outputs = pd.read_csv(test.get('controllerOutput'), index_col=0)
 
             # TODO: fix sampling
             real_outputs.index = pd.to_datetime(real_outputs.index, unit='s')

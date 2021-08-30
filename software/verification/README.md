@@ -29,5 +29,5 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 
 ```python verify_cdl_sequence.py --config config_test.json```
 
-This runs a test for the sequence Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures using existing outputs from a controller.
+This runs an unsuccessful test for the sequence Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures using existing outputs from a controller.
 This does not require a controller to be connected to the network.
