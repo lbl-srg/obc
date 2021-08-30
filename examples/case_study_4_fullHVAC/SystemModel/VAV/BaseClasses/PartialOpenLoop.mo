@@ -231,7 +231,8 @@ partial model PartialOpenLoop
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=allowFlowReversal) "Mixed air temperature sensor"
+    allowFlowReversal=allowFlowReversal,
+    transferHeat=true)                   "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
@@ -489,15 +490,6 @@ partial model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={220,-166})));
-  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valHeaCoi(
-    redeclare package Medium = MediumW,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    m_flow_nominal=mHeaWat_flow_nominal,
-    dpValve_nominal=3000) "Valve for heating coil in AHU" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={140,-170})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valCooCoi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal,
@@ -507,21 +499,6 @@ partial model PartialOpenLoop
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={180,-210})));
-  Buildings.Fluid.FixedResistances.Junction splHeaRet(
-    redeclare package Medium = MediumW,
-    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dp_nominal(each displayUnit="Pa") = {0,0,0},
-    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={80,-170})));
   Buildings.Fluid.FixedResistances.Junction splCooRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -547,12 +524,12 @@ partial model PartialOpenLoop
         origin={180,-120})));
   Buildings.Fluid.Movers.SpeedControlled_y pumHeaCoi(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{6000,0})),
+    per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{3000,0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Pump for heating coil" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={140,-120})));
+        origin={130,-118})));
 
   Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium =
         MediumW) "Heating coil loop supply"
@@ -581,6 +558,48 @@ partial model PartialOpenLoop
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{170,-410},{190,-390}})));
 
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage
+                                               valHeaCoi(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal,
+    dpValve_nominal=6000,
+    dpFixed_nominal=0) "Valve for heating coil" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={90,-210})));
+  Buildings.Fluid.FixedResistances.Junction
+                                  splHeaRet(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={90,-170})));
+  Buildings.Fluid.FixedResistances.Junction
+                                  splHeaSup(
+    redeclare package Medium = MediumW,
+    m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Flow splitter"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={130,-170})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -718,8 +737,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{
-          906.052,520.667}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{906.052,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
@@ -735,8 +754,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
-          817.635,520.667}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{817.635,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -775,18 +794,15 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
-          520.667}},
+      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
-          583}},
+      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,583}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
-          520.667}},
+      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,520.667}},
       color={0,127,255},
       thickness=0.5));
 
@@ -823,10 +839,8 @@ equation
     annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
   connect(damRet.port_b, TMix.port_a)
     annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
-  connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{140,-110},
-          {140,-52},{118,-52}}, color={0,127,255}));
-  connect(heaCoi.port_b1,splHeaRet. port_2)
-    annotation (Line(points={{98,-52},{80,-52},{80,-160}}, color={0,127,255}));
+  connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{130,-108},
+          {130,-52},{118,-52}}, color={0,127,255}));
   connect(cooCoi.port_b1,pumCooCoi. port_a) annotation (Line(points={{190,-52},{
           180,-52},{180,-110}}, color={0,127,255}));
   connect(splCooSup.port_2, cooCoi.port_a1) annotation (Line(points={{220,-156},
@@ -837,15 +851,6 @@ equation
     annotation (Line(points={{180,-130},{180,-156}}, color={0,127,255}));
   connect(valCooCoi.port_a, splCooRet.port_1)
     annotation (Line(points={{180,-200},{180,-176}}, color={0,127,255}));
-  connect(pumHeaCoi.port_a, valHeaCoi.port_2)
-    annotation (Line(points={{140,-130},{140,-160}}, color={0,127,255}));
-  connect(valHeaCoi.port_3, splHeaRet.port_3)
-    annotation (Line(points={{130,-170},{90,-170}}, color={0,127,255}));
-  connect(splHeaRet.port_1, portHeaCoiRet)
-    annotation (Line(points={{80,-180},{80,-360},{60,-360},{60,-400}},
-                                                   color={0,127,255}));
-  connect(valHeaCoi.port_1, portHeaCoiSup)
-    annotation (Line(points={{140,-180},{140,-400}}, color={0,127,255}));
   connect(valCooCoi.port_b, portCooCoiRet)
     annotation (Line(points={{180,-220},{180,-400}}, color={0,127,255}));
   connect(splCooSup.port_1, portCooCoiSup)
@@ -871,6 +876,18 @@ equation
           380,-120},{1072,-120},{1072,28},{1090,28}}, color={0,127,255}));
   connect(portHeaTerRet, wes.port_bHotWat) annotation (Line(points={{380,-400},{
           380,-120},{1270,-120},{1270,28},{1290,28}}, color={0,127,255}));
+  connect(splHeaRet.port_3,splHeaSup. port_3)
+    annotation (Line(points={{100,-170},{120,-170}},color={0,127,255}));
+  connect(valHeaCoi.port_a,splHeaRet. port_1)
+    annotation (Line(points={{90,-200},{90,-180}}, color={0,127,255}));
+  connect(heaCoi.port_b1,splHeaRet. port_2)
+    annotation (Line(points={{98,-52},{90,-52},{90,-160}}, color={0,127,255}));
+  connect(splHeaSup.port_2, pumHeaCoi.port_a)
+    annotation (Line(points={{130,-160},{130,-128}}, color={0,127,255}));
+  connect(portHeaCoiSup, splHeaSup.port_1) annotation (Line(points={{140,-400},{
+          140,-220},{130,-220},{130,-180}}, color={0,127,255}));
+  connect(valHeaCoi.port_b, portHeaCoiRet) annotation (Line(points={{90,-220},{90,
+          -240},{60,-240},{60,-400}}, color={0,127,255}));
   annotation (
       Icon(
       coordinateSystem(

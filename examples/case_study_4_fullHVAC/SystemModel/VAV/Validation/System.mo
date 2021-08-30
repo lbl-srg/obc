@@ -6,17 +6,8 @@ model System
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")=55 + 273.15
+    displayUnit="degC")= 45 + 273.15
     "Reheat coil nominal inlet water temperature";
-  Buildings.Fluid.Sources.Boundary_pT heaBou(
-    redeclare package Medium = MediumW,
-    p=300000,
-    T=318.15,
-    nPorts=2) "Supply and return for heating coil"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-50,-30})));
   VAV.System vav(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
@@ -53,7 +44,7 @@ model System
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
     T=THotWatInl_nominal,
-    nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
+    nPorts=1) "Sink for heating of terminal boxes"   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -63,11 +54,23 @@ model System
       computeWetBulbTemperature=false)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
+  Buildings.Fluid.Sources.Boundary_pT souHea(
+    redeclare package Medium = MediumW,
+    p(displayUnit="Pa") = 300000 + 6000,
+    T=THotWatInl_nominal,
+    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-50,0})));
+  Buildings.Fluid.Sources.Boundary_pT sinHea(
+    redeclare package Medium = MediumW,
+    p(displayUnit="Pa") = 300000,
+    T=THotWatInl_nominal,
+    nPorts=1) "Sink for heating" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-50,-30})));
 equation
-  connect(heaBou.ports[1],vav. portHeaCoiRet) annotation (Line(points={{-40,-28},
-          {22.018,-28},{22.018,29.9148}}, color={0,127,255}));
-  connect(heaBou.ports[2],vav. portHeaCoiSup) annotation (Line(points={{-40,-32},
-          {25.4337,-32},{25.4337,29.9148}}, color={0,127,255}));
   connect(sinCoo.ports[1],vav. portCooCoiRet) annotation (Line(points={{-40,-70},
           {28.764,-70},{28.764,30}}, color={0,127,255}));
   connect(souCoo.ports[1],vav. portCooCoiSup) annotation (Line(points={{-40,
@@ -81,6 +84,11 @@ equation
           -150},{40,-150},{40,30},{39.0112,30}}, color={0,127,255}));
   connect(sinHeaTer.ports[1], vav.portHeaTerRet) annotation (Line(points={{-40,
           -180},{35.6809,-180},{35.6809,29.9148}}, color={0,127,255}));
+  connect(vav.portHeaCoiRet, sinHea.ports[1]) annotation (Line(points={{22.018,
+          29.9148},{22.018,-30},{-40,-30}},
+                                   color={0,127,255}));
+  connect(vav.portHeaCoiSup, souHea.ports[1]) annotation (Line(points={{25.4337,
+          29.9148},{25.4337,0},{-40,0}}, color={0,127,255}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/VAV/Validation/System.mos"
         "Simulate and plot"),
