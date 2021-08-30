@@ -2,19 +2,19 @@
  "references": [
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
-     "generate_json": false,
+     "generateJson": false,
      "sequence": "setPoiVAV",
      "pointNameMapping": "realControllerPointMapping.json",
-     "run_controller": false,
-     "controller_output": "test/real_outputs.csv",
+     "runController": false,
+     "controllerOutput": "test/real_outputs.csv",
     },
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures",
-     "generate_json": true,
+     "generateJson": true,
      "sequence": "TZonSet",
      "pointNameMapping": "realControllerPointMapping.json",
-     "run_controller": true,
-     "controller_output": "test/real_outputs.csv",
+     "runController": true,
+     "controllerOutput": "test/real_outputs.csv",
      "outputs": {
        "TZonSet.TZon*": { "atoly": 0.5 }
      },
@@ -28,8 +28,8 @@
  "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
  "sampling": 120,
  "controller": {
-   "network_address": "192.168.0.115/24",
-   "device_address": "192.168.0.227",
-   "device_id": 240001
+   "networkAddress": "192.168.0.115/24",
+   "deviceAddress": "192.168.0.227",
+   "deviceId": 240001
  }
 }

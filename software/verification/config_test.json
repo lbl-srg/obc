@@ -2,11 +2,11 @@
  "references": [
    {
      "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures",
-     "generate_json": true,
+     "generateJson": true,
      "sequence": "TZonSet",
      "pointNameMapping": "realControllerPointMapping.json",
-     "run_controller": false,
-     "controller_output": "test/real_outputs.csv",
+     "runController": false,
+     "controllerOutput": "test/real_outputs.csv",
      "outputs": {
        "TZonSet.TZon*": { "atoly": 0.5 }
      },

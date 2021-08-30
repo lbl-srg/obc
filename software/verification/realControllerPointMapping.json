@@ -17,11 +17,7 @@
 	},
 	{
 		"cdl": {"name": "setAdj", "unit": "K", "type": "float"},
-		"device": {"name": "setpt_adj_1", "unit": "degF", "type": "float"}
-	},
-	{
-		"cdl": {"name": "heaSetAdj", "unit": "K", "type": "float"},
-		"device": {"name": "Heating Adjustment_1", "unit": "degF", "type": "float"}
+		"device": {"name": "setpt_adj_1", "unit": "K", "type": "float"}
 	},
 	{
 		"cdl": {"name": "uOccSen", "type": "int"},
