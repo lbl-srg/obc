@@ -209,8 +209,8 @@ partial model PartialOpenLoop
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{330,-50},{350,-30}})));
-  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium =
-        MediumA) "Supply fan static discharge pressure" annotation (Placement(
+  Buildings.Fluid.Sensors.RelativePressure dpDisSupFan(redeclare package Medium
+      = MediumA) "Supply fan static discharge pressure" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -531,35 +531,34 @@ partial model PartialOpenLoop
         rotation=90,
         origin={130,-118})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium =
-        MediumW) "Heating coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaCoiSup(redeclare package Medium
+      = MediumW) "Heating coil loop supply"
     annotation (Placement(transformation(extent={{130,-410},{150,-390}}),
         iconTransformation(extent={{92,-412},{112,-392}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portHeaCoiRet(redeclare package Medium =
-        MediumW) "Heating coil loop return" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaCoiRet(redeclare package Medium
+      = MediumW) "Heating coil loop return" annotation (Placement(
         transformation(extent={{50,-410},{70,-390}}), iconTransformation(extent={{12,-412},
             {32,-392}})));
-  Modelica.Fluid.Interfaces.FluidPort_a portHeaTerSup(redeclare package Medium =
-        MediumW) "Terminal heat loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portHeaTerSup(redeclare package Medium
+      = MediumW) "Terminal heat loop supply"
     annotation (Placement(transformation(extent={{450,-410},{470,-390}}),
         iconTransformation(extent={{410,-410},{430,-390}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portHeaTerRet(redeclare package Medium =
-        MediumW) "Terminal heat loop return" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b portHeaTerRet(redeclare package Medium
+      = MediumW) "Terminal heat loop return" annotation (Placement(
         transformation(extent={{370,-410},{390,-390}}),
                                                       iconTransformation(extent={{332,
             -412},{352,-392}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium =
-        MediumW) "Cooling coil loop supply"
+  Modelica.Fluid.Interfaces.FluidPort_a portCooCoiSup(redeclare package Medium
+      = MediumW) "Cooling coil loop supply"
     annotation (Placement(transformation(extent={{250,-410},{270,-390}}),
         iconTransformation(extent={{230,-410},{250,-390}})));
-  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium =
-        MediumW)
+  Modelica.Fluid.Interfaces.FluidPort_b portCooCoiRet(redeclare package Medium
+      = MediumW)
     "Coolin coil loop return"
     annotation (Placement(transformation(extent={{170,-410},{190,-390}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage
-                                               valHeaCoi(
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valHeaCoi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal,
     dpValve_nominal=6000,
@@ -568,8 +567,7 @@ partial model PartialOpenLoop
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={90,-210})));
-  Buildings.Fluid.FixedResistances.Junction
-                                  splHeaRet(
+  Buildings.Fluid.FixedResistances.Junction splHeaRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -584,8 +582,7 @@ partial model PartialOpenLoop
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-170})));
-  Buildings.Fluid.FixedResistances.Junction
-                                  splHeaSup(
+  Buildings.Fluid.FixedResistances.Junction splHeaSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -600,6 +597,100 @@ partial model PartialOpenLoop
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={130,-170})));
+  Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valTerHea(
+    redeclare package Medium = MediumW,
+    allowFlowReversal=false,
+    m_flow_nominal=wes.mHotWat_flow_nominal,
+    from_dp=true,
+    dpValve_nominal=10000,
+    use_inputFilter=false) "Valve for terminal heater" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={1180,-98})));
+  Buildings.Fluid.FixedResistances.Junction splHeaSupCor(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={cor.mHotWat_flow_nominal + sou.mHotWat_flow_nominal + eas.mHotWat_flow_nominal
+         + wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal,sou.mHotWat_flow_nominal +
+        eas.mHotWat_flow_nominal + wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal,
+        cor.mHotWat_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = 1000*{0,1,1},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter for heating supply water"
+    annotation (Placement(transformation(extent={{500,-70},{520,-90}})));
+  Buildings.Fluid.FixedResistances.Junction splHeaSupSou(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={sou.mHotWat_flow_nominal + eas.mHotWat_flow_nominal + wes.mHotWat_flow_nominal
+         + nor.mHotWat_flow_nominal,eas.mHotWat_flow_nominal + wes.mHotWat_flow_nominal +
+        nor.mHotWat_flow_nominal,sou.mHotWat_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = 1000*{0,1,1},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter for heating supply water"
+    annotation (Placement(transformation(extent={{700,-70},{720,-90}})));
+  Buildings.Fluid.FixedResistances.Junction splHeaSupEas(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={eas.mHotWat_flow_nominal + wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal,
+        wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal,eas.mHotWat_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = 1000*{0,1,1},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter for heating supply water"
+    annotation (Placement(transformation(extent={{880,-70},{900,-90}})));
+  Buildings.Fluid.FixedResistances.Junction splHeaSupNor(
+    redeclare package Medium = MediumW,
+    m_flow_nominal={wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal,wes.mHotWat_flow_nominal,
+        nor.mHotWat_flow_nominal},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dp_nominal(each displayUnit="Pa") = 1000*{0,1,1},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
+    "Splitter for heating supply water"
+    annotation (Placement(transformation(extent={{1040,-70},{1060,-90}})));
+  Buildings.Fluid.Sensors.RelativePressure dpHea(redeclare package Medium =
+        MediumW) "Differential pressure sensor for heating system" annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={1250,-98})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conValTerHea(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    k=10,
+    Ti=10,
+    r=0.1*(cor.mHotWat_flow_nominal + sou.mHotWat_flow_nominal + eas.mHotWat_flow_nominal
+         + wes.mHotWat_flow_nominal + nor.mHotWat_flow_nominal))
+    "Controller for static pressure and minimum flow in heating system"
+    annotation (Placement(transformation(extent={{1320,-110},{1340,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant mFlowMin(k=0.1*(cor.mHotWat_flow_nominal
+         + sou.mHotWat_flow_nominal + eas.mHotWat_flow_nominal + wes.mHotWat_flow_nominal
+         + nor.mHotWat_flow_nominal)) "Minimum mass flow rate"
+    annotation (Placement(transformation(extent={{1290,-110},{1310,-90}})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFloTerHea(redeclare package Medium
+      = MediumW) "Mass flow rate sensor for terminal heaters" annotation (
+      Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={460,-212})));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir
@@ -737,8 +828,8 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
-      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{906.052,
-          520.667}},
+      points={{640,10},{640,118},{892,118},{892,472},{898,472},{898,520.667},{
+          906.052,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
@@ -754,8 +845,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{817.635,
-          520.667}},
+      points={{1162,0},{1188,0},{1188,346},{818,346},{818,484},{817.635,484},{
+          817.635,520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -794,15 +885,18 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(eas.port_bAir, flo.portsEas[1]) annotation (Line(
-      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,520.667}},
+      points={{950,60},{950,120},{1054,120},{1054,506},{1054.37,506},{1054.37,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
   connect(nor.port_bAir, flo.portsNor[1]) annotation (Line(
-      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,583}},
+      points={{1110,60},{1110,214},{926,214},{926,326},{891.791,326},{891.791,
+          583}},
       color={0,127,255},
       thickness=0.5));
   connect(wes.port_bAir, flo.portsWes[1]) annotation (Line(
-      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,520.667}},
+      points={{1310,60},{1310,344},{804,344},{804,424},{803.374,424},{803.374,
+          520.667}},
       color={0,127,255},
       thickness=0.5));
 
@@ -856,16 +950,6 @@ equation
   connect(splCooSup.port_1, portCooCoiSup)
     annotation (Line(points={{220,-176},{220,-360},{260,-360},{260,-400}},
                                                      color={0,127,255}));
-  connect(portHeaTerSup, cor.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{520,-80},{520,42},{570,42}}, color={0,127,255}));
-  connect(portHeaTerSup, sou.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{720,-80},{720,40},{750,40}}, color={0,127,255}));
-  connect(portHeaTerSup, eas.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{900,-80},{900,40},{930,40}}, color={0,127,255}));
-  connect(portHeaTerSup, nor.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{1060,-80},{1060,40},{1090,40}}, color={0,127,255}));
-  connect(portHeaTerSup, wes.port_aHotWat) annotation (Line(points={{460,-400},{
-          460,-80},{1260,-80},{1260,40},{1290,40}}, color={0,127,255}));
   connect(portHeaTerRet, cor.port_bHotWat) annotation (Line(points={{380,-400},{
           380,-120},{540,-120},{540,30},{570,30}}, color={0,127,255}));
   connect(portHeaTerRet, sou.port_bHotWat) annotation (Line(points={{380,-400},{
@@ -888,6 +972,41 @@ equation
           140,-220},{130,-220},{130,-180}}, color={0,127,255}));
   connect(valHeaCoi.port_b, portHeaCoiRet) annotation (Line(points={{90,-220},{90,
           -240},{60,-240},{60,-400}}, color={0,127,255}));
+  connect(splHeaSupCor.port_3, cor.port_aHotWat)
+    annotation (Line(points={{510,-70},{510,42},{570,42}}, color={0,127,255}));
+  connect(splHeaSupCor.port_2, splHeaSupSou.port_1)
+    annotation (Line(points={{520,-80},{700,-80}}, color={0,127,255}));
+  connect(splHeaSupSou.port_3, sou.port_aHotWat)
+    annotation (Line(points={{710,-70},{710,40},{750,40}}, color={0,127,255}));
+  connect(splHeaSupSou.port_2, splHeaSupEas.port_1)
+    annotation (Line(points={{720,-80},{880,-80}}, color={0,127,255}));
+  connect(splHeaSupEas.port_3, eas.port_aHotWat)
+    annotation (Line(points={{890,-70},{890,40},{930,40}}, color={0,127,255}));
+  connect(splHeaSupEas.port_2, splHeaSupNor.port_1)
+    annotation (Line(points={{900,-80},{1040,-80}}, color={0,127,255}));
+  connect(splHeaSupNor.port_3, nor.port_aHotWat) annotation (Line(points={{1050,
+          -70},{1048,-70},{1048,40},{1090,40}}, color={0,127,255}));
+  connect(splHeaSupNor.port_2, wes.port_aHotWat) annotation (Line(points={{1060,
+          -80},{1250,-80},{1250,40},{1290,40}}, color={0,127,255}));
+  connect(splHeaSupNor.port_2, valTerHea.port_a) annotation (Line(points={{1060,
+          -80},{1180,-80},{1180,-88}}, color={0,127,255}));
+  connect(valTerHea.port_b, portHeaTerRet) annotation (Line(points={{1180,-108},
+          {1180,-120},{382,-120},{382,-400},{380,-400}}, color={0,127,255}));
+  connect(dpHea.port_a, wes.port_aHotWat) annotation (Line(points={{1250,-88},{1250,
+          40},{1290,40}}, color={0,127,255}));
+  connect(dpHea.port_b, valTerHea.port_b) annotation (Line(points={{1250,-108},
+          {1250,-120},{1180,-120},{1180,-108}}, color={0,127,255}));
+  connect(conValTerHea.u_s, mFlowMin.y)
+    annotation (Line(points={{1318,-100},{1312,-100}}, color={0,0,127}));
+  connect(conValTerHea.y, valTerHea.y) annotation (Line(points={{1342,-100},{
+          1360,-100},{1360,-140},{1208,-140},{1208,-98},{1192,-98}}, color={0,0,
+          127}));
+  connect(portHeaTerSup, senMasFloTerHea.port_a)
+    annotation (Line(points={{460,-400},{460,-222}}, color={0,127,255}));
+  connect(senMasFloTerHea.port_b, splHeaSupCor.port_1) annotation (Line(points=
+          {{460,-202},{460,-80},{500,-80}}, color={0,127,255}));
+  connect(senMasFloTerHea.m_flow, conValTerHea.u_m) annotation (Line(points={{
+          471,-212},{1330,-212},{1330,-112}}, color={0,0,127}));
   annotation (
       Icon(
       coordinateSystem(

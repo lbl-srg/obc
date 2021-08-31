@@ -33,7 +33,7 @@ model System
         origin={-50,-102})));
   Buildings.Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
+    p(displayUnit="Pa") = 300000 + 10000,
     T=THotWatInl_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
