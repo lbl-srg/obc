@@ -16,7 +16,7 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 * [pyfunnel](https://github.com/lbl-srg/funnel/)
 * conda install -c plotly plotly-orca
 * [modelica-json](https://github.com/lbl-srg/modelica-json)
-* Ensure that `$MODELICAPATH` and `$MODELICAJSONPATH` environmental variables are set
+* Ensure that the environmental variables `$MODELICAPATH` and `$MODELICAJSONPATH` are set.
 
 ## Execution
 
@@ -29,4 +29,7 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 
 ```python verify_cdl_sequence.py --config config_test.json```
 
-This runs an unsuccessful test for the sequence *Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.<br />ZoneTemperatures* using existing outputs from a controller. This does not require a controller to be connected to the network. Upon completion, one chart comparing actual output to the CDL output per output variable will be generated in the `test/`. 
+This runs an unsuccessful test for the sequence
+`Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.SetPoints.Validation.ZoneTemperatures`
+using existing outputs from a controller. This does not require a controller to be connected to the network.
+Upon completion, one chart comparing the actual output to the CDL output for each output variable will be generated in the directory `test`.
