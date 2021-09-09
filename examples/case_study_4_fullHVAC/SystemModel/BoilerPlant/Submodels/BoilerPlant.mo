@@ -1,6 +1,5 @@
 within SystemModel.BoilerPlant.Submodels;
 model BoilerPlant "Boiler plant model for closed loop testing"
-  extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.Air;
 
@@ -24,11 +23,15 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Boiler capacity for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Real boiEff1[6] = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
+  parameter Real boiEff1[6](
+    final unit="1",
+    displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-1"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Real boiEff2[6] = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
+  parameter Real boiEff2[6](
+    final unit="1",
+    displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
@@ -68,7 +71,10 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Air temperature at nominal condition"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Real zonTheCap = 2*V*1.2*1500
+  parameter Real zonTheCap(
+    final unit="J/K",
+    displayUnit="J/K",
+    final quantity="HeatCapacity") = 2*V*1.2*1500
     "Zone thermal capacitance"
     annotation(dialog(group="Zone parameters"));
 
@@ -326,7 +332,6 @@ model BoilerPlant "Boiler plant model for closed loop testing"
           extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPID[2](
     controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, 2),
-
     k=fill(10e-3, 2),
     Ti=fill(90, 2),
     yMax=fill(1, 2),
@@ -334,6 +339,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     xi_start=fill(1, 2))
     "PI controller for regulating hot water supply temperature from boiler"
     annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Product pro1[2]
     "Product of boiler power and current status"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -368,15 +374,15 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         MediumW) "HW inlet port"
                  annotation (Placement(transformation(extent={{30,230},{50,250}}),
-                     iconTransformation(extent={{50,90},{70,110}})));
+                     iconTransformation(extent={{60,88},{80,108}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         MediumW) "HW outlet port"
                  annotation (Placement(transformation(extent={{-50,230},{-30,250}}),
-                     iconTransformation(extent={{-70,90},{-50,110}})));
+                     iconTransformation(extent={{-76,88},{-56,108}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos(final unit="1",
       displayUnit="1") "Measured bypass valve position" annotation (Placement(
-        transformation(extent={{320,130},{360,170}}), iconTransformation(extent
-          ={{100,100},{140,140}})));
+        transformation(extent={{320,130},{360,170}}), iconTransformation(extent=
+           {{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[2](t=fill(0.01, 2))
     "Determine if boilers are proven on"
     annotation (Placement(transformation(extent={{182,-130},{202,-110}})));
@@ -415,6 +421,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     height_ab=0.0102,
     redeclare model FlowModel =
         Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow,
+    T_start=293.15,
     nNodes=2,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -448,10 +455,12 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Continuous.Gain gai1(k=1/mRad_flow_nominal)
     "Convert mass flow rate back to normalized speed"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3[2](t=0.02)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3[2](t=fill(0.02,
+        2))
     annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[2] "Logical pre block"
     annotation (Placement(transformation(extent={{220,-200},{240,-180}})));
+
 equation
   connect(spl4.port_3, val.port_a)
     annotation (Line(points={{-20,40},{80,40}},     color={0,127,255}));
@@ -678,10 +687,71 @@ equation
       extent={{-320,-240},{320,240}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-100,160},{100,120}},
+          extent={{-88,160},{112,120}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Rectangle(
+          extent={{-40,-18},{40,-98}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,-54},{60,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{0,-60},{60,-54}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,-80},{-12,-98},{14,-98},{0,-80}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={255,255,0},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Ellipse(extent={{-80,58},{-50,26}}, lineColor={28,108,200}),
+        Polygon(
+          points={{-80,40},{-50,40},{-66,58},{-80,40}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-66,-40},{-66,-12}}, color={28,108,200}),
+        Line(points={{-66,58},{-66,88}}, color={28,108,200}),
+        Line(points={{70,88},{70,-44},{70,-50}}, color={28,108,200}),
+        Polygon(points={{-80,26},{-80,26}}, lineColor={28,108,200}),
+        Polygon(
+          points={{-76,-12},{-54,-12},{-66,0},{-76,-12}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-76,12},{-54,12},{-66,0},{-76,12}},
+          lineColor={28,108,200},
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-66,12},{-66,26}}, color={28,108,200}),
+        Ellipse(
+          extent={{-82,-40},{-52,-72}},
+          lineColor={28,108,200},
+          lineThickness=0.5),
+        Ellipse(
+          extent={{56,-38},{86,-70}},
+          lineColor={28,108,200},
+          lineThickness=0.5,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid)}),
     experiment(
       StopTime=10500,
       Interval=60,

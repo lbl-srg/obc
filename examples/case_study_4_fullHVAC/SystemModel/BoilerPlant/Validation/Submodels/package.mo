@@ -1,3 +1,3 @@
 within SystemModel.BoilerPlant.Validation;
-package Submodels
+package Submodels "Package consisting of models used in the validation model"
 end Submodels;

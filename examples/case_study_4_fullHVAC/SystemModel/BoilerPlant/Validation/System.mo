@@ -1,5 +1,6 @@
 within SystemModel.BoilerPlant.Validation;
 model System
+  "Validation model for boiler system"
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
@@ -105,9 +106,9 @@ model System
 equation
   connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-32,-4},
           {-32,10},{-34,10}},                color={0,127,255}));
-  connect(zoneModel_simplified.y, conPID.u_m)
+  connect(zoneModel_simplified.TZon, conPID.u_m)
     annotation (Line(points={{-18,20},{0,20},{0,48}}, color={0,0,127}));
-  connect(zoneModel_simplified.u, gai.y)
+  connect(zoneModel_simplified.QFlo, gai.y)
     annotation (Line(points={{-42,20},{-48,20}}, color={0,0,127}));
   connect(combiTimeTable.y[1], gai.u)
     annotation (Line(points={{-89,20},{-72,20}}, color={0,0,127}));
@@ -129,8 +130,9 @@ equation
           20}}, color={0,0,127}));
   connect(conPID.y, val3.y) annotation (Line(points={{12,60},{20,60},{20,0},{-50,
           0},{-50,-14},{-44,-14}}, color={0,0,127}));
-  connect(zoneModel_simplified.y, boiPlaSys.TZonAve) annotation (Line(points={{-18,
-          20},{0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}}, color={0,0,127}));
+  connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points=
+         {{-18,20},{0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}}, color={0,0,
+          127}));
   connect(spl4.port_2, val3.port_a)
     annotation (Line(points={{-32,-30},{-32,-24}}, color={0,127,255}));
   connect(boiPlaSys.port_AHUHWSup, spl4.port_1) annotation (Line(points={{-24,-60},

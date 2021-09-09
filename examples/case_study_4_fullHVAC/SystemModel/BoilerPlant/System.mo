@@ -6,15 +6,22 @@ model System
   package MediumW = Buildings.Media.Water "Medium model for water";
 
   parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=100
-    "Radiator nominal mass flow rate"
-    annotation(dialog(group="Radiator parameters"));
+    "Radiator nominal mass flow rate";
 
-  parameter Real boiDesCap = 4000000;
+  parameter Real boiDesCap(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")= 4000000
+    "Total boiler plant design capacity";
 
-  parameter Real boiCapRat = 2/4.3;
+  parameter Real boiCapRat(
+    final unit="1",
+    displayUnit="1") = 2/4.3
+    "Ratio of capacity of boiler-1 to total boiler plant capacity";
 
   parameter Modelica.SIunits.PressureDifference dpValve_nominal_value=6000
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint";
+
   parameter Modelica.SIunits.PressureDifference dpFixed_nominal_value=1000
     "Pressure drop of pipe and other resistances that are in series";
 
@@ -25,12 +32,13 @@ model System
     TBoiSup_nominal=333.15,
     TBoiRet_min=323.15,
     conPID(
-      controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+      controllerType=fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+          2),
       k=fill(10e-3, 2),
       Ti=fill(90, 2)),
     dpValve_nominal_value(displayUnit="Pa") = 20000,
     dpFixed_nominal_value(displayUnit="Pa") = 1000,
-    tim1(t=120))
+    tim1(t=120)) "Boiler plant model"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
   SystemModel.BoilerPlant.Submodels.Controller controller(
@@ -137,7 +145,10 @@ model System
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonAve
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonAve(
+    final unit="K",
+    displayUnit="K",
+    final quantity="ThermodynamicTemperature")
     "Measured zone average temperature"
     annotation (Placement(transformation(extent={{-160,-50},{-120,-10}}),
       iconTransformation(extent={{-140,-60},{-100,-20}})));
@@ -203,10 +214,12 @@ equation
           0},{-100,5},{-42,5}}, color={255,127,0}));
   connect(TZonAve, boiPla.TZon) annotation (Line(points={{-140,-30},{-100,-30},{
           -100,-80},{10,-80},{10,-39},{18,-39}}, color={0,0,127}));
-  connect(boiPla.port_b, spl4.port_1) annotation (Line(points={{24,-20},{24,20},
-          {40,20},{40,40}}, color={0,127,255}));
-  connect(boiPla.port_a, spl1.port_2) annotation (Line(points={{36,-20},{36,10},
-          {0,10},{0,40}}, color={0,127,255}));
+  connect(boiPla.port_b, spl4.port_1) annotation (Line(points={{23.4,-20.2},{
+          23.4,20},{40,20},{40,40}},
+                            color={0,127,255}));
+  connect(boiPla.port_a, spl1.port_2) annotation (Line(points={{37,-20.2},{37,
+          10},{0,10},{0,40}},
+                          color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-120},{120,
             120}})),
