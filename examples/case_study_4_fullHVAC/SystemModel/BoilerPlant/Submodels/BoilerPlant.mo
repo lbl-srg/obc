@@ -273,8 +273,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "HW supply temperature sensor"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Buildings.Media.Water,
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Buildings.Media.Water,
                      m_flow_nominal=mRad_flow_nominal)
     "HW return temperature sensor"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
@@ -307,12 +307,12 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre block"
     annotation (Placement(transformation(extent={{240,-140},{260,-120}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium
-      = Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal1)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
+        Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal1)
     "Boiler-2 HW supply temperature sensor"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium
-      = Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal2)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium =
+        Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal2)
     "Boiler-1 HW supply temperature sensor"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
   Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
@@ -364,8 +364,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=2)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium
-      = Buildings.Media.Water)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium =
+        Buildings.Media.Water)
     "Differential pressure sensor between hot water supply and return"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -461,6 +461,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[2] "Logical pre block"
     annotation (Placement(transformation(extent={{220,-200},{240,-180}})));
 
+  inner Modelica.Fluid.System system "System model"
+    annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
 equation
   connect(spl4.port_3, val.port_a)
     annotation (Line(points={{-20,40},{80,40}},     color={0,127,255}));
