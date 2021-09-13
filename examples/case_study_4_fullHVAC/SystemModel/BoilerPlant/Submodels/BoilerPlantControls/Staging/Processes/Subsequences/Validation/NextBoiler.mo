@@ -457,7 +457,7 @@ equation
 
 annotation (
  experiment(StopTime=120, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/Processes/Subsequences/Validation/NextBoiler.mos"
+  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/Processes/Subsequences/Validation/NextBoiler.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -55,7 +55,7 @@ equation
           {16,0},{28,0}}, color={255,0,255}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/PrimaryPumps/Subsequences/Validation/EnableLag_headered.mos"
+  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/PrimaryPumps/Subsequences/Validation/EnableLag_headered.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

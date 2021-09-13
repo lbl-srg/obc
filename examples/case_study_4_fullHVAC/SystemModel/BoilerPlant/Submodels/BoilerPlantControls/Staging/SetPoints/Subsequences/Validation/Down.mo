@@ -421,7 +421,7 @@ annotation (
       StopTime=16000,
       Interval=1,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/Down.mos"
+  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Down.mos"
     "Simulate and plot"),
   Documentation(info="<html>
     <p>

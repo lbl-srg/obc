@@ -58,7 +58,7 @@ equation
       StopTime=60,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/SetPoints/Subsequences/Validation/PumpSpeedLimits.mos"
+      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/SetPoints/Subsequences/Validation/PumpSpeedLimits.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

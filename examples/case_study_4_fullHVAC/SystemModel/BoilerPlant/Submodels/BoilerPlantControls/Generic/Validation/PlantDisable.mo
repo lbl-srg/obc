@@ -256,7 +256,7 @@ equation
       StopTime=900,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/Validation/PlantDisable.mos"
+      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Generic/Validation/PlantDisable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

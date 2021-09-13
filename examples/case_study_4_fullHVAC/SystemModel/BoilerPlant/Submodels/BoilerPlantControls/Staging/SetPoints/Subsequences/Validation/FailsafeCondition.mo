@@ -211,6 +211,6 @@ equation
       </ul>
       </html>"),
     __Dymola_Commands(file=
-       "./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/FailsafeCondition.mos"
+       ".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/FailsafeCondition.mos"
        "Simulate and plot"));
 end FailsafeCondition;

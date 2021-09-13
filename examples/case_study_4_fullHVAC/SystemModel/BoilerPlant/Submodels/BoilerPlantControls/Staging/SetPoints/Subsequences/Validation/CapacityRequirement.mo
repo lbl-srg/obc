@@ -141,7 +141,7 @@ equation
                       fillPattern = FillPattern.Solid,
                       points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Validation/CapacityRequirement.mos"
+    __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/CapacityRequirement.mos"
         "Simulate and plot"),
     experiment(
       StopTime=7200,

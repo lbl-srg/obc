@@ -52,7 +52,7 @@ equation
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/Generic/Validation/Speed_remoteDp.mos"
+  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/Generic/Validation/Speed_remoteDp.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
