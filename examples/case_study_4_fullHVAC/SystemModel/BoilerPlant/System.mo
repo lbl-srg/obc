@@ -41,7 +41,7 @@ model System
     tim1(t=120)) "Boiler plant model"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
-  SystemModel.BoilerPlant.Submodels.Controller controller(
+  SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Controller controller(
     final have_priOnl=true,
     final have_varPriPum=true,
     final have_varSecPum=false,

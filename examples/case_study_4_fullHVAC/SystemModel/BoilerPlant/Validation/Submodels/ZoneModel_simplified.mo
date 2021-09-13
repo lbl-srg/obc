@@ -48,24 +48,15 @@ block ZoneModel_simplified
     "Nominal heat flow rate of radiator"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadSup_nominal(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 273.15+70
+  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+70
     "Radiator nominal supply water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadRet_nominal(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature") = 273.15+50
+  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+50
     "Radiator nominal return water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal(
-    final unit="kg/s",
-    displayUnit="kg/s",
-    final quantity="MassFlowRate")=0.000604*1000
+  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.000604*1000
     "Radiator nominal mass flow rate"
     annotation(dialog(group="Radiator parameters"));
 
@@ -73,21 +64,18 @@ block ZoneModel_simplified
     "Room volume"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Real zonTheCap = 2*V*1.2*1500
+  parameter Real zonTheCap(
+    final unit="J/K",
+    displayUnit="J/K",
+    final quantity="HeatCapacity") = 2*V*1.2*1500
     "Zone thermal capacitance"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.Temperature TAir_nominal(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature")=273.15 + 23.9
+  parameter Modelica.SIunits.Temperature TAir_nominal=273.15 + 23.9
     "Air temperature at nominal condition"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal(
-    final unit="kg/s",
-    displayUnit="kg/s",
-    final quantity="MassFlowRate") = V*1.2*6/3600
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate"
     annotation(dialog(group="Zone parameters"));
 
