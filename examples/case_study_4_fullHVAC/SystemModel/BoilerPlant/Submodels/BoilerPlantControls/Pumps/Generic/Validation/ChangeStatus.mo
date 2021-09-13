@@ -111,7 +111,7 @@ equation
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/Generic/Validation/ChangeStatus.mos"
+  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/Generic/Validation/ChangeStatus.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

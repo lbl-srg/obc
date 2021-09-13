@@ -403,7 +403,7 @@ equation
           -162},{-42,-162}}, color={255,0,255}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Change.mos"
+  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Change.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

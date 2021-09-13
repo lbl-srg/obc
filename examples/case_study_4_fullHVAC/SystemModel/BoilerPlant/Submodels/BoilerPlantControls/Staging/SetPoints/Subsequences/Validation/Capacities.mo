@@ -146,7 +146,7 @@ equation
           1},{138,1}},     color={255,0,255}));
 annotation (
  experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Capacities.mos"
+  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Capacities.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

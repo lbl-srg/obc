@@ -60,7 +60,7 @@ equation
 
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/PrimaryPumps/Subsequences/Validation/Speed_flow.mos"
+  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/PrimaryPumps/Subsequences/Validation/Speed_flow.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

@@ -577,7 +577,7 @@ annotation (
       Interval=0.5,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-  __Dymola_Commands(file="modelica://BuildingsResources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/SecondaryPumps/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Pumps/SecondaryPumps/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
