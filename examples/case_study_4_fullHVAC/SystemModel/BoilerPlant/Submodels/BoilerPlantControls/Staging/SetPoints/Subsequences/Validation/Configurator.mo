@@ -126,7 +126,7 @@ equation
 annotation (
   experiment(StopTime=10.0, Tolerance=1e-06),
   __Dymola_Commands(file=
-          "modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Configurator.mos"
+          "./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Configurator.mos"
         "Simulate and plot"),
   Documentation(info="<html>
     <p>

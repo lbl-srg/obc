@@ -118,7 +118,7 @@ equation
           {90,-90},{-30,-90},{-30,-76},{-22,-76}}, color={255,0,255}));
           annotation (
    experiment(StopTime=100000.0, Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo.mos"
+    __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Validation/ControllerTwo.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

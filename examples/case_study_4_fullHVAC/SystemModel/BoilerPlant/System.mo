@@ -224,7 +224,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-120},{120,
             120}})),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
+          "./Resources/Scripts/Dymola/Examples/VAVReheat/Guideline36.mos"
         "Simulate and plot"),
     experiment(
       StartTime=86400,

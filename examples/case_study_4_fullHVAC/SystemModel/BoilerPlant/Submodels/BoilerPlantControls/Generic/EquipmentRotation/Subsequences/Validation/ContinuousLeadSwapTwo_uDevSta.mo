@@ -151,7 +151,7 @@ equation
           -30},{-110,-16},{-42,-16}}, color={255,0,255}));
 annotation (
   experiment(StopTime=180, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/ContinuousLeadSwapTwo_uDevSta.mos"
+  __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/EquipmentRotation/Subsequences/Validation/ContinuousLeadSwapTwo_uDevSta.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

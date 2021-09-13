@@ -254,7 +254,7 @@ equation
       StopTime=7200,
       Interval=1,
       Tolerance=1e-6),
-    __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/EfficiencyCondition.mos"
+    __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/EfficiencyCondition.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>

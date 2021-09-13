@@ -37,7 +37,7 @@ equation
       StopTime=60,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/SetPoints/Subsequences/Validation/ProportionalRegulator.mos"
+      __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/SetPoints/Subsequences/Validation/ProportionalRegulator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

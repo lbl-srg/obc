@@ -73,7 +73,7 @@ equation
           0},{190,0},{190,40},{110,40},{110,16},{118,16}}, color={0,0,127}));
 annotation (
   experiment(StopTime=3600, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Generic/Subsequences/Validation/HWIsoVal.mos"
+  __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Generic/Subsequences/Validation/HWIsoVal.mos"
     "Simulate and plot"),
   Documentation(info="<html>
   <p>

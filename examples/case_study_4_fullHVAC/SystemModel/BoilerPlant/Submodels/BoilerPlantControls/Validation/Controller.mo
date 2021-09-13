@@ -539,7 +539,7 @@ equation
       Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
-      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Validation/Controller.mos"
+      __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Validation/Controller.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

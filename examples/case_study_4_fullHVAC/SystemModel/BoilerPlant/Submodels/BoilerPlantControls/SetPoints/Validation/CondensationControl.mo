@@ -177,7 +177,7 @@ equation
       StopTime=60,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/SetPoints/Validation/CondensationControl.mos"
+      __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/SetPoints/Validation/CondensationControl.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

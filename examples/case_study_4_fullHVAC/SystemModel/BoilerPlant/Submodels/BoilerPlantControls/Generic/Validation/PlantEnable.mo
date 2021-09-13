@@ -164,7 +164,7 @@ equation
       StopTime=7200,
       Interval=1,
       Tolerance=1e-06),
-      __Dymola_Commands(file=".Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Generic/Validation/PlantEnable.mos"
+      __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Generic/Validation/PlantEnable.mos"
         "Simulate and plot"),
     Documentation(info="<html>
       <p>

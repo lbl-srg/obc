@@ -529,7 +529,7 @@ equation
           380,90},{380,160},{458,160}}, color={0,0,127}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Validation/SetpointController.mos"
+  __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Validation/SetpointController.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

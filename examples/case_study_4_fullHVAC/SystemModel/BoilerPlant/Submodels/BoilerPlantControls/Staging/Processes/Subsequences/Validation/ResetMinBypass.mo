@@ -65,7 +65,7 @@ equation
 
 annotation (
  experiment(StopTime=600, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
+  __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/Processes/Subsequences/Validation/ResetMinBypass.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>

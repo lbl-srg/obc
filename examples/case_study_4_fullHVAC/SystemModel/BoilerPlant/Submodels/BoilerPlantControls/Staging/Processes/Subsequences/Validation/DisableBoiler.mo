@@ -194,7 +194,7 @@ equation
 
 annotation (
  experiment(StopTime=3600, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica:///Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/Processes/Subsequences/Validation/DisableBoiler.mos"
+  __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/Processes/Subsequences/Validation/DisableBoiler.mos"
     "Simulate and plot"),
   Documentation(info="<html>
 <p>
