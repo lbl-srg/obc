@@ -1,4 +1,4 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Down", method="dassl", stopTime=16000, tolerance=1e-06, resultFile="Down");
+simulateModel("SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.Subsequences.Validation.Down", method="dassl", stopTime=16000, tolerance=1e-06, resultFile="Down");
 
 removePlots(false);
 createPlot(id=1, position={0, 0, 1660, 998}, y={"staDow.uCapReq", "staDow.uCapMin"}, range={0.0, 16000.0, 0.8, 1.4000000000000001}, grid=true, colors={{28,108,200}, {238,46,47}});
