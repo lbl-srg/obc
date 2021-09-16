@@ -83,26 +83,6 @@ model System
     timeScale=60) "Boiler thermal load from EnergyPlus simulation"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
-  Buildings.Fluid.FixedResistances.Junction spl4(
-    redeclare package Medium = MediumW,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,-mRad_flow_nominal,
-        mRad_flow_nominal},
-    final dp_nominal={0,0,0})
-    "Splitter"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,
-      origin={-32,-40})));
-  Buildings.Fluid.FixedResistances.Junction spl1(
-    redeclare package Medium = MediumW,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,-mRad_flow_nominal,-
-        mRad_flow_nominal},
-    final dp_nominal={0,0,0})
-    "Splitter"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=-90,
-      origin={14,-30})));
 equation
   connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-32,-4},
           {-32,10},{-34,10}},                color={0,127,255}));
@@ -133,18 +113,15 @@ equation
   connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points=
          {{-18,20},{0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}}, color={0,0,
           127}));
-  connect(spl4.port_2, val3.port_a)
-    annotation (Line(points={{-32,-30},{-32,-24}}, color={0,127,255}));
-  connect(boiPlaSys.port_AHUHWSup, spl4.port_1) annotation (Line(points={{-24,-60},
-          {-24,-54},{-32,-54},{-32,-50}}, color={0,127,255}));
-  connect(zoneModel_simplified.port_b, spl1.port_1) annotation (Line(points={{-26,
-          10},{-26,4},{14,4},{14,-20}}, color={0,127,255}));
-  connect(spl1.port_3, boiPlaSys.port_AHUHWRet) annotation (Line(points={{4,-30},
-          {-16,-30},{-16,-52},{-28,-52},{-28,-60}}, color={0,127,255}));
   connect(booToInt1.y, boiPlaSys.TSupResReq) annotation (Line(points={{92,20},{100,
           20},{100,-90},{-40,-90},{-40,-66},{-32,-66}}, color={255,127,0}));
   connect(booToInt.y, boiPlaSys.supResReq) annotation (Line(points={{92,100},{110,
           100},{110,-100},{-50,-100},{-50,-70},{-32,-70}}, color={255,127,0}));
+  connect(boiPlaSys.port_AHUHWSup, val3.port_a) annotation (Line(points={{-24,
+          -60},{-24,-40},{-32,-40},{-32,-24}}, color={0,127,255}));
+  connect(zoneModel_simplified.port_b, boiPlaSys.port_AHUHWRet) annotation (
+      Line(points={{-26,10},{-26,4},{-14,4},{-14,-36},{-28,-36},{-28,-60}},
+        color={0,127,255}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/BoilerPlant/Validation/System.mos"
         "Simulate and plot"),
