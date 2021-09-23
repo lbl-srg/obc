@@ -23,6 +23,7 @@ OpenBuildingControl (Working Draft)
    requirements
    softwareArchitecture
    cdl
+   sequenceDocumentation
    controlsLibrary
    codeGeneration
    verification
