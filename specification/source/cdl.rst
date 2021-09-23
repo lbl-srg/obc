@@ -634,7 +634,7 @@ Evaluation of Assignment of Values to Parameters
 
 We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
 While such an evaluation is not prefered, it is allowed in CDL to accomodate the situation
-that most building control product lines, in constrast to modeling tools such as
+that most building control product lines, in contrast to modeling tools such as
 Modelica, Simulink or LabVIEW,
 do not support the propagation of parameters,
 nor do they support the use of expressions in parameter assignments.
