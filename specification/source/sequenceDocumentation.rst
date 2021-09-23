@@ -10,10 +10,11 @@ This section describes how to generate a control sequence description
 based on a CDL specification.
 
 There are two distinct situations:
-1. The control sequence could be from
-a publication such as ASHRAE Guideline 36 for which a Microsoft Word
-version exists, or
-2. The control sequence could be for a sequence that only exists in CDL.
+
+  1. The control sequence could be from
+     a publication such as ASHRAE Guideline 36 for which a Microsoft Word
+     version exists, or
+  2. The control sequence could be for a sequence that only exists in CDL.
 
 The approach for 1. is currently being developed.
 Approach 2 is described in :numref:`sec_seq_doc_cdl`.
