@@ -15,10 +15,8 @@ a publication such as ASHRAE Guideline 36 for which a Microsoft Word
 version exists, or
 2. The control sequence could be for a sequence that only exists in CDL.
 
-The approach for 1. is being developed. For 2. while the section with
-general requirements (such as what sensor or actuators need to be used)
-is not in CDL, these requirements could be added manually. What this description
-is focusing on is how to generate a description of the control sequence.
+The approach for 1. is currently being developed.
+Approach 2 is described in :numref:`sec_seq_doc_cdl`.
 
 Editing a Sequence that is Specified in a Word Document
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -26,11 +24,22 @@ Editing a Sequence that is Specified in a Word Document
 This is currently being specified and will be added later.
 
 
+.. _sec_seq_doc_cdl:
+
 Exporting the Control Logic from a CDL Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how a English language description of a sequence could be exported
-from the CDL implementation. For this purpose, we introduce a new optional annotation
+from the CDL implementation.
+This will allow libraries and also users to build up repositories of control sequences
+for which an English language specification can be exported without having to have
+a template Word document (which generally does not exist for this use case).
+While control sequence submittal typically contain additional requirements
+that are not part of the sequence description, such as what energy code to follow or what type of valve to be used,
+such information can be integrated manually by the user. Thus, the here described export
+will document only the sequences, which can then be combined by the user with other documentation.
+
+To export sequence descriptions, we introduce a new optional annotation
 ``annotation(__CDL(Documentation(info=STRING)))``
 where ``STRING`` is an html formatted string that contains the sequence description.
 E.g., the annotation is in the same format as the CDL annotation
@@ -52,7 +61,7 @@ are described in
 `Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom <https://github.com/lbl-srg/modelica-buildings/blob/e7728dcee22f72a8d823fcab6edbbabfe1fd742c/Buildings/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.mo#L238>`_
 and in
 `Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum <https://github.com/lbl-srg/modelica-buildings/blob/e7728dcee22f72a8d823fcab6edbbabfe1fd742c/Buildings/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.mo#L273>`_
-html format.
+using html format.
 
 To export sequences from these models, ``modelica-json`` will need to generate a
 Microsoft Word document using the following procedure.
@@ -67,9 +76,9 @@ Microsoft Word document using the following procedure.
 4. For each block in the list.
 
      a. If the block contains a section ``annotation(__CDL(Documentation(info=STRING)))``,
-        use the value of this section as the sequence documentation of this block. Goto step d)
+        use the value of this section as the sequence documentation of this block. Goto step d).
      b. If the block contains a section ``annotation(Documentation(info=STRING))``,
-        use the value of this section as the sequence documentation of this block. Goto step d)
+        use the value of this section as the sequence documentation of this block. Goto step d).
      c. Issue a warning that this block contains no control sequence description and proceed to
         the next block.
      d. In the sequence description of this block, for each parameter that is in the description,
@@ -160,7 +169,7 @@ For this control block, ``modelica-json`` will produce content for the Word desc
    ``TSupSetMin`` (:math:`=20^\circ`) and ``TSupSetMax`` (:math:`=30^\circ` adjustable)
    based on the output signal of the proportional controller..."
 
-Note that ``modelica-json`` removes the notice at the end of the sequence description
+``modelica-json`` will remove the notice at the end of the sequence description
 if the ``controllerType`` is
 declared as ``final`` (because then, no other choice can be made).
 Through this mechanism, sections and images can be removed or enabled in the generated
