@@ -84,7 +84,7 @@ Microsoft Word document using the following procedure.
 
 As an example, consider the following snippet of a composite control block.
 
-.. code-block:: modelica
+.. code-block::
 
    HigMassSupplyTemperature_TRoom con(TSubSet_max=303.15, final TSubSet_min=293.15);
 
@@ -98,6 +98,12 @@ As an example, consider the following snippet of a composite control block.
         final unit="K",
         displayUnit="degC") = 293.15 "Minimum heating supply water temperature";
 
+      parameter Controls.OBC.CDL.Types.SimpleController
+        controllerType = Buildings.Controls.OBC.CDL.Types.SimpleController.P
+        "Type of controller" annotation (Dialog(group="Control gains"));
+
+      ... [omitted]
+
       annotation(
         Documentation(
           info="<html>
@@ -108,7 +114,7 @@ As an example, consider the following snippet of a composite control block.
             The controller tracks the room temperature set point <code>TRooSet</code> by
             adjusting the supply water temperature set point <code>TSupSet</code> linearly between
             <code>TSupSetMin</code> and <code>TSupSetMax</code>
-            ...
+
             PI-controller likely saturate due to the slow system response.
             </p>
             </html>"
@@ -134,11 +140,13 @@ As an example, consider the following snippet of a composite control block.
                 src="modelica://Buildings/Resources/Images/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.png"/>
                 </p>
                 <p>
+                <-- cdl(visible=(not (controllerType is final))) or controllerType <> CDL.Types.SimpleController.P -->
                 <b>Note:</b>
                 For systems with high thermal mass, this controller should be left configured
                 as a P-controller, which is the default setting.
                 PI-controller likely saturate due to the slow system response.
                 </p>
+                <-- end cdl -->
               </html>"
            )
         )
@@ -152,8 +160,15 @@ For this control block, ``modelica-json`` will produce content for the Word desc
    ``TSupSetMin`` (:math:`=20^\circ`) and ``TSupSetMax`` (:math:`=30^\circ` adjustable)
    based on the output signal of the proportional controller..."
 
+Note that ``modelica-json`` removes the notice at the end of the sequence description
+if the ``controllerType`` is
+declared as ``final`` (because then, no other choice can be made).
+Through this mechanism, sections and images can be removed or enabled in the generated
+sequence description.
+
 To use IP units, ``modelica-json`` will have a configuration that specifies what units should be used.
 The documentation will also include the figure as declared in the CDL specification.
+
 
 The Control Sequence Selection and Configuration tool could make the section
 ``annotation(__CDL(Documentation(info=STRING)))`` editable, thereby allowing
