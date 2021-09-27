@@ -133,8 +133,7 @@ partial model PartialOpenLoop
       nPorts=2) "Ambient conditions"
     annotation (Placement(transformation(extent={{-136,-56},{-114,-34}})));
 
-  replaceable Buildings.Examples.VAVReheat.BaseClasses.PartialFloor flo
-    constrainedby Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
+  SystemModel.VAV.BaseClasses.Floor flo(
       redeclare final package Medium = MediumA,
       final use_windPressure=use_windPressure)
     "Model of a floor of the building that is served by this VAV system"
