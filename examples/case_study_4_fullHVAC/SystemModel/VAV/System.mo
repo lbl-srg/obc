@@ -2,14 +2,7 @@ within SystemModel.VAV;
 model System
   "Variable air volume flow system with terminal reheat and five thermal zones controlled using an ASHRAE G36 controller"
   extends SystemModel.VAV.BaseClasses.Guideline36(
-    redeclare replaceable Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor flo
-    constrainedby
-      Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor,
-    ACHCor=4,
-    ACHSou=4,
-    ACHEas=6,
-    ACHNor=4,
-    ACHWes=6);
+    redeclare SystemModel.VAV.BaseClasses.Floor flo);
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus/Examples/SmallOffice/Guideline36Winter.mos" "Simulate and plot"),
