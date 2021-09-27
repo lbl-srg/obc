@@ -1,11 +1,11 @@
 within SystemModel.VAV.BaseClasses;
 model Floor "Model of a floor of the building"
   extends Buildings.Examples.VAVReheat.BaseClasses.PartialFloor(
-    final VRooCor=456.455,
-    final VRooSou=346.022,
-    final VRooNor=346.022,
-    final VRooEas=205.265,
-    final VRooWes=205.265,
+    final VRooCor=2698.04,
+    final VRooSou=568.77,
+    final VRooNor=568.77,
+    final VRooEas=360.078,
+    final VRooWes=360.055,
     final AFloCor=cor.AFlo,
     final AFloSou=sou.AFlo,
     final AFloNor=nor.AFlo,
@@ -58,32 +58,32 @@ model Floor "Model of a floor of the building"
   Buildings.ThermalZones.EnergyPlus.ThermalZone sou(
     redeclare package Medium = Medium,
     nPorts=5,
-    zoneName="Perimeter_ZN_1") "South zone"
+    zoneName="Perimeter_bot_ZN_1") "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone eas(
     redeclare package Medium = Medium,
     nPorts=5,
-    zoneName="Perimeter_ZN_2") "East zone"
+    zoneName="Perimeter_bot_ZN_2") "East zone"
     annotation (Placement(transformation(extent={{300,68},{340,108}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone nor(
     redeclare package Medium = Medium,
     nPorts=5,
-    zoneName="Perimeter_ZN_3") "North zone"
+    zoneName="Perimeter_bot_ZN_3") "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone wes(
     redeclare package Medium = Medium,
     nPorts=5,
-    zoneName="Perimeter_ZN_4") "West zone"
+    zoneName="Perimeter_bot_ZN_4") "West zone"
     annotation (Placement(transformation(extent={{12,58},{52,98}})));
   Buildings.ThermalZones.EnergyPlus.ThermalZone cor(
     redeclare package Medium = Medium,
     nPorts=11,
-    zoneName="Core_ZN") "Core zone"
+    zoneName="Core_bottom") "Core zone"
     annotation (Placement(transformation(extent={{144,60},{184,100}})));
-  Buildings.ThermalZones.EnergyPlus.ThermalZone att(
+  Buildings.ThermalZones.EnergyPlus.ThermalZone ple(
     redeclare package Medium = Medium,
-    zoneName="Attic",
-    T_start=275.15) "Attic zone"
+    zoneName="FirstFloor_Plenum",
+    T_start=275.15) "Plenum zone"
     annotation (Placement(transformation(extent={{300,-60},{340,-20}})));
 
 protected
@@ -158,9 +158,11 @@ equation
   connect(wes.ports[2],portsWes[2])
     annotation (Line(points={{30.4,58.9},{-2,58.9},{-2,44},{-20,44}},color={0,127,255},smooth=Smooth.None));
   connect(cor.ports[1],portsCor[1])
-    annotation (Line(points={{160.364,60.9},{164,60.9},{164,26},{90,26},{90,46},{80,46}},color={0,127,255},smooth=Smooth.None));
+    annotation (Line(points={{160.364,60.9},{164,60.9},{164,26},{90,26},{90,46},
+          {80,46}},                                                                      color={0,127,255},smooth=Smooth.None));
   connect(cor.ports[2],portsCor[2])
-    annotation (Line(points={{161.091,60.9},{164,60.9},{164,26},{90,26},{90,46},{100,46}},color={0,127,255},smooth=Smooth.None));
+    annotation (Line(points={{161.091,60.9},{164,60.9},{164,26},{90,26},{90,46},
+          {100,46}},                                                                      color={0,127,255},smooth=Smooth.None));
   connect(leaSou.port_b,sou.ports[3])
     annotation (Line(points={{-22,400},{-2,400},{-2,-72},{134,-72},{134,-54},{164,-54},{164,-43.1}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(leaEas.port_b,eas.ports[3])
@@ -170,7 +172,8 @@ equation
   connect(leaWes.port_b,wes.ports[3])
     annotation (Line(points={{-20,280},{2,280},{2,58.9},{32,58.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeSouCor.port_b1,cor.ports[3])
-    annotation (Line(points={{104,16},{164,16},{164,34},{161.818,34},{161.818,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{104,16},{164,16},{164,34},{161.818,34},{161.818,
+          60.9}},                                                                    color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeSouCor.port_a2,cor.ports[4])
     annotation (Line(points={{104,4},{164,4},{164,60.9},{162.545,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeSouCor.port_a1,sou.ports[4])
@@ -182,7 +185,8 @@ equation
   connect(opeEasCor.port_a2,eas.ports[5])
     annotation (Line(points={{270,42},{290,42},{290,68.9},{323.2,68.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeEasCor.port_a1,cor.ports[5])
-    annotation (Line(points={{250,54},{190,54},{190,34},{142,34},{142,60.9},{163.273,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{250,54},{190,54},{190,34},{142,34},{142,60.9},{
+          163.273,60.9}},                                                                   color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeEasCor.port_b2,cor.ports[6])
     annotation (Line(points={{250,42},{190,42},{190,34},{142,34},{142,60.9},{164,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeNorCor.port_b1,nor.ports[4])
@@ -190,19 +194,24 @@ equation
   connect(opeNorCor.port_a2,nor.ports[5])
     annotation (Line(points={{100,78},{108,78},{108,106},{164,106},{164,116.9},{167.2,116.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeNorCor.port_a1,cor.ports[7])
-    annotation (Line(points={{80,90},{76,90},{76,60},{142,60},{142,60.9},{164.727,60.9}},color={0,127,255},smooth=Smooth.None));
+    annotation (Line(points={{80,90},{76,90},{76,60},{142,60},{142,60.9},{
+          164.727,60.9}},                                                                color={0,127,255},smooth=Smooth.None));
   connect(opeNorCor.port_b2,cor.ports[8])
-    annotation (Line(points={{80,78},{76,78},{76,60},{142,60},{142,60.9},{165.455,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{80,78},{76,78},{76,60},{142,60},{142,60.9},{
+          165.455,60.9}},                                                                color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeWesCor.port_b1,cor.ports[9])
-    annotation (Line(points={{40,-4},{56,-4},{56,26},{164,26},{164,36},{166.182,36},{166.182,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{40,-4},{56,-4},{56,26},{164,26},{164,36},{166.182,
+          36},{166.182,60.9}},                                                                      color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeWesCor.port_a2,cor.ports[10])
-    annotation (Line(points={{40,-16},{56,-16},{56,26},{164,26},{164,60.9},{166.909,60.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{40,-16},{56,-16},{56,26},{164,26},{164,60.9},{
+          166.909,60.9}},                                                                  color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeWesCor.port_a1,wes.ports[4])
     annotation (Line(points={{20,-4},{14,-4},{14,44},{30,44},{30,58.9},{33.6,58.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(opeWesCor.port_b2,wes.ports[5])
     annotation (Line(points={{20,-16},{14,-16},{14,44},{30,44},{30,58.9},{35.2,58.9}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(cor.ports[11],senRelPre.port_a)
-    annotation (Line(points={{167.636,60.9},{164,60.9},{164,24},{128,24},{128,250},{60,250}},color={0,127,255},smooth=Smooth.None,thickness=0.5));
+    annotation (Line(points={{167.636,60.9},{164,60.9},{164,24},{128,24},{128,
+          250},{60,250}},                                                                    color={0,127,255},smooth=Smooth.None,thickness=0.5));
   connect(sou.qGai_flow,qGai_flow.y)
     annotation (Line(points={{142,-14},{64,-14},{64,-30},{-118,-30}},color={0,0,127}));
   connect(wes.qGai_flow,qGai_flow.y)
@@ -213,7 +222,7 @@ equation
     annotation (Line(points={{142,90},{130,90},{130,110},{-60,110},{-60,-30},{-118,-30}},color={0,0,127}));
   connect(nor.qGai_flow,qGai_flow.y)
     annotation (Line(points={{142,146},{-60,146},{-60,-30},{-118,-30}},color={0,0,127}));
-  connect(att.qGai_flow,qGai_flow.y)
+  connect(ple.qGai_flow,qGai_flow.y)
     annotation (Line(points={{298,-30},{240,-30},{240,-80},{-60,-80},{-60,-30},{-118,-30}},color={0,0,127}));
   connect(sou.heaPorAir,heaPorSou)
     annotation (Line(points={{164,-24},{140,-24},{140,-36},{116,-36}},color={191,0,0}));
