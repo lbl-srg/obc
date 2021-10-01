@@ -57,60 +57,77 @@ Timestep,
 
 ! Location and design-day objects created by:
 ! Site:Location and design-day objects created by:
-! /projects/bigsim/bin/ddy2idf /projects/bigsim/weather/EnergyPlus/tmy3.new/all/USA_CO_Denver-Aurora-Buckley.AFB.724695_TMY3.ddy
+! /tools/bin/ddy2idf /phome/weather/EnergyPlus/tmy3.new/all/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.ddy
 !
 Site:Location,
-    Buffalo.Niagara.Intl.AP_NY_USA WMO=725280,  !- Name
-    42.94,                   !- Latitude {deg}
-    -78.74,                  !- Longitude {deg}
-    -5.00,                   !- Time Zone {hr}
-    215.00;                  !- Elevation {m}
+  Chicago Ohare Intl Ap_IL_USA Design_Conditions,     !- Site:Location Name
+      41.98,     !- Latitude {N+ S-}
+     -87.92,     !- Longitude {W- E+}
+      -6.00,     !- Time Zone Relative to GMT {GMT+/-}
+     201.00;     !- Elevation {m}
 
 SizingPeriod:DesignDay,
-    Buffalo.Niagara.Intl.AP_NY_USA Ann Htg 99.6% Condns DB,  !- Name
-    1,                       !- Month
-    21,                      !- Day of Month
-    WinterDesignDay,         !- Day Type
-    -16.3,                   !- Maximum Dry-Bulb Temperature {C}
-    0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    ,                        !- Beam Solar Day Schedule Name
-    ,                        !- Diffuse Solar Day Schedule Name
-    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
-    0.00;                    !- Sky Clearness
+  Chicago Ohare Intl Ap Ann Htg 99.6% Condns DB,     !- Name
+          1,      !- Month
+         21,      !- Day of Month
+  WinterDesignDay,!- Day Type
+        -20,      !- Maximum Dry-Bulb Temperature {C}
+        0.0,      !- Daily Dry-Bulb Temperature Range {C}
+ DefaultMultipliers, !- Dry-Bulb Temperature Range Modifier Type
+           ,      !- Dry-Bulb Temperature Range Modifier Schedule Name
+    Wetbulb,      !- Humidity Condition Type
+        -20,      !- Wetbulb at Maximum Dry-Bulb {C}
+           ,      !- Humidity Indicating Day Schedule Name
+           ,      !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+           ,      !- Enthalpy at Maximum Dry-Bulb {J/kg}
+           ,      !- Daily WetBulb Temperature Range {deltaC}
+     98934.,      !- Barometric Pressure {Pa}
+        4.9,      !- Wind Speed {m/s} design conditions vs. traditional 6.71 m/s (15 mph)
+        270,      !- Wind Direction {Degrees; N=0, S=180}
+         No,      !- Rain {Yes/No}
+         No,      !- Snow on ground {Yes/No}
+         No,      !- Daylight Savings Time Indicator
+  ASHRAEClearSky, !- Solar Model Indicator
+           ,      !- Beam Solar Day Schedule Name
+           ,      !- Diffuse Solar Day Schedule Name
+           ,      !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)
+           ,      !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)
+       0.00;      !- Clearness {0.0 to 1.1}
 
 SizingPeriod:DesignDay,
-    Buffalo.Niagara.Intl.AP_NY_USA Ann Clg .4% Condns DB=>MWB,  !- Name
-    7,                       !- Month
-    21,                      !- Day of Month
-    SummerDesignDay,         !- Day Type
-    30.3,                    !- Maximum Dry-Bulb Temperature {C}
-    9.3,                     !- Daily Dry-Bulb Temperature Range {deltaC}
-    ASHRAETau,               !- Solar Model Indicator
-    ,                        !- Beam Solar Day Schedule Name
-    ,                        !- Diffuse Solar Day Schedule Name
-    0.462,                   !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
-    2.001;                   !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+  Chicago Ohare Intl Ap Ann Clg .4% Condns DB=>MWB,     !- Name
+          7,      !- Month
+         21,      !- Day of Month
+  SummerDesignDay,!- Day Type
+       33.3,      !- Maximum Dry-Bulb Temperature {C}
+       10.5,      !- Daily Dry-Bulb Temperature Range {C}
+ DefaultMultipliers, !- Dry-Bulb Temperature Range Modifier Type
+           ,      !- Dry-Bulb Temperature Range Modifier Schedule Name
+    Wetbulb,      !- Humidity Condition Type
+       23.7,      !- Wetbulb at Maximum Dry-Bulb {C}
+           ,      !- Humidity Indicating Day Schedule Name
+           ,      !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+           ,      !- Enthalpy at Maximum Dry-Bulb {J/kg}
+           ,      !- Daily WetBulb Temperature Range {deltaC}
+     98934.,      !- Barometric Pressure {Pa}
+        5.2,      !- Wind Speed {m/s} design conditions vs. traditional 3.35 m/s (7mph)
+        230,      !- Wind Direction {Degrees; N=0, S=180}
+         No,      !- Rain {Yes/No}
+         No,      !- Snow on ground {Yes/No}
+         No,      !- Daylight Savings Time Indicator
+       ASHRAETau, !- Solar Model Indicator
+           ,      !- Beam Solar Day Schedule Name
+           ,      !- Diffuse Solar Day Schedule Name
+      0.455,      !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)
+      2.050;      !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)
 
-Site:WaterMainsTemperature,
-    Correlation,             !- Calculation Method
-    ,                        !- Temperature Schedule Name
-    8.96666666666667,        !- Annual Average Outdoor Air Temperature {C}
-    26.2;                    !- Maximum Difference In Monthly Average Outdoor Air Temperatures {deltaC}
 
-Site:GroundTemperature:FCfactorMethod,
-    9.7,                     !- January Ground Temperature {C}
-    6.0,                     !- February Ground Temperature {C}
-    -2.2,                    !- March Ground Temperature {C}
-    -3.4,                    !- April Ground Temperature {C}
-    -4.2,                    !- May Ground Temperature {C}
-    2.7,                     !- June Ground Temperature {C}
-    7.5,                     !- July Ground Temperature {C}
-    13.7,                    !- August Ground Temperature {C}
-    18.6,                    !- September Ground Temperature {C}
-    22.0,                    !- October Ground Temperature {C}
-    20.7,                    !- November Ground Temperature {C}
-    16.5;                    !- December Ground Temperature {C}
+  Site:WaterMainsTemperature,
+    CORRELATION,              !- Calculation Method
+    ,                         !- Temperature Schedule Name
+    9.75,        !- Annual Average Outdoor Air Temperature {C}
+    28.14;        !- Maximum Difference In Monthly Average Outdoor Air Temperatures {deltaC}
+
 
 RunPeriod,
     RUNPERIOD 1,             !- Name
@@ -2400,6 +2417,10 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.487,                   !- Solar Transmittance at Normal Incidence
     0.056,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.056,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.749,                   !- Visible Transmittance at Normal Incidence
+    0.070,                   !- Front Side Visible Reflectance at Normal Incidence
+    0.070,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
     0.84,                    !- Back Side Infrared Hemispherical Emissivity
@@ -2413,6 +2434,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.240,                   !- Solar Transmittance at Normal Incidence
     0.160,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.320,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.300,                   !- Visible Transmittance at Normal Incidence
+    0.160,                   !- Front Side Visible Reflectance at Normal Incidence
     0.290,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2426,6 +2450,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.200,                   !- Solar Transmittance at Normal Incidence
     0.160,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.390,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.220,                   !- Visible Transmittance at Normal Incidence
+    0.170,                   !- Front Side Visible Reflectance at Normal Incidence
     0.350,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2439,6 +2466,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.099,                   !- Solar Transmittance at Normal Incidence
     0.219,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.219,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.155,                   !- Visible Transmittance at Normal Incidence
+    0.073,                   !- Front Side Visible Reflectance at Normal Incidence
     0.073,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2452,6 +2482,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.100,                   !- Solar Transmittance at Normal Incidence
     0.110,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.410,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.130,                   !- Visible Transmittance at Normal Incidence
+    0.100,                   !- Front Side Visible Reflectance at Normal Incidence
     0.320,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2465,6 +2498,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.775,                   !- Solar Transmittance at Normal Incidence
     0.071,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.071,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.881,                   !- Visible Transmittance at Normal Incidence
+    0.080,                   !- Front Side Visible Reflectance at Normal Incidence
     0.080,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2478,6 +2514,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.429,                   !- Solar Transmittance at Normal Incidence
     0.308,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.379,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.334,                   !- Visible Transmittance at Normal Incidence
+    0.453,                   !- Front Side Visible Reflectance at Normal Incidence
     0.505,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2491,6 +2530,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.480,                   !- Solar Transmittance at Normal Incidence
     0.050,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.050,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.570,                   !- Visible Transmittance at Normal Incidence
+    0.060,                   !- Front Side Visible Reflectance at Normal Incidence
     0.060,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2504,6 +2546,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.455,                   !- Solar Transmittance at Normal Incidence
     0.053,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.053,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.431,                   !- Visible Transmittance at Normal Incidence
+    0.052,                   !- Front Side Visible Reflectance at Normal Incidence
     0.052,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2517,6 +2562,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.600,                   !- Solar Transmittance at Normal Incidence
     0.170,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.220,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.840,                   !- Visible Transmittance at Normal Incidence
+    0.055,                   !- Front Side Visible Reflectance at Normal Incidence
     0.078,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2530,6 +2578,9 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.626,                   !- Solar Transmittance at Normal Incidence
     0.061,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.061,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.611,                   !- Visible Transmittance at Normal Incidence
+    0.061,                   !- Front Side Visible Reflectance at Normal Incidence
     0.061,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2543,6 +2594,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.360,                   !- Solar Transmittance at Normal Incidence
     0.093,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.200,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.500,                   !- Visible Transmittance at Normal Incidence
+    0.035,                   !- Front Side Visible Reflectance at Normal Incidence
     0.054,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2556,6 +2610,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.150,                   !- Solar Transmittance at Normal Incidence
     0.090,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.330,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.180,                   !- Visible Transmittance at Normal Incidence
+    0.080,                   !- Front Side Visible Reflectance at Normal Incidence
     0.280,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2569,6 +2626,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.170,                   !- Solar Transmittance at Normal Incidence
     0.200,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.420,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.190,                   !- Visible Transmittance at Normal Incidence
+    0.210,                   !- Front Side Visible Reflectance at Normal Incidence
     0.380,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2582,6 +2642,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.300,                   !- Solar Transmittance at Normal Incidence
     0.140,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.360,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.250,                   !- Visible Transmittance at Normal Incidence
+    0.180,                   !- Front Side Visible Reflectance at Normal Incidence
     0.450,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2595,6 +2658,9 @@ WindowMaterial:Glazing,
     0.00051,                 !- Thickness {m}
     0.504,                   !- Solar Transmittance at Normal Incidence
     0.402,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.398,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.766,                   !- Visible Transmittance at Normal Incidence
+    0.147,                   !- Front Side Visible Reflectance at Normal Incidence
     0.167,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.075,                   !- Front Side Infrared Hemispherical Emissivity
@@ -2608,6 +2674,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.260,                   !- Solar Transmittance at Normal Incidence
     0.140,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.410,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.460,                   !- Visible Transmittance at Normal Incidence
+    0.060,                   !- Front Side Visible Reflectance at Normal Incidence
     0.040,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2621,6 +2690,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.680,                   !- Solar Transmittance at Normal Incidence
     0.090,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.100,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.810,                   !- Visible Transmittance at Normal Incidence
+    0.110,                   !- Front Side Visible Reflectance at Normal Incidence
     0.120,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2634,6 +2706,9 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.837,                   !- Solar Transmittance at Normal Incidence
     0.075,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.075,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.898,                   !- Visible Transmittance at Normal Incidence
+    0.081,                   !- Front Side Visible Reflectance at Normal Incidence
     0.081,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2647,6 +2722,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.150,                   !- Solar Transmittance at Normal Incidence
     0.220,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.380,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.200,                   !- Visible Transmittance at Normal Incidence
+    0.230,                   !- Front Side Visible Reflectance at Normal Incidence
     0.330,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2660,6 +2738,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.066,                   !- Solar Transmittance at Normal Incidence
     0.341,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.493,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.080,                   !- Visible Transmittance at Normal Incidence
+    0.410,                   !- Front Side Visible Reflectance at Normal Incidence
     0.370,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2673,6 +2754,9 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.635,                   !- Solar Transmittance at Normal Incidence
     0.063,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.063,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.822,                   !- Visible Transmittance at Normal Incidence
+    0.075,                   !- Front Side Visible Reflectance at Normal Incidence
     0.075,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2686,6 +2770,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.111,                   !- Solar Transmittance at Normal Incidence
     0.179,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.179,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.128,                   !- Visible Transmittance at Normal Incidence
+    0.081,                   !- Front Side Visible Reflectance at Normal Incidence
     0.081,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2699,6 +2786,9 @@ WindowMaterial:Glazing,
     0.00051,                 !- Thickness {m}
     0.320,                   !- Solar Transmittance at Normal Incidence
     0.582,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.593,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.551,                   !- Visible Transmittance at Normal Incidence
+    0.336,                   !- Front Side Visible Reflectance at Normal Incidence
     0.375,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.046,                   !- Front Side Infrared Hemispherical Emissivity
@@ -2712,6 +2802,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.099,                   !- Solar Transmittance at Normal Incidence
     0.219,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.219,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.155,                   !- Visible Transmittance at Normal Incidence
+    0.073,                   !- Front Side Visible Reflectance at Normal Incidence
     0.073,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2725,6 +2818,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.430,                   !- Solar Transmittance at Normal Incidence
     0.420,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.300,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.770,                   !- Visible Transmittance at Normal Incidence
+    0.060,                   !- Front Side Visible Reflectance at Normal Incidence
     0.070,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.03,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2738,6 +2834,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.482,                   !- Solar Transmittance at Normal Incidence
     0.054,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.054,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.534,                   !- Visible Transmittance at Normal Incidence
+    0.057,                   !- Front Side Visible Reflectance at Normal Incidence
     0.057,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2751,6 +2850,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.060,                   !- Solar Transmittance at Normal Incidence
     0.130,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.420,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.090,                   !- Visible Transmittance at Normal Incidence
+    0.140,                   !- Front Side Visible Reflectance at Normal Incidence
     0.350,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2764,6 +2866,9 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.375039,                !- Solar Transmittance at Normal Incidence
     0.574961,                !- Front Side Solar Reflectance at Normal Incidence
+    0.574961,                !- Back Side Solar Reflectance at Normal Incidence
+    0.529698,                !- Visible Transmittance at Normal Incidence
+    0.420302,                !- Front Side Visible Reflectance at Normal Incidence
     0.420302,                !- Back Side Visible Reflectance at Normal Incidence
     0,                       !- Infrared Transmittance at Normal Incidence
     0.9,                     !- Front Side Infrared Hemispherical Emissivity
@@ -2777,6 +2882,15 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.315861,                !- Solar Transmittance at Normal Incidence
     0.634139,                !- Front Side Solar Reflectance at Normal Incidence
+    0.634139,                !- Back Side Solar Reflectance at Normal Incidence
+    0.479911,                !- Visible Transmittance at Normal Incidence
+    0.470089,                !- Front Side Visible Reflectance at Normal Incidence
+    0.470089,                !- Back Side Visible Reflectance at Normal Incidence
+    0,                       !- Infrared Transmittance at Normal Incidence
+    0.9,                     !- Front Side Infrared Hemispherical Emissivity
+    0.9,                     !- Back Side Infrared Hemispherical Emissivity
+    0.010358;                !- Conductivity {W/m-K}
+
 !
 ! Next two glazing layers are from IGDB double glazing database from Charlie Curcija (LBNL).
 ! The first layer is ID 3600, Neutral34gn5.grm. Followed by clear 3 mm glass.
@@ -2790,6 +2904,9 @@ WindowMaterial:Glazing,
     0.004750,                !- Thickness {m}
     0.171874,                !- Solar Transmittance at Normal Incidence
     1.094601e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    2.199938e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.322771,                !- Visible Transmittance at Normal Incidence
+    0.182598,                !- Front Side Visible Reflectance at Normal Incidence
     0.081654,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2803,6 +2920,9 @@ WindowMaterial:Glazing,
     0.003048,                !- Thickness {m}
     0.833848,                !- Solar Transmittance at Normal Incidence
     7.476376e-002,           !- Front Side Solar Reflectance at Normal Incidence
+    7.485449e-002,           !- Back Side Solar Reflectance at Normal Incidence
+    0.899260,                !- Visible Transmittance at Normal Incidence
+    0.082563,                !- Front Side Visible Reflectance at Normal Incidence
     0.082564,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2816,6 +2936,9 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.740,                   !- Solar Transmittance at Normal Incidence
     0.090,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.100,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.820,                   !- Visible Transmittance at Normal Incidence
+    0.110,                   !- Front Side Visible Reflectance at Normal Incidence
     0.120,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2829,6 +2952,10 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.450,                   !- Solar Transmittance at Normal Incidence
     0.340,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.370,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.780,                   !- Visible Transmittance at Normal Incidence
+    0.070,                   !- Front Side Visible Reflectance at Normal Incidence
+    0.060,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
     0.03,                    !- Back Side Infrared Hemispherical Emissivity
@@ -2842,6 +2969,13 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.814,                   !- Solar Transmittance at Normal Incidence
     0.086,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.086,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.847,                   !- Visible Transmittance at Normal Incidence
+    0.099,                   !- Front Side Visible Reflectance at Normal Incidence
+    0.099,                   !- Back Side Visible Reflectance at Normal Incidence
+    0.0,                     !- Infrared Transmittance at Normal Incidence
+    0.84,                    !- Front Side Infrared Hemispherical Emissivity
+    0.10,                    !- Back Side Infrared Hemispherical Emissivity
     0.9;                     !- Conductivity {W/m-K}
 
 !
@@ -2855,6 +2989,9 @@ WindowMaterial:Glazing,
     0.008600,                !- Thickness {m}
     0.167758,                !- Solar Transmittance at Normal Incidence
     2.176064e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    4.379779e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.416044,                !- Visible Transmittance at Normal Incidence
+    0.078729,                !- Front Side Visible Reflectance at Normal Incidence
     0.106540,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2868,6 +3005,9 @@ WindowMaterial:Glazing,
     0.003900,                !- Thickness {m}
     0.355897,                !- Solar Transmittance at Normal Incidence
     3.940945e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    2.656452e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.677694,                !- Visible Transmittance at Normal Incidence
+    0.042734,                !- Front Side Visible Reflectance at Normal Incidence
     0.055470,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.046000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2881,6 +3021,9 @@ WindowMaterial:Glazing,
     0.008370,                !- Thickness {m}
     0.507767,                !- Solar Transmittance at Normal Incidence
     5.422805e-002,           !- Front Side Solar Reflectance at Normal Incidence
+    5.449309e-002,           !- Back Side Solar Reflectance at Normal Incidence
+    0.586833,                !- Visible Transmittance at Normal Incidence
+    0.058050,                !- Front Side Visible Reflectance at Normal Incidence
     0.058397,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2894,6 +3037,9 @@ WindowMaterial:Glazing,
     0.002210,                !- Thickness {m}
     0.434294,                !- Solar Transmittance at Normal Incidence
     4.183747e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    3.410654e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.797579,                !- Visible Transmittance at Normal Incidence
+    0.043577,                !- Front Side Visible Reflectance at Normal Incidence
     0.056031,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.042274,                !- Front Side Infrared Hemispherical Emissivity
@@ -2907,6 +3053,10 @@ WindowMaterial:Glazing,
     0.004000,                !- Thickness {m}
     0.369744,                !- Solar Transmittance at Normal Incidence
     4.700695e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    3.409350e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.765222,                !- Visible Transmittance at Normal Incidence
+    0.054600,                !- Front Side Visible Reflectance at Normal Incidence
+    0.073741,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.036750,                !- Front Side Infrared Hemispherical Emissivity
     0.840000,                !- Back Side Infrared Hemispherical Emissivity
@@ -2920,6 +3070,9 @@ WindowMaterial:Glazing,
     0.006,                   !- Thickness {m}
     0.694,                   !- Solar Transmittance at Normal Incidence
     0.168,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.168,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.818,                   !- Visible Transmittance at Normal Incidence
+    0.110,                   !- Front Side Visible Reflectance at Normal Incidence
     0.110,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
@@ -2933,6 +3086,10 @@ WindowMaterial:Glazing,
     0.003,                   !- Thickness {m}
     0.750,                   !- Solar Transmittance at Normal Incidence
     0.100,                   !- Front Side Solar Reflectance at Normal Incidence
+    0.100,                   !- Back Side Solar Reflectance at Normal Incidence
+    0.850,                   !- Visible Transmittance at Normal Incidence
+    0.120,                   !- Front Side Visible Reflectance at Normal Incidence
+    0.120,                   !- Back Side Visible Reflectance at Normal Incidence
     0.0,                     !- Infrared Transmittance at Normal Incidence
     0.84,                    !- Front Side Infrared Hemispherical Emissivity
     0.40,                    !- Back Side Infrared Hemispherical Emissivity
@@ -2946,6 +3103,9 @@ WindowMaterial:Glazing,
     0.006180,                !- Thickness {m}
     0.425947,                !- Solar Transmittance at Normal Incidence
     7.424190e-002,           !- Front Side Solar Reflectance at Normal Incidence
+    9.994167e-002,           !- Back Side Solar Reflectance at Normal Incidence
+    0.559652,                !- Visible Transmittance at Normal Incidence
+    0.072726,                !- Front Side Visible Reflectance at Normal Incidence
     0.094819,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2959,6 +3119,9 @@ WindowMaterial:Glazing,
     0.003059,                !- Thickness {m}
     0.343691,                !- Solar Transmittance at Normal Incidence
     2.989869e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    4.621051e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.487937,                !- Visible Transmittance at Normal Incidence
+    0.209449,                !- Front Side Visible Reflectance at Normal Incidence
     0.306829,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2972,6 +3135,9 @@ WindowMaterial:Glazing,
     0.003251,                !- Thickness {m}
     0.352565,                !- Solar Transmittance at Normal Incidence
     2.956174e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    4.058073e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.510046,                !- Visible Transmittance at Normal Incidence
+    0.237458,                !- Front Side Visible Reflectance at Normal Incidence
     0.270435,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2985,6 +3151,9 @@ WindowMaterial:Glazing,
     0.003060,                !- Thickness {m}
     0.350556,                !- Solar Transmittance at Normal Incidence
     3.198325e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    3.617666e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.490923,                !- Visible Transmittance at Normal Incidence
+    0.250840,                !- Front Side Visible Reflectance at Normal Incidence
     0.232929,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -2998,6 +3167,9 @@ WindowMaterial:Glazing,
     0.003060,                !- Thickness {m}
     0.340824,                !- Solar Transmittance at Normal Incidence
     2.268281e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    2.732317e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.543814,                !- Visible Transmittance at Normal Incidence
+    0.076600,                !- Front Side Visible Reflectance at Normal Incidence
     0.079448,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -3011,6 +3183,9 @@ WindowMaterial:Glazing,
     0.012480,                !- Thickness {m}
     0.369424,                !- Solar Transmittance at Normal Incidence
     2.079376e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    2.033990e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.710088,                !- Visible Transmittance at Normal Incidence
+    0.071115,                !- Front Side Visible Reflectance at Normal Incidence
     0.070696,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -3024,6 +3199,9 @@ WindowMaterial:Glazing,
     0.003850,                !- Thickness {m}
     0.373486,                !- Solar Transmittance at Normal Incidence
     7.114256e-002,           !- Front Side Solar Reflectance at Normal Incidence
+    9.944001e-002,           !- Back Side Solar Reflectance at Normal Incidence
+    0.601300,                !- Visible Transmittance at Normal Incidence
+    0.077225,                !- Front Side Visible Reflectance at Normal Incidence
     0.096992,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -3037,6 +3215,9 @@ WindowMaterial:Glazing,
     0.003058,                !- Thickness {m}
     0.167637,                !- Solar Transmittance at Normal Incidence
     3.034693e-001,           !- Front Side Solar Reflectance at Normal Incidence
+    1.825558e-001,           !- Back Side Solar Reflectance at Normal Incidence
+    0.341994,                !- Visible Transmittance at Normal Incidence
+    0.128888,                !- Front Side Visible Reflectance at Normal Incidence
     0.128077,                !- Back Side Visible Reflectance at Normal Incidence
     0.000000,                !- Infrared Transmittance at Normal Incidence
     0.840000,                !- Front Side Infrared Hemispherical Emissivity
@@ -3580,6 +3761,7 @@ Construction,
     COATED POLY-55,          !- Layer 3
     AIR 13MM,                !- Layer 4
     CLEAR 6MM;               !- Layer 5
+
 !
 !
 ! Following constructions are added as part of Addendum bb
@@ -3615,6 +3797,9 @@ Construction,
 
 !
 !
+! End set of new bb constructions
+!
+!
 !
 ! Construction below added for 90.1-2016 Sit-down Restaurant to comply
 ! with SHGC requirements imposed by fenestration orientation.
@@ -3626,6 +3811,8 @@ Construction,
     Air 13MM,                !- Layer 2
     Glass_102_LayerAvg;      !- Layer 3
 
+!
+! End
 !
 !
 ! Construction below added for 90.1-2016 Fastfood Restaurant to comply
@@ -3977,6 +4164,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    2.7432,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -3990,6 +4179,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    1.2192,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -4003,6 +4194,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    2.7432,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -4016,6 +4209,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    2.7432,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -4029,6 +4224,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    2.7432,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -4042,6 +4239,8 @@ Zone,
     0.0000,                  !- Y Origin {m}
     0.0000,                  !- Z Origin {m}
     1,                       !- Type
+    1.0000,                  !- Multiplier
+    2.7432,                  !- Ceiling Height {m}
     autocalculate,           !- Volume {m3}
     autocalculate,           !- Floor Area {m2}
     ,                        !- Zone Inside Convection Algorithm
@@ -5101,6 +5300,15 @@ People,
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
     ,                        !- People per Zone Floor Area {person/m2}
+    18.5787942465724,        !- Zone Floor Area per Person {m2/person}
+    0.3000,                  !- Fraction Radiant
+    AUTOCALCULATE,           !- Sensible Heat Fraction
+    ACTIVITY_SCH,            !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
+    ,                        !- Surface Name/Angle Factor List Name
+    WORK_EFF_SCH,            !- Work Efficiency Schedule Name
     ClothingInsulationSchedule,  !- Clothing Insulation Calculation Method
     ,                        !- Clothing Insulation Calculation Method Schedule Name
     CLOTHING_SCH,            !- Clothing Insulation Schedule Name
@@ -5114,6 +5322,15 @@ People,
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
     ,                        !- People per Zone Floor Area {person/m2}
+    18.5787942465724,        !- Zone Floor Area per Person {m2/person}
+    0.3000,                  !- Fraction Radiant
+    AUTOCALCULATE,           !- Sensible Heat Fraction
+    ACTIVITY_SCH,            !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
+    ,                        !- Surface Name/Angle Factor List Name
+    WORK_EFF_SCH,            !- Work Efficiency Schedule Name
     ClothingInsulationSchedule,  !- Clothing Insulation Calculation Method
     ,                        !- Clothing Insulation Calculation Method Schedule Name
     CLOTHING_SCH,            !- Clothing Insulation Schedule Name
@@ -5127,6 +5344,15 @@ People,
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
     ,                        !- People per Zone Floor Area {person/m2}
+    18.5787942465724,        !- Zone Floor Area per Person {m2/person}
+    0.3000,                  !- Fraction Radiant
+    AUTOCALCULATE,           !- Sensible Heat Fraction
+    ACTIVITY_SCH,            !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
+    ,                        !- Surface Name/Angle Factor List Name
+    WORK_EFF_SCH,            !- Work Efficiency Schedule Name
     ClothingInsulationSchedule,  !- Clothing Insulation Calculation Method
     ,                        !- Clothing Insulation Calculation Method Schedule Name
     CLOTHING_SCH,            !- Clothing Insulation Schedule Name
@@ -5140,6 +5366,15 @@ People,
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
     ,                        !- People per Zone Floor Area {person/m2}
+    18.5787942465724,        !- Zone Floor Area per Person {m2/person}
+    0.3000,                  !- Fraction Radiant
+    AUTOCALCULATE,           !- Sensible Heat Fraction
+    ACTIVITY_SCH,            !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
+    ,                        !- Surface Name/Angle Factor List Name
+    WORK_EFF_SCH,            !- Work Efficiency Schedule Name
     ClothingInsulationSchedule,  !- Clothing Insulation Calculation Method
     ,                        !- Clothing Insulation Calculation Method Schedule Name
     CLOTHING_SCH,            !- Clothing Insulation Schedule Name
@@ -5153,6 +5388,15 @@ People,
     Area/Person,             !- Number of People Calculation Method
     ,                        !- Number of People
     ,                        !- People per Zone Floor Area {person/m2}
+    18.5787942465724,        !- Zone Floor Area per Person {m2/person}
+    0.3000,                  !- Fraction Radiant
+    AUTOCALCULATE,           !- Sensible Heat Fraction
+    ACTIVITY_SCH,            !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    No,                      !- Enable ASHRAE 55 Comfort Warnings
+    ZoneAveraged,            !- Mean Radiant Temperature Calculation Type
+    ,                        !- Surface Name/Angle Factor List Name
+    WORK_EFF_SCH,            !- Work Efficiency Schedule Name
     ClothingInsulationSchedule,  !- Clothing Insulation Calculation Method
     ,                        !- Clothing Insulation Calculation Method Schedule Name
     CLOTHING_SCH,            !- Clothing Insulation Schedule Name
@@ -5166,6 +5410,8 @@ Lights,
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
     8.503489229,             !- Watts per Zone Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0000,                  !- Return Air Fraction
     0.7000,                  !- Fraction Radiant
     0.2000,                  !- Fraction Visible
     1.0000,                  !- Fraction Replaceable
@@ -5179,6 +5425,8 @@ Lights,
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
     8.503489229,             !- Watts per Zone Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0000,                  !- Return Air Fraction
     0.7000,                  !- Fraction Radiant
     0.2000,                  !- Fraction Visible
     1.0000,                  !- Fraction Replaceable
@@ -5192,6 +5440,8 @@ Lights,
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
     8.503489229,             !- Watts per Zone Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0000,                  !- Return Air Fraction
     0.7000,                  !- Fraction Radiant
     0.2000,                  !- Fraction Visible
     1.0000,                  !- Fraction Replaceable
@@ -5205,6 +5455,8 @@ Lights,
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
     8.503489229,             !- Watts per Zone Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0000,                  !- Return Air Fraction
     0.7000,                  !- Fraction Radiant
     0.2000,                  !- Fraction Visible
     1.0000,                  !- Fraction Replaceable
@@ -5218,6 +5470,7 @@ Lights,
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
     8.503489229,             !- Watts per Zone Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
     0.0000,                  !- Return Air Fraction
     0.7000,                  !- Fraction Radiant
     0.2000,                  !- Fraction Visible
@@ -5326,6 +5579,14 @@ Daylighting:Controls,
     ,                        !- Availability Schedule Name
     Stepped,                 !- Lighting Control Type
     0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
+    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
+    3,                       !- Number of Stepped Control Steps
+    1.0,                     !- Probability Lighting will be Reset When Needed in Manual Stepped Control
+    Perimeter_bot_ZN_1_DaylRefPt1,  !- Glare Calculation Daylighting Reference Point Name
+    180.0,                   !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
+    22.0,                    !- Maximum Allowable Discomfort Glare Index
+    ,                        !- DElight Gridding Resolution {m2}
+    Perimeter_bot_ZN_1_DaylRefPt1,  !- Daylighting Reference Point 1 Name
     0.3835,                  !- Fraction of Zone Controlled by Reference Point 1
     375.0,                   !- Illuminance Setpoint at Reference Point 1 {lux}
     Perimeter_bot_ZN_1_DaylRefPt2,  !- Daylighting Reference Point 2 Name
@@ -5353,6 +5614,14 @@ Daylighting:Controls,
     ,                        !- Availability Schedule Name
     Stepped,                 !- Lighting Control Type
     0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
+    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
+    3,                       !- Number of Stepped Control Steps
+    1.0,                     !- Probability Lighting will be Reset When Needed in Manual Stepped Control
+    Perimeter_bot_ZN_2_DaylRefPt1,  !- Glare Calculation Daylighting Reference Point Name
+    90.0,                    !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
+    22.0,                    !- Maximum Allowable Discomfort Glare Index
+    ,                        !- DElight Gridding Resolution {m2}
+    Perimeter_bot_ZN_2_DaylRefPt1,  !- Daylighting Reference Point 1 Name
     0.3835,                  !- Fraction of Zone Controlled by Reference Point 1
     375.0,                   !- Illuminance Setpoint at Reference Point 1 {lux}
     Perimeter_bot_ZN_2_DaylRefPt2,  !- Daylighting Reference Point 2 Name
@@ -5380,6 +5649,14 @@ Daylighting:Controls,
     ,                        !- Availability Schedule Name
     Stepped,                 !- Lighting Control Type
     0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
+    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
+    3,                       !- Number of Stepped Control Steps
+    1.0,                     !- Probability Lighting will be Reset When Needed in Manual Stepped Control
+    Perimeter_bot_ZN_3_DaylRefPt1,  !- Glare Calculation Daylighting Reference Point Name
+    0.0,                     !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
+    22.0,                    !- Maximum Allowable Discomfort Glare Index
+    ,                        !- DElight Gridding Resolution {m2}
+    Perimeter_bot_ZN_3_DaylRefPt1,  !- Daylighting Reference Point 1 Name
     0.3835,                  !- Fraction of Zone Controlled by Reference Point 1
     375.0,                   !- Illuminance Setpoint at Reference Point 1 {lux}
     Perimeter_bot_ZN_3_DaylRefPt2,  !- Daylighting Reference Point 2 Name
@@ -5407,6 +5684,14 @@ Daylighting:Controls,
     ,                        !- Availability Schedule Name
     Stepped,                 !- Lighting Control Type
     0.3,                     !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
+    0.2,                     !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
+    3,                       !- Number of Stepped Control Steps
+    1.0,                     !- Probability Lighting will be Reset When Needed in Manual Stepped Control
+    Perimeter_bot_ZN_4_DaylRefPt1,  !- Glare Calculation Daylighting Reference Point Name
+    270.0,                   !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
+    22.0,                    !- Maximum Allowable Discomfort Glare Index
+    ,                        !- DElight Gridding Resolution {m2}
+    Perimeter_bot_ZN_4_DaylRefPt1,  !- Daylighting Reference Point 1 Name
     0.3835,                  !- Fraction of Zone Controlled by Reference Point 1
     375.0,                   !- Illuminance Setpoint at Reference Point 1 {lux}
     Perimeter_bot_ZN_4_DaylRefPt2,  !- Daylighting Reference Point 2 Name
@@ -5434,6 +5719,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
     0,                       !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.00056896,              !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     0,                       !- Constant Term Coefficient
     0.0000,                  !- Temperature Term Coefficient
@@ -5447,6 +5733,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
     0,                       !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.00056896,              !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     0,                       !- Constant Term Coefficient
     0.0000,                  !- Temperature Term Coefficient
@@ -5460,6 +5747,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
     0,                       !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.00056896,              !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     0,                       !- Constant Term Coefficient
     0.0000,                  !- Temperature Term Coefficient
@@ -5473,6 +5761,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/Zone,               !- Design Flow Rate Calculation Method
     0.678659786,             !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     1.0,                     !- Constant Term Coefficient
     0.0,                     !- Temperature Term Coefficient
@@ -5486,6 +5775,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
     0,                       !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.00056896,              !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     0,                       !- Constant Term Coefficient
     0.0000,                  !- Temperature Term Coefficient
@@ -5499,6 +5789,7 @@ ZoneInfiltration:DesignFlowRate,
     Flow/ExteriorArea,       !- Design Flow Rate Calculation Method
     0,                       !- Design Flow Rate {m3/s}
     ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    0.00056896,              !- Flow per Exterior Surface Area {m3/s-m2}
     ,                        !- Air Changes per Hour {1/hr}
     0,                       !- Constant Term Coefficient
     0.0000,                  !- Temperature Term Coefficient
@@ -5653,6 +5944,22 @@ ZoneHVAC:IdealLoadsAirSystem,
     ,                        !- Zone Exhaust Air Node Name
     ,                        !- System Inlet Air Node Name
     50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.015,                   !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.009,                   !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    autosize,                !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    autosize,                !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    ConstantSupplyHumidityRatio,  !- Dehumidification Control Type
+    ,                        !- Cooling Sensible Heat Ratio {dimensionless}
+    ConstantSupplyHumidityRatio,  !- Humidification Control Type
+    ,                        !- Design Specification Outdoor Air Object Name
+    ,                        !- Outdoor Air Inlet Node Name
     ,                        !- Demand Controlled Ventilation Type
     ,                        !- Outdoor Air Economizer Type
     ,                        !- Heat Recovery Type
@@ -5666,6 +5973,22 @@ ZoneHVAC:IdealLoadsAirSystem,
     ,                        !- Zone Exhaust Air Node Name
     ,                        !- System Inlet Air Node Name
     50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.015,                   !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.009,                   !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    autosize,                !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    autosize,                !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    ConstantSupplyHumidityRatio,  !- Dehumidification Control Type
+    ,                        !- Cooling Sensible Heat Ratio {dimensionless}
+    ConstantSupplyHumidityRatio,  !- Humidification Control Type
+    ,                        !- Design Specification Outdoor Air Object Name
+    ,                        !- Outdoor Air Inlet Node Name
     ,                        !- Demand Controlled Ventilation Type
     ,                        !- Outdoor Air Economizer Type
     ,                        !- Heat Recovery Type
@@ -5679,6 +6002,22 @@ ZoneHVAC:IdealLoadsAirSystem,
     ,                        !- Zone Exhaust Air Node Name
     ,                        !- System Inlet Air Node Name
     50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.015,                   !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.009,                   !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    autosize,                !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    autosize,                !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    ConstantSupplyHumidityRatio,  !- Dehumidification Control Type
+    ,                        !- Cooling Sensible Heat Ratio {dimensionless}
+    ConstantSupplyHumidityRatio,  !- Humidification Control Type
+    ,                        !- Design Specification Outdoor Air Object Name
+    ,                        !- Outdoor Air Inlet Node Name
     ,                        !- Demand Controlled Ventilation Type
     ,                        !- Outdoor Air Economizer Type
     ,                        !- Heat Recovery Type
@@ -5692,6 +6031,22 @@ ZoneHVAC:IdealLoadsAirSystem,
     ,                        !- Zone Exhaust Air Node Name
     ,                        !- System Inlet Air Node Name
     50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.015,                   !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.009,                   !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    autosize,                !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    autosize,                !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    ConstantSupplyHumidityRatio,  !- Dehumidification Control Type
+    ,                        !- Cooling Sensible Heat Ratio {dimensionless}
+    ConstantSupplyHumidityRatio,  !- Humidification Control Type
+    ,                        !- Design Specification Outdoor Air Object Name
+    ,                        !- Outdoor Air Inlet Node Name
     ,                        !- Demand Controlled Ventilation Type
     ,                        !- Outdoor Air Economizer Type
     ,                        !- Heat Recovery Type
@@ -5705,6 +6060,22 @@ ZoneHVAC:IdealLoadsAirSystem,
     ,                        !- Zone Exhaust Air Node Name
     ,                        !- System Inlet Air Node Name
     50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.015,                   !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.009,                   !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    autosize,                !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    autosize,                !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    ConstantSupplyHumidityRatio,  !- Dehumidification Control Type
+    ,                        !- Cooling Sensible Heat Ratio {dimensionless}
+    ConstantSupplyHumidityRatio,  !- Humidification Control Type
+    ,                        !- Design Specification Outdoor Air Object Name
+    ,                        !- Outdoor Air Inlet Node Name
     ,                        !- Demand Controlled Ventilation Type
     ,                        !- Outdoor Air Economizer Type
     ,                        !- Heat Recovery Type
