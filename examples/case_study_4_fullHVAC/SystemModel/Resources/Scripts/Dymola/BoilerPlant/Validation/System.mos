@@ -1,0 +1,5 @@
+simulateModel("SystemModel.BoilerPlant.Validation.System", startTime=0, stopTime=172800, method="Cvode", tolerance=1e-06, resultFile="BoilerSystem");
+createPlot(id=1, position={0, 0, 1437, 978}, y={"conPID.u_s", "conPID.u_m"}, range={0.0, 175000.0, 280.0, 300.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1437, 241}, y={"val3.y_actual"}, range={0.0, 175000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1437, 241}, y={"boiPlaSys.controller.plaEna.yPla"}, range={0.0, 175000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1437, 240}, y={"boiPlaSys.boiPla.TBoiHotWatSupSet[1]", "boiPlaSys.boiPla.senTem3.T", "boiPlaSys.boiPla.senTem2.T"}, range={0.0, 175000.0, 10.0, 70.0}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
