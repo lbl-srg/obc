@@ -1,8 +1,7 @@
 # Verifying installed control sequences using CDL
 
 A python based open-loop verification software to test whether the control sequences installed in HVAC controllers meet the required specification.
-The reference sequences to be tested must be present in the [Modelica Buildings Library](https://github.com/lbl-srg/modelica-buildings/) and
-conform to the CDL specification.
+The reference sequences to be tested must be Modelica models that conform to the [Control Description Language](https://obc.lbl.gov/specification/cdl.html) specification.
 
 ## Details
 
@@ -11,9 +10,10 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 ## Setup
 
 * pip install -r requirements.txt
-* [OpenModelica](https://www.openmodelica.org/download/download-linux)
-* [OMPython](https://github.com/OpenModelica/OMPython)
-* [pyfunnel](https://github.com/lbl-srg/funnel/)
+* OpenModelica
+  * [OpenModelica for Linux](https://www.openmodelica.org/download/download-linux)
+  * [OpenModelica for Windows](https://www.openmodelica.org/download/download-windows)
+  * [OpenModelica for Mac](https://www.openmodelica.org/download/download-mac)
 * conda install -c plotly plotly-orca
 * [modelica-json](https://github.com/lbl-srg/modelica-json)
 * Ensure that `$MODELICAPATH` and `$MODELICAJSONPATH` environmental variables are set

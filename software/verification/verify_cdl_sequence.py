@@ -34,7 +34,7 @@ class Verification_Tool:
         self.execute_tests()
 
     def initialize_controller(self):
-        """initialize the real controller."""
+        """Initialize the real controller."""
         network_address = self.controller_config["networkAddress"]
         device_address = self.controller_config["deviceAddress"]
         device_id = self.controller_config["deviceId"]
@@ -42,10 +42,9 @@ class Verification_Tool:
         bacnet = BAC0.connect(ip=network_address)
         self.real_controller = BAC0.device(address=device_address, device_id=device_id, network=bacnet)
         self.point_properties = self.real_controller.points_properties_df().T
-        # print(self.point_properties)
 
     def parse_configurations(self):
-        """parse the configuration file to extract sequences to test, tolerances, point maps and json translations."""
+        """Parse the configuration file to extract sequences to test, tolerances, point maps and json translations."""
         references = self.config.get('references', [])
         default_tolerances = self.config.get('tolerances', None)
         default_sampling_rate = self.config.get('sampling', None)
@@ -59,15 +58,15 @@ class Verification_Tool:
             ref_controller_output = reference.get('controllerOutput', None)
 
             if ref_model is None:
-                raise Exception("missing 'model' keyword for a test")
+                raise Exception("Missing 'model' keyword for a test.")
             if ref_sequence is None:
-                raise Exception("missing 'sequence' keyword for a test")
+                raise Exception("Missing 'sequence' keyword for a test.")
             if ref_point_name_mapping is None:
-                raise Exception("missing 'pointNameMapping' keyword for a test")
+                raise Exception("Missing 'pointNameMapping' keyword for a test.")
             if not ref_run_controller_flag and ref_controller_output is None:
-                raise Exception("missing 'controllerOutput' keyword for a test")
+                raise Exception("Missing 'controllerOutput' keyword for a test.")
             elif ref_run_controller_flag and self.real_controller is None:
-                raise Exception("missing 'controller' configuration")
+                raise Exception("Missing 'controller' configuration.")
 
             ref_outputs = reference.get('outputs', None)
             ref_sampling_rate = reference.get('sampling', None)
@@ -75,7 +74,7 @@ class Verification_Tool:
 
             if ref_outputs is None and default_tolerances is None:
                 raise Exception(
-                    "missing 'tolerances' for the model: {0} and sequence: {1}".format(ref_model, ref_sequence))
+                    "Missing 'tolerances' for the model: {0} and sequence: {1}.".format(ref_model, ref_sequence))
             elif ref_outputs is None:
                 reference['outputs'] = {ref_sequence+".*": default_tolerances}
             else:
@@ -84,14 +83,14 @@ class Verification_Tool:
             if ref_sampling_rate is None:
                 if default_sampling_rate is None:
                     raise Exception(
-                        "missing 'sampling' for the model: {0} and sequence: {1}".format(ref_model, ref_sequence))
+                        "Missing 'sampling' for the model: {0} and sequence: {1}.".format(ref_model, ref_sequence))
                 else:
                     reference['sampling'] = default_sampling_rate
 
             if ref_model_json_directory is None:
                 if default_model_json_directory is None:
                     raise Exception(
-                        "missing 'modelJsonDirectory' for the model: {0} and sequence: {1}".format(ref_model,
+                        "Missing 'modelJsonDirectory' for the model: {0} and sequence: {1}.".format(ref_model,
                                                                                                    ref_sequence))
                 else:
                     reference['modelJsonDirectory'] = default_model_json_directory
@@ -105,18 +104,18 @@ class Verification_Tool:
             self.test_list.append(reference)
 
     def run_modelica_json(self, model, model_dir):
-        """this function uses the modelica-json tool to convert modelica files to json
+        """This function uses the modelica-json tool to convert modelica files to json.
 
         Parameters:
         -----------
         model : str
-                name of modelica model to be translated to json
+                Name of modelica model to be translated to json.
         model_dir : str
-                    directory where to store the json output
+                Directory where to store the json output.
         """
         app_js_path = os.path.join(self.modelica_json_path, 'app.js')
         model_path = model.replace('.', os.sep) + '.mo'
-        print("running modelica-json tool for {0}".format(model))
+        print("Running modelica-json tool for {0}.".format(model))
         result = subprocess.run(['node {0} -f {1} -d {2} -o json'.format(app_js_path, model_path, model_dir)],
                                 stdout=subprocess.PIPE, shell=True)
 
@@ -125,20 +124,20 @@ class Verification_Tool:
             os.rmdir(os.path.join(model_dir, 'json'))
 
         if result.returncode != 0:
-            raise Exception("Error while converting modelica file to json = {0}".format(result.stdout.decode("utf-8")))
+            raise Exception("Error while converting modelica file to json = {0}.".format(result.stdout.decode("utf-8")))
         else:
-            print("successfully generated json file for {}".format(model))
+            print("Successfully generated json file for {}.".format(model))
 
 
     def execute_tests(self):
-        """run each test for the particular sequence by running the CDL simulation and then comparing these reference
+        """Run each test for the particular sequence by running the CDL simulation and then comparing these reference
         outputs to outputs generated by the controller in this process or that was archived in a csv file."""
         for test in self.test_list:
             model_dir = test.get('modelJsonDirectory')
             generate_json = test.get('generateJson', True)
             model_name = test.get('model')
             sequence_name = test.get('sequence')
-            run_controller = test.get('run_controller')
+            run_controller = test.get('runController')
 
             if generate_json:
                 self.run_modelica_json(model=model_name, model_dir=model_dir)
@@ -173,7 +172,7 @@ class Verification_Tool:
                         unit_from_seq = unit.get('value').split('"')[1]
                         unit_from_cfg = point_name_mapping[ip_name].get("cdl", {}).get("unit", None)
                         if unit_from_cfg != unit_from_seq:
-                            print("CDL units don't match in CDL json file and pointNameMapping json file for {}".format(ip_name))
+                            raise Exception("CDL units don't match in CDL json file and pointNameMapping json file for {}.".format(ip_name))
 
             op_list = []
             for op in test_io.get('outputs'):
@@ -227,7 +226,7 @@ class Verification_Tool:
                 device_point_name = point_name_mapping.get(op.split('.')[1], {}).get('device', {}).get("name", None)
                 cdl_point_unit = point_name_mapping.get(op.split('.')[1], {}).get('cdl', {}).get("unit", "")
                 if device_point_name is not None:
-                    print("comparing {}".format(op))
+                    print("Comparing output {}:".format(op))
 
                     cdl_output = op_dataframe[op]
                     actual_output = real_outputs[op]
@@ -244,24 +243,24 @@ class Verification_Tool:
                                                                            output_folder=model_dir)
                     print("\n")
             if validation:
-                print("SUCCESSFULLY VERIFIED SEQUENCE! ")
+                print("Sequence conforms to the specification!")
 
     def unit_converter(self, from_unit, to_unit, value):
-        """function to convert values from one unit to another.
+        """This function converts values from one unit to another.
 
         Parameters
         ----------
         from_unit : str
-                    what unit is the value in.
+                Current unit of the specified value.
         to_unit : str
-                    what unit to convert the value to.
+                Unit to convert the value to.
         value
-                    value to be converted to 'to_unit'.
+                Value to be converted to 'to_unit'.
 
         Returns
         -------
         value
-                    converted value
+                Converted value.
         """
 
         if from_unit is None or to_unit is None:
@@ -298,28 +297,28 @@ class Verification_Tool:
 
         if from_unit ==  "1":
             if to_unit == "%":
-                return value
+                return value*100
 
         if from_unit == "%":
             if to_unit == "1":
-                return value
+                return value/100
 
     def type_converter(self, from_type, to_type, value):
-        """function to convert values from one unit to another.
+        """This function converts values from one data-type to another.
 
         Parameters
         ----------
         from_type : str
-                    what type is the value in.
+                Current type of the specified value.
         to_type : str
-                    what type to convert the value to.
+                Type to convert the value to.
         value
-                    value to be converted to 'to_type'.
+                Value to be converted to 'to_type'.
 
         Returns
         -------
         value
-                    converted value
+                Converted value.
         """
 
         if from_type == to_type:
@@ -358,22 +357,23 @@ class Verification_Tool:
                 return int(value)
 
     def execute_controller(self, inputs, op_list, point_name_mapping, sample_rate):
-        """function that interacts with a real controller device by setting and reading values
+        """This function interacts with a real controller device by setting and reading values.
 
         Parameters
         ----------
         inputs : pd.DataFrame
-                 timeseries of inputs from the CDL simulation
+                Timeseries of inputs from the CDL simulation.
         op_list : list
-                  list of output variables
+                List of output variables.
         point_name_mapping : dict
-                             dictionary containing point name, unit and type mapping for each input and output variable
-        sample_rate : rate at which values are read from the controller
+                Dictionary containing point name, unit and type mapping for each input and output variable.
+        sample_rate :  int
+                Rate at which values are read from the controller.
 
         Returns
         -------
         op_df : pd.DataFrame
-                timeseries of output values from the controller device based on CDL simulation inputs
+                Timeseries of output values from the controller device based on CDL simulation inputs.
         """
 
         t_start = time.time()
@@ -431,7 +431,7 @@ class Verification_Tool:
                     ops[cdl_point_name].append(cdl_value)
 
             time_index.append(t_now)
-            time.sleep(2)
+            time.sleep(sample_rate)
             t_now = time.time() - t_start
 
         for op in op_list:
@@ -461,44 +461,44 @@ class Verification_Tool:
         return op_df
 
     def regex_parser(self, regex, point_list):
-        """function that filters points based on a regular-expression
+        """This function filters points based on a regular-expression.
 
         Parameters
         ----------
         regex : str
-               regular expression used to filter the necessary points
+                Regular expression used to filter the necessary points.
         point_list : list
-                     list containing all elements (points from CDL simulation)
+                List containing all elements (points from CDL simulation).
 
         Returns
         -------
         selected_points : list
-                          subset of points after filtering, based on the regex
+                Subset of points after filtering, based on the regex.
         """
         r = re.compile(regex)
         selected_points = list(filter(r.match, point_list))
         return selected_points
 
     def compare_single_variable(self, cdl_output, actual_output, output_config, variable, unit, output_folder):
-        """compares one output variable from CDL simulation (reference) against controller device generated output,
-        , output_folderproduces comparison and error charts
+        """Compares one output variable from CDL simulation (reference) against controller device generated output,
+        and correspondingly produces comparison and error charts.
 
         Parameters
         ----------
         cdl_output : pd.Series
-                     reference timeseries of an output variable obtained from cdl simulation
+                Reference timeseries of an output variable obtained from cdl simulation.
         actual_output : pd.Series
-                        timeseries of the same output variable obtained from the controller device
+                Timeseries of the same output variable obtained from the controller device.
         output_config : dict
-                        absolute and relative tolerance configuration for the output variable
+                Absolute and relative tolerance configuration for the output variable.
         variable : str
-                   variable name to be added to chart axis label
+                Variable name to be added to chart axis label.
         unit : str
-               variable unit in CDL to be added to the chart axis label
+                Variable unit in CDL to be added to the chart axis label.
         Returns
         -------
         success_failure : bool
-                          True if the actual output is within bounds of the reference output all the time, else False
+                True if the actual output is within bounds of the reference output all the time, else False.
         """
 
         print("CDL OP:")
@@ -538,31 +538,30 @@ class Verification_Tool:
             assert error_df.y.max() == 0
         except:
             # TODO: maybe print report and trajectory of this output - when it fails (maybe markdown/html)
-            print("FAILED assertion for {}".format(variable))
+            print("FAILED assertion for {}.".format(variable))
             return False
 
         return True
         # shutil.rmtree(results_dir)
 
     def extract_io(self, model, sequence, json_file):
-        """extracts inputs, ouputs and parameters from the json translation of the modelica file for the particular
-        test sequence
+        """Extracts inputs, ouputs and parameters from the json translation of the modelica file for the particular
+        test sequence.
 
         Parameters
         ----------
         model : str
-                name of the modelica model
+                Name of the modelica model.
         sequence : str
-                   name of the sequence being tested within the modelica model
+                Name of the sequence being tested within the modelica model.
         json_file : str
-                    filename of the json translation of the modelica model
+                Filename of the json translation of the modelica model.
         Returns
         -------
         test_parameters : list
-                          list of parameters extracted from the json file
+                List of parameters extracted from the json file.
         test_io : dict
-                  dictionary with 2 keys: 'inputs' (input variables for the sequence) and 'ouputs' (output variables
-                  for the sequence)
+                Dictionary with 2 keys: 'inputs' (input variables for the sequence) and 'ouputs' (output variables for the sequence).
         """
         # print("in extract_io")
         with open(json_file) as fp:
@@ -581,7 +580,7 @@ class Verification_Tool:
         test_parameter_modifications = test_model.get('modifications')
 
         if test_model == {}:
-            raise Exception('could not find sequence in json File')
+            raise Exception('Could not find sequence in json File.')
 
         test_parameters = {}
         test_inputs = {}
@@ -609,45 +608,44 @@ class Verification_Tool:
         return test_parameters, test_io
 
     def run_cdl_simulation(self, model, output_folder, ip_list, op_list, sample_time):
-        """function that runs the CDL simulation using OpenModelica; also converts the .mat output file to .csv
+        """This function runs the CDL simulation using OpenModelica; also converts the .mat output file to .csv.
 
         Parameters
         ----------
         model : str
-                name of the modelica model
+                Name of the modelica model.
         output_folder : str
-                        name of the folder where the generated mat file with the results will be saved
+                Name of the folder where the generated mat file with the results will be saved.
         ip_list : list
-                  list of input variables for this model
+                List of input variables for this model.
         op_list : list
-                  list of output variables for this model
+                List of output variables for this model.
         sample_time : int
-                      sample time in seconds
+                Sampling time in seconds.
         Returns
         -------
         simulation_output : pd.DataFrame
-                            timeseries of input and output variable values from the CDL simulation
+                Timeseries of input and output variable values from the CDL simulation.
         """
-        print("in running cdl simulation")
         omc = OMCSessionZMQ()
         if not omc.sendExpression("loadModel(Modelica)"):
             err = omc.sendExpression("getErrorString()")
-            print("error while loading Modelica Standard Library: {}".format(err))
+            raise Exception("Error while loading Modelica Standard Library: {}.".format(err))
 
         if not omc.sendExpression("loadModel(Buildings)"):
             err = omc.sendExpression("getErrorString()")
-            print("error while loading Modelica Buildings Library: {}".format(err))
+            raise Exception("Error while loading Modelica Buildings Library: {}.".format(err))
 
         if not omc.sendExpression("simulate({}, outputFormat=\"mat\")".format(model)):
             err = omc.sendExpression("getErrorString()")
-            print("error while running the simulation: {}".format(err))
+            raise Exception("Error while running the simulation: {}.".format(err))
 
         shutil.move("{}_res.mat".format(model), output_folder+"{}_res.mat".format(model))
         for fp in os.listdir('.'):
             if fp.startswith(model):
                 os.remove(fp)
 
-        r = Reader(output_folder+"/{}_res.mat".format(model), 'dymola')
+        r = Reader(os.path.join(output_folder, "{}_res.mat".format(model)), 'dymola')
 
         df_list = []
         for ip in ip_list:
@@ -661,7 +659,7 @@ class Verification_Tool:
 
         simulation_output = pd.concat(df_list, axis=1).fillna(method='ffill')
         simulation_output = simulation_output.loc[~simulation_output.index.duplicated(keep='first')]
-        simulation_output.to_csv(output_folder+"/{}_res.csv".format(model))
+        simulation_output.to_csv(os.path.join(output_folder, "{}_res.csv".format(model)))
         simulation_output.index = simulation_output.index.astype(float)
         simulation_output.index.name = 'time'
 
