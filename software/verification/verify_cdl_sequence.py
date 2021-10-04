@@ -116,8 +116,9 @@ class Verification_Tool:
         app_js_path = os.path.join(self.modelica_json_path, 'app.js')
         model_path = model.replace('.', os.sep) + '.mo'
         print("Running modelica-json tool for {0}.".format(model))
-        result = subprocess.run(['node {0} -f {1} -d {2} -o json'.format(app_js_path, model_path, model_dir)],
-                                stdout=subprocess.PIPE, shell=True)
+        result = subprocess.run(['node', '{}'.format(app_js_path), '-f', '{}'.format(model_path),
+                                 '-d', '{}'.format(model_dir), '-o', 'json'],
+                                stdout=subprocess.PIPE, shell=False)
 
         shutil.move(os.path.join(model_dir, 'json', model+'.json'), os.path.join(model_dir, model+'.json'))
         if len(os.listdir(os.path.join(model_dir, 'json'))) == 0:
