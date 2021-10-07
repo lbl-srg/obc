@@ -10,7 +10,6 @@ block HotWaterSupplyTemperatureReset
     final nHotWatResReqIgn=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
     final TConBoiHotWatSetOff=-10,
@@ -32,7 +31,6 @@ block HotWaterSupplyTemperatureReset
     final nHotWatResReqIgn=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
     final TConBoiHotWatSetOff=-10,
@@ -54,7 +52,6 @@ block HotWaterSupplyTemperatureReset
     final nHotWatResReqIgn=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
     final TConBoiHotWatSetOff=-10,
@@ -76,7 +73,6 @@ block HotWaterSupplyTemperatureReset
     final nHotWatResReqIgn=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
     final TConBoiHotWatSetOff=-10,
@@ -98,7 +94,6 @@ block HotWaterSupplyTemperatureReset
     final nHotWatResReqIgn=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler},
-
     final TPlaHotWatSetMax=353.15,
     final TConBoiHotWatSetMax=353.15,
     final TConBoiHotWatSetOff=-10,

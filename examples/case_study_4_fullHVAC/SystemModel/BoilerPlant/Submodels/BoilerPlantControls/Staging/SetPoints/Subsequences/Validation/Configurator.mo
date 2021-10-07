@@ -8,7 +8,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-1"
@@ -21,7 +20,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-2"
@@ -34,7 +32,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-3"
@@ -47,7 +44,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-4"
@@ -60,7 +56,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-5"
@@ -73,7 +68,6 @@ model Configurator "Validate boiler staging configurator subsequence"
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final staMat={{1,0,0},{0,1,0},{1,1,0},{0,1,1},{1,1,1}},
     final boiDesCap={100,150,250},
     final boiFirMin={0.4,0.2,0.3}) "Validation scenario-6"

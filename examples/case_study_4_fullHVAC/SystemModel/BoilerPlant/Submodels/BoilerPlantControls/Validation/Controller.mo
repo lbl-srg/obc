@@ -7,7 +7,6 @@ model Controller
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
@@ -20,7 +19,6 @@ model Controller
     final minLocDpPri=3900,
     final VHotWatSec_flow_nominal=0,
     final speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.remoteDP,
-
     final boiDesCap={15000*0.8,15000*0.8},
     final boiFirMin={0.2,0.3},
     final minFloSet={0.2*0.0003,0.3*0.0003},
@@ -42,7 +40,6 @@ model Controller
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
@@ -57,7 +54,6 @@ model Controller
     final maxLocDpSec=4100,
     final minLocDpSec=3900,
     final speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.flowrate,
-
     final boiDesCap={15000*0.8,15000*0.8},
     final boiFirMin={0.2,0.3},
     final minFloSet={0.2*0.0003,0.3*0.0003},
@@ -80,7 +76,6 @@ model Controller
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final nSenPri=1,
@@ -95,7 +90,6 @@ model Controller
     final maxLocDpSec=4100,
     final minLocDpSec=3900,
     final speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.flowrate,
-
     final boiDesCap={15000*0.8,15000*0.8},
     final boiFirMin={0.2,0.3},
     final minFloSet={0.2*0.0003,0.3*0.0003},

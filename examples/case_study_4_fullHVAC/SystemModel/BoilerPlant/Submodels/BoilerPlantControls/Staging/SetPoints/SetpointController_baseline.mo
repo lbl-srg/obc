@@ -319,8 +319,8 @@ block SetpointController_baseline
     annotation (Placement(transformation(extent={{-70,140},{-50,160}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1[2]
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](uMax=fill(nSta, 2), uMin
-      =fill(1, 2))
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](uMax=fill(nSta, 2), uMin=
+       fill(1, 2))
     annotation (Placement(transformation(extent={{-90,-200},{-70,-180}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1[2]
     annotation (Placement(transformation(extent={{-60,-200},{-40,-180}})));

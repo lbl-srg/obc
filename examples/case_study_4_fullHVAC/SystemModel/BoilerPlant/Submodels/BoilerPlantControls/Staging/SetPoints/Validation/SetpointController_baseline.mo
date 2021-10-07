@@ -8,7 +8,6 @@ model SetpointController_baseline
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},
@@ -40,7 +39,6 @@ model SetpointController_baseline
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.nonCondensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},
@@ -72,7 +70,6 @@ model SetpointController_baseline
     final nBoi=2,
     final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
         SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
-
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={1000000,1500000},

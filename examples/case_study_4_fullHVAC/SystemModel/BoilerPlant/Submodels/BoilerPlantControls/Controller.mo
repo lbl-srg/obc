@@ -933,8 +933,8 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_rem[nSenPri](
     final unit=fill("Pa", nSenPri),
     displayUnit=fill("Pa", nSenPri),
-    final quantity=fill("PressureDifference", nSenPri)) if
-    have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
+    final quantity=fill("PressureDifference", nSenPri))
+ if have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,90},{-400,130}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
@@ -1132,28 +1132,28 @@ model Controller
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
 protected
-  parameter Boolean have_remDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
-      .remoteDP)
+  parameter Boolean have_remDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
+       remoteDP)
     "Boolean flag for primary pump speed control with remote differential pressure";
 
-  parameter Boolean have_locDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
-      .localDP)
+  parameter Boolean have_locDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
+       localDP)
     "Boolean flag for primary pump speed control with local differential pressure";
 
-  parameter Boolean have_temRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
-      .temperature)
+  parameter Boolean have_temRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
+       temperature)
     "Boolean flag for primary pump speed control with temperature readings";
 
-  parameter Boolean have_floRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
-      .flowrate)
+  parameter Boolean have_floRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
+       flowrate)
     "Boolean flag for primary pump speed control with flowrate readings";
 
-  parameter Boolean have_remDPRegSec = (speConTypSec ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
-      .remoteDP)
+  parameter Boolean have_remDPRegSec = (speConTypSec ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes.
+       remoteDP)
     "Boolean flag for secondary pump speed control with remote differential pressure";
 
-  parameter Boolean have_locDPRegSec = (speConTypSec ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
-      .localDP)
+  parameter Boolean have_locDPRegSec = (speConTypSec ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes.
+       localDP)
     "Boolean flag for secondary pump speed control with local differential pressure";
 
   parameter Integer staInd[nSta]={i for i in 1:nSta}

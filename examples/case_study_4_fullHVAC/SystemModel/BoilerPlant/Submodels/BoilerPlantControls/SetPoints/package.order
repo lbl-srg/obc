@@ -1,6 +1,6 @@
 CondensationControl
 HotWaterSupplyTemperatureReset
+HotWaterSupplyTemperatureReset_OATemp
 MinimumFlowSetPoint
 Subsequences
 Validation
-HotWaterSupplyTemperatureReset_OATemp

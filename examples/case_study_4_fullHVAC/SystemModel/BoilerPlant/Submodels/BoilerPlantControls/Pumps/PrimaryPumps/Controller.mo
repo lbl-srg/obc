@@ -598,8 +598,8 @@ block Controller
     "Integer add"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPum] if
-    have_heaPriPum and (not have_priOnl)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt1[nPum]
+ if have_heaPriPum and (not have_priOnl)
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
@@ -608,8 +608,8 @@ block Controller
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum] if
-    have_heaPriPum and (not have_priOnl)
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nPum]
+ if have_heaPriPum and (not have_priOnl)
     "Convert boolean to integer"
     annotation (Placement(transformation(extent={{-248,-258},{-228,-238}})));
 

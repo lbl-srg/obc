@@ -205,8 +205,8 @@ block Up
 
 // protected
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.Processes.Subsequences.ResetMinBypass
-    minBypRes(final delEna=delEnaMinFloSet, final relFloDif=relFloDif) if
-    have_priOnl "Reset process for minimum flow bypass valve setpoint"
+    minBypRes(final delEna=delEnaMinFloSet, final relFloDif=relFloDif)
+ if have_priOnl "Reset process for minimum flow bypass valve setpoint"
     annotation (Placement(transformation(extent={{-170,10},{-150,30}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.Processes.Subsequences.ResetHotWaterSupplyTemperature

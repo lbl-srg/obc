@@ -416,7 +416,7 @@ protected
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt1(
-    final nin=nPumPri) if    not have_varSecPum
+    final nin=nPumPri)    if not have_varSecPum
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
