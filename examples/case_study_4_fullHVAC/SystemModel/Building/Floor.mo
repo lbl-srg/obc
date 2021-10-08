@@ -19,7 +19,7 @@ model Floor "Model of a floor of the building"
     att(
       zoneName="FirstFloor_Plenum",
       nPorts=6,
-      T_start=275.15),
+      T_start=293.15),
     final VRooCor=2698.04,
     final VRooSou=568.77,
     final VRooNor=568.77,
@@ -39,29 +39,36 @@ model Floor "Model of a floor of the building"
     opeEasCor(
       wOpe=4),
     leaWes(
-      s=18.46/27.69),
+      s=buiAsp),
     leaSou(
-      s=27.69/18.46),
+      s=1/buiAsp),
     leaNor(
-      s=27.69/18.46),
+      s=1/buiAsp),
     leaEas(
-      s=18.46/27.69));
+      s=buiAsp));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAtt(
     redeclare package Medium = Medium) "Fluid outlet of attic zone"
     annotation (Placement(transformation(extent={{274,-92},{298,-72}}),
         iconTransformation(extent={{292,-108},{308,-94}})));
+protected
+  constant Real buiAsp = 33.27/49.91 "Building aspect ratio";
 equation
   connect(sou.ports[6], att.ports[1]) annotation (Line(points={{164,-43.1},{164,
-          -66},{320,-66},{320,-58}}, color={0,127,255}));
+          -66},{320,-66},{320,-59.1}},
+                                     color={0,127,255}));
   connect(eas.ports[6], att.ports[2]) annotation (Line(points={{320,68.9},{320,62},
-          {360,62},{360,-66},{322,-66},{322,-58}}, color={0,127,255}));
+          {360,62},{360,-66},{320,-66},{320,-59.1}},
+                                                   color={0,127,255}));
   connect(nor.ports[6], att.ports[3]) annotation (Line(points={{164,116.9},{164,
-          108},{238,108},{238,-68},{320,-68},{320,-56}}, color={0,127,255}));
+          108},{238,108},{238,-68},{320,-68},{320,-59.1}},
+                                                         color={0,127,255}));
   connect(wes.ports[6], att.ports[4]) annotation (Line(points={{32,58.9},{32,40},
-          {10,40},{10,-68},{320,-68},{320,-58}}, color={0,127,255}));
+          {10,40},{10,-68},{320,-68},{320,-59.1}},
+                                                 color={0,127,255}));
   connect(cor.ports[12], att.ports[5]) annotation (Line(points={{164,60.9},{164,
-          20},{200,20},{200,-68},{320,-68},{320,-58}}, color={0,127,255}));
+          20},{200,20},{200,-68},{320,-68},{320,-59.1}},
+                                                       color={0,127,255}));
   connect(portAtt, att.ports[6]) annotation (Line(points={{286,-82},{286,-59.1},
           {320,-59.1}},
                       color={0,127,255}));
