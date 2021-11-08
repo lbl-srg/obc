@@ -302,7 +302,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Hold pump enable status until change process is completed"
     annotation (Placement(transformation(extent={{-300,30},{-280,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre block"
@@ -315,7 +315,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
         Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal2)
     "Boiler-1 HW supply temperature sensor"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-210,150},{-190,170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1[2]
