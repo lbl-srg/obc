@@ -302,7 +302,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Hold pump enable status until change process is completed"
     annotation (Placement(transformation(extent={{-300,30},{-280,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre block"
@@ -315,7 +315,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
         Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal2)
     "Boiler-1 HW supply temperature sensor"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-210,150},{-190,170}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1[2]
@@ -346,7 +346,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Continuous.Add add1[2](k1=fill(-1, 2))
     "Find difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-290,-170},{-270,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[2]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2]
     "Switch to PI control of part load ratio when supply temperature setpoint is achieved"
     annotation (Placement(transformation(extent={{-90,-170},{-70,-150}})));
   Buildings.Fluid.FixedResistances.Junction spl6(

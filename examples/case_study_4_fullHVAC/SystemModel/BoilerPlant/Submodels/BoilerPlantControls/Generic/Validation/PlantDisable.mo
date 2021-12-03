@@ -107,7 +107,7 @@ protected
     final k={0,1}) "Valve position when plant is enabled"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[2]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[2]
     "Real switch"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
 
@@ -116,7 +116,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2]
     "Real switch"
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 

@@ -25,7 +25,7 @@ protected
     "Determine if the isolation valve is open based on valve position"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch leaPumSta
+  Buildings.Controls.OBC.CDL.Logical.Switch leaPumSta
     "Lead pump status"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 

@@ -626,7 +626,7 @@ block Controller
     "Increase number of enabled boilers by one to initiate pump enable"
     annotation (Placement(transformation(extent={{-130,-170},{-110,-150}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi if have_heaPriPum and (not have_priOnl)
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi if have_heaPriPum and (not have_priOnl)
     "Integer switch"
     annotation (Placement(transformation(extent={{-96,-200},{-76,-180}})));
 
@@ -705,7 +705,7 @@ block Controller
     "Delay pump disable after boilers have been disabled"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nPum]
     "Logical switch"
     annotation (Placement(transformation(extent={{182,-42},{202,-22}})));
 

@@ -59,8 +59,8 @@ model System
     final minLocDpPri=50000,
     final VHotWatSec_flow_nominal=1e-6,
     final nBoi=2,
-    final boiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler,
-        Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.BoilerTypes.condensingBoiler},
+    final boiTyp={SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler,
+        SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.BoilerTypes.condensingBoiler},
     final nSta=3,
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap,(1 - boiCapRat)*boiDesCap},
@@ -80,7 +80,7 @@ model System
     final Ti_priPum=75,
     final Td_priPum=10e-9,
     final minPriPumSpeSta={0,0,0},
-    final speConTypPri=Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.remoteDP)
+    final speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.remoteDP)
     "Boiler plant controller"
     annotation (Placement(transformation(extent={{-40,-58},{-20,10}})));
 

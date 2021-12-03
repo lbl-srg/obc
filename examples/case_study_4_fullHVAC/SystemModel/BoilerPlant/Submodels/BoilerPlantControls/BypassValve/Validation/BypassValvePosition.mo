@@ -45,7 +45,7 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass zero flowrate when pumps are switched off"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 

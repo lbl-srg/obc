@@ -71,13 +71,15 @@ model System
     rad(dp_nominal=40000))
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
-        ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
+        ModelicaServices.ExternalReferences.loadResource(
+        "modelica://SystemModel/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
     tableOnFile=true,
     tableName="tab1",
-    fileName="C:/buildings_library/buildings_library_pnnl/VM_script/inputTableTxt.txt",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://SystemModel/Resources/Data/BoilerPlant/Validation/System.txt"),
     verboseRead=true,
     columns={2,5},
     timeScale=60) "Boiler thermal load from EnergyPlus simulation"

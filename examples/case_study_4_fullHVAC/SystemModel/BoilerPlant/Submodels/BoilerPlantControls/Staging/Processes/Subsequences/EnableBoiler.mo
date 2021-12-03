@@ -55,7 +55,7 @@ protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
 
@@ -86,7 +86,7 @@ protected
     "Check boilers that are on"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
@@ -99,7 +99,7 @@ protected
     "False constant"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
 
@@ -166,7 +166,7 @@ protected
     "Check next enabling boiler"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
@@ -175,7 +175,7 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4
     "Logical switch"
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
 

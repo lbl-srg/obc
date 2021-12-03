@@ -550,23 +550,23 @@ protected
     "True delay to represent pump turning on"
     annotation (Placement(transformation(extent={{-150,240},{-130,260}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{280,-186},{300,-166}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Integer switch"
     annotation (Placement(transformation(extent={{-120,-340},{-100,-320}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi2
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
     "Integer switch"
     annotation (Placement(transformation(extent={{280,-350},{300,-330}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
     "Integer switch"
     annotation (Placement(transformation(extent={{-100,-500},{-80,-480}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi4
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
     "Integer switch"
     annotation (Placement(transformation(extent={{260,-530},{280,-510}})));
 
