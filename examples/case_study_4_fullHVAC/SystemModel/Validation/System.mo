@@ -8,10 +8,6 @@ model System
   SizingParameters sizDat "Sizing parameters"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")= 45 + 273.15
-    "Reheat coil nominal inlet water temperature";
-
   /* The order of the zones is deduced from the connection between the VAV model
   and the room model. The mapping from the Modelica array to the Modelica zone name,
   and the EnergyPlus zone name, is:
@@ -42,12 +38,12 @@ model System
     annotation (Placement(transformation(extent={{-60,56},{-40,76}})));
 
   Building.Floor flo(redeclare package Medium = MediumA)
-                     "Floor of the building"
+    "Floor of the building"
     annotation (Placement(transformation(extent={{120,116},{208,166}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
-    T=sizDat.THotWatInl_nominal,
+    T=sizDat.THeaWatRet_nominal,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -55,7 +51,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=sizDat.THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -80,7 +76,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=sizDat.THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -89,7 +85,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
-    T=sizDat.THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -124,21 +120,23 @@ equation
           {58,4},{51.125,4},{51.125,30}},
                                      color={0,127,255}));
   connect(vav.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{82.2375,
-          73.4444},{152.139,73.4444},{152.139,126.769}}, color={0,127,255}));
+          73.4444},{153.096,73.4444},{153.096,126.769}}, color={0,127,255}));
   connect(vav.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{82.2375,
-          73.4444},{195.757,73.4444},{195.757,142.154}}, color={0,127,255}));
+          73.4444},{196.713,73.4444},{196.713,142.154}}, color={0,127,255}));
   connect(vav.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,155.231},{152.139,155.231}}, color={0,127,255}));
+          73.4444},{94,73.4444},{94,155.231},{153.096,155.231}}, color={0,127,255}));
   connect(vav.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,90},{128.417,90},{128.417,142.154}}, color={
+          73.4444},{94,73.4444},{94,90},{129.374,90},{129.374,142.154}}, color={
           0,127,255}));
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
-          73.4444},{140,73.4444},{140,142.154},{152.139,142.154}},
+          73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
                                                                  color={0,127,255}));
-  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{232,141},
-          {232,182},{-8,182},{-8,70.8889},{3.625,70.8889}},   color={0,0,127}));
-  connect(vav.port_retAir[5], flo.portAtt) annotation (Line(points={{82.2375,51.7222},
-          {192.696,51.7222},{192.696,111.962}}, color={0,127,255}));
+  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{232,
+          141},{232,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
+                                                              color={0,0,127}));
+  connect(vav.port_retAir[5], flo.portAtt) annotation (Line(points={{82.2375,
+          51.7222},{192.696,51.7222},{192.696,111.962}},
+                                                color={0,127,255}));
   connect(flo.weaBus, weaDat.weaBus) annotation (Line(
       points={{175.478,173.692},{-20,173.692},{-20,66},{-40,66}},
       color={255,204,51},

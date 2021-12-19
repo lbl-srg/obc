@@ -3,13 +3,29 @@ model Guideline36
   "Variable air volume flow system with terminal reheat that serves five thermal zones"
   extends Buildings.Examples.VAVReheat.BaseClasses.Guideline36(
     final mVAV_flow_nominal=sizDat.mVAV_flow_nominal,
-    final m_flow_nominal=sizDat.m_flow_nominal,
-    final THotWatInl_nominal=sizDat.THotWatInl_nominal,
-    conVAV(each have_heaPla=true),
+    final m_flow_nominal=sizDat.mCooAHU_flow_nominal,
+    final THotWatInl_nominal=sizDat.THeaWatSup_nominal,
+    conVAV(
+      VDisCooSetMax_flow=sizDat.mCooVAV_flow_nominal/1.2,
+      VDisSetMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
+      VDisHeaSetMax_flow=sizDat.mHeaVAV_flow_nominal/1.2,
+      VDisConMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
+      each dTDisZonSetMax=sizDat.THeaDisVAV_nominal - 293.15,
+      each TDisMin=sizDat.TCooDisVAV_nominal,
+      each have_heaPla=true),
     VAVBox(
       m_flow_nominal=sizDat.mVAV_flow_nominal,
-      ratVFloHea=sizDat.mVAVHea_flow_nominal ./ sizDat.mVAV_flow_nominal,
-      QHea_flow_nominal=sizDat.QVAVHea_flow_nominal));
+      each THotWatInl_nominal=sizDat.THeaWatSup_nominal,
+      each THotWatOut_nominal=sizDat.THeaWatRet_nominal,
+      ratVFloHea=sizDat.mHeaVAV_flow_nominal ./ sizDat.mVAV_flow_nominal,
+      QHea_flow_nominal=sizDat.QHeaVAV_flow_nominal),
+    conAHU(TSupSetMin=sizDat.TCooDisVAV_nominal, TSupSetDes=sizDat.TCooDisVAV_nominal),
+    heaCoi(
+      m2_flow_nominal=sizDat.mHeaAHU_flow_nominal,
+      dp2_nominal=0,
+      Q_flow_nominal=sizDat.QHeaAHU_flow_nominal,
+      T_a1_nominal=sizDat.THeaWatSup_nominal),
+    cooCoi(dp2_nominal=200 + 200 + 100 + 40));
 
   parameter SizingParameters sizDat
     "Sizing data"
@@ -49,12 +65,12 @@ equation
   connect(mulSumHeaPlaReq.y, yHeaPlaReq)
     annotation (Line(points={{1382,-100},{1440,-100}}, color={255,127,0}));
   connect(heaReq.yHeaPlaReq, mulSumHeaPlaReq.u[1]) annotation (Line(points={{282,-84},
-          {1338,-84},{1338,-94.1667},{1358,-94.1667}},
+          {1338,-84},{1338,-102.917},{1358,-102.917}},
                                                     color={255,127,0}));
-  connect(conVAV.yHeaValResReq, mulSumHeaValReq.u[1:5]) annotation (Line(points=
-         {{642,105},{648,105},{648,-65.6},{1358,-65.6}}, color={255,127,0}));
+  connect(conVAV.yHeaValResReq, mulSumHeaValReq.u[1:5]) annotation (Line(points={{642,105},
+          {648,105},{648,-57.2},{1358,-57.2}},           color={255,127,0}));
   connect(conVAV.yHeaPlaReq, mulSumHeaPlaReq.u[2:6]) annotation (Line(points={{642,
-          101.667},{644,101.667},{644,-105.833},{1358,-105.833}},
+          101.667},{644,101.667},{644,-97.0833},{1358,-97.0833}},
                                                           color={255,127,0}));
   annotation (
     Documentation(info="<html>
