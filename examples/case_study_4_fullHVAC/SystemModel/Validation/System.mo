@@ -148,7 +148,7 @@ equation
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/Validation/System.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=86400,
+      StopTime=432000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

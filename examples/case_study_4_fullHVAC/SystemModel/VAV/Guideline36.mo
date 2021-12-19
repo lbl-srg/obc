@@ -5,6 +5,7 @@ model Guideline36
     final mVAV_flow_nominal=sizDat.mVAV_flow_nominal,
     final m_flow_nominal=sizDat.mCooAHU_flow_nominal,
     final THotWatInl_nominal=sizDat.THeaWatSup_nominal,
+    final mHeaWat_flow_nominal=sizDat.mHeaWatAHU_flow_nominal,
     conVAV(
       VDisCooSetMax_flow=sizDat.mCooVAV_flow_nominal/1.2,
       VDisSetMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
@@ -53,6 +54,8 @@ model Guideline36
     "Add boiler plant supply requests from all heating coils"
     annotation (Placement(transformation(extent={{1360,-110},{1380,-90}})));
 
+initial equation
+  assert(abs(sizDat.mHeaWatAHU_flow_nominal - sizDat.xxx) < 1E-3, "Make sure sizDat.mHeaWatAHU_flow_nominal has value of sizDat.xxx = " + String(sizDat.xxx));
 equation
   connect(valHeaCoi.y_actual, heaReq.uHeaVal) annotation (Line(points={{121,-205},
           {121,-190},{250,-190},{250,-84},{258,-84}}, color={0,0,127}));
