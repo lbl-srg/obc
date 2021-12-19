@@ -17,10 +17,10 @@ model System
   4: Wes NZ4
   5: Cor Core
   */
-  final parameter Modelica.SIunits.Volume VRoo[5]=
+  final parameter Modelica.Units.SI.Volume VRoo[5]=
     {flo.VRooSou, flo.VRooEas, flo.VRooNor, flo.VRooWes, flo.VRooCor} "Room volumes";
 
-  final parameter Modelica.SIunits.Area AFlo[5]=
+  final parameter Modelica.Units.SI.Area AFlo[5]=
     {flo.AFloSou, flo.AFloEas, flo.AFloNor, flo.AFloWes, flo.AFloCor} "Floor areas";
 
   VAV.Guideline36 vav(

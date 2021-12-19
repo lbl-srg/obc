@@ -6,7 +6,7 @@ model System
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=96.323
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=96.323
     "Radiator nominal mass flow rate"
     annotation(dialog(group="Radiator parameters"));
 
@@ -14,10 +14,10 @@ model System
 
   parameter Real boiCapRat = 2/4.3;
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
+  parameter Modelica.Units.SI.Temperature THotWatInl_nominal(
     displayUnit="degC")= 45 + 273.15
     "Reheat coil nominal inlet water temperature";
-  parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
+  parameter Modelica.Units.SI.Angle lat=41.98*3.14159/180 "Latitude";
   SystemModel.BoilerPlant.System boiPlaSys
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val3(
