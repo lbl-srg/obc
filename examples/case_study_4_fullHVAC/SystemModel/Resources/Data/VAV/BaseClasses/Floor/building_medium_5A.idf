@@ -5548,7 +5548,7 @@ ElectricEquipment,
     Core_bottom,             !- Zone or ZoneList Name
     BLDG_ELEVATORS,          !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
-    32109.8901098901,        !- Design Level {W}
+    0,                       !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0.0000,                  !- Fraction Latent
@@ -5561,7 +5561,7 @@ ElectricEquipment,
     Core_bottom,             !- Zone or ZoneList Name
     ELEV_LIGHT_FAN_SCH_ADD_DF,  !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
-    125,                     !- Design Level {W}
+    0,                       !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0.0000,                  !- Fraction Latent
