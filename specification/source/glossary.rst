@@ -86,7 +86,7 @@ the Open Building Controls project.
      An FMU may either be self-integrating (:term:`co-simulation`) or require the simulator
      to perform the numerical integration (:term:`model-exchange`).
      The first are sometimes called FMU-CS, while the second are called FMU-ME.
-     See further http://fmi-standard.org/.
+     See further https://fmi-standard.org/.
 
    Functional Mockup Unit
      Compiled code or source code that can be executed using the
