@@ -222,14 +222,14 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
 
 * Tools based on Python, which could be used to interface with
   sMAP (https://pythonhosted.org/Smap/en/2.0/index.html) or
-  Volttron (https://energy.gov/eere/buildings/volttron):
+  Volttron (https://www.energy.gov/eere/buildings/volttron):
 
-  * PyFMI (https://pypi.python.org/pypi/PyFMI)
+  * PyFMI (https://pypi.org/pypi/PyFMI)
 
 * Tools based on Java:
 
-  * Building Controls Virtual Test Bed (http://simulationresearch.lbl.gov/bcvtb)
-  * JFMI (https://ptolemy.eecs.berkeley.edu/java/jfmi/)
+  * Building Controls Virtual Test Bed (https://simulationresearch.lbl.gov/bcvtb)
+  * JFMI (https://ptolemy.berkeley.edu/java/jfmi/)
   * JavaFMI (https://bitbucket.org/siani/javafmi/wiki/Home)
 
 * Tools based on C:
@@ -240,17 +240,17 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
   functionality for real-time simulation:
 
   * OpenModelica (https://openmodelica.org/)
-  * JModelica (https://www.jmodelica.org)
+  * JModelica (https://jmodelica.org)
   * Impact (https://www.modelon.com/modelon-impact/)
   * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
   * MapleSim (https://www.maplesoft.com/products/maplesim/)
-  * SimulationX (https://www.simulationx.com/)
-  * SystemModeler (http://www.wolfram.com/system-modeler/index.html)
+  * SimulationX (https://www.esi-group.com/products/system-simulation)
+  * SystemModeler (https://www.wolfram.com/system-modeler/index.html)
 
-See also http://fmi-standard.org/tools/ for other tools.
+See also https://fmi-standard.org/tools/ for other tools.
 
 Note that directly compiling Modelica models to building automation systems
-also allows leveraging the ongoing `EMPHYSIS <https://itea3.org/project/emphysis.html>`_
+also allows leveraging the ongoing `EMPHYSIS <https://itea4.org/project/emphysis.html>`_
 project (2017-20, Euro 14M) that develops technologies
 for running dynamic models on electronic control units (ECU),
 micro controllers or other embedded systems.
@@ -270,7 +270,7 @@ for transporting complex networks of FMUs between different platforms for
 simulation, hardware-in-the-loop and model-in-the-loop :cite:`KoehlerEtAl2016:1`.
 Various tools that can simulate systems specified using the SSP standard
 are in development, with
-FMI composer (http://www.modelon.com/products/modelon-deployment-suite/fmi-composer/)
+FMI composer (https://www.modelon.com/products-services/modelon-deployment-suite/fmi-toolbox/)
 from Modelon being commercially available.
 
 CDL-compliant control sequences could be exported to the SSP standard as shown
@@ -350,7 +350,7 @@ be replaced.
 
 Moreover, certain transformations that do not change the
 response of the block are permissible: For example, consider the
-`PID controller in the CDL library <http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
+`PID controller in the CDL library <https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
 The implementation has a parameter
 for the time constant of the integrator block.
 If a control vendor requires the specification of an integrator gain rather than

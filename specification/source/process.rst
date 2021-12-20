@@ -28,7 +28,7 @@ in the Commissioning and Functional Verification Tool (9).
 If the verification tests fail, the implementation needs to be corrected.
 
 For closed-loop performance assessment,
-`Modelica models <http://simulationresearch.lbl.gov/modelica/>`_
+`Modelica models <https://simulationresearch.lbl.gov/modelica/>`_
 of the HVAC systems and controls can be linked to
 a Modelica envelope model :cite:`WetterZuoNouidui2011:2` or to
 an EnergyPlus envelope model. The latter can be done through
