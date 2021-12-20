@@ -133,7 +133,7 @@ html_theme_options = {
         ("Home", "http://obc.lbl.gov", True),
         ("Table of Contents", "index"),
 #        ("Download", "download"),
-#        ("Python", "http://simulationresearch.lbl.gov/modelica/buildingspy", True),
+#        ("Python", "https://simulationresearch.lbl.gov/modelica/buildingspy", True),
 #        ("Development", "https://github.com/lbl-srg/modelica-buildings", True),
 #        ("Publications", "publications"),
 #        ("Help", "help"),

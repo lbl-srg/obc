@@ -186,7 +186,7 @@ using a finite state machine.
 
 For the detailed implementation of the control logic,
 see the model `Buildings.Examples.VAVReheat.ASHRAE2006
-<http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.ASHRAE2006>`_,
+<https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.ASHRAE2006>`_,
 which is also shown in :numref:`fig_model_top_base`.
 
 Our implementation differs from VAV 2A2-21232 in the following points:
@@ -204,7 +204,7 @@ Our implementation differs from VAV 2A2-21232 in the following points:
 For the Guideline 36 case, we implemented the multi-zone VAV control sequence
 based on :cite:`ASHRAE2016`.
 :numref:`fig_vav_con_sch` shows the sequence diagram, and the detailed implementation
-is available in the model `Buildings.Examples.VAVReheat.Guideline36 <http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.Guideline36>`_.
+is available in the model `Buildings.Examples.VAVReheat.Guideline36 <https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat.Guideline36>`_.
 
 In the Guideline 36 sequence, the duct static pressure is reset using trim and respond
 logic based on zone pressure reset requests, which are issued from the terminal box
@@ -241,7 +241,7 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
    :scale: 30%
 
    Composite block that implements the sequence for the VAV terminal units that output the system requests.
-   (`Browsable version <http://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)
+   (`Browsable version <https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)
 
 
 .. _fig_dam_val_reh:
@@ -641,7 +641,7 @@ Lessons Learned Regarding the Simulations
 
 A few lessons regarding simulating such systems
 have been learned and are reported here. Note that related best practices
-are also available at http://simulationresearch.lbl.gov/modelica/userGuide/bestPractice.html
+are also available at https://simulationresearch.lbl.gov/modelica/userGuide/bestPractice.html
 
 * *Fan with prescribed mass flow rate:* In earlier implementations, we
   converted the control signal for the fan to a mass flow rate, and used a fan

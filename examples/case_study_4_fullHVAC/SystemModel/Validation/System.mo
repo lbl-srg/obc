@@ -69,7 +69,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
-    T=285.15,
+    T=279.15,
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -77,7 +77,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=285.15,
+    T=279.15,
     nPorts=1) "Source for cooling coil loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

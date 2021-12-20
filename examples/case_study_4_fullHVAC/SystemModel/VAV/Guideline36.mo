@@ -29,12 +29,12 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
     "Hot water temperature reset requests"
     annotation (Placement(transformation(extent={{1420,-80},{1460,-40}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{440,-80},{480,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaPlaReq
     "Heating plant request"
     annotation (Placement(transformation(extent={{1420,-120},{1460,-80}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{440,-122},{480,-82}})));
 
   SystemModel.VAV.HeatingRequests heaReq
     "Heating request calculator for AHU heating coil"
