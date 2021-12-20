@@ -5,42 +5,32 @@ model System
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.Temperature THotWatInl_nominal(
-    displayUnit="degC")= 45 + 273.15
-    "Reheat coil nominal inlet water temperature";
+  SizingParameters sizDat "Sizing parameters"
+    annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
-  final parameter Modelica.SIunits.Volume VRooCor = flo.VRooCor
-    "Room volume corridor";
-  final parameter Modelica.SIunits.Volume VRooSou = flo.VRooSou
-    "Room volume south";
-  final parameter Modelica.SIunits.Volume VRooNor = flo.VRooNor
-    "Room volume north";
-  final parameter Modelica.SIunits.Volume VRooEas = flo.VRooEas
-    "Room volume east";
-  final parameter Modelica.SIunits.Volume VRooWes = flo.VRooWes
-    "Room volume west";
+  /* The order of the zones is deduced from the connection between the VAV model
+  and the room model. The mapping from the Modelica array to the Modelica zone name,
+  and the EnergyPlus zone name, is:
+  1: Sou ZN1
+  2: Eas ZN2
+  3: Nor ZN3
+  4: Wes NZ4
+  5: Cor Core
+  */
+  final parameter Modelica.Units.SI.Volume VRoo[5]=
+    {flo.VRooSou, flo.VRooEas, flo.VRooNor, flo.VRooWes, flo.VRooCor} "Room volumes";
 
-  final parameter Modelica.SIunits.Area AFloCor = flo.AFloCor "Floor area corridor";
-  final parameter Modelica.SIunits.Area AFloSou = flo.AFloSou "Floor area south";
-  final parameter Modelica.SIunits.Area AFloNor = flo.AFloNor "Floor area north";
-  final parameter Modelica.SIunits.Area AFloEas = flo.AFloEas "Floor area east";
-  final parameter Modelica.SIunits.Area AFloWes = flo.AFloWes "Floor area west";
+  final parameter Modelica.Units.SI.Area AFlo[5]=
+    {flo.AFloSou, flo.AFloEas, flo.AFloNor, flo.AFloWes, flo.AFloCor} "Floor areas";
 
   VAV.Guideline36 vav(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
-    final VRooCor=VRooCor,
-    final VRooSou=VRooSou,
-    final VRooNor=VRooNor,
-    final VRooEas=VRooEas,
-    final VRooWes=VRooWes,
-    final AFloCor=AFloCor,
-    final AFloSou=AFloSou,
-    final AFloNor=AFloNor,
-    final AFloEas=AFloEas,
-    final AFloWes=AFloWes,
-    final THotWatInl_nominal=THotWatInl_nominal) "VAV and building model"
+    final sizDat=sizDat,
+    final VRoo=VRoo,
+    final AFlo=AFlo) "VAV and building model"
                  annotation (Placement(transformation(extent={{6,30},{82,76}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
       "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
@@ -48,12 +38,12 @@ model System
     annotation (Placement(transformation(extent={{-60,56},{-40,76}})));
 
   Building.Floor flo(redeclare package Medium = MediumA)
-                     "Floor of the building"
+    "Floor of the building"
     annotation (Placement(transformation(extent={{120,116},{208,166}})));
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     p=300000,
-    T=THotWatInl_nominal,
+    T=sizDat.THeaWatRet_nominal,
     nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -61,7 +51,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -86,7 +76,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -95,7 +85,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
-    T=THotWatInl_nominal,
+    T=sizDat.THeaWatSup_nominal,
     nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -109,6 +99,8 @@ model System
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={130,30})));
+
+
 equation
   connect(weaDat.weaBus,vav. weaBus) annotation (Line(
       points={{-40,66},{-2,66},{-2,66.2889},{10.9875,66.2889}},
@@ -128,16 +120,16 @@ equation
           {58,4},{51.125,4},{51.125,30}},
                                      color={0,127,255}));
   connect(vav.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{82.2375,
-          73.4444},{152.139,73.4444},{152.139,126.769}}, color={0,127,255}));
+          73.4444},{153.096,73.4444},{153.096,126.769}}, color={0,127,255}));
   connect(vav.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{82.2375,
-          73.4444},{195.757,73.4444},{195.757,142.154}}, color={0,127,255}));
+          73.4444},{196.713,73.4444},{196.713,142.154}}, color={0,127,255}));
   connect(vav.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,155.231},{152.139,155.231}}, color={0,127,255}));
+          73.4444},{94,73.4444},{94,155.231},{153.096,155.231}}, color={0,127,255}));
   connect(vav.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,90},{128.417,90},{128.417,142.154}}, color={
+          73.4444},{94,73.4444},{94,90},{129.374,90},{129.374,142.154}}, color={
           0,127,255}));
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
-          73.4444},{140,73.4444},{140,142.154},{152.139,142.154}},
+          73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
                                                                  color={0,127,255}));
   connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{232,
           141},{232,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
@@ -156,7 +148,7 @@ equation
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/Validation/System.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=86400,
+      StopTime=432000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Cvode"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),

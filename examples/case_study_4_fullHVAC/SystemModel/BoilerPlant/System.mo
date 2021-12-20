@@ -5,7 +5,7 @@ model System
   package MediumA = Buildings.Media.Air "Medium model for air";
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=100
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=100
     "Radiator nominal mass flow rate";
 
   parameter Real boiDesCap(
@@ -19,10 +19,10 @@ model System
     displayUnit="1") = 2/4.3
     "Ratio of capacity of boiler-1 to total boiler plant capacity";
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal_value=6000
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal_value=6000
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint";
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal_value=1000
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal_value=1000
     "Pressure drop of pipe and other resistances that are in series";
 
   SystemModel.BoilerPlant.Submodels.BoilerPlant boiPla(

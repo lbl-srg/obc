@@ -44,23 +44,23 @@ block ZoneModel_simplified
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 4359751.36
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = 4359751.36
     "Nominal heat flow rate of radiator"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+70
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal = 273.15+70
     "Radiator nominal supply water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal = 273.15+50
     "Radiator nominal return water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.000604*1000
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.000604*1000
     "Radiator nominal mass flow rate"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Volume V=1200
+  parameter Modelica.Units.SI.Volume V=1200
     "Room volume"
     annotation(dialog(group="Zone parameters"));
 
@@ -71,11 +71,11 @@ block ZoneModel_simplified
     "Zone thermal capacitance"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.Temperature TAir_nominal=273.15 + 23.9
+  parameter Modelica.Units.SI.Temperature TAir_nominal=273.15 + 23.9
     "Air temperature at nominal condition"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate"
     annotation(dialog(group="Zone parameters"));
 
