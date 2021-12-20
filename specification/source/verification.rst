@@ -349,7 +349,7 @@ We configured the CDL PID controller parameters such that they correspond to the
 ALC PI controller. The ALC PID controller implementation is described
 in the ALC EIKON software help section, while the CDL PID
 controller is described in the info section of the model
-`Buildings.Controls.OBC.CDL.Continuous.LimPID <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
+`Buildings.Controls.OBC.CDL.Continuous.LimPID <https://simulationresearch.lbl.gov/modelica/releases/v7.0.2/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
 The ALC controller tracks the temperature in
 degree Fahrenheit, while CDL uses SI units.
 An additional implementation difference is that for cooling applications, the ALC
