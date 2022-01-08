@@ -338,7 +338,7 @@ latex_elements['maketitle'] = r'''
 \end{center}
 \hrule
 ~\\[2mm]
-Copyright (c) 2017-2020\\
+Copyright (c) 2017-2022\\
 The Regents of the University of California
 (through Lawrence Berkeley National Laboratory),\\
 subject to receipt of any required approvals from U.S. Department of Energy.\\
