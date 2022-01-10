@@ -1,0 +1,20 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterAwTCBK/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Model: VAVMultiZone.Example.FreezeProtection
+Integration started at 0 using integration method:
+cvode from sundials
+
+Integration terminated successfully at T = 1.2096e+06
+   CPU-time for integration                  : 136.485 seconds
+   CPU-time for initialization               : 0.048152 seconds
+   Number of result points                   : 26285
+   Number of grid points                     : 501
+   Number of accepted steps                  : 73436
+   Number of rejected steps                  : 1418
+   Number of f-evaluations (dynamics)        : 153769
+   Number of non-linear iteration            : 102409
+   Number of non-linear convergence failures : 296
+   Number of Jacobian-evaluations            : 13840
+   Number of crossing function evaluations   : 78988
+   Number of model time events               : 12248
+   Number of state events                    : 650
+   Number of step events                     : 0

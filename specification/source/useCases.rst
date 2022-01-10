@@ -20,12 +20,12 @@ This section describes use cases for end-user interaction, including the followi
 Controls Design
 ^^^^^^^^^^^^^^^
 
-Loading a standard sequence from a library
+Loading a Standard Sequence from a Library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to load, edit and store a control
 sequence from a library. For illustration, we use here
-a sequence from the `Guideline 36 library <http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE_G36_PR1.html>`_.
+a sequence from the `Guideline 36 library <https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE_G36_PR1.html>`_.
 
 .. table::
    :class: longtable
@@ -84,7 +84,7 @@ a sequence from the `Guideline 36 library <http://simulationresearch.lbl.gov/mod
    ===========================  ===================================================
 
 
-Customizing a control sequence for an HVAC system
+Customizing a Control Sequence for an HVAC System
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to connect a control sequence to a system model and then customize the control sequence, using a VAV system as an example.
@@ -185,7 +185,7 @@ This use case describes how to connect a control sequence to a system model and 
    "User" <- "Control Design Tool" : Report info, warning and error.
 
 
-Customizing and configuring a control sequence for a single-zone VAV system
+Customizing and Configuring a Control Sequence for a Single-Zone VAV System
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to customize and configure a control sequence
@@ -280,7 +280,7 @@ for a single zone VAV system.
 
 
 
-Customizing and configuring a control sequence for a multizone VAV system
+Customizing and Configuring a Control Sequence for a Multizone VAV System
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to customize and configure a control sequence
@@ -382,7 +382,7 @@ for a multizone VAV system.
 
 .. _use_case_per_ass:
 
-Performance assessment of a control sequence
+Performance Assessment of a Control Sequence
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to assess the performance of a control sequence
@@ -480,7 +480,7 @@ Separate sequences are given below for the cases where local loop control is to 
    ===========================  ===================================================
 
 
-Defining integration with non-HVAC systems such as lighting, façade and presence detection
+Defining Integration with non-HVAC Systems such as Lighting, Façade and Presence Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describe the connection of a facade control with the HVAC
@@ -538,7 +538,7 @@ control in the control design tool.
 Bidding and BAS Implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Generate control point schedule from sequences
+Generate Control Point Schedule from Sequences
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes how to generate control points
@@ -602,7 +602,7 @@ from a sequence specification.
 Commissioning, Operation, and Maintenance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Conducting verification test of a VAV Cooling-Only Terminal Unit
+Conducting Verification Test of a VAV Cooling-Only Terminal Unit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This use case describes the verification of an installed control sequence

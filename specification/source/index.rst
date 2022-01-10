@@ -1,4 +1,3 @@
-===================================
 OpenBuildingControl (Working Draft)
 ===================================
 
@@ -13,12 +12,6 @@ OpenBuildingControl (Working Draft)
    https://github.com/lbl-srg/obc/tree/master/specification.
 
 
-.. only:: html
-
-   Table of Contents
-   =================
-
-
 .. toctree::
    :numbered:
    :maxdepth: 3
@@ -30,6 +23,8 @@ OpenBuildingControl (Working Draft)
    requirements
    softwareArchitecture
    cdl
+   sequenceDocumentation
+   controlsLibrary
    codeGeneration
    verification
    example

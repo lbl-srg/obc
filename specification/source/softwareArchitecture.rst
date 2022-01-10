@@ -46,14 +46,14 @@ a `CDL Parser` which parses the CDL language.
 This parser is currently in development at https://github.com/lbl-srg/modelica-json. [#parser]_
 The CDL parser reads a `CDL-compliant Control Sequence`,
 which may be provided by the user or taken from
-http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE.html
-and the `CDL Library`, see http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL.html
+https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE.html
+and the `CDL Library`, see https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL.html
 All these components will be made available through OpenStudio.
 This allows using the OpenStudio model authoring
 and simulation capability that is being developed
 for the Spawn of EnergyPlus (SOEP).
 See also
-https://www.energy.gov/eere/buildings/downloads/spawn-energyplus-soep and
+https://www.energy.gov/eere/buildings/articles/spawn-energyplus-spawn and
 its development site
 https://lbl-srg.github.io/soep/softwareArchitecture.html.
 
@@ -84,17 +84,17 @@ Controls Design Tool
 
    mod_jso_par <-> mod_lib
 
-   package JModelica {
+   package OPTIMICA {
    }
 
    OpenStudio -d-> edi : invokes
-   OpenStudio -d-> JModelica : invokes
+   OpenStudio -d-> OPTIMICA : invokes
 
-   JModelica -u-> mod_lib: loads
+   OPTIMICA -u-> mod_lib: loads
 
    interface FMUs
 
-   JModelica -d-> FMUs : generates
+   OPTIMICA -d-> FMUs : generates
 
    package "Buildings Operating System" as BOS {
      database "I/O drivers" as dri2
@@ -128,7 +128,7 @@ The `HVAC/controls tool` updates the json reprensentation of the model,
 and these changes will be merged into the Modelica model or Modelica package
 that has been edited.
 For exporting the sequence for simulation or for operation, `OpenStudio`
-invokes `JModelica` which generates an FMU of the sequence, or multiple FMUs
+invokes `OPTIMICA` which generates an FMU of the sequence, or multiple FMUs
 if the sequence is to be distributed to different field devices.
 The `Building Operating System` then imports these FMUs.
 
@@ -174,7 +174,7 @@ Functional Verification Tool
        [Viewer]
    }
    [CDL Parser]
-   [JModelica]
+   [OPTIMICA]
    database "Modelica\nControl\nModel" as mod_ctl
    [FMU-ME]
    [Reports] <<htlm, json>>
@@ -183,10 +183,10 @@ Functional Verification Tool
    vt -d-> [CDL Parser]: uses
    [I/O\nConfiguration] -d-> mod_ctl : updates point list
    [Engine] -> [FMU-ME] : inserts point list
-   [Engine] -d-> [JModelica] : invokes FMU-ME export
-   [JModelica] -d-> mod_ctl: imports
+   [Engine] -d-> [OPTIMICA] : invokes FMU-ME export
+   [OPTIMICA] -d-> mod_ctl: imports
    [Engine] -l-> [HIL Module]: connects
-   [JModelica] -> [FMU-ME] : exports
+   [OPTIMICA] -> [FMU-ME] : exports
    [Engine] -d-> [Reports]: writes
    [Viewer] -> [Reports]: imports
 
@@ -203,8 +203,8 @@ The `I/O Configuration` module will allow users (such as a
 commissioning agent) to update the point list.
 This is needed as not all
 point mappings may be known during the design phase.
-The `Engine` invokes `JModelica` to export an FMU-ME of the control
-blocks. As `JModelica` does not parse CDL information
+The `Engine` invokes `OPTIMICA` to export an FMU-ME of the control
+blocks. As `OPTIMICA` does not parse CDL information
 that is stored in vendor annotations (such as the point mapping),
 the `Engine` will insert point lists into the ``Resources`` directory
 of the `FMU-ME`.
@@ -220,4 +220,4 @@ that are displayed by the `Viewer`.
 
 .. [#parser] Using a parser that only requires Java has the advantage
              that it can be used in other applications that may not have
-             access to a JModelica installation.
+             access to a OPTIMICA installation.

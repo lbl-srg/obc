@@ -1,0 +1,2 @@
+branch=issue1502_replaceable_thermal_zone
+commit=5751ea5fa3eba4f2a27f89286d01f079d90864d3

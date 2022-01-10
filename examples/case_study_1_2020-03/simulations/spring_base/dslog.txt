@@ -1,0 +1,43 @@
+... loading "tab1" from "/tmp/tmp-simulator-case_study-mwetterldhh8O/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"
+Model: Buildings.Examples.VAVReheat.ASHRAE2006
+Integration started at 0 using integration method:
+cvode from sundials
+
+cvode: CVODE CVode At t = 7.32602e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 7.70952e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10361e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10361e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10361e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10362e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10363e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10364e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10364e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10364e+06, mxstep steps taken before reaching tout.
+cvode: CVODE CVode At t = 8.10364e+06, mxstep steps taken before reaching tout.
+Integration terminated successfully at T = 8.1216e+06
+   CPU-time for integration                  : 97.8362 seconds
+   CPU-time for initialization               : 0.0428541 seconds
+   Number of result points                   : 20857
+   Number of grid points                     : 501
+   Number of accepted steps                  : 84224
+   Number of rejected steps                  : 1917
+   Number of f-evaluations (dynamics)        : 165741
+   Number of non-linear iteration            : 125127
+   Number of non-linear convergence failures : 91
+   Number of Jacobian-evaluations            : 11206
+   Number of crossing function evaluations   : 85251
+   Number of model time events               : 10094
+   Number of state events                    : 73
+   Number of step events                     : 0
