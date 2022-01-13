@@ -238,7 +238,6 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
 .. _fig_sys_req:
 
 .. figure:: img/case_study1/SystemRequests.*
-   :scale: 30%
 
    Composite block that implements the sequence for the VAV terminal units that output the system requests.
    (`Browsable version <https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)

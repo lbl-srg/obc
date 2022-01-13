@@ -25,6 +25,8 @@ extensions = ['sphinxcontrib.bibtex', \
               'sphinx.ext.mathjax', \
               'sphinxcontrib.plantuml', 'sphinx.ext.todo']
 
+bibtex_bibfiles = ['references.bib']
+
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
 mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
