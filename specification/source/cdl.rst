@@ -776,7 +776,6 @@ assumed as default:
 
 - For ``IntegerInput``, the default value is :math:`0`.
 - For ``BooleanInput``, the default value is ``false``.
-- For ``DayTypeInput``, the default value is ``WorkingDay``.
 
 
 Note that output connectors must not have a specification of a default value,
@@ -795,11 +794,8 @@ connectors.
 The permissible connectors are implemented in the package
 ``CDL.Interfaces``, and are
 ``BooleanInput``, ``BooleanOutput``,
-``DayTypeInput``, ``DayTypeOutput``,
 ``IntegerInput``, ``IntegerOutput``,
 ``RealInput`` and ``RealOutput``.
-``DayType`` is an ``enumeration`` for working day,
-non-working day and holiday.
 
 Connectors must be in a ``public`` section.
 
