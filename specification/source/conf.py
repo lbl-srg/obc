@@ -25,6 +25,8 @@ extensions = ['sphinxcontrib.bibtex', \
               'sphinx.ext.mathjax', \
               'sphinxcontrib.plantuml', 'sphinx.ext.todo']
 
+bibtex_bibfiles = ['references.bib']
+
 # mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
 mathjax_path = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
@@ -338,7 +340,7 @@ latex_elements['maketitle'] = r'''
 \end{center}
 \hrule
 ~\\[2mm]
-Copyright (c) 2017-2020\\
+Copyright (c) 2017-2022\\
 The Regents of the University of California
 (through Lawrence Berkeley National Laboratory),\\
 subject to receipt of any required approvals from U.S. Department of Energy.\\
