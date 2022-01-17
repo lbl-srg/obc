@@ -14,13 +14,13 @@ record SizingParameters "Record with sizing parameters"
 
   final parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[5]=
     1.2 * {
-      0.828676, 0.777205, 0.566641, 0.766349, 2.11}
+      1.139, 0.7414, 1.1285, 0.7501, 2.2613}
       "Air terminal box design air flow rates, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mCooAHU_flow_nominal=1.2*4.3204
+  final parameter Modelica.Units.SI.MassFlowRate mCooAHU_flow_nominal=1.2*4.5202
     "System design air flow rate, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaAHU_flow_nominal=1.2*1.6207
+  final parameter Modelica.Units.SI.MassFlowRate mHeaAHU_flow_nominal=1.2*1.697
     "System design air flow rate, from HVAC_sizing_parameter.xlsx";
 
   final parameter Modelica.Units.SI.HeatFlowRate QHeaAHU_flow_nominal=
@@ -28,44 +28,44 @@ record SizingParameters "Record with sizing parameters"
     "Design heat flow rate of AHU heating coil";
 
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaWatAHU_flow_nominal=0.419252
+  final parameter Modelica.Units.SI.MassFlowRate mHeaWatAHU_flow_nominal=0.43899
     "Heating water design flow rate at AHU **** this is the same as xxx, but Dymola fails to evaluate this parameter";
 
   final parameter Modelica.Units.SI.MassFlowRate xxx=( QHeaAHU_flow_nominal)  /(4200*(THeaWatSup_nominal-THeaWatRet_nominal))
     "Heating water design flow rate at AHU";
 
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaVAV_flow_nominal[5]={12929,8391,
-      12756,8506,24102}
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaVAV_flow_nominal[5]={
+    20395.03, 13248.64, 20127.95, 13414.6, 31889.35}
     "Design heat flow rate of VAV terminal boxes, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]=1.2*{0.2486,
-      0.2332,0.17,0.2299,0.739}
+  final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]=1.2*{
+    0.2786, 0.1579, 0.3357, 0.1581, 0.7666}
     "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
 
 
-  final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]=1.2*{0.8287,
-      0.7772,0.5666,0.7663,2.112}
+  final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]=1.2*
+    {1.139, 0.7414, 1.1285, 0.7501, 2.2613}
     "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mMinVAV_flow_nominal[5]=1.2*{0.2486,
-      0.2332,0.17,0.2299,0.739}
+  final parameter Modelica.Units.SI.MassFlowRate mMinVAV_flow_nominal[5]=1.2*
+    {0.352, 0.1483, 0.4063, 0.15, 0.7666}
     "Minimum air flow rate of VAV terminal boxes, from HVAC_sizing_parameter.xlsx";
 
   parameter Modelica.Units.SI.Temperature THeaDisAHU_nominal(displayUnit="degC")=
        13 + 273.15 "Maximum heating discharge air temperature at AHU";
 
   parameter Modelica.Units.SI.Temperature THeaDisVAV_nominal(displayUnit="degC")=
-       50 + 273.15 "Maximum heating discharge air temperature for VAV boxes";
+       28 + 273.15 "Maximum heating discharge air temperature for VAV boxes";
 
   parameter Modelica.Units.SI.Temperature TCooDisVAV_nominal(displayUnit="degC")=
        13 + 273.15 "Minimum cooling discharge air temperature for VAV boxes";
 
   parameter Modelica.Units.SI.Temperature THeaWatSup_nominal(displayUnit="degC")=
-       45 + 273.15+35
+       45 + 273.15
     "Main heating coil and reheat coil nominal inlet water temperature";
 
   parameter Modelica.Units.SI.Temperature THeaWatRet_nominal(displayUnit="degC")=
-       35 + 273.15+35
+       35 + 273.15
     "Main heating coil and reheat coil nominal return water temperature";
     annotation (
     defaultComponentName = "sizDat",
