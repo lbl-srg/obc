@@ -32,22 +32,39 @@ Exporting the Control Logic from a CDL Model
 
 This section describes how a English language description of a sequence could be exported
 from the CDL implementation.
-This will allow libraries and also users to build up repositories of control sequences
+This will allow developers and users to build libraries of control sequences
 for which an English language specification can be exported without having to have
 a template Word document (which generally does not exist for this use case).
-While control sequence submittal typically contain additional requirements
-that are not part of the sequence description, such as what energy code to follow or what type of valve to be used,
-such information can be integrated manually by the user. Thus, the here described export
+
+Two different representations will be supported:
+
+1. *Specifications for sequences of operations.* These specifications expresses the intent of the designer for the sequence.
+   They contain text in the form of requirements, such
+   as "The controller shall track the room temperature set point by ...".
+   In the buildings industry, these are generally vague and ambiguous. This leads to a situation where the contractor
+   implements sequences that do not satisfy the designer's intent.
+   However, if encoded in a library that has been tested, such vagueness can be avoided.
+2. *Documentation of the as-implemented sequences.* These typically serve the operator, and may contain text such as
+   "The controller tracks the room temperature set point by ...".
+   This type of formulation is also what is typically used to document the implementation of sequences in
+   the Modelica Buildings Library.
+
+Control sequences of the form 1) typically contain additional requirements
+that are not part of the sequence description, such as what energy code to follow.
+We postulate that such information can be added by the designer in a section that may proceed or
+follow the actual sequence implementation, unless a sequence is specifically designed for a certain energy code.
+Thus, the here described export
 will document only the sequences, which can then be combined by the user with other documentation.
 
-To export sequence descriptions, we introduce a new optional annotation
-``annotation(__CDL(Documentation(info=STRING)))``
-where ``STRING`` is an html formatted string that contains the sequence description.
+To export sequence specifications of the form 1), we introduce a new optional annotation
+``annotation(__CDL(SequenceSpecification(info=STRING)))``
+where ``STRING`` is an html formatted string that contains the sequence specification.
 E.g., the annotation is in the same format as the CDL annotation
-``annotation((Documentation(info=STRING))``.
+``annotation(Documentation(info=STRING)``.
 The new optional annotation is introduced solely for the purpose that in the buildings industry,
-control specifications use a different form than what is usually used in Modelica.
-I.e., Modelica documentation describe what a sequence does, whereas for construction documents,
+control specifications use a different form than what is usually used in Modelica, i.e., to address
+the differences between 1) and 2) above.
+I.e., Modelica documentation describe what a sequence does, whereas for sequence specifications,
 the sequence description must follow the structure dictated by the
 Construction Specification Institute (CSI) and the American Institute of Architects (AIA)
 because they become legal documents.
@@ -55,13 +72,13 @@ because they become legal documents.
 How to generate the sequence description that can be inserted into these construction
 documents is described using a small example.
 Consider the model
-`Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling <https://github.com/lbl-srg/modelica-buildings/blob/e7728dcee22f72a8d823fcab6edbbabfe1fd742c/Buildings/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mo>`_.
+`Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mo>`_.
 This model has two sequences,
 one for the radiant heating and one for the radiant cooling. These two sequences
 are described in
-`Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom <https://github.com/lbl-srg/modelica-buildings/blob/e7728dcee22f72a8d823fcab6edbbabfe1fd742c/Buildings/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.mo#L238>`_
+`Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.mo#L238>`_
 and in
-`Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum <https://github.com/lbl-srg/modelica-buildings/blob/e7728dcee22f72a8d823fcab6edbbabfe1fd742c/Buildings/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.mo#L273>`_
+`Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.mo#L273>`_
 using html format.
 
 To export sequences from these models, ``modelica-json`` will need to generate a
@@ -72,16 +89,21 @@ Microsoft Word document using the following procedure.
 2. Remove from this list all blocks that are in ``Buildings.Controls.OBC.CDL``.
    (These are are elementary blocks that need not be documented.)
 3. Read the top-level Modelica file and extract all blocks that contain in their class
-   definition the annotation ``__cld(document=true)``. Add these blocks to the list.
+   definition the annotation ``__cdl(document=true)``. Add these blocks to the list.
    (This will allow users to add composite control blocks that will be documented.)
 4. For each block in the list.
 
-     a. If the block contains a section ``annotation(__CDL(Documentation(info=STRING)))``,
+     a. If the block contains a section ``annotation(__CDL(SequenceSpecification(info=STRING)))``,
         use the value of this section as the sequence documentation of this block. Goto step d).
+
      b. If the block contains a section ``annotation(Documentation(info=STRING))``,
+        write a warning that this block will be documented with as-implemented description rather than
+        a sequence specification as no control sequence specification has been found, and
         use the value of this section as the sequence documentation of this block. Goto step d).
+
      c. Issue a warning that this block contains no control sequence description and proceed to
         the next block.
+
      d. In the sequence description of this block, for each parameter that is in the description,
         add the value and units. For example, an entry such as
         ``... between <code>TSupSetMin</code> and <code>TSupSetMax</code> based on ...``
@@ -90,13 +112,13 @@ Microsoft Word document using the following procedure.
         Note that the word "adjustable" must not be added if the parameter value is declared as ``final``.
         Proceed to the next block.
 
-5. Collect the descriptions of each block and output it in a Word document.
+5. Collect the descriptions of each block and output it in a Word document. Configure the Word document to have automatic section numbering.
 
 As an example, consider the following snippet of a composite control block.
 
 .. code-block::
 
-   HigMassSupplyTemperature_TRoom con(TSubSet_max=303.15, final TSubSet_min=293.15);
+   HighMassSupplyTemperature_TRoom con(TSubSet_max=303.15, final TSubSet_min=293.15);
 
    block HighMassSupplyTemperature_TRoom
      "Room temperature controller for radiant heating with constant mass flow and variable supply temperature"
@@ -130,7 +152,7 @@ As an example, consider the following snippet of a composite control block.
             </html>"
           ),
           __cdl(
-            Documentation(
+            SequenceSpecification(
               info="<html>
                 <p>
                 Controller for a radiant heating system.
@@ -181,5 +203,5 @@ The documentation will also include the figure as declared in the CDL specificat
 
 
 The Control Sequence Selection and Configuration tool could make the section
-``annotation(__CDL(Documentation(info=STRING)))`` editable, thereby allowing
+``annotation(__CDL(SequenceSpecification(info=STRING)))`` editable, thereby allowing
 users to customize the description of the sequence and add any other desired documentation.
