@@ -40,10 +40,12 @@ Two different representations will be supported:
 
 1. *Specifications for sequences of operations.* These specifications expresses the intent of the designer for the sequence.
    They contain text in the form of requirements, such
-   as "The controller shall track the room temperature set point by ...".
-   In the buildings industry, these are generally vague and ambiguous. This leads to a situation where the contractor
-   implements sequences that do not satisfy the designer's intent.
-   However, if encoded in a library that has been tested, such vagueness can be avoided.
+   as "The room temperature shall be maintained between ...".
+   Such requirements leave room for different interpretations and resulting implementations of the control inputs
+   and outputs, and the control logic,
+   thereby making verification as in :numref:`sec_aut_con_ver` impractical.
+   It also risk that the sequences do not satisfy the designer's intent.
+   However, if encoded in a library that has been tested, the control sequence can be specified more precise.
 2. *Documentation of the as-implemented sequences.* These typically serve the operator, and may contain text such as
    "The controller tracks the room temperature set point by ...".
    This type of formulation is also what is typically used to document the implementation of sequences in
@@ -51,10 +53,10 @@ Two different representations will be supported:
 
 Control sequences of the form 1) typically contain additional requirements
 that are not part of the sequence description, such as what energy code to follow.
-We postulate that such information can be added by the designer in a section that may proceed or
-follow the actual sequence implementation, unless a sequence is specifically designed for a certain energy code.
+Such information can however be included in a section that precedes or
+follows the actual sequence implementation.
 Thus, the here described export
-will document only the sequences, which can then be combined by the user with other documentation.
+will document only the sequences, which can then be combined with these other documentation.
 
 To export sequence specifications of the form 1), we introduce a new optional annotation
 ``annotation(__CDL(SequenceSpecification(info=STRING)))``

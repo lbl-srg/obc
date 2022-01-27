@@ -421,6 +421,7 @@ show good agreement, which is also demonstrated
 by verifying the time series with the
 funnel software, whose output is shown in :numref:`fig_coo_coi_val_fun`.
 
+.. _sec_aut_con_ver:
 
 Specification for Automating the Verification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
