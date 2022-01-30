@@ -14,9 +14,13 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
   * [OpenModelica for Linux](https://www.openmodelica.org/download/download-linux)
   * [OpenModelica for Windows](https://www.openmodelica.org/download/download-windows)
   * [OpenModelica for Mac](https://www.openmodelica.org/download/download-mac)
-* conda install -c plotly plotly-orca
 * [modelica-json](https://github.com/lbl-srg/modelica-json)
 * Ensure that the environmental variables `$MODELICAPATH` and `$MODELICAJSONPATH` are set.
+  * `MODELICAPATH`: Check [here](https://simulationresearch.lbl.gov/modelica/installLibrary.html) for instructions on how to set this environmental variable
+  * `MODELICAJSONPATH`: path to the [modelica-json](https://github.com/lbl-srg/modelica-json) folder. For example, if the `modelica-json` folder is located at
+    * (Linux) `/home/<username>/Documents/modelica-json`, add `export MODELICAJSONPATH=/home/<username>/Documents/modelica-json` to your `~/.bashrc` file
+    * (Windows) `C:\Users\<username>\Documents\modelica-json`, set the MODELICAJSONPATH system environment variable to `C:\Users\<username>\Documents\modelica-json`. On Windows 7, system environment variables can be set in Control Panel -> System and Security -> System -> Advanced System Settings -> Environment Variables. Enter in the Variable column `MODELICAJSONPATH` and enter in the Value column `C:\Users\<username>\Documents\modelica-json`.
+    * (Mac) `/Users/<username>/modelica-json`, add `export MODELICAJSONPATH=/Users/<username>/modelica-json` to your `~/.bash_profile` file
 
 ## Execution
 

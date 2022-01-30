@@ -129,4 +129,4 @@ def verification_plot(error_folder, output_folder, plot_filename, y_label='Value
         template='plotly_white'
     )
     fig = go.Figure(data=data, layout=layout)
-    fig.write_image(os.path.join(output_folder, plot_filename))
+    fig.write_image(os.path.join(output_folder, plot_filename), engine="kaleido")
