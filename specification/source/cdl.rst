@@ -433,15 +433,15 @@ to implement composite blocks (:numref:`sec_com_blo`).
    The elementary building blocks can be browsed in any of these ways:
 
      * Open a web browser at
-       http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
+       https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
      * Download https://github.com/lbl-srg/modelica-buildings/archive/master.zip, unzip the file,
        and open ``Buildings/package.mo`` in the graphical model editor of
        `OpenModelica <https://www.openmodelica.org/?id=78:omconnectioneditoromedit&catid=10:main-category>`_,
        `Impact <https://www.modelon.com/modelon-impact/>`_, or
-       `Dymola <https://www.3ds.com/products-services/catia/products/dymola/trial-version/>`_.
+       `Dymola <https://discover.3ds.com/free-trial-version-of-dymola-for-windows>`_.
        All models in the `Examples` and `Validation` packages can be simulated with these tools, as well
        as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_ and
-       with `JModelica <https://www.jmodelica.org/>`_.
+       with `JModelica <https://jmodelica.org/>`_.
 
 An actual implementation of an elementary building block
 looks as follows, where we omitted the annotations that are
@@ -634,7 +634,7 @@ Evaluation of Assignment of Values to Parameters
 
 We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
 While such an evaluation is not prefered, it is allowed in CDL to accomodate the situation
-that most building control product lines, in constrast to modeling tools such as
+that most building control product lines, in contrast to modeling tools such as
 Modelica, Simulink or LabVIEW,
 do not support the propagation of parameters,
 nor do they support the use of expressions in parameter assignments.
@@ -776,7 +776,6 @@ assumed as default:
 
 - For ``IntegerInput``, the default value is :math:`0`.
 - For ``BooleanInput``, the default value is ``false``.
-- For ``DayTypeInput``, the default value is ``WorkingDay``.
 
 
 Note that output connectors must not have a specification of a default value,
@@ -1097,11 +1096,8 @@ connectors.
 The permissible connectors are implemented in the package
 ``CDL.Interfaces``, and are
 ``BooleanInput``, ``BooleanOutput``,
-``DayTypeInput``, ``DayTypeOutput``,
 ``IntegerInput``, ``IntegerOutput``,
 ``RealInput`` and ``RealOutput``.
-``DayType`` is an ``enumeration`` for working day,
-non-working day and holiday.
 
 Connectors must be in a ``public`` section.
 
@@ -1437,7 +1433,7 @@ Tagged Properties
 .................
 
 The buildings industry uses different tagging schemes such as
-Brick (http://brickschema.org/) and Haystack (http://project-haystack.org/).
+Brick (https://brickschema.org/) and Haystack (https://project-haystack.org/).
 CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
 
 CDL allows to add tags to declarations that instantiate
@@ -1506,8 +1502,8 @@ For Haystack, the ``__cdl_annotation`` is
 
 where ``JSON`` is the JSON encoding of the Haystack object.
 
-[For example, the AHU discharge air temperature setpoint of the example
-in http://project-haystack.org/tag/sensor, which is in Haystack declared as
+[For example, the AHU discharge air temperature setpoint
+is in Haystack declared as
 
 .. code::
 

@@ -25,7 +25,7 @@ Loading a Standard Sequence from a Library
 
 This use case describes how to load, edit and store a control
 sequence from a library. For illustration, we use here
-a sequence from the `Guideline 36 library <http://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE_G36_PR1.html>`_.
+a sequence from the `Guideline 36 library <https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE_G36_PR1.html>`_.
 
 .. table::
    :class: longtable
