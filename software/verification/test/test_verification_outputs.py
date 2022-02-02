@@ -19,7 +19,7 @@ class Test_verification_outputs(unittest.TestCase):
         if os.path.exists(output_folder):
             for fp in os.listdir(output_folder):
                 if fp.startswith(model):
-                    os.remove(fp)
+                    os.remove(os.path.join(output_folder, fp))
 
         print("Running the Verification Tool")
         test.execute_tests()
