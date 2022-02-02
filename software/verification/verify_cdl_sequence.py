@@ -2,7 +2,6 @@ import json
 import re
 import argparse
 import pyfunnel as pf
-from OMPython import OMCSessionZMQ
 from plotter import verification_plot
 from openmodelica_sim import execute_omc
 import os

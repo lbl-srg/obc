@@ -2,5 +2,4 @@ plotly==5.3.1
 bac0==0.99.932
 buildingspy==2.1.0
 pyfunnel==0.3.0
-OMPython==3.3.0
 kaleido==0.2.1
