@@ -31,8 +31,6 @@ class Verification_Tool:
         self.test_list = []
         self.parse_configurations()
 
-        self.execute_tests()
-
     def initialize_controller(self):
         """Initialize the real controller."""
         network_address = self.controller_config["networkAddress"]
@@ -658,4 +656,5 @@ if __name__ == "__main__":
     config_file = args.config
 
     test = Verification_Tool(config_file=config_file)
+    test.execute_tests()
 
