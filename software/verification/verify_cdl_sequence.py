@@ -4,6 +4,7 @@ import argparse
 import pyfunnel as pf
 from OMPython import OMCSessionZMQ
 from plotter import verification_plot
+from openmodelica_sim import execute_omc
 import os
 import subprocess
 import shutil
@@ -628,23 +629,7 @@ class Verification_Tool:
         simulation_output : pd.DataFrame
                 Timeseries of input and output variable values from the CDL simulation.
         """
-        omc = OMCSessionZMQ()
-        if not omc.sendExpression("loadModel(Modelica)"):
-            err = omc.sendExpression("getErrorString()")
-            raise Exception("Error while loading Modelica Standard Library: {}.".format(err))
-
-        if not omc.sendExpression("loadModel(Buildings)"):
-            err = omc.sendExpression("getErrorString()")
-            raise Exception("Error while loading Modelica Buildings Library: {}.".format(err))
-
-        if not omc.sendExpression("simulate({}, outputFormat=\"mat\")".format(model)):
-            err = omc.sendExpression("getErrorString()")
-            raise Exception("Error while running the simulation: {}.".format(err))
-
-        shutil.move("{}_res.mat".format(model), output_folder+"{}_res.mat".format(model))
-        for fp in os.listdir('.'):
-            if fp.startswith(model):
-                os.remove(fp)
+        execute_omc(model, output_folder)
 
         r = Reader(os.path.join(output_folder, "{}_res.mat".format(model)), 'dymola')
 
