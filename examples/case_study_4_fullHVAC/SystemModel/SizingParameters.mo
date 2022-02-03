@@ -27,7 +27,6 @@ record SizingParameters "Record with sizing parameters"
       mHeaAHU_flow_nominal*1006*(THeaDisAHU_nominal-(273.15+4))
     "Design heat flow rate of AHU heating coil";
 
-
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatAHU_flow_nominal=0.43899
     "Heating water design flow rate at AHU **** this is the same as xxx, but Dymola fails to evaluate this parameter";
 
@@ -38,10 +37,17 @@ record SizingParameters "Record with sizing parameters"
     20395.03, 13248.64, 20127.95, 13414.6, 31889.35}
     "Design heat flow rate of VAV terminal boxes, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]=1.2*{
-    0.2786, 0.1579, 0.3357, 0.1581, 0.7666}
-    "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
+  final parameter Real eps_errorResolution_sizingFactor = 2.2
+    "The original VAV heating mode air mass flow rates assigned as per EPlus sizing
+    run were resulting in a heating coil efficiency eps > 1. This factor was 
+    assigned to resolve that simulation error. The same value is assigned as a 
+    sizing factor at the end of the expression for mHeaVAV_flow_nominal, since 
+    Dymola was not able to evaluate the expression when this parameter variable 
+    was used directly.";
 
+  final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]= 1.2*{
+    0.2786, 0.1579, 0.3357, 0.1581, 0.7666} * 2.2
+    "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
 
   final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]=1.2*
     {1.139, 0.7414, 1.1285, 0.7501, 2.2613}
