@@ -70,13 +70,13 @@ translated := translateModel({0}, method="{1}";
 getErrorString();
                 
 if translated then
-  retVal := system("make -f {3}.makefile");
+  retVal := system("make -f {2}.makefile");
 else
   print("Translation failed.");
   retVal := 10;
 end if;
 exit(retVal);
-""".format(model, solver, stop_time, model))
+""".format(model, solver, model))
 
         # Translate and compile model
         cmd = ["omc", scr_nam]
@@ -86,7 +86,7 @@ exit(retVal);
         raise Exception("translation failed; error={}".format(e))
     return return_dict
 
-def simulate(model, timeout=500, solver='dassl', stopTime=86400):
+def simulate(model, timeout=500, solver='dassl', stop_time=86400):
     """Function to generate and run a mos script to simulate a model
     Parameters:
     ----------
@@ -110,7 +110,7 @@ def simulate(model, timeout=500, solver='dassl', stopTime=86400):
         with open(scr_nam, 'w') as f:
             f.write("""retVal := system("./{0} -s {1}  -steps -cpu -lv LOG_STATS -override=stopTime={2}");
 exit(retVal);
-""".format(model, solver, stopTime))
+""".format(model, solver, stop_time))
         cmd = ["omc", scr_nam]
         return_dict['cmd'] = ' '.join(cmd)
         run_process(return_dict, cmd, worDir, timeout)
