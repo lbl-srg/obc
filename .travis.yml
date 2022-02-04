@@ -30,7 +30,7 @@ addons:
 
 before_install:
   - docker pull michaelwetter/${OMC_VERSION};
-    cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
+    cp software/verification/travis/omc $HOME/bin/omc;
   -  wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
       rm ${MODELICA_JSON_VERSION}.tar.gz;
