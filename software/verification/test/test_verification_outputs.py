@@ -6,6 +6,8 @@ import shutil
 
 class Test_verification_outputs(unittest.TestCase):
     def test_verification_tool(self):
+        """Unit test to runs the tool for the config_test.json that should produce a failed verification.
+        The real controller outputs are stored in test/real_outputs.csv"""
         config_file = 'config_test.json'
 
         test = Verification_Tool(config_file=config_file)
@@ -22,9 +24,12 @@ class Test_verification_outputs(unittest.TestCase):
                     os.remove(os.path.join(output_folder, fp))
 
         print("Running the Verification Tool")
-        test.execute_tests()
+        test_result = test.execute_tests()
 
         files = os.listdir(output_folder)
+
+        print("checking if the test failed as expected:")
+        self.assertFalse(test_result[0])
 
         print("checking if all the necessary files have been created: ")
 
@@ -33,4 +38,3 @@ class Test_verification_outputs(unittest.TestCase):
         self.assertTrue("{}_res.csv".format(model) in files)
         self.assertTrue("Effective Cooling Setpoint_1.pdf" in files)
         self.assertTrue("Effective Heating Setpoint_1.pdf" in files)
-
