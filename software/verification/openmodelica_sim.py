@@ -66,7 +66,7 @@ setCommandLineOptions("-d=stateselection");
 setMatchingAlgorithm("PFPlusExt");
 setIndexReductionMethod("dynamicStateSelection");
 loadFile("Buildings/package.mo");
-translated := translateModel({0}, method="{1}";
+translated := translateModel({0}, method="{1}");
 getErrorString();
                 
 if translated then
@@ -86,7 +86,7 @@ exit(retVal);
         raise Exception("translation failed; error={}".format(e))
     return return_dict
 
-def simulate(model, timeout=500, solver='dassl', stop_time=86400):
+def simulate(model, timeout=500, solver='dassl', stop_time=3600):
     """Function to generate and run a mos script to simulate a model
     Parameters:
     ----------
