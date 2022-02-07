@@ -26,10 +26,14 @@ model System
   VAV.Guideline36 vav(
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
+    QHeaAHU_flow_nominal=sizDat.QHeaAHU_flow_nominal,
+    mHeaVAV_flow_nominal=sizDat.mHeaVAV_flow_nominal,
+    TCooWatInl_nominal=sizDat.TCooWatSup_nominal,
+    THeaAirSup_nominal=sizDat.THeaDisAHU_nominal,
     final sizDat=sizDat,
     final VRoo=VRoo,
     final AFlo=AFlo) "VAV and building model"
-                 annotation (Placement(transformation(extent={{6,30},{82,76}})));
+    annotation (Placement(transformation(extent={{6,30},{82,76}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
@@ -59,7 +63,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
-    T=279.15,
+    T=sizDat.TCooWatSup_nominal,
     nPorts=1) "Sink for cooling coil" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -67,7 +71,7 @@ model System
   Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000 + 6000,
-    T=279.15,
+    T=sizDat.TCooWatRet_nominal,
     nPorts=1) "Source for cooling coil loop" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

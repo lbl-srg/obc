@@ -2,33 +2,35 @@ within SystemModel.VAV;
 model Guideline36
   "Variable air volume flow system with terminal reheat that serves five thermal zones"
   extends Buildings.Examples.VAVReheat.BaseClasses.Guideline36(
-    final mVAV_flow_nominal=sizDat.mVAV_flow_nominal,
-    final m_flow_nominal=sizDat.mCooAHU_flow_nominal,
-    final THotWatInl_nominal=sizDat.THeaWatSup_nominal,
+    final mCooVAV_flow_nominal=sizDat.mVAV_flow_nominal,
+    final mCooAir_flow_nominal=sizDat.mCooAHU_flow_nominal,
+    final THeaWatInl_nominal=sizDat.THeaWatSup_nominal,
     final mHeaWat_flow_nominal=sizDat.mHeaWatAHU_flow_nominal,
     conVAV(
-      VDisCooSetMax_flow=sizDat.mCooVAV_flow_nominal/1.2,
-      VDisSetMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
-      VDisHeaSetMax_flow=sizDat.mHeaVAV_flow_nominal/1.2,
-      VDisConMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
+      final VDisCooSetMax_flow=sizDat.mCooVAV_flow_nominal/1.2,
+      final VDisSetMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
+      final VDisHeaSetMax_flow=sizDat.mHeaVAV_flow_nominal/1.2,
+      final VDisConMin_flow=sizDat.mMinVAV_flow_nominal/1.2,
       each dTDisZonSetMax=sizDat.THeaDisVAV_nominal - 293.15,
       each TDisMin=sizDat.TCooDisVAV_nominal,
       each have_heaPla=true),
     VAVBox(
-      m_flow_nominal=sizDat.mVAV_flow_nominal,
-      each THotWatInl_nominal=sizDat.THeaWatSup_nominal,
-      each THotWatOut_nominal=sizDat.THeaWatRet_nominal,
-      ratVFloHea=sizDat.mHeaVAV_flow_nominal ./ sizDat.mVAV_flow_nominal,
-      each TAirInl_nominal = sizDat.THeaDisAHU_nominal,
+      final mCooAir_flow_nominal=sizDat.mVAV_flow_nominal,
+      each final THeaWatInl_nominal=sizDat.THeaWatSup_nominal,
+      each final THeaWatOut_nominal=sizDat.THeaWatRet_nominal,
+      each final THeaAirDis_nominal = sizDat.THeaDisAHU_nominal,
       each terHea(show_T=true),
-      QHea_flow_nominal=sizDat.QHeaVAV_flow_nominal),
-    conAHU(TSupSetMin=sizDat.TCooDisVAV_nominal, TSupSetDes=sizDat.TCooDisVAV_nominal),
+      final QHea_flow_nominal=sizDat.QHeaVAV_flow_nominal),
+    conAHU(
+      final TSupSetMin=sizDat.TCooDisVAV_nominal,
+      final TSupSetDes=sizDat.TCooDisVAV_nominal),
     heaCoi(
-      m2_flow_nominal=sizDat.mHeaAHU_flow_nominal,
-      dp2_nominal=0,
-      Q_flow_nominal=sizDat.QHeaAHU_flow_nominal,
-      T_a1_nominal=sizDat.THeaWatSup_nominal),
-    cooCoi(dp2_nominal=200 + 200 + 100 + 40));
+      final m2_flow_nominal=sizDat.mHeaAHU_flow_nominal,
+      final dp2_nominal=0,
+      final Q_flow_nominal=sizDat.QHeaAHU_flow_nominal,
+      final T_a1_nominal=sizDat.THeaWatSup_nominal),
+    cooCoi(
+      dp2_nominal=200 + 200 + 100 + 40));
 
   parameter SystemModel.SizingParameters sizDat
     "Sizing data"

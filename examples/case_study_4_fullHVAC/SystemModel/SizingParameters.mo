@@ -73,9 +73,15 @@ record SizingParameters "Record with sizing parameters"
   parameter Modelica.Units.SI.Temperature THeaWatRet_nominal(displayUnit="degC")=
        35 + 273.15
     "Main heating coil and reheat coil nominal return water temperature";
-    annotation (
-    defaultComponentName = "sizDat",
-    defaultComponentPrefix="parameter",
+
+  parameter Modelica.Units.SI.Temperature TCooWatSup_nominal(displayUnit="degC")=
+       6 + 273.15
+    "Main cooling coil nominal inlet water temperature";
+
+  parameter Modelica.Units.SI.Temperature TCooWatRet_nominal(displayUnit="degC")=
+       12 + 273.15
+    "Main cooling coil nominal return water temperature";
+  annotation (
     defaultComponentName = "sizDat",
     defaultComponentPrefix="parameter");
 
