@@ -5,7 +5,7 @@ model System
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
-  SizingParameters sizDat "Sizing parameters"
+  parameter SystemModel.SizingParameters sizDat "Sizing parameters"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
   /* The order of the zones is deduced from the connection between the VAV model

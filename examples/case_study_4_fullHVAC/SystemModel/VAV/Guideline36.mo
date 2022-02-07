@@ -30,7 +30,7 @@ model Guideline36
       T_a1_nominal=sizDat.THeaWatSup_nominal),
     cooCoi(dp2_nominal=200 + 200 + 100 + 40));
 
-  parameter SizingParameters sizDat
+  parameter SystemModel.SizingParameters sizDat
     "Sizing data"
     annotation (Placement(transformation(extent={{-322,560},{-302,580}})));
 

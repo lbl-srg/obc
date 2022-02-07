@@ -39,10 +39,10 @@ record SizingParameters "Record with sizing parameters"
 
   final parameter Real eps_errorResolution_sizingFactor = 2.2
     "The original VAV heating mode air mass flow rates assigned as per EPlus sizing
-    run were resulting in a heating coil efficiency eps > 1. This factor was 
-    assigned to resolve that simulation error. The same value is assigned as a 
-    sizing factor at the end of the expression for mHeaVAV_flow_nominal, since 
-    Dymola was not able to evaluate the expression when this parameter variable 
+    run were resulting in a heating coil efficiency eps > 1. This factor was
+    assigned to resolve that simulation error. The same value is assigned as a
+    sizing factor at the end of the expression for mHeaVAV_flow_nominal, since
+    Dymola was not able to evaluate the expression when this parameter variable
     was used directly.";
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]= 1.2*{
