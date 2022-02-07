@@ -5,7 +5,7 @@ model System
   replaceable package MediumA = Buildings.Media.Air "Medium model for air";
   replaceable package MediumW = Buildings.Media.Water "Medium model for water";
 
-  SizingParameters sizDat "Sizing parameters"
+  parameter SystemModel.SizingParameters sizDat "Sizing parameters"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
 
   /* The order of the zones is deduced from the connection between the VAV model
@@ -85,8 +85,8 @@ model System
   Buildings.Fluid.Sources.Boundary_pT sinHeaTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 300000,
-    T=sizDat.THeaWatSup_nominal,
-    nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
+    T=sizDat.THeaWatRet_nominal,
+    nPorts=1) "Sink for heating of terminal boxes"   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -111,9 +111,9 @@ equation
   connect(sinHea.ports[1], vav.portHeaCoiRet) annotation (Line(points={{0,-12},{
           0,16},{34.5,16},{34.5,30}},          color={0,127,255}));
   connect(vav.portHeaTerSup,souHeaTer. ports[1]) annotation (Line(points={{60.625,
-          30},{56,30},{56,10},{88,10},{88,-12}},           color={0,127,255}));
+          30},{60,30},{60,10},{88,10},{88,-12}},           color={0,127,255}));
   connect(vav.portHeaTerRet,sinHeaTer. ports[1]) annotation (Line(points={{67.75,
-          30},{64,30},{64,12},{118,12},{118,-12}},        color={0,127,255}));
+          30},{68,30},{68,12},{118,12},{118,-12}},        color={0,127,255}));
   connect(souCoo.ports[1], vav.portCooCoiSup) annotation (Line(points={{28,-12},
           {28,12},{44,12},{44,30}},          color={0,127,255}));
   connect(sinCoo.ports[1], vav.portCooCoiRet) annotation (Line(points={{58,-12},

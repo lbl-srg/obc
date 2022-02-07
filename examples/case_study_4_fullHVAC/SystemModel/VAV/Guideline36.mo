@@ -19,6 +19,8 @@ model Guideline36
       each THotWatInl_nominal=sizDat.THeaWatSup_nominal,
       each THotWatOut_nominal=sizDat.THeaWatRet_nominal,
       ratVFloHea=sizDat.mHeaVAV_flow_nominal ./ sizDat.mVAV_flow_nominal,
+      each TAirInl_nominal = sizDat.THeaDisAHU_nominal,
+      each terHea(show_T=true),
       QHea_flow_nominal=sizDat.QHeaVAV_flow_nominal),
     conAHU(TSupSetMin=sizDat.TCooDisVAV_nominal, TSupSetDes=sizDat.TCooDisVAV_nominal),
     heaCoi(
@@ -28,7 +30,7 @@ model Guideline36
       T_a1_nominal=sizDat.THeaWatSup_nominal),
     cooCoi(dp2_nominal=200 + 200 + 100 + 40));
 
-  parameter SizingParameters sizDat
+  parameter SystemModel.SizingParameters sizDat
     "Sizing data"
     annotation (Placement(transformation(extent={{-322,560},{-302,580}})));
 
