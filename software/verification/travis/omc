@@ -80,8 +80,6 @@ do
     shift
 done
 
-# --user=${UID} \
-
 docker run \
   --user=${UID} \
   -i \
