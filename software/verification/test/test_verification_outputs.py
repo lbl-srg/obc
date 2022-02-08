@@ -39,4 +39,4 @@ class Test_verification_outputs(unittest.TestCase):
         self.assertTrue("{}_res.csv".format(model) in files)
         self.assertTrue("Effective Cooling Setpoint_1.pdf" in files)
         self.assertTrue("Effective Heating Setpoint_1.pdf" in files)
-        print("all the expected files have been generated!")
+        print("All the expected files have been generated.")
