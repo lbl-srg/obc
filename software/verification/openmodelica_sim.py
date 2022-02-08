@@ -40,11 +40,11 @@ def translate(model, timeout=500, solver='dassl'):
     Parameters:
     ----------
     model: str
-            model to be translated
+            Model to be translated
     timeout: int
             Number of seconds before the command times out
     solver: str
-            solver to be used for translation
+            Solver to be used for translation
 
     Returns:
     --------
@@ -68,7 +68,7 @@ setIndexReductionMethod("dynamicStateSelection");
 loadFile("Buildings/package.mo");
 translated := translateModel({0}, method="{1}");
 getErrorString();
-                
+
 if translated then
   retVal := system("make -f {2}.makefile");
 else
@@ -91,11 +91,11 @@ def simulate(model, timeout=500, solver='dassl', stop_time=3600):
     Parameters:
     ----------
     model: str
-            model to be translated
+            Model to be simulated
     timeout: int
             Number of seconds before the command times out
     solver: str
-            solver to be used for translation
+            Solver to be used for translation
 
     Returns:
     --------
@@ -124,7 +124,7 @@ def delete_files(model):
     Parameters:
     ----------
     model: str
-            model to be translated
+            Model to be translated
     """
     model = "{}".format(model)
     for fp in os.listdir('.'):
@@ -136,9 +136,9 @@ def execute_omc(model, output_folder):
      Parameters:
      ----------
      model: str
-            model to be translated
+            Model to be executed
     output_folder: str
-            location for generated {model}_res.mat file
+            Location for generated {model}_res.mat file
      """
     translate(model)
     simulate(model)

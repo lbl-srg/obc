@@ -107,7 +107,7 @@ class Verification_Tool:
         Parameters:
         -----------
         model : str
-                Name of modelica model to be translated to json.
+                Name of modelica Model to be translated to json.
         model_dir : str
                 Directory where to store the json output.
         """
@@ -388,7 +388,7 @@ class Verification_Tool:
 
         time_index = []
         ops = {}
-        last_ts = inputs.iloc[-1].name 
+        last_ts = inputs.iloc[-1].name
         while pd.to_datetime(t_now) <= last_ts:
             print("===========================TIME IS {}s".format(round(t_now, 2)))
             idx = inputs.loc[pd.to_datetime(t_now)>=inputs.index].index.values[-1]
@@ -412,7 +412,7 @@ class Verification_Tool:
                 print("{0}: {1}, {2}: {3} ".format(cdl_point_name, point_value, device_point_name, device_value))
                 try:
                     self.real_controller[device_point_name].write(device_value, priority=8)
-                except: 
+                except:
                     self.real_controller[device_point_name] = device_value
 
             t_now = time.time() - t_start
