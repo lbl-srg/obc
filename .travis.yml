@@ -71,7 +71,7 @@ install:
       pybtex-docutils==1.0.1 \
       oset==0.1.3 \
       PyYAML==5.4
-  - pip3 install -r software/verification/requirements.txt
+  - pip3 install -r ${TRAVIS_BUILD_DIR}/software/verification/requirements.txt
 
 # Execute tests
 script:
