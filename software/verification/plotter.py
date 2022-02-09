@@ -78,8 +78,7 @@ def verification_plot(error_folder, output_folder, plot_filename, y_label='Value
         },
         grid={
             'rows': 2,
-            'columns': 1,
-    #         'subplots': [['xy1'], ['xy2']]
+            'columns': 1
         },
         xaxis1={
             'ticks': 'outside',
