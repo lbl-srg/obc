@@ -452,20 +452,18 @@ used for graphical rendering:
    block AddParameter "Output the sum of an input plus a parameter"
 
      parameter Real p "Value to be added";
-     parameter Real k "Gain of input";
 
      Interfaces.RealInput u "Connector of Real input signal";
      Interfaces.RealOutput y "Connector of Real output signal";
 
    equation
-     y = k*u + p;
+     y = u + p;
 
      annotation(Documentation(info("
      <html>
      <p>
-     Block that outputs <code>y = k u + p</code>,
-     where <code>k</code> and <code>p</code> are
-     parameters and <code>u</code> is an input.
+     Block that outputs <code>y = u + p</code>,
+     where <code>p</code> is parameter and <code>u</code> is an input.
      </p>
      </html>"));
    end AddParameter;
