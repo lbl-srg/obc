@@ -2,7 +2,7 @@ import subprocess
 import os
 import shutil
 
-def run_process(return_dict, cmd, worDir, timeout):
+def run_process(return_dict, cmd, timeout=300):
     """Function to run a subprocess command
     Parameters:
     ----------
@@ -23,8 +23,7 @@ def run_process(return_dict, cmd, worDir, timeout):
 
     output = subprocess.check_output(
         cmd,
-        # cwd=worDir,
-        # timeout=timeout,
+        timeout=timeout,
         stderr=subprocess.STDOUT,
         shell=False)
 
@@ -55,7 +54,6 @@ def translate(model, timeout=500, solver='dassl'):
 
     # Write translation script
     try:
-        worDir = "{{ working_directory }}"
         scr_nam = "{0}_translate.mos".format(model)
         with open(scr_nam, 'w') as f:
             f.write("""setCommandLineOptions("-d=nogen");
@@ -81,7 +79,7 @@ exit(retVal);
         # Translate and compile model
         cmd = ["omc", scr_nam]
         return_dict['cmd'] = ' '.join(cmd)
-        run_process(return_dict, cmd, worDir, timeout)
+        run_process(return_dict, cmd, timeout)
     except Exception as e:
         raise Exception("translation failed; error={}".format(e))
     return return_dict
@@ -105,7 +103,6 @@ def simulate(model, timeout=500, solver='dassl', stop_time=3600):
     return_dict = {}
 
     try:
-        worDir = "{{ working_directory }}"
         scr_nam = "{0}_simulate.mos".format(model)
         with open(scr_nam, 'w') as f:
             f.write("""retVal := system("./{0} -s {1}  -steps -cpu -lv LOG_STATS -override=stopTime={2}");
@@ -113,7 +110,7 @@ exit(retVal);
 """.format(model, solver, stop_time))
         cmd = ["omc", scr_nam]
         return_dict['cmd'] = ' '.join(cmd)
-        run_process(return_dict, cmd, worDir, timeout)
+        run_process(return_dict, cmd, timeout)
     except Exception as e:
         raise Exception("simulation failed; error={}".format(e))
     return return_dict
