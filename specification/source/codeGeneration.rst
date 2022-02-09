@@ -208,7 +208,7 @@ To implement control sequences, blocks from the
 CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
 to the CDL language specification described in :numref:`sec_cdl`.
 For verification tests, any Modelica block can be used.
-Next, to export the Modelica model, a Modelica tool such as OpenModelica, JModelica, OPTIMICA
+Next, to export the Modelica model, a Modelica tool such as OpenModelica, Impact, OPTIMICA
 or Dymola can be used.
 For example, with OPTIMICA a control sequence can be exported using the Python commands
 
@@ -240,7 +240,6 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
   functionality for real-time simulation:
 
   * OpenModelica (https://openmodelica.org/)
-  * JModelica (https://jmodelica.org)
   * Impact (https://www.modelon.com/modelon-impact/)
   * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
   * MapleSim (https://www.maplesoft.com/products/maplesim/)

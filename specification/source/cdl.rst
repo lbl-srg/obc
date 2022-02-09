@@ -440,8 +440,8 @@ to implement composite blocks (:numref:`sec_com_blo`).
        `Impact <https://www.modelon.com/modelon-impact/>`_, or
        `Dymola <https://discover.3ds.com/free-trial-version-of-dymola-for-windows>`_.
        All models in the `Examples` and `Validation` packages can be simulated with these tools, as well
-       as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_ and
-       with `JModelica <https://jmodelica.org/>`_.
+       as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_,
+       which is the simulation engine in Impact.
 
 An actual implementation of an elementary building block
 looks as follows, where we omitted the annotations that are
