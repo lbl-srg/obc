@@ -525,17 +525,19 @@ as shown in :numref:`sec_ver_spe_tes_set`.
      "references": [
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "generateJson": false,
          "sequence": "setPoiVAV",
          "pointNameMapping": "realControllerPointMapping.json",
-         "run_controller": false,
-         "controller_output": "test/real_outputs.csv"
+         "runController": false,
+         "controllerOutput": "test/real_outputs.csv"
        },
        {
          "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "generateJson": true,
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
-         "run_controller": true,
-         "controller_output": "test/real_outputs.csv",
+         "runController": true,
+         "controllerOutput": "test/real_outputs.csv",
          "outputs": {
            "setPoiVAV1.TSup*": { "atoly": 0.5 }
          },
@@ -545,18 +547,22 @@ as shown in :numref:`sec_ver_spe_tes_set`.
          "sampling": 60
        }
      ],
+     "modelJsonDirectory": "test",
      "tolerances": { "rtolx": 0.002, "rtoly": 0.002, "atolx": 10, "atoly": 0 },
      "sampling": 120,
      "controller": {
-       "network_address": "192.168.0.115/24",
-       "device_address": "192.168.0.227",
-       "device_id": 240001
+       "networkAddress": "192.168.0.115/24",
+       "deviceAddress": "192.168.0.227",
+       "deviceId": 240001
      }
    }
 
 This specifies two tests, one for the controller ``setPoiVAV`` and one for ``setPoiVAV1``.
 In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence, but their
 input time series and/or parameters are different, and therefore their output time series will be different.
+The ``generateJson`` flag will determine if the json translation for the specified model under test
+must be generated during the test using the ``modelica-json`` tool.
+If it is set to ``false``, the software assumes that the json translation is present in ``modelJsonDirectory``.
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
 is provided in the file ``realControllerPointMapping.json``, shown in :numref:`ver_poi_map`.
@@ -569,14 +575,14 @@ Moreover, for each variable that matches the regular
 expression ``setPoiVAV1.TSup*``, the verification will be suspended whenever
 ``fanSta.y = false``. The sampling rate is :math:`60` seconds. This test will also use
 ``realControllerPointMapping.json`` to map the variables to points of the real controller.
-Because ``run_controller = true``, this test
+Because ``runController = true``, this test
 will run the controller in real-time and save the time-series of the output
-variables in the file specified by ``controller_output``.
+variables in the file specified by ``controllerOutput``.
 The real controller's network configuration can be found
 under the ``controller`` section of the configuration.
-The ``network_address`` is the controller's
-BACnet subnet, the ``device_address`` is the controller's IP address and
-the ``device_id`` is the controller's BACnet
+The ``networkAddress`` is the controller's
+BACnet subnet, the ``deviceAddress`` is the controller's IP address and
+the ``deviceId`` is the controller's BACnet
 device identifier.
 The tolerances ``rtolx`` and ``atolx`` are relative and absolute tolerances in the independent
 variable, e.g., in time, and ``rtoly`` and ``atoly`` are relative and absolute tolerances
