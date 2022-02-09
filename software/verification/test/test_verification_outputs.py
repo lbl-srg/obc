@@ -2,7 +2,6 @@ import unittest
 import json
 import os
 from verify_cdl_sequence import Verification_Tool
-import shutil
 
 class Test_verification_outputs(unittest.TestCase):
     def test_verification_tool(self):
@@ -28,11 +27,11 @@ class Test_verification_outputs(unittest.TestCase):
 
         files = os.listdir(output_folder)
 
-        print("checking if the verification failed as expected:")
+        print("Checking if the verification failed as expected:")
         self.assertFalse(test_result[0])
         print("Verification failed!")
 
-        print("checking if all the necessary files have been created: ")
+        print("Checking if all the necessary files have been created:")
 
         self.assertTrue("{}.json".format(model) in files)
         self.assertTrue("{}_res.mat".format(model) in files)

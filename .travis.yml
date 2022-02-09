@@ -10,7 +10,7 @@ cache: pip
 env:
   global:
     - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-539-gb76366f-1
-    - MODELICA_BUILDINGS_VERSION=129640ebdb2a4af26e91255817c834183882b0e0
+    - MODELICA_BUILDINGS_VERSION=8.1.0
     - MODELICA_JSON_VERSION=ac5580f720b553617cde76996d1d56d4b4e28cc0
     - MODELICAPATH=${TRAVIS_BUILD_DIR}/modelica-buildings
     - MODELICAJSONPATH=${TRAVIS_BUILD_DIR}/modelica-json
@@ -41,9 +41,9 @@ before_install:
       make compile;
       cd -;
       echo "Installed modelica-json in ${MODELICAJSONPATH}";
-  - wget --no-verbose https://github.com/lbl-srg/modelica-buildings/archive/${MODELICA_BUILDINGS_VERSION}.tar.gz;
-      tar xzf ${MODELICA_BUILDINGS_VERSION}.tar.gz;
-      rm ${MODELICA_BUILDINGS_VERSION}.tar.gz;
+  - wget --no-verbose https://github.com/lbl-srg/modelica-buildings/archive/refs/tags/v${MODELICA_BUILDINGS_VERSION}.tar.gz;
+      tar xzf modelica-buildings-${MODELICA_BUILDINGS_VERSION}.tar.gz;
+      rm modelica-buildings-${MODELICA_BUILDINGS_VERSION}.tar.gz;
       mv modelica-buildings-${MODELICA_BUILDINGS_VERSION} ${MODELICAPATH};
       cd ${MODELICAPATH};
       cd -;
@@ -71,7 +71,7 @@ install:
       pybtex-docutils==1.0.1 \
       oset==0.1.3 \
       PyYAML==5.4
-  - pip3 install -r software/verification/requirements.txt
+  - pip3 install -r ${TRAVIS_BUILD_DIR}/software/verification/requirements.txt
 
 # Execute tests
 script:
