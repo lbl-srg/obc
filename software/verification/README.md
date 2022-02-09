@@ -32,9 +32,9 @@ Check documentation [here](https://obc.lbl.gov/specification/verification.html).
 ## Execution
 
 * Set up a configuration json file with the sequence to be tested and other details.
-  Check [this](http://obc.lbl.gov/specification/verification.html#sec-ver-spe-tes-set).
+  Check [this](https://obc.lbl.gov/specification/verification.html#sec-ver-spe-tes-set).
 * Write a file that maps the names and units of CDL points to the corresponding real controller's
-  points and units (See [example](http://obc.lbl.gov/specification/verification.html#ver-poi-map)).
+  points and units (See [example](https://obc.lbl.gov/specification/verification.html#ver-poi-map)).
 
 ```python verify_cdl_sequence.py --config <config_filename>.json```
 
