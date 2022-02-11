@@ -5449,16 +5449,6 @@
 
   Output:Constructions,Constructions;
 
-  Output:Table:SummaryReports,
-    AnnualBuildingUtilityPerformanceSummary,  !- Report 1 Name
-    InputVerificationandResultsSummary,  !- Report 2 Name
-    ClimaticDataSummary,     !- Report 3 Name
-    EquipmentSummary,        !- Report 4 Name
-    EnvelopeSummary;         !- Report 5 Name
-
-  OutputControl:Table:Style,
-    CommaAndHTML;            !- Column Separator
-
   Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
 
   Output:Variable,*,Zone Air Temperature,Timestep;
