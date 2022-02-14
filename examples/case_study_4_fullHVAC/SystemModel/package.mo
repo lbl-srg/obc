@@ -5,5 +5,5 @@ package SystemModel "System models for case study"
 annotation (
 uses(
   Buildings(version="9.0.0"),
-  Modelica(version="3.2.3")));
+  Modelica(version="4.0.0")));
 end SystemModel;

@@ -7,19 +7,19 @@ model BoilerPlant "Boiler plant model for closed loop testing"
       Buildings.Media.Water
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = boiEff1[1]*boiCap1 + boiEff2[1]*boiCap2
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = boiEff1[1]*boiCap1 + boiEff2[1]*boiCap2
     "Nominal heat flow rate of radiator"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate boiCap1= 2200000
+  parameter Modelica.Units.SI.HeatFlowRate boiCap1= 2200000
     "Boiler capacity for boiler-1"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate boiCap2= 2200000
+  parameter Modelica.Units.SI.HeatFlowRate boiCap2= 2200000
     "Boiler capacity for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
@@ -35,39 +35,39 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Efficiency for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+70
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal = 273.15+70
     "Radiator nominal supply water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal = 273.15+50
     "Radiator nominal return water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.113 * 1000
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.113 * 1000
     "Radiator nominal mass flow rate"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+70
+  parameter Modelica.Units.SI.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
+  parameter Modelica.Units.SI.Temperature TBoiRet_min = 273.15+60
     "Boiler minimum return water temperature"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
     "Boiler-1 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
     "Boiler-2 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Volume V=126016.35
+  parameter Modelica.Units.SI.Volume V=126016.35
     "Room volume"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.Temperature TAir_nominal=273.15 + 23.9
+  parameter Modelica.Units.SI.Temperature TAir_nominal=273.15 + 23.9
     "Air temperature at nominal condition"
     annotation(dialog(group="Zone parameters"));
 
@@ -442,9 +442,9 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature"
     annotation (Placement(transformation(extent={{-280,-80},{-260,-60}})));
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal_value=6000
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal_value=6000
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint";
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal_value=1000
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal_value=1000
     "Pressure drop of pipe and other resistances that are in series";
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(nout=1)
     "Boolean replicator"
