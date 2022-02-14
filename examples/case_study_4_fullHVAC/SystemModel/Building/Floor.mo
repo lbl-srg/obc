@@ -39,13 +39,21 @@ model Floor "Model of a floor of the building"
     opeEasCor(
       wOpe=4),
     leaWes(
-      s=buiAsp),
+      s=buiAsp,
+      res(m_flow_nominal=VRooWes*3.3/3600),
+      ACHInf(k=1/VRooWes/3.3*3600)),
     leaSou(
-      s=1/buiAsp),
+      s=1/buiAsp,
+      res(m_flow_nominal=VRooSou*3.3/3600),
+      ACHInf(k=1/VRooSou/3.3*3600)),
     leaNor(
-      s=1/buiAsp),
+      s=1/buiAsp,
+      res(m_flow_nominal=VRooNor*3.3/3600),
+      ACHInf(k=1/VRooNor/3.3*3600)),
     leaEas(
-      s=buiAsp));
+      s=buiAsp,
+      res(m_flow_nominal=VRooEas*3.3/3600),
+      ACHInf(k=1/VRooEas/3.3*3600)));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAtt(
     redeclare package Medium = Medium) "Fluid outlet of attic zone"
