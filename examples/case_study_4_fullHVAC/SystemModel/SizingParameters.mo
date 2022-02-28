@@ -14,30 +14,30 @@ record SizingParameters "Record with sizing parameters"
 
   final parameter Modelica.Units.SI.MassFlowRate mVAV_flow_nominal[5]=
     1.2 * {
-      1.139, 0.7414, 1.1285, 0.7501, 2.2613}
+      1.56, 1.01, 1.56, 1.01, 2.3}
       "Air terminal box design air flow rates, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mCooAHU_flow_nominal=1.2*4.5202
+  final parameter Modelica.Units.SI.MassFlowRate mCooAHU_flow_nominal=1.2*4.87
     "System design air flow rate, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaAHU_flow_nominal=1.2*1.697
+  final parameter Modelica.Units.SI.MassFlowRate mHeaAHU_flow_nominal=1.2*7.08
     "System design air flow rate, from HVAC_sizing_parameter.xlsx";
 
   final parameter Modelica.Units.SI.HeatFlowRate QHeaAHU_flow_nominal=
       mHeaAHU_flow_nominal*1006*(THeaDisAHU_nominal-(273.15+4))
     "Design heat flow rate of AHU heating coil";
 
-  final parameter Modelica.Units.SI.MassFlowRate mHeaWatAHU_flow_nominal=0.43899
+  final parameter Modelica.Units.SI.MassFlowRate mHeaWatAHU_flow_nominal=1.832
     "Heating water design flow rate at AHU **** this is the same as xxx, but Dymola fails to evaluate this parameter";
 
   final parameter Modelica.Units.SI.MassFlowRate xxx=( QHeaAHU_flow_nominal)  /(4200*(THeaWatSup_nominal-THeaWatRet_nominal))
     "Heating water design flow rate at AHU";
 
   final parameter Modelica.Units.SI.HeatFlowRate QHeaVAV_flow_nominal[5]={
-    20395.03, 13248.64, 20127.95, 13414.6, 31889.35}
+    28495.48, 18476.92, 28495.91, 18837.81, 34765.89}
     "Design heat flow rate of VAV terminal boxes, from HVAC_sizing_parameter.xlsx";
 
-  final parameter Real eps_errorResolution_sizingFactor = 2.2
+  final parameter Real eps_errorResolution_sizingFactor = 1.6
     "The original VAV heating mode air mass flow rates assigned as per EPlus sizing
     run were resulting in a heating coil efficiency eps > 1. This factor was
     assigned to resolve that simulation error. The same value is assigned as a
@@ -46,15 +46,15 @@ record SizingParameters "Record with sizing parameters"
     was used directly.";
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaVAV_flow_nominal[5]= 1.2*{
-    0.2786, 0.1579, 0.3357, 0.1581, 0.7666} * 2.2
+    0.468, 0.303, 0.468, 0.309, 0.8349} * 1.6
     "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
 
   final parameter Modelica.Units.SI.MassFlowRate mCooVAV_flow_nominal[5]=1.2*
-    {1.139, 0.7414, 1.1285, 0.7501, 2.2613}
-    "Design air flow rate of VAV terminal boxes for heating, from HVAC_sizing_parameter.xlsx";
+    {1.56, 1.01, 1.56, 1.03, 2.3}
+    "Design air flow rate of VAV terminal boxes for cooling, from HVAC_sizing_parameter.xlsx";
 
   final parameter Modelica.Units.SI.MassFlowRate mMinVAV_flow_nominal[5]=1.2*
-    {0.352, 0.1483, 0.4063, 0.15, 0.7666}
+    {0.469, 0.304, 0.469, 0.310, 0.835}
     "Minimum air flow rate of VAV terminal boxes, from HVAC_sizing_parameter.xlsx";
 
   parameter Modelica.Units.SI.Temperature THeaDisAHU_nominal(displayUnit="degC")=

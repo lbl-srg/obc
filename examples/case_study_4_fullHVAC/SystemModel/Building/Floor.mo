@@ -40,19 +40,19 @@ model Floor "Model of a floor of the building"
       wOpe=4),
     leaWes(
       s=buiAsp,
-      res(m_flow_nominal=VRooWes*3.3/3600),
+      res(m_flow_nominal=VRooWes*3.3*2.5/3600),
       ACHInf(k=1/VRooWes/3.3*3600)),
     leaSou(
       s=1/buiAsp,
-      res(m_flow_nominal=VRooSou*3.3/3600),
+      res(m_flow_nominal=VRooSou*3.3*2.5/3600),
       ACHInf(k=1/VRooSou/3.3*3600)),
     leaNor(
       s=1/buiAsp,
-      res(m_flow_nominal=VRooNor*3.3/3600),
+      res(m_flow_nominal=VRooNor*3.3*2.5/3600),
       ACHInf(k=1/VRooNor/3.3*3600)),
     leaEas(
       s=buiAsp,
-      res(m_flow_nominal=VRooEas*3.3/3600),
+      res(m_flow_nominal=VRooEas*3.3*2.5/3600),
       ACHInf(k=1/VRooEas/3.3*3600)));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAtt(
