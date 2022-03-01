@@ -33,11 +33,11 @@ model Floor "Model of a floor of the building"
     opeWesCor(
       wOpe=4),
     opeSouCor(
-      wOpe=9),
+      wOpe=0.01),
     opeNorCor(
-      wOpe=9),
+      wOpe=0.01),
     opeEasCor(
-      wOpe=4),
+      wOpe=0.01),
     leaWes(
       s=buiAsp,
       res(m_flow_nominal=VRooWes*3.3/3600),
