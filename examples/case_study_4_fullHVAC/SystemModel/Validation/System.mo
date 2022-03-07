@@ -27,7 +27,7 @@ model System
     redeclare final package MediumA = MediumA,
     redeclare final package MediumW = MediumW,
     QHeaAHU_flow_nominal=sizDat.QHeaAHU_flow_nominal,
-    QCooAHU_flow_nominal=2.5*sizDat.mCooAHU_flow_nominal*vav.cpAir*(vav.TCooAirSup_nominal
+    QCooAHU_flow_nominal=2.5*sizDat.mCooAHU_flow_nominal*Buildings.Utilities.Psychrometrics.Constants.cpAir*(vav.TCooAirSup_nominal
          - vav.TCooAirMix_nominal),
     mHeaVAV_flow_nominal=sizDat.mHeaVAV_flow_nominal,
     TCooWatInl_nominal=sizDat.TCooWatSup_nominal,
@@ -126,16 +126,16 @@ equation
           {58,4},{51.125,4},{51.125,30}},
                                      color={0,127,255}));
   connect(vav.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{82.2375,
-          73.4444},{152.139,73.4444},{152.139,126.769}}, color={0,127,255}));
+          73.4444},{153.096,73.4444},{153.096,126.769}}, color={0,127,255}));
   connect(vav.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{82.2375,
-          73.4444},{195.757,73.4444},{195.757,142.154}}, color={0,127,255}));
+          73.4444},{196.713,73.4444},{196.713,142.154}}, color={0,127,255}));
   connect(vav.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,155.231},{152.139,155.231}}, color={0,127,255}));
+          73.4444},{94,73.4444},{94,155.231},{153.096,155.231}}, color={0,127,255}));
   connect(vav.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,90},{128.417,90},{128.417,142.154}}, color={
+          73.4444},{94,73.4444},{94,90},{129.374,90},{129.374,142.154}}, color={
           0,127,255}));
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
-          73.4444},{140,73.4444},{140,142.154},{152.139,142.154}},
+          73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
                                                                  color={0,127,255}));
   connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{232,
           141},{232,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
