@@ -41,8 +41,7 @@ model System
   Buildings.Controls.OBC.CDL.Continuous.AddParameter
                                            addPar(p=273.15, k=1)
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain
-                                   gai(k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis
                                          hys(uLow=0.05, uHigh=0.1)
