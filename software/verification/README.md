@@ -7,7 +7,8 @@ the [Control Description Language](https://obc.lbl.gov/specification/cdl.html) s
 
 ## Details
 
-Check documentation [here](https://obc.lbl.gov/specification/verification.html).
+Check documentation [here](https://obc.lbl.gov/specification/verification.html). This tool implements verification of
+the control sequence as mentioned in [Scenario 1](https://obc.lbl.gov/specification/verification.html#scenario-1-control-input-obtained-by-simulating-a-cdl-model).
 
 ## Setup
 

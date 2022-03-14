@@ -498,6 +498,9 @@ either as part of verifying correct implementation during control development,
 or verifying correct implementation in a Building Automation System that allows overwriting control input
 time series.
 
+As part of the OBC project, we have also developed a `verification tool <https://github.com/lbl-srg/obc/tree/master/software/verification>`_
+for verifying the control sequences implemented in a controller using CDL.
+
 For this scenario, we are given the following data:
 
 i.   A list of CDL models, and for each model, the instance name of one control sequence
@@ -567,7 +570,7 @@ The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
 is provided in the file ``realControllerPointMapping.json``, shown in :numref:`ver_poi_map`.
 The test ``setPoiVAV`` will not run
-the controller during the test because of the specification ``run_controller = false``.
+the controller during the test because of the specification ``runController = false``.
 Rather, it will use the saved results ``test/real_outputs.csv`` from a previous run.
 The test for ``setPoiVAV1`` will use different tolerances on each output
 variable that matches the regular expression ``setPoiVAV1.TSup*``.
@@ -648,79 +651,77 @@ For example, the input ``uOccSen`` is a CDL point that is 1 if there is occupanc
 0 otherwise.
 
 To create test input and output time series, we generate CSV files. This needs to be done for each
-controller, and we will explain it only for the controller ``setPoiVAV``.
+controller (or control sequence) under test, and we will explain it only for the controller ``setPoiVAV``.
 For brevity , we call ``OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
 simply ``Supply_u``
 
-The procedure is as follows:
+Once you have the configuration and the ``pointNameMapping`` file set up, the sequence verification
+(handled by the verification tool) goes through the
+following steps:
 
-1. Parse the model to json by running ``modelica-json`` as
+1. Generate a json translation of the modelica code. Currently the verification tool does invoke the ``modelica-json`` tool
+from within itself, depending on the ``generateJson`` flag in the configuration (and stores the output in the directory
+mentioned under ``modelJsonDirectory``). The user can themselves invoke the ``modelica-json``
+tool using:
 
    .. code-block::
 
-      node app.js -f Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_u.mo -o json -d test1
+      node app.js -f Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_u.mo -o json -d test
 
    This will produce ``Supply_u.json`` (file name is abbreviated) in the output directory
-   ``test1``.
+   ``test``.
    See `https://github.com/lbl-srg/modelica-json <https://github.com/lbl-srg/modelica-json>`_
    for the json schema.
 
 2. From ``Supply_u.json``, extract all input and output variable declarations of the instance ``setPoiVAV``
-   and generate an I/O list that we will call
-   ``reference_io.json``. Also, extract all public parameters of the instance ``setPoiVAV`` and store them in
-   a file that we will call ``reference_parameters.json``. For this sequence, the public parameters are
+   and generate an I/O list . The tool also extracts public parameters of the instance ``setPoiVAV`` and stores them.
+   For this sequence, the public parameters are
    ``TSupSetMax``, ``TSupSetMin``, ``yHeaMax``, ``yMin`` and ``yCooMax``.
 
-3. Obtain reference time series by simulating ``Supply_u.mo`` to produce a CSV file ``reference.csv``
-   with time series of all input, output and indicator time series. This can be accomplished with
-   the free open-source tool `OpenModelica <https://openmodelica.org>`_ by running
+3. Obtain reference time series by simulating ``Supply_u.mo``
+   with time series of all input, output and indicator time series. The verification tool accomplishes this by using
+   the free open-source tool `OpenModelica <https://openmodelica.org>`_. The verification tool will create Modelica
+   scripts to translate the model, followed by one to simulate the model. If the user has OpenModelica installed on
+   the host computer, the tool then invokes the command line tool ``omc`` to execute these scripts. The user can also
+   use this `docker container with OpenModelica <https://hub.docker.com/r/michaelwetter/ubuntu-2004-omc>`_, in case
+   they do not have it set up on their host computer. This will produce a ``Supply_u_res.mat`` file, from which the tool
+   will extract the timeseries of the inputs and the outputs and store it as ``Supply_u_res.csv``.
 
-   .. code-block:: bash
+   More information about the python script used to run the OpenModelica simulation can be found
+   `here <https://github.com/lbl-srg/obc/blob/master/software/verification/openmodelica_sim.py>`_.
 
-     #~/bin/bash
-     set -e
-     export OPENMODELICALIBRARY=`pwd`:/usr/lib/omlibrary
-     python3 simulateReference.py
-     rm -f Buildings.* 2&> /dev/null
+4. Using the input and output variables extracted for the sequence ``setPoiVAV``, the verification tool then
+   the separates the input and the output timeseries (reference outputs).
 
-   with the file ``simulateReference.py`` being
+5. Steps 6 and 7 are applied only if ``runController`` flag in the test configuration file is set to True. Else, the
+   tool will use the real outputs previously generated by the controller and saved in the file mentioned under
+   ``controllerOutput``. Proceed to step 8.
 
-   .. code-block:: python
+6. If the ``runController`` flag is True, the verification applies the parameters that have been extracted to the
+   real controller, and runs the real controller for the input time series extracted in the step above.
+   Using the ``pointNameMapping`` file, the tool will also handle the unit conversions and the type conversions on the
+   time series as needed for the controller under test.
 
-      import shutil
-      from OMPython import OMCSessionZMQ
-      model="Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u"
-      # Load and simulate the model
-      omc = OMCSessionZMQ()
-      omc.sendExpression("loadModel(Buildings)")
-      omc.sendExpression("simulate({}, outputFormat=\"csv\")".format(model))
-      # Copy output file
-      shutil.move("{}_res.csv".format(model), "reference.csv")
+7. As the controller is being set different input values, the output variables are trended and saved to
+   ``setPoiVAV_real_outputs.csv``. The point names, units and the types of the output time series will also be
+   converted to match the CDL input timeseries as specified in the ``pointNameMapping`` file.
 
-4. To make a CSV file that only contains the control input time series, read ``reference_io.json`` to extract
-   the names of the input variables of the sequence ``setPoiVAV`` and write the corresponing time series
-   from ``reference.csv`` to a new file ``reference_input.csv``.
-
-5. Apply the parameters from ``reference_parameters.json`` to the real controller, and run
-   the real controller for the input time series in ``reference_input.csv``. Convert the units
-   of the parameters and the time series as needed for the tested controller.
-   Note that ``reference_io.json`` will contain the unit declarations.
-
-6. Convert the output time series of the real controller to the units specified in ``reference_io.json``,
-   and write the time series to a new file ``controller_output.csv``. Use the CDL output variable
-   names in the header of the CSV file.
-
-7. Produce the test results by running the funnel software
+8. Produce the test results by running the funnel software
    (`https://github.com/lbl-srg/funnel <https://github.com/lbl-srg/funnel>`_)
-   for each time series in ``controller_output.csv`` and in ``reference.csv``.
+   for each time series of the output variables generated by the controller (``setPoiVAV_output.csv`` or
+   file in ``controllerOutput``) against the corresponding output variables generated by the CDL simulation.
    Before sending the time series to the funnel software, set the value of the reference
    and the controller output to zero whenever the indicator function is zero for that time stamp.
    This will exclude the value from the verification.
    This will give, for each time series, output files that show where the error
    exceeds the specified tolerance.
 
-The sequence above can be run for each test case, and the results from step 7 are to be used
+The sequence above can be run for each test case, and the results from step 8 are to be used
 to generate a test report for all tested sequences.
+
+An example of a sequence under test, along with real inputs from a controller have been included in the verification
+tool software. Please refer `here <https://github.com/lbl-srg/obc/tree/master/software/verification#test>`_ on how to
+execute test this tool using the example test configuration ``config_test.json``.
 
 .. _sec_ver_sce2:
 
