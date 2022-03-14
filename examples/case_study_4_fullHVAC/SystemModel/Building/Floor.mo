@@ -3,21 +3,21 @@ model Floor "Model of a floor of the building"
   extends
     Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor(
     idfName=Modelica.Utilities.Files.loadResource(
-      "modelica://SystemModel/Resources/Data/VAV/BaseClasses/Floor/building_medium_5A.idf"),
+      "modelica://SystemModel/Resources/Data/VAV/BaseClasses/Floor/ASHRAE901_OfficeMedium_STD2004_Chicago.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     sou(
-      zoneName="Perimeter_bot_ZN_1", nPorts=6),
+      zoneName="Perimeter_mid_ZN_1", nPorts=6),
     eas(
-      zoneName="Perimeter_bot_ZN_2", nPorts=6),
+      zoneName="Perimeter_mid_ZN_2", nPorts=6),
     nor(
-      zoneName="Perimeter_bot_ZN_3", nPorts=6),
+      zoneName="Perimeter_mid_ZN_3", nPorts=6),
     wes(
-      zoneName="Perimeter_bot_ZN_4", nPorts=6),
+      zoneName="Perimeter_mid_ZN_4", nPorts=6),
     cor(
-      zoneName="Core_bottom", nPorts=12),
+      zoneName="Core_mid", nPorts=12),
     att(
-      zoneName="FirstFloor_Plenum",
+      zoneName="MidFloor_Plenum",
       nPorts=6,
       T_start=293.15),
     final VRooCor=2698.04,
@@ -33,19 +33,27 @@ model Floor "Model of a floor of the building"
     opeWesCor(
       wOpe=4),
     opeSouCor(
-      wOpe=9),
+      wOpe=0.01),
     opeNorCor(
-      wOpe=9),
+      wOpe=0.01),
     opeEasCor(
-      wOpe=4),
+      wOpe=0.01),
     leaWes(
-      s=buiAsp),
+      s=buiAsp,
+      res(m_flow_nominal=VRooWes*3.3/3600),
+      ACHInf(k=1/VRooWes/3.3*3600)),
     leaSou(
-      s=1/buiAsp),
+      s=1/buiAsp,
+      res(m_flow_nominal=VRooSou*3.3/3600),
+      ACHInf(k=1/VRooSou/3.3*3600)),
     leaNor(
-      s=1/buiAsp),
+      s=1/buiAsp,
+      res(m_flow_nominal=VRooNor*3.3/3600),
+      ACHInf(k=1/VRooNor/3.3*3600)),
     leaEas(
-      s=buiAsp));
+      s=buiAsp,
+      res(m_flow_nominal=VRooEas*3.3/3600),
+      ACHInf(k=1/VRooEas/3.3*3600)));
 
   Modelica.Fluid.Interfaces.FluidPort_b portAtt(
     redeclare package Medium = Medium) "Fluid outlet of attic zone"
