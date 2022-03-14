@@ -28,9 +28,9 @@ get_repo(){
 }
 
 echo "Updating Modelica Buildings Library"
-get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git 1b0bf49abd1ec7030f741f5d6fb05d77fee49600 # master, before CDL refactor of Add block
+get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git 60595a70f9830422198abff9190c84ead456b20c # master, after CDL refactor of Add block
 echo "Updating BuildingsPy"
-get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git e8fed466178cb909bd413bce722eb11d67e42486 # master
+get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git cd94c67cb71c2076c581089d4cb84a7fe3102100 # master
 
 echo "Don't forget to set export MODELICAPATH=${TMP_MBL}"
 echo "Don't forget to set export PYTHONPATH=${TMP_BUP}:$PYTHONPATH"
