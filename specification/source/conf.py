@@ -531,13 +531,13 @@ latex_elements['preamble'] = r'''
 
 
 def setup(app):
-    app.add_stylesheet('basic.css')
-    app.add_stylesheet('pygments.css')
-    app.add_stylesheet('bootstrap.css')
-    app.add_stylesheet('bootstrap-theme.css')
-    app.add_stylesheet('bootstrap_custom.css')
-    app.add_stylesheet('custom.css')
-    app.add_stylesheet('custom-sphinx.css')
+    app.add_css_file('basic.css')
+    app.add_css_file('pygments.css')
+    app.add_css_file('bootstrap.css')
+    app.add_css_file('bootstrap-theme.css')
+    app.add_css_file('bootstrap_custom.css')
+    app.add_css_file('custom.css')
+    app.add_css_file('custom-sphinx.css')
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
