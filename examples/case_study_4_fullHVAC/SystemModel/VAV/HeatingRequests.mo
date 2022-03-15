@@ -53,12 +53,12 @@ block HeatingRequests "Heating requests from AHU heating coil"
     final uLow=-0.1,
     final uHigh=0.1)
     "Check if discharge air temperature is errTDis_1 less than setpoint"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-18,80},{2,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys9(
     final uLow=-0.1,
     final uHigh=0.1)
     "Check if discharge air temperature is errTDis_2 less than setpoint"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-18,20},{2,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys10(
     final uLow=0.85,
     final uHigh=0.95)
@@ -70,19 +70,23 @@ block HeatingRequests "Heating requests from AHU heating coil"
     annotation (Placement(transformation(extent={{-140,-110},{-120,-90}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add add6(final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=-1)
+    "Gain to switch sign"
+    annotation (Placement(transformation(extent={{-94,58},{-74,78}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=-1)
+    "Gain to switch sign"
+    annotation (Placement(transformation(extent={{-94,0},{-74,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add6
     "Calculate difference of discharge temperature (plus errTDis_1) and its setpoint"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add7(final k2=-1)
+    annotation (Placement(transformation(extent={{-58,80},{-38,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add7
     "Calculate difference of discharge temperature (plus errTDis_2) and its setpoint"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-58,20},{-38,40}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final k=1,
     final p=errTDis_1)
     "Discharge temperature plus errTDis_1"
     annotation (Placement(transformation(extent={{-140,58},{-120,78}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final k=1,
     final p=errTDis_2)
     "Discharge temperature plus errTDis_2"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
@@ -130,30 +134,24 @@ protected
     annotation (Placement(transformation(extent={{100,-110},{120,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim4(delayTime=durTimDisAir)
     "Check if it is more than durTimDisAir"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{22,80},{42,100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay tim5(delayTime=durTimDisAir)
     "Check if it is more than durTimDisAir"
-    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+    annotation (Placement(transformation(extent={{22,20},{42,40}})));
 
 equation
   connect(TDis, addPar.u)
     annotation (Line(points={{-200,40},{-160,40},{-160,68},{-142,68}},
       color={0,0,127}));
-  connect(addPar.y, add6.u2)
-    annotation (Line(points={{-118,68},{-108,68},{-108,84},{-82,84}},
-      color={0,0,127}));
   connect(TDisHeaSet, add6.u1)
-    annotation (Line(points={{-200,120},{-100,120},{-100,96},{-82,96}},
+    annotation (Line(points={{-200,120},{-100,120},{-100,96},{-60,96}},
       color={0,0,127}));
   connect(add6.y, hys8.u)
-    annotation (Line(points={{-58,90},{-42,90}},     color={0,0,127}));
-  connect(addPar1.y, add7.u2)
-    annotation (Line(points={{-118,10},{-108,10},{-108,24},{-82,24}},
-      color={0,0,127}));
+    annotation (Line(points={{-36,90},{-20,90}},     color={0,0,127}));
   connect(add7.y, hys9.u)
-    annotation (Line(points={{-58,30},{-42,30}},     color={0,0,127}));
+    annotation (Line(points={{-36,30},{-20,30}},     color={0,0,127}));
   connect(hys9.y, tim5.u)
-    annotation (Line(points={{-18,30},{-2,30}},     color={255,0,255}));
+    annotation (Line(points={{4,30},{20,30}},       color={255,0,255}));
   connect(thrHeaResReq.y, swi7.u1)
     annotation (Line(points={{62,120},{80,120},{80,98},{98,98}},
       color={0,0,127}));
@@ -167,7 +165,7 @@ equation
     annotation (Line(points={{-200,40},{-160,40},{-160,10},{-142,10}},
       color={0,0,127}));
   connect(TDisHeaSet, add7.u1)
-    annotation (Line(points={{-200,120},{-100,120},{-100,36},{-82,36}},
+    annotation (Line(points={{-200,120},{-100,120},{-100,36},{-60,36}},
       color={0,0,127}));
   connect(uHeaVal, hys10.u)
     annotation (Line(points={{-200,-20},{-142,-20}},   color={0,0,127}));
@@ -202,12 +200,20 @@ equation
   connect(reaToInt3.y,yHeaPlaReq)
     annotation (Line(points={{162,-100},{200,-100}}, color={255,127,0}));
   connect(tim5.y, swi8.u2)
-    annotation (Line(points={{22,30},{98,30}},     color={255,0,255}));
+    annotation (Line(points={{44,30},{98,30}},     color={255,0,255}));
   connect(hys8.y, tim4.u)
-    annotation (Line(points={{-18,90},{-2,90}},     color={255,0,255}));
+    annotation (Line(points={{4,90},{20,90}},       color={255,0,255}));
   connect(tim4.y, swi7.u2)
-    annotation (Line(points={{22,90},{98,90}},     color={255,0,255}));
+    annotation (Line(points={{44,90},{98,90}},     color={255,0,255}));
 
+  connect(addPar.y, gai.u)
+    annotation (Line(points={{-118,68},{-96,68}}, color={0,0,127}));
+  connect(gai.y, add6.u2) annotation (Line(points={{-72,68},{-66,68},{-66,84},{-60,
+          84}}, color={0,0,127}));
+  connect(addPar1.y, gai1.u)
+    annotation (Line(points={{-118,10},{-96,10}}, color={0,0,127}));
+  connect(gai1.y, add7.u2) annotation (Line(points={{-72,10},{-66,10},{-66,24},{
+          -58,24}}, color={0,0,127}));
 annotation (
   defaultComponentName="heaReq",
   Diagram(coordinateSystem(preserveAspectRatio=
