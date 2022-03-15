@@ -498,13 +498,12 @@ either as part of verifying correct implementation during control development,
 or verifying correct implementation in a Building Automation System that allows overwriting control input
 time series.
 
-As part of the OBC project, we have also developed a `verification tool <https://github.com/lbl-srg/obc/tree/master/software/verification>`_
+We have also developed a `verification tool <https://github.com/lbl-srg/obc/tree/master/software/verification>`_
 for verifying the control sequences implemented in a controller using CDL.
 
 For this scenario, we are given the following data:
 
-i.   A list of CDL models, and for each model, the instance name of one control sequence
-     to be tested.
+i.   A list of CDL models to be tested.
 
 ii.  Relative and absolute tolerances, either for all output variables, or optionally for
      individual output variables of the sequence.
@@ -517,7 +516,8 @@ iii. Optionally, a boolean variable in the model that we call an indicator varia
 
 For example, consider the validation test
 `OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
-To verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``, a specification may be
+and suppose we want to verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``.
+To do so, we first write a specification
 as shown in :numref:`sec_ver_spe_tes_set`.
 
 .. code-block::
@@ -565,7 +565,7 @@ In this example, ``setPoiVAV`` and ``setPoiVAV1`` happen to be the same sequence
 input time series and/or parameters are different, and therefore their output time series will be different.
 The ``generateJson`` flag will determine if the json translation for the specified model under test
 must be generated during the test using the ``modelica-json`` tool.
-If it is set to ``false``, the software assumes that the json translation is present in ``modelJsonDirectory``.
+If it is set to ``false``, the software assumes that the json translation is already present in ``modelJsonDirectory``.
 The test for ``setPoiVAV`` will use the globally specified tolerances, and use
 a sampling rate of :math:`120` seconds. The mapping of the variables to the I/O points of the real controller
 is provided in the file ``realControllerPointMapping.json``, shown in :numref:`ver_poi_map`.
@@ -652,17 +652,17 @@ For example, the input ``uOccSen`` is a CDL point that is 1 if there is occupanc
 
 To create test input and output time series, we generate CSV files. This needs to be done for each
 controller (or control sequence) under test, and we will explain it only for the controller ``setPoiVAV``.
-For brevity , we call ``OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
-simply ``Supply_u``
+For brevity, we call ``OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
+simply ``Supply_u``.
 
-Once you have the configuration and the ``pointNameMapping`` file set up, the sequence verification
+Once we have the configuration and the ``pointNameMapping`` file set up, the sequence verification
 (handled by the verification tool) goes through the
 following steps:
 
 1. Generate a json translation of the modelica code. Currently the verification tool does invoke the ``modelica-json`` tool
-from within itself, depending on the ``generateJson`` flag in the configuration (and stores the output in the directory
-mentioned under ``modelJsonDirectory``). The user can themselves invoke the ``modelica-json``
-tool using:
+   from within itself, depending on the ``generateJson`` flag in the configuration (and stores the output in the directory
+   mentioned under ``modelJsonDirectory``). The user can themselves invoke the ``modelica-json``
+   tool using:
 
    .. code-block::
 
@@ -681,23 +681,21 @@ tool using:
 3. Obtain reference time series by simulating ``Supply_u.mo``
    with time series of all input, output and indicator time series. The verification tool accomplishes this by using
    the free open-source tool `OpenModelica <https://openmodelica.org>`_. The verification tool will create Modelica
-   scripts to translate the model, followed by one to simulate the model. If the user has OpenModelica installed on
-   the host computer, the tool then invokes the command line tool ``omc`` to execute these scripts. The user can also
-   use this `docker container with OpenModelica <https://hub.docker.com/r/michaelwetter/ubuntu-2004-omc>`_, in case
-   they do not have it set up on their host computer. This will produce a ``Supply_u_res.mat`` file, from which the tool
+   scripts to translate the model, followed by one to simulate the model.
+   This will produce a ``Supply_u_res.mat`` file, from which the tool
    will extract the timeseries of the inputs and the outputs and store it as ``Supply_u_res.csv``.
 
-   More information about the python script used to run the OpenModelica simulation can be found
-   `here <https://github.com/lbl-srg/obc/blob/master/software/verification/openmodelica_sim.py>`_.
+   More information about the python script used to run the OpenModelica simulation can be found at
+   `software/verification/openmodelica_sim.py <https://github.com/lbl-srg/obc/blob/master/software/verification/openmodelica_sim.py>`_.
 
 4. Using the input and output variables extracted for the sequence ``setPoiVAV``, the verification tool then
-   the separates the input and the output timeseries (reference outputs).
+   separates the input and the output timeseries (reference outputs).
 
-5. Steps 6 and 7 are applied only if ``runController`` flag in the test configuration file is set to True. Else, the
+5. Steps 6 and 7 are applied only if ``runController`` flag in the test configuration file is set to ``True``. Else, the
    tool will use the real outputs previously generated by the controller and saved in the file mentioned under
    ``controllerOutput``. Proceed to step 8.
 
-6. If the ``runController`` flag is True, the verification applies the parameters that have been extracted to the
+6. If the ``runController`` flag is ``True``, the verification applies the parameters that have been extracted to the
    real controller, and runs the real controller for the input time series extracted in the step above.
    Using the ``pointNameMapping`` file, the tool will also handle the unit conversions and the type conversions on the
    time series as needed for the controller under test.
@@ -720,8 +718,8 @@ The sequence above can be run for each test case, and the results from step 8 ar
 to generate a test report for all tested sequences.
 
 An example of a sequence under test, along with real inputs from a controller have been included in the verification
-tool software. Please refer `here <https://github.com/lbl-srg/obc/tree/master/software/verification#test>`_ on how to
-execute test this tool using the example test configuration ``config_test.json``.
+tool software. Please see `software/verification <https://github.com/lbl-srg/obc/tree/master/software/verification#test>`_
+for how to automate this process.
 
 .. _sec_ver_sce2:
 
