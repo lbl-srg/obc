@@ -40,16 +40,18 @@ block HWIsoVal
     annotation (Placement(transformation(extent={{180,-60},{220,-20}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=1/
+        chaHotWatIsoRat) "Normalize signal"
+    annotation (Placement(transformation(extent={{-36,40},{-16,60}})));
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample valve position at start of shutdown process"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1/chaHotWatIsoRat)
+    final p=1e-6)
     "Determine time required to change valve position"
-    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre
     "Check if time required for changing valve position has elapsed"
@@ -177,23 +179,21 @@ equation
   connect(tim.u, and2.y) annotation (Line(points={{-102,100},{-120,100},{-120,
           -200},{-50,-200},{-50,-170},{-58,-170}}, color={255,0,255}));
 
-  connect(addPar.y, lin1.x2) annotation (Line(points={{-8,50},{0,50},{0,76},{38,
+  connect(addPar.y, lin1.x2) annotation (Line(points={{12,50},{20,50},{20,76},{38,
           76}},     color={0,0,127}));
 
   connect(tim.y, gre.u1) annotation (Line(points={{-78,100},{-20,100},{-20,120},
           {58,120}},
                  color={0,0,127}));
 
-  connect(addPar.y, gre.u2) annotation (Line(points={{-8,50},{0,50},{0,76},{34,76},
-          {34,112},{58,112}},         color={0,0,127}));
+  connect(addPar.y, gre.u2) annotation (Line(points={{12,50},{20,50},{20,76},{34,
+          76},{34,112},{58,112}},     color={0,0,127}));
 
   connect(gre.y, and5.u3) annotation (Line(points={{82,120},{120,120},{120,132},
           {138,132}}, color={255,0,255}));
 
   connect(con9.y, lin1.f2) annotation (Line(points={{22,100},{30,100},{30,72},{38,
           72}}, color={0,0,127}));
-  connect(addPar.u, triSam.y)
-    annotation (Line(points={{-32,50},{-48,50}}, color={0,0,127}));
   connect(triSam.y, lin1.f1) annotation (Line(points={{-48,50},{-40,50},{-40,84},
           {38,84}}, color={0,0,127}));
   connect(or2.y, and5.u1) annotation (Line(points={{62,220},{120,220},{120,148},
@@ -209,6 +209,10 @@ equation
           {138,-40}}, color={255,0,255}));
   connect(and2.y, triSam.trigger) annotation (Line(points={{-58,-170},{-50,-170},
           {-50,20},{-60,20},{-60,38.2}}, color={255,0,255}));
+  connect(addPar.u, gai2.y)
+    annotation (Line(points={{-12,50},{-14,50}}, color={0,0,127}));
+  connect(triSam.y, gai2.u)
+    annotation (Line(points={{-48,50},{-38,50}}, color={0,0,127}));
 annotation (
   defaultComponentName="enaHotWatIsoVal",
   Diagram(

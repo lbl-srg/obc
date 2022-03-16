@@ -40,6 +40,9 @@ block CapacityRequirement
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Negate return temperature signal for subtraction"
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 protected
   constant Real rhoWat(
     final unit="kg/m3",
@@ -70,38 +73,30 @@ protected
     "Specific heat capacity of water"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=1,
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Adder"
-    annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-16},{80,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro
     "Product"
     annotation (Placement(transformation(extent={{20,-16},{40,4}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1
     "Product"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Product"
     annotation (Placement(transformation(extent={{-20,-22},{0,-2}})));
 
 equation
-  connect(TRet, add2.u2)
-    annotation (Line(points={{-140,0},{-110,0},{-110,34},{-102,34}},
-      color={0,0,127}));
-  connect(add2.u1, TSupSet)
-    annotation (Line(points={{-102,46},{-110,46},{-110,70},{-140,70}},
-      color={0,0,127}));
   connect(add2.y, pro.u1)
-    annotation (Line(points={{-78,40},{10,40},{10,0},{18,0}},
+    annotation (Line(points={{2,40},{10,40},{10,0},{18,0}},
       color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{42,-6},{58,-6}},
@@ -131,6 +126,12 @@ equation
     annotation (Line(points={{112,0},{140,0}},
       color={0,0,127}));
 
+  connect(TRet, gai.u) annotation (Line(points={{-140,0},{-110,0},{-110,20},{-82,
+          20}}, color={0,0,127}));
+  connect(gai.y, add2.u2) annotation (Line(points={{-58,20},{-40,20},{-40,34},{-22,
+          34}}, color={0,0,127}));
+  connect(TSupSet, add2.u1) annotation (Line(points={{-140,70},{-110,70},{-110,46},
+          {-22,46}}, color={0,0,127}));
   annotation (defaultComponentName = "capReq",
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
       graphics={

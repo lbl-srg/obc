@@ -50,7 +50,7 @@ block PlantEnable
     final displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
-    annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
+    annotation (Placement(transformation(extent={{-200,-90},{-160,-50}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
@@ -73,6 +73,9 @@ block PlantEnable
     "Time since plant has been disabled"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Negate outdoor air temperature signal for subtraction"
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=0.5)
@@ -107,16 +110,15 @@ protected
     annotation (Placement(transformation(extent={{-10,-120},{10,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TOutLoc,
-    final k=-1)
+    final p=TOutLoc)
     "Compare measured outdoor air temperature to boiler lockout temperature"
-    annotation (Placement(transformation(extent={{-150,-60},{-130,-40}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=-locDt,
     final uHigh=0)
     "Hysteresis loop to prevent cycling caused by measured value"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
@@ -143,13 +145,13 @@ equation
     annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
   connect(greThr.y, not1.u)
     annotation (Line(points={{-98,-110},{-12,-110}}, color={255,0,255}));
-  connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50}}, color={0,0,127}));
+  connect(hys.u, addPar.y) annotation (Line(points={{-52,-70},{-58,-70}},   color={0,0,127}));
   connect(not3.y, tim1.u)
     annotation (Line(points={{-48,-30},{-42,-30}}, color={255,0,255}));
   connect(not4.y, tim2.u)
     annotation (Line(points={{2,70},{8,70}}, color={255,0,255}));
-  connect(not2.u, hys.y) annotation (Line(points={{-12,-70},{-20,-70},{-20,-50},
-  {-98,-50}}, color={255,0,255}));
+  connect(not2.u, hys.y) annotation (Line(points={{-12,-70},{-28,-70}},
+              color={255,0,255}));
   connect(intGreThr.y, not3.u) annotation (Line(points={{-98,50},{-80,50},{-80,-30},
   {-72,-30}}, color={255,0,255}));
   connect(pre1.y, not4.u) annotation (Line(points={{-38,50},{-30,50},{-30,70},{-22,
@@ -157,8 +159,9 @@ equation
   connect(greThr.y, mulAnd.u[1]) annotation (Line(points={{-98,-110},{-92,-110},
           {-92,125.25},{78,125.25}},
                              color={255,0,255}));
-  connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
-          121.75},{78,121.75}}, color={255,0,255}));
+  connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-28,-70},{-20,-70},{-20,
+          -48},{-86,-48},{-86,121.75},{78,121.75}},
+                                color={255,0,255}));
   connect(intGreThr.y, mulAnd.u[3]) annotation (Line(points={{-98,50},{-80,50},{
           -80,118.25},{78,118.25}}, color={255,0,255}));
   connect(mulAnd.y, lat.u) annotation (Line(points={{102,120},{110,120},{110,0},
@@ -174,8 +177,6 @@ equation
           {78,-38}}, color={255,0,255}));
   connect(intGreThr.u, supResReq)
     annotation (Line(points={{-122,50},{-180,50}}, color={255,127,0}));
-  connect(addPar.u, TOut)
-    annotation (Line(points={{-152,-50},{-180,-50}}, color={0,0,127}));
   connect(lat.y, yPla)
     annotation (Line(points={{142,0},{180,0}}, color={255,0,255}));
   connect(lat.y, pre1.u) annotation (Line(points={{142,0},{150,0},{150,30},{-70,
@@ -190,6 +191,10 @@ equation
           78,-30}}, color={255,0,255}));
   connect(tim1.passed, mulOr.u[3]) annotation (Line(points={{-18,-38},{20,-38},
           {20,-74.6667},{28,-74.6667}},color={255,0,255}));
+  connect(addPar.u, gai.y)
+    annotation (Line(points={{-82,-70},{-118,-70}}, color={0,0,127}));
+  connect(gai.u, TOut)
+    annotation (Line(points={{-142,-70},{-180,-70}}, color={0,0,127}));
   annotation (defaultComponentName = "plaEna",
   Icon(graphics={
         Rectangle(

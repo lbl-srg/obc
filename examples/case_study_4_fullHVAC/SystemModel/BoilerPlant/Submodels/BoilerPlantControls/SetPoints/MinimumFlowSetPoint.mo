@@ -68,6 +68,14 @@ block MinimumFlowSetPoint "Hot water minimum flow setpoint"
     annotation (Placement(transformation(extent={{320,-90},{360,-50}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+                "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{194,-172},{214,-152}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=1/bypSetRat)
+    "Normalize signal"
+    annotation (Placement(transformation(extent={{248,-260},{268,-240}})));
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 protected
   parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
@@ -83,8 +91,7 @@ protected
     "Boiler maximum design flowrate expanded for element-wise multiplication
     with the staging matrix";
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add3
     "Find difference between new and old setpoints"
     annotation (Placement(transformation(extent={{220,-210},{240,-190}})));
 
@@ -93,10 +100,9 @@ protected
     annotation (Placement(transformation(extent={{280,-210},{300,-190}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=1e-6,
-    final k=1/bypSetRat)
+    final p=1e-6)
     "Calculate time required to reset setpoint"
-    annotation (Placement(transformation(extent={{250,-210},{270,-190}})));
+    annotation (Placement(transformation(extent={{280,-262},{300,-242}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=0)
@@ -130,21 +136,20 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-80,-190},{-60,-170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSta,nBoi]
     "Element-wise division"
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nSta,nBoi](
-    final p=fill(1e-8,nSta,nBoi),
-    final k=fill(1, nSta, nBoi))
+    final p=fill(1e-8,nSta,nBoi))
     "Prevent divison by zero"
     annotation (Placement(transformation(extent={{-50,-190},{-30,-170}})));
 
@@ -165,7 +170,7 @@ protected
     "Design maximum boiler flowrate"
     annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 
@@ -180,10 +185,6 @@ protected
     final outOfRangeValue=1e-6)
     "Extract flow ratio of previous setpoint during stage-up"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k2=-1) "Previous stage during stage change"
-    annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -214,7 +215,7 @@ protected
     "Pass minimum flow setpoint based on whether stage-up involves a boiler being disabled"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{92,-100},{112,-80}})));
 
@@ -269,7 +270,7 @@ protected
     "Max flowrate as per 5.3.8.2"
     annotation (Placement(transformation(extent={{100,-310},{120,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4
     "Product of flowrate ratio and maximum flowrate"
     annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
 
@@ -381,16 +382,6 @@ equation
   connect(matMax.y, extIndSig1.u) annotation (Line(points={{42,-150},{52,-150},{
           52,80},{58,80}},
                         color={0,0,127}));
-
-  connect(conInt.y, addInt.u2) annotation (Line(points={{-98,70},{-72,70},{-72,74},
-          {-64,74}},
-                   color={255,127,0}));
-
-  connect(uStaSet, addInt.u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
-          100},{-72,100},{-72,86},{-64,86}},   color={255,127,0}));
-
-  connect(addInt.y, extIndSig1.index) annotation (Line(points={{-40,80},{40,80},
-          {40,60},{70,60},{70,68}},color={255,127,0}));
 
   connect(matGai.y, extIndSig2.u)
     annotation (Line(points={{-18,-220},{-2,-220}},
@@ -550,18 +541,15 @@ equation
           {188,-208}}, color={0,0,127}));
   connect(lat2.y, swi3.u2) annotation (Line(points={{-58,-70},{176,-70},{176,-200},
           {188,-200}}, color={255,0,255}));
-  connect(triSam.y, add3.u1) annotation (Line(points={{162,-40},{170,-40},{170,-136},
-          {214,-136},{214,-194},{218,-194}}, color={0,0,127}));
   connect(swi3.y, add3.u2) annotation (Line(points={{212,-200},{214,-200},{214,-206},
           {218,-206}}, color={0,0,127}));
   connect(pre1.u, gre.y)
     annotation (Line(points={{226,-110},{222,-110}}, color={255,0,255}));
   connect(tim.y, gre.u1) annotation (Line(points={{250,-40},{254,-40},{254,-88},
           {192,-88},{192,-110},{198,-110}}, color={0,0,127}));
-  connect(add3.y, addPar1.u)
-    annotation (Line(points={{242,-200},{248,-200}}, color={0,0,127}));
   connect(addPar1.y, abs.u)
-    annotation (Line(points={{272,-200},{278,-200}}, color={0,0,127}));
+    annotation (Line(points={{302,-252},{310,-252},{310,-230},{270,-230},{270,-200},
+          {278,-200}},                               color={0,0,127}));
   connect(abs.y, lin1.x2) annotation (Line(points={{302,-200},{310,-200},{310,
           -180},{184,-180},{184,-144},{258,-144}}, color={0,0,127}));
   connect(abs.y, gre.u2) annotation (Line(points={{302,-200},{310,-200},{310,
@@ -569,6 +557,20 @@ equation
   connect(abs.y, lin.x2) annotation (Line(points={{302,-200},{310,-200},{310,
           -180},{184,-180},{184,-4},{258,-4}}, color={0,0,127}));
 
+  connect(triSam.y, gai.u) annotation (Line(points={{162,-40},{170,-40},{170,-136},
+          {188,-136},{188,-162},{192,-162}}, color={0,0,127}));
+  connect(gai.y, add3.u1) annotation (Line(points={{216,-162},{218,-162},{218,-194},
+          {218,-194}}, color={0,0,127}));
+  connect(addPar1.u, gai1.y) annotation (Line(points={{278,-252},{274,-252},{274,
+          -250},{270,-250}}, color={0,0,127}));
+  connect(add3.y, gai1.u) annotation (Line(points={{242,-200},{242,-250},{246,-250}},
+        color={0,0,127}));
+  connect(uStaSet, intSub.u1) annotation (Line(points={{-160,-90},{-128,-90},{
+          -128,100},{-90,100},{-90,96},{-82,96}}, color={255,127,0}));
+  connect(conInt.y, intSub.u2) annotation (Line(points={{-98,70},{-90,70},{-90,
+          84},{-82,84}}, color={255,127,0}));
+  connect(intSub.y, extIndSig1.index) annotation (Line(points={{-58,90},{40,90},
+          {40,60},{70,60},{70,68}}, color={255,127,0}));
 annotation (
   defaultComponentName="minBoiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

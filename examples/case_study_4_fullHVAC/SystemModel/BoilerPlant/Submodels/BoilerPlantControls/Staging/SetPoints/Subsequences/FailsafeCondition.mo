@@ -48,9 +48,11 @@ block FailsafeCondition
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
@@ -75,9 +77,6 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-  connect(add2.u2, TSup)
-    annotation (Line(points={{-82,-6},{-90,-6},{-90,0},{-140,0}},
-      color={0,0,127}));
   connect(add2.u1, TSupSet)
     annotation (Line(points={{-82,6},{-90,6},{-90,50},{-140,50}},
       color={0,0,127}));
@@ -95,6 +94,10 @@ equation
 
   connect(tim.passed, yFaiCon) annotation (Line(points={{62,-8},{70,-8},{70,0},{
           140,0}}, color={255,0,255}));
+  connect(add2.u2, gai.y)
+    annotation (Line(points={{-82,-6},{-90,-6},{-90,0}}, color={0,0,127}));
+  connect(gai.u, TSup)
+    annotation (Line(points={{-114,0},{-140,0}}, color={0,0,127}));
 annotation (defaultComponentName = "faiSafCon",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
     graphics={

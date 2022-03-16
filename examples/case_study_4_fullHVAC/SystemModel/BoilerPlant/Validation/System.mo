@@ -31,7 +31,7 @@ model System
     l=0.0001)
     "Isolation valve for radiator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
-        origin={-32,-14})));
+        origin={-34,-14})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=10e-2,
@@ -39,7 +39,7 @@ model System
     "Radiator isolation valve controller"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter
-                                           addPar(p=273.15, k=1)
+                                           addPar(p=273.15)
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
@@ -85,8 +85,8 @@ model System
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
 equation
-  connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-32,-4},
-          {-32,10},{-34,10}},                color={0,127,255}));
+  connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-34,-4},
+          {-34,10}},                         color={0,127,255}));
   connect(zoneModel_simplified.TZon, conPID.u_m)
     annotation (Line(points={{-18,20},{0,20},{0,48}}, color={0,0,127}));
   connect(zoneModel_simplified.QFlo, gai.y)
@@ -109,8 +109,9 @@ equation
           100}}, color={0,0,127}));
   connect(conPID.y, hys1.u) annotation (Line(points={{12,60},{20,60},{20,20},{28,
           20}}, color={0,0,127}));
-  connect(conPID.y, val3.y) annotation (Line(points={{12,60},{20,60},{20,0},{-50,
-          0},{-50,-14},{-44,-14}}, color={0,0,127}));
+  connect(conPID.y, val3.y) annotation (Line(points={{12,60},{20,60},{20,0},{
+          -50,0},{-50,-14},{-46,-14}},
+                                   color={0,0,127}));
   connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points=
          {{-18,20},{0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}}, color={0,0,
           127}));
@@ -118,8 +119,8 @@ equation
           20},{100,-90},{-40,-90},{-40,-66},{-32,-66}}, color={255,127,0}));
   connect(booToInt.y, boiPlaSys.supResReq) annotation (Line(points={{92,100},{110,
           100},{110,-100},{-50,-100},{-50,-70},{-32,-70}}, color={255,127,0}));
-  connect(boiPlaSys.port_AHUHWSup, val3.port_a) annotation (Line(points={{-24,
-          -60},{-24,-40},{-32,-40},{-32,-24}}, color={0,127,255}));
+  connect(boiPlaSys.port_AHUHWSup, val3.port_a) annotation (Line(points={{-24,-60},
+          {-24,-40},{-34,-40},{-34,-24}},      color={0,127,255}));
   connect(zoneModel_simplified.port_b, boiPlaSys.port_AHUHWRet) annotation (
       Line(points={{-26,10},{-26,4},{-14,4},{-14,-36},{-28,-36},{-28,-60}},
         color={0,127,255}));

@@ -31,10 +31,12 @@ block ProportionalRegulator
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=-1)
+                "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-92,-10},{-72,10}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TRetSet,
-    final k=-1)
+    final p=TRetSet)
     "Compare hot water return temperature and minimum return temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
@@ -44,14 +46,12 @@ protected
     "Limit input for calculating control signal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/(TRetSet - TRetMinAll))
     "Calculate control signal"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 equation
-  connect(addPar.u, THotWatRet)
-    annotation (Line(points={{-62,0},{-120,0}}, color={0,0,127}));
 
   connect(lim.u, addPar.y)
     annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
@@ -62,6 +62,10 @@ equation
   connect(gai.y, yRegSig)
     annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
 
+  connect(addPar.u, gai2.y)
+    annotation (Line(points={{-62,0},{-70,0}}, color={0,0,127}));
+  connect(gai2.u, THotWatRet)
+    annotation (Line(points={{-94,0},{-120,0}}, color={0,0,127}));
   annotation (defaultComponentName=
     "proReg",
     Icon(graphics={
