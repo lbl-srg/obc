@@ -71,7 +71,7 @@ model System
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
         ModelicaServices.ExternalReferences.loadResource(
-        "modelica://SystemModel/Resources/weatherdata/USA_NY_Buffalo-Greater.Buffalo.Intl.AP.725280_TMY3.mos"))
+        "modelica://SystemModel/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(

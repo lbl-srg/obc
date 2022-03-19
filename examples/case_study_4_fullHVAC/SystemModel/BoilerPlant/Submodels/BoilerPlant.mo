@@ -412,23 +412,12 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "End boiler part load hold when supply temperature setpoint is achieved or if supply temperature exceeds safe operation limit"
     annotation (Placement(transformation(extent={{-150,-214},{-130,-194}})));
-  Modelica.Fluid.Pipes.DynamicPipe pipe(
+  Buildings.Fluid.FixedResistances.PlugFlowPipe pipe(
     redeclare package Medium = MediumW,
-    nParallel=1,
+    m_flow_nominal=mRad_flow_nominal,
     length=2000,
-    isCircular=true,
-    diameter=0.0762,
-    height_ab=0.0102,
-    redeclare model FlowModel =
-        Modelica.Fluid.Pipes.BaseClasses.FlowModels.NominalLaminarFlow,
-    T_start=293.15,
-    nNodes=2,
-    use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        Modelica.Fluid.Pipes.BaseClasses.HeatTransfer.ConstantFlowHeatTransfer,
-    flowModel(dp_nominal(displayUnit="Pa") = 50000,
-                              m_flow_nominal=mRad_flow_nominal),
-    heatTransfer(alpha0=15*1/0.3))
+    dIns=0.0508,
+    kIns=0.0389)
     "Dynamic pipe element to represent duct loss"
     annotation (Placement(transformation(extent={{208,-8},{228,12}}, rotation=-90,
         origin={208,228})));
@@ -614,11 +603,6 @@ equation
           {160,-150}}, color={0,127,255}));
   connect(TZon, TOut1.T)
     annotation (Line(points={{-340,-70},{-282,-70}}, color={0,0,127}));
-  connect(TOut1.port, pipe.heatPorts[1]) annotation (Line(points={{-260,-70},{
-          -150,-70},{-150,96},{226,96},{226,11.45},{214.4,11.45}}, color={191,0,
-          0}));
-  connect(TOut1.port, pipe.heatPorts[2]) annotation (Line(points={{-260,-70},{
-          -150,-70},{-150,96},{226,96},{226,8.35},{214.4,8.35}}, color={191,0,0}));
   connect(pum.port_b, senVolFlo.port_a)
     annotation (Line(points={{-30,-60},{-30,-20}}, color={0,127,255}));
   connect(senRelPre1.port_a, spl1.port_2) annotation (Line(points={{-70,-20},{-70,
@@ -675,6 +659,8 @@ equation
     annotation (Line(points={{-282,-154},{-284,-154}}, color={0,0,127}));
   connect(pro2.y, gai2.u) annotation (Line(points={{-258,-110},{-250,-110},{-250,
           -130},{-318,-130},{-318,-154},{-308,-154}}, color={0,0,127}));
+  connect(TOut1.port, pipe.heatPort) annotation (Line(points={{-260,-70},{-148,
+          -70},{-148,100},{230,100},{230,10},{220,10}}, color={191,0,0}));
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
