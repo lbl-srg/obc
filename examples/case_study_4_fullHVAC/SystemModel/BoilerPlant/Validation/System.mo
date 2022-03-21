@@ -70,20 +70,14 @@ model System
     rad(dp_nominal=40000))
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
-        ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(
-    tableOnFile=true,
-    tableName="tab1",
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://SystemModel/Resources/Data/BoilerPlant/Validation/System.txt"),
-    verboseRead=true,
-    columns={2,5},
-    timeScale=60) "Boiler thermal load from EnergyPlus simulation"
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=650000)
+    annotation (Placement(transformation(extent={{-108,16},{-88,36}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=24)
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 equation
   connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-34,-4},
           {-34,10}},                         color={0,127,255}));
@@ -91,10 +85,6 @@ equation
     annotation (Line(points={{-18,20},{0,20},{0,48}}, color={0,0,127}));
   connect(zoneModel_simplified.QFlo, gai.y)
     annotation (Line(points={{-42,20},{-48,20}}, color={0,0,127}));
-  connect(combiTimeTable.y[1], gai.u)
-    annotation (Line(points={{-89,20},{-72,20}}, color={0,0,127}));
-  connect(combiTimeTable.y[2], addPar.u) annotation (Line(points={{-89,20},{-80,
-          20},{-80,60},{-72,60}}, color={0,0,127}));
   connect(addPar.y, conPID.u_s)
     annotation (Line(points={{-48,60},{-12,60}}, color={0,0,127}));
   connect(weaDat.weaBus, boiPlaSys.weaBus) annotation (Line(
@@ -124,6 +114,10 @@ equation
   connect(zoneModel_simplified.port_b, boiPlaSys.port_AHUHWRet) annotation (
       Line(points={{-26,10},{-26,4},{-14,4},{-14,-36},{-28,-36},{-28,-60}},
         color={0,127,255}));
+  connect(con.y, gai.u) annotation (Line(points={{-86,26},{-80,26},{-80,20},{-72,
+          20}}, color={0,0,127}));
+  connect(con1.y, addPar.u)
+    annotation (Line(points={{-88,60},{-72,60}}, color={0,0,127}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/BoilerPlant/Validation/System.mos"
         "Simulate and plot"),
