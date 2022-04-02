@@ -29,18 +29,6 @@ model PlantDisable
     "Plant disable for primary-secondary plants with dedicated pumps"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
-    final k={false,true})
-    "Boiler status before plant disable"
-    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.1,
-    final period=900,
-    final startTime=1) "Boolean pulse"
-    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=10,
     final falseHoldDuration=0) "Hold rising edge signal for visualization"
@@ -56,17 +44,29 @@ protected
     final falseHoldDuration=0) "Hold rising edge signal for visualization"
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol4(
-    final trueHoldDuration=70,
-    final falseHoldDuration=0)
-    "Hold pump change start signal to represent pump change process"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+protected
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=180)
+    "Delay pump off signal after plant enable becomes false"
+    annotation (Placement(transformation(extent={{50,30},{70,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol5(
-    final trueHoldDuration=70,
-    final falseHoldDuration=0)
-    "Hold pump change start signal to represent pump change process"
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Logical Not"
+    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
+    final k={false,true})
+    "Boiler status before plant disable"
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.1,
+    final period=900)  "Boolean pulse"
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge detector"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
@@ -76,16 +76,6 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical Or"
     annotation (Placement(transformation(extent={{-28,80},{-8,100}})));
-
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1
-    "Falling edge detector"
-    annotation (Placement(transformation(extent={{70,0},{90,20}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre2 "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1 "Logical pre block"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel[2](
     final samplePeriod=fill(1, 2),
@@ -98,10 +88,6 @@ protected
     final y_start={0,1})
     "Unit delay for valve position"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg2
-    "Falling edge detector"
-    annotation (Placement(transformation(extent={{70,-100},{90,-80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[2](
     final k={0,1}) "Valve position when plant is enabled"
@@ -139,23 +125,14 @@ equation
   connect(booPul.y, plaDis2.uPla) annotation (Line(points={{-68,120},{6,120},{6,
           -92},{8,-92}},  color={255,0,255}));
 
-  connect(plaDis.yStaChaPro, truFalHol.u) annotation (Line(points={{32,83},{36,
-          83},{36,70},{38,70}},
-                            color={255,0,255}));
+  connect(plaDis.yStaChaPro, truFalHol.u) annotation (Line(points={{32,84},{36,84},
+          {36,70},{38,70}}, color={255,0,255}));
 
-  connect(plaDis1.yPumChaPro, truFalHol4.u) annotation (Line(points={{32,3},{36,
-          3},{36,10},{38,10}}, color={255,0,255}));
+  connect(plaDis1.yStaChaPro, truFalHol1.u) annotation (Line(points={{32,-6},{36,
+          -6},{36,-20},{38,-20}}, color={255,0,255}));
 
-  connect(plaDis2.yPumChaPro, truFalHol5.u) annotation (Line(points={{32,-97},{
-          36,-97},{36,-90},{38,-90}},
-                                   color={255,0,255}));
-
-  connect(plaDis1.yStaChaPro, truFalHol1.u) annotation (Line(points={{32,-7},{
-          36,-7},{36,-20},{38,-20}},
-                                  color={255,0,255}));
-
-  connect(plaDis2.yStaChaPro, truFalHol2.u) annotation (Line(points={{32,-107},
-          {36,-107},{36,-120},{38,-120}},
+  connect(plaDis2.yStaChaPro, truFalHol2.u) annotation (Line(points={{32,-106},{
+          36,-106},{36,-120},{38,-120}},
                                    color={255,0,255}));
 
   connect(booPul.y, edg.u) annotation (Line(points={{-68,120},{-64,120},{-64,
@@ -182,32 +159,12 @@ equation
   connect(or2.y, plaDis2.uStaChaProEnd) annotation (Line(points={{-6,90},{-4,90},
           {-4,-108},{8,-108}}, color={255,0,255}));
 
-  connect(truFalHol4.y, falEdg1.u)
-    annotation (Line(points={{62,10},{68,10}}, color={255,0,255}));
-
-  connect(falEdg1.y, pre2.u) annotation (Line(points={{92,10},{94,10},{94,32},{
-          -50,32},{-50,-20},{-42,-20}},               color={255,0,255}));
-
-  connect(pre2.y, plaDis1.uPumChaPro) annotation (Line(points={{-18,-20},{-8,-20},
-          {-8,-4},{8,-4}}, color={255,0,255}));
-
-  connect(pre1.y, plaDis2.uPumChaPro) annotation (Line(points={{-18,-110},{-10,
-          -110},{-10,-104},{8,-104}},
-                              color={255,0,255}));
-
-  connect(plaDis.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{32,87},{36,
-          87},{36,136},{-96,136},{-96,80},{-92,80}},
+  connect(plaDis.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{32,88},{36,
+          88},{36,136},{-96,136},{-96,80},{-92,80}},
                                                    color={0,0,127}));
 
-  connect(truFalHol5.y, falEdg2.u)
-    annotation (Line(points={{62,-90},{68,-90}}, color={255,0,255}));
-
-  connect(falEdg2.y, pre1.u) annotation (Line(points={{92,-90},{94,-90},{94,-70},
-          {-60,-70},{-60,-110},{-42,-110}},
-                                          color={255,0,255}));
-
-  connect(plaDis1.yHotWatIsoVal, uniDel.u) annotation (Line(points={{32,-3},{34,
-          -3},{34,28},{-96,28},{-96,-20},{-92,-20}}, color={0,0,127}));
+  connect(plaDis1.yHotWatIsoVal, uniDel.u) annotation (Line(points={{32,-2},{34,
+          -2},{34,28},{-96,28},{-96,-20},{-92,-20}}, color={0,0,127}));
 
   connect(con1.y, swi.u1) annotation (Line(points={{-68,-50},{-60,-50},{-60,-42},
           {-52,-42}}, color={0,0,127}));
@@ -236,9 +193,18 @@ equation
   connect(booRep.y, swi1.u2)
     annotation (Line(points={{-68,50},{-32,50}}, color={255,0,255}));
 
+  connect(not1.y, truDel.u)
+    annotation (Line(points={{42,40},{48,40}}, color={255,0,255}));
+  connect(booPul.y, not1.u) annotation (Line(points={{-68,120},{-64,120},{-64,40},
+          {18,40}}, color={255,0,255}));
+  connect(truDel.y, not2.u)
+    annotation (Line(points={{72,40},{78,40}}, color={255,0,255}));
+  connect(not2.y, plaDis1.uPumChaPro) annotation (Line(points={{102,40},{110,40},
+          {110,20},{-20,20},{-20,-4},{8,-4}}, color={255,0,255}));
+  connect(not2.y, plaDis2.uPumChaPro) annotation (Line(points={{102,40},{110,40},
+          {110,20},{-20,20},{-20,-104},{8,-104}}, color={255,0,255}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(
                   lineColor = {75,138,73},
                   fillColor={255,255,255},
@@ -251,7 +217,7 @@ equation
                   fillPattern = FillPattern.Solid,
                   points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(
-      preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
+      preserveAspectRatio=false, extent={{-100,-140},{120,140}})),
     experiment(
       StopTime=900,
       Interval=1,

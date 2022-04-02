@@ -3,17 +3,23 @@ model Change
   "Validates boiler stage status setpoint signal generation for boiler plants"
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.Subsequences.Change
-    cha(final nSta=10, final delStaCha=600)
+    cha(
+    final nSta=10,
+    final delStaCha=600)
     "Controls for stage up signal variations"
     annotation (Placement(transformation(extent={{-40,180},{-20,200}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.Subsequences.Change
-    cha1(final nSta=10, final delStaCha=600)
+    cha1(
+    final nSta=10,
+    final delStaCha=600)
     "Controls for stage down signal variations"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.Subsequences.Change
-    cha2(final nSta=10, final delStaCha=600)
+    cha2(
+    final nSta=10,
+    final delStaCha=600)
     "Controls for stage up/stage down signal interaction"
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
 
@@ -60,6 +66,10 @@ model Change
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub
+    "Subtract one from current stage to find next lower stage"
+    annotation (Placement(transformation(extent={{140,160},{160,180}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable(
     final table=[0,0; 600,0; 600,1; 1200,1; 1200,0; 2500,0; 2500,1; 3700,1; 3700,0; 4300,
         0; 4300,1; 4500,1; 4500,0; 6000,0; 6000,1; 9200,1; 9200,0; 12000,0;
@@ -91,15 +101,9 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{100,180},{120,200}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k1=+1)
-    "Adder"
+  Buildings.Controls.OBC.CDL.Integers.Add addInt
+    "Add one to current stage to find next higher stage"
     annotation (Placement(transformation(extent={{140,200},{160,220}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt1(
-    final k2=-1)
-    "Adder"
-    annotation (Placement(transformation(extent={{140,160},{160,180}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea1
     "Type converter"
@@ -114,15 +118,9 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt2(
-    final k1=+1)
+  Buildings.Controls.OBC.CDL.Integers.Add addInt2
     "Adder"
     annotation (Placement(transformation(extent={{140,20},{160,40}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt3(
-    final k2=-1)
-    "Adder"
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timeTable2(
     final table=[0,0; 800,0; 800,1; 2700,1; 2700,0; 4500,0; 4500,1; 5200,1; 5200,0;
@@ -149,15 +147,9 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt4(
-    final k1=+1)
+  Buildings.Controls.OBC.CDL.Integers.Add addInt4
     "Adder"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
-
-  Buildings.Controls.OBC.CDL.Integers.Add addInt5(
-    final k2=-1)
-    "Adder"
-    annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3(
     final t=0.5)
@@ -261,6 +253,13 @@ protected
     "True delay to represent staging process"
     annotation (Placement(transformation(extent={{70,120},{90,140}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub1
+    "Subtract one from current stage to find next lower stage"
+    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Subtract intSub2
+    "Subtract one from current stage to find next lower stage"
+    annotation (Placement(transformation(extent={{140,-200},{160,-180}})));
 equation
   connect(timeTable.y[1], greThr.u)
     annotation (Line(points={{-138,230},{-122,230}}, color={0,0,127}));
@@ -273,13 +272,8 @@ equation
   connect(reaToInt.y, addInt.u2) annotation (Line(points={{122,190},{130,190},{
           130,204},{138,204}},
                            color={255,127,0}));
-  connect(reaToInt.y, addInt1.u1) annotation (Line(points={{122,190},{130,190},
-          {130,176},{138,176}},color={255,127,0}));
-  connect(step.y, addInt.u1) annotation (Line(points={{122,230},{130,230},{130,
-          216},{138,216}},
-                      color={255,127,0}));
-  connect(step.y, addInt1.u2) annotation (Line(points={{122,230},{126,230},{126,
-          164},{138,164}}, color={255,127,0}));
+  connect(step.y, addInt.u1) annotation (Line(points={{122,230},{126,230},{126,216},
+          {138,216}}, color={255,127,0}));
   connect(addInt.y, cha.uAvaUp) annotation (Line(points={{162,210},{170,210},{170,
           250},{-50,250},{-50,192},{-42,192}}, color={255,127,0}));
   connect(cha1.ySta, intToRea1.u) annotation (Line(points={{-18,16},{0,16},{0,10},
@@ -290,14 +284,8 @@ equation
     annotation (Line(points={{82,10},{98,10}},   color={0,0,127}));
   connect(reaToInt1.y, addInt2.u2) annotation (Line(points={{122,10},{130,10},{
           130,24},{138,24}},color={255,127,0}));
-  connect(reaToInt1.y, addInt3.u1) annotation (Line(points={{122,10},{130,10},{
-          130,-4},{138,-4}},    color={255,127,0}));
-  connect(step1.y, addInt2.u1) annotation (Line(points={{122,50},{130,50},{130,
-          36},{138,36}},
-                     color={255,127,0}));
-  connect(step1.y, addInt3.u2) annotation (Line(points={{122,50},{126,50},{126,
-          -16},{138,-16}},
-                      color={255,127,0}));
+  connect(step1.y, addInt2.u1) annotation (Line(points={{122,50},{126,50},{126,36},
+          {138,36}}, color={255,127,0}));
   connect(addInt2.y, cha1.uAvaUp) annotation (Line(points={{162,30},{170,30},{170,
           70},{-50,70},{-50,12},{-42,12}}, color={255,127,0}));
   connect(timeTable2.y[1], greThr2.u)
@@ -311,15 +299,8 @@ equation
   connect(reaToInt2.y, addInt4.u2) annotation (Line(points={{122,-170},{130,
           -170},{130,-156},{138,-156}},
                                   color={255,127,0}));
-  connect(reaToInt2.y, addInt5.u1) annotation (Line(points={{122,-170},{130,
-          -170},{130,-184},{138,-184}},
-                                  color={255,127,0}));
-  connect(step2.y, addInt4.u1) annotation (Line(points={{122,-130},{130,-130},{
-          130,-144},{138,-144}},
-                             color={255,127,0}));
-  connect(step2.y, addInt5.u2) annotation (Line(points={{122,-130},{126,-130},{
-          126,-196},{138,-196}},
-                             color={255,127,0}));
+  connect(step2.y, addInt4.u1) annotation (Line(points={{122,-130},{126,-130},{126,
+          -144},{138,-144}}, color={255,127,0}));
   connect(addInt4.y, cha2.uAvaUp) annotation (Line(points={{162,-150},{170,-150},
           {170,-110},{-50,-110},{-50,-168},{-42,-168}}, color={255,127,0}));
   connect(noStaChaSig.y, cha.uDow) annotation (Line(points={{-178,110},{-170,110},
@@ -342,20 +323,14 @@ equation
           -10,-50},{-2,-50}}, color={255,0,255}));
   connect(cha2.yChaEdg, truFalHol2.u) annotation (Line(points={{-18,-172},{-10,-172},
           {-10,-230},{-2,-230}}, color={255,0,255}));
-  connect(addInt1.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{
-          170,156},{178,156}}, color={255,127,0}));
   connect(maxInt.u2, u3.y) annotation (Line(points={{178,144},{170,144},{170,
           130},{162,130}}, color={255,127,0}));
   connect(maxInt.y, cha.uAvaDow) annotation (Line(points={{202,150},{210,150},{210,
           110},{-50,110},{-50,188},{-42,188}},     color={255,127,0}));
-  connect(addInt3.y, maxInt1.u1) annotation (Line(points={{162,-10},{170,-10},{
-          170,-24},{178,-24}}, color={255,127,0}));
   connect(u4.y, maxInt1.u2) annotation (Line(points={{162,-50},{170,-50},{170,
           -36},{178,-36}}, color={255,127,0}));
   connect(maxInt1.y, cha1.uAvaDow) annotation (Line(points={{202,-30},{208,-30},
           {208,-70},{-50,-70},{-50,8},{-42,8}},   color={255,127,0}));
-  connect(addInt5.y, maxInt2.u1) annotation (Line(points={{162,-190},{170,-190},
-          {170,-204},{178,-204}}, color={255,127,0}));
   connect(u5.y, maxInt2.u2) annotation (Line(points={{162,-230},{170,-230},{170,
           -216},{178,-216}}, color={255,127,0}));
   connect(maxInt2.y, cha2.uAvaDow) annotation (Line(points={{202,-210},{208,-210},
@@ -401,6 +376,24 @@ equation
           18},{-42,18}}, color={255,0,255}));
   connect(con.y, cha2.uStaAva) annotation (Line(points={{-98,270},{-56,270},{-56,
           -162},{-42,-162}}, color={255,0,255}));
+  connect(reaToInt.y, intSub.u1) annotation (Line(points={{122,190},{130,190},{130,
+          176},{138,176}}, color={255,127,0}));
+  connect(step.y, intSub.u2) annotation (Line(points={{122,230},{126,230},{126,164},
+          {138,164}}, color={255,127,0}));
+  connect(intSub.y, maxInt.u1) annotation (Line(points={{162,170},{170,170},{170,
+          156},{178,156}}, color={255,127,0}));
+  connect(reaToInt1.y, intSub1.u1) annotation (Line(points={{122,10},{130,10},{130,
+          -4},{138,-4}}, color={255,127,0}));
+  connect(step1.y, intSub1.u2) annotation (Line(points={{122,50},{126,50},{126,-16},
+          {138,-16}}, color={255,127,0}));
+  connect(intSub1.y, maxInt1.u1) annotation (Line(points={{162,-10},{170,-10},{170,
+          -24},{178,-24}}, color={255,127,0}));
+  connect(intSub2.y, maxInt2.u1) annotation (Line(points={{162,-190},{170,-190},
+          {170,-204},{178,-204}}, color={255,127,0}));
+  connect(reaToInt2.y, intSub2.u1) annotation (Line(points={{122,-170},{130,-170},
+          {130,-184},{138,-184}}, color={255,127,0}));
+  connect(step2.y, intSub2.u2) annotation (Line(points={{122,-130},{126,-130},{126,
+          -196},{138,-196}}, color={255,127,0}));
 annotation (
  experiment(StopTime=14000.0, Tolerance=1e-06),
   __Dymola_Commands(file="./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/Staging/SetPoints/Subsequences/Validation/Change.mos"
