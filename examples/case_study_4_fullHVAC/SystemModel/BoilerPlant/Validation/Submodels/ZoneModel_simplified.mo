@@ -1,5 +1,5 @@
 within SystemModel.BoilerPlant.Validation.Submodels;
-block ZoneModel_simplified
+model ZoneModel_simplified
   "Zone model"
 
   replaceable package MediumW =Buildings.Media.Water
