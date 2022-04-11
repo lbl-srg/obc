@@ -61,9 +61,7 @@ block Configurator "Configures boiler staging"
     "Asserts whether boilers are tagged in ascending order with regards to capacity"
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[nBoi](
-    final k1=fill(1, nBoi),
-    final k2=fill(-1, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.Add add1[nBoi]
     "Subtracts signals"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 
@@ -81,6 +79,12 @@ block Configurator "Configures boiler staging"
     "Less threshold"
     annotation (Placement(transformation(extent={{20,150},{40,170}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai[nBoi](k=fill(-1,
+        nBoi)) "Negate return temperature signal for subtraction"
+    annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1[nSta](k=fill(-1,
+        nSta)) "Negate return temperature signal for subtraction"
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 protected
   final parameter Integer boiTypMat[nSta, nBoi] = {boiTyp[i] for i in 1:nBoi, j in 1:nSta}
     "Boiler type array expanded to allow for element-wise multiplication with the
@@ -113,7 +117,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MatrixGain sumNumAvaBoi(
     final K=staMat)
     "Outputs the available boiler count per stage vector"
-    annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneVec[nBoi](
     final k=fill(1, nBoi))
@@ -124,8 +128,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
-    final k2=fill(-1, nSta))
+  Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta]
     "Subtracts count of available boilers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
@@ -144,7 +147,7 @@ protected
     "Boiler stage type matrix"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
@@ -188,7 +191,7 @@ protected
     "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
@@ -199,7 +202,7 @@ protected
     "Find highest BFirMin in each stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nSta]
     "Product"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -216,13 +219,10 @@ equation
     annotation (Line(points={{-240,-40},{-202,-40}},
       color={255,0,255}));
   connect(booToRea.y,sumNumAvaBoi. u)
-    annotation (Line(points={{-178,-40},{-142,-40}},
+    annotation (Line(points={{-178,-40},{-162,-40}},
       color={0,0,127}));
   connect(sumNumBoi.y, add2.u1)
     annotation (Line(points={{-118,20},{-100,20},{-100,-4},{-82,-4}},
-      color={0,0,127}));
-  connect(sumNumAvaBoi.y, add2.u2)
-    annotation (Line(points={{-118,-40},{-100.5,-40},{-100.5,-16},{-82,-16}},
       color={0,0,127}));
   connect(add2.y,lesThr. u)
     annotation (Line(points={{-58,-10},{-42,-10}},
@@ -291,8 +291,6 @@ equation
     annotation (Line(points={{-58,70},{80,70},{80,-20},{240,-20}},
       color={0,0,127}));
 
-  connect(boiDesCaps.y, add1.u2) annotation (Line(points={{-178,110},{-160,110},
-          {-160,154},{-102,154}}, color={0,0,127}));
   connect(sort1.y, add1.u1) annotation (Line(points={{-118,170},{-110,170},
           {-110,166},{-102,166}}, color={0,0,127}));
   connect(add1.y, multiMax.u) annotation (Line(points={{-78,160},{-70,160},
@@ -305,6 +303,14 @@ equation
     annotation (Line(points={{42,160},{58,160}}, color={255,0,255}));
   connect(sort1.u, boiDesCaps.y) annotation (Line(points={{-142,170},{-160,
           170},{-160,110},{-178,110}}, color={0,0,127}));
+  connect(boiDesCaps.y, gai.u) annotation (Line(points={{-178,110},{-160,110},{-160,
+          140},{-142,140}}, color={0,0,127}));
+  connect(gai.y, add1.u2) annotation (Line(points={{-118,140},{-110,140},{-110,154},
+          {-102,154}}, color={0,0,127}));
+  connect(sumNumAvaBoi.y, gai1.u)
+    annotation (Line(points={{-138,-40},{-122,-40}}, color={0,0,127}));
+  connect(gai1.y, add2.u2) annotation (Line(points={{-98,-40},{-90,-40},{-90,-16},
+          {-82,-16}}, color={0,0,127}));
   annotation (defaultComponentName = "conf",
     Icon(graphics={
            Rectangle(extent={{-100,-100},{100,100}},

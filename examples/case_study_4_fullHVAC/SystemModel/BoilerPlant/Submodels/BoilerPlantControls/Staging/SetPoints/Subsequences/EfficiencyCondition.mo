@@ -94,21 +94,23 @@ block EfficiencyCondition
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+    "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-106,-62},{-86,-42}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1)
+    final p=1e-6)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div2
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
@@ -149,7 +151,7 @@ protected
     "Check for non-condensing boilers"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch for heating capacity condition based on stage type"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
@@ -157,12 +159,11 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Adder"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
@@ -196,8 +197,6 @@ equation
           {-114,70},{-114,100},{-140,100}}, color={0,0,127}));
   connect(add1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
           -110,-20},{-140,-20}},  color={0,0,127}));
-  connect(add1.u2, VUpMinSet_flow) annotation (Line(points={{-82,-46},{-110,-46},
-          {-110,-60},{-140,-60}}, color={0,0,127}));
   connect(add1.y, div2.u1)
     annotation (Line(points={{-58,-40},{-50,-40},{-50,-44},{-42,-44}},
       color={0,0,127}));
@@ -270,6 +269,10 @@ equation
           {-110,-70},{-82,-70}}, color={0,0,127}));
   connect(addPar.y, div2.u2) annotation (Line(points={{-58,-70},{-50,-70},{-50,-56},
           {-42,-56}}, color={0,0,127}));
+  connect(add1.u2, gai.y)
+    annotation (Line(points={{-82,-46},{-84,-46},{-84,-52}}, color={0,0,127}));
+  connect(VUpMinSet_flow, gai.u) annotation (Line(points={{-140,-60},{-110,-60},
+          {-110,-52},{-108,-52}}, color={0,0,127}));
 annotation (
   defaultComponentName = "effCon",
   Icon(

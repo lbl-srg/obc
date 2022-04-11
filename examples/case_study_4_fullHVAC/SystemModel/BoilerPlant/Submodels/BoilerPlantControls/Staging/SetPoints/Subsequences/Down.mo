@@ -233,12 +233,19 @@ block Down
     final TDifHys=dTemp) "Failsafe condition"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1) if not
+    have_priOnl "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-170,-200},{-150,-180}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=-1) if
+                                                                         not
+    have_priOnl "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-124,-140},{-104,-120}})));
 protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-150,34},{-130,54}})));
 
@@ -252,7 +259,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
@@ -266,16 +273,15 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(
-    final k2=-1) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Continuous.Add add4 if not have_priOnl
     "Compare primary and secondary circuit return temperature"
-    annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=TCirDif - dTemp,
     final uHigh=TCirDif) if not have_priOnl
     "Hysteresis loop"
-    annotation (Placement(transformation(extent={{-132,-190},{-112,-170}})));
+    annotation (Placement(transformation(extent={{-100,-154},{-80,-134}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 if not have_priOnl
     "Logical And"
@@ -285,7 +291,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,-108},{80,-88}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
@@ -303,7 +309,7 @@ protected
     "Integer to Real conversion"
     annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 if not have_priOnl
     "Logical switch"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
 
@@ -363,15 +369,14 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
     final nin=nSta) if not have_priOnl
     "Identify stage type of current stage"
-    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+    annotation (Placement(transformation(extent={{-150,-140},{-130,-120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2[nSta](
     final k=boiMinPriPumSpeSta) if not have_priOnl
     "Signal source for minimum primary pump speed for boiler plant stage"
-    annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 if not have_priOnl
     "Compare pump speed signal and minimum pump speed for stage"
     annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
 
@@ -426,12 +431,11 @@ equation
           130}},     color={255,0,255}));
   connect(and3.u2, or2.y) annotation (Line(points={{178,0},{134,0},{134,18},{82,
           18}}, color={255,0,255}));
-  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,
-          -174},{-170,-160},{-200,-160}}, color={0,0,127}));
-  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,
-          -186},{-170,-190},{-200,-190}}, color={0,0,127}));
+  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-142,-174},{-170,-174},
+          {-170,-160},{-200,-160}},       color={0,0,127}));
   connect(hys3.u, add4.y)
-    annotation (Line(points={{-134,-180},{-140,-180}}, color={0,0,127}));
+    annotation (Line(points={{-102,-144},{-108,-144},{-108,-180},{-118,-180}},
+                                                       color={0,0,127}));
   connect(logSwi.y, and3.u3) annotation (Line(points={{122,-40},{150,-40},{150,-8},
           {178,-8}}, color={255,0,255}));
   connect(intToRea.u, uTyp) annotation (Line(points={{-62,-170},{-70,-170},{-70,
@@ -473,21 +477,19 @@ equation
                                                      color={255,0,255}));
   connect(not4.y, and2.u1) annotation (Line(points={{-98,-80},{-96,-80},{-96,-100},
           {-92,-100}}, color={255,0,255}));
-  connect(hys3.y, and2.u2) annotation (Line(points={{-110,-180},{-98,-180},{-98,
-          -108},{-92,-108}},
+  connect(hys3.y, and2.u2) annotation (Line(points={{-78,-144},{-72,-144},{-72,-120},
+          {-96,-120},{-96,-108},{-92,-108}},
                        color={255,0,255}));
   connect(uStaChaProEnd, faiSafCon.uStaChaProEnd) annotation (Line(points={{-200,
           90},{-166,90},{-166,125},{-162,125}}, color={255,0,255}));
   connect(con2.y, extIndSig1.u)
-    annotation (Line(points={{-148,-130},{-142,-130}}, color={0,0,127}));
+    annotation (Line(points={{-158,-130},{-152,-130}}, color={0,0,127}));
   connect(uCur, extIndSig1.index) annotation (Line(points={{-30,-220},{-30,-190},
-          {-80,-190},{-80,-160},{-130,-160},{-130,-142}}, color={255,127,0}));
+          {-80,-190},{-80,-160},{-140,-160},{-140,-142}}, color={255,127,0}));
   connect(hys2.u, add2.y)
     annotation (Line(points={{-148,-80},{-152,-80}}, color={0,0,127}));
   connect(uPumSpe, add2.u1) annotation (Line(points={{-200,-60},{-176,-60},{
           -176,-74}},       color={0,0,127}));
-  connect(extIndSig1.y, add2.u2) annotation (Line(points={{-118,-130},{-112,-130},
-          {-112,-110},{-178,-110},{-178,-86},{-176,-86}}, color={0,0,127}));
   connect(tim3.u, and1.y)
     annotation (Line(points={{-22,44},{-28,44}}, color={255,0,255}));
   connect(and1.u1, not2.y)
@@ -530,6 +532,14 @@ equation
           -48},{98,-48}}, color={255,0,255}));
   connect(tim2.passed, or1.u2) annotation (Line(points={{2,-108},{40,-108},{40,-106},
           {58,-106}}, color={255,0,255}));
+  connect(TSecHotWatRet, gai.u)
+    annotation (Line(points={{-200,-190},{-172,-190}}, color={0,0,127}));
+  connect(add4.u2, gai.y) annotation (Line(points={{-142,-186},{-146,-186},{-146,
+          -190},{-148,-190}}, color={0,0,127}));
+  connect(extIndSig1.y, gai1.u)
+    annotation (Line(points={{-128,-130},{-126,-130}}, color={0,0,127}));
+  connect(gai1.y, add2.u2) annotation (Line(points={{-102,-130},{-100,-130},{-100,
+          -110},{-176,-110},{-176,-86}}, color={0,0,127}));
   annotation(defaultComponentName = "staDow",
     Icon(coordinateSystem(extent={{-100,-160},{100,190}}),
       graphics={

@@ -143,7 +143,7 @@ block HotWaterSupplyTemperatureReset
       iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Select plant setpoint based on stage type"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 
@@ -185,7 +185,7 @@ protected
     "Retain last value before stage change initiates"
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
@@ -234,11 +234,11 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-200},{30,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Logical Switch"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
 
@@ -252,8 +252,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TConBoiHotWatSetOff,
-    final k=1)
+    final p=TConBoiHotWatSetOff)
     "Boiler setpoint for condensing boilers in non-condensing type stage"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 
@@ -266,7 +265,7 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-310},{30,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 

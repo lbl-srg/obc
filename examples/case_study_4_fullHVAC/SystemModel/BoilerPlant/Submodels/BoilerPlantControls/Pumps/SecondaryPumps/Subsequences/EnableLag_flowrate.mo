@@ -72,16 +72,15 @@ block EnableLag_flowrate
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain hotWatFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter hotWatFloRat(
     final k=1/VHotWat_flow_nominal)
     "Boiler hot water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=staCon,
-    final k=1/nPum_nominal)
+    final p=staCon)
     "Add parameter"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=timPer)
@@ -93,12 +92,23 @@ block EnableLag_flowrate
     "Count time for which stage-down condition is satisfied"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=1/
+        nPum_nominal) "Normalize signal"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=1/
+        nPum_nominal) "Normalize signal"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(k=-1)
+    "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(k=-1)
+    "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=staCon,
-    final k=1/nPum_nominal)
+    final p=staCon)
     "Add parameter"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
     "Convert boolean input to integer number"
@@ -114,18 +124,15 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
@@ -179,36 +186,22 @@ equation
   connect(numOpePum.y,intToRea. u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
 
-  connect(intToRea.y,addPar. u)
-    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
-
   connect(add2.y,hys. u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
 
   connect(add1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
 
-  connect(addPar1.y, addPar2.u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
-
-  connect(addPar.y, add2.u2)
-    annotation (Line(points={{62,0},{70,0},{70,20},{-90,20},{-90,34},{-82,34}},
-      color={0,0,127}));
-
   connect(intToRea.y, addPar1.u)
     annotation (Line(points={{22,0},{30,0},{30,-20},{-90,-20},{-90,-40},{-82,-40}},
       color={0,0,127}));
 
   connect(addPar2.y, add1.u1)
-    annotation (Line(points={{-18,-40},{-10,-40},{-10,-60},{-90,-60},{-90,-74},
-      {-82,-74}}, color={0,0,127}));
+    annotation (Line(points={{22,-40},{40,-40},{40,-60},{-90,-60},{-90,-74},{-82,
+          -74}},  color={0,0,127}));
 
   connect(hotWatFloRat.y, add2.u1)
     annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
-
-  connect(hotWatFloRat.y, add1.u2)
-    annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
-      {-82,-86}}, color={0,0,127}));
 
   connect(edg.y, not1.u)
     annotation (Line(points={{-18,-140},{-2,-140}}, color={255,0,255}));
@@ -255,6 +248,22 @@ equation
           -80},{98,-80}}, color={255,0,255}));
   connect(tim1.passed, pre2.u) annotation (Line(points={{22,-88},{40,-88},{40,
           -100},{-90,-100},{-90,-140},{-82,-140}}, color={255,0,255}));
+  connect(addPar.u, gai2.y)
+    annotation (Line(points={{68,0},{62,0}}, color={0,0,127}));
+  connect(intToRea.y, gai2.u)
+    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
+  connect(addPar1.y, gai1.u)
+    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
+  connect(gai1.y, addPar2.u)
+    annotation (Line(points={{-18,-40},{-2,-40}}, color={0,0,127}));
+  connect(addPar.y, gai3.u)
+    annotation (Line(points={{92,0},{98,0}}, color={0,0,127}));
+  connect(gai3.y, add2.u2) annotation (Line(points={{122,0},{128,0},{128,20},{-90,
+          20},{-90,34},{-82,34}}, color={0,0,127}));
+  connect(hotWatFloRat.y, gai4.u) annotation (Line(points={{-98,80},{-90,80},{-90,
+          60},{-130,60},{-130,-80},{-122,-80}}, color={0,0,127}));
+  connect(gai4.y, add1.u2) annotation (Line(points={{-98,-80},{-90,-80},{-90,-86},
+          {-82,-86}}, color={0,0,127}));
 annotation (
   defaultComponentName="enaLagSecPum",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),

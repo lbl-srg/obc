@@ -90,7 +90,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{130,140},{150,160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch1
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch1
     "Switch"
     annotation (Placement(transformation(extent={{-200,50},{-180,70}})));
 
@@ -116,7 +116,7 @@ protected
     "Holds stage switched to initial upon plant start"
     annotation (Placement(transformation(extent={{-320,150},{-300,170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch2
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch2
     "Switch"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
 
@@ -205,7 +205,7 @@ protected
     "Edge detector"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch switch3
+  Buildings.Controls.OBC.CDL.Continuous.Switch switch3
     "Switch"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
 
@@ -213,7 +213,7 @@ protected
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{-420,260},{-400,280}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nSta]
     "Element-wise products"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
 

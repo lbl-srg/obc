@@ -299,7 +299,7 @@ block Up
     "Latch to short valve closing process in dedicated pump configuration plants"
     annotation (Placement(transformation(extent={{150,30},{170,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
     "Pass valve position signal from valve opening controller once the opening process starts"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
 
@@ -308,7 +308,7 @@ block Up
     "Boolean replicator"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nBoi] if have_heaPriPum
     "Pass valve position signal from valve closing controller once the closing process starts"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
 
@@ -322,7 +322,7 @@ block Up
     "Time delay after valve has been opened and pump status has been changed"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Pass process completion signal based on whether stage change involves turning off smaller boiler or not"
     annotation (Placement(transformation(extent={{230,-20},{250,0}})));
 

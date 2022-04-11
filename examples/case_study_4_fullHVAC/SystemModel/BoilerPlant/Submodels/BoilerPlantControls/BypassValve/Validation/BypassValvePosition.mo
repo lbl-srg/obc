@@ -45,7 +45,7 @@ protected
     "Constant zero signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass zero flowrate when pumps are switched off"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
@@ -94,7 +94,7 @@ First implementation.
                 points={{-36,60},{64,0},{-36,-60},{-36,60}})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
-          ".\\Resources\\Scripts\\Dymola\\Controls\\OBC\\ASHRAE\\PrimarySystem\\BoilerPlant\\BypassValve\\Validation\\BypassValvePosition.mos"
+          "./Resources/Scripts/Dymola/BoilerPlant/Submodels/BoilerPlantControls/BypassValve/Validation/BypassValvePosition.mos"
         "Simulate and plot"),
     experiment(
       StartTime=0,

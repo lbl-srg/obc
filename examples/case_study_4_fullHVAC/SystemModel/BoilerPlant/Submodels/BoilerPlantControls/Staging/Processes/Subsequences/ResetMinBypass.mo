@@ -47,6 +47,9 @@ block ResetMinBypass
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+                "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-148,-60},{-128,-40}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=-relFloDif,
@@ -75,13 +78,12 @@ protected
     "Logical latch"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1)
+    final p=1e-6)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
@@ -97,8 +99,7 @@ protected
     "Rising edge"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Adder"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
 
@@ -159,15 +160,16 @@ equation
   connect(add2.u1, VHotWat_flow) annotation (Line(points={{-150,-14},{-154,-14},
           {-154,-20},{-180,-20}}, color={0,0,127}));
 
-  connect(add2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
-          -26},{-154,-80},{-180,-80}}, color={0,0,127}));
-
   connect(tim.passed, and1.u3) annotation (Line(points={{62,-28},{114,-28},{114,
           72},{118,72}}, color={255,0,255}));
   connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-28},
           {-2,-28}}, color={255,0,255}));
   connect(add2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
           {-102,-54}}, color={0,0,127}));
+  connect(VMinHotWatSet_flow, gai.u) annotation (Line(points={{-180,-80},{-154,-80},
+          {-154,-50},{-150,-50}}, color={0,0,127}));
+  connect(gai.y, add2.u2) annotation (Line(points={{-126,-50},{-120,-50},{-120,-36},
+          {-154,-36},{-154,-26},{-150,-26}}, color={0,0,127}));
 annotation (
   defaultComponentName="minBypRes",
   Icon(graphics={

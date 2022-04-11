@@ -492,7 +492,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-66,108},{-46,128}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nPum]
     "Logical switch"
     annotation (Placement(transformation(extent={{192,-10},{212,10}})));
 

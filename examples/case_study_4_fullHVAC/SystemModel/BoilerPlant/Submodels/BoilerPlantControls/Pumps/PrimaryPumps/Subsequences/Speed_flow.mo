@@ -90,6 +90,10 @@ block Speed_flow
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=-1) if
+    primarySecondarySensors
+                "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-100,-64},{-80,-44}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
@@ -109,14 +113,13 @@ protected
     "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Add add2 if primarySecondarySensors
     "Compare measured flowrate in primary and secondary circuits"
-    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div if primarySecondarySensors
     "Normalize flow-rate value"
-    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
@@ -143,17 +146,16 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1) if primarySecondarySensors
+    final p=1e-6) if primarySecondarySensors
     "Ensure divisor is non-zero"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/VHotWat_flow_nominal) if not primarySecondarySensors
     "Normalize flowrate"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
@@ -183,35 +185,37 @@ equation
   connect(swi.y,yHotWatPumSpe)
     annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
 
-  connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-122,0},{
-          -122,0},{-102,0}},       color={255,0,255}));
+  connect(uHotWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-102,0}},
+                                   color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
   connect(VHotWatPri_flow, add2.u1) annotation (Line(points={{-140,-30},{-110,-30},
-          {-110,-34},{-102,-34}}, color={0,0,127}));
-  connect(VHotWatSec_flow, add2.u2) annotation (Line(points={{-140,-60},{-106,-60},
-          {-106,-46},{-102,-46}}, color={0,0,127}));
-  connect(add2.y, div.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,-64},
-          {-62,-64}}, color={0,0,127}));
-  connect(addPar.y, div.u2) annotation (Line(points={{-78,-70},{-70,-70},{-70,-76},
-          {-62,-76}}, color={0,0,127}));
+          {-110,-34},{-72,-34}},  color={0,0,127}));
+  connect(add2.y, div.u1) annotation (Line(points={{-48,-40},{-30,-40},{-30,-64},
+          {-12,-64}}, color={0,0,127}));
+  connect(addPar.y, div.u2) annotation (Line(points={{-38,-70},{-30,-70},{-30,-76},
+          {-12,-76}}, color={0,0,127}));
   connect(VHotWatPri_flow, addPar.u) annotation (Line(points={{-140,-30},{-110,-30},
-          {-110,-70},{-102,-70}}, color={0,0,127}));
+          {-110,-70},{-62,-70}},  color={0,0,127}));
 
   connect(VHotWatDec_flow, gai.u)
     annotation (Line(points={{-140,-100},{-62,-100}}, color={0,0,127}));
   connect(zer.y, conPID.u_s) annotation (Line(points={{-58,90},{-30,90},{-30,0},
           {18,0}}, color={0,0,127}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-50,0},{-50,-20},{
-          -42,-20}}, color={255,0,255}));
+  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-50,0},{-50,-20},{-42,
+          -20}},     color={255,0,255}));
   connect(edg.y, conPID.trigger)
     annotation (Line(points={{-18,-20},{24,-20},{24,-12}}, color={255,0,255}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{-38,-70},{30,-70},{30,-12}}, color={0,0,127}));
+    annotation (Line(points={{12,-70},{30,-70},{30,-12}},  color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{-38,-100},{30,-100},{30,-12}}, color={0,0,127}));
   connect(conPID.y, pumSpe.u)
     annotation (Line(points={{42,0},{50,0},{50,60},{58,60}}, color={0,0,127}));
+  connect(add2.u2, gai2.y) annotation (Line(points={{-72,-46},{-76,-46},{-76,-54},
+          {-78,-54}}, color={0,0,127}));
+  connect(VHotWatSec_flow, gai2.u) annotation (Line(points={{-140,-60},{-106,-60},
+          {-106,-54},{-102,-54}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

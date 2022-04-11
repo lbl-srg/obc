@@ -50,11 +50,11 @@ protected
     "Check last lag pump"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch nexLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch nexLagPumSta[nPum]
     "Next lag pump status"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch lasLagPumSta[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch lasLagPumSta[nPum]
     "Last lag pump status"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
@@ -66,11 +66,11 @@ protected
     "Hot water pump status"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch remPum[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch remPum[nPum]
     "Remove pump"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch addPum[nPum]
+  Buildings.Controls.OBC.CDL.Logical.Switch addPum[nPum]
     "Add pump"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 

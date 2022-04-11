@@ -134,7 +134,7 @@ block HotWaterSupplyTemperatureReset_OATemp
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=12.78, uHigh=25)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=32.22)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -181,11 +181,11 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-200},{30,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Logical Switch"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
 
@@ -213,7 +213,7 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-310},{30,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 

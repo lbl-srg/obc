@@ -38,12 +38,12 @@ model Controller
   parameter Integer nIgnReq(
     final min=0) = 0
     "Number of hot-water requests to be ignored before enabling boiler plant loop"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Integer nSchRow(
     final min=1) = 4
     "Number of rows to be created for plant schedule table"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Integer nBoi = 2
     "Number of boilers"
@@ -103,38 +103,38 @@ model Controller
 
   parameter Real schTab[nSchRow,2] = [0,1;6,1;18,1;24,1]
     "Table defining schedule for enabling plant"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real TOutLoc(
     final unit="K",
     displayUnit="K") = 300
     "Boiler lock-out temperature for outdoor air"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real locDt(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") = 1
     "Temperature deadband for boiler lockout"
-    annotation(dialog(tab="Plant enable/disable parameters", group="Advanced"));
+    annotation(Dialog(tab="Plant enable/disable parameters", group="Advanced"));
 
   parameter Real plaOffThrTim(
     final unit="s",
     displayUnit="s") = 900
     "Minimum time for which the plant has to stay off once it has been disabled"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real plaOnThrTim(
     final unit="s",
     displayUnit="s") = plaOffThrTim
     "Minimum time for which the boiler plant has to stay on once it has been enabled"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real staOnReqTim(
     final unit="s",
     displayUnit="s") = 180
     "Time-limit for receiving hot-water requests to maintain enabled plant on"
-    annotation(dialog(tab="Plant enable/disable parameters"));
+    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real boiDesCap[nBoi](
     final unit="W",
@@ -166,14 +166,14 @@ model Controller
   parameter Real fraNonConBoi(
     final unit="1",
     displayUnit="1") = 0.9
-    "Fraction of current stage design capacity at which efficiency condition is 
+    "Fraction of current stage design capacity at which efficiency condition is
     satisfied for non-condensing boilers"
     annotation(Dialog(tab="Staging setpoint parameters", group="Efficiency condition parameters"));
 
   parameter Real fraConBoi(
     final unit="1",
     displayUnit="1") = 1.5
-    "Fraction of higher stage design capacity at which efficiency condition is 
+    "Fraction of higher stage design capacity at which efficiency condition is
     satisfied for condensing boilers"
     annotation(Dialog(tab="Staging setpoint parameters", group="Efficiency condition parameters"));
 
@@ -345,7 +345,7 @@ model Controller
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = -10
-    "The offset for hot water setpoint temperature for condensing boilers in 
+    "The offset for hot water setpoint temperature for condensing boilers in
     non-condensing stage type"
     annotation(Dialog(tab="Supply temperature reset parameters", group="General parameters"));
 
@@ -1295,11 +1295,11 @@ protected
     "Latch to identify if process is stage-up or stage-down"
     annotation (Placement(transformation(extent={{-50,350},{-30,370}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Logical switch"
     annotation (Placement(transformation(extent={{22,320},{42,340}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{20,370},{40,390}})));
 
@@ -1356,7 +1356,7 @@ protected
     "Differential pressure setpoint for primary circuit"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{180,260},{200,280}})));
 
@@ -1365,7 +1365,7 @@ protected
     "Boolean replicator"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nBoi] if have_heaPriPum
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nBoi] if have_heaPriPum
     "Real switch"
     annotation (Placement(transformation(extent={{180,220},{200,240}})));
 
@@ -1446,7 +1446,7 @@ protected
     "Secondary pump controller"
     annotation (Placement(transformation(extent={{120,-380},{140,-340}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1 if not have_priOnl
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if not have_priOnl
     "Integer switch"
     annotation (Placement(transformation(extent={{64,280},{84,300}})));
 

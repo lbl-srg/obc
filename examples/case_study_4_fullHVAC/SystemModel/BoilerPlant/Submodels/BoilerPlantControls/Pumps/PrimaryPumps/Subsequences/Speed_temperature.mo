@@ -139,7 +139,7 @@ block Speed_temperature
     annotation (Placement(transformation(extent={{120,80},{160,120}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Integer switch"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 
@@ -149,6 +149,9 @@ block Speed_temperature
     "Weighted average of boiler supply temperatures"
     annotation (Placement(transformation(extent={{80,-90},{100,-70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=-1)
+                "Negate signal for subtraction"
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=twoReqLimLow,
@@ -162,7 +165,7 @@ protected
     "Hysteresis loop for sending one request"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.IntegerSwitch intSwi
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Integer switch"
     annotation (Placement(transformation(extent={{10,0},{30,20}})));
 
@@ -204,7 +207,7 @@ protected
     "Vector of boiler design flowrates"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nBoi] if not
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi] if not
     primarySecondarySensors
     "Vector of design flowrates only for enabled boilers; Zero for disabled boilers"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
@@ -215,8 +218,7 @@ protected
     "Sum of flowrates of all enabled boilers"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Compare measured flowrate in primary and secondary circuits"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
@@ -230,7 +232,7 @@ protected
     "Constant zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
@@ -239,17 +241,16 @@ protected
     "Real replicator"
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nBoi] if not primarySecondarySensors
     "Calculate weights for average based on design flowrate"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi] if not primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi] if not primarySecondarySensors
     "Calculate weighted boiler supply temperatures"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1) if not primarySecondarySensors
+    final p=1e-6) if not primarySecondarySensors
     "Pass non-zero divisor in case sum is zero"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
@@ -269,9 +270,6 @@ equation
 
   connect(THotWatPri, add2.u1) annotation (Line(points={{-140,50},{-114,50},{-114,
           36},{-102,36}},   color={0,0,127}));
-
-  connect(THotWatSec, add2.u2) annotation (Line(points={{-140,0},{-110,0},{-110,
-          24},{-102,24}},   color={0,0,127}));
 
   connect(add2.y, hys.u) annotation (Line(points={{-78,30},{-70,30},{-70,50},{-62,
           50}}, color={0,0,127}));
@@ -342,6 +340,10 @@ equation
           {-46,-90},{-42,-90}},
                            color={0,0,127}));
 
+  connect(THotWatSec, gai2.u)
+    annotation (Line(points={{-140,0},{-102,0}}, color={0,0,127}));
+  connect(gai2.y, add2.u2) annotation (Line(points={{-78,0},{-74,0},{-74,16},{-108,
+          16},{-108,24},{-102,24}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

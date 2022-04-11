@@ -59,7 +59,7 @@ protected
   final parameter Integer boiInd[nBoi]={i for i in 1:nBoi}
     "Boiler index, {1,2,...,n}";
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
 
@@ -90,7 +90,7 @@ protected
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
@@ -103,7 +103,7 @@ protected
     "False constant"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
 
@@ -197,11 +197,11 @@ protected
     "False constant"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
 
@@ -210,15 +210,15 @@ protected
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi5[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nBoi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi6[nBoi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi7
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
