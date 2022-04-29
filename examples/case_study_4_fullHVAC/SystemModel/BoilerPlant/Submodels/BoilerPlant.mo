@@ -174,6 +174,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Buildings.Media.Water,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final allowFlowReversal=true,
     m_flow_nominal=mRad_flow_nominal,
     redeclare Buildings.Fluid.Movers.Data.Generic
@@ -498,10 +499,10 @@ equation
 
   connect(hys2.y, tim1.u)
     annotation (Line(points={{122,-10},{138,-10}}, color={255,0,255}));
-  connect(yHotWatIsoVal[1], val1.y_actual) annotation (Line(points={{340,-160},
-          {280,-160},{280,-174},{30,-174},{30,-203},{15,-203}},color={0,0,127}));
-  connect(yHotWatIsoVal[2], val2.y_actual) annotation (Line(points={{340,-140},
-          {280,-140},{280,-174},{30,-174},{30,-143},{15,-143}},color={0,0,127}));
+  connect(yHotWatIsoVal[1], val1.y_actual) annotation (Line(points={{340,-155},
+          {280,-155},{280,-174},{30,-174},{30,-203},{15,-203}},color={0,0,127}));
+  connect(yHotWatIsoVal[2], val2.y_actual) annotation (Line(points={{340,-145},
+          {280,-145},{280,-174},{30,-174},{30,-143},{15,-143}},color={0,0,127}));
   connect(lat.y, logSwi.u2)
     annotation (Line(points={{-278,40},{-262,40}}, color={255,0,255}));
   connect(lat.y, logSwi.u1) annotation (Line(points={{-278,40},{-270,40},{-270,
@@ -645,16 +646,19 @@ equation
     annotation (Line(points={{202,-190},{218,-190}}, color={255,0,255}));
   connect(pre3.y, lat2.u) annotation (Line(points={{242,-190},{266,-190},{266,
           -70},{278,-70}}, color={255,0,255}));
-  connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,70},{-52,70},{
+  connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,75},{-52,75},{
           -52,-180},{10,-180},{10,-198}}, color={0,0,127}));
-  connect(uHotIsoVal[2], val2.y) annotation (Line(points={{-340,90},{-52,90},{
+  connect(uHotIsoVal[2], val2.y) annotation (Line(points={{-340,85},{-52,85},{
           -52,-110},{10,-110},{10,-138}}, color={0,0,127}));
   connect(edg.y, mulOr1.u[1:2]) annotation (Line(points={{-258,120},{-250,120},
-          {-250,116.5},{-242,116.5}}, color={255,0,255}));
-  connect(greThr.y, mulAnd.u[1:2]) annotation (Line(points={{-228,-160},{-226,-160},
-          {-226,-163.5},{-222,-163.5}},       color={255,0,255}));
-  connect(greThr2.y, mulOr.u[1:2]) annotation (Line(points={{-198,-204},{-196,-204},
-          {-196,-207.5},{-192,-207.5}},       color={255,0,255}));
+          {-250,121.75},{-242,121.75}},
+                                      color={255,0,255}));
+  connect(greThr.y, mulAnd.u[1:2]) annotation (Line(points={{-228,-160},{-226,
+          -160},{-226,-158.25},{-222,-158.25}},
+                                              color={255,0,255}));
+  connect(greThr2.y, mulOr.u[1:2]) annotation (Line(points={{-198,-204},{-196,
+          -204},{-196,-202.25},{-192,-202.25}},
+                                              color={255,0,255}));
   connect(add1.u1, gai2.y)
     annotation (Line(points={{-282,-154},{-284,-154}}, color={0,0,127}));
   connect(pro2.y, gai2.u) annotation (Line(points={{-258,-110},{-250,-110},{-250,

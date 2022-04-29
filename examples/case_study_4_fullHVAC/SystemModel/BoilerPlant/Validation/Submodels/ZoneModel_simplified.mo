@@ -20,6 +20,7 @@ model ZoneModel_simplified
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRad_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal,
@@ -28,7 +29,7 @@ model ZoneModel_simplified
     annotation (Placement(transformation(extent={{-10,-160},{10,-140}})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(
-    C=zonTheCap)
+    C=zonTheCap, T(fixed=true))
     "Heat capacity for furniture and walls"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
@@ -80,7 +81,7 @@ model ZoneModel_simplified
             -190}}), iconTransformation(extent={{30,-110},{50,-90}})));
 equation
   connect(zonTem.T, TZon)
-    annotation (Line(points={{177,0},{220,0}}, color={0,0,127}));
+    annotation (Line(points={{181,0},{220,0}}, color={0,0,127}));
   connect(QFlo, preHea.Q_flow)
     annotation (Line(points={{-220,0},{-100,0}}, color={0,0,127}));
   connect(port_a, rad.port_a) annotation (Line(points={{-40,-200},{-40,-150},{-10,
