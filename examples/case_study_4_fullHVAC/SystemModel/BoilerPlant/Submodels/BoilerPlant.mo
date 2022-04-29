@@ -310,8 +310,6 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre block"
-    annotation (Placement(transformation(extent={{240,-140},{260,-120}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemBoi2(redeclare package
       Medium = Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal1)
     "Boiler-2 HW supply temperature sensor"
@@ -392,7 +390,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Determine if boilers are proven on"
     annotation (Placement(transformation(extent={{182,-130},{202,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[2] "Logical pre block"
-    annotation (Placement(transformation(extent={{240,-100},{260,-80}})));
+    annotation (Placement(transformation(extent={{240,-86},{260,-66}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat2[2] "Latch"
     annotation (Placement(transformation(extent={{280,-80},{300,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[2]
@@ -453,7 +451,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
         2))
     annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre3[2] "Logical pre block"
-    annotation (Placement(transformation(extent={{220,-200},{240,-180}})));
+    annotation (Placement(transformation(extent={{240,-200},{260,-180}})));
 
   inner Modelica.Fluid.System system "System model"
     annotation (Placement(transformation(extent={{-100,180},{-80,200}})));
@@ -512,10 +510,6 @@ equation
     annotation (Line(points={{-278,40},{-262,40}}, color={255,0,255}));
   connect(lat.y, logSwi.u1) annotation (Line(points={{-278,40},{-270,40},{-270,
           48},{-262,48}}, color={255,0,255}));
-  connect(tim1.passed, pre.u) annotation (Line(points={{162,-18},{230,-18},{230,
-          -130},{238,-130}}, color={255,0,255}));
-  connect(pre.y, lat.clr) annotation (Line(points={{262,-130},{272,-130},{272,
-          -220},{-314,-220},{-314,34},{-302,34}}, color={255,0,255}));
   connect(senTemBoi2.port_b, boi2.port_b)
     annotation (Line(points={{80,-150},{90,-150}}, color={0,127,255}));
   connect(senTemBoi1.port_b, boi1.port_b)
@@ -571,14 +565,14 @@ equation
     annotation (Line(points={{60,-210},{20,-210}}, color={0,127,255}));
   connect(swi.y, lesThr.u) annotation (Line(points={{-68,-160},{-60,-160},{-60,
           -120},{180,-120}}, color={0,0,127}));
-  connect(pre2.y, lat2.clr) annotation (Line(points={{262,-90},{270,-90},{270,
-          -76},{278,-76}}, color={255,0,255}));
+  connect(pre2.y, lat2.clr) annotation (Line(points={{262,-76},{278,-76}},
+                           color={255,0,255}));
   connect(lat2.y, yBoiSta)
     annotation (Line(points={{302,-70},{340,-70}}, color={255,0,255}));
   connect(lat2.y, pre1.u) annotation (Line(points={{302,-70},{310,-70},{310,220},
           {-310,220},{-310,190},{-302,190}}, color={255,0,255}));
   connect(lesThr.y, pre2.u) annotation (Line(points={{204,-120},{220,-120},{220,
-          -90},{238,-90}}, color={255,0,255}));
+          -76},{238,-76}}, color={255,0,255}));
   connect(TBoiHotWatSupSet, pro2.u2) annotation (Line(points={{-340,-110},{-300,
           -110},{-300,-116},{-282,-116}}, color={0,0,127}));
   connect(pro2.y, conPID.u_s)
@@ -647,8 +641,8 @@ equation
   connect(swi.y, greThr3.u) annotation (Line(points={{-68,-160},{-60,-160},{-60,
           -120},{120,-120},{120,-190},{178,-190}}, color={0,0,127}));
   connect(greThr3.y, pre3.u)
-    annotation (Line(points={{202,-190},{218,-190}}, color={255,0,255}));
-  connect(pre3.y, lat2.u) annotation (Line(points={{242,-190},{266,-190},{266,
+    annotation (Line(points={{202,-190},{238,-190}}, color={255,0,255}));
+  connect(pre3.y, lat2.u) annotation (Line(points={{262,-190},{266,-190},{266,
           -70},{278,-70}}, color={255,0,255}));
   connect(uHotIsoVal[1], val1.y) annotation (Line(points={{-340,75},{-52,75},{
           -52,-180},{10,-180},{10,-198}}, color={0,0,127}));
@@ -674,6 +668,8 @@ equation
   connect(boi1.heatPort, TRoo.port) annotation (Line(points={{100,-202.8},{100,
           -180},{84,-180},{84,-86},{-120,-86},{-120,-70},{-260,-70}}, color={
           191,0,0}));
+  connect(tim1.passed, lat.clr) annotation (Line(points={{162,-18},{230,-18},{
+          230,-232},{-314,-232},{-314,34},{-298,34}}, color={255,0,255}));
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
