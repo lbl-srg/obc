@@ -72,7 +72,7 @@ model System
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=650000)
-    annotation (Placement(transformation(extent={{-108,16},{-88,36}})));
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=24)
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Buildings.Fluid.Sources.MassFlowSource_T zerFlo[2](
@@ -115,8 +115,8 @@ equation
   connect(zoneModel_simplified.port_b, boiPlaSys.port_AHUHWRet) annotation (
       Line(points={{-26,10},{-26,4},{-14,4},{-14,-36},{-28,-36},{-28,-60}},
         color={0,127,255}));
-  connect(con.y, gai.u) annotation (Line(points={{-86,26},{-80,26},{-80,20},{-72,
-          20}}, color={0,0,127}));
+  connect(con.y, gai.u) annotation (Line(points={{-88,20},{-72,20}},
+                color={0,0,127}));
   connect(con1.y, addPar.u)
     annotation (Line(points={{-88,60},{-72,60}}, color={0,0,127}));
   connect(zerFlo[1].ports[1], boiPlaSys.port_RehHWRet) annotation (Line(points={{22,-40},
