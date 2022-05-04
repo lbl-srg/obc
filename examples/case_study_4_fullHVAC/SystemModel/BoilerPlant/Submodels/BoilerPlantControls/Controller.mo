@@ -933,8 +933,8 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHotWatPri_rem[nSenPri](
     final unit=fill("Pa", nSenPri),
     displayUnit=fill("Pa", nSenPri),
-    final quantity=fill("PressureDifference", nSenPri))
- if have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
+    final quantity=fill("PressureDifference", nSenPri)) if
+    have_varPriPum and (have_remDPRegPri or have_locDPRegPri)
     "Measured differential pressure between hot water supply and return in primary circuit"
     annotation (Placement(transformation(extent={{-440,90},{-400,130}}),
         iconTransformation(extent={{-140,90},{-100,130}})));
@@ -1127,7 +1127,8 @@ model Controller
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
     final bypSetRat=bypSetRat,
-    final delSamPer=1) if have_priOnl
+    final delSamPer=120) if
+                          have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
@@ -1315,7 +1316,7 @@ protected
     final minFloSet=fill(minFloSet, nSta),
     final maxFloSet=fill(maxFloSet, nSta),
     final bypSetRat=fill(bypSetRat, nSta),
-    final delSamPer=fill(1, nSta))
+    final delSamPer=fill(120, nSta))
     "Calculate vector of minimum flow setpoints for all stages"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
