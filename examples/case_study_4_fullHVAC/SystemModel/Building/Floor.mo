@@ -1,7 +1,7 @@
 within SystemModel.Building;
 model Floor "Model of a floor of the building"
   extends
-    Buildings.ThermalZones.EnergyPlus.Examples.SmallOffice.BaseClasses.Floor(
+    Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.BaseClasses.Floor(
     idfName=Modelica.Utilities.Files.loadResource(
       "modelica://SystemModel/Resources/Data/VAV/BaseClasses/Floor/ASHRAE901_OfficeMedium_STD2004_Chicago.idf"),
     weaName=Modelica.Utilities.Files.loadResource(
