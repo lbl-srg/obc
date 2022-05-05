@@ -9,74 +9,74 @@ model BoilerPlant "Boiler plant model for closed loop testing"
 
   parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate"
-    annotation(dialog(group="Zone parameters"));
+    annotation(Dialog(group="Zone parameters"));
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = boiEff1[1]*boiCap1 + boiEff2[1]*boiCap2
     "Nominal heat flow rate of radiator"
-    annotation(dialog(group="Radiator parameters"));
+    annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.HeatFlowRate boiCap1= 2200000
     "Boiler capacity for boiler-1"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.HeatFlowRate boiCap2= 2200000
     "Boiler capacity for boiler-2"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Real boiEff1[6](
     final unit="1",
     displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-1"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Real boiEff2[6](
     final unit="1",
     displayUnit="1") = {0.6246, 0.7711, -1.2077*10e-15, 0.008576, -0.005933, 0.003156}
     "Efficiency for boiler-2"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.Temperature TRadSup_nominal = 273.15+70
     "Radiator nominal supply water temperature"
-    annotation(dialog(group="Radiator parameters"));
+    annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.Temperature TRadRet_nominal = 273.15+50
     "Radiator nominal return water temperature"
-    annotation(dialog(group="Radiator parameters"));
+    annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.113 * 1000
     "Radiator nominal mass flow rate"
-    annotation(dialog(group="Radiator parameters"));
+    annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.Temperature TBoiRet_min = 273.15+60
     "Boiler minimum return water temperature"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
     "Boiler-1 nominal mass flow rate"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
     "Boiler-2 nominal mass flow rate"
-    annotation(dialog(group="Boiler parameters"));
+    annotation(Dialog(group="Boiler parameters"));
 
   parameter Modelica.Units.SI.Volume V=126016.35
     "Room volume"
-    annotation(dialog(group="Zone parameters"));
+    annotation(Dialog(group="Zone parameters"));
 
   parameter Modelica.Units.SI.Temperature TAir_nominal=273.15 + 23.9
     "Air temperature at nominal condition"
-    annotation(dialog(group="Zone parameters"));
+    annotation(Dialog(group="Zone parameters"));
 
   parameter Real zonTheCap(
     final unit="J/K",
     displayUnit="J/K",
     final quantity="HeatCapacity") = 2*V*1.2*1500
     "Zone thermal capacitance"
-    annotation(dialog(group="Zone parameters"));
+    annotation(Dialog(group="Zone parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[2]
     "Boiler status signal"
@@ -664,7 +664,7 @@ equation
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
-      This model implements a primary-only, condensing boiler plant with headered, 
+      This model implements a primary-only, condensing boiler plant with headered,
       variable-speed primary pumps, as defined in ASHRAE RP-1711, March 2020 draft.
       </p>
       </html>", revisions="<html>

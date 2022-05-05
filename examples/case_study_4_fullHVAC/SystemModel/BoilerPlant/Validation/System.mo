@@ -8,7 +8,7 @@ model System
 
   parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=96.323
     "Radiator nominal mass flow rate"
-    annotation(dialog(group="Radiator parameters"));
+    annotation(Dialog(group="Radiator"));
 
   parameter Real boiDesCap = 4359751.36;
 
@@ -57,16 +57,13 @@ model System
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger
                                                 booToInt
     annotation (Placement(transformation(extent={{70,90},{90,110}})));
-  SystemModel.BoilerPlant.Validation.Submodels.ZoneModel_simplified
-                                  zoneModel_simplified(
+  SystemModel.BoilerPlant.Validation.Submodels.ZoneModel_simplified zoneModel_simplified(
     Q_flow_nominal=4359751.36,
     TRadSup_nominal=333.15,
     TRadRet_nominal=323.15,
     mRad_flow_nominal=96.323,
     V=126016.35,
     zonTheCap=6987976290,
-    vol(T_start=283.15),
-    heaCap(T(start=10)),
     rad(dp_nominal=40000))
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
@@ -78,6 +75,10 @@ model System
     annotation (Placement(transformation(extent={{-108,16},{-88,36}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=24)
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+  Buildings.Fluid.Sources.MassFlowSource_T zerFlo[2](
+    redeclare each package Medium = MediumW,
+    each final nPorts=1) "Boundary condition for zero flow rate"
+    annotation (Placement(transformation(extent={{42,-50},{22,-30}})));
 equation
   connect(val3.port_b, zoneModel_simplified.port_a) annotation (Line(points={{-34,-4},
           {-34,10}},                         color={0,127,255}));
@@ -102,8 +103,8 @@ equation
   connect(conPID.y, val3.y) annotation (Line(points={{12,60},{20,60},{20,0},{
           -50,0},{-50,-14},{-46,-14}},
                                    color={0,0,127}));
-  connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points=
-         {{-18,20},{0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}}, color={0,0,
+  connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points={{-18,20},
+          {0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}},          color={0,0,
           127}));
   connect(booToInt1.y, boiPlaSys.TSupResReq) annotation (Line(points={{92,20},{100,
           20},{100,-90},{-40,-90},{-40,-66},{-32,-66}}, color={255,127,0}));
@@ -118,6 +119,10 @@ equation
           20}}, color={0,0,127}));
   connect(con1.y, addPar.u)
     annotation (Line(points={{-88,60},{-72,60}}, color={0,0,127}));
+  connect(zerFlo[1].ports[1], boiPlaSys.port_RehHWRet) annotation (Line(points={{22,-40},
+          {-16,-40},{-16,-60}},      color={0,127,255}));
+  connect(zerFlo[2].ports[1], boiPlaSys.port_RehHWSup) annotation (Line(points={{22,-40},
+          {10,-40},{10,-44},{-12,-44},{-12,-60}},      color={0,127,255}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/BoilerPlant/Validation/System.mos"
         "Simulate and plot"),
