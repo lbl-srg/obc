@@ -1126,8 +1126,7 @@ model Controller
     final staMat=staMat,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat,
-    final delSamPer=120) if
+    final bypSetRat=bypSetRat) if
                           have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
@@ -1315,8 +1314,7 @@ protected
     final staMat=fill(staMat, nSta),
     final minFloSet=fill(minFloSet, nSta),
     final maxFloSet=fill(maxFloSet, nSta),
-    final bypSetRat=fill(bypSetRat, nSta),
-    final delSamPer=fill(120, nSta))
+    final bypSetRat=fill(bypSetRat, nSta))
     "Calculate vector of minimum flow setpoints for all stages"
     annotation (Placement(transformation(extent={{-340,0},{-320,20}})));
 
