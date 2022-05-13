@@ -856,17 +856,19 @@ model Controller
       group="PID parameters",
       enable=have_varSecPum));
 
-  parameter
-    SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
+  parameter SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
     speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.remoteDP
-    "Primary pump speed regulation method" annotation (Dialog(group=
-          "Boiler plant configuration parameters", enable=have_varPriPum));
+    "Primary pump speed regulation method"
+    annotation (Dialog(
+      group="Boiler plant configuration parameters",
+      enable=have_varPriPum));
 
-  parameter
-    SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
+  parameter SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
     speConTypSec=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes.remoteDP
-    "Secondary pump speed regulation method" annotation (Dialog(group=
-          "Boiler plant configuration parameters", enable=have_varSecPum));
+    "Secondary pump speed regulation method"
+    annotation (Dialog(
+      group="Boiler plant configuration parameters",
+      enable=have_varSecPum));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
     "Boiler availability status signal"
@@ -1087,7 +1089,8 @@ model Controller
     final TOutLoc=TOutLoc,
     final plaOffThrTim=plaOffThrTim,
     final plaOnThrTim=plaOnThrTim,
-    final staOnReqTim=staOnReqTim) "Plant enable controller"
+    final staOnReqTim=staOnReqTim)
+    "Plant enable controller"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.SetpointController
@@ -1116,7 +1119,8 @@ model Controller
     final delDesCapConBoi=delDesCapConBoi,
     final TCirDif=TCirDif,
     final delTRetDif=delTRetDif,
-    final dTemp=dTemp) "Staging setpoint controller"
+    final dTemp=dTemp)
+    "Staging setpoint controller"
     annotation (Placement(transformation(extent={{-210,-18},{-190,18}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.SetPoints.MinimumFlowSetPoint
@@ -1126,21 +1130,10 @@ model Controller
     final staMat=staMat,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat) if
-                          have_priOnl
+    final bypSetRat=bypSetRat) if have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
-    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0)
-    annotation (Placement(transformation(extent={{-130,360},{-110,380}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
-    annotation (Placement(transformation(extent={{90,370},{110,390}})));
-  Buildings.Controls.OBC.CDL.Integers.Change cha1
-    annotation (Placement(transformation(extent={{-220,320},{-200,340}})));
-  Buildings.Controls.OBC.CDL.Integers.Change cha2
-    annotation (Placement(transformation(extent={{76,344},{96,364}})));
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
        remoteDP)
@@ -1174,6 +1167,27 @@ protected
 
   parameter Integer secPumInd[nPumSec]={i for i in 1:nPumSec}
     "Vector of secondary pump indices up to total number of secondary pumps";
+
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
+    "Used to break algebraic loop and sample staging setpoint signal"
+    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=0)
+    "Constant zero signal source for integrator input"
+    annotation (Placement(transformation(extent={{-130,360},{-110,380}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
+    "Used to break algebraic loop and sample next boiler index to be enabled/disabled"
+    annotation (Placement(transformation(extent={{90,370},{110,390}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Change cha1
+    "Detect changes in staging setpoint signal"
+    annotation (Placement(transformation(extent={{-220,320},{-200,340}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Change cha2
+    "Detect changes to boiler index that is next enabled/disabled"
+    annotation (Placement(transformation(extent={{76,344},{96,364}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
     final nin=nPumPri) if not have_priOnl
