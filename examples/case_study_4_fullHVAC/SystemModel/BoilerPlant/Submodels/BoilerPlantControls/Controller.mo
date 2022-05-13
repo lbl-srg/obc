@@ -1131,6 +1131,16 @@ model Controller
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
+    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0)
+    annotation (Placement(transformation(extent={{-130,360},{-110,380}})));
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
+    annotation (Placement(transformation(extent={{90,370},{110,390}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha1
+    annotation (Placement(transformation(extent={{-220,320},{-200,340}})));
+  Buildings.Controls.OBC.CDL.Integers.Change cha2
+    annotation (Placement(transformation(extent={{76,344},{96,364}})));
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
        remoteDP)
@@ -1396,16 +1406,6 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{300,-20},{320,0}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
-    final samplePeriod=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{90,370},{110,390}})));
-
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Generic.PlantDisable plaDis(
     final have_priOnl=have_priOnl,
     final have_heaPriPum=have_heaPriPum,
@@ -1669,21 +1669,6 @@ equation
     annotation (Line(points={{142,-178.133},{260,-178.133},{260,-130},{420,-130}},
                                                      color={255,0,255}));
 
-  connect(reaToInt1.u, uniDel.y)
-    annotation (Line(points={{-182,370},{-188,370}},
-                                                   color={0,0,127}));
-
-  connect(intToRea1.y, uniDel.u)
-    annotation (Line(points={{-218,370},{-212,370}},
-                                                   color={0,0,127}));
-
-  connect(reaToInt2.u, uniDel1.y)
-    annotation (Line(points={{118,380},{112,380}},
-                                                 color={0,0,127}));
-
-  connect(intToRea2.y, uniDel1.u)
-    annotation (Line(points={{82,380},{88,380}}, color={0,0,127}));
-
   connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,70},{-300,70},
           {-300,-16},{-212,-16}},      color={255,0,255}));
 
@@ -1879,6 +1864,26 @@ equation
           260,-370},{260,-390},{420,-390}}, color={0,0,127}));
   connect(hotWatSupTemRes.TBoiHotWatSupSet, TBoiHotWatSupSet) annotation (Line(
         points={{-118,176},{360,176},{360,170},{420,170}}, color={0,0,127}));
+  connect(intWitRes.y, reaToInt1.u)
+    annotation (Line(points={{-188,370},{-182,370}}, color={0,0,127}));
+  connect(intToRea1.y, intWitRes.y_reset_in) annotation (Line(points={{-218,370},
+          {-216,370},{-216,362},{-212,362}}, color={0,0,127}));
+  connect(reaToInt2.u, intWitRes1.y)
+    annotation (Line(points={{118,380},{112,380}}, color={0,0,127}));
+  connect(intToRea2.y, intWitRes1.y_reset_in) annotation (Line(points={{82,380},
+          {84,380},{84,372},{88,372}}, color={0,0,127}));
+  connect(con1.y, intWitRes.u) annotation (Line(points={{-108,370},{-100,370},{
+          -100,392},{-214,392},{-214,370},{-212,370}}, color={0,0,127}));
+  connect(con1.y, intWitRes1.u) annotation (Line(points={{-108,370},{-100,370},
+          {-100,398},{88,398},{88,380}}, color={0,0,127}));
+  connect(cha1.y, intWitRes.trigger) annotation (Line(points={{-198,330},{-190,
+          330},{-190,352},{-200,352},{-200,358}}, color={255,0,255}));
+  connect(staSetCon.ySta, cha1.u) annotation (Line(points={{-188,6},{20,6},{20,
+          300},{-226,300},{-226,330},{-222,330}}, color={255,127,0}));
+  connect(intSwi.y, cha2.u) annotation (Line(points={{42,380},{54,380},{54,354},
+          {74,354}}, color={255,127,0}));
+  connect(cha2.y, intWitRes1.trigger) annotation (Line(points={{98,354},{100,
+          354},{100,368}}, color={255,0,255}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-340},{100,340}}),
        graphics={
