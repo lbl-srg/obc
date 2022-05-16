@@ -36,8 +36,8 @@ model Guideline36
     "Sizing data"
     annotation (Placement(transformation(extent={{-322,560},{-302,580}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValResReq
-    "Hot water temperature reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValTerReq
+    "Hot water temperature reset requests from terminal boxes"
     annotation (Placement(transformation(extent={{1420,-80},{1460,-40}}),
       iconTransformation(extent={{440,-80},{480,-40}})));
 
@@ -67,7 +67,7 @@ equation
           -20},{240,-80},{258,-80}}, color={0,0,127}));
   connect(conAHU.TSupSet, heaReq.TDisHeaSet) annotation (Line(points={{424,608},
           {428,608},{428,-60},{250,-60},{250,-76},{258,-76}}, color={0,0,127}));
-  connect(mulSumHeaValReq.y, yHeaValResReq)
+  connect(mulSumHeaValReq.y,yHeaValTerReq)
     annotation (Line(points={{1382,-60},{1440,-60}}, color={255,127,0}));
   connect(mulSumHeaPlaReq.y, yHeaPlaReq)
     annotation (Line(points={{1382,-100},{1440,-100}}, color={255,127,0}));
