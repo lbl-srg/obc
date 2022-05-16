@@ -856,17 +856,19 @@ model Controller
       group="PID parameters",
       enable=have_varSecPum));
 
-  parameter
-    SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
+  parameter SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes
     speConTypPri=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.remoteDP
-    "Primary pump speed regulation method" annotation (Dialog(group=
-          "Boiler plant configuration parameters", enable=have_varPriPum));
+    "Primary pump speed regulation method"
+    annotation (Dialog(
+      group="Boiler plant configuration parameters",
+      enable=have_varPriPum));
 
-  parameter
-    SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
+  parameter SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes
     speConTypSec=SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.SecondaryPumpSpeedControlTypes.remoteDP
-    "Secondary pump speed regulation method" annotation (Dialog(group=
-          "Boiler plant configuration parameters", enable=have_varSecPum));
+    "Secondary pump speed regulation method"
+    annotation (Dialog(
+      group="Boiler plant configuration parameters",
+      enable=have_varSecPum));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiAva[nBoi]
     "Boiler availability status signal"
@@ -1087,7 +1089,8 @@ model Controller
     final TOutLoc=TOutLoc,
     final plaOffThrTim=plaOffThrTim,
     final plaOnThrTim=plaOnThrTim,
-    final staOnReqTim=staOnReqTim) "Plant enable controller"
+    final staOnReqTim=staOnReqTim)
+    "Plant enable controller"
     annotation (Placement(transformation(extent={{-340,320},{-320,340}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Staging.SetPoints.SetpointController
@@ -1116,7 +1119,8 @@ model Controller
     final delDesCapConBoi=delDesCapConBoi,
     final TCirDif=TCirDif,
     final delTRetDif=delTRetDif,
-    final dTemp=dTemp) "Staging setpoint controller"
+    final dTemp=dTemp)
+    "Staging setpoint controller"
     annotation (Placement(transformation(extent={{-210,-18},{-190,18}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.SetPoints.MinimumFlowSetPoint
@@ -1126,8 +1130,7 @@ model Controller
     final staMat=staMat,
     final minFloSet=minFloSet,
     final maxFloSet=maxFloSet,
-    final bypSetRat=bypSetRat) if
-                          have_priOnl
+    final bypSetRat=bypSetRat) if have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
 
@@ -1164,6 +1167,27 @@ protected
 
   parameter Integer secPumInd[nPumSec]={i for i in 1:nPumSec}
     "Vector of secondary pump indices up to total number of secondary pumps";
+
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
+    "Used to break algebraic loop and sample staging setpoint signal"
+    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=0)
+    "Constant zero signal source for integrator input"
+    annotation (Placement(transformation(extent={{-130,360},{-110,380}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1
+    "Used to break algebraic loop and sample next boiler index to be enabled/disabled"
+    annotation (Placement(transformation(extent={{90,370},{110,390}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Change cha1
+    "Detect changes in staging setpoint signal"
+    annotation (Placement(transformation(extent={{-220,320},{-200,340}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Change cha2
+    "Detect changes to boiler index that is next enabled/disabled"
+    annotation (Placement(transformation(extent={{76,344},{96,364}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
     final nin=nPumPri) if not have_priOnl
@@ -1395,16 +1419,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Logical pre block"
     annotation (Placement(transformation(extent={{300,-20},{320,0}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
-    final samplePeriod=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{-210,360},{-190,380}})));
-
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel1(
-    final samplePeriod=1)
-    "Unit delay"
-    annotation (Placement(transformation(extent={{90,370},{110,390}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Generic.PlantDisable plaDis(
     final have_priOnl=have_priOnl,
@@ -1669,21 +1683,6 @@ equation
     annotation (Line(points={{142,-178.133},{260,-178.133},{260,-130},{420,-130}},
                                                      color={255,0,255}));
 
-  connect(reaToInt1.u, uniDel.y)
-    annotation (Line(points={{-182,370},{-188,370}},
-                                                   color={0,0,127}));
-
-  connect(intToRea1.y, uniDel.u)
-    annotation (Line(points={{-218,370},{-212,370}},
-                                                   color={0,0,127}));
-
-  connect(reaToInt2.u, uniDel1.y)
-    annotation (Line(points={{118,380},{112,380}},
-                                                 color={0,0,127}));
-
-  connect(intToRea2.y, uniDel1.u)
-    annotation (Line(points={{82,380},{88,380}}, color={0,0,127}));
-
   connect(uBoiAva, staSetCon.uBoiAva) annotation (Line(points={{-420,70},{-300,70},
           {-300,-16},{-212,-16}},      color={255,0,255}));
 
@@ -1879,6 +1878,26 @@ equation
           260,-370},{260,-390},{420,-390}}, color={0,0,127}));
   connect(hotWatSupTemRes.TBoiHotWatSupSet, TBoiHotWatSupSet) annotation (Line(
         points={{-118,176},{360,176},{360,170},{420,170}}, color={0,0,127}));
+  connect(intWitRes.y, reaToInt1.u)
+    annotation (Line(points={{-188,370},{-182,370}}, color={0,0,127}));
+  connect(intToRea1.y, intWitRes.y_reset_in) annotation (Line(points={{-218,370},
+          {-216,370},{-216,362},{-212,362}}, color={0,0,127}));
+  connect(reaToInt2.u, intWitRes1.y)
+    annotation (Line(points={{118,380},{112,380}}, color={0,0,127}));
+  connect(intToRea2.y, intWitRes1.y_reset_in) annotation (Line(points={{82,380},
+          {84,380},{84,372},{88,372}}, color={0,0,127}));
+  connect(con1.y, intWitRes.u) annotation (Line(points={{-108,370},{-100,370},{
+          -100,392},{-214,392},{-214,370},{-212,370}}, color={0,0,127}));
+  connect(con1.y, intWitRes1.u) annotation (Line(points={{-108,370},{-100,370},
+          {-100,398},{88,398},{88,380}}, color={0,0,127}));
+  connect(cha1.y, intWitRes.trigger) annotation (Line(points={{-198,330},{-190,
+          330},{-190,352},{-200,352},{-200,358}}, color={255,0,255}));
+  connect(staSetCon.ySta, cha1.u) annotation (Line(points={{-188,6},{20,6},{20,
+          300},{-226,300},{-226,330},{-222,330}}, color={255,127,0}));
+  connect(intSwi.y, cha2.u) annotation (Line(points={{42,380},{54,380},{54,354},
+          {74,354}}, color={255,127,0}));
+  connect(cha2.y, intWitRes1.trigger) annotation (Line(points={{98,354},{100,
+          354},{100,368}}, color={255,0,255}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-340},{100,340}}),
        graphics={
