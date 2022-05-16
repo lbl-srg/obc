@@ -67,7 +67,8 @@ model System
     rad(dp_nominal=40000))
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
-        Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+        Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data reader"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
@@ -106,10 +107,12 @@ equation
   connect(zoneModel_simplified.TZon, boiPlaSys.TZonAve) annotation (Line(points={{-18,20},
           {0,20},{0,-86},{-34,-86},{-34,-74},{-32,-74}},          color={0,0,
           127}));
-  connect(booToInt1.y, boiPlaSys.TSupResReq) annotation (Line(points={{92,20},{100,
-          20},{100,-90},{-40,-90},{-40,-66},{-32,-66}}, color={255,127,0}));
-  connect(booToInt.y, boiPlaSys.supResReq) annotation (Line(points={{92,100},{110,
-          100},{110,-100},{-50,-100},{-50,-70},{-32,-70}}, color={255,127,0}));
+  connect(booToInt1.y, boiPlaSys.THotWatSupResReq) annotation (Line(points={{92,
+          20},{100,20},{100,-90},{-40,-90},{-40,-66},{-32,-66}}, color={255,127,
+          0}));
+  connect(booToInt.y, boiPlaSys.hotWatPlaReq) annotation (Line(points={{92,100},
+          {110,100},{110,-100},{-50,-100},{-50,-70},{-32,-70}}, color={255,127,
+          0}));
   connect(boiPlaSys.port_AHUHWSup, val3.port_a) annotation (Line(points={{-24,-60},
           {-24,-40},{-34,-40},{-34,-24}},      color={0,127,255}));
   connect(zoneModel_simplified.port_b, boiPlaSys.port_AHUHWRet) annotation (

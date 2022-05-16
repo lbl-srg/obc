@@ -890,10 +890,9 @@ model Controller
     annotation (Placement(transformation(extent={{-440,-460},{-400,-420}}),
       iconTransformation(extent={{-140,-250},{-100,-210}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Hot water supply reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq "Plant requests"
     annotation (Placement(transformation(extent={{-440,330},{-400,370}}),
-      iconTransformation(extent={{-140,270},{-100,310}})));
+        iconTransformation(extent={{-140,270},{-100,310}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TSupResReq
     "Hot water supply temperature reset requests"
@@ -1536,8 +1535,8 @@ equation
   connect(conInt2.y, priPumCon.uPumLeaLag) annotation (Line(points={{82,-128},{
           86,-128},{86,-152.933},{118,-152.933}},
                                             color={255,127,0}));
-  connect(supResReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,
-          350},{-360,335},{-342,335}},  color={255,127,0}));
+  connect(plaReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,
+          350},{-360,335},{-342,335}}, color={255,127,0}));
   connect(reaToInt.u, triSam.y)
     annotation (Line(points={{-130,-40},{-138,-40}},
                                                    color={0,0,127}));
@@ -1663,8 +1662,8 @@ equation
   connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,48},{158,48},
           {158,62},{178,62}},                  color={255,0,255}));
 
-  connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},{
-          372,-64},{-150,-64},{-150,-51.8}},
+  connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},
+          {372,-64},{-150,-64},{-150,-52}},
                                        color={255,0,255}));
 
   connect(pre1.y, staSetCon.uStaChaProEnd) annotation (Line(points={{322,-10},{372,
@@ -1780,9 +1779,8 @@ equation
     annotation (Line(points={{142,-360},{220,-360},{220,-340},{420,-340}},
                                                      color={255,0,255}));
 
-  connect(supResReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
-          350},{-154,20},{14,20},{14,-354},{118,-354}},          color={255,127,
-          0}));
+  connect(plaReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
+          350},{-154,20},{14,20},{14,-354},{118,-354}}, color={255,127,0}));
 
   connect(plaEna.yPla, secPumCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
           330},{-230,-78},{12,-78},{12,-350},{118,-350}},      color={255,0,255}));

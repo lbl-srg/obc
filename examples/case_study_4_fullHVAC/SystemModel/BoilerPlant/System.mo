@@ -135,15 +135,14 @@ model System
     annotation (Placement(transformation(extent={{-40,110},{-20,130}}),
       iconTransformation(extent={{-50,90},{-30,110}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TSupResReq
-    "Requests to reset HW supply temperature"
-    annotation (Placement(transformation(extent={{-160,10},{-120,50}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput THotWatSupResReq
+    "Requests to reset HW supply temperature" annotation (Placement(
+        transformation(extent={{-160,10},{-120,50}}), iconTransformation(extent
+          ={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Requests to supply HW"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput hotWatPlaReq
+    "Hot water plant requests" annotation (Placement(transformation(extent={{-160,
+            -20},{-120,20}}), iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonAve(
     final unit="K",
@@ -208,9 +207,9 @@ equation
           100},{30,120}}, color={0,127,255}));
   connect(port_AHUHWRet, spl1.port_3) annotation (Line(points={{-70,120},{-70,100},
           {-40,100},{-40,50},{-10,50}}, color={0,127,255}));
-  connect(TSupResReq, controller.TSupResReq) annotation (Line(points={{-140,30},
-          {-50,30},{-50,8},{-42,8}}, color={255,127,0}));
-  connect(supResReq, controller.supResReq) annotation (Line(points={{-140,0},{-100,
+  connect(THotWatSupResReq, controller.TSupResReq) annotation (Line(points={{-140,
+          30},{-50,30},{-50,8},{-42,8}}, color={255,127,0}));
+  connect(hotWatPlaReq, controller.plaReq) annotation (Line(points={{-140,0},{-100,
           0},{-100,5},{-42,5}}, color={255,127,0}));
   connect(TZonAve, boiPla.TZon) annotation (Line(points={{-140,-30},{-100,-30},{
           -100,-80},{10,-80},{10,-39},{18,-39}}, color={0,0,127}));
