@@ -107,10 +107,12 @@ equation
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
           73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
                                                                  color={0,127,255}));
-  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{220,141},
-          {220,182},{-8,182},{-8,70.8889},{3.625,70.8889}},   color={0,0,127}));
-  connect(vav.port_retAir[5], flo.portAtt) annotation (Line(points={{82.2375,51.7222},
-          {192.696,51.7222},{192.696,111.962}}, color={0,127,255}));
+  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{220,
+          141},{220,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
+                                                              color={0,0,127}));
+  connect(vav.port_retAir[5], flo.portAtt) annotation (Line(points={{82.2375,
+          51.7222},{192.696,51.7222},{192.696,111.962}},
+                                                color={0,127,255}));
   connect(flo.weaBus, weaDat.weaBus) annotation (Line(
       points={{175.478,173.692},{-20,173.692},{-20,66},{-40,66}},
       color={255,204,51},
@@ -121,8 +123,8 @@ equation
   connect(boiPla.TSupResReq, vav.yHeaValTerReq) annotation (Line(points={{-2,-66},
           {-60,-66},{-60,22},{96,22},{96,40.2222},{84.375,40.2222}},      color=
          {255,127,0}));
-  connect(vav.yHeaPlaReq, boiPla.supResReq) annotation (Line(points={{84.375,34.8556},
-          {92,34.8556},{92,26},{-64,26},{-64,-70},{-2,-70}},          color={
+  connect(vav.yHeaPlaReq, boiPla.supResReq) annotation (Line(points={{84.375,
+          34.8556},{92,34.8556},{92,26},{-64,26},{-64,-70},{-2,-70}}, color={
           255,127,0}));
   connect(boiPla.port_AHUHWSup, vav.portHeaCoiSup) annotation (Line(points={{2,
           -60},{2,18},{27.375,18},{27.375,30}}, color={0,127,255}));
@@ -137,8 +139,8 @@ equation
       points={{1,-63},{-20,-63},{-20,66},{-40,66}},
       color={255,204,51},
       thickness=0.5));
-  connect(TZonAve.u, flo.TRooAir) annotation (Line(points={{230,142},{230,141},{
-          209.913,141}},  color={0,0,127}));
+  connect(TZonAve.u, flo.TRooAir) annotation (Line(points={{230,142},{230,141},
+          {209.913,141}}, color={0,0,127}));
   connect(TZonAve.y, boiPla.TZonAve) annotation (Line(points={{253,142},{256,
           142},{256,-86},{-8,-86},{-8,-74},{-2,-74}}, color={0,0,127}));
   annotation (
