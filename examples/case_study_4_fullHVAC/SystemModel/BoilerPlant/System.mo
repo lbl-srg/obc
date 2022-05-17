@@ -5,8 +5,8 @@ model System
   package MediumA = Buildings.Media.Air "Medium model for air";
   package MediumW = Buildings.Media.Water "Medium model for water";
 
-  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=100
-    "Radiator nominal mass flow rate";
+  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=100
+    "Secondary loop nominal mass flow rate";
 
   parameter Real boiDesCap(
     final unit="W",
@@ -28,7 +28,7 @@ model System
   SystemModel.BoilerPlant.Submodels.BoilerPlant boiPla(
     boiCap1=(1 - boiCapRat)*boiDesCap,
     boiCap2=(boiCapRat)*boiDesCap,
-    mRad_flow_nominal=mRad_flow_nominal,
+    mSec_flow_nominal=mSec_flow_nominal,
     TBoiSup_nominal=333.15,
     TBoiRet_min=323.15,
     conPID(
@@ -65,10 +65,10 @@ model System
     final staMat=[1,0; 0,1; 1,1],
     final boiDesCap={boiCapRat*boiDesCap,(1 - boiCapRat)*boiDesCap},
     final boiFirMin={0.2,0.3},
-    final minFloSet={0.2*boiCapRat*mRad_flow_nominal/2000,0.3*(1 - boiCapRat)*
-        mRad_flow_nominal/2000},
-    final maxFloSet={boiCapRat*mRad_flow_nominal/2000,(1 - boiCapRat)*
-        mRad_flow_nominal/2000},
+    final minFloSet={0.2*boiCapRat*mSec_flow_nominal/2000,0.3*(1 - boiCapRat)*
+        mSec_flow_nominal/2000},
+    final maxFloSet={boiCapRat*mSec_flow_nominal/2000,(1 - boiCapRat)*
+        mSec_flow_nominal/2000},
     final bypSetRat=0.000005,
     final nPumPri=1,
     final TMinSupNonConBoi=333.2,
@@ -96,49 +96,49 @@ model System
   Buildings.Fluid.FixedResistances.Junction spl4(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,-mRad_flow_nominal,-
-        mRad_flow_nominal},
+    final m_flow_nominal={mSec_flow_nominal,-mSec_flow_nominal,-
+        mSec_flow_nominal},
     final dp_nominal={0,0,0})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={40,50})));
+      origin={20,50})));
 
   Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,mRad_flow_nominal,-
-        mRad_flow_nominal},
+    final m_flow_nominal={mSec_flow_nominal,mSec_flow_nominal,-
+        mSec_flow_nominal},
     final dp_nominal={0,0,0})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=-90,
-      origin={0,50})));
+      origin={80,80})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_AHUHWRet(redeclare package Medium =
-        MediumW) "AHU hot water return port"
-    annotation (Placement(transformation(extent={{-80,110},{-60,130}}),
-      iconTransformation(extent={{-90,90},{-70,110}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_RehHWRet(redeclare package Medium =
-        MediumW) "Reheat hot water return port"
-    annotation (Placement(transformation(extent={{20,110},{40,130}}),
+  Modelica.Fluid.Interfaces.FluidPort_a port_RehHWSup(redeclare package Medium =
+        MediumW) "Reheat hot water supply port"
+    annotation (Placement(transformation(extent={{30,110},{50,130}}),
       iconTransformation(extent={{30,90},{50,110}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_RehHWSup(redeclare package Medium =
-        MediumW) "Reheat hot water supply port"
-    annotation (Placement(transformation(extent={{60,110},{80,130}}),
-      iconTransformation(extent={{70,90},{90,110}})));
-
-  Modelica.Fluid.Interfaces.FluidPort_b port_AHUHWSup(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_AHUHWSup(redeclare package Medium =
         MediumW) "AHU hot water supply port"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}}),
+    annotation (Placement(transformation(extent={{-90,110},{-70,130}}),
+      iconTransformation(extent={{-90,90},{-70,110}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_b port_AHUHWRet(redeclare package Medium =
+        MediumW) "AHU hot water return port"
+    annotation (Placement(transformation(extent={{-50,110},{-30,130}}),
       iconTransformation(extent={{-50,90},{-30,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput THotWatSupResReq
-    "Requests to reset HW supply temperature" annotation (Placement(
-        transformation(extent={{-160,10},{-120,50}}), iconTransformation(extent
-          ={{-140,20},{-100,60}})));
+    "Requests to reset HW supply temperature" 
+	annotation (Placement(transformation(extent={{-160,10},{-120,50}}), 
+		iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_b port_RehHWRet(redeclare package Medium =
+        MediumW) "Reheat hot water return port"
+    annotation (Placement(transformation(extent={{70,110},{90,130}}),
+      iconTransformation(extent={{70,90},{90,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput hotWatPlaReq
     "Hot water plant requests" annotation (Placement(transformation(extent={{-160,
@@ -199,8 +199,8 @@ equation
   connect(con.y, controller.uBoiAva) annotation (Line(points={{-68,-20},{-60,-20},
           {-60,-16},{-42,-16}},
                        color={255,0,255}));
-  connect(spl4.port_2, port_AHUHWSup) annotation (Line(points={{40,60},{40,90},{
-          -30,90},{-30,120}}, color={0,127,255}));
+  connect(spl4.port_2, port_AHUHWSup) annotation (Line(points={{20,60},{20,76},
+          {-80,76},{-80,120}},color={0,127,255}));
   connect(spl4.port_3, port_RehHWSup)
     annotation (Line(points={{50,50},{70,50},{70,120}}, color={0,127,255}));
   connect(spl1.port_1, port_RehHWRet) annotation (Line(points={{0,60},{0,100},{30,
@@ -214,10 +214,10 @@ equation
   connect(TZonAve, boiPla.TZon) annotation (Line(points={{-140,-30},{-100,-30},{
           -100,-80},{10,-80},{10,-39},{18,-39}}, color={0,0,127}));
   connect(boiPla.port_b, spl4.port_1) annotation (Line(points={{23.4,-20.2},{
-          23.4,20},{40,20},{40,40}},
+          23.4,20},{20,20},{20,40}},
                             color={0,127,255}));
   connect(boiPla.port_a, spl1.port_2) annotation (Line(points={{37,-20.2},{37,
-          10},{0,10},{0,40}},
+          10},{80,10},{80,70}},
                           color={0,127,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-120},{120,

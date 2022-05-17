@@ -81,9 +81,12 @@ record SizingParameters "Record with sizing parameters"
   parameter Modelica.Units.SI.Temperature TCooWatRet_nominal(displayUnit="degC")=
        12 + 273.15
     "Main cooling coil nominal return water temperature";
+
+  final parameter Real QHeaPla_nominal=sum(QHeaVAV_flow_nominal) + QHeaAHU_flow_nominal "Total boiler plant design capacity";
+  final parameter Modelica.Units.SI.MassFlowRate mHeaSec_flow_nominal=QHeaPla_nominal/4200/(THeaWatSup_nominal-THeaWatRet_nominal)
+    "Heating secondary loop nominal mass flow rate";
+
   annotation (
     defaultComponentName = "sizDat",
     defaultComponentPrefix="parameter");
-
-
 end SizingParameters;

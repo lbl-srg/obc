@@ -46,22 +46,6 @@ model System
   Building.Floor flo(redeclare package Medium = MediumA)
     "Floor of the building"
     annotation (Placement(transformation(extent={{120,116},{208,166}})));
-  Buildings.Fluid.Sources.Boundary_pT sinHea(
-    redeclare package Medium = MediumW,
-    p=300000,
-    T=sizDat.THeaWatRet_nominal,
-    nPorts=1) "Sink for heating coil" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-22})));
-  Buildings.Fluid.Sources.Boundary_pT souHea(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
-    T=sizDat.THeaWatSup_nominal,
-    nPorts=1) "Source for heating coil" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-32,-22})));
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     p=300000,
@@ -79,24 +63,6 @@ model System
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={28,-22})));
-  Buildings.Fluid.Sources.Boundary_pT souHeaTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000 + 6000,
-    T=sizDat.THeaWatSup_nominal,
-    nPorts=1) "Source for heating of terminal boxes" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={88,-22})));
-  Buildings.Fluid.Sources.Boundary_pT sinHeaTer(
-    redeclare package Medium = MediumW,
-    p(displayUnit="Pa") = 300000,
-    T=sizDat.THeaWatRet_nominal,
-    nPorts=1) "Sink for heating of terminal boxes"   annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={118,-22})));
   Buildings.Fluid.Sources.MassFlowSource_T souAir[4](
     redeclare each package Medium = MediumA,
     each m_flow=0,
@@ -107,19 +73,23 @@ model System
         origin={130,30})));
 
 
+  BoilerPlant.System boiPla(
+    final mSec_flow_nominal=sizDat.mHeaSec_flow_nominal,
+    final boiDesCap=sizDat.QHeaPla_nominal) "Boiler plant"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Modelica.Blocks.Math.Sum TZonAve(
+    nin=5,
+    k=1/5*ones(5),
+    y(final unit="K",
+      displayUnit="degC"))
+      "Average zone temperature"
+    annotation (Placement(transformation(extent={{232,132},{252,152}})));
+
 equation
   connect(weaDat.weaBus,vav. weaBus) annotation (Line(
       points={{-40,66},{-2,66},{-2,66.2889},{10.9875,66.2889}},
       color={255,204,51},
       thickness=0.5));
-  connect(souHea.ports[1], vav.portHeaCoiSup) annotation (Line(points={{-32,-12},
-          {-32,18},{27.375,18},{27.375,30}},         color={0,127,255}));
-  connect(sinHea.ports[1], vav.portHeaCoiRet) annotation (Line(points={{0,-12},{
-          0,16},{34.5,16},{34.5,30}},          color={0,127,255}));
-  connect(vav.portHeaTerSup,souHeaTer. ports[1]) annotation (Line(points={{60.625,
-          30},{60,30},{60,10},{88,10},{88,-12}},           color={0,127,255}));
-  connect(vav.portHeaTerRet,sinHeaTer. ports[1]) annotation (Line(points={{67.75,
-          30},{68,30},{68,12},{118,12},{118,-12}},        color={0,127,255}));
   connect(souCoo.ports[1], vav.portCooCoiSup) annotation (Line(points={{28,-12},
           {28,12},{44,12},{44,30}},          color={0,127,255}));
   connect(sinCoo.ports[1], vav.portCooCoiRet) annotation (Line(points={{58,-12},
@@ -137,8 +107,8 @@ equation
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
           73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
                                                                  color={0,127,255}));
-  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{232,
-          141},{232,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
+  connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{220,
+          141},{220,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
                                                               color={0,0,127}));
   connect(vav.port_retAir[5], flo.portAtt) annotation (Line(points={{82.2375,
           51.7222},{192.696,51.7222},{192.696,111.962}},
@@ -150,14 +120,37 @@ equation
   connect(souAir[1:4].ports[1], vav.port_retAir[1:4]) annotation (Line(points={{120,30},
           {120,28},{102,28},{102,51.7222},{82.2375,51.7222}},
                                       color={0,127,255}));
+  connect(boiPla.TSupResReq, vav.yHeaValTerReq) annotation (Line(points={{-2,-66},
+          {-60,-66},{-60,22},{96,22},{96,40.2222},{84.375,40.2222}},      color=
+         {255,127,0}));
+  connect(vav.yHeaPlaReq, boiPla.supResReq) annotation (Line(points={{84.375,
+          34.8556},{92,34.8556},{92,26},{-64,26},{-64,-70},{-2,-70}}, color={
+          255,127,0}));
+  connect(boiPla.port_AHUHWSup, vav.portHeaCoiSup) annotation (Line(points={{2,
+          -60},{2,18},{27.375,18},{27.375,30}}, color={0,127,255}));
+  connect(boiPla.port_AHUHWRet, vav.portHeaCoiRet) annotation (Line(points={{6,
+          -60},{6,16},{34.5,16},{34.5,30}}, color={0,127,255}));
+  connect(boiPla.port_RehHWSup, vav.portHeaTerSup) annotation (Line(points={{14,
+          -60},{14,-40},{80,-40},{80,0},{60.625,0},{60.625,30}}, color={0,127,
+          255}));
+  connect(boiPla.port_RehHWRet, vav.portHeaTerRet) annotation (Line(points={{18,
+          -60},{18,-44},{84,-44},{84,4},{67.75,4},{67.75,30}}, color={0,127,255}));
+  connect(boiPla.weaBus, weaDat.weaBus) annotation (Line(
+      points={{1,-63},{-20,-63},{-20,66},{-40,66}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(TZonAve.u, flo.TRooAir) annotation (Line(points={{230,142},{230,141},
+          {209.913,141}}, color={0,0,127}));
+  connect(TZonAve.y, boiPla.TZonAve) annotation (Line(points={{253,142},{256,
+          142},{256,-86},{-8,-86},{-8,-74},{-2,-74}}, color={0,0,127}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/Validation/System.mos"
         "Simulate and plot"),
     experiment(
-      StopTime=432000,
+      StopTime=172800,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Radau"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{260,
-            200}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            260,200}})));
 end System;

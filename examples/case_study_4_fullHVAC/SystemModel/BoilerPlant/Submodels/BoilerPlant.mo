@@ -43,8 +43,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Radiator nominal return water temperature"
     annotation(Dialog(group="Radiator parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.113 * 1000
-    "Radiator nominal mass flow rate"
+  parameter Modelica.Units.SI.MassFlowRate mSec_flow_nominal=0.113*1000
+    "Secondary load nominal mass flow rate"
     annotation(Dialog(group="Radiator parameters"));
 
   parameter Modelica.Units.SI.Temperature TBoiSup_nominal = 273.15+70
@@ -55,11 +55,11 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Boiler minimum return water temperature"
     annotation(Dialog(group="Boiler parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal1=mSec_flow_nominal
     "Boiler-1 nominal mass flow rate"
     annotation(Dialog(group="Boiler parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal2=mSec_flow_nominal
     "Boiler-2 nominal mass flow rate"
     annotation(Dialog(group="Boiler parameters"));
 
@@ -167,26 +167,28 @@ model BoilerPlant "Boiler plant model for closed loop testing"
 
   Buildings.Fluid.Boilers.BoilerTable boi1(
     redeclare package Medium = MediumW,
+    allowFlowReversal=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final per=perBoi1) "Boiler-1"
     annotation (Placement(transformation(extent={{110,-220},{90,-200}})));
 
   Buildings.Fluid.Boilers.BoilerTable boi2(
     redeclare package Medium = MediumW,
+    allowFlowReversal=false,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final per=perBoi1) "Boiler-2"
     annotation (Placement(transformation(extent={{110,-160},{90,-140}})));
 
-  Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Buildings.Media.Water,
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
+    redeclare package Medium = MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final allowFlowReversal=true,
-    m_flow_nominal=mRad_flow_nominal,
-    redeclare Buildings.Fluid.Movers.Data.Generic per,
+    final allowFlowReversal=false,
+    redeclare Buildings.Fluid.Movers.Data.Generic per(
+      pressure(V_flow={0,2*mSec_flow_nominal/1000},
+      dp={2*75000,0})),
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
     final addPowerToMedium=false,
-    final riseTime=60,
-    dp_nominal=75000)
+    final riseTime=60)
     "Hot water primary pump-1"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -195,7 +197,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Fluid.FixedResistances.Junction spl1(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mBoi_flow_nominal2,-mRad_flow_nominal,mBoi_flow_nominal1},
+    final m_flow_nominal={mBoi_flow_nominal2,-mSec_flow_nominal,mBoi_flow_nominal1},
     final dp_nominal={0,0,0})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -205,7 +207,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Fluid.FixedResistances.Junction spl4(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,-mRad_flow_nominal,-mRad_flow_nominal},
+    final m_flow_nominal={mSec_flow_nominal,-mSec_flow_nominal,-
+        mSec_flow_nominal},
     final dp_nominal={0,0,0})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -214,7 +217,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Buildings.Media.Water,
-    final m_flow_nominal=mRad_flow_nominal,
+    final m_flow_nominal=mSec_flow_nominal,
     final dpValve_nominal=dpValve_nominal_value,
     dpFixed_nominal=dpFixed_nominal_value)
     "Minimum flow bypass valve"
@@ -223,7 +226,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Fluid.FixedResistances.Junction spl5(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={mRad_flow_nominal,mRad_flow_nominal,-mRad_flow_nominal},
+    final m_flow_nominal={mSec_flow_nominal,mSec_flow_nominal,-
+        mSec_flow_nominal},
     final dp_nominal={0,0,0})
     "Splitter"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -249,13 +253,6 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     dpFixed_nominal=dpFixed_nominal_value) "Isolation valve for boiler-2"
     annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Element-wise product"
-    annotation (Placement(transformation(extent={{-210,-20},{-190,0}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[2]
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
@@ -267,20 +264,20 @@ model BoilerPlant "Boiler plant model for closed loop testing"
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare package Medium = Buildings.Media.Water,
-    final m_flow_nominal=mRad_flow_nominal/1000)
+    final m_flow_nominal=mSec_flow_nominal/1000)
     "Volume flow-rate through primary circuit"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}}, rotation=90,
         origin={-30,-10})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
         Buildings.Media.Water,
-                     m_flow_nominal=mRad_flow_nominal)
+                     m_flow_nominal=mSec_flow_nominal)
     "HW supply temperature sensor"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
 
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
-      = Buildings.Media.Water,
-                     m_flow_nominal=mRad_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+        Buildings.Media.Water,
+                     m_flow_nominal=mSec_flow_nominal)
     "HW return temperature sensor"
     annotation (Placement(transformation(extent={{180,110},{200,130}})));
 
@@ -310,14 +307,6 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-260,30},{-240,50}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemBoi2(redeclare package
-      Medium = Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal1)
-    "Boiler-2 HW supply temperature sensor"
-    annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemBoi1(redeclare package
-      Medium = Buildings.Media.Water, m_flow_nominal=mBoi_flow_nominal2)
-    "Boiler-1 HW supply temperature sensor"
-    annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[2]
     "Switch to signal from controller once enabling process has been completed"
     annotation (Placement(transformation(extent={{-210,150},{-190,170}})));
@@ -337,9 +326,9 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     Ti=fill(90, 2),
     yMax=fill(1, 2),
     yMin=fill(0.01, 2),
-    xi_start=fill(1, 2))
+    xi_start=fill(0.2, 2))
     "PI controller for regulating hot water supply temperature from boiler"
-    annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
+    annotation (Placement(transformation(extent={{-170,-120},{-150,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[2]
     "Product of boiler power and current status"
@@ -353,7 +342,7 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Fluid.FixedResistances.Junction spl6(
     redeclare package Medium = MediumW,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal={-mBoi_flow_nominal1,mRad_flow_nominal,-
+    final m_flow_nominal={-mBoi_flow_nominal1,mSec_flow_nominal,-
         mBoi_flow_nominal2},
     final dp_nominal={0,0,0}) "Splitter" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -365,8 +354,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(nout=2)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{-150,-170},{-130,-150}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium
-      = Buildings.Media.Water)
+  Buildings.Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium =
+        Buildings.Media.Water)
     "Differential pressure sensor between hot water supply and return"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -416,7 +405,8 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     annotation (Placement(transformation(extent={{-150,-214},{-130,-194}})));
   Buildings.Fluid.FixedResistances.PlugFlowPipe pipe(
     redeclare package Medium = MediumW,
-    m_flow_nominal=mRad_flow_nominal,
+    allowFlowReversal=false,
+    m_flow_nominal=mSec_flow_nominal,
     length=2000,
     dIns=0.0508,
     kIns=0.0389)
@@ -440,12 +430,6 @@ model BoilerPlant "Boiler plant model for closed loop testing"
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(nout=1)
     "Boolean replicator"
     annotation (Placement(transformation(extent={{280,-120},{300,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=mRad_flow_nominal)
-    "Convert normalized pump speed to mass flow rate"
-    annotation (Placement(transformation(extent={{-114,-20},{-94,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=1/mRad_flow_nominal)
-    "Convert mass flow rate back to normalized speed"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr3[2](t=fill(0.02,
         2), h=fill(0.02/10, 2))
     annotation (Placement(transformation(extent={{180,-200},{200,-180}})));
@@ -456,6 +440,11 @@ model BoilerPlant "Boiler plant model for closed loop testing"
     "Invert temperature setpoint signal for subtraction"
     annotation (Placement(transformation(extent={{-306,-164},{-286,-144}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiPum "Switch for pump"
+    annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0)
+    "Zero output signal"
+    annotation (Placement(transformation(extent={{-300,-30},{-280,-10}})));
 equation
   connect(spl4.port_3, val.port_a)
     annotation (Line(points={{-20,40},{80,40}},     color={0,127,255}));
@@ -507,10 +496,6 @@ equation
     annotation (Line(points={{-278,40},{-262,40}}, color={255,0,255}));
   connect(lat.y, logSwi.u1) annotation (Line(points={{-278,40},{-270,40},{-270,
           48},{-262,48}}, color={255,0,255}));
-  connect(senTemBoi2.port_b, boi2.port_b)
-    annotation (Line(points={{80,-150},{90,-150}}, color={0,127,255}));
-  connect(senTemBoi1.port_b, boi1.port_b)
-    annotation (Line(points={{80,-210},{90,-210}}, color={0,127,255}));
   connect(uBoiSta, lat1.u)
     annotation (Line(points={{-340,160},{-262,160}}, color={255,0,255}));
   connect(lat1.y, logSwi1.u2)
@@ -521,19 +506,11 @@ equation
           -310,140},{-220,140},{-220,152},{-212,152}}, color={255,0,255}));
   connect(lat1.y, logSwi1.u1) annotation (Line(points={{-238,160},{-220,160},{
           -220,168},{-212,168}}, color={255,0,255}));
-  connect(senTemBoi1.T, conPID[1].u_m) annotation (Line(points={{70,-199},{70,-188},
-          {-310,-188},{-310,-126},{-230,-126},{-230,-122}}, color={0,0,127}));
-  connect(senTemBoi2.T, conPID[2].u_m) annotation (Line(points={{70,-139},{70,-126},
-          {-230,-126},{-230,-122}}, color={0,0,127}));
-  connect(conPID.y, pro1.u2) annotation (Line(points={{-218,-110},{-160,-110},{
-          -160,-116},{-122,-116}},
+  connect(conPID.y, pro1.u2) annotation (Line(points={{-148,-110},{-140,-110},{
+          -140,-116},{-122,-116}},
                               color={0,0,127}));
   connect(booToRea1.y, pro1.u1) annotation (Line(points={{-138,160},{-130,160},
           {-130,-104},{-122,-104}},color={0,0,127}));
-  connect(senTemBoi1.T, add1[1].u2) annotation (Line(points={{70,-199},{70,-188},
-          {-310,-188},{-310,-166},{-282,-166}}, color={0,0,127}));
-  connect(senTemBoi2.T, add1[2].u2) annotation (Line(points={{70,-139},{70,-126},
-          {-310,-126},{-310,-166},{-282,-166}}, color={0,0,127}));
   connect(boi2.port_a, spl6.port_1)
     annotation (Line(points={{110,-150},{140,-150}}, color={0,127,255}));
   connect(boi1.port_a, spl6.port_3) annotation (Line(points={{110,-210},{150,
@@ -554,10 +531,6 @@ equation
     annotation (Line(points={{180,120},{40,120},{40,240}}, color={0,127,255}));
   connect(val.y_actual, yBypValPos) annotation (Line(points={{95,47},{120,47},{120,
           150},{340,150}}, color={0,0,127}));
-  connect(senTemBoi2.port_a, val2.port_b)
-    annotation (Line(points={{60,-150},{20,-150}}, color={0,127,255}));
-  connect(senTemBoi1.port_a, val1.port_b)
-    annotation (Line(points={{60,-210},{20,-210}}, color={0,127,255}));
   connect(swi.y, lesThr.u) annotation (Line(points={{-68,-160},{-60,-160},{-60,
           -120},{180,-120}}, color={0,0,127}));
   connect(pre2.y, lat2.clr) annotation (Line(points={{262,-76},{278,-76}},
@@ -569,20 +542,13 @@ equation
   connect(TBoiHotWatSupSet, pro2.u2) annotation (Line(points={{-340,-110},{-300,
           -110},{-300,-116},{-282,-116}}, color={0,0,127}));
   connect(pro2.y, conPID.u_s)
-    annotation (Line(points={{-258,-110},{-242,-110}}, color={0,0,127}));
-  connect(booToRea1.y, pro2.u1) annotation (Line(points={{-138,160},{-130,160},
-          {-130,-90},{-300,-90},{-300,-104},{-282,-104}}, color={0,0,127}));
+    annotation (Line(points={{-258,-110},{-172,-110}}, color={0,0,127}));
   connect(booRep.u, lat3.y)
     annotation (Line(points={{-152,-160},{-158,-160}}, color={255,0,255}));
   connect(uBoiSta, edg.u) annotation (Line(points={{-340,160},{-310,160},{-310,
           120},{-282,120}}, color={255,0,255}));
   connect(mulOr1.y, lat3.u) annotation (Line(points={{-218,120},{-180,120},{-180,
           -140},{-186,-140},{-186,-160},{-182,-160}},      color={255,0,255}));
-  connect(senTemBoi1.T, greThr2[1].u) annotation (Line(points={{70,-199},{70,-188},
-          {-230,-188},{-230,-204},{-222,-204}}, color={0,0,127}));
-  connect(senTemBoi2.T, greThr2[2].u) annotation (Line(points={{70,-139},{70,-126},
-          {-310,-126},{-310,-188},{-230,-188},{-230,-204},{-222,-204}}, color={
-          0,0,127}));
   connect(mulOr.y, or2.u1)
     annotation (Line(points={{-168,-204},{-152,-204}}, color={255,0,255}));
   connect(mulAnd.y, or2.u2) annotation (Line(points={{-198,-160},{-194,-160},{-194,
@@ -605,32 +571,18 @@ equation
     annotation (Line(points={{302,-110},{340,-110}}, color={255,0,255}));
   connect(tim1.passed, booRep1.u) annotation (Line(points={{162,-38},{230,-38},
           {230,-110},{278,-110}},color={255,0,255}));
-  connect(booToRea.y, pro.u1) annotation (Line(points={{-198,40},{-190,40},{-190,
-          20},{-220,20},{-220,-4},{-212,-4}}, color={0,0,127}));
-  connect(uPumSpe, pro.u2) annotation (Line(points={{-340,0},{-240,0},{-240,-16},
-          {-212,-16}}, color={0,0,127}));
   connect(uPumSta[1], logSwi.u3) annotation (Line(points={{-340,40},{-308,40},{-308,
           20},{-270,20},{-270,32},{-262,32}}, color={255,0,255}));
   connect(uPumSta[1], lat.u)
     annotation (Line(points={{-340,40},{-302,40}}, color={255,0,255}));
-  connect(logSwi.y, booToRea.u)
-    annotation (Line(points={{-238,40},{-222,40}}, color={255,0,255}));
   connect(uBypValSig, val.y) annotation (Line(points={{-340,-40},{-120,-40},{-120,
           60},{90,60},{90,52}}, color={0,0,127}));
   connect(spl1.port_2, pum.port_a)
     annotation (Line(points={{-30,-140},{-30,-60}}, color={0,127,255}));
   connect(senTem.port_b, port_b) annotation (Line(points={{0,120},{10,120},{10,
           160},{-40,160},{-40,240}}, color={0,127,255}));
-  connect(preSou.ports[1], pum.port_a) annotation (Line(points={{-2,-68},{-30,
-          -68},{-30,-60}},      color={0,127,255}));
-  connect(pro.y, gai.u)
-    annotation (Line(points={{-188,-10},{-116,-10}}, color={0,0,127}));
-  connect(gai.y, pum.m_flow_in) annotation (Line(points={{-92,-10},{-88,-10},{
-          -88,-50},{-42,-50}}, color={0,0,127}));
-  connect(pum.m_flow_actual, gai1.u) annotation (Line(points={{-35,-39},{-35,
-          -30},{18,-30}},                 color={0,0,127}));
-  connect(gai1.y, hys2.u)
-    annotation (Line(points={{42,-30},{98,-30}}, color={0,0,127}));
+  connect(preSou.ports[1], pum.port_a) annotation (Line(points={{-2,-68},{-30,-68},
+          {-30,-60}},           color={0,127,255}));
   connect(swi.y, greThr3.u) annotation (Line(points={{-68,-160},{-60,-160},{-60,
           -120},{120,-120},{120,-190},{178,-190}}, color={0,0,127}));
   connect(greThr3.y, pre3.u)
@@ -653,7 +605,7 @@ equation
   connect(add1.u1, gai2.y)
     annotation (Line(points={{-282,-154},{-284,-154}}, color={0,0,127}));
   connect(pro2.y, gai2.u) annotation (Line(points={{-258,-110},{-250,-110},{-250,
-          -130},{-318,-130},{-318,-154},{-308,-154}}, color={0,0,127}));
+          -126},{-318,-126},{-318,-154},{-308,-154}}, color={0,0,127}));
   connect(TRoo.port, pipe.heatPort) annotation (Line(points={{-260,-70},{-148,-70},
           {-148,100},{230,100},{230,10},{220,10}}, color={191,0,0}));
   connect(boi2.heatPort, TRoo.port) annotation (Line(points={{100,-142.8},{100,
@@ -665,6 +617,36 @@ equation
           230,-232},{-314,-232},{-314,34},{-302,34}}, color={255,0,255}));
   connect(lat2.y, lat1.clr) annotation (Line(points={{302,-70},{306,-70},{306,
           220},{-300,220},{-300,154},{-262,154}}, color={255,0,255}));
+  connect(val2.port_b, boi2.port_b)
+    annotation (Line(points={{20,-150},{90,-150}}, color={0,127,255}));
+  connect(val1.port_b, boi1.port_b)
+    annotation (Line(points={{20,-210},{92,-210}}, color={0,127,255}));
+  connect(boi2.T, conPID[1].u_m) annotation (Line(points={{89,-142},{60,-142},{
+          60,-130},{-160,-130},{-160,-122}},
+                                          color={0,0,127}));
+  connect(boi2.T, add1[1].u2) annotation (Line(points={{89,-142},{60,-142},{60,-130},
+          {-310,-130},{-310,-166},{-282,-166}}, color={0,0,127}));
+  connect(boi2.T, greThr2[1].u) annotation (Line(points={{89,-142},{60,-142},{60,
+          -130},{-310,-130},{-310,-204},{-220,-204}}, color={0,0,127}));
+  connect(boi1.T, conPID[2].u_m) annotation (Line(points={{89,-202},{62,-202},{
+          62,-128},{-160,-128},{-160,-122}},
+                                          color={0,0,127}));
+  connect(boi1.T, add1[2].u2) annotation (Line(points={{89,-202},{62,-202},{62,-228},
+          {-292,-228},{-292,-166},{-280,-166}}, color={0,0,127}));
+  connect(boi1.T, greThr2[2].u) annotation (Line(points={{89,-202},{62,-202},{62,
+          -228},{-230,-228},{-230,-204},{-220,-204}}, color={0,0,127}));
+  connect(hys2.u, pum.y_actual)
+    annotation (Line(points={{98,-30},{-36,-30},{-36,-40}}, color={0,0,127}));
+  connect(uPumSpe, swiPum.u1) annotation (Line(points={{-340,0},{-300,0},{-300,-2},
+          {-222,-2}}, color={0,0,127}));
+  connect(zer.y, swiPum.u3) annotation (Line(points={{-278,-20},{-270,-20},{-270,
+          -18},{-222,-18}}, color={0,0,127}));
+  connect(logSwi.y, swiPum.u2) annotation (Line(points={{-238,40},{-228,40},{-228,
+          -10},{-222,-10}}, color={255,0,255}));
+  connect(swiPum.y, pum.y) annotation (Line(points={{-198,-10},{-190,-10},{-190,
+          -50},{-42,-50}}, color={0,0,127}));
+  connect(pro2.u1, booToRea1.y) annotation (Line(points={{-282,-104},{-300,-104},
+          {-300,-50},{-130,-50},{-130,160},{-138,160}}, color={0,0,127}));
   annotation (defaultComponentName="boiPla",
     Documentation(info="<html>
       <p>
