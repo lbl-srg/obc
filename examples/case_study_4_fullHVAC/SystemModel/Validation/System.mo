@@ -96,16 +96,16 @@ equation
           {58,4},{51.125,4},{51.125,30}},
                                      color={0,127,255}));
   connect(vav.port_supAir[1], flo.portsSou[1]) annotation (Line(points={{82.2375,
-          73.4444},{153.096,73.4444},{153.096,126.769}}, color={0,127,255}));
+          73.4444},{152.139,73.4444},{152.139,126.769}}, color={0,127,255}));
   connect(vav.port_supAir[2], flo.portsEas[1]) annotation (Line(points={{82.2375,
-          73.4444},{196.713,73.4444},{196.713,142.154}}, color={0,127,255}));
+          73.4444},{195.757,73.4444},{195.757,142.154}}, color={0,127,255}));
   connect(vav.port_supAir[3], flo.portsNor[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,155.231},{153.096,155.231}}, color={0,127,255}));
+          73.4444},{94,73.4444},{94,155.231},{152.139,155.231}}, color={0,127,255}));
   connect(vav.port_supAir[4], flo.portsWes[1]) annotation (Line(points={{82.2375,
-          73.4444},{94,73.4444},{94,90},{129.374,90},{129.374,142.154}}, color={
+          73.4444},{94,73.4444},{94,90},{128.417,90},{128.417,142.154}}, color={
           0,127,255}));
   connect(vav.port_supAir[5], flo.portsCor[1]) annotation (Line(points={{82.2375,
-          73.4444},{140,73.4444},{140,142.154},{153.096,142.154}},
+          73.4444},{140,73.4444},{140,142.154},{152.139,142.154}},
                                                                  color={0,127,255}));
   connect(flo.TRooAir, vav.TRoo) annotation (Line(points={{209.913,141},{220,
           141},{220,182},{-8,182},{-8,70.8889},{3.625,70.8889}},
@@ -120,12 +120,6 @@ equation
   connect(souAir[1:4].ports[1], vav.port_retAir[1:4]) annotation (Line(points={{120,30},
           {120,28},{102,28},{102,51.7222},{82.2375,51.7222}},
                                       color={0,127,255}));
-  connect(boiPla.TSupResReq, vav.yHeaValTerReq) annotation (Line(points={{-2,-66},
-          {-60,-66},{-60,22},{96,22},{96,40.2222},{84.375,40.2222}},      color=
-         {255,127,0}));
-  connect(vav.yHeaPlaReq, boiPla.supResReq) annotation (Line(points={{84.375,
-          34.8556},{92,34.8556},{92,26},{-64,26},{-64,-70},{-2,-70}}, color={
-          255,127,0}));
   connect(boiPla.port_AHUHWSup, vav.portHeaCoiSup) annotation (Line(points={{2,
           -60},{2,18},{27.375,18},{27.375,30}}, color={0,127,255}));
   connect(boiPla.port_AHUHWRet, vav.portHeaCoiRet) annotation (Line(points={{6,
@@ -143,6 +137,12 @@ equation
           {209.913,141}}, color={0,0,127}));
   connect(TZonAve.y, boiPla.TZonAve) annotation (Line(points={{253,142},{256,
           142},{256,-86},{-8,-86},{-8,-74},{-2,-74}}, color={0,0,127}));
+  connect(vav.THotWatSupResReq, boiPla.THotWatSupResReq) annotation (Line(
+        points={{84.375,37.6667},{98,37.6667},{98,-4},{-6,-4},{-6,-66},{-2,-66}},
+        color={255,127,0}));
+  connect(vav.yHotWatPlaReq, boiPla.hotWatPlaReq) annotation (Line(points={{84.375,
+          32.5556},{94,32.5556},{94,-2},{-8,-2},{-8,-70},{-2,-70}}, color={255,127,
+          0}));
   annotation (
       __Dymola_Commands(file="modelica://SystemModel/Resources/Scripts/Dymola/Validation/System.mos"
         "Simulate and plot"),
