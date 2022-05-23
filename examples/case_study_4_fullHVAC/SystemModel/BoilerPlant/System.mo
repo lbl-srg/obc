@@ -38,8 +38,9 @@ model System
       Ti=fill(90, 2)),
     dpValve_nominal_value(displayUnit="Pa") = 20000,
     dpFixed_nominal_value(displayUnit="Pa") = 1000,
-    tim1(t=120)) "Boiler plant model"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    tim1(t=120))
+    "Boiler plant model"
+    annotation (Placement(transformation(extent={{20,-44},{40,-16}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Controller controller(
     final have_priOnl=true,
@@ -131,9 +132,9 @@ model System
       iconTransformation(extent={{-50,90},{-30,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput THotWatSupResReq
-    "Requests to reset HW supply temperature" 
-	annotation (Placement(transformation(extent={{-160,10},{-120,50}}), 
-		iconTransformation(extent={{-140,20},{-100,60}})));
+    "Requests to reset HW supply temperature"
+ annotation (Placement(transformation(extent={{-160,10},{-120,50}}),
+  iconTransformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_RehHWRet(redeclare package Medium =
         MediumW) "Reheat hot water return port"
@@ -153,40 +154,42 @@ model System
       iconTransformation(extent={{-140,-60},{-100,-20}})));
 
 equation
-  connect(controller.yBoi, boiPla.uBoiSta) annotation (Line(points={{-18,-10},{0,
-          -10},{0,-21},{18,-21}},
+  connect(controller.yBoi, boiPla.uBoiSta) annotation (Line(points={{-18,-14},{
+          0,-14},{0,-21},{18,-21}},
                                color={255,0,255}));
   connect(controller.TBoiHotWatSupSet, boiPla.TBoiHotWatSupSet) annotation (
-      Line(points={{-18,-14},{8,-14},{8,-36},{18,-36}},
+      Line(points={{-18,-18},{8,-18},{8,-39},{18,-39}},
                                                     color={0,0,127}));
-  connect(controller.yHotWatIsoVal, boiPla.uHotIsoVal) annotation (Line(points={{-18,-18},
-          {14,-18},{14,-24},{18,-24}},     color={0,0,127}));
-  connect(controller.yBypValPos, boiPla.uBypValSig) annotation (Line(points={{-18,-22},
-          {12,-22},{12,-33},{18,-33}},    color={0,0,127}));
-  connect(controller.yPriPum, boiPla.uPumSta) annotation (Line(points={{-18,-26},
-          {14,-26},{14,-27},{18,-27}},
+  connect(controller.yHotWatIsoVal, boiPla.uHotIsoVal) annotation (Line(points={{-18,-22},
+          {14,-22},{14,-24},{18,-24}},     color={0,0,127}));
+  connect(controller.yBypValPos, boiPla.uBypValSig) annotation (Line(points={{-18,-26},
+          {12,-26},{12,-33},{18,-33}},    color={0,0,127}));
+  connect(controller.yPriPum, boiPla.uPumSta) annotation (Line(points={{-18,-30},
+          {-6,-30},{-6,-27},{18,-27}},
                                     color={255,0,255}));
   connect(controller.yPriPumSpe, boiPla.uPumSpe)
-    annotation (Line(points={{-18,-30},{18,-30}}, color={0,0,127}));
-  connect(boiPla.yBypValPos, controller.uBypValPos) annotation (Line(points={{42,-18},
-          {80,-18},{80,-100},{-60,-100},{-60,-53},{-42,-53}},color={0,0,127}));
-  connect(boiPla.ySupTem, controller.TSupPri) annotation (Line(points={{42,-21},
-          {78,-21},{78,-98},{-58,-98},{-58,-1},{-42,-1}},
+    annotation (Line(points={{-18,-34},{0,-34},{0,-30},{18,-30}},
+                                                  color={0,0,127}));
+  connect(boiPla.yBypValPos, controller.uBypValPos) annotation (Line(points={{42,-20},
+          {80,-20},{80,-100},{-60,-100},{-60,-53},{-42,-53}},color={0,0,127}));
+  connect(boiPla.ySupTem, controller.TSupPri) annotation (Line(points={{42,-23},
+          {78,-23},{78,-98},{-58,-98},{-58,-1},{-42,-1}},
                                                         color={0,0,127}));
-  connect(boiPla.yRetTem, controller.TRetPri) annotation (Line(points={{42,-24},
-          {76,-24},{76,-96},{-56,-96},{-56,-4},{-42,-4}},
+  connect(boiPla.yRetTem, controller.TRetPri) annotation (Line(points={{42,-26},
+          {76,-26},{76,-96},{-56,-96},{-56,-4},{-42,-4}},
                                                         color={0,0,127}));
-  connect(boiPla.yHotWatDp, controller.dpHotWatPri_rem) annotation (Line(points={{42,-27},
-          {74,-27},{74,-94},{-54,-94},{-54,-13},{-42,-13}},    color={0,0,127}));
+  connect(boiPla.yHotWatDp, controller.dpHotWatPri_rem) annotation (Line(points={{42,-29},
+          {74,-29},{74,-94},{-54,-94},{-54,-13},{-42,-13}},    color={0,0,127}));
   connect(boiPla.VHotWat_flow, controller.VHotWatPri_flow) annotation (Line(
-        points={{42,-30},{72,-30},{72,-92},{-52,-92},{-52,-7},{-42,-7}}, color={
+        points={{42,-32},{72,-32},{72,-92},{-52,-92},{-52,-7},{-42,-7}}, color={
           0,0,127}));
-  connect(boiPla.yPumSta, controller.uPriPum) annotation (Line(points={{42,-36},
-          {68,-36},{68,-88},{-48,-88},{-48,-44},{-42,-44}}, color={255,0,255}));
-  connect(boiPla.yBoiSta, controller.uBoi) annotation (Line(points={{42,-33},{70,
-          -33},{70,-90},{-50,-90},{-50,-41},{-42,-41}}, color={255,0,255}));
+  connect(boiPla.yPumSta, controller.uPriPum) annotation (Line(points={{42,-38},
+          {68,-38},{68,-88},{-48,-88},{-48,-44},{-42,-44}}, color={255,0,255}));
+  connect(boiPla.yBoiSta, controller.uBoi) annotation (Line(points={{42,-35},{
+          70,-35},{70,-90},{-50,-90},{-50,-41},{-42,-41}},
+                                                        color={255,0,255}));
   connect(boiPla.yHotWatIsoVal, controller.uHotWatIsoVal) annotation (Line(
-        points={{42,-39},{66,-39},{66,-86},{-46,-86},{-46,-50},{-42,-50}},
+        points={{42,-41},{66,-41},{66,-86},{-46,-86},{-46,-50},{-42,-50}},
         color={0,0,127}));
   connect(weaBus.TDryBul, controller.TOut) annotation (Line(
       points={{-60,60},{-60,2},{-42,2}},
@@ -202,23 +205,28 @@ equation
   connect(spl4.port_2, port_AHUHWSup) annotation (Line(points={{20,60},{20,76},
           {-80,76},{-80,120}},color={0,127,255}));
   connect(spl4.port_3, port_RehHWSup)
-    annotation (Line(points={{50,50},{70,50},{70,120}}, color={0,127,255}));
-  connect(spl1.port_1, port_RehHWRet) annotation (Line(points={{0,60},{0,100},{30,
-          100},{30,120}}, color={0,127,255}));
-  connect(port_AHUHWRet, spl1.port_3) annotation (Line(points={{-70,120},{-70,100},
-          {-40,100},{-40,50},{-10,50}}, color={0,127,255}));
+    annotation (Line(points={{30,50},{40,50},{40,120}}, color={0,127,255}));
+  connect(spl1.port_1, port_RehHWRet) annotation (Line(points={{80,90},{80,100},
+          {80,100},{80,120}},
+                          color={0,127,255}));
+  connect(port_AHUHWRet, spl1.port_3) annotation (Line(points={{-40,120},{-40,100},
+          {-40,100},{-40,80},{70,80}},  color={0,127,255}));
   connect(THotWatSupResReq, controller.TSupResReq) annotation (Line(points={{-140,
           30},{-50,30},{-50,8},{-42,8}}, color={255,127,0}));
   connect(hotWatPlaReq, controller.plaReq) annotation (Line(points={{-140,0},{-100,
           0},{-100,5},{-42,5}}, color={255,127,0}));
-  connect(TZonAve, boiPla.TZon) annotation (Line(points={{-140,-30},{-100,-30},{
-          -100,-80},{10,-80},{10,-39},{18,-39}}, color={0,0,127}));
+  connect(TZonAve, boiPla.TZon) annotation (Line(points={{-140,-30},{-100,-30},
+          {-100,-80},{10,-80},{10,-36},{18,-36}},color={0,0,127}));
   connect(boiPla.port_b, spl4.port_1) annotation (Line(points={{23.4,-20.2},{
           23.4,20},{20,20},{20,40}},
                             color={0,127,255}));
   connect(boiPla.port_a, spl1.port_2) annotation (Line(points={{37,-20.2},{37,
           10},{80,10},{80,70}},
                           color={0,127,255}));
+  connect(controller.TPlaHotWatSupSet, boiPla.TPlaHotWatSupSet) annotation (
+      Line(points={{-18,-10},{4,-10},{4,-42},{18,-42}},         color={0,0,127}));
+  connect(controller.yPla, boiPla.uPla) annotation (Line(points={{-18,-6},{12,
+          -6},{12,-18},{18,-18}}, color={255,0,255}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-120,-120},{120,
             120}})),
