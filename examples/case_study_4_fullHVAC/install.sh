@@ -28,9 +28,13 @@ get_repo(){
 }
 
 echo "Updating Modelica Buildings Library"
-get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git fa7a7583db68309692db4f4775f5b75dec16751c # master
+get_repo $TMP_MBL https://github.com/lbl-srg/modelica-buildings.git afda6ac8bc4ff89830089b4d6b52ae4cf7362595 # master
 echo "Updating BuildingsPy"
 get_repo $TMP_BUP https://github.com/lbl-srg/BuildingsPy.git 4b2135d9ccd38a84528f734319014220ea0562aa # v4.0.0
+
+echo "Creating local installation of Spawn"
+$TMP_MBL/Buildings/Resources/src/ThermalZones/EnergyPlus_9_6_0/install.py --binaries-for-os-only
+
 
 echo "Don't forget to set export MODELICAPATH=${TMP_MBL}"
 echo "Don't forget to set export PYTHONPATH=${TMP_BUP}:$PYTHONPATH"
