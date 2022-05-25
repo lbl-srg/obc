@@ -36,49 +36,72 @@ model Guideline36
     "Sizing data"
     annotation (Placement(transformation(extent={{-322,560},{-302,580}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaValTerReq
-    "Hot water temperature reset requests from terminal boxes"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput THotWatSupResReq
+    "Hot water supply temperature reset requests"
     annotation (Placement(transformation(extent={{1420,-80},{1460,-40}}),
-      iconTransformation(extent={{440,-80},{480,-40}})));
+      iconTransformation(extent={{440,-100},{480,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHeaPlaReq
-    "Heating plant request"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yHotWatPlaReq
+    "Hot water plant requests"
     annotation (Placement(transformation(extent={{1420,-120},{1460,-80}}),
-      iconTransformation(extent={{440,-122},{480,-82}})));
+      iconTransformation(extent={{440,-140},{480,-100}})));
 
-  SystemModel.VAV.HeatingRequests heaReq
-    "Heating request calculator for AHU heating coil"
-    annotation (Placement(transformation(extent={{260,-90},{280,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput TChiWatSupResReq
+    "Chilled water supply temperature reset requests"
+    annotation (Placement(transformation(extent={{1420,20},{1460,60}}),
+      iconTransformation(extent={{440,-20},{480,20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumHeaValReq(final nin=5)
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatPlaReq
+    "Chilled water plant requests"
+    annotation (Placement(transformation(extent={{1420,-20},{1460,20}}),
+      iconTransformation(extent={{440,-60},{480,-20}})));
+
+  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumHeaValReq(
+    final nin=6)
     "Add hot water temperature reset requests from all heating coils"
     annotation (Placement(transformation(extent={{1360,-70},{1380,-50}})));
 
-  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumHeaPlaReq(final nin=6)
+  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumHeaPlaReq(
+    final nin=6)
     "Add boiler plant supply requests from all heating coils"
     annotation (Placement(transformation(extent={{1360,-110},{1380,-90}})));
+
+  SystemModel.VAV.PlantRequests mulAHUPlaReq
+    "Generate hot water and chilled water requests from AHU"
+    annotation (Placement(transformation(extent={{380,-100},{400,-80}})));
 
 initial equation
   assert(abs(sizDat.mHeaWatAHU_flow_nominal - sizDat.xxx) < 1E-3, "Make sure sizDat.mHeaWatAHU_flow_nominal has value of sizDat.xxx = " + String(sizDat.xxx));
 equation
-  connect(valHeaCoi.y_actual, heaReq.uHeaVal) annotation (Line(points={{121,-205},
-          {121,-190},{250,-190},{250,-84},{258,-84}}, color={0,0,127}));
-  connect(TSup.T, heaReq.TDis) annotation (Line(points={{340,-29},{340,-20},{240,
-          -20},{240,-80},{258,-80}}, color={0,0,127}));
-  connect(conAHU.TSupSet, heaReq.TDisHeaSet) annotation (Line(points={{424,608},
-          {428,608},{428,-60},{250,-60},{250,-76},{258,-76}}, color={0,0,127}));
-  connect(mulSumHeaValReq.y,yHeaValTerReq)
+  connect(mulSumHeaValReq.y, THotWatSupResReq)
     annotation (Line(points={{1382,-60},{1440,-60}}, color={255,127,0}));
-  connect(mulSumHeaPlaReq.y, yHeaPlaReq)
+  connect(mulSumHeaPlaReq.y, yHotWatPlaReq)
     annotation (Line(points={{1382,-100},{1440,-100}}, color={255,127,0}));
-  connect(heaReq.yHeaPlaReq, mulSumHeaPlaReq.u[1]) annotation (Line(points={{282,-84},
-          {1338,-84},{1338,-102.917},{1358,-102.917}},
-                                                    color={255,127,0}));
   connect(conVAV.yHeaValResReq, mulSumHeaValReq.u[1:5]) annotation (Line(points={{642,105},
-          {648,105},{648,-57.2},{1358,-57.2}},           color={255,127,0}));
-  connect(conVAV.yHeaPlaReq, mulSumHeaPlaReq.u[2:6]) annotation (Line(points={{642,
-          101.667},{644,101.667},{644,-97.0833},{1358,-97.0833}},
+          {648,105},{648,-63.5},{1358,-63.5}},           color={255,127,0}));
+  connect(conVAV.yHeaPlaReq, mulSumHeaPlaReq.u[1:5]) annotation (Line(points={{642,
+          101.667},{644,101.667},{644,-103.5},{1358,-103.5}},
                                                           color={255,127,0}));
+  connect(TSup.T, mulAHUPlaReq.TAirSup) annotation (Line(points={{340,-29},{340,
+          -20},{360,-20},{360,-82},{378,-82}}, color={0,0,127}));
+  connect(conAHU.TSupSet, mulAHUPlaReq.TAirSupSet) annotation (Line(points={{
+          424,608},{434,608},{434,0},{364,0},{364,-87},{378,-87}}, color={0,0,
+          127}));
+  connect(valCooCoi.y_actual, mulAHUPlaReq.uCooCoi_actual) annotation (Line(
+        points={{213,-205},{213,-196},{364,-196},{364,-93},{378,-93}}, color={0,
+          0,127}));
+  connect(valHeaCoi.y_actual, mulAHUPlaReq.uHeaCoi_actual) annotation (Line(
+        points={{121,-205},{121,-190},{368,-190},{368,-98},{378,-98}}, color={0,
+          0,127}));
+  connect(mulAHUPlaReq.yHotWatPlaReq, mulSumHeaPlaReq.u[6]) annotation (Line(
+        points={{402,-98},{1358,-98},{1358,-105.833}}, color={255,127,0}));
+  connect(mulAHUPlaReq.yHotWatResReq, mulSumHeaValReq.u[6]) annotation (Line(
+        points={{402,-93},{552,-93},{552,-94},{634,-94},{634,-65.8333},{1358,
+          -65.8333}}, color={255,127,0}));
+  connect(mulAHUPlaReq.yChiWatResReq, TChiWatSupResReq) annotation (Line(points=
+         {{402,-82},{1290,-82},{1290,40},{1440,40}}, color={255,127,0}));
+  connect(mulAHUPlaReq.yChiPlaReq, yChiWatPlaReq) annotation (Line(points={{402,
+          -87},{1300,-87},{1300,0},{1440,0}}, color={255,127,0}));
   annotation (
     Documentation(info="<html>
 <p>

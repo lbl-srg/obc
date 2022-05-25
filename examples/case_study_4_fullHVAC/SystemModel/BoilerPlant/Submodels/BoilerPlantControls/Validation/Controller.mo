@@ -369,8 +369,8 @@ equation
   connect(sin.y, reaToInt.u)
     annotation (Line(points={{-318,130},{-302,130}}, color={0,0,127}));
 
-  connect(reaToInt.y, controller.supResReq) annotation (Line(points={{-278,130},
-          {-270,130},{-270,103},{-262,103}}, color={255,127,0}));
+  connect(reaToInt.y, controller.plaReq) annotation (Line(points={{-278,130},{-270,
+          130},{-270,103},{-262,103}}, color={255,127,0}));
 
   connect(TOut1.y, controller1.TOut) annotation (Line(points={{-58,100},{-2,100}},
                                color={0,0,127}));
@@ -390,9 +390,8 @@ equation
   connect(sin1.y, reaToInt1.u)
     annotation (Line(points={{-58,130},{-42,130}}, color={0,0,127}));
 
-  connect(reaToInt1.y, controller1.supResReq) annotation (Line(points={{-18,130},
-          {-10,130},{-10,103},{-2,103}},
-                                      color={255,127,0}));
+  connect(reaToInt1.y, controller1.plaReq) annotation (Line(points={{-18,130},{
+          -10,130},{-10,103},{-2,103}}, color={255,127,0}));
 
   connect(VHotWatSec_flow.y, controller1.VHotWatSec_flow) annotation (Line(
         points={{-58,-90},{-30,-90},{-30,79},{-2,79}},
@@ -422,9 +421,8 @@ equation
   connect(sin2.y,reaToInt2. u)
     annotation (Line(points={{162,130},{178,130}}, color={0,0,127}));
 
-  connect(reaToInt2.y,controller2. supResReq) annotation (Line(points={{202,130},
-          {210,130},{210,103},{218,103}},
-                                      color={255,127,0}));
+  connect(reaToInt2.y, controller2.plaReq) annotation (Line(points={{202,130},{
+          210,130},{210,103},{218,103}}, color={255,127,0}));
 
   connect(VHotWatSec_flow1.y, controller2.VHotWatSec_flow) annotation (Line(
         points={{162,-90},{196,-90},{196,79},{218,79}},   color={0,0,127}));

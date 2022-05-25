@@ -191,8 +191,8 @@ equation
     annotation (Line(points={{2,-80},{30,-80},{30,-12}}, color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
-  connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
-          {78,92}}, color={0,0,127}));
+  connect(pumSpe_min.y, swi.u3) annotation (Line(points={{-58,80},{-40,80},{-40,
+          92},{78,92}}, color={0,0,127}));
 annotation (
   defaultComponentName="hotPumSpe",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

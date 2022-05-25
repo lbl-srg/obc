@@ -890,10 +890,9 @@ model Controller
     annotation (Placement(transformation(extent={{-440,-460},{-400,-420}}),
       iconTransformation(extent={{-140,-250},{-100,-210}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
-    "Hot water supply reset requests"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq "Plant requests"
     annotation (Placement(transformation(extent={{-440,330},{-400,370}}),
-      iconTransformation(extent={{-140,270},{-100,310}})));
+        iconTransformation(extent={{-140,270},{-100,310}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TSupResReq
     "Hot water supply temperature reset requests"
@@ -1034,45 +1033,45 @@ model Controller
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yBoi[nBoi]
     "Boiler status vector"
     annotation (Placement(transformation(extent={{400,180},{440,220}}),
-      iconTransformation(extent={{100,120},{140,160}})));
+      iconTransformation(extent={{100,80},{140,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPriPum[nPumPri]
     "Primary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-150},{440,-110}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
+      iconTransformation(extent={{100,-80},{140,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput ySecPum[nPumSec] if not have_priOnl
     "Secondary pump enable status vector"
     annotation (Placement(transformation(extent={{400,-360},{440,-320}}),
-      iconTransformation(extent={{100,-120},{140,-80}})));
+      iconTransformation(extent={{100,-160},{140,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHotWatIsoVal[nBoi](
     final unit=fill("1",nBoi),
     displayUnit=fill("1",nBoi)) if have_heaPriPum
     "Boiler hot water isolation valve position vector"
     annotation (Placement(transformation(extent={{400,100},{440,140}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPriPumSpe(
     final unit="1",
     displayUnit="1") if have_varPriPum
     "Primary pump speed"
     annotation (Placement(transformation(extent={{400,-190},{440,-150}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{100,-120},{140,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yBypValPos(
     final unit="1",
     displayUnit="1") if have_priOnl
     "Bypass valve position"
     annotation (Placement(transformation(extent={{400,-50},{440,-10}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySecPumSpe(
     final unit="1",
     displayUnit="1") if not have_priOnl and have_varSecPum
     "Secondary pump speed vector"
     annotation (Placement(transformation(extent={{400,-410},{440,-370}}),
-      iconTransformation(extent={{100,-160},{140,-120}})));
+      iconTransformation(extent={{100,-200},{140,-160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TBoiHotWatSupSet[nBoi](
     final unit=fill("K", nBoi),
@@ -1080,7 +1079,7 @@ model Controller
     final quantity=fill("ThermodynamicTemperature", nBoi))
     "Boiler hot water supply temperature setpoint vector"
     annotation (Placement(transformation(extent={{400,150},{440,190}}),
-      iconTransformation(extent={{100,80},{140,120}})));
+      iconTransformation(extent={{100,40},{140,80}})));
 
   SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Generic.PlantEnable plaEna(
     final nIgnReq=nIgnReq,
@@ -1133,6 +1132,19 @@ model Controller
     final bypSetRat=bypSetRat) if have_priOnl
     "Minimum flow setpoint for the primary loop"
     annotation (Placement(transformation(extent={{250,310},{270,330}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TPlaHotWatSupSet(
+    final unit="K",
+    displayUnit="K",
+    final quantity="ThermodynamicTemperature")
+    "Plant hot water supply temperature setpoint"
+    annotation (Placement(transformation(extent={{400,220},{440,260}}),
+      iconTransformation(extent={{100,120},{140,160}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{400,280},{440,320}}),
+      iconTransformation(extent={{100,160},{140,200}})));
 
 protected
   parameter Boolean have_remDPRegPri = (speConTypPri ==SystemModel.BoilerPlant.Submodels.BoilerPlantControls.Types.PrimaryPumpSpeedControlTypes.
@@ -1536,8 +1548,8 @@ equation
   connect(conInt2.y, priPumCon.uPumLeaLag) annotation (Line(points={{82,-128},{
           86,-128},{86,-152.933},{118,-152.933}},
                                             color={255,127,0}));
-  connect(supResReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,
-          350},{-360,335},{-342,335}},  color={255,127,0}));
+  connect(plaReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,
+          350},{-360,335},{-342,335}}, color={255,127,0}));
   connect(reaToInt.u, triSam.y)
     annotation (Line(points={{-130,-40},{-138,-40}},
                                                    color={0,0,127}));
@@ -1663,8 +1675,8 @@ equation
   connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,48},{158,48},
           {158,62},{178,62}},                  color={255,0,255}));
 
-  connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},{
-          372,-64},{-150,-64},{-150,-51.8}},
+  connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},
+          {372,-64},{-150,-64},{-150,-52}},
                                        color={255,0,255}));
 
   connect(pre1.y, staSetCon.uStaChaProEnd) annotation (Line(points={{322,-10},{372,
@@ -1780,9 +1792,8 @@ equation
     annotation (Line(points={{142,-360},{220,-360},{220,-340},{420,-340}},
                                                      color={255,0,255}));
 
-  connect(supResReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
-          350},{-154,20},{14,20},{14,-354},{118,-354}},          color={255,127,
-          0}));
+  connect(plaReq, secPumCon.supResReq) annotation (Line(points={{-420,350},{-154,
+          350},{-154,20},{14,20},{14,-354},{118,-354}}, color={255,127,0}));
 
   connect(plaEna.yPla, secPumCon.uPlaEna) annotation (Line(points={{-318,330},{-230,
           330},{-230,-78},{12,-78},{12,-350},{118,-350}},      color={255,0,255}));
@@ -1898,6 +1909,11 @@ equation
           {74,354}}, color={255,127,0}));
   connect(cha2.y, intWitRes1.trigger) annotation (Line(points={{98,354},{100,
           354},{100,368}}, color={255,0,255}));
+  connect(hotWatSupTemRes.TPlaHotWatSupSet, TPlaHotWatSupSet) annotation (Line(
+        points={{-118,184},{320,184},{320,240},{420,240}}, color={0,0,127}));
+  connect(plaEna.yPla, yPla) annotation (Line(points={{-318,330},{-230,330},{-230,
+          252},{-80,252},{-80,192},{380,192},{380,300},{420,300}}, color={255,0,
+          255}));
   annotation (defaultComponentName="boiPlaCon",
     Icon(coordinateSystem(extent={{-100,-340},{100,340}}),
        graphics={
