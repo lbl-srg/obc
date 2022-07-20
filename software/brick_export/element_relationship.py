@@ -2,8 +2,12 @@ import json
 import os
 import subprocess
 
+parsed_files = {}
+
 class Element_Relationship_Extractor:
     def __init__(self, mo_file=None, parent_element_name="", config_file="config.json"):
+        global parsed_files
+
         if mo_file is None:
             with open(config_file) as fp:
                 config = json.load(fp)
@@ -25,6 +29,14 @@ class Element_Relationship_Extractor:
         self.within = None
         
     def run_modelica_json(self):
+        """
+
+        """
+        if self.model in parsed_files:
+            json_op = parsed_files[self.model]
+            self.within = json_op.get("within", None)
+            return json_op
+
         if self.generate_json: 
             model_path = self.model.replace('.', os.sep)
             modelica_json_path = os.environ.get('MODELICAJSONPATH', '.')
@@ -69,16 +81,25 @@ class Element_Relationship_Extractor:
         with open(json_model_path) as fp:
             json_op = json.load(fp)
             self.within = json_op.get("within", None)
+
+        parsed_files[self.model] = json_op
         return json_op
     
     def extract_class_definition(self, json_op=None, elements=None, relationships=None):
         """
+        function to extract elements and relationships from "class_definition" Modelica token
         "class_definition": {
            "final": bool,
            "encapsulated": bool,
            "class_prefixes": class_prefixes,
            "class_specifier": class_specifier
         }
+        json_op: dict
+                json translation of the model
+        elements: dict
+                dictionary of elements and their type in the form: {ele: {"type_specifier": type, "..."}}
+        relationships: dict
+                dictionary of elements and the elements they are connected to in the form of {ele: [ele1, ele2...], ele1: [ele, el3, ..]}
         """
         if elements is None:
             elements = {} # self.elements
@@ -121,6 +142,7 @@ class Element_Relationship_Extractor:
                     pass
 
                 if 'long_class_specifier' in class_specifier:
+                    # TODO: handle long_class_specifier within a model, so not top level
                     long_class_specifier = class_specifier.get('long_class_specifier', {})
                     identifier = long_class_specifier.get('identifier', "")
                     composition = long_class_specifier.get('composition', {})
@@ -203,17 +225,28 @@ class Element_Relationship_Extractor:
                         # print("found new extends = {}".format(new_extended_from_model))
                         pass
                     else: 
-                        print("did not find extends = {} model={} parent = {}".format(extended_from_model, self.model, self.parent_element_name))
+                        # print("did not find extends = {} model={} parent = {}".format(extended_from_model, self.model, self.parent_element_name))
+                        pass
                     elements.update(new_elements)
                     relationships = self.update_relationships(relationships, new_relationships)
 
+                # handle redeclaration
                 class_modifications = single_element.get("extends_clause").get("class_modification", [])
                 for class_modification in class_modifications:
                     if class_modification.get("element_redeclaration", None) is not None:
                         type_specifier = class_modification.get("element_redeclaration",{}).get("component_clause1", {}).get("type_specifier", None)
                         identifier = class_modification.get("element_redeclaration",{}).get("component_clause1", {}).get("component_declaration1", {}).get("declaration", {}).get("identifier", None)
+                        annotations = class_modification.get("element_redeclaration",{}).get("component_clause1", {}).get("component_declaration1", {}).get("description", {}).get('annotation', [])
+
+                        semantic_info = ""
+
+                        for annotation in annotations:
+                            annotation_name = annotation.get('element_modification_or_replaceable', {}).get('element_modification', {}).get('name', None)
+                            if annotation_name == "__semantic":
+                                semantic_info = self.parse_semantic_annotation(annotation, standard='brick')
 
                         if type_specifier is not None and identifier is not None:
+                            print("redeclaration element: {} of type {}".format(identifier, type_specifier))
                             identifier = self.parent_element_name+identifier
                             current_elements = elements.copy()
                             for item in current_elements:
@@ -221,8 +254,9 @@ class Element_Relationship_Extractor:
                                 if item.startswith(identifier): 
                                     del elements[item]
                             new_elements, new_relationships = self.parse_single_component_list(type_specifier=type_specifier, type_prefix="", identifier=identifier, og_type_specifier="")
-                            print("new elements:")
-                            print(new_elements)
+                            new_elements[identifier] = {"type_specifier": type_specifier, 
+                                                        "type_prefix": class_modification.get("element_redeclaration",{}).get("component_clause1", {}).get("type_prefix", ""),
+                                                        "semantic": semantic_info}
                             elements.update(new_elements)
                             relationships = self.update_relationships(relationships, new_relationships)
 
@@ -236,7 +270,8 @@ class Element_Relationship_Extractor:
                 elements.update(new_elements)
 
             if 'class_definition' in single_element:
-                single_element["class_definition"] = [single_element.get("class_definition")]
+                if type(single_element.get("class_definition")) != list:
+                    single_element["class_definition"] = [single_element.get("class_definition")]
                 new_elements, new_relationships = self.extract_class_definition(json_op=single_element)
                 elements.update(new_elements)
                 relationships = self.update_relationships(relationships, new_relationships)
@@ -254,9 +289,6 @@ class Element_Relationship_Extractor:
                 type_prefix = component_clause.get('type_prefix', None)
                 type_specifier = component_clause.get('type_specifier', None)
                 og_type_specifier = type_specifier
-
-                if (type_specifier == "ReadAhu"):
-                    print(single_element)
 
                 ## check if type specifier is in import, if yes, change type_specifier to imported class
                 extended_type_specifier = self.parent_element_name+type_specifier
@@ -279,13 +311,21 @@ class Element_Relationship_Extractor:
                         })
                     """
                     identifier = single_component_list.get('declaration', {}).get('identifier', None)
-
                     identifier=self.parent_element_name+identifier
+                    annotations = single_component_list.get('description', {}).get('annotation', [])
+                    semantic_info = ""
+
+                    for annotation in annotations:
+                        annotation_name = annotation.get('element_modification_or_replaceable', {}).get('element_modification', {}).get('name', None)
+                        if annotation_name == "__semantic":
+                            semantic_info = self.parse_semantic_annotation(annotation, standard='brick')
 
                     if identifier not in new_elements:
+                        # print("previous semantic = " + new_elements[identifier.rsplit('.', 1)[0]])
                         new_elements[identifier] = {
                             'type_specifier': type_specifier,
-                            'type_prefix': type_prefix
+                            'type_prefix': type_prefix,
+                            'semantic': semantic_info
                         }
                     else:
                         pass
@@ -295,43 +335,6 @@ class Element_Relationship_Extractor:
                         # print("new type: ", type_specifier)
                         # print("new file: ", current_mo_file)
 
-                    # print("identifier = {}, type_specifier = {}".format(identifier, type_specifier))
-                    # if self.parent_element_name != "" and type_specifier.startswith(self.parent_element_name):
-                    #     ## if type_specifier has been created in the same mo file (checked used same parent_element_name), then no need to parse model
-                    #     new_elements2 = {identifier: {"type_specifier": type_specifier}}
-                    #     ## TODO: what about relationships?
-                    #     new_relationships2 = {}
-                    # elif type_specifier.startswith("Buildings."):
-                    #     # TODO: if parsed already, don't parse again
-                    #     single_component_mo = Element_Relationship_Extractor(mo_file=type_specifier, parent_element_name=identifier)
-                    #     new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
-                    #     new_elements.update(new_elements2)
-                    #     new_relationships = self.update_relationships(new_relationships, new_relationships2)
-                    # elif not type_specifier.startswith("Buildings.") and not type_specifier.startswith("Modelica.") and type_specifier not in ["Real", "Integer", "Boolean", "String"] and not type_specifier.startswith("Medium"):
-                    #     ## assume type_specifier is in local package
-                    #     within = ""
-                    #     new_elements2 = {}
-                    #     new_relationships2 = {}
-                    #     i = 1
-                    #     while new_elements2 == {} and new_relationships2 == {} and within != self.within: 
-                    #         within = '.'.join(self.within.split('.',i)[:i])
-                    #         new_type_specifier = within+"."+type_specifier
-                    #         single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=self.parent_element_name)
-                    #         new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
-                    #         i+=1
-                    #     if new_elements2 == {} and new_relationships2 == {}:
-                    #         new_type_specifier = self.within+"."+type_specifier
-                    #         single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=self.parent_element_name)
-                    #         new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
-
-                    #     if new_elements2!={} or new_relationships2 != {}:
-                    #         # print("found new type_specifier = "+new_type_specifier)
-                    #         pass
-                    #     else: 
-                    #         print("did not find og_type_specifier={} type_specifier={} model={} parent={}".format(og_type_specifier, type_specifier, self.model, self.parent_element_name))
-
-                        # new_elements.update(new_elements2)
-                        # new_relationships = self.update_relationships(new_relationships, new_relationships2)
                     new_elements2, new_relationships2 = self.parse_single_component_list(type_specifier=type_specifier, type_prefix=type_prefix, identifier=identifier, og_type_specifier=og_type_specifier)
                     new_elements.update(new_elements2)
                     new_relationships = self.update_relationships(new_relationships, new_relationships2)
@@ -344,16 +347,17 @@ class Element_Relationship_Extractor:
     def parse_single_component_list(self, type_specifier, type_prefix, identifier, og_type_specifier=None):
         new_elements2 = {}
         new_relationships2 = {}
+
         if self.parent_element_name != "" and type_specifier.startswith(self.parent_element_name):
             ## if type_specifier has been created in the same mo file (checked used same parent_element_name), then no need to parse model
             new_elements2 = {identifier: {"type_specifier": type_specifier}}
             ## TODO: what about relationships?
             new_relationships2 = {}
-        elif type_specifier.startswith("Buildings."):
+        elif type_specifier.startswith("Buildings.Examples"):
             # TODO: if parsed already, don't parse again
             single_component_mo = Element_Relationship_Extractor(mo_file=type_specifier, parent_element_name=identifier)
             new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
-        elif not type_specifier.startswith("Buildings.") and not type_specifier.startswith("Modelica.") and type_specifier not in ["Real", "Integer", "Boolean", "String"] and not type_specifier.startswith("Medium"):
+        elif not type_specifier.startswith("Buildings") and not type_specifier.startswith("Modelica.") and type_specifier not in ["Real", "Integer", "Boolean", "String"] and not type_specifier.startswith("Medium"):
             ## assume type_specifier is in local package
             within = ""
             new_elements2 = {}
@@ -362,16 +366,16 @@ class Element_Relationship_Extractor:
             while new_elements2 == {} and new_relationships2 == {} and within != self.within: 
                 within = '.'.join(self.within.split('.',i)[:i])
                 new_type_specifier = within+"."+type_specifier
-                single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=self.parent_element_name)
+                single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=identifier)
                 new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
                 i+=1
             if new_elements2 == {} and new_relationships2 == {}:
                 new_type_specifier = self.within+"."+type_specifier
-                single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=self.parent_element_name)
+                single_component_mo = Element_Relationship_Extractor(mo_file = new_type_specifier, parent_element_name=identifier)
                 new_elements2, new_relationships2 = single_component_mo.extract_class_definition()
 
             if new_elements2!={} or new_relationships2 != {}:
-                # print("found new type_specifier = "+new_type_specifier)
+                # print("found new type_specifier = {} identifier = {} ".format(new_type_specifier, identifier))
                 pass
             else: 
                 print("did not find og_type_specifier={} type_specifier={} model={} parent={}".format(og_type_specifier, type_specifier, self.model, self.parent_element_name))
@@ -405,11 +409,11 @@ class Element_Relationship_Extractor:
                 else: 
                     relationships[from_id] = [to_id]
                 
-                if to_id in relationships:
-                    if from_id not in relationships[to_id]:
-                        relationships[to_id].append(from_id)
-                else: 
-                    relationships[to_id] = [from_id]
+                # if to_id in relationships:
+                #     if from_id not in relationships[to_id]:
+                #         relationships[to_id].append(from_id)
+                # else: 
+                #     relationships[to_id] = [from_id]
                 
         return relationships
     
@@ -423,3 +427,14 @@ class Element_Relationship_Extractor:
             if item.get("array_subscripts") is not None:
                 identifier+='[' + item.get("array_subscripts")[0].get("expression", {}).get("simple_expression") + ']'
         return identifier
+
+    def parse_semantic_annotation(self, annotation, standard='brick'):
+        class_modifications = annotation.get('element_modification_or_replaceable', {}).get('element_modification', {}).get('modification', {}).get('class_modification', [])
+        semantic_data = ""
+        for class_modification in class_modifications:
+            element_modification = class_modification.get('element_modification_or_replaceable', {}).get('element_modification', {})
+            standard_name = element_modification.get('modification', {}).get('expression', {}).get('simple_expression', None)
+            standard_name = standard_name.replace('"', '')
+            if standard_name is not None and standard_name == standard:
+                semantic_data = element_modification.get('description_string', '')
+        return semantic_data
