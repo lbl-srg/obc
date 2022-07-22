@@ -438,3 +438,9 @@ class Element_Relationship_Extractor:
             if standard_name is not None and standard_name == standard:
                 semantic_data = element_modification.get('description_string', '')
         return semantic_data
+
+
+def get_brick_type(semantic_info):
+    if semantic_info != "":
+        return BRICK[semantic_info.split(" ")[-1].split(":")[1]]
+    return ""
