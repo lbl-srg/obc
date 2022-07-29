@@ -1,0 +1,5 @@
+within Buildings.Examples.MultiZoneOfficeSimpleAir;
+package BaseClasses "Contains base classes for the test case"
+  extends Modelica.Icons.BasesPackage;
+
+end BaseClasses;
