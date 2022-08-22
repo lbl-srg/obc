@@ -150,7 +150,7 @@ partial model PartialHVAC
     T_a2_nominal=277.15)
     "Heating coil"
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})),
-    __semantic(standard="brick" "heaCoi a brick:Heating_Coil"));
+    __semantic(standard="brick" "a brick:Heating_Coil"));
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     show_T=true,
@@ -170,7 +170,7 @@ partial model PartialHVAC
     allowFlowReversal1=false,
     allowFlowReversal2=allowFlowReversal) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})),
-    __semantic(standard="brick" "cooCoi a brick:Cooling_Coil"));
+    __semantic(standard="brick" "a brick:Cooling_Coil"));
   Buildings.Fluid.FixedResistances.PressureDrop dpRetDuc(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = MediumA,
@@ -183,7 +183,7 @@ partial model PartialHVAC
             0})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})),
-    __semantic(standard="brick" "fanSup a brick:Supply_Fan"));
+    __semantic(standard="brick" "a brick:Supply_Fan"));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senSupFlo(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal)
@@ -212,7 +212,7 @@ partial model PartialHVAC
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={320,0})),
-        __semantic(standard="brick" "dpDisSupFan a brick:Discharge_Air_Static_Pressure_Sensor"));
+        __semantic(standard="brick" "a brick:Discharge_Air_Static_Pressure_Sensor"));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-320,-220},{-300,-200}})));
@@ -229,7 +229,7 @@ partial model PartialHVAC
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Outside air volume flow rate"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})),
-    __semantic(standard="brick" "VOut1 a brick:Outside_Air_Flow_Sensor"));
+    __semantic(standard="brick" "a brick:Outside_Air_Flow_Sensor"));
 
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox cor(
     redeclare package MediumA = MediumA,
@@ -244,7 +244,7 @@ partial model PartialHVAC
     QHea_flow_nominal=mCor_flow_nominal*ratVFloHea*cpAir*(32-12))
     "Zone for core of building"
     annotation (Placement(transformation(extent={{570,22},{610,62}})),
-    __semantic(standard="brick" "cor a brick:VAV"));
+    __semantic(standard="brick" "a brick:VAV"));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -258,7 +258,7 @@ partial model PartialHVAC
     QHea_flow_nominal=mSou_flow_nominal*ratVFloHea*cpAir*(32-12))
     "South-facing thermal zone"
     annotation (Placement(transformation(extent={{750,20},{790,60}})),
-    __semantic(standard="brick" "sou a brick:VAV"));
+    __semantic(standard="brick" "a brick:VAV"));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -272,7 +272,7 @@ partial model PartialHVAC
     QHea_flow_nominal=mEas_flow_nominal*ratVFloHea*cpAir*(32-12))
     "East-facing thermal zone"
     annotation (Placement(transformation(extent={{930,20},{970,60}})),
-    __semantic(standard="brick" "eas a brick:VAV"));
+    __semantic(standard="brick" "a brick:VAV"));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -286,7 +286,7 @@ partial model PartialHVAC
     QHea_flow_nominal=mNor_flow_nominal*ratVFloHea*cpAir*(32-12))
     "North-facing thermal zone"
     annotation (Placement(transformation(extent={{1090,20},{1130,60}})),
-    __semantic(standard="brick" "nor a brick:VAV"));
+    __semantic(standard="brick" "a brick:VAV"));
   Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
@@ -300,7 +300,7 @@ partial model PartialHVAC
     QHea_flow_nominal=mWes_flow_nominal*ratVFloHea*cpAir*(32-12))
     "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1290,20},{1330,60}})),
-    __semantic(standard="brick" "wes a brick:VAV"));
+    __semantic(standard="brick" "a brick:VAV"));
   Buildings.Fluid.FixedResistances.Junction splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - mCor_flow_nominal,
@@ -460,7 +460,7 @@ partial model PartialHVAC
         origin={0,-10},
         extent={{10,-10},{-10,10}},
         rotation=90)),
-        __semanatic(standard="brick" "damRet a brick:Return_Damper"));
+        __semanatic(standard="brick" "a brick:Return_Damper"));
   Buildings.Fluid.Actuators.Dampers.Exponential damOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
@@ -469,7 +469,7 @@ partial model PartialHVAC
     dpDamper_nominal=5,
     dpFixed_nominal=5) "Outdoor air damper"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})),
-    __semanatic(standard="brick" "damOut a brick:Outside_Damper"));
+    __semanatic(standard="brick" "a brick:Outside_Damper"));
   Buildings.Fluid.FixedResistances.Junction splCooSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -495,7 +495,7 @@ partial model PartialHVAC
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,-210})),
-        __semanatic(standard="brick" "valCooCoi a brick:Cooling_Valve"));
+        __semanatic(standard="brick" "a brick:Cooling_Valve"));
   Buildings.Fluid.FixedResistances.Junction splCooRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal*{1,1,1},
@@ -519,7 +519,7 @@ partial model PartialHVAC
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={180,-120})),
-        __semanatic(standard="brick" "pumCooCoi a brick:Chilled_Water_Pump"));
+        __semanatic(standard="brick" "a brick:Chilled_Water_Pump"));
   Buildings.Fluid.Movers.SpeedControlled_y pumHeaCoi(
     redeclare package Medium = MediumW,
     per(pressure(V_flow={0,mHeaWat_flow_nominal/1000*2}, dp=2*{3000,0})),
@@ -528,7 +528,7 @@ partial model PartialHVAC
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={128,-120})),
-         __semanatic(standard="brick" "pumHeaCoi a brick:Hot_Water_Pump"));
+         __semanatic(standard="brick" "a brick:Hot_Water_Pump"));
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valHeaCoi(
     redeclare package Medium = MediumW,
@@ -540,7 +540,7 @@ partial model PartialHVAC
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={128,-210})),
-         __semanatic(standard="brick" "valHeaCoi a brick:Heating_Valve"));
+         __semanatic(standard="brick" "a brick:Heating_Valve"));
   Buildings.Fluid.FixedResistances.Junction splHeaRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal*{1,1,1},
@@ -608,7 +608,7 @@ partial model PartialHVAC
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,-90})),
-         __semanatic(standard="brick" "senTemCooCoiSup a brick:Chilled_Water_Supply_Temperature_Sensor"));
+         __semanatic(standard="brick" "a brick:Chilled_Water_Supply_Temperature_Sensor"));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemCooCoiRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mCooWat_flow_nominal,
@@ -618,7 +618,7 @@ partial model PartialHVAC
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={180,-90})),
-        __semanatic(standard="brick" "senTemCooCoiRet a brick:Chilled_Water_Return_Temperature_Sensor"));
+        __semanatic(standard="brick" "a brick:Chilled_Water_Return_Temperature_Sensor"));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHeaCoiRet(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal,
@@ -628,7 +628,7 @@ partial model PartialHVAC
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={88,-90})),
-        __semanatic(standard="brick" "senTemHeaCoiSup a brick:Hot_Water_Supply_Temperature_Sensor"));
+        __semanatic(standard="brick" "a brick:Hot_Water_Supply_Temperature_Sensor"));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHeaCoiSup(
     redeclare package Medium = MediumW,
     m_flow_nominal=mHeaWat_flow_nominal,
@@ -638,7 +638,7 @@ partial model PartialHVAC
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={128,-90})),
-        __semanatic(standard="brick" "senTemHeaCoiRet a brick:Hot_Water_Return_Temperature_Sensor"));
+        __semanatic(standard="brick" "a brick:Hot_Water_Return_Temperature_Sensor"));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir

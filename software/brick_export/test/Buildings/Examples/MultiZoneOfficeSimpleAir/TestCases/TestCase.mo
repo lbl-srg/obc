@@ -15,11 +15,11 @@ model TestCase
     redeclare Buildings.Examples.MultiZoneOfficeSimpleAir.BaseClasses.ASHRAE2006 hvac(amb(C=fill(
             400e-6*Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM/
             Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM, MediumA.nC)))
-            annotation(__semantic(standard="brick" "hvac a brick:HVAC_System")),
+            annotation(__semantic(standard="brick" "a brick:HVAC_System")),
     redeclare Buildings.Examples.VAVReheat.Validation.BaseClasses.Floor flo
-    annotation (__semantic(standard="brick" "flo a brick:Floor")),
+    annotation (__semantic(standard="brick" "a brick:Floor")),
     chi(TSetSup=279.15, QEva_flow_min=-hvac.mCooWat_flow_nominal*4200*10)
-    annotation(__semantic(standard="brick" "chi a brick:Chiller")),
+    annotation(__semantic(standard="brick" "a brick:Chiller")),
     weaDat(computeWetBulbTemperature=true),
     jun(
       tau=60,

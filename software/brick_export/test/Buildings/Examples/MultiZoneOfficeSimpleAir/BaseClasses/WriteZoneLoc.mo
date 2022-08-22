@@ -15,14 +15,14 @@ model WriteZoneLoc "Collection of zone local overwrite points for BOPTEST"
       min=0,
       max=1)) "Damper position setpoint"
     annotation (Placement(transformation(extent={{0,30},{20,50}})),
-    __semantic(standard="brick" "yDam a brick:Damper_Position_Setpoint"));
+    __semantic(standard="brick" "a brick:Damper_Position_Setpoint"));
   Buildings.Utilities.IO.SignalExchange.Overwrite yReaHea(description=
         "Reheat control signal for zone " + zone, u(
       unit="1",
       min=0,
       max=1)) "Reheat control signal"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})),
-    __semantic(standard="brick" "yReaHea a brick:Valve_Command"));
+    __semantic(standard="brick" "a brick:Valve_Command"));
   Modelica.Blocks.Interfaces.RealOutput yDam_out
     "Control signal for terminal box damper"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));

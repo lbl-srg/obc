@@ -5,31 +5,31 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"))  "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{0,190},{20,210}})),
-    __semantic(standard="brick" "TSup a brick:Supply_Air_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Supply_Air_Temperature_Sensor"));
   Buildings.Utilities.IO.SignalExchange.Read TMix(
     description="Mixed air temperature measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K"))  "Mixed air temperature measurement"
     annotation (Placement(transformation(extent={{0,160},{20,180}})),
-    __semantic(standard="brick" "TMix a brick:Mixed_Air_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Mixed_Air_Temperature_Sensor"));
   Buildings.Utilities.IO.SignalExchange.Read TRet(
     description="Return air temperature measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Return air temperature measurement"
     annotation (Placement(transformation(extent={{0,130},{20,150}})),
-    __semantic(standard="brick" "TRet a brick:Return_Air_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Return_Air_Temperature_Sensor"));
   Buildings.Utilities.IO.SignalExchange.Read V_flow_sup(
     description="Supply air flowrate measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="m3/s"))  "Supply air flowrate measurement"
     annotation (Placement(transformation(extent={{0,100},{20,120}})),
-    __semantic(standard="brick" "V_flow_sup a brick:Supply_Air_Flow_Sensor"));
+    __semantic(standard="brick" "a brick:Supply_Air_Flow_Sensor"));
   Buildings.Utilities.IO.SignalExchange.Read V_flow_ret(
     description="Return air flowrate measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="m3/s"))  "Return air flowrate measurement"
     annotation (Placement(transformation(extent={{0,70},{20,90}})),
-    __semantic(standard="brick" "V_flow_ret a brick:Return_Air_Flow_Sensor"));
+    __semantic(standard="brick" "a brick:Return_Air_Flow_Sensor"));
   Modelica.Blocks.Interfaces.RealInput TSup_in
     "Supply air temperature measurement"
     annotation (Placement(transformation(extent={{-140,180},{-100,220}})));
@@ -52,14 +52,14 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="Pa"))  "Discharge pressure of supply fan"
     annotation (Placement(transformation(extent={{0,10},{20,30}})),
-    __semantic(standard="brick" "dp_sup a brick:Discharge_Air_Static_Pressure_Sensor"));
+    __semantic(standard="brick" "a brick:Discharge_Air_Static_Pressure_Sensor"));
 
   Buildings.Utilities.IO.SignalExchange.Read PFanSup(
     description="Electrical power measurement of supply fan for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower,
     y(unit="W")) "Electrical power of supply fan"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})),
-    __semantic(standard="brick" "PFanSup a brick:Electrical_Power_Sensor"));
+    __semantic(standard="brick" "a brick:Electrical_Power_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput PFanSup_in
     "Electrical power of supply fan"
@@ -70,7 +70,7 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower,
     y(unit="W")) "Electrical power of cooling coil pump"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})),
-    __semantic(standard="brick" "PPumCoo a brick:Electrical_Power_Sensor"));
+    __semantic(standard="brick" "a brick:Electrical_Power_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput PPumCoo_in
     "Electrical power of cooling coil pump"
@@ -80,7 +80,7 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.ElectricPower,
     y(unit="W")) "Electrical power of heating coil pump"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})),
-    __semantic(standard="brick" "PPumHea a brick:Electrical_Power_Sensor"));
+    __semantic(standard="brick" "a brick:Electrical_Power_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput PPumHea_in
     "Electrical power of heating coil pump"
@@ -90,7 +90,7 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Cooling coil water supply temperature measurement"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})),
-    __semantic(standard="brick" "TCooCoiSup a brick:Chilled_Water_Supply_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Chilled_Water_Supply_Temperature_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput TCooCoiSup_in
     "Cooling coil water supply temperature measurement"
@@ -109,21 +109,21 @@ model ReadAhu "Collection of AHU measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Cooling coil water return temperature measurement"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})),
-     __semantic(standard="brick" "TCooCoiRet a brick:Chilled_Water_Return_Temperature_Sensor"));
+     __semantic(standard="brick" "a brick:Chilled_Water_Return_Temperature_Sensor"));
 
   Buildings.Utilities.IO.SignalExchange.Read THeaCoiSup(
     description="Heating coil supply water temperature measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Heating coil water supply temperature measurement"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})),
-     __semantic(standard="brick" "THeaCoiSup a brick:Hot_Water_Supply_Temperature_Sensor"));
+     __semantic(standard="brick" "a brick:Hot_Water_Supply_Temperature_Sensor"));
 
   Buildings.Utilities.IO.SignalExchange.Read THeaCoiRet(
     description="Heating coil return water temperature measurement for AHU",
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Heating coil water return temperature measurement"
     annotation (Placement(transformation(extent={{0,-200},{20,-180}})),
-    __semantic(standard="brick" "THeaCoiRet a brick:Hot_Water_Return_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Hot_Water_Return_Temperature_Sensor"));
 
 equation
   connect(TSup.u, TSup_in)

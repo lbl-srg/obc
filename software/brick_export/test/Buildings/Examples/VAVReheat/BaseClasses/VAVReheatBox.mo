@@ -79,7 +79,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})),
-      __semantic(standard="brick" "vav a brick:Damper"));
+      __semantic(standard="brick" "a brick:Damper"));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU terHea(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
@@ -100,7 +100,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-6,-30})),
-        __semantic(standard="brick" "terHea a brick:Heating_Coil"));
+        __semantic(standard="brick" "a brick:Heating_Coil"));
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -111,7 +111,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,40})),
-        __semantic(standard="brick" "senTem a brick:Supply_Air_Temperature_Sensor"));
+        __semantic(standard="brick" "a brick:Supply_Air_Temperature_Sensor"));
   Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare package Medium = MediumA,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -123,7 +123,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,80})),
-        __semantic(standard="brick" "senVolFlo a brick:Supply_Air_Flow_Sensor"));
+        __semantic(standard="brick" "a brick:Supply_Air_Flow_Sensor"));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
@@ -133,12 +133,12 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     use_inputFilter=false,
     dpFixed_nominal=3000) "Valve for terminal heater"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})),
-    __semantic(standard="brick" "val a brick:Heating_Valve"));
+    __semantic(standard="brick" "a brick:Heating_Valve"));
   Modelica.Blocks.Interfaces.RealInput yHea
     "Actuator position for heating valve (0: closed, 1: open)" annotation (
       Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,10},{-100,50}})),
-        __semantic(standard="brick" "yHea a brick:Valve_Command"));
+        __semantic(standard="brick" "a brick:Valve_Command"));
 protected
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
     Buildings.Utilities.Psychrometrics.Constants.cpAir

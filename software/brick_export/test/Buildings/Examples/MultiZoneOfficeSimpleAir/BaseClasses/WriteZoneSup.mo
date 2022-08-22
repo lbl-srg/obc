@@ -17,7 +17,7 @@ model WriteZoneSup
       max=313.15))
     "Zone air temperature heating setpoint"
     annotation (Placement(transformation(extent={{0,30},{20,50}})),
-    __semantic(standard="brick" "TZonHeaSet a brick:Zone_Air_Heating_Temperature_Setpoint"));
+    __semantic(standard="brick" "a brick:Zone_Air_Heating_Temperature_Setpoint"));
   Buildings.Utilities.IO.SignalExchange.Overwrite TZonCooSet(description=
         "Zone air temperature cooling setpoint for zone " + zone, u(
       unit="K",
@@ -25,7 +25,7 @@ model WriteZoneSup
       max=313.15))
     "Zone air temperature cooling setpoint"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})),
-     __semantic(standard="brick" "TZonCooSet a brick:Zone_Air_Cooling_Temperature_Setpoint"));
+     __semantic(standard="brick" "a brick:Zone_Air_Cooling_Temperature_Setpoint"));
   Modelica.Blocks.Interfaces.RealOutput TZonHeaSet_out
     "Zone air temperature heating setpoint"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));

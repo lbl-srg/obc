@@ -6,7 +6,7 @@ model ReadZone "Collection of zone measurements for BOPTEST"
     y(unit="K"),
     zone=zone) "Zone air temperature measurement"
     annotation (Placement(transformation(extent={{0,50},{20,70}})),
-    __semantic(standard="brick" "TZon a brick:Zone_Air_Temperature_Sensor"));
+    __semantic(standard="brick" "a brick:Zone_Air_Temperature_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput TZon_in
     "Zone air temperature measurement"
@@ -20,13 +20,13 @@ model ReadZone "Collection of zone measurements for BOPTEST"
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="K")) "Supply air temperature to zone measurement"
     annotation (Placement(transformation(extent={{0,10},{20,30}})),
-        __semantic(standard="brick" "TSup a brick:Supply_Air_Temperature_Sensor"));
+        __semantic(standard="brick" "a brick:Supply_Air_Temperature_Sensor"));
   Buildings.Utilities.IO.SignalExchange.Read V_flow(
     description="Discharge air flowrate to zone measurement for zone " + zone,
     KPIs=Buildings.Utilities.IO.SignalExchange.SignalTypes.SignalsForKPIs.None,
     y(unit="m3/s")) "Supply air flowrate to zone measurement"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})),
-    __semantic(standard="brick" "V_flow a brick:Discharge_Air_Flow_Sensor"));
+    __semantic(standard="brick" "a brick:Discharge_Air_Flow_Sensor"));
   Modelica.Blocks.Interfaces.RealInput TSup_in
     "Supply air temperature to zone measurement"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
@@ -46,7 +46,7 @@ model ReadZone "Collection of zone measurements for BOPTEST"
     y(unit="ppm"),
     zone=zone) "Zone air CO2 concentration measurement"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})),
-    __semantic(standard="brick" "CO2Zon a brick:CO2_Sensor"));
+    __semantic(standard="brick" "a brick:CO2_Sensor"));
 
   Modelica.Blocks.Interfaces.RealInput C_In "Mass fraction of CO2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));

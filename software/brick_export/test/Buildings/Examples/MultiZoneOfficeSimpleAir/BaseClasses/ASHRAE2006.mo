@@ -96,7 +96,7 @@ model ASHRAE2006
     m_flow_nominal=m_flow_nominal,
     dpDamper_nominal=5)  "Exhaust air damper"
     annotation (Placement(transformation(extent={{-30,-20},{-50,0}})),
-    __semantic(standard="brick" "damExh a brick:Exhaust_Damper"));
+    __semantic(standard="brick" "a brick:Exhaust_Damper"));
   Buildings.Examples.VAVReheat.BaseClasses.Controls.SystemHysteresis sysHysHea
     "Hysteresis and delay to switch heating on and off"
     annotation (Placement(transformation(extent={{-10,-150},{10,-130}})));
@@ -136,7 +136,7 @@ model ASHRAE2006
     __semantic(standard="brick" "ahu a brick:AHU"));
   ReadZone reaZonCor(zone="cor") "Read zone measurements"
     annotation (Placement(transformation(extent={{650,82},{670,100}})),
-    __semantic(standard="brick" "cor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "cor_zone a brick:HVAC_Zone"));
   Modelica.Blocks.Interfaces.RealInput CO2Roo[numZon] "Mass fraction of CO2"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -153,46 +153,46 @@ model ASHRAE2006
         origin={490,460})));
   ReadZone reaZonSou(zone="sou") "Read zone measurements"
     annotation (Placement(transformation(extent={{830,82},{850,100}})),
-    __semantic(standard="brick" "sou a brick:HVAC_Zone"));
+    __semantic(standard="brick" "sou_zone a brick:HVAC_Zone"));
   ReadZone reaZonEas(zone="eas") "Read zone measurements"
     annotation (Placement(transformation(extent={{1010,82},{1030,100}})),
-    __semantic(standard="brick" "eas a brick:HVAC_Zone"));
+    __semantic(standard="brick" "eas_zone a brick:HVAC_Zone"));
   ReadZone reaZonNor(zone="nor") "Read zone measurements"
     annotation (Placement(transformation(extent={{1180,82},{1200,100}})),
-    __semantic(standard="brick" "nor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "nor_zone a brick:HVAC_Zone"));
   ReadZone reaZonWes(zone="wes") "Read zone measurements"
     annotation (Placement(transformation(extent={{1380,82},{1400,100}})),
-    __semantic(standard="brick" "wes a brick:HVAC_Zone"));
+    __semantic(standard="brick" "wes_zone a brick:HVAC_Zone"));
   WriteZoneLoc oveZonActCor(zone="cor") "Overwrite zone actuator signals"
     annotation (Placement(transformation(extent={{490,-124},{510,-104}})),
-    __semantic(standard="brick" "cor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "cor_zone a brick:HVAC_Zone"));
   WriteZoneLoc oveZonActSou(zone="sou") "Overwrite zone actuator signals"
     annotation (Placement(transformation(extent={{672,-124},{692,-104}})),
-    __semantic(standard="brick" "sou a brick:HVAC_Zone"));
+    __semantic(standard="brick" "sou_zone a brick:HVAC_Zone"));
   WriteZoneLoc oveZonActEas(zone="eas") "Overwrite zone actuator signals"
     annotation (Placement(transformation(extent={{856,-124},{876,-104}})),
-    __semantic(standard="brick" "eas a brick:HVAC_Zone"));
+    __semantic(standard="brick" "eas_zone a brick:HVAC_Zone"));
   WriteZoneLoc oveZonActNor(zone="nor") "Overwrite zone actuator signals"
     annotation (Placement(transformation(extent={{1028,-124},{1048,-104}})),
-    __semantic(standard="brick" "nor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "nor_zone a brick:HVAC_Zone"));
   WriteZoneLoc oveZonActWes(zone="wes") "Overwrite zone actuator signals"
     annotation (Placement(transformation(extent={{1220,-124},{1240,-104}})),
-    __semantic(standard="brick" "wes a brick:HVAC_Zone"));
+    __semantic(standard="brick" "wes_zone a brick:HVAC_Zone"));
   WriteZoneSup oveZonSupCor(zone="cor") "Overwrite zone supervisory signals"
     annotation (Placement(transformation(extent={{408,-122},{428,-102}})),
-    __semantic(standard="brick" "cor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "cor_zone a brick:HVAC_Zone"));
   WriteZoneSup oveZonSupSou(zone="sou") "Overwrite zone supervisory signals"
     annotation (Placement(transformation(extent={{598,-122},{618,-102}})),
-    __semantic(standard="brick" "sou a brick:HVAC_Zone"));
+    __semantic(standard="brick" "sou_zone a brick:HVAC_Zone"));
   WriteZoneSup oveZonSupEas(zone="eas") "Overwrite zone supervisory signals"
     annotation (Placement(transformation(extent={{780,-120},{800,-100}})),
-    __semantic(standard="brick" "eas a brick:HVAC_Zone"));
+    __semantic(standard="brick" "eas_zone a brick:HVAC_Zone"));
   WriteZoneSup oveZonSupNor(zone="nor") "Overwrite zone supervisory signals"
     annotation (Placement(transformation(extent={{946,-120},{966,-100}})),
-    __semantic(standard="brick" "nor a brick:HVAC_Zone"));
+    __semantic(standard="brick" "nor_zone a brick:HVAC_Zone"));
   WriteZoneSup oveZonSupWes(zone="wes") "Overwrite zone supervisory signals"
     annotation (Placement(transformation(extent={{1130,-120},{1150,-100}})),
-    __semantic(standard="brick" "wes a brick:HVAC_Zone"));
+    __semantic(standard="brick" "wes_zone a brick:HVAC_Zone"));
   Modelica.Blocks.Logical.Or or1
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
   Modelica.Blocks.Logical.Or or3

@@ -83,7 +83,7 @@ partial model HVACBuilding
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   AirCooledChiller chi "Chiller"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})),
-    __semantic(standard="brick" "chi a brick:Chiller"));
+    __semantic(standard="brick" "a brick:Chiller"));
   AirToWaterHeatPump heaPum "Heat pump for heating coil and reheat coils"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   Buildings.Fluid.FixedResistances.Junction jun(redeclare package Medium =
