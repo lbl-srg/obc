@@ -1,0 +1,117 @@
+@prefix bldg: <urn:bldg/> .
+@prefix cdl: <http://data.ashrae.org/cdl#> .
+
+bldg:AFlo a cdl:Parameter .
+
+bldg:CO2Set a cdl:Parameter .
+
+bldg:TDis a cdl:AnalogInput .
+
+bldg:TDisMin a cdl:Parameter .
+
+bldg:TSupAHU a cdl:AnalogInput .
+
+bldg:TZon a cdl:AnalogInput .
+
+bldg:TZonCooSet a cdl:AnalogInput .
+
+bldg:TZonHeaSet a cdl:AnalogInput .
+
+bldg:TdCoo a cdl:Parameter .
+
+bldg:TdDam a cdl:Parameter .
+
+bldg:TdHea a cdl:Parameter .
+
+bldg:TdVal a cdl:Parameter .
+
+bldg:TiCoo a cdl:Parameter .
+
+bldg:TiDam a cdl:Parameter .
+
+bldg:TiHea a cdl:Parameter .
+
+bldg:TiVal a cdl:Parameter .
+
+bldg:VDisConMin_flow a cdl:Parameter .
+
+bldg:VDisCooSetMax_flow a cdl:Parameter .
+
+bldg:VDisHeaSetMax_flow a cdl:Parameter .
+
+bldg:VDisSetMin_flow a cdl:Parameter .
+
+bldg:VDis_flow a cdl:AnalogInput .
+
+bldg:VOutPerAre_flow a cdl:Parameter .
+
+bldg:VOutPerPer_flow a cdl:Parameter .
+
+bldg:V_flow_nominal a cdl:Parameter .
+
+bldg:controllerTypeCoo a cdl:Parameter .
+
+bldg:controllerTypeDam a cdl:Parameter .
+
+bldg:controllerTypeHea a cdl:Parameter .
+
+bldg:controllerTypeVal a cdl:Parameter .
+
+bldg:dTDisZonSetMax a cdl:Parameter .
+
+bldg:durTimDisAir a cdl:Parameter .
+
+bldg:durTimFlo a cdl:Parameter .
+
+bldg:durTimTem a cdl:Parameter .
+
+bldg:errTDis_1 a cdl:Parameter .
+
+bldg:errTDis_2 a cdl:Parameter .
+
+bldg:errTZonCoo_1 a cdl:Parameter .
+
+bldg:errTZonCoo_2 a cdl:Parameter .
+
+bldg:have_CO2Sen a cdl:Parameter .
+
+bldg:have_heaPla a cdl:Parameter .
+
+bldg:have_heaWatCoi a cdl:Parameter .
+
+bldg:have_occSen a cdl:Parameter .
+
+bldg:have_winSen a cdl:Parameter .
+
+bldg:kCoo a cdl:Parameter .
+
+bldg:kDam a cdl:Parameter .
+
+bldg:kHea a cdl:Parameter .
+
+bldg:kVal a cdl:Parameter .
+
+bldg:nOcc a cdl:AnalogInput .
+
+bldg:ppmCO2 a cdl:AnalogInput .
+
+bldg:samplePeriod a cdl:Parameter .
+
+bldg:uOpeMod a cdl:AnalogInput .
+
+bldg:uWin a cdl:BinaryInput .
+
+bldg:yDam a cdl:AnalogOutput .
+
+bldg:yDam_actual a cdl:AnalogInput .
+
+bldg:yHeaPlaReq a cdl:AnalogOutput .
+
+bldg:yHeaValResReq a cdl:AnalogOutput .
+
+bldg:yVal a cdl:AnalogOutput .
+
+bldg:yZonPreResReq a cdl:AnalogOutput .
+
+bldg:yZonTemResReq a cdl:AnalogOutput .
+

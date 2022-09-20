@@ -37,498 +37,363 @@ bldg:hvac_ahu brick:hasPoint bldg:hvac_reaAhu_PFanSup_u,
         bldg:hvac_reaAhu_V_flow_sup_u,
         bldg:hvac_reaAhu_dp_sup_u .
 
-bldg:hvac_cor brick:hasPart bldg:hvac_cor_terHea,
-        bldg:hvac_cor_val,
-        bldg:hvac_cor_vav ;
-    brick:hasPoint bldg:hvac_cor_senTem_u,
-        bldg:hvac_cor_senVolFlo_u,
-        bldg:hvac_cor_yHea_u .
-
-bldg:hvac_cor_senTem_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,3" ;
-            bacnet:object-name "hvac_cor_senTem_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_cor_senVolFlo_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,4" ;
-            bacnet:object-name "hvac_cor_senVolFlo_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_cor_val brick:feeds bldg:hvac_cor_terHea .
-
-bldg:hvac_cor_yHea_u a brick:Valve_Command ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,5" ;
-            bacnet:object-name "hvac_cor_yHea_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_eas brick:hasPart bldg:hvac_eas_terHea,
-        bldg:hvac_eas_val,
-        bldg:hvac_eas_vav ;
-    brick:hasPoint bldg:hvac_eas_senTem_u,
-        bldg:hvac_eas_senVolFlo_u,
-        bldg:hvac_eas_yHea_u .
-
-bldg:hvac_eas_senTem_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,9" ;
-            bacnet:object-name "hvac_eas_senTem_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_eas_senVolFlo_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,10" ;
-            bacnet:object-name "hvac_eas_senVolFlo_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_eas_val brick:feeds bldg:hvac_eas_terHea .
-
-bldg:hvac_eas_yHea_u a brick:Valve_Command ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,11" ;
-            bacnet:object-name "hvac_eas_yHea_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
 bldg:hvac_heaCoi brick:feeds bldg:hvac_cooCoi .
-
-bldg:hvac_nor brick:hasPart bldg:hvac_nor_terHea,
-        bldg:hvac_nor_val,
-        bldg:hvac_nor_vav ;
-    brick:hasPoint bldg:hvac_nor_senTem_u,
-        bldg:hvac_nor_senVolFlo_u,
-        bldg:hvac_nor_yHea_u .
-
-bldg:hvac_nor_senTem_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,12" ;
-            bacnet:object-name "hvac_nor_senTem_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_nor_senVolFlo_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,13" ;
-            bacnet:object-name "hvac_nor_senVolFlo_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_nor_val brick:feeds bldg:hvac_nor_terHea .
-
-bldg:hvac_nor_yHea_u a brick:Valve_Command ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,14" ;
-            bacnet:object-name "hvac_nor_yHea_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActCor_yDam_u a brick:Damper_Position_Setpoint ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,51" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,36" ;
             bacnet:object-name "hvac_oveZonActCor_yDam_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActCor_yReaHea_u a brick:Valve_Command ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,52" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,37" ;
             bacnet:object-name "hvac_oveZonActCor_yReaHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActEas_yDam_u a brick:Damper_Position_Setpoint ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,55" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,40" ;
             bacnet:object-name "hvac_oveZonActEas_yDam_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActEas_yReaHea_u a brick:Valve_Command ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,56" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,41" ;
             bacnet:object-name "hvac_oveZonActEas_yReaHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActNor_yDam_u a brick:Damper_Position_Setpoint ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,57" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,42" ;
             bacnet:object-name "hvac_oveZonActNor_yDam_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActNor_yReaHea_u a brick:Valve_Command ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,58" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,43" ;
             bacnet:object-name "hvac_oveZonActNor_yReaHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActSou_yDam_u a brick:Damper_Position_Setpoint ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,53" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,38" ;
             bacnet:object-name "hvac_oveZonActSou_yDam_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActSou_yReaHea_u a brick:Valve_Command ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,54" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,39" ;
             bacnet:object-name "hvac_oveZonActSou_yReaHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActWes_yDam_u a brick:Damper_Position_Setpoint ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,59" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,44" ;
             bacnet:object-name "hvac_oveZonActWes_yDam_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonActWes_yReaHea_u a brick:Valve_Command ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,60" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,45" ;
             bacnet:object-name "hvac_oveZonActWes_yReaHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupCor_TZonCooSet_u a brick:Zone_Air_Cooling_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,62" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,47" ;
             bacnet:object-name "hvac_oveZonSupCor_TZonCooSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupCor_TZonHeaSet_u a brick:Zone_Air_Heating_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,61" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,46" ;
             bacnet:object-name "hvac_oveZonSupCor_TZonHeaSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupEas_TZonCooSet_u a brick:Zone_Air_Cooling_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,66" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,51" ;
             bacnet:object-name "hvac_oveZonSupEas_TZonCooSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupEas_TZonHeaSet_u a brick:Zone_Air_Heating_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,65" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,50" ;
             bacnet:object-name "hvac_oveZonSupEas_TZonHeaSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupNor_TZonCooSet_u a brick:Zone_Air_Cooling_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,68" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,53" ;
             bacnet:object-name "hvac_oveZonSupNor_TZonCooSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupNor_TZonHeaSet_u a brick:Zone_Air_Heating_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,67" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,52" ;
             bacnet:object-name "hvac_oveZonSupNor_TZonHeaSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupSou_TZonCooSet_u a brick:Zone_Air_Cooling_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,64" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,49" ;
             bacnet:object-name "hvac_oveZonSupSou_TZonCooSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupSou_TZonHeaSet_u a brick:Zone_Air_Heating_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,63" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,48" ;
             bacnet:object-name "hvac_oveZonSupSou_TZonHeaSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupWes_TZonCooSet_u a brick:Zone_Air_Cooling_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,70" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,55" ;
             bacnet:object-name "hvac_oveZonSupWes_TZonCooSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_oveZonSupWes_TZonHeaSet_u a brick:Zone_Air_Heating_Temperature_Setpoint ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,69" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,54" ;
             bacnet:object-name "hvac_oveZonSupWes_TZonHeaSet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_PFanSup_u a brick:Electrical_Power_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,24" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,9" ;
             bacnet:object-name "hvac_reaAhu_PFanSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_PPumCoo_u a brick:Electrical_Power_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,25" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,10" ;
             bacnet:object-name "hvac_reaAhu_PPumCoo_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_PPumHea_u a brick:Electrical_Power_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,26" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,11" ;
             bacnet:object-name "hvac_reaAhu_PPumHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_TCooCoiRet_u a brick:Chilled_Water_Return_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,28" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,13" ;
             bacnet:object-name "hvac_reaAhu_TCooCoiRet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_TCooCoiSup_u a brick:Chilled_Water_Supply_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,27" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,12" ;
             bacnet:object-name "hvac_reaAhu_TCooCoiSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_THeaCoiRet_u a brick:Hot_Water_Return_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,30" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,15" ;
             bacnet:object-name "hvac_reaAhu_THeaCoiRet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_THeaCoiSup_u a brick:Hot_Water_Supply_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,29" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,14" ;
             bacnet:object-name "hvac_reaAhu_THeaCoiSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_TMix_u a brick:Mixed_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,19" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,4" ;
             bacnet:object-name "hvac_reaAhu_TMix_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_TRet_u a brick:Return_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,20" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,5" ;
             bacnet:object-name "hvac_reaAhu_TRet_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_TSup_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,18" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,3" ;
             bacnet:object-name "hvac_reaAhu_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_V_flow_ret_u a brick:Return_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,22" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,7" ;
             bacnet:object-name "hvac_reaAhu_V_flow_ret_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_V_flow_sup_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,21" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,6" ;
             bacnet:object-name "hvac_reaAhu_V_flow_sup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaAhu_dp_sup_u a brick:Discharge_Air_Static_Pressure_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,23" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,8" ;
             bacnet:object-name "hvac_reaAhu_dp_sup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonCor_CO2Zon_u a brick:CO2_Sensor ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,34" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,19" ;
             bacnet:object-name "hvac_reaZonCor_CO2Zon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonCor_TSup_u a brick:Supply_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,32" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,17" ;
             bacnet:object-name "hvac_reaZonCor_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonCor_TZon_u a brick:Zone_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,31" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,16" ;
             bacnet:object-name "hvac_reaZonCor_TZon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonCor_V_flow_u a brick:Discharge_Air_Flow_Sensor ;
     brick:hasLocation bldg:hvac_cor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,33" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,18" ;
             bacnet:object-name "hvac_reaZonCor_V_flow_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonEas_CO2Zon_u a brick:CO2_Sensor ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,42" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,27" ;
             bacnet:object-name "hvac_reaZonEas_CO2Zon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonEas_TSup_u a brick:Supply_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,40" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,25" ;
             bacnet:object-name "hvac_reaZonEas_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonEas_TZon_u a brick:Zone_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,39" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,24" ;
             bacnet:object-name "hvac_reaZonEas_TZon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonEas_V_flow_u a brick:Discharge_Air_Flow_Sensor ;
     brick:hasLocation bldg:hvac_eas_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,41" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,26" ;
             bacnet:object-name "hvac_reaZonEas_V_flow_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonNor_CO2Zon_u a brick:CO2_Sensor ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,46" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,31" ;
             bacnet:object-name "hvac_reaZonNor_CO2Zon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonNor_TSup_u a brick:Supply_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,44" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,29" ;
             bacnet:object-name "hvac_reaZonNor_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonNor_TZon_u a brick:Zone_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,43" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,28" ;
             bacnet:object-name "hvac_reaZonNor_TZon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonNor_V_flow_u a brick:Discharge_Air_Flow_Sensor ;
     brick:hasLocation bldg:hvac_nor_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,45" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,30" ;
             bacnet:object-name "hvac_reaZonNor_V_flow_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonSou_CO2Zon_u a brick:CO2_Sensor ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,38" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,23" ;
             bacnet:object-name "hvac_reaZonSou_CO2Zon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonSou_TSup_u a brick:Supply_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,36" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,21" ;
             bacnet:object-name "hvac_reaZonSou_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonSou_TZon_u a brick:Zone_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,35" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,20" ;
             bacnet:object-name "hvac_reaZonSou_TZon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonSou_V_flow_u a brick:Discharge_Air_Flow_Sensor ;
     brick:hasLocation bldg:hvac_sou_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,37" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,22" ;
             bacnet:object-name "hvac_reaZonSou_V_flow_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonWes_CO2Zon_u a brick:CO2_Sensor ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,50" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,35" ;
             bacnet:object-name "hvac_reaZonWes_CO2Zon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonWes_TSup_u a brick:Supply_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,48" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,33" ;
             bacnet:object-name "hvac_reaZonWes_TSup_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonWes_TZon_u a brick:Zone_Air_Temperature_Sensor ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,47" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,32" ;
             bacnet:object-name "hvac_reaZonWes_TZon_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
 bldg:hvac_reaZonWes_V_flow_u a brick:Discharge_Air_Flow_Sensor ;
     brick:hasLocation bldg:hvac_wes_zone ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,49" ;
+    ref:hasExternalReference [ bacnet:object-identifier "analog-value,34" ;
             bacnet:object-name "hvac_reaZonWes_V_flow_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_sou brick:hasPart bldg:hvac_sou_terHea,
-        bldg:hvac_sou_val,
-        bldg:hvac_sou_vav ;
-    brick:hasPoint bldg:hvac_sou_senTem_u,
-        bldg:hvac_sou_senVolFlo_u,
-        bldg:hvac_sou_yHea_u .
-
-bldg:hvac_sou_senTem_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,6" ;
-            bacnet:object-name "hvac_sou_senTem_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_sou_senVolFlo_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,7" ;
-            bacnet:object-name "hvac_sou_senVolFlo_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_sou_val brick:feeds bldg:hvac_sou_terHea .
-
-bldg:hvac_sou_yHea_u a brick:Valve_Command ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,8" ;
-            bacnet:object-name "hvac_sou_yHea_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_wes brick:hasPart bldg:hvac_wes_terHea,
-        bldg:hvac_wes_val,
-        bldg:hvac_wes_vav ;
-    brick:hasPoint bldg:hvac_wes_senTem_u,
-        bldg:hvac_wes_senVolFlo_u,
-        bldg:hvac_wes_yHea_u .
-
-bldg:hvac_wes_senTem_u a brick:Supply_Air_Temperature_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,15" ;
-            bacnet:object-name "hvac_wes_senTem_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_wes_senVolFlo_u a brick:Supply_Air_Flow_Sensor ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,16" ;
-            bacnet:object-name "hvac_wes_senVolFlo_u" ;
-            bacnet:object-type "analog-value" ;
-            bacnet:objectOf bldg:boptest-proxy-device ] .
-
-bldg:hvac_wes_val brick:feeds bldg:hvac_wes_terHea .
-
-bldg:hvac_wes_yHea_u a brick:Valve_Command ;
-    ref:hasExternalReference [ bacnet:object-identifier "analog-value,17" ;
-            bacnet:object-name "hvac_wes_yHea_u" ;
             bacnet:object-type "analog-value" ;
             bacnet:objectOf bldg:boptest-proxy-device ] .
 
