@@ -23,6 +23,8 @@ freplace('\documentclass[letterpaper,10pt,english]{report}', '''\pdfminorversion
 freplace('\\usepackage[margin=1in,marginparwidth=0.5in]{geometry}', '') # for Linux
 freplace('\\usepackage{geometry}', '')                                  # for OS X
 
+freplace('\\usepackage{hyperref}', '\\usepackage{hyperref} \hypersetup{draft}')
+
 freplace('\\maketitle',
         '\\input{../../source/titlepage.tex} \\setcounter{page}{2}')
 
