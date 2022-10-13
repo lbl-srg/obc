@@ -105,6 +105,7 @@ The CDL consists of the following elements:
   * how to add annotations such as for graphical rendering of blocks
     and their connections.
   * how to specify composite blocks.
+  * how to add new blocks that go beyond the capabilities of composite blocks.
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
@@ -1344,6 +1345,59 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
+
+
+Extension Blocks
+^^^^^^^^^^^^^^^^
+
+To support functionalities that cannot, or may be hard to, implement with a composite block,
+*extension blocks* are introduced.
+
+.. note:: Extension blocks allow implementation of blocks that contain statistical functions
+          such as for regression, Fault Detection and Diagnostics methods, or state machines
+          for operation mode switches.
+          Extension Blocks are also suited to propose new Elementary Blocks for later inclusion
+          in ASHRAE Standard 231P. In fact, in CDL, Elementary Blocks are implemented using Extension
+          Blocks, except that the annotation **fixme** (see below) is not present
+          because tools can recognize as they are stored in the ``CDL`` package.
+
+In CDL, extension blocks must have the annotations
+
+.. code-block:: modelica
+
+  annotation(__cdl(extensionBlock=true))
+
+as this allows translators to recognize them as extension blocks.
+Extension blocks are equivalent to the class ``block`` in Modelica.
+
+.. note:: Therefore, extension blocks can have any number of parameters, inputs and outputs,
+          identical to composite blocks. However, extension blocks can also be used to call
+          code, for example in C or from a compiled library, they can be used to import
+          a Functional Mockup Unit that may contain a process model or an FDD method,
+          and they can implement other Modelica constructs such as state machines.
+          For example, the demand response client
+          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
+          would be an extension block if it were to contain the annotation ``__cdl(extensionBlock=true)``,
+          as would the Kalman filter that is used in the Example
+          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
+
+Translation of an extension block to json must reproduce the following:
+
+ -  All public parameters, inputs and outputs, as for a composite block.
+ -  A Functional Mockup Unit for Model Exchange version 2.0, with the file name
+    being the full class name and the extension being ``.fmu``.
+
+.. note:: With OpenModelica 1.20.0, a Functional Mockup Unit for Model Exchange 2.0 of an extension block
+          can be generated with the commands:
+
+           .. code-block:: bash
+
+            echo "loadFile(\"Buildings/package.mo\");" > translate.mos
+            echo "translateModelFMU(Buildings.Controls.OBC.CDL.Continuous.PID);" >> translate.mos
+            omc translate.mos
+
+          This will generate the fmu ``Buildings.Controls.OBC.CDL.Continuous.PID.fmu``.
+
 
 
 
