@@ -358,17 +358,35 @@ Arrays
 ......
 
 Each of these data types, including the elementary building blocks,
+composite blocks and connectors,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
 An array of size ``0`` is an empty array.
 
-Arrays may be constructed using the notation ``{x1,x2,...}``,
-for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``, or using
-one or several iterators, for example
-``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``.
-They can also be constructed using
-a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+Values of arrays may be declared using
+
+* the notation ``{x1, x2, ...}``, for example ``parameter Integer k[3,2] = {{1, 2}, {3, 4}, {5, 6}}``,
+* one or several iterators, for example ``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``,
+* a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+
+[For example, to following declarations all assign the array ``{1, 2, 3}`` to parameters:
+
+.. code-block::
+
+   parameter Real k1[3] = {1, 2, 3};
+   parameter Real k2[3] = {i for i in 1:3};
+   parameter Real k3[3] = k1;
+   parameter Real k4[3] = fill(1, 3) + {0, 1, 2};
+   parameter Real k5[3] = cat(1, {1}, {2}, {3});
+
+The following declaration instantiates two blocks, and sets the value of the parameter ``k`` to ``2`` and ``3``:
+
+.. code-block::
+
+   MultiplyByParameter mul[2](k={2, 3});
+
+]
 
 The size of arrays will be fixed at translation. It cannot be changed during run-time.
 
@@ -376,6 +394,8 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 See the Modelica 3.3 specification Chapter 10 for array notation and these
 functions.
+
+
 
 
 .. _sec_enc_block:
