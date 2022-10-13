@@ -359,7 +359,7 @@ Arrays
 ......
 
 Each of these data types, including the elementary building blocks,
-composite blocks and connectors,
+composite blocks, extension blocks and connectors,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
