@@ -359,17 +359,35 @@ Arrays
 ......
 
 Each of these data types, including the elementary building blocks,
+composite blocks and connectors,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
 An array of size ``0`` is an empty array.
 
-Arrays may be constructed using the notation ``{x1,x2,...}``,
-for example ``parameter Integer k[3,2] = {{1,2},{3,4},{5,6}}``, or using
-one or several iterators, for example
-``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``.
-They can also be constructed using
-a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+Values of arrays may be declared using
+
+ - the notation ``{x1, x2, ...}``, for example ``parameter Integer k[3,2] = {{1, 2}, {3, 4}, {5, 6}}``,
+ - one or several iterators, for example ``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2}``,
+ - a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+
+[For example, to following declarations all assign the array ``{1, 2, 3}`` to parameters:
+
+.. code-block::
+
+   parameter Real k1[3] = {1, 2, 3};
+   parameter Real k2[3] = {i for i in 1:3};
+   parameter Real k3[3] = k1;
+   parameter Real k4[3] = fill(1, 3) + {0, 1, 2};
+   parameter Real k5[3] = cat(1, {1}, {2}, {3});
+
+The following declaration instantiates two blocks, and sets the value of the parameter ``k`` to ``2`` and ``3``:
+
+.. code-block::
+
+   MultiplyByParameter mul[2](k={2, 3});
+
+]
 
 The size of arrays will be fixed at translation. It cannot be changed during run-time.
 
@@ -824,7 +842,7 @@ and it will override the class level declaration.
      annotation(__cdl(generatePointlist=true));
    end A;
 
-generates a point list for `A.con1` only, while
+generates a point list for ``A.con1`` only, while
 
 .. code-block:: modelica
 
@@ -834,10 +852,10 @@ generates a point list for `A.con1` only, while
      annotation(__cdl(generatePointlist=false));
    end A;
 
-generates a point list for `A.con2` only.]
+generates a point list for ``A.con2`` only.]
 
-The `generatePointlist` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
-by specifying in the instantiantion clause the annotation
+The ``generatePointlist`` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
+by specifying in the instantiation clause the annotation
 
 .. code-block:: modelica
 
@@ -853,7 +871,7 @@ in which case the declaration can safely be ignored.
 
 Higher-level declarations override lower-level declarations.
 
-[For example, assume `con1` has a block called `subCon1`. Then, the declaration
+[For example, assume ``con1`` has a block called ``subCon1``. Then, the declaration
 
 .. code-block:: modelica
 
@@ -875,7 +893,7 @@ For example,
      )
    );
 
-allows a finegrained propagation to individual blocks of a composite block.
+allows a fine grained propagation to individual blocks of a composite block.
 ]
 
 Annotations for Connectors
