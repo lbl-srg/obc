@@ -105,6 +105,7 @@ The CDL consists of the following elements:
   * how to add annotations such as for graphical rendering of blocks
     and their connections.
   * how to specify composite blocks.
+  * how to add new blocks that go beyond the capabilities of composite blocks.
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
@@ -124,19 +125,19 @@ to view, modify and simulate CDL-conformant control sequences with any
 Modelica-compliant simulation environment.
 
 To simplify the support of CDL for tools and control systems,
-the following Modelica keywords are not supported in CDL:
+the following Modelica keywords are not supported in CDL (except inside the extension blocks, :numref:`sec_ext_blo`):
 
 #. ``extends``
 #. ``redeclare``
 #. ``constrainedby``
 #. ``inner`` and ``outer``
 
-Also, the following Modelica language features are not supported in CDL:
+Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
 #. Clocks [which are used in Modelica for hybrid system modeling].
-#. ``algorithm`` sections. [As the elementary building blocks are black-box
-   models as far as CDL is concerned and thus CDL compliant tools need
-   not parse the ``algorithm`` section.]
+#. ``algorithm`` sections [because the elementary building blocks are black-box
+   models as far as CDL is concerned and thus CDL compliant tools
+   do not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
 
 
@@ -358,7 +359,7 @@ Arrays
 ......
 
 Each of these data types, including the elementary building blocks,
-composite blocks and connectors,
+composite blocks, extension blocks and connectors,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
 The first element of an array has index ``1``.
@@ -366,9 +367,9 @@ An array of size ``0`` is an empty array.
 
 Values of arrays may be declared using
 
-* the notation ``{x1, x2, ...}``, for example ``parameter Integer k[3,2] = {{1, 2}, {3, 4}, {5, 6}}``,
-* one or several iterators, for example ``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2};``,
-* a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
+ - the notation ``{x1, x2, ...}``, for example ``parameter Integer k[3,2] = {{1, 2}, {3, 4}, {5, 6}}``,
+ - one or several iterators, for example ``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2}``,
+ - a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
 
 [For example, to following declarations all assign the array ``{1, 2, 3}`` to parameters:
 
@@ -394,8 +395,6 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 See the Modelica 3.3 specification Chapter 10 for array notation and these
 functions.
-
-
 
 
 .. _sec_enc_block:
@@ -843,7 +842,7 @@ and it will override the class level declaration.
      annotation(__cdl(generatePointlist=true));
    end A;
 
-generates a point list for `A.con1` only, while
+generates a point list for ``A.con1`` only, while
 
 .. code-block:: modelica
 
@@ -853,10 +852,10 @@ generates a point list for `A.con1` only, while
      annotation(__cdl(generatePointlist=false));
    end A;
 
-generates a point list for `A.con2` only.]
+generates a point list for ``A.con2`` only.]
 
-The `generatePointlist` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
-by specifying in the instantiantion clause the annotation
+The ``generatePointlist`` annotation can be propagated down in a composite block (see :numref:`sec_com_blo`)
+by specifying in the instantiation clause the annotation
 
 .. code-block:: modelica
 
@@ -872,7 +871,7 @@ in which case the declaration can safely be ignored.
 
 Higher-level declarations override lower-level declarations.
 
-[For example, assume `con1` has a block called `subCon1`. Then, the declaration
+[For example, assume ``con1`` has a block called ``subCon1``. Then, the declaration
 
 .. code-block:: modelica
 
@@ -894,7 +893,7 @@ For example,
      )
    );
 
-allows a finegrained propagation to individual blocks of a composite block.
+allows a fine grained propagation to individual blocks of a composite block.
 ]
 
 Annotations for Connectors
@@ -1364,6 +1363,69 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
+
+
+.. _sec_ext_blo:
+
+Extension Blocks
+^^^^^^^^^^^^^^^^
+
+To support functionalities that cannot, or may be hard to, implement with a composite block,
+*extension blocks* are introduced.
+
+.. note:: Extension blocks are introduced to allow implementation of blocks that contain statistical functions
+          such as for regression, fault detection and diagnostics methods, or state machines
+          for operation mode switches, as well as proprietary code.
+
+          Extension blocks are also suited to propose new elementary blocks for later inclusion
+          in ASHRAE Standard 231P. In fact, elementary blocks are implemented using
+          extension blocks, except that the annotation ``__cdl(extensionBlock=true)`` (see below)
+          is not present because tools can recognize them because they are stored in the ``CDL`` package.
+
+
+In CDL, extension blocks must have the annotations
+
+.. code-block:: modelica
+
+  annotation(__cdl(extensionBlock=true))
+
+This annotation allows translators to recognize them as extension blocks.
+Extension blocks are equivalent to the class ``block`` in Modelica.
+Thus, extension blocks can contain any declarations that are allowed in a Modelica ``block``.
+
+.. note:: The fact that extension blocks allow any declaration
+          that is allow in a Modelica ``block``
+          implies that extension blocks can have any number of parameters, inputs and outputs,
+          identical to composite blocks. It also implies that extension blocks can be used to
+
+          - call code, for example in C or from a compiled library,
+          - import a Functional Mockup Unit that may contain a process model or
+            a fault detection and diagnostics method, and
+          - implement state machines.
+
+          For example, the demand response client
+          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
+          would be an extension block if it were to contain the annotation ``__cdl(extensionBlock=true)``,
+          as would the Kalman filter that is used in the Example
+          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
+
+Translation of an extension block to json must reproduce the following:
+
+ -  All public parameters, inputs and outputs.
+ -  A Functional Mockup Unit for Model Exchange or for Co-simulation, version 2.0, with the file name
+    being the full class name and the extension being ``.fmu``.
+
+.. note:: With OpenModelica 1.20.0, a Functional Mockup Unit for Model Exchange 2.0 of an extension block
+          can be generated with the commands:
+
+           .. code-block:: bash
+
+            echo "loadFile(\"Buildings/package.mo\");" > translate.mos
+            echo "translateModelFMU(Buildings.Controls.OBC.CDL.Continuous.PID);" >> translate.mos
+            omc translate.mos
+
+          This will generate the fmu ``Buildings.Controls.OBC.CDL.Continuous.PID.fmu``.
+
 
 
 

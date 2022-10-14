@@ -137,6 +137,11 @@ code, pre{
   color: #750000;
 }
 
+/* Use different background for code inside the grey boxes */
+div.admonition pre{
+  background-color: #f0f0f0;
+}
+
 #markdown-toc{
     border: 0;
     color: #750000;
