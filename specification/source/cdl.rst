@@ -125,19 +125,19 @@ to view, modify and simulate CDL-conformant control sequences with any
 Modelica-compliant simulation environment.
 
 To simplify the support of CDL for tools and control systems,
-the following Modelica keywords are not supported in CDL:
+the following Modelica keywords are not supported in CDL (except inside the extension blocks, :numref:`sec_ext_blo`):
 
 #. ``extends``
 #. ``redeclare``
 #. ``constrainedby``
 #. ``inner`` and ``outer``
 
-Also, the following Modelica language features are not supported in CDL:
+Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
 #. Clocks [which are used in Modelica for hybrid system modeling].
-#. ``algorithm`` sections. [As the elementary building blocks are black-box
-   models as far as CDL is concerned and thus CDL compliant tools need
-   not parse the ``algorithm`` section.]
+#. ``algorithm`` sections [because the elementary building blocks are black-box
+   models as far as CDL is concerned and thus CDL compliant tools
+   do not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
 
 
@@ -1365,19 +1365,23 @@ Composite blocks are needed to preserve grouping of control blocks and their con
 and are needed for hierarchical composition of control sequences.]
 
 
+.. _sec_ext_blo:
+
 Extension Blocks
 ^^^^^^^^^^^^^^^^
 
 To support functionalities that cannot, or may be hard to, implement with a composite block,
 *extension blocks* are introduced.
 
-.. note:: Extension blocks allow implementation of blocks that contain statistical functions
+.. note:: Extension blocks are introduced to allow implementation of blocks that contain statistical functions
           such as for regression, Fault Detection and Diagnostics methods, or state machines
-          for operation mode switches.
-          Extension Blocks are also suited to propose new Elementary Blocks for later inclusion
-          in ASHRAE Standard 231P. In fact, in CDL, Elementary Blocks are implemented using Extension
-          Blocks, except that the annotation **fixme** (see below) is not present
-          because tools can recognize as they are stored in the ``CDL`` package.
+          for operation mode switches, as well as proprietery code.
+
+          Extension blocks are also suited to propose new elementary blocks for later inclusion
+          in ASHRAE Standard 231P. In fact, elementary blocks are implemented using
+          extension blocks, except that the annotation ``__cdl(extensionBlock=true)`` (see below)
+          is not present because tools can recognize as they are stored in the ``CDL`` package.
+
 
 In CDL, extension blocks must have the annotations
 
@@ -1385,14 +1389,18 @@ In CDL, extension blocks must have the annotations
 
   annotation(__cdl(extensionBlock=true))
 
-as this allows translators to recognize them as extension blocks.
+This annotation allows translators to recognize them as extension blocks.
 Extension blocks are equivalent to the class ``block`` in Modelica.
+Thus, extension blocks can contain any declarations that are allowed in a Modelica ``block``.
 
-.. note:: Therefore, extension blocks can have any number of parameters, inputs and outputs,
-          identical to composite blocks. However, extension blocks can also be used to call
-          code, for example in C or from a compiled library, they can be used to import
-          a Functional Mockup Unit that may contain a process model or an FDD method,
-          and they can implement other Modelica constructs such as state machines.
+.. note:: The fact that any Modelica construct that is allow in a Modelica ``block``
+          implies that extension blocks can have any number of parameters, inputs and outputs,
+          identical to composite blocks. However, it also allows extension blocks to be used to
+
+          - call code, for example in C or from a compiled library,
+          - import a Functional Mockup Unit that may contain a process model or an FDD method,
+          - implement other Modelica constructs such as state machines.
+
           For example, the demand response client
           `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
           would be an extension block if it were to contain the annotation ``__cdl(extensionBlock=true)``,
@@ -1401,7 +1409,7 @@ Extension blocks are equivalent to the class ``block`` in Modelica.
 
 Translation of an extension block to json must reproduce the following:
 
- -  All public parameters, inputs and outputs, as for a composite block.
+ -  All public parameters, inputs and outputs.
  -  A Functional Mockup Unit for Model Exchange version 2.0, with the file name
     being the full class name and the extension being ``.fmu``.
 
