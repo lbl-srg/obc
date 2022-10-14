@@ -1374,13 +1374,13 @@ To support functionalities that cannot, or may be hard to, implement with a comp
 *extension blocks* are introduced.
 
 .. note:: Extension blocks are introduced to allow implementation of blocks that contain statistical functions
-          such as for regression, Fault Detection and Diagnostics methods, or state machines
-          for operation mode switches, as well as proprietery code.
+          such as for regression, fault detection and diagnostics methods, or state machines
+          for operation mode switches, as well as proprietary code.
 
           Extension blocks are also suited to propose new elementary blocks for later inclusion
           in ASHRAE Standard 231P. In fact, elementary blocks are implemented using
           extension blocks, except that the annotation ``__cdl(extensionBlock=true)`` (see below)
-          is not present because tools can recognize as they are stored in the ``CDL`` package.
+          is not present because tools can recognize them because they are stored in the ``CDL`` package.
 
 
 In CDL, extension blocks must have the annotations
@@ -1393,13 +1393,15 @@ This annotation allows translators to recognize them as extension blocks.
 Extension blocks are equivalent to the class ``block`` in Modelica.
 Thus, extension blocks can contain any declarations that are allowed in a Modelica ``block``.
 
-.. note:: The fact that any Modelica construct that is allow in a Modelica ``block``
+.. note:: The fact that extension blocks allow any declaration
+          that is allow in a Modelica ``block``
           implies that extension blocks can have any number of parameters, inputs and outputs,
-          identical to composite blocks. However, it also allows extension blocks to be used to
+          identical to composite blocks. It also implies that extension blocks can be used to
 
           - call code, for example in C or from a compiled library,
-          - import a Functional Mockup Unit that may contain a process model or an FDD method,
-          - implement other Modelica constructs such as state machines.
+          - import a Functional Mockup Unit that may contain a process model or
+            a fault detection and diagnostics method, and
+          - implement state machines.
 
           For example, the demand response client
           `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
