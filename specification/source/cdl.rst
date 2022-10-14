@@ -1412,7 +1412,7 @@ Thus, extension blocks can contain any declarations that are allowed in a Modeli
 Translation of an extension block to json must reproduce the following:
 
  -  All public parameters, inputs and outputs.
- -  A Functional Mockup Unit for Model Exchange version 2.0, with the file name
+ -  A Functional Mockup Unit for Model Exchange or for Co-simulation, version 2.0, with the file name
     being the full class name and the extension being ``.fmu``.
 
 .. note:: With OpenModelica 1.20.0, a Functional Mockup Unit for Model Exchange 2.0 of an extension block
