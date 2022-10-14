@@ -583,9 +583,9 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
                              The function needs two or more arguments; that is ``fill(s)``
                              is not legal.
    ``size(...)``             Returns dimensions of an array. The expression ``size(A,i)`` returns the size of dimension
-                             ``i`` of array expression ``A`` where ``i`` shall be :math:`\gt 0` and :math:`\le ndims(A)`.
-                             The expression ``size(A)`` returns a vector of length ``ndims(A)`` containing the dimension sizes of
-                             ``A``.
+                             ``i`` of array expression ``A`` where ``i`` shall be :math:`\gt 0` and :math:`\le ndims`.
+                             The expression ``size(A)`` returns a vector of length ``ndims`` containing the dimension sizes of
+                             ``A``. The ``ndims`` is the number of dimensions in ``A``.
 
                              [Examples are ``size([1, 2, 3; 3, -4, 5], 1)=2`` and ``size([1, 2, 3; 3, -4, 5])={2,3}``.]
    ========================  ===========================================================
