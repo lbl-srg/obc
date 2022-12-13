@@ -155,7 +155,7 @@ Note that the graphical annotations are not shown.
 The JSON representation can then be parsed and converted to another block-diagram
 language.
 Note that ``CDL.Continuous.Gain`` is an elementary CDL block
-(see :numref:`sec_ele_bui_blo`).
+(see :numref:`sec_ele_blo`).
 If it were a
 composite CDL block (see :numref:`sec_com_blo`), it would be parsed recursively
 until only elementary CDL blocks are present in the JSON file.
@@ -205,7 +205,7 @@ using a variety of languages.
 
 
 To implement control sequences, blocks from the
-CDL library (:numref:`sec_ele_bui_blo`) can be used to compose sequences that conform
+CDL library (:numref:`sec_ele_blo`) can be used to compose sequences that conform
 to the CDL language specification described in :numref:`sec_cdl`.
 For verification tests, any Modelica block can be used.
 Next, to export the Modelica model, a Modelica tool such as OpenModelica, Impact, OPTIMICA
@@ -306,7 +306,7 @@ in :numref:`fig_cdl_ssp`.
 
 
 In such a workflow, a control vendor would translate the elementary CDL blocks
-(:numref:`sec_ele_bui_blo`)
+(:numref:`sec_ele_blo`)
 to a repository of FMU-ME blocks. These blocks will then be used during operation.
 For each project, its CDL-compliant control sequence could be translated
 to the simplified JSON format, as described in :numref:`sec_cdl_to_json_simp`.

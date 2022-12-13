@@ -67,7 +67,7 @@ install:
       requests==2.27.0 \
       Jinja2==2.11.3 \
       latexcodec==1.0.7 \
-      pybtex==0.24.0
+      pybtex==0.24.0 \
       pybtex-docutils==1.0.1 \
       oset==0.1.3 \
       PyYAML==5.4

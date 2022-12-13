@@ -88,12 +88,12 @@ or other means of translation, is described in
 :numref:`sec_code_gen`.
 
 
-Basic Elements of CDL
-^^^^^^^^^^^^^^^^^^^^^
+Basic Elements of CDL and Terminology
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The CDL consists of the following elements:
 
-* A list of elementary control blocks, such as a block that adds two signals and outputs the sum,
+* A list of elementary blocks, such as a block that adds two signals and outputs the sum,
   or a block that represents a PID controller.
 * Connectors through which these blocks receive values and output values.
 * Permissible data types.
@@ -109,6 +109,83 @@ The CDL consists of the following elements:
 
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
+
+When describing CDL, we will use the terminology below which we briefly describe to provide the reader an overview.
+For a more detailed definition, follow the corresponding links.
+
+.. table:: Main terminology used in CDL.
+   :widths: 15 80
+
+   ============================  ===========================================================
+   Term                          Description
+   ============================  ===========================================================
+   definition and instantiation  We call the implementation of an object (such as a block or parameter)
+                                 an *object definition*.
+                                 To use an object, one declares an *instance* of it.
+
+                                 For example, the statement
+
+                                 .. code-block:: modelica
+
+                                    block myBlock
+                                    CDL.Continuous.Sources.Constant c(k=1);
+                                    end myBlock;
+
+                                 is a block *definition* for `myBlock`, and the second line declares
+                                 an *instance* of the block `CDL.Continuous.Sources.Constant`.
+    block                        A block is an object that has any number of
+                                 constants, parameters, input connectors,
+                                 output connectors and instances of other blocks.
+                                 Blocks typically encapsulate calculations.
+                                 We distinguish between *elementary blocks*, *composite blocks*
+                                 and *extension blocks*.
+    elementary block             An elementary block (:numref:`sec_ele_blo`) is a block that is
+                                 part of the CDL library.
+                                 Elementary blocks are the basic language blocks and are not
+                                 to be changed by users.
+    composite block              A composite block (:numref:`sec_com_blo`) is a block (and thus can have any number of
+                                 constants, parameters, input connectors and output connectors) that
+                                 instantiates any number of other elementary blocks or composite blocks,
+                                 and declares connections between inputs and outputs.
+                                 Composite blocks are used to implement control sequences.
+    extension block              An extension block (:numref:`sec_ext_blo`) is a block that conforms in CDL to the
+                                 Modelica definition of a block (and thus can have textual equations,
+                                 call C functions or functions in a dynamically linked library).
+                                 In CDL-json, the json specification declares its
+                                 constants, parameters, input connectors and output connectors,
+                                 and it declares the file name of a Functional Mockup Unit for Model Exchange
+                                 that can be used to compute its outputs.
+    parameter                    A parameter (:numref:`sec_par_typ`) is an instance of a native data type
+                                 (such as a `Real` or `Integer`) whose value is time invariant, and
+                                 hence its value cannot be changed based on an input signal.
+                                 To change its value when simulating a control logic, one would need to stop the simulation
+                                 and change the value. In an actual controller, one may change the value
+                                 through a graphical user interface.
+    constant                     A constant (:numref:`sec_con_typ`) is an instance of a native data type
+                                 (such as a `Real` or `Integer`) whose value cannot be changed after compilation.
+    input (output) connector     An input (output) connector (:numref:`sec_connectors`)
+                                 is an object to which a connection can be
+                                 made to transfer a signal value into (out of) a block.
+    connection                   A connection (:numref:`sec_connections`) is used to connect an
+                                 input connector to an output connector,
+                                 thereby indicating that the value at the input connector is equal
+                                 to the value at the output connector.
+    function                     A function (:numref:`sec_dec_fun`) is an object that can have
+                                 any fixed number of arguments
+                                 and returns a scalar- or array-valued object, such as a Real number
+                                 or an Integer array.
+                                 Functions can be used to assign values to constants and parameters, and to assign
+                                 values to attributes of constants, parameters, inputs and outputs.
+    annotation                   An annotation (:numref:`sec_annotations`) is a declaration that is used to store information
+                                 about blocks, input connectors, output connectors and parameters
+                                 that does not affect the computations.
+                                 Annotations are used for example to store documentation,
+                                 to provide a means to group related parameters of a block so they
+                                 can be shown next to each other in a graphical user interface,
+                                 or to store semantic information.
+   ============================  ===========================================================
+
+
 
 
 Syntax
@@ -135,7 +212,7 @@ the following Modelica keywords are not supported in CDL (except inside the exte
 Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
 #. Clocks [which are used in Modelica for hybrid system modeling].
-#. ``algorithm`` sections [because the elementary building blocks are black-box
+#. ``algorithm`` sections [because the elementary blocks are black-box
    models as far as CDL is concerned and thus CDL compliant tools
    do not parse the ``algorithm`` section.]
 #. ``initial equation`` and ``initial algorithm`` sections.
@@ -326,9 +403,10 @@ An optional comment string can be specified with each enumeration literal.
 
 [Enumerations can for example be used to declare a list of mode of operations, such as ``on``, ``off``, ``startUp``, ``coolDown``.]
 
+.. _sec_par_typ:
 
-Parameter and constant declarations
-...................................
+Parameters
+..........
 
 A ``parameter`` is a value that does not change as time progresses, except through
 stopping the executation of the control sequence,
@@ -344,6 +422,11 @@ Parameters are declared with the ``parameter`` prefix.
 
 ]
 
+.. _sec_con_typ:
+
+Constants
+.........
+
 A ``constant`` is a value that is fixed at compilation time.
 Constants are declared with the ``constant`` prefix.
 
@@ -358,7 +441,7 @@ Constants are declared with the ``constant`` prefix.
 Arrays
 ......
 
-Each of these data types, including the elementary building blocks,
+Each of these data types, including the elementary blocks,
 composite blocks, extension blocks and connectors,
 can be a single instance, one-dimensional array or two-dimensional array (matrix).
 Array indices shall be of type ``Integer`` only.
@@ -407,25 +490,25 @@ Blocks expose parameters (used to configure
 the block, such as a control gain), and they
 expose inputs and outputs using connectors_.
 
-Blocks are either *elementary building blocks* (:numref:`sec_ele_bui_blo`)
+Blocks are either *elementary blocks* (:numref:`sec_ele_blo`)
 or *composite blocks* (:numref:`sec_com_blo`).
 
 
-.. _sec_ele_bui_blo:
+.. _sec_ele_blo:
 
-Elementary Building Blocks
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Elementary Blocks
+^^^^^^^^^^^^^^^^^
 
 .. figure:: img/cdl/cdl_screen_shot.*
    :width: 300px
 
    Screenshot of CDL library.
 
-The CDL library contains elementary building blocks that are used to compose
+The CDL library contains elementary blocks that are used to compose
 control sequences.
-The functionality of elementary building blocks, but not their implementation,
+The functionality of elementary blocks, but not their implementation,
 is part of the CDL specification.
-Thus, in the most general form, elementary building blocks can be considered
+Thus, in the most general form, elementary blocks can be considered
 as functions that for given parameters :math:`p`,
 time :math:`t` and internal states :math:`x(t)`,
 map inputs :math:`u(t)` to new outputs :math:`y(t)`, e.g.,
@@ -444,12 +527,12 @@ implementations shall have the same inputs, outputs and parameters, and
 they shall compute the same response for the same value of inputs and state variables.]
 
 Users are not allowed to add
-new elementary building blocks. Rather, users can use the existing elementary blocks
+new elementary blocks. Rather, users can use the existing elementary blocks
 to implement composite blocks (:numref:`sec_com_blo`).
 
 .. note::
 
-   The elementary building blocks can be browsed in any of these ways:
+   The elementary blocks can be browsed in any of these ways:
 
      * Open a web browser at
        https://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Controls_OBC_CDL.html.
@@ -462,7 +545,7 @@ to implement composite blocks (:numref:`sec_com_blo`).
        as with `OPTIMICA <https://www.modelon.com/products-services/modelon-creator-suite/optimica-compiler-toolkit/>`_,
        which is the simulation engine in Impact.
 
-An actual implementation of an elementary building block
+An actual implementation of an elementary block
 looks as follows, where we omitted the annotations that are
 used for graphical rendering:
 
@@ -517,15 +600,35 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
 - the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
 - calls to the functions listed in :numref:`tab_par_fun`.
 
-.. _tab_par_fun:
+[For example, to instantiate a gain, one would write
 
+.. code-block:: modelica
+
+   Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
+
+where the documentation string is optional.
+The annotation is typically used
+for the graphical positioning of the instance in a block diagram.]
+
+
+.. _sec_dec_fun:
+
+Functions
+.........
+
+CDL provide built-in functions that can be used when assigning
+values of parameters and attributes of constants, parameters,
+inputs, and outputs.
+:numref:`tab_par_fun` lists the supported functions.
+
+.. _tab_par_fun:
 
 .. table:: Functions that are allowed in parameter assignments. The functions
            are consistent with Modelica 3.3.
    :widths: 15 80
 
    ========================  ===========================================================
-   Function                  Descrition
+   Function                  Description
    ========================  ===========================================================
    ``abs(v)``                Absolute value of ``v``.
    ``sign(v)``               Returns ``if v>0 then 1 else if v<0 then –1 else 0``.
@@ -590,17 +693,21 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
                              [Examples are ``size([1, 2, 3; 3, -4, 5], 1)=2`` and ``size([1, 2, 3; 3, -4, 5])={2,3}``.]
    ========================  ===========================================================
 
-
-
-[For example, to instantiate a gain, one would write
+[For example, if a controller has a parameter for the set point
+for the outdoor air flow rate of ten (equally sized) zones that needs
+to be set to :math:`0.1 \, \mathrm{m^3/s}`, a declaration may look like:
 
 .. code-block:: modelica
 
-   Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
+   parameter Real VSet_flow[10](
+    final unit=fill("m3/s", 10)) = fill(0.1, 10);
 
-where the documentation string is optional.
-The annotation is typically used
-for the graphical positioning of the instance in a block diagram.]
+]
+
+.. _sec_par_eva_tra:
+
+Evaluation of Assignment of Values to Parameters
+................................................
 
 Using expressions in parameter assignments, and propagating values of parameters
 in a hierarchical formulation of a control sequence, are convenient language constructs
@@ -649,12 +756,6 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    `CDL.Continuous.Division <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Division>`_,
    and then connect
    the output of the constant source with the inputs of the division blocks.
-
-
-.. _sec_par_eva_tra:
-
-Evaluation of Assignment of Values to Parameters
-................................................
 
 
 We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
@@ -871,7 +972,7 @@ by specifying in the instantiation clause the annotation
 Controllers deeper in the hierarchy are referred to using the dot notation, such as in
 ``instance="subCon1.subSubCon1"`` where ``subSubCon1`` is an instance of an elementary or composite block in ``subCon1``.
 
-The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_bui_blo`)
+The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_blo`)
 or a composite block (see :numref:`sec_com_blo`). It
 must declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
 in which case the declaration can safely be ignored.
@@ -1192,7 +1293,7 @@ equations such as ``y=2*u;`` or commands such as ``for``, ``if``,
 
 Furthermore, unlike in Modelica, there shall not be an ``initial equation``,
 ``initial algorithm`` or ``algorithm``
-section. (They can however be part of a elementary building block.)
+section. (They can however be part of a elementary block.)
 
 
 .. _sec_connections:
@@ -1526,7 +1627,7 @@ CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
 
 CDL allows to add tags to declarations that instantiate
 
-* elementary building blocks (:numref:`sec_ele_bui_blo`), and
+* elementary blocks (:numref:`sec_ele_blo`), and
 * composite blocks (:numref:`sec_com_blo`).
 
 [We currently do not see a use case that would require

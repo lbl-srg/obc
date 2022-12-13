@@ -9,7 +9,7 @@ Introduction
 To implement control sequences that conform to the CDL specification
 of :numref:`sec_cdl`, we implemented a library of elementary
 control blocks, and a library of control sequences that are composed
-of these elementary control blocks, using composition rules that are
+of these elementary blocks, using composition rules that are
 specified in the CDL specification.
 The next two sections give a brief overview of these library.
 To see their implementation, browse the online documentation at
@@ -23,8 +23,8 @@ To implement control sequences in CDL, we created the CDL library.
 This library contains all compositional elements of the CDL language,
 such as connectors for input and output signals of various types (real, integer etc.),
 type definitions such as for the day-of-week, and the
-elementary control blocks that are described in :numref:`sec_ele_bui_blo`.
-This library consist of about 130 elementary control blocks, such as a block
+elementary blocks that are described in :numref:`sec_ele_blo`.
+This library consist of about 130 elementary blocks, such as a block
 that adds two real-valued input signals and produces its sum as the output,
 a block that implements a proportional-integral-derivative controller
 with anti-windup, and blocks that perform basic operations on boolean signals.
