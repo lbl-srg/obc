@@ -37,10 +37,10 @@ the Open Building Controls project.
      is available at https://github.com/lbl-srg/modelica-json.
 
    Control Description Language
-     The Control Description Language (CDL) is the language
-     that is used to express control sequences and requirements.
-     It is a declarative language based on a subset of the
-     Modelica language and specified in :numref:`sec_cdl`.
+     The Control Description Language (CDL) is a declarative object-oriented
+     language that can be used to express control sequences.
+     CDL is a subset of the Modelica Language standard
+     and specified in :numref:`sec_cdl`.
 
    Controls Design Tool
      The Controls Design Tool is a software that can be used to

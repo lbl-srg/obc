@@ -331,7 +331,7 @@ and sends it signal to a limiter and the limiter output is
 connected to a valve, then this would count as four connections.
 Any connections inside the PI controller would not be counted,
 as the PI controller is an elementary building block
-(see :numref:`sec_ele_bui_blo`) of CDL.
+(see :numref:`sec_ele_blo`) of CDL.
 
 
 .. _tab_mod_sta:
