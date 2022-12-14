@@ -45,6 +45,9 @@ specification/build
 #########################
 .DS_Store
 
+# VS code configurations
+.vscode
+
 # Simulation results of case study
 #########################
 examples/case_study_1/simulations

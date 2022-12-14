@@ -379,7 +379,7 @@ provided by the control provider. Afterwards, verification can be conducted as u
           The implementation of the control logic can be done either
           using other ``CDL`` blocks, which is the preferred approach,
           using the C language, or by providing
-          a compiled library. See the Modelica Specification :cite:`Modelica2012:1`
+          a compiled library. See the Modelica Specification :cite:`ModelicaSpecification2021`
           for implementation details
           if C code or compiled libraries are provided.
           If a compiled library is provided, then binaries shall be provided for
