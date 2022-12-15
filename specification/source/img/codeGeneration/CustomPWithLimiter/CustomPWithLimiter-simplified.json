@@ -34,7 +34,7 @@
           "comment": "Control signal"
         },
         {
-          "className": "CDL.Continuous.Gain",
+          "className": "CDL.Continuous.MultiplyByParameter",
           "name": "gain",
           "comment": "Constant gain",
           "modifications": [

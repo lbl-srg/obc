@@ -154,7 +154,7 @@ looks as follows:
 Note that the graphical annotations are not shown.
 The JSON representation can then be parsed and converted to another block-diagram
 language.
-Note that ``CDL.Continuous.Gain`` is an elementary CDL block
+Note that ``CDL.Continuous.MultiplyByParameter`` is an elementary CDL block
 (see :numref:`sec_ele_blo`).
 If it were a
 composite CDL block (see :numref:`sec_com_blo`), it would be parsed recursively
@@ -343,13 +343,13 @@ the same input signals and use the same parameter values.)
 Substitutions that Give Identical Control Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Consider the gain ``CDL.Continuous.Gain`` used above. If a product line
+Consider the gain ``CDL.Continuous.MultiplyByParameter`` used above. If a product line
 uses different names for the inputs, outputs and parameters, then they can
 be replaced.
 
 Moreover, certain transformations that do not change the
 response of the block are permissible: For example, consider the
-`PID controller in the CDL library <https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
+`PID controller in the CDL library <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.PID>`_.
 The implementation has a parameter
 for the time constant of the integrator block.
 If a control vendor requires the specification of an integrator gain rather than

@@ -600,11 +600,11 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
 - the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
 - calls to the functions listed in :numref:`tab_par_fun`.
 
-[For example, to instantiate a gain, one would write
+[For example, to instantiate a block that multiplies its input by a parameter, one would write
 
 .. code-block:: modelica
 
-   Continuous.Gain gai(k=-1) "Constant gain of -1" annotation(...);
+   CDL.Continuous.MultiplyByParameter gai(k=-1) "Constant gain of -1" annotation(...);
 
 where the documentation string is optional.
 The annotation is typically used
@@ -740,26 +740,26 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    Example 1: If a controller has two samplers called ``sam1`` and ``sam2`` and their parameter
    ``samplePeriod`` must satisfy ``sam1.samplePeriod = sam2.samplePeriod`` for the logic to work correctly,
    then the controller can be implemented using
-   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
+   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
    and connect its output to two instances of
-   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
+   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
    that sample the corresponding signals.
 
    Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
    rather than using two instances of
-   `CDL.Continuous.Gain <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Gain>`_
+   `CDL.Continuous.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter>`_
    with parameter ``k = 1/k1``, one could use
    a constant source
-   `CDL.Continuous.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous_Sources.html#Buildings.Controls.OBC.CDL.Continuous.Sources.Constant>`_
+   `CDL.Continuous.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous_Sources.html#Buildings.Controls.OBC.CDL.Continuous.Sources.Constant>`_
    with parameter ``k=k1`` and
    two instances of
-   `CDL.Continuous.Division <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Division>`_,
+   `CDL.Continuous.Divide <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Divide>`_,
    and then connect
    the output of the constant source with the inputs of the division blocks.
 
 
 We will now describe how assignments of values to parameters can optionally be evaluated by the CDL translator.
-While such an evaluation is not prefered, it is allowed in CDL to accomodate the situation
+While such an evaluation is not preferred, it is allowed in CDL to accommodate the situation
 that most building control product lines, in contrast to modeling tools such as
 Modelica, Simulink or LabVIEW,
 do not support the propagation of parameters,
@@ -872,7 +872,7 @@ An example code snippet is
      "Number of occupants"
        annotation (__cdl(default = 0));
 
-   CDL.Continuous.Gain gai(
+   CDL.Continuous.MultiplyByParameter gai(
      k = VOutPerPer_flow) if have_occSen
        "Outdoor air per person";
    equation
@@ -1439,7 +1439,24 @@ A specification may look like
 Composite Blocks
 ^^^^^^^^^^^^^^^^
 
-CDL allows building composite blocks such as shown in
+A composite block is a block that is composed of any number of instances of
+
+ * constants,
+ * parameters,
+ * input connectors,
+ * output connectors,
+ * elementary blocks, and
+ * other composite blocks.
+
+Composite blocks also contain an ``equation`` section
+in which connections are instantiated to connect inputs connectors and output connectors
+of the composite block and its elementary and composite blocks.
+These rules allow the definition of composite blocks in a library,
+and the instantiation and possible configuration of these instances
+to implement a particular control sequence.
+
+A simple example of a composite block that multiplies one of its inputs, adds it to the other input
+and produces at its output connector the sum is shown in
 :numref:`fig_custom_control_block`.
 
 .. _fig_custom_control_block:
@@ -1450,8 +1467,6 @@ CDL allows building composite blocks such as shown in
    Example of a composite control block that outputs :math:`y = \min( k \, e, \, y_{max})`
    where :math:`k` is a parameter.
 
-
-Composite blocks can contain other composite blocks.
 
 Each composite block shall be stored on the file system under the name of the composite block
 with the file extension ``.mo``, and with each package name being a directory.
