@@ -82,7 +82,7 @@ CDL
    to implementation of major control vendors.
 #. It shall be possible to render CDL-compliant control sequences in a visual editor and in a textual
    editor.
-#. CDL shall be a proper subset of Modelica 3.3 :cite:`Modelica2012:1`.
+#. CDL shall be a proper subset of Modelica 3.5 :cite:`ModelicaSpecification2021`.
    [Section :ref:`sec_cdl` specifies what subset shall be supported. This will allow visualizing, editing and simulating
    CDL with Modelica tools rather than requiring a separate tool.
    It will also simplify the integration of CDL with the design and verification tools, since they use Modelica.]

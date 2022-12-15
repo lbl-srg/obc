@@ -61,7 +61,7 @@ generate_cdl_from_modelica:
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
-html:
+html:	test_installation
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py
 	@echo

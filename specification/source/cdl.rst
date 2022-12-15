@@ -6,8 +6,7 @@ Control Description Language
 Introduction
 ^^^^^^^^^^^^
 
-This section specifies
-the Control Description Language (CDL),
+This section specifies the Control Description Language (CDL),
 a declarative language that can be used to express control sequences using block-diagrams.
 It is designed in such a way that it can be used to conveniently specify building control sequences
 in a vendor-independent format, use them within whole building energy simulation,
@@ -41,7 +40,7 @@ the barrier to translate CDL to the programming language of a current control pr
 .. _fig_cdl_pro_lin:
 
 .. uml::
-   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product line or English language documentation.
+   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product line, a semantic model or English language documentation.
    :width: 550 px
 
    skinparam componentStyle uml2
@@ -64,6 +63,8 @@ the barrier to translate CDL to the programming language of a current control pr
 
      [CDL-JSON] --> [English language documentation]
 
+     [CDL-JSON] --> [semantic model]
+
      [CDL-JSON] --> [point list]
 
      [CDL] ---> [future control\nproduct line\nbased on CDL]
@@ -75,12 +76,12 @@ Input into the translation is CDL. An open-source tool called ``modelica-json`` 
 (see also :numref:`sec_cdl_to_json_simp` and https://github.com/lbl-srg/modelica-json)
 translates CDL to an intermediate format that we call :term:`CDL-JSON`.
 From CDL-JSON, further translations can be done to a control product line, or to
-generate point lists or English language documentation of the control sequences.
+generate point lists, English language documentation or a semantic model of the control sequences.
 We anticipate that future control product lines use directly CDL as shown in the right of
 :numref:`fig_cdl_pro_lin`. Such a translation can then be done using
 various existing Modelica tools to generate code for real-time simulation.
 
-The next sections define the CDL language.
+The next sections give an overview and definition of the CDL language.
 A collection of control sequences that are composed using the CDL language is described
 in :numref:`sec_con_lib`. These sequences can be simulated with Modelica simulation environments.
 The translation of such sequences to control product lines using ``modelica-json``,
@@ -88,10 +89,62 @@ or other means of translation, is described in
 :numref:`sec_code_gen`.
 
 
-Basic Elements of CDL and Terminology
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Overview of CDL and Terminology
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The CDL consists of the following elements:
+CDL is a declarative, modular language for expressing
+block diagrams that was introduced in :cite:`WetterGrahovacHu2018`.
+CDL allows hierarchical modeling to encapsulate and reuse,
+through object instantiation, preconfigured control sequences.
+CDL also defines syntax for connecting inputs and outputs of blocks and for propagating
+the values of parameters. CDL allows users to declare new blocks,
+store them in a library, and instantiate them for use in a control sequence.
+CDL also has annotations that declare how to graphically render the block diagrams,
+and to document control sequences.
+
+CDL uses a small subset of the Modelica language that is needed for declaration of block diagrams.
+We selected Modelica as it is an open standard, as it provides various open-source
+and commercial modeling and simulation environments, as it allows to generate
+highly efficient code for simulation, and because it is increasingly used to
+simulate building energy and control systems.
+
+As the model of computation, CDL uses the synchronous data flow principle and
+single assignment rule, which is consistent with the
+Modelica 3.4 Language Specification :cite:`ModelicaSpecification2021`.
+Therefore, all variables keep their value until the value is explicitly changed,
+values are always present (and hence can be accessed at any time instant),
+computation and communication at an event instant do not take time,
+and every input connector must be connected to exactly one output connector.
+
+CDL consists of three types of blocks:
+
+ * *Elementary blocks*: These are built-in blocks that cannot be changed by users. All implementations of
+   CDL need to provide the functionality of these blocks. An example is a block that outputs the sum of two inputs.
+ * *Composite blocks*: These are blocks that are composed hierarchically using elementary blocks or other composite blocks.
+   Composite blocks can be used to declare control sequences, they can be stored in a library for
+   reuse, and they can be instantiated and configured for a particular energy system.
+ * *Extension blocks*: Extension blocks allow users to implement new blocks that may be difficult or impossible
+   to implement using the rules of composite blocks. For example, an extension block could be used
+   to call a web service, or to implement a finite state machine that rotates chillers in a chiller plant.
+
+The functionality of elementary blocks, but not their implementation,
+is part of the CDL specification.
+Thus, in the most general form, elementary blocks can be considered
+as functions that for given parameters :math:`p`, time :math:`t` and internal state :math:`x(t)`,
+map inputs :math:`u(t)` to new values for the outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
+:math:`(p, t, u(t), x(t)) \mapsto (y(t), x'(t))`.
+By the composition rules of composite blocks, composite blocks are also such functions.
+This abstraction is important as it allows to execute CDL sequences that are composed of
+composite blocks using a variety
+of programming languages, it guarantees that the elementary and composite blocks have a well-defined scope and
+it guarantees that the calculations of a block have no side effects on other blocks.
+This however is not necessarily true for extension blocks (for example, two extension blocks could
+exchange data through a web service, thereby causing one block to have side effects on the behavior of the other block).
+Thus, use of composite blocks is preferred. To execute extension blocks, extension blocks need to be compiled
+and implemented using the Functional Mockup Interface Standard to provide run-time interoperability.
+
+
+The CDL language consists of the following elements:
 
 * A list of elementary blocks, such as a block that adds two signals and outputs the sum,
   or a block that represents a PID controller.
@@ -110,10 +163,12 @@ The CDL consists of the following elements:
 * A model of computation that describes when blocks are executed and when
   outputs are assigned to inputs.
 
-When describing CDL, we will use the terminology below which we briefly describe to provide the reader an overview.
-For a more detailed definition, follow the corresponding links.
 
-.. table:: Main terminology used in CDL.
+:numref:`tab_ter_cdl` gives an overview of the terminology used to describe CDL.
+
+.. _tab_ter_cdl:
+
+.. table:: Main terminology used in CDL. For a more detailed definition, follow the corresponding links.
    :widths: 15 80
 
    ============================  ===========================================================
@@ -193,7 +248,7 @@ Syntax
 
 In order to use CDL with building energy simulation programs,
 and to not invent yet another language with new syntax,
-the CDL syntax conforms to a subset of the Modelica 3.3 specification :cite:`Modelica2012:1`.
+the CDL syntax conforms to a subset of the Modelica 3.5 specification :cite:`ModelicaSpecification2021`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no construct that
@@ -476,7 +531,7 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 [``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
 
-See the Modelica 3.3 specification Chapter 10 for array notation and these
+See the Modelica 3.5 specification Chapter 10 for array notation and these
 functions.
 
 
@@ -521,8 +576,8 @@ Control providers who support CDL need to be able to implement the same
 functionality as is provided by the elementary CDL blocks.
 
 
-[CDL implementations are allowed to use a different implementation of the elementary
-building blocks, because the implementation is language specific. However,
+[CDL implementations are allowed to use a different implementation of the elementary blocks,
+because the implementation is language specific. However,
 implementations shall have the same inputs, outputs and parameters, and
 they shall compute the same response for the same value of inputs and state variables.]
 
@@ -624,7 +679,7 @@ inputs, and outputs.
 .. _tab_par_fun:
 
 .. table:: Functions that are allowed in parameter assignments. The functions
-           are consistent with Modelica 3.3.
+           are consistent with Modelica 3.5.
    :widths: 15 80
 
    ========================  ===========================================================
@@ -1390,7 +1445,7 @@ Annotations
 ^^^^^^^^^^^
 
 Annotations follow the same rules as described in the following
-Modelica 3.3 Specifications
+Modelica 3.5 Specifications
 
 * 18.2 Annotations for Documentation
 * 18.6 Annotations for Graphical Objects, with the exception of
@@ -1401,7 +1456,7 @@ Modelica 3.3 Specifications
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
 input and output signal connections, and to declare
-vendor annotations, (Sec. 18.1 in Modelica 3.3 Specification), such as to specify default
+vendor annotations, (Sec. 18.1 in Modelica 3.5 Specification), such as to specify default
 value of connector as below.]
 
 CDL also uses annotations to declare default values for conditionally removable input
@@ -1556,7 +1611,7 @@ Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,
-which are defined below. [The definition is adopted from and consistent with the Modelica 3.3 Specification, Section 8.4.]
+which are defined below. [The definition is adopted from and consistent with the Modelica 3.5 Specification, Section 8.4.]
 
 #. All variables keep their actual values until these values
    are explicitly changed. Variable values can be accessed at any time instant.
