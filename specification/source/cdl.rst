@@ -1688,118 +1688,74 @@ Therefore, tools that process CDL can infer the following information:
 
 .. _sec_tag_pro:
 
-Tagged Properties
+Semantic Information
 .................
 
-The buildings industry uses different tagging schemes such as
-Brick (https://brickschema.org/) and Haystack (https://project-haystack.org/).
-CDL allows, but does not require, use of the Brick or Haystack tagging scheme.
+The buildings industry uses different metadata schemes such as
+`Brick <https://brickschema.org/>`_, `Project Haystack <https://project-haystack.org/>`_ and `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_. CDL allows, but does not require, use of the Brick or Haystack or any other tagging scheme.
 
-CDL allows to add tags to declarations that instantiate
+* Semantic information will be included within the CDL ``annotation`` keyword, using the ``__semantic`` annotation. Every element in CDL can have an annotation and correspondingly, semantic information
+ * Inputs
+ * Outputs
+ * Parameters
+ * CDL blocks: both elementary blocks (:numref:`sec_ele_blo`), and composite blocks (:numref:`sec_com_blo`).
 
-* elementary blocks (:numref:`sec_ele_blo`), and
-* composite blocks (:numref:`sec_com_blo`).
-
-[We currently do not see a use case that would require
-adding a tag to a ``parameter`` declaration.]
-
-
-To implement such tags, CDL blocks can contain
-vendor annotations with the following syntax:
+* The top-level CDL class declaration shall house the `metadataLanguageDefinition` within the ``__semantic`` annotation. ``metadataLanguageDefinition`` will be used to define the different types of tags that are used throughout the CDL block and relevant information about the same. It will follow the following syntax:
 
 .. code-block:: modelica
 
-   annotation :
-     annotation "(" [annotations ","]
-        __cdl "(" [ __cdl_annotation ] ")" ["," annotations] ")"
+   annotation (__semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" "<description or URL>"))
 
-where ``__cdl__annotation`` is the annotation for CDL.
-
-For Brick, the ``__cdl_annotation`` is
+* ``metadataLanguageDefinition`` could be semantic data standards such as  Brick, Project-Haystack, ASHRAE 223p etc. or it could just be a natural language description. The optional ``version`` represents the version of the metadataLangauge used in a particular sequence and the optional ``format``  represents the format this will be expressed in.  The format will be expressed using  `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_. Examples:
 
 .. code-block:: modelica
 
-   brick_annotation:
-      brick "(" RDF ")"
+  annotation (__semantic(
+    metadataLanguageDefinition="Brick 1.3 text/turtle" "https://brickschema.org/ontology/1.3",
+    metadataLanguageDefinition="Project-Haystack 3.9.12 application/ld+json" "https://project-haystack.org/",
+    metadataLanguageDefinition="Text" "string in English language"
+  ));
 
-where ``RDF`` is the RDF 1.1 Turtle
-(https://www.w3.org/TR/turtle/) specification of the Brick object.
-
-[Note that, for example
-for a controller with two output signals :math:`y_1` and :math:`y_2`,
-Brick seems to have no means to specify
-that :math:`y_1` ``controls`` a fan speed and :math:`y_2` ``controls``
-a heating valve, where ``controls`` is the Brick relationship.
-Therefore, we allow the ``brick_annotation`` to only be at the
-block level, but not at the level of instances of input or output
-connectors.
-
-For example, the Brick specification
+* The semantic information itself will be included as a metadataLanguage/metadata pair within the annotation using the following syntax:
 
 .. code-block:: modelica
 
-   soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor ;
-      bf:hasTag brick:Average ;
-      bf:isLocatedIn soda_hall:floor_1 .
+  annotation (__semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>"));
 
-can be declared in CDL as
+* Annotations attached to the top-level class can also be used to define class level information about the semantic data. A top-level class is one that encompasses a particular sequence or a model. For example, in Brick 1.3, it can be used to define prefixes. Example:
 
 .. code-block:: modelica
 
-   annotation(__cdl(brick="soda_hall:flow_sensor_SODA1F1_VAV_AV a brick:Supply_Air_Flow_Sensor  ;
-     bf:hasTag brick:Average ;
-     bf:isLocatedIn soda_hall:floor_1 ."));
+  annotation (__semantic(
+    metadataLanguage="Brick 1.3 text/turtle" "@prefix Brick: <https://brickschema.org/schema/Brick#> .
+                                              @prefix bldg: <urn:bldg/> . ",
+    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
+        "{"@context": { "ph": "https://project-haystack.org/def/ph/3.9.12#",
+          "phScience": "https://project-haystack.org/def/phScience/3.9.12#",
+          "phIoT": "https://project-haystack.org/def/phIoT/3.9.12#",
+          "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+          "rdfs": "http://www.w3.org/2000/01/rdf-schema#"}}"));
 
-]
-
-For Haystack, the ``__cdl_annotation`` is
+* Additionally, if there already exists a metadata model for a particular sequence, it can be referred to in the annotation of the top-level class declaration using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine. Example:
 
 .. code-block:: modelica
 
-   haystack_annotation:
-      haystack "(" JSON ")"
+  annotation (__semantic(metadataLanguage="Brick 1.3 text/turtle" "url=file:///path/to/model.ttl",
+   metadataLanguage="Project-Haystack 3.9.12 application/ld+json" "url=https://url/to/model.json"));
 
-where ``JSON`` is the JSON encoding of the Haystack object.
+* Example of CDL semantic information is shown below. The metadataLanguage “Brick 1.3 text/turtle” has been defined earlier in a top-level class and hence can be used to include semantic information. Similarly, “Project-Haystack 3.9.12 application/ld+json” and “Text” have been defined earlier and that makes for a valid syntax
 
-[For example, the AHU discharge air temperature setpoint
-is in Haystack declared as
+.. code-block:: modelica
 
-.. code::
+   Modelica.Blocks.Interfaces.RealInput THeaCoiSup_in
+       "Heating coil water supply temperature measurement"
+       annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
+          __semantic(metadataLanguage="Brick 1.3 text/turtle" "bldg:cdl_element_name a Brick:Hot_Water_Supply_Temperature_Sensor .",
+                    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json" "{"@id": "_:<cdl_element_name>", "ph:hasTag": [{"@id": "phIoT:cur"},  {"@id": "phIoT:hot"}, {"@id": "phIoT:leaving"}, {"@id": "phIoT:point"}, {"@id": "phIoT:sensor"}, {"@id": "phScience:temp"}, {"@id": phScience:water"}], "rdfs:label": " Heating Hot Water Supply Temperature"}",
+                    metadataLanguage="Text" "This is a temperature reading input that should be hardwired to heating coil temperature sensor"));
 
-   id: @whitehouse.ahu3.dat
-   dis: "White House AHU-3 DischargeAirTemp"
-   point
-   siteRef: @whitehouse
-   equipRef: @whitehouse.ahu3
-   discharge
-   air
-   temp
-   sensor
-   kind: "Number"
-   unit: "degF"
+* Depending on the metadataLanguage and the format, the metadata could vary from an RDF subgraph to simple plain text. The text ``cdl_element_name`` within the metadata can be used for referring to the current element if it has the same name as the CDL element. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the element and makes it less prone to errors and inconsistencies.
 
-can be declared in CDL as
+* The metadata defined in the top-level class annotations will be accessible to elements (inputs, outputs etc.) defined within the sequence. Additionally, semantic information attached to an element can refer to elements that were defined earlier in the sequence. This way, the semantic information attached to an element can refer to another element within the sequence that was defined previously.
 
-.. code::
-
-   annotation(__cdl( haystack=
-     "{\"id\"   : \"@whitehouse.ahu3.dat\",
-       \"dis\" : \"White House AHU-3 DischargeAirTemp\",
-       \"point\" : \"m:\",
-       \"siteRef\" : \"@whitehouse\",
-       \"equipRef\" : \"@whitehouse.ahu3\",
-       \"discharge\" : \"m:\",
-       \"air\"       : \"m:\",
-       \"temp\"      : \"m:\",
-       \"sensor\"    : \"m:\",
-       \"kind\"       : \"Number\"
-       \"unit\"       : \"degF\"}"));
-
-
-Tools that process CDL can interpret the ``brick`` or ``haystack`` annotation,
-but for control purposes CDL will ignore it. [This avoids potential conflict for entities that
-are declared differently in Brick (or Haystack) and CDL, and may be conflicting.
-For example, the above sensor input declares in Haystack that it belongs
-to an ahu3. CDL, however, has a different syntax to declare such dependencies:
-In CDL, through the ``connect(whitehouse.ahu3.TSup, ...)`` statement,
-a tool can infer what upstream component sends the input signal.]
+* Tools that process CDL can interpret the ``__semantic`` annotation, but for control purposes CDL will ignore it. [This avoids potential conflict for entities that are declared differently across these metadata standards and CDL, and may be conflicting.]
