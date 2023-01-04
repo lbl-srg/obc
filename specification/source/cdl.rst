@@ -1698,9 +1698,10 @@ The buildings industry uses different metadata schemes such as
  * Inputs
  * Outputs
  * Parameters
- * CDL blocks: both elementary blocks (:numref:`sec_ele_blo`), and composite blocks (:numref:`sec_com_blo`).
+ * CDL blocks: both elementary blocks (:numref:`sec_ele_blo`), and composite blocks (:numref:`sec_com_blo`)
+ * Packages
 
-* The top-level CDL class declaration shall house the `metadataLanguageDefinition` within the ``__semantic`` annotation. ``metadataLanguageDefinition`` will be used to define the different types of tags that are used throughout the CDL block and relevant information about the same. It will follow the following syntax:
+* The top-level CDL block declaration shall house the `metadataLanguageDefinition` within the ``__semantic`` annotation. ``metadataLanguageDefinition`` will be used to define the different types of tags that are used throughout the CDL block and relevant information about the same. It will follow the following syntax:
 
 .. code-block:: modelica
 
@@ -1722,7 +1723,7 @@ The buildings industry uses different metadata schemes such as
 
   annotation (__semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>"));
 
-* Annotations attached to the top-level class can also be used to define class level information about the semantic data. A top-level class is one that encompasses a particular sequence or a model. For example, in Brick 1.3, it can be used to define prefixes. Example:
+* Annotations attached to the top-level block can also be used to define block level information about the semantic data. A top-level block is one that encompasses a particular sequence or a model. For example, in Brick 1.3, it can be used to define prefixes. Example:
 
 .. code-block:: modelica
 
@@ -1736,26 +1737,26 @@ The buildings industry uses different metadata schemes such as
           "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
           "rdfs": "http://www.w3.org/2000/01/rdf-schema#"}}"));
 
-* Additionally, if there already exists a metadata model for a particular sequence, it can be referred to in the annotation of the top-level class declaration using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine. Example:
+* Additionally, if there already exists a metadata model for a particular sequence, it can be referred to in the annotation of the top-level block declaration using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine. Example:
 
 .. code-block:: modelica
 
   annotation (__semantic(metadataLanguage="Brick 1.3 text/turtle" "url=file:///path/to/model.ttl",
    metadataLanguage="Project-Haystack 3.9.12 application/ld+json" "url=https://url/to/model.json"));
 
-* Example of CDL semantic information is shown below. The metadataLanguage “Brick 1.3 text/turtle” has been defined earlier in a top-level class and hence can be used to include semantic information. Similarly, “Project-Haystack 3.9.12 application/ld+json” and “Text” have been defined earlier and that makes for a valid syntax
+* Example of CDL semantic information is shown below. The metadataLanguage “Brick 1.3 text/turtle” has been defined earlier in a top-level block and hence can be used to include semantic information. Similarly, “Project-Haystack 3.9.12 application/ld+json” and “Text” have been defined earlier and that makes for a valid syntax
 
 .. code-block:: modelica
 
    Modelica.Blocks.Interfaces.RealInput THeaCoiSup_in
        "Heating coil water supply temperature measurement"
        annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
-          __semantic(metadataLanguage="Brick 1.3 text/turtle" "bldg:cdl_element_name a Brick:Hot_Water_Supply_Temperature_Sensor .",
-                    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json" "{"@id": "_:<cdl_element_name>", "ph:hasTag": [{"@id": "phIoT:cur"},  {"@id": "phIoT:hot"}, {"@id": "phIoT:leaving"}, {"@id": "phIoT:point"}, {"@id": "phIoT:sensor"}, {"@id": "phScience:temp"}, {"@id": phScience:water"}], "rdfs:label": " Heating Hot Water Supply Temperature"}",
+          __semantic(metadataLanguage="Brick 1.3 text/turtle" "bldg:cdl_instance_name a Brick:Hot_Water_Supply_Temperature_Sensor .",
+                    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json" "{"@id": "_:<cdl_instance_name>", "ph:hasTag": [{"@id": "phIoT:cur"},  {"@id": "phIoT:hot"}, {"@id": "phIoT:leaving"}, {"@id": "phIoT:point"}, {"@id": "phIoT:sensor"}, {"@id": "phScience:temp"}, {"@id": phScience:water"}], "rdfs:label": " Heating Hot Water Supply Temperature"}",
                     metadataLanguage="Text" "This is a temperature reading input that should be hardwired to heating coil temperature sensor"));
 
-* Depending on the metadataLanguage and the format, the metadata could vary from an RDF subgraph to simple plain text. The text ``cdl_element_name`` within the metadata can be used for referring to the current element if it has the same name as the CDL element. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the element and makes it less prone to errors and inconsistencies.
+* Depending on the metadataLanguage and the format, the metadata could vary from an RDF subgraph to simple plain text. The text ``cdl_instance_name`` within the metadata can be used for referring to the current element if it has the same name as the CDL element. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the element and makes it less prone to errors and inconsistencies.
 
-* The metadata defined in the top-level class annotations will be accessible to elements (inputs, outputs etc.) defined within the sequence. Additionally, semantic information attached to an element can refer to elements that were defined earlier in the sequence. This way, the semantic information attached to an element can refer to another element within the sequence that was defined previously.
+* The metadata defined in the top-level bl annotations will be accessible to elements (inputs, outputs etc.) defined within the sequence. Additionally, semantic information attached to an element can refer to elements that were defined earlier in the sequence. This way, the semantic information attached to an element can refer to another element within the sequence that was defined previously.
 
 * Tools that process CDL can interpret the ``__semantic`` annotation, but for control purposes CDL will ignore it. [This avoids potential conflict for entities that are declared differently across these metadata standards and CDL, and may be conflicting.]
