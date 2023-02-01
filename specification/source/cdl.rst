@@ -1689,33 +1689,35 @@ Therefore, tools that process CDL can infer the following information:
 .. _sec_tag_pro:
 
 Semantic Information
-.................
+....................
 
-The buildings industry uses different metadata schemes such as
-`Brick <https://brickschema.org/>`_, `Project Haystack <https://project-haystack.org/>`_ and `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_. CDL allows, but does not require, use of the Brick or Haystack or any other tagging scheme.
+The buildings industry has started to integrate different metadata schemas such as
+`Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their control software and technology pipeline.  `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_ is another upcoming semantic ontology that will describe the equipment topology in buildings and also the flow of different media. To support these schemas, CDL will allow, but will not require, use of the Brick or Haystack or any other schema using the syntaxes provided below. 
 
-* Semantic information will be included within the ``annotation`` keyword, using the ``__Buildings`` or ``__cdl`` annotation. ``__cdl`` will be used when the semantic information is regarding a control sequence (inputs, outputs etc.) and ``__Buildings`` will be used for every other instance that are not a part of the control sequence (equipment, zones etc.). The following instances defined in CDL can have annotations containing semantic information:
- * Inputs
- * Outputs
- * Parameters
- * Composite blocks (:numref:`sec_com_blo`)
- * Packages
+Semantic information will be included within the ``annotation`` keyword, using the ``__Buildings`` or ``__cdl`` annotation. ``__cdl`` will be used when the semantic information is regarding a control sequence (inputs, outputs etc.) and ``__Buildings`` will be used for every other instance that are not a part of the control sequence (equipment, zones etc.). The following instances defined in CDL can have annotations containing semantic information:
+* Inputs
+* Outputs
+* Parameters
+* Composite blocks (:numref:`sec_com_blo`)
+* Packages
  
-* All semantic information will be included under the ``semantic`` section within the ``__Building`` and/or ``__cdl`` annotations. 
+All semantic information will be included under the ``semantic`` section within the ``__Building`` and/or ``__cdl`` annotations. 
 
 .. code-block:: modelica
 
    annotation (__cdl(semantic(<semantic information>)))
    annotation (__Buildings(semantic(<semantic information>)))
    
-* The top-level block declaration shall house the ``metadataLanguageDefinition`` within the  ``semantic`` section. ``metadataLanguageDefinition`` will be used to define the different types of tags that are used throughout the CDL block and relevant information about the same. It will follow the following syntax:
+The top-level block declaration shall house the ``metadataLanguageDefinition`` within the  ``semantic`` section. ``metadataLanguageDefinition`` will be used to define the different types of semantic information that will used throughout the CDL block. The ``metadataLanguageDefinition`` can also contain relevant information about the ``metadataLangauge`` such as a short description of the language/schema or pointers to the webpage of the ``metadataLanguage``. It will follow the following syntax:
 
 .. code-block:: modelica
 
    annotation (__cdl(semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" "<description or URL>")))
    annotation (__Buildings(semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" "<description or URL>")))
 
-* ``metadataLanguageDefinition`` could be semantic data standards such as  Brick, Project-Haystack, ASHRAE 223p etc. or it could just be a natural language description. The optional ``version`` represents the version of the metadataLangauge used in a particular sequence and the optional ``format``  represents the format this will be expressed in.  The format will be expressed using  `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_. Examples:
+``metadataLanguageDefinition`` could be semantic data schemas such as  Brick, Project-Haystack, ASHRAE 223p etc. or it could just be a natural language description. The optional ``version`` represents the version of the ``metadataLangauge`` used in a particular sequence and the optional ``format``  represents the format this will be expressed in.  The format will be expressed using  `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_. 
+
+[Example:
 
 .. code-block:: modelica
 
@@ -1724,15 +1726,18 @@ The buildings industry uses different metadata schemes such as
     metadataLanguageDefinition="Project-Haystack 3.9.12 application/ld+json" "https://project-haystack.org/",
     metadataLanguageDefinition="Text" "string in English language"
   )));
+  ]
 
-* The semantic information itself will be included as a metadataLanguage/metadata pair within the annotation using the following syntax:
+The semantic information itself will be included as a ``metadataLanguage``/``metadata`` pair within the annotation using the following syntax:
 
 .. code-block:: modelica
 
   annotation (__cdl(semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>")));
   annotation (__Buildings(semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>")));
 
-* Annotations attached to the top-level block can also be used to define block level information about the semantic data. A top-level block is one that encompasses a particular sequence or a model. For example, in Brick 1.3, it can be used to define prefixes. Example:
+Annotations attached to the top-level block can also be used to define block level information about the semantic language. A top-level block is one that encompasses a particular sequence or a model. In the example shown below, for the ``metadataLanguage`` Brick 1.3 and Project-Haystack 3.9.12, it can be used to define namespaces and prefixes. 
+
+[Example:
 
 .. code-block:: modelica
 
@@ -1745,15 +1750,21 @@ The buildings industry uses different metadata schemes such as
           \"phIoT\": \"https://project-haystack.org/def/phIoT/3.9.12#\",
           \"rdf\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\",
           \"rdfs\": \"http://www.w3.org/2000/01/rdf-schema#\"}}")));
+]
 
-* Additionally, if there already exists a metadata model for a particular sequence, it can be referred to in the annotation of the top-level block declaration using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine. Example:
+Additionally, if there already exists a metadata model for a particular sequence, it can be referred to in the annotation of the top-level block declaration using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine. 
+
+[Example:
 
 .. code-block:: modelica
 
   annotation (__cdl(semantic(metadataLanguage="Brick 1.3 text/turtle" "url=file:///path/to/model.ttl",
    metadataLanguage="Project-Haystack 3.9.12 application/ld+json" "url=https://url/to/model.json")));
+]
 
-* Example of CDL semantic information is shown below. The metadataLanguage "Brick 1.3 text/turtle" has been defined earlier in a top-level block and hence can be used to include semantic information. Similarly, "Project-Haystack 3.9.12 application/ld+json" and "Text" have been defined earlier and that makes for a valid syntax
+Example of CDL semantic information is shown below. The metadataLanguage "Brick 1.3 text/turtle" has been defined earlier in a top-level block and hence can be used to include semantic information. Similarly, "Project-Haystack 3.9.12 application/ld+json" and "Text" have been defined earlier and that makes for a valid syntax.
+
+[Example:
 
 .. code-block:: modelica
 
@@ -1776,9 +1787,10 @@ The buildings industry uses different metadata schemes such as
                        \"rdfs:label\": \" Heating Hot Water Supply Temperature\"
                      }",
                     metadataLanguage="Text" "This is a temperature reading input that should be hardwired to heating coil temperature sensor")));
+]
 
-* Depending on the metadataLanguage and the format, the metadata could vary from an RDF subgraph to simple plain text. The text ``cdl_instance_name`` within the metadata can be used for referring to the current instance if it has the same name as the CDL instance. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the instance and makes it less prone to errors and inconsistencies.
+Depending on the metadataLanguage and the format, the metadata could vary from an RDF subgraph to simple plain text. The text ``cdl_instance_name`` within the metadata can be used for referring to the current instance if it has the same name as the CDL instance. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the instance and makes it less prone to errors and inconsistencies.
 
-* The metadata defined in the top-level block annotations will be accessible to other instances (inputs, outputs etc.) defined within the sequence. Additionally, semantic information attached to an instance can refer to instances that were defined earlier in the sequence. This way, the semantic information attached to an instance can refer to another instance within the sequence that was defined previously.
+The metadata defined in the top-level block annotations will be accessible to other instances (inputs, outputs etc.) defined within the sequence. Additionally, semantic information attached to an instance can refer to instances that were defined earlier in the sequence. This way, the semantic information attached to an instance can refer to another instance within the sequence that was defined previously.
 
-* Tools that process CDL can interpret the ``semantic`` section, but for control purposes CDL will ignore it. [This avoids potential conflict for entities that are declared differently across these metadata standards and CDL, and may be conflicting.]
+Tools that process CDL can interpret the ``semantic`` section, but for control purposes CDL will ignore it. [This avoids potential conflict for entities that are declared differently across these metadata schemas and CDL, and may be conflicting.]
