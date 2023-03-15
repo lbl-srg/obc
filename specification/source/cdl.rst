@@ -1694,40 +1694,40 @@ Semantic Information
 The buildings industry has started to integrate different metadata schemas such as
 `Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their control software and technology.
 `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_ is another upcoming semantic ontology that will describe the equipment topology in buildings and also the flow of different media.
-To support these schemas, CDL will allow, but will not require, use of such metadata schema, using the syntaxes provided below.
+To support these schemas, CDL will allow, but will not require, use of such metadata schema, using the syntaxes provided below. Additionally, these syntaxes should be supported by any software tool that can extract the semantic information (referred to as semantic data extraction software tool in the section below) as a separate file(s) that is generated along with the CDL class. 
 
 Semantic information will be included within the ``annotation`` keyword, using the ``__Buildings`` or ``__cdl`` annotation. ``__cdl`` will be used when the semantic information is regarding a control sequence (inputs, outputs etc.) and ``__Buildings`` will be used for every other instance that are not a part of the control sequence (equipment, zones etc.). The following instances defined in CDL can have annotations containing semantic information:
 
 * Inputs,
 * Outputs,
 * Parameters,
-* **fixme** the two entries below are not clear. Do you mean annotations of the class definitions of these blocks,
-  or instances of these blocks, or both?
 * Composite blocks (:numref:`sec_com_blo`),
 * Extension blocks (:numref:`sec_ext_blo`), and
 * Packages.
 
-All semantic information will be included under the ``semantic`` section within the ``__Building`` and/or ``__cdl`` annotations.
+All semantic information will be included under the ``semantic`` section within the ``__Building`` and/or ``__cdl`` annotations, using the syntax shown here: 
 
 .. code-block:: modelica
 
    annotation (__cdl(semantic(<semantic information>)))
    annotation (__Buildings(semantic(<semantic information>)))
 
-whereas ``<semantic information>`` above is a place holder for the semantic information.
+where ``<semantic information>`` above is a place holder for the semantic information.
 
-The annotation declared in the class definition shall contain the ``metadataLanguageDefinition`` within the  ``semantic`` section. The ``metadataLanguageDefinition`` will be used to define the different types of semantic information that will used throughout the class and can also contain relevant information about the ``metadataLanguage`` such as a short description of the language/schema or url of the webpage of the ``metadataLanguage``. It must have the following syntax:
+The annotation declared in the class definition should contain the ``metadataLanguageDefinition`` within the  ``semantic`` section. The ``metadataLanguageDefinition`` will be used to define the different types of semantic information that will used throughout the class. It can also contain relevant information about the ``metadataLanguage`` such as a short description of the language or schema or url of the webpage of the ``metadataLanguage``. It must have the following syntax:
 
 .. code-block:: modelica
 
-   annotation (__cdl(semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" "<description or URL>")))
-   annotation (__Buildings(semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" "<description or URL>")))
+   annotation (__cdl(semantic(metadataLanguageDefinition="<metadataLanguageName> [version] [format]" ["description or URL"])))
+   annotation (__Buildings(semantic(metadataLanguageDefinition="<metadataLanguage> [version] [format]" ["description or URL"])))
 
-where ``<metadataLanguage>`` must be replaced with the name of the meta data language,
+where ``<metadataLanguageName>`` must be replaced with the name of the metadata language,
 ``[version]`` is an optional entry for the version,
 ``[format]`` is the format of the language, such as ``text/turtle``, and
-``<description or URL>`` is a description of the language, such as **fixme: add** or the URL to the schema.
-The ``metadataLanguage`` could be semantic data schemas such as  ``Brick``, ``Project-Haystack`` or ``ASHRAE 223``, or it could just be a natural language description. The optional ``version`` represents the version of the ``metadataLangauge`` used in a particular class and the optional ``format``  represents the format this will be expressed in. The format will be expressed using  `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_.
+``["description or URL"]`` is an optional description of the language, such as "This metadataLanguage is plain text in the English language" or the URL to the schema.
+Examples of the ``<metadataLanguageName>`` could be semantic data schemas such as  ``Brick``, ``Project-Haystack`` or ``ASHRAE 223``, or it could just be a natural language description. The optional ``version`` represents the version of the ``<metadataLanguageName>`` used in a particular class and if no ``version`` is specified, then the latest version of the ``<metadataLanguageName>`` at the time of extracting will be used. The optional ``format``  represents the format this will be expressed in and the format will be expressed using  `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_.  If no format is specified, the ``metadataLanguage`` will be in ``text/plain``.
+
+Depending on the ``metadataLanguage``("<metadataLanguageName> [version] [format]"), the metadata be represented in multiple ways. For exaxmple, metdata schemas such as Brick and ASHRAE 223p are web ontology languages (OWL) and their ``metadata`` can be represented as Resource Description Framework (RDF) subgraphs using the "text/turtle" format. Project-Haystack ``metadata`` can be represented both as "text/turtle" and "application/ld+json". 
 
 [Example:
 
@@ -1740,14 +1740,14 @@ The ``metadataLanguage`` could be semantic data schemas such as  ``Brick``, ``Pr
   )));
   ]
 
-The semantic information itself **fixme: what do you mean by "itself?"** will be included as a ``metadataLanguage``/``metadata`` pair within the annotation using the following syntax:
+After defining the different metadata languages using the ``metadataLanguageDefinition``, the semantic information in each of these languages will be included as a ``metadataLanguage``/``metadata`` pair within the annotation using the following syntax:
 
 .. code-block:: modelica
 
-  annotation (__cdl(semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>")));
-  annotation (__Buildings(semantic(metadataLanguage="<metadataLanguage> [version] [format]" "<metadata>")));
+  annotation (__cdl(semantic(metadataLanguage="<metadataLanguageName> [version] [format]" "<metadata>")));
+  annotation (__Buildings(semantic(metadataLanguage="<metadataLanguageName> [version] [format]" "<metadata>")));
 
-Semantic information declared in the class definition annotations can also be used to define class level information about the semantic language. In the example shown below, for the ``metadataLanguage`` Brick 1.3 and Project-Haystack 3.9.12, it can be used to define namespaces and prefixes.
+Semantic information in the class definition annotations can also be used to define class level information about the semantic language. In the example shown below, for the ``metadataLanguage`` "Brick 1.3 text/turtle" and "Project-Haystack 3.9.12 application/ld+json", it can be used to define namespaces and prefixes.
 
 [Example:
 
@@ -1756,20 +1756,22 @@ Semantic information declared in the class definition annotations can also be us
   annotation (__cdl(semantic(
     metadataLanguage="Brick 1.3 text/turtle" "@prefix Brick: <https://brickschema.org/schema/Brick#> .
                                               @prefix bldg: <urn:bldg/> . ",
-    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
-        "{\"@context\": { \"ph\": \"https://project-haystack.org/def/ph/3.9.12#\",
-          \"phScience\": \"https://project-haystack.org/def/phScience/3.9.12#\",
-          \"phIoT\": \"https://project-haystack.org/def/phIoT/3.9.12#\",
-          \"rdf\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\",
-          \"rdfs\": \"http://www.w3.org/2000/01/rdf-schema#\"}}")));
+    metadataLanguage="Project-Haystack 3.9.12 application/ld+json"
+                                             "{\"@context\": { \"ph\": \"https://project-haystack.org/def/ph/3.9.12#\",
+                                             \"phScience\": \"https://project-haystack.org/def/phScience/3.9.12#\",
+                                             \"phIoT\": \"https://project-haystack.org/def/phIoT/3.9.12#\",
+                                             \"rdf\": \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\",
+                                             \"rdfs\": \"http://www.w3.org/2000/01/rdf-schema#\"}}")));
 
 ]
 
-Additionally, if there already exists a metadata model for a particular class or sequence **fixme: remove "sequence" as this is not a data type. There is no CDL element called sequence**, it can also be referred to in the class definition annotation using the "url" keyword (use ``file:///<path/to/file``) if the semantic model is present in a local machine.
-**fixme: what do you mean to indicate by putting "url" in quotes in the sentence above. Also,
-why is below (i) the notation "url=https..." used, but on line 1738 simply "https...." is used. If "url=" is optional or mandatory,
-we need to make this clear. Also, I am confused while url is used for file://. Is this needed for file://, or optional, as it is
-for https, as file:// and https:// should imply the same structure.**
+As the ordering of different annotations within the ``annotation`` keyword do not matter in Modelica, the semantic data extraction software tool will first attempt to extract the ``metadataLanguageDefinition`` from the class definition annotation before extracting any semantic information included under ``metadataLanguage``. 
+
+If a class is inherting one or more classes using the ``extends`` keyword (does not impact CDL classes as CDL does not supports inheritance), all the semantic information in the classes being inherited, including the ``metadataLanguageDefinition`` for the different ``metadataLanguage`` ("<metadataLanguageName> [version] [format]") will also be inherited and retreived by the semantic data extraction software tool. However, if a class being inherited and the class inheriting it contains different ``metadataLanguageDefinition``  due to differences in any of ``<metadataLanguageName>`` or the optional ``[version]`` or ``[format]`` parts of the syntax, they will be treated as two different metadata langauges and correspondingly, two different ``metadata``. The differences in the optional ``[description or URL]`` does not mattter. If both classes contain the same ``metadataLanguageDefinition`` (ignoring ``<description>``), no error will be generated. However, if an inherited instance has been replaced using the ``redeclare`` keyword, the semantic information of the instance that replaced the original instance will be retrieved. If there is no semantic information in the redeclared instance annotation (irrespective of what was present in the original instance), there will be no semantic information retrieved for that instance. 
+
+As is the case with Modelica classes, semantic information in the higher level instance declarations or package definition takes precedence over the information in the lower-level declarations or class definitions or package definitions. Hence, if the annotation of an instance in a class contains any semantic information in a particular ``metadataLanguage`` ("<metadataLanguageName> [version] [format]"), it will overwrite any semantic information present in the class definition of that particular instance in that particular ``metadataLanguage``. However, if that instance does not any semantic information in the annotation of the instance declaration, any semantic information in the instance's class definition annotation will be extracted for the particular ``metadataLanguage``. However, if there are other instances in the instance's class definition, their ``metadata`` will also be retrieved if it is in the same ``metadataLanguage``, unless explicity overwritten. If it has been overwritten, the overwritten ``metadata`` will be extracted. 
+
+Additionally, if there already exists a metadata model for a particular class, it can also be referred to in the class definition annotation using the ``url=<path>`` syntax within the ``metadata``, where ``<path>`` could be either a URL for a model accessible over the network or a model present in the local machine. If the metadata model is present in a local machine as separate file, use the ``file:///<path/to/file`` syntax (as shown below). If the ``url=`` is not included in the ``metadata``, the semantic data extraction software tool will not retrieve the sematic model from ``<path>`` and instead, it will consider ``<path>`` to be the ``metadata`` for the class in the specified ``[format]``. 
 
 [Example:
 
@@ -1780,49 +1782,40 @@ for https, as file:// and https:// should imply the same structure.**
 
 ]
 
-An example of CDL semantic information with multiple ``metadataLanguage``/``metadata`` pair is shown below. If the ``metadataLanguage``: "Brick 1.3 text/turtle", "Project-Haystack 3.9.12 application/ld+json" and "Text" have been defined earlier
-in the class definition annotation, they can be used to include semantic information later within the class.
-**fixme: This needs to be written more formal. There is no notion of time in these files, so writing 'earlier' and 'later' is ambiguous.
-Instead, you need to explain the look up rules**
+An example of CDL semantic information for an instance in a class with multiple ``metadataLanguage``/``metadata`` pair is shown below. If the ``metadataLanguage``: "Brick 1.3 text/turtle", "Project-Haystack 3.9.12 application/ld+json" and "Text" have been defined in the class definition annotation (or in the class definition of an inherited class), they can be used to include semantic information within the class. If any of these ``metadataLanguage`` does not have a correspoding ``metadataLanguageDefinition``, they will be ignored by the semantic data extraction software tool. 
 
-[Example: **fixme: use consistent indentation below to make it easier to see the structure**
+[Example: 
 
 .. code-block:: modelica
 
    Modelica.Blocks.Interfaces.RealInput THeaCoiSup_in
        "Heating coil water supply temperature measurement"
        annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
-          __cdl(semantic(metadataLanguage="Brick 1.3 text/turtle"
-                             "bldg:cdl_instance_name a Brick:Hot_Water_Supply_Temperature_Sensor .",
-                    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
-                    "{
-                       \"@id\": \"_:<cdl_instance_name>\",
-                       \"ph:hasTag\": [
-                          {\"@id\": \"phIoT:cur\"},
-                          {\"@id\": \"phIoT:hot\"},
-                          {\"@id\": \"phIoT:leaving\"},
-                          {\"@id\": \"phIoT:point\"},
-                          {\"@id\": \"phIoT:sensor\"},
-                          {\"@id\": \"phScience:temp\"},
-                          {\"@id\": \"phScience:water\"}
-                       ],
-                       \"rdfs:label\": \" Heating Hot Water Supply Temperature\"
+                   __cdl(semantic(
+                   metadataLanguage="Brick 1.3 text/turtle"
+                     "bldg:cdl_instance_name a Brick:Hot_Water_Supply_Temperature_Sensor .",
+                   metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
+                     "{
+                        \"@id\": \"_:<cdl_instance_name>\",
+                        \"ph:hasTag\": [
+                            {\"@id\": \"phIoT:cur\"},
+                            {\"@id\": \"phIoT:hot\"},
+                            {\"@id\": \"phIoT:leaving\"},
+                            {\"@id\": \"phIoT:point\"},
+                            {\"@id\": \"phIoT:sensor\"},
+                            {\"@id\": \"phScience:temp\"},
+                            {\"@id\": \"phScience:water\"}
+                        ],
+                        \"rdfs:label\": \" Heating Hot Water Supply Temperature\"
                      }",
-                    metadataLanguage="Text"
-                    "This is a temperature reading input that should be hardwired to heating coil temperature sensor")));
+                   metadataLanguage="Text"
+                     "This is a temperature reading input that should be hardwired to heating coil temperature sensor")));
 
 ]
 
-Depending on the metadataLanguage **fixme: consistently format keywords** and the format, the metadata could vary from
-**fixme: what does vary from mean? Is there a natural progression?** an RDF subgraph to simple plain text. The text ``cdl_instance_name`` within the metadata can be used for referring to the current instance if it has the same name as the CDL instance. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the instance and makes it less prone to errors and inconsistencies.
+The text ``cdl_instance_name`` within the metadata can be used for referring to the current instance if it has the same name as the CDL instance. In the above example, the tool that parses the semantic information will infer the Brick metadata as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .`` and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``. This will avoid the user having to repeat the name of the instance and makes it less prone to errors and inconsistencies.
 
-The metadata defined in the class definition annotations will be accessible to other instances (inputs, outputs etc.) defined within the class. Additionally, semantic information attached to an instance can refer to instances that were defined earlier in the class. This way, the semantic information attached to an instance can refer to another instance within the class that was defined previously
-**fixme: why previously, if the order of instance declarations does not matter in CDL?**.
+The metadata defined in the class definition annotations will be accessible to other instances (inputs, outputs etc.) defined within the class. Additionally, the ``metadata`` of an instance can refer to the semantic information for the same ``metadataLanguage`` of other instances declared in the class (or in inherited classes). 
 
 Tools that process CDL can interpret the ``semantic`` section, but for control purposes CDL will ignore it. [This avoids potential conflict for entities that are declared differently across these metadata schemas and CDL, and may be conflicting.]
 
-.. note:: For classes that inherit from other classes with instances containing semantic information (relevant to Modelica,
-  but not relevant to CDL as inheritance is not supported in CDL), the semantic information of the inherited instances will be retained. The only exception is if an inherited instance has been replaced using the ``redeclare`` keyword. In that scenario, the semantic information attached to the instance that replaced the original instance, if any, will be retrieved. **fixme: you
-  also need to describe the required behavior for the other case of the "if any"**.
-
-.. note:: As is the case with Modelica classes, semantic information in the higher level instance declarations or package definition takes precedence over the information in the lower-level declarations or package definition. **fixme: that is note a note, it is a rule, and should be stated earlier; and I added "package definition"**.
