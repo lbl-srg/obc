@@ -58,6 +58,17 @@ generate_cdl_from_modelica:
 	./generate_cdl_from_modelica.py
 #	rm -r $(TEMPDIR)
 
+copy_cdl_to_www:
+	(cd build/html && \
+	rsync --delete --links --archive \
+		--recursive --backup --update \
+		--rsh=ssh --compress --times --checksum --verbose \
+		--exclude ".DS_Store" \
+		--exclude "*~" \
+	    cdl \
+	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
+	)
+
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
