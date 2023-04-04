@@ -9,6 +9,7 @@ import fnmatch
 REPO="git@github.com:lbl-srg/modelica-buildings.git"
 BASE_BRANCH="master"
 
+
 html_output_dir = os.path.join("build", "html", "cdl", "latest")
 
 def sh(cmd, path):
@@ -69,7 +70,6 @@ print("----- {}".format(TMP))
 # Get a fresh clone
 sh(cmd = ['git', 'clone', "--single-branch", '-b', BASE_BRANCH, REPO], path = TMP)
 
-
 shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Controls", "OBC", "CDL"), \
                 os.path.join(TMP, "CDL"))
 shutil.copytree(os.path.join(TMP, "modelica-buildings", "Buildings", "Resources", "Images", "Controls", "OBC", "CDL"), \
@@ -110,7 +110,7 @@ run_simulation(os.path.join(TMP, "CDL"), \
 
 # Add css file
 sh(cmd = [os.path.join("..", "modelica-buildings", "bin", "cleanHTML.py"), \
-          "--library", "CDL", "--homepage", "http://obc.lbl.gov/specification"], \
+          "--library", "CDL", "--homepage", "https://obc.lbl.gov/specification"], \
    path = os.path.join(TMP, "CDL"))
 
 if os.path.exists(html_output_dir):
