@@ -1465,9 +1465,9 @@ connectors, see :numref:`sec_con_rem_ins`.
 For CDL implementations of sources such as ASHRAE Guideline 36, any instance,
 such as a parameter, input or output, that is not provided in
 the original documentation shall be annotated. For instances,
-the annotation is ``__cdl(InstanceInReference=False)`` while for parameter values,
-the annotation is ``__cdl(ValueInReference=False)``. For both, if not specified
-the default value is ``True``.
+the annotation is ``__cdl(InstanceInReference=false)`` while for parameter values,
+the annotation is ``__cdl(ValueInReference=false)``. For both, if not specified
+the default value is ``true``.
 
 [
 A specification may look like
@@ -1479,7 +1479,7 @@ A specification may look like
     final min = 0,
     final max = 1)=0.8
     "Outside of G36 recommended staging order chiller type SPLR multiplier"
-    annotation(Evaluate=true, __cdl(ValueInReference=False));
+    annotation(Evaluate=true, __cdl(ValueInReference=false));
 
 ]
 
