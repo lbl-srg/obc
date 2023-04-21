@@ -167,7 +167,7 @@ corresponding JSON Schema. A JSON Schema describes the data format and file stru
 lists the required or optional properties, and sets limitations on values such as
 patterns for strings or extrema for numbers.
 
-The CDL Schema can be found at `https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json <https://raw.githubusercontent.com/lbl-srg/modelica-json/master/schema-CDL.json>`_ .
+The CDL Schema can be found at `https://github.com/lbl-srg/modelica-json/blob/master/schema-cdl.json <https://github.com/lbl-srg/modelica-json/blob/master/schema-cdl.json>`_ .
 
 The program `modelica-json <https://github.com/lbl-srg/modelica-json>`_ automatically tests
 the JSON representation parsed from a CDL file against the schema right after it is
@@ -268,9 +268,7 @@ and their graphical layout. The SSP standard allows
 for transporting complex networks of FMUs between different platforms for
 simulation, hardware-in-the-loop and model-in-the-loop :cite:`KoehlerEtAl2016:1`.
 Various tools that can simulate systems specified using the SSP standard
-are in development, with
-FMI composer (https://www.modelon.com/products-services/modelon-deployment-suite/fmi-toolbox/)
-from Modelon being commercially available.
+are available, see https://ssp-standard.org/tools/.
 
 CDL-compliant control sequences could be exported to the SSP standard as shown
 in :numref:`fig_cdl_ssp`.

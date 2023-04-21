@@ -718,7 +718,7 @@ The sequence above can be run for each test case, and the results from step 8 ar
 to generate a test report for all tested sequences.
 
 An example of a sequence under test, along with real inputs from a controller have been included in the verification
-tool software. Please see `software/verification <https://github.com/lbl-srg/obc/tree/master/software/verification#test>`_
+tool software. Please see `software/verification <https://github.com/lbl-srg/obc/tree/master/software/verification>`_
 for how to automate this process.
 
 .. _sec_ver_sce2:
