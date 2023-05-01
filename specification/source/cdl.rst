@@ -1925,15 +1925,38 @@ and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``.
 
 ]
 
-*fixme: what does 'accessible' mean? An instance does not access anything?* The metadata defined in the class definition annotations will be accessible to other instances (inputs, outputs etc.)
-defined within the class.
-Additionally, the ``metadata`` of an instance can refer to the semantic information for the same ``metadataLanguage``
-of *fixme: not clear. What does 'other' mean? I think you want to say refer to the ``metadataLanguage` declaration of the enclosing class?* other instances declared in the class (or in inherited classes). 
+The semantic information of an instance shall be able to refer to the semantic 
+information of other instances declared in the class (or in inherited classes). 
+In the below example, the semantic information of heating coil ``heaCoi`` is
+referring to the semantic information of the hot water supply temperature sensor, 
+``THeaCoiSup_in``.  
 
-*fixme: This has already been stated above: *...that does not affect the computations..."* Tools that process CDL can interpret the ``semantic`` section, but for control purposes CDL will ignore it.
-[This avoids potential conflict for entities that are declared differently across these metadata schemas and CDL, and may be conflicting.]
+[
 
-This part of the specification is only relevant to semantic information that uses 
+.. code-block:: modelica
+
+   Modelica.Blocks.Interfaces.RealInput THeaCoiSup_in
+       "Heating coil water supply temperature measurement"
+       annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
+                   __cdl(semantic(
+                   metadataLanguage="Brick 1.3 text/turtle"
+                     "bldg:<cdl_instance_name> a Brick:Hot_Water_Supply_Temperature_Sensor ."
+                  )));
+                  
+  Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
+    show_T=true,
+    dp1_nominal=3000,
+    dp2_nominal=0
+    ) "Heating coil"
+    annotation (Placement(transformation(extent={{118,-36},{98,-56}})),
+                __Buildings(semantic(
+                   metadataLanguage="Brick 1.3 text/turtle"
+                     "bldg:<cdl_instance_name> a Brick:Heating_Coil ; 
+                                 brick:hasPoint bldg:THeaCoiSup_in ."
+                  )));
+]
+
+The following part of the specification is only relevant to semantic information that uses 
 the ``__Buildings`` annotation. If a class inherits one or more classes using the
 ``extends`` keyword , all the semantic information in the  classes being inherited,
 including the ``metadataLanguageDefinition`` for the different ``metadataLanguage``
