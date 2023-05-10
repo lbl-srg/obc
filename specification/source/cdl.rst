@@ -1722,17 +1722,16 @@ All semantic information shall be included under the ``semantic`` section within
 
 where ``<semantic information>`` is a place holder for the semantic information.
 
-The ``semantic`` annotation declared in the class definition shall contain at
-least one of the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition``.
-The ``metadataLanguageDefinition`` defines the different metadata
-languages that are used throughout the class. The ``naturalLanguageDefinition``
-defines the different natural languages that are used
-throughout the class. The language definitions can also contain additional
-information such as a short description of the language and or the URL to the
-webpage of the language.
+The ``semantic`` annotation declared in the class definition should contain 
+the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition`` for each of 
+the languages used. 
+The ``metadataLanguageDefinition`` and ``naturalLanguageDefinition`` 
+are used to provide additional information about the different metadata
+languages and natural languages that are used throughout the class. The 
+language definitions should contain information such as a short description
+of the language or the URL to the webpage of the language.
 
-The ``metadataLanguageDefinition`` shall have the following syntax:
-fixme: make optional
+The optional ``metadataLanguageDefinition`` shall have the following syntax:
 
 .. code-block:: modelica
 
@@ -1751,7 +1750,7 @@ The ``version`` represents the version of the
 format that the semantic information is expressed in. The format shall be expressed using
 `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_.
 
-The ``naturalLanguageDefinition`` shall have the following syntax:
+The optional ``naturalLanguageDefinition`` shall have the following syntax:
 
 .. code-block:: modelica
 
@@ -1843,13 +1842,6 @@ Example:
 
 ]
 
-Fixme: likely delete this paragraph.
-There shall be a ``metadataLanguageDefinition`` for each of the ``metadataLanguage``
-used and the ``metadataLanguageDefinition`` shall be defined in the class definition
-annotation. Similarly, there shall be a ``naturalLanguageDefinition`` for each of the
-``naturalLanguage`` used and the ``naturalLanguageDefinition`` shall be defined in the
-class definition annotation.
-
 If an instance declaration contains semantic information, it overrides the semantic information
 of its class definition.
 If an instance declaration does not contain semantic information, it inherits the semantic information
@@ -1870,10 +1862,10 @@ If there are other instances defined in the instance's class definition, their
 ``metadata`` shall also be used if it is in the same ``metadataLanguage`` or
 ``naturalLanguage`` unless explicitly overwritten.
 
-Additionally, if there already exists a semantic model for a particular class,
-it shall be referred to in the class definition annotation using the syntax
+Additionally, if there already exists a semantic model for a particular class 
+or for an instance,
+it shall be referred to in the annotation using the syntax
 defined below:
-fixme: handle instances also.
 
 .. code-block:: modelica
 
