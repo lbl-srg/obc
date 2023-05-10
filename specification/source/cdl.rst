@@ -1692,21 +1692,21 @@ Semantic Information
 ....................
 
 The buildings industry has started to integrate different metadata languages such as
-`Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their 
-control software and technology. `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_ 
+`Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their
+control software and technology. `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_
 is another upcoming metadata language that will describe the equipment topology in buildings and also
 the flow of different media. This section specifies the syntax to support these metadata
 languages and include the semantic information represented using these languages in a CDL class.
 
-Semantic information shall be included within the ``annotation`` keyword, using the ``__Buildings`` or 
+Semantic information shall be included within the ``annotation`` keyword, using the ``__Buildings`` or
 ``__cdl`` vendor annotation. ``__cdl`` shall be used when the semantic information is part of a control
-sequence and ``__Buildings`` shall be used for every other instance such as equipment or a zone. 
+sequence and ``__Buildings`` shall be used for every other instance such as equipment or a zone.
 The following instances can optionally have annotations containing semantic information:
 
 * Inputs,
 * Outputs,
 * Parameters,
-* Constants, 
+* Constants,
 * Connections,
 * Elementary blocks (:numref:`sec_ele_blo`),
 * Composite blocks (:numref:`sec_com_blo`),
@@ -1714,7 +1714,7 @@ The following instances can optionally have annotations containing semantic info
 * Packages.
 
 All semantic information shall be included under the ``semantic`` section within the ``__Buildings`` or
-``__cdl`` annotations, using the syntax shown here: 
+``__cdl`` annotations, using the syntax shown here:
 
 .. code-block:: modelica
 
@@ -1723,11 +1723,11 @@ All semantic information shall be included under the ``semantic`` section within
 
 where ``<semantic information>`` is a place holder for the semantic information.
 
-The ``semantic`` annotation declared in the class definition shall contain at 
-least one of the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition``. 
-The ``metadataLanguageDefinition`` defines the different metadata 
-languages that are used throughout the class. The ``naturalLanguageDefinition`` 
-defines the different natural languages that are used 
+The ``semantic`` annotation declared in the class definition shall contain at
+least one of the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition``.
+The ``metadataLanguageDefinition`` defines the different metadata
+languages that are used throughout the class. The ``naturalLanguageDefinition``
+defines the different natural languages that are used
 throughout the class. The language definitions can also contain additional
 information such as a short description of the langauge and or the URL to the
 webpage of the language.
@@ -1738,15 +1738,15 @@ The ``metadataLanguageDefinition`` shall have the following syntax:
 
    annotation (__cdl(semantic(metadataLanguageDefinition="<metadataLanguageName> <version> <format>" ["description or URL"])));
    annotation (__Buildings(semantic(metadataLanguageDefinition="<metadataLanguageName> <version> <format>" ["description or URL"])));
-   
+
 where ``<metadataLanguageName>`` shall be replaced with the name of the metadata language,
 ``<version>`` is the mandatory entry for the version,
 ``<format>`` is the  mandatory field for format of the language, such as ``text/turtle``, and
 ``["description or URL"]`` is an optional description of the language, such as
-the URL to the language. The ``version`` represents the version of the 
-``<metadataLanguageName>`` used  in a particular class. The ``format`` represents the 
-format that the semantic information is expressed in. The format shall be expressed using 
-`MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_. 
+the URL to the language. The ``version`` represents the version of the
+``<metadataLanguageName>`` used  in a particular class. The ``format`` represents the
+format that the semantic information is expressed in. The format shall be expressed using
+`MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_.
 
 The ``naturalLanguageDefinition`` shall have the following syntax:
 
@@ -1754,19 +1754,19 @@ The ``naturalLanguageDefinition`` shall have the following syntax:
 
    annotation (__cdl(semantic(naturalLanguageDefinition="<naturalLanguageName>" ["description or URL"])));
    annotation (__Buildings(semantic(naturalLanguageDefinition="<naturalLanguageName>" ["description or URL"])));
-   
+
 where ``<naturalLanguageName>`` shall be replaced with the indicator of the natural language,
-represented using the `ISO-639 <https://www.iso.org/iso-639-language-codes.html>`_ language 
+represented using the `ISO-639 <https://www.iso.org/iso-639-language-codes.html>`_ language
 codes and
-``["description or URL"]`` is an optional description of the language. All 
-``<naturalLanguageName>`` metadata will be in the format ``text/plain``. 
+``["description or URL"]`` is an optional description of the language. All
+``<naturalLanguageName>`` metadata will be in the format ``text/plain``.
 
 
 [Examples of the ``<metadataLanguageName>`` include web ontology languages (OWL) such as
-``Brick`` or  ``ASHRAE 223p``, and examples of ``<naturalLanguageName>`` 
+``Brick`` or  ``ASHRAE 223p``, and examples of ``<naturalLanguageName>``
 include ``en`` or ``es``. Below is an example of how to define multiple
 ``metadataLanguageDefinition`` and
-``naturalLanguageDefinition`` in a class definition annotation. 
+``naturalLanguageDefinition`` in a class definition annotation.
 
 Example:
 
@@ -1779,7 +1779,7 @@ Example:
   )));
   ]
 
-After defining the different languages using the 
+After defining the different languages using the
 ``metadataLanguageDefinition`` and the ``naturalLanguageDefinition``, the semantic
 information shall be included as a ``metadataLanguage``/``metadata`` or a
 ''naturalLanguage``/``metadata`` pair  within the ``semantic`` section in the
@@ -1789,36 +1789,36 @@ information shall be included as a ``metadataLanguage``/``metadata`` or a
 
   annotation (__cdl(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "<metadata>")));
   annotation (__Buildings(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "<metadata>")));
-  
+
   annotation (__cdl(semantic(naturalLanguage="<naturalLanguageName>" "<metadata>")));
   annotation (__Buildings(semantic(naturalLanguage="<naturalLanguageName>" "<metadata>")));
-  
+
 where ``<metadataLanguageName>`` shall be replaced with the name of the metadata
 language,
 ``<version>`` is an entry for the version of the ``metadataLanguage``,
-``<format>`` is the format of the ``metadataLanguage``, such as ``text/turtle``, 
-`<naturalLanguageName>`` shall be replaced with the ISO-639 indicator of the natural 
-language and 
-``<metadata>`` is the metadata for that instance as specified in 
+``<format>`` is the format of the ``metadataLanguage``, such as ``text/turtle``,
+`<naturalLanguageName>`` shall be replaced with the ISO-639 indicator of the natural
+language and
+``<metadata>`` is the metadata for that instance as specified in
 ``<metadataLanguageName>`` or ``<naturalLanguageName>`` language.
 
-.. note:: 
-   
+.. note::
+
    Depending on the ``metadataLanguage`` (``"<metadataLanguageName> <version> <format>"``),
-   the ``metadata`` can be represented in multiple formats. For example, ``text/turtle`` 
+   the ``metadata`` can be represented in multiple formats. For example, ``text/turtle``
    and ``application/ld+json`` are couple of formats to represent the ``metadata`` of web
    ontology languages such as Brick and ASHRAE 223p. Project-Haystack ``metadata``
-   can also be represented in multiple formats such as ``text/zinc``, 
+   can also be represented in multiple formats such as ``text/zinc``,
    ``text/turtle`` and ``application/ld+json``.
 
 Semantic information in the class definition annotations shall also be used to define class
-level information about the metadata languages. These include, but are not restricted to, 
-namespace definitions (namespaces in ontologies provide a means to unambiguously interpret 
+level information about the metadata languages. These include, but are not restricted to,
+namespace definitions (namespaces in ontologies provide a means to unambiguously interpret
 identifiers and make the rest of the ontology presentation more readable) and prefixes
-(prefixes are shortcut abbreviations and helps make the semantic information more 
+(prefixes are shortcut abbreviations and helps make the semantic information more
 readable).
 
-[In the example below, for the ``metadataLanguage`` ``"Brick 1.3 text/turtle"``, the class 
+[In the example below, for the ``metadataLanguage`` ``"Brick 1.3 text/turtle"``, the class
 definition annotation has been  used to define the namespace prefixes and for
 ``"Project-Haystack 3.9.12 application/ld+json"``, it has been used to define namespaces,
 prefixes and contexts.
@@ -1841,7 +1841,7 @@ Example:
 
 There shall be a ``metadataLanguageDefinition`` for each of the ``metadataLanguage``
 used and the ``metadataLanguageDefinition`` shall be defined in the class definition
-annotation. Similarly, there shall be a ``naturalLanguageDefinition`` for each of the 
+annotation. Similarly, there shall be a ``naturalLanguageDefinition`` for each of the
 ``naturalLanguage`` used and the ``naturalLanguageDefinition`` shall be defined in the
 class definition annotation.
 
@@ -1851,28 +1851,28 @@ the lower-level declarations. Hence, if the annotation of an instance in a class
 contains any semantic information in a ``metadataLanguage`` or ``naturalLanguage``,
 it shall overwrite the information present in the class definition of that instance in
 that ``metadataLanguage`` or ``naturalLanguage``.  However, if that instance does not
-contain any semantic information in the annotation of the instance declaration, the 
-semantic information in the instance's class definition annotation shall be used. 
-If there are other instances defined in the instance's class definition, their 
+contain any semantic information in the annotation of the instance declaration, the
+semantic information in the instance's class definition annotation shall be used.
+If there are other instances defined in the instance's class definition, their
 ``metadata`` shall also be used if it is in the same ``metadataLanguage`` or
 ``naturalLanguage`` unless explicitly overwritten.
 
 Additionally, if there already exists a semantic model for a particular class,
-it shall be referred to in the class definition annotation using the syntax 
+it shall be referred to in the class definition annotation using the syntax
 defined below:
 
 .. code-block:: modelica
 
   annotation (__cdl(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "url=<path>")));
   annotation (__Buildings(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "url=<path>")));
-  
+
   annotation (__cdl(semantic(naturalLanguage="<naturalLanguageName>" "url=<path>")));
   annotation (__Buildings(semantic(naturalLanguage="<naturalLanguageName>" "url=<path>")));
 
 where ``<path>`` shall be either a URL for a model that is on the
-network or a model that is present on the file system. If the ``url=`` is 
+network or a model that is present on the file system. If the ``url=`` is
 included in the ``metadata``, the semantic model will be exported from
-``<path>``. If ``url=`` is not included in the  ``metadata``, 
+``<path>``. If ``url=`` is not included in the  ``metadata``,
 ``<path>`` shall be the the ``metadata``.
 
 If the metadata model is present on the file system
@@ -1882,15 +1882,15 @@ as separate file, the following syntax shall be followed:
 
   annotation (__cdl(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "url=file:///<path/to/file>")));
   annotation (__Buildings(semantic(metadataLanguage="<metadataLanguageName> <version> <format>" "url=file:///<path/to/file>")));
-  
+
   annotation (__cdl(semantic(naturalLanguage="<naturalLanguageName>" "url=file:///<path/to/file>")));
   annotation (__Buildings(semantic(naturalLanguage="<naturalLanguageName>" "url=file:///<path/to/file>")));
 
 [Below are examples of how to refer to an existing "Brick 1.3 text/turtle"
 semantic model existing on the file system at "/home/user/soda_hall/soda_brick.ttl"
-and a "Project-Haystack 3.9.12 application/ld+json" semantic model 
-on the network at the URL 
-"https://project-haystack.org/example/download/alpha.jsonld". 
+and a "Project-Haystack 3.9.12 application/ld+json" semantic model
+on the network at the URL
+"https://project-haystack.org/example/download/alpha.jsonld".
 
 Example:
 
@@ -1899,7 +1899,7 @@ Example:
   annotation (__cdl(
     semantic(
       metadataLanguage="Brick 1.3 text/turtle" "url=file:///home/user/soda_hall/soda_brick.ttl"")));
-      
+
   annotation (__cdl(
     semantic(
       metadataLanguage="Project-Haystack 3.9.12 application/ld+json" "url=https://project-haystack.org/example/download/alpha.jsonld")));
@@ -1907,23 +1907,23 @@ Example:
 ]
 
 The text ``<cdl_instance_name>`` within the ``metadata`` shall be used for
-referring to the current instance (the instance that contains the semantic 
+referring to the current instance (the instance that contains the semantic
 annotation), if the instance has the same name in semantic model as in CDL.
 This avoids the user having to repeat the name of the instance and
 makes it less prone to errors and inconsistencies.
 
 [An example of CDL semantic information for an instance in a class with
 multiple ``metadataLanguage``/``metadata`` pair is shown below. The
-``metadataLanguage``: ``"Brick 1.3 text/turtle"``, 
+``metadataLanguage``: ``"Brick 1.3 text/turtle"``,
 ``"Project-Haystack 3.9.12 application/ld+json"`` and
 ``"en"`` have been defined in the class definition annotation,
 and they have been used to include semantic information within the class.
-We can see that ``<cdl_instance_name>`` has been used in the 
+We can see that ``<cdl_instance_name>`` has been used in the
 ``metadata`` and Brick metadata will be inferred as
 ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .``
 and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``.
 
-Example: 
+Example:
 
 .. code-block:: modelica
 
@@ -1952,13 +1952,13 @@ Example:
 
 ]
 
-The semantic information of an instance shall be able to refer to the semantic 
-information of other instances declared in the class (or in inherited classes). 
-If the instance does not exist, the semantic model is invalid. 
+The semantic information of an instance shall be able to refer to the semantic
+information of other instances declared in the class (or in inherited classes).
+If the instance does not exist, the semantic model is invalid.
 
 [In the below example, the semantic information of heating coil ``heaCoi`` is
-referring to the semantic information of the hot water supply temperature sensor 
-``THeaCoiSup_in``.  
+referring to the semantic information of the hot water supply temperature sensor
+``THeaCoiSup_in``.
 
 .. code-block:: modelica
 
@@ -1969,7 +1969,7 @@ referring to the semantic information of the hot water supply temperature sensor
                    metadataLanguage="Brick 1.3 text/turtle"
                      "bldg:<cdl_instance_name> a Brick:Hot_Water_Supply_Temperature_Sensor ."
                   )));
-                  
+
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
     show_T=true,
     dp1_nominal=3000,
@@ -1978,25 +1978,26 @@ referring to the semantic information of the hot water supply temperature sensor
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})),
                 __Buildings(semantic(
                    metadataLanguage="Brick 1.3 text/turtle"
-                     "bldg:<cdl_instance_name> a Brick:Heating_Coil ; 
+                     "bldg:<cdl_instance_name> a Brick:Heating_Coil ;
                                  brick:hasPoint bldg:THeaCoiSup_in ."
                   )));
+
 ]
 
-The following part of the specification is only relevant to semantic information that uses 
-the ``__Buildings`` annotation. If a class inherits one or more classes, all the semantic 
+The following part of the specification is only relevant to semantic information that uses
+the ``__Buildings`` annotation. If a class inherits one or more classes, all the semantic
 information in the classes being inherited,
-including the ``metadataLanguageDefinition`` and ``naturalLanguageDefinition`` 
+including the ``metadataLanguageDefinition`` and ``naturalLanguageDefinition``
 for the different ``metadataLanguage`` and ``naturalLanguage`` shall be  inherited.
-However, if the classes being inherited and the class inheriting it contains different 
+However, if the classes being inherited and the class inheriting it contains different
 ``metadataLanguageDefinition`` or ``naturalLanguageDefinition`` due to differences in
-any of ``<metadataLanguageName>`` or ``<version>`` or ``<format>`` or 
+any of ``<metadataLanguageName>`` or ``<version>`` or ``<format>`` or
 ``<naturalLanguageName>`` or the optional ``[description or URL]`` parts of the
-syntax, they shall be treated as different languages. 
-If an inherited ``replaceable`` instance has been replaced using the ``redeclare`` 
+syntax, they shall be treated as different languages.
+If an inherited ``replaceable`` instance has been replaced using the ``redeclare``
 keyword, the semantic information of the instance that replaced the original instance
 shall be used, and the semantic information of the replaced class shall
-be ignored. If there is no semantic information in the redeclared instance annotation, 
+be ignored. If there is no semantic information in the redeclared instance annotation,
 any semantic information of the constraining clause (using the ``constrainedby``
 Modelica keyword) of the original ``replaceable`` instance shall be used. Any
 annotations containing semantic information in the original ``replaceable`` instance
