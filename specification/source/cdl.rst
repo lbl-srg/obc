@@ -1899,7 +1899,7 @@ Example:
 
   annotation (__cdl(
     semantic(
-      metadataLanguage="Brick 1.3 text/turtle" "url=file:///home/user/soda_hall/soda_brick.ttl"")));
+      metadataLanguage="Brick 1.3 text/turtle" "url=file:///home/user/soda_hall/soda_brick.ttl")));
 
   annotation (__cdl(
     semantic(
@@ -1907,9 +1907,10 @@ Example:
 
 ]
 
-The text ``<cdl_instance_name>`` within the ``metadata`` shall be used for
+The text ``<cdl_instance_name>`` (including the `<` and `>` characters) within 
+the ``metadata`` shall be used for
 referring to the current instance (the instance that contains the semantic
-annotation), if the instance has the same name in semantic model as in CDL.
+annotation), if the instance has the same name in semantic model.
 This avoids the user having to repeat the name of the instance and
 makes it less prone to errors and inconsistencies.
 
