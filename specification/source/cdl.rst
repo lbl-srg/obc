@@ -308,13 +308,13 @@ The following is the predefined ``Real`` type:
      parameter StringType displayUnit = "" "Default display unit";
      parameter RealType min=-Inf, max=+Inf; // Inf denotes a large value
      //-- parameter RealType start    = 0; // Initial value
-     //-- parameter BooleanType fixed = true,  // default for parameter/constant;
-     //--                             = false; // default for other variables
-     parameter RealType nominal;            // Nominal value
-     //-- parameter BooleanType unbounded=false; // For error control
+     //-- parameter BooleanType fixed = true,   // default for parameter/constant;
+     //--                             = false;  // default for other variables
+     parameter RealType nominal = 1;            // Nominal value
+     parameter BooleanType unbounded = false;   // For error control
      //-- parameter StateSelect stateSelect = StateSelect.default;
-   //-- equation
-   //--   assert(value >= min and value <= max, "Variable value out of limit");
+     //-- equation
+     //--   assert(value >= min and value <= max, "Variable value out of limit");
    end Real;
 
 ``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
@@ -1720,12 +1720,12 @@ All semantic information shall be included under the ``semantic`` section within
 
 where ``<semantic information>`` is a place holder for the semantic information.
 
-The ``semantic`` annotation declared in the class definition should contain 
-the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition`` for each of 
-the languages used. 
-The ``metadataLanguageDefinition`` and ``naturalLanguageDefinition`` 
+The ``semantic`` annotation declared in the class definition should contain
+the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition`` for each of
+the languages used.
+The ``metadataLanguageDefinition`` and ``naturalLanguageDefinition``
 are used to provide additional information about the different metadata
-languages and natural languages that are used throughout the class. The 
+languages and natural languages that are used throughout the class. The
 language definitions should contain information such as a short description
 of the language or the URL to the webpage of the language.
 
@@ -1854,10 +1854,10 @@ Example:
 
      CDL.Continuous.MultiplyByParameter(k = 100000 annotation(__cdl(semantic(...))))
        "My gain";
-       
+
 ]
 
-Additionally, if there already exists a semantic model for a particular class 
+Additionally, if there already exists a semantic model for a particular class
 or for an instance,
 it shall be referred to in the annotation using the syntax
 defined below:
@@ -1907,7 +1907,7 @@ Example:
 
 ]
 
-The text ``<cdl_instance_name>`` (including the `<` and `>` characters) within 
+The text ``<cdl_instance_name>`` (including the `<` and `>` characters) within
 the ``metadata`` shall be used for
 referring to the current instance (the instance that contains the semantic
 annotation), if the instance has the same name in semantic model.
