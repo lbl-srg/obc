@@ -1846,19 +1846,16 @@ If an instance declaration does not contain semantic information, it inherits th
 of its class definition.
 Parameter (or constant) bindings can also have semantic information, and they override the semantic
 information of the parameter (or constant) whose value is assigned.
+
 [
-  Example:
+Example:
 
   .. code-block:: modelica
 
      CDL.Continuous.MultiplyByParameter(k = 100000 annotation(__cdl(semantic(...))))
        "My gain";
+       
 ]
-
-fixme: check if this is needed.
-If there are other instances defined in the instance's class definition, their
-``metadata`` shall also be used if it is in the same ``metadataLanguage`` or
-``naturalLanguage`` unless explicitly overwritten.
 
 Additionally, if there already exists a semantic model for a particular class 
 or for an instance,
