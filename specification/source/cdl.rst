@@ -248,7 +248,7 @@ Syntax
 
 In order to use CDL with building energy simulation programs,
 and to not invent yet another language with new syntax,
-the CDL syntax conforms to a subset of the Modelica 3.5 specification :cite:`ModelicaSpecification2021`.
+the CDL syntax conforms to a subset of the Modelica 3.6 specification :cite:`ModelicaSpecification2021`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no construct that
@@ -531,7 +531,7 @@ The size of arrays will be fixed at translation. It cannot be changed during run
 
 [``enumeration`` or ``Boolean`` data types are not permitted as array indices.]
 
-See the Modelica 3.5 specification Chapter 10 for array notation and these
+See the Modelica 3.6 specification Chapter 10 for array notation and these
 functions.
 
 
@@ -677,7 +677,7 @@ inputs, and outputs.
 .. _tab_par_fun:
 
 .. table:: Functions that are allowed in parameter assignments. The functions
-           are consistent with Modelica 3.5.
+           are consistent with Modelica 3.6.
    :widths: 15 80
 
    ========================  ===========================================================
@@ -1089,7 +1089,7 @@ has an input ``u``, the declaration
      __cdl(propagate(instance="subCon1.u", connection(hardwired=Boolean)));
 
 can be used to set the type of connection of input (or output) ``con1.subCon1.u``.
-The value of ``instance==`` must be a connector.
+The value assigned to ``instance`` must be the instance name of a connector.
 
 Similarly, the declaration
 
@@ -1111,7 +1111,7 @@ These statements can also be combined into
 
 As in :numref:`sec_ann_cau_poi_lis`,
 
-- the instance in ``instance=`` must exist, (but it can be conditionally removed in which case the annotation can be ignored),
+- the value assigned to ``instance`` must be the name of an instance that exist, (but it can be conditionally removed in which case the annotation can be ignored),
 - higher-level declarations override lower-level declarations, and
 - any number of ``propagate(...)`` annotations can be present.
 
@@ -1243,7 +1243,7 @@ of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interv
 
 It specifies that a point list should be generated for the sequence that controls the
 system or equipment specified by ``controlledDevice``, that ``uWin`` is a
-digital input point that is hardwired,  and that ``yVal`` is a analog output point that
+digital input point that is hardwired,  and that ``yVal`` is an analog output point that
 is not hardwired. Both of them can be trended with a time interval of 1 minute.
 The point list table will look as shown in :numref:`tab_sample_point_list`.
 
@@ -1421,7 +1421,7 @@ Attributes of the variables that are connected are handled as follows:
 
 Signals shall be connected using a ``connect`` statement;
 assigning the value of a signal in the instantiation of the
-output connnector is not allowed.
+output connector is not allowed.
 
 [This ensures that all control sequences are expressed as block diagrams.
 For example, the following model is valid
@@ -1443,7 +1443,7 @@ Annotations
 ^^^^^^^^^^^
 
 Annotations follow the same rules as described in the following
-Modelica 3.5 Specifications
+Modelica 3.6 Specifications
 
 * 18.2 Annotations for Documentation
 * 18.6 Annotations for Graphical Objects, with the exception of
@@ -1454,7 +1454,7 @@ Modelica 3.5 Specifications
 
 [For CDL, annotations are primarily used to graphically visualize block layouts, graphically visualize
 input and output signal connections, and to declare
-vendor annotations, (Sec. 18.1 in Modelica 3.5 Specification), such as to specify default
+vendor annotations, (Sec. 18.1 in Modelica 3.6 Specification), such as to specify default
 value of connector as below.]
 
 CDL also uses annotations to declare default values for conditionally removable input
@@ -1609,7 +1609,7 @@ Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,
-which are defined below. [The definition is adopted from and consistent with the Modelica 3.5 Specification, Section 8.4.]
+which are defined below. [The definition is adopted from and consistent with the Modelica 3.6 Specification, Section 8.4.]
 
 #. All variables keep their actual values until these values
    are explicitly changed. Variable values can be accessed at any time instant.
