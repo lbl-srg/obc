@@ -66,7 +66,7 @@ copy_cdl_to_www:
 		--exclude ".DS_Store" \
 		--exclude "*~" \
 	    cdl \
-	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
+	    mwetter@gundog.lbl.gov:/usr/local/www/obc/specification/ \
 	)
 
 copy_case_study1_results:
@@ -110,12 +110,12 @@ copytowww:
 		--exclude ".DS_Store" \
 		--exclude "*~" \
 	    html/* \
-	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/specification/ \
+	    mwetter@gundog.lbl.gov:/usr/local/www/obc/specification/ \
 	)
 	(cd build && \
 	rsync --checksum --verbose \
 	    latex/obc_report.pdf \
-	    mwetter@simulationresearch.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
+	    mwetter@gundog.lbl.gov:/usr/local/www/obc/download/obc_report.pdf \
 	)
 
 
