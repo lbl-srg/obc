@@ -46,8 +46,8 @@ a `CDL Parser` which parses the CDL language.
 This parser is currently in development at https://github.com/lbl-srg/modelica-json. [#parser]_
 The CDL parser reads a `CDL-compliant Control Sequence`,
 which may be provided by the user or taken from
-https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_ASHRAE.html
-and the `CDL Library`, see https://simulationresearch.lbl.gov/modelica/releases/v5.0.1/help/Buildings_Controls_OBC_CDL.html
+https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_ASHRAE.html
+and the `CDL Library`, see https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL.html
 All these components will be made available through OpenStudio.
 This allows using the OpenStudio model authoring
 and simulation capability that is being developed
