@@ -349,7 +349,7 @@ We configured the CDL PID controller parameters such that they correspond to the
 ALC PI controller. The ALC PID controller implementation is described
 in the ALC EIKON software help section, while the CDL PID
 controller is described in the info section of the model
-`Buildings.Controls.OBC.CDL.Continuous.LimPID <https://simulationresearch.lbl.gov/modelica/releases/v7.0.2/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.LimPID>`_.
+`Buildings.Controls.OBC.CDL.Reals.LimPID <https://simulationresearch.lbl.gov/modelica/releases/v7.0.2/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.LimPID>`_.
 The ALC controller tracks the temperature in
 degree Fahrenheit, while CDL uses SI units.
 An additional implementation difference is that for cooling applications, the ALC
@@ -515,7 +515,7 @@ iii. Optionally, a boolean variable in the model that we call an indicator varia
      must not be tested at that time instant.
 
 For example, consider the validation test
-`OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v6.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
+`OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
 and suppose we want to verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``.
 To do so, we first write a specification
 as shown in :numref:`sec_ver_spe_tes_set`.
@@ -527,7 +527,7 @@ as shown in :numref:`sec_ver_spe_tes_set`.
    {
      "references": [
        {
-         "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "model": "Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "generateJson": false,
          "sequence": "setPoiVAV",
          "pointNameMapping": "realControllerPointMapping.json",
@@ -535,7 +535,7 @@ as shown in :numref:`sec_ver_spe_tes_set`.
          "controllerOutput": "test/real_outputs.csv"
        },
        {
-         "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
+         "model": "Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u",
          "generateJson": true,
          "sequence": "setPoiVAV1",
          "pointNameMapping": "realControllerPointMapping.json",
@@ -652,7 +652,7 @@ For example, the input ``uOccSen`` is a CDL point that is 1 if there is occupanc
 
 To create test input and output time series, we generate CSV files. This needs to be done for each
 controller (or control sequence) under test, and we will explain it only for the controller ``setPoiVAV``.
-For brevity, we call ``OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
+For brevity, we call ``OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u``
 simply ``Supply_u``.
 
 Once we have the configuration and the ``pointNameMapping`` file set up, the sequence verification
@@ -666,7 +666,7 @@ following steps:
 
    .. code-block::
 
-      node app.js -f Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_u.mo -o json -d test
+      node app.js -f Buildings/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Validation/Supply_u.mo -o json -d test
 
    This will produce ``Supply_u.json`` (file name is abbreviated) in the output directory
    ``test``.
@@ -736,7 +736,7 @@ sequences specified in CDL for already trended data.
 For this scenario, we are given the following data:
 
 i.   The CDL class name of the control sequence to be tested, in our example
-     ``Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply``.
+     ``Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply``.
 
 ii.  Relative and absolute tolerances, either for all output variables, or optionally for
      individual output variables of the sequence.
@@ -752,7 +752,7 @@ However, a time series for an indicator function can be provided, see step 4 bel
    :caption: Specification of test setup.
 
    references : [
-     { "model": "Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply" },
+     { "model": "Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply" },
        "tolerances": {"atoly": 0.5, "variable": "TSup*" },
      }
    ],
@@ -769,7 +769,7 @@ The procedure is as follows:
 
    .. code-block::
 
-      node app.js -f Buildings/Controls/OBC/ASHRAE/G36_PR1/AHUs/SingleZone/VAV/SetPoints/Supply.mo -o json -d test1
+      node app.js -f Buildings/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Supply.mo -o json -d test1
 
 2. Generate the list of input and output variable declarations ``reference_io.json`` and the parameter list ``reference_parameters.json``
    as in Step 2 in :numref:`sec_ver_sce1`.
@@ -845,7 +845,7 @@ The procedure is as follows:
       import os
       from OMPython import OMCSessionZMQ
 
-      model="Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Supply"
+      model="Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Supply"
       parameters="(TSupSetMax=303.15, TSupSetMin=289.15, yHeaMax=0.7, yMin=0.3, yCooMax=1)"
       omc = OMCSessionZMQ()
       omc.sendExpression("loadModel(Buildings)")

@@ -3,7 +3,7 @@ block Controller "Controller with time sampling"
   parameter Real samplePeriod(quantity="Time", unit="s")=120
     "Sample period of component";
   ...
-  OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyFan
+  OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyFan
     supFan(final samplePeriod=samplePeriod) "Supply fan controller";
   ...
 equation

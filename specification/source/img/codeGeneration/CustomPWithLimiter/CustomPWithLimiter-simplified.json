@@ -34,7 +34,7 @@
           "comment": "Control signal"
         },
         {
-          "className": "CDL.Continuous.MultiplyByParameter",
+          "className": "CDL.Reals.MultiplyByParameter",
           "name": "gain",
           "comment": "Constant gain",
           "modifications": [
@@ -46,7 +46,7 @@
           ]
         },
         {
-          "className": "CDL.Continuous.Min",
+          "className": "CDL.Reals.Min",
           "name": "minValue",
           "comment": "Outputs the minimum of its inputs"
         }

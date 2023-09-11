@@ -7,9 +7,9 @@ block CustomPWithLimiter
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   CDL.Interfaces.RealOutput y "Control signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  CDL.Continuous.MultiplyByParameter gain(final k=k) "Constant gain"
+  CDL.Reals.MultiplyByParameter gain(final k=k) "Constant gain"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  CDL.Continuous.Min minValue "Outputs the minimum of its inputs"
+  CDL.Reals.Min minValue "Outputs the minimum of its inputs"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(yMax, minValue.u1) annotation (

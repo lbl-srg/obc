@@ -183,11 +183,11 @@ The CDL language consists of the following elements:
                                  .. code-block:: modelica
 
                                     block myBlock
-                                    CDL.Continuous.Sources.Constant c(k=1);
+                                    CDL.Reals.Sources.Constant c(k=1);
                                     end myBlock;
 
                                  is a block *definition* for `myBlock`, and the second line declares
-                                 an *instance* of the block `CDL.Continuous.Sources.Constant`.
+                                 an *instance* of the block `CDL.Reals.Sources.Constant`.
     block                        A block is an object that has any number of
                                  constants, parameters, input connectors,
                                  output connectors and instances of other blocks.
@@ -626,7 +626,7 @@ used for graphical rendering:
 
 For the complete implementation, see
 the
-`github repository <https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/Controls/OBC/CDL/Continuous/AddParameter.mo>`_.
+`github repository <https://github.com/lbl-srg/modelica-buildings/blob/master/Buildings/Controls/OBC/CDL/Reals/AddParameter.mo>`_.
 
 .. _sec_instantiation:
 
@@ -657,7 +657,7 @@ For ``Real`` and ``Integer``, expressions are allowed that involve
 
 .. code-block:: modelica
 
-   CDL.Continuous.MultiplyByParameter gai(k=-1) "Constant gain of -1" annotation(...);
+   CDL.Reals.MultiplyByParameter gai(k=-1) "Constant gain of -1" annotation(...);
 
 where the documentation string is optional.
 The annotation is typically used
@@ -793,20 +793,20 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    Example 1: If a controller has two samplers called ``sam1`` and ``sam2`` and their parameter
    ``samplePeriod`` must satisfy ``sam1.samplePeriod = sam2.samplePeriod`` for the logic to work correctly,
    then the controller can be implemented using
-   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
+   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
    and connect its output to two instances of
-   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
+   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
    that sample the corresponding signals.
 
    Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
    rather than using two instances of
-   `CDL.Continuous.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter>`_
+   `CDL.Reals.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter>`_
    with parameter ``k = 1/k1``, one could use
    a constant source
-   `CDL.Continuous.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous_Sources.html#Buildings.Controls.OBC.CDL.Continuous.Sources.Constant>`_
+   `CDL.Reals.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals_Sources.html#Buildings.Controls.OBC.CDL.Reals.Sources.Constant>`_
    with parameter ``k=k1`` and
    two instances of
-   `CDL.Continuous.Divide <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.Divide>`_,
+   `CDL.Reals.Divide <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.Divide>`_,
    and then connect
    the output of the constant source with the inputs of the division blocks.
 
@@ -824,7 +824,7 @@ Consider the statement
 
    parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Reals.Sources.Constant con(
      k = pRel) "Block producing constant output";
    CDL.Logical.Hysteresis hys(
      uLow  = pRel-25,
@@ -840,7 +840,7 @@ leading to a CDL-JSON declaration that is equivalent to the declaration
 
 .. code-block:: modelica
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Reals.Sources.Constant con(
      k(unit="Pa") = 50) "Block producing constant output";
    CDL.Logical.Hysteresis hys(
      uLow  = 50-25,
@@ -860,7 +860,7 @@ leading to a CDL-JSON declaration that is equivalent to the CDL declaration
 
    parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Reals.Sources.Constant con(
      k = pRel) "Block producing constant output";
    CDL.Logical.Hysteresis hys(
      uLow  = 25,
@@ -871,7 +871,7 @@ equivalent of the declaration
 
 .. code-block:: modelica
 
-   CDL.Continuous.Sources.Constant con(
+   CDL.Reals.Sources.Constant con(
      k(unit="Pa") = 50) "Block producing constant output";
    CDL.Logical.Hysteresis hys(
      uLow  = 25,
@@ -889,7 +889,7 @@ accomodate the capabilities that are present in most of today's building control
    .. code-block:: modelica
 
       parameter Real pRel(unit="Pa") = 50 "Pressure difference across damper";
-      CDL.Continuous.Sources.Constant con(k = pRel) "Block producing constant output";
+      CDL.Reals.Sources.Constant con(k = pRel) "Block producing constant output";
 
    Note that the English language sequence description would typically refer to the parameter ``pRel``.
    If this is evaluated during translation due to the ``evaluatePropagatedParameters`` flag,
@@ -899,7 +899,7 @@ accomodate the capabilities that are present in most of today's building control
 
    .. code-block:: modelica
 
-      CDL.Continuous.Sources.Constant pRel(k = 50) "Block producing constant output";
+      CDL.Reals.Sources.Constant pRel(k = 50) "Block producing constant output";
 
    In this way, references in the English language sequence to ``pRel`` are still valid.
 
@@ -925,7 +925,7 @@ An example code snippet is
      "Number of occupants"
        annotation (__cdl(default = 0));
 
-   CDL.Continuous.MultiplyByParameter gai(
+   CDL.Reals.MultiplyByParameter gai(
      k = VOutPerPer_flow) if have_occSen
        "Outdoor air per person";
    equation
@@ -1229,8 +1229,8 @@ of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interv
 
 .. code-block:: modelica
 
-   within Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits
-   block Controller "Controller for room VAV box"
+   within Buildings.Controls.OBC.ASHRAE.G36G36.TerminalUnits.Reheat
+   block Controller "Controller for room VAV box with reheat"
       ...;
       CDL.Interfaces.BooleanInput uWin "Windows status"
          annotation (__cdl(connection(hardwired=true),
@@ -1308,8 +1308,8 @@ For arrays, the connectors need to be explicitly declared as an array.
    .. code-block:: modelica
 
       parameter Integer n = 2 "Number of blocks";
-      CDL.Continuous.Sources.Constant con[n](k={1, 2});
-      CDL.Continuous.MultiSum mulSum(nin=n); // multiSum that contains an input connector u[nin]
+      CDL.Reals.Sources.Constant con[n](k={1, 2});
+      CDL.Reals.MultiSum mulSum(nin=n); // multiSum that contains an input connector u[nin]
       equation
       connect(con.y, mulSum.u);
 
@@ -1317,14 +1317,14 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    .. code-block:: modelica
 
-      CDL.Continuous.Sources.Constant con_1(k=1);
-      CDL.Continuous.Sources.Constant con_2(k=1);
-      CDL.Continuous.MultiSum mulSum(nin=2);
+      CDL.Reals.Sources.Constant con_1(k=1);
+      CDL.Reals.Sources.Constant con_2(k=1);
+      CDL.Reals.MultiSum mulSum(nin=2);
       equation
       connect(con_1.y, mulSum.u_1);
       connect(con_2.y, mulSum.u_2);
 
-   E.g., two instances of ``CDL.Continuous.Sources.Constant`` are used, the vectorized input ``mulSum.u[2]`` is flattened
+   E.g., two instances of ``CDL.Reals.Sources.Constant`` are used, the vectorized input ``mulSum.u[2]`` is flattened
    to two inputs, and two separate connections are instantiated.
    This will preserve the control logic, but the components will need to be graphically rearranged after translation.
 
@@ -1378,8 +1378,8 @@ The order of the connections and the order of the arguments in the
 
 .. code-block:: modelica
 
-   Continuous.Max maxValue "Output maximum value";
-   Continous.Gain gain(k=60) "Gain";
+   CDL.Reals.Max maxValue "Output maximum value";
+   CDL.Reals.MultiplyByParameter gain(k=60) "Gain";
 
    equation
      connect(gain.u, maxValue.y);
@@ -1406,10 +1406,10 @@ Attributes of the variables that are connected are handled as follows:
 
 .. code-block:: modelica
 
-   Continuous.Max maxValue(y(unit="m/s")) "Output maximum value";
-   Continous.Gain gain(                     k=60) "Gain";
-   Continous.Gain gainOK(   u(unit="m/s" ), k=60) "Gain";
-   Continous.Gain gainWrong(u(unit="kg/s"), k=60) "Gain";
+   Reals.Max maxValue(y(unit="m/s")) "Output maximum value";
+   Reals.MultiplyByParameter gain(                     k=60) "Gain";
+   Reals.MultiplyByParameter gainOK(   u(unit="m/s" ), k=60) "Gain";
+   Reals.MultiplyByParameter gainWrong(u(unit="kg/s"), k=60) "Gain";
 
    equation
      connect(gain.u,      maxValue.y); // This sets gain.u(unit="m/s")
@@ -1580,10 +1580,10 @@ Thus, extension blocks can contain any declarations that are allowed in a Modeli
           - implement state machines.
 
           For example, the demand response client
-          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
+          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
           would be an extension block if it were to contain the annotation ``__cdl(extensionBlock=true)``,
           as would the Kalman filter that is used in the Example
-          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v9.0.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
+          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
 
 Translation of an extension block to json must reproduce the following:
 
@@ -1597,10 +1597,10 @@ Translation of an extension block to json must reproduce the following:
            .. code-block:: bash
 
             echo "loadFile(\"Buildings/package.mo\");" > translate.mos
-            echo "translateModelFMU(Buildings.Controls.OBC.CDL.Continuous.PID);" >> translate.mos
+            echo "translateModelFMU(Buildings.Controls.OBC.CDL.Reals.PID);" >> translate.mos
             omc translate.mos
 
-          This will generate the fmu ``Buildings.Controls.OBC.CDL.Continuous.PID.fmu``.
+          This will generate the fmu ``Buildings.Controls.OBC.CDL.Reals.PID.fmu``.
 
 
 
@@ -1852,7 +1852,7 @@ Example:
 
   .. code-block:: modelica
 
-     CDL.Continuous.MultiplyByParameter(k = 100000 annotation(__cdl(semantic(...))))
+     CDL.Reals.MultiplyByParameter(k = 100000 annotation(__cdl(semantic(...))))
        "My gain";
 
 ]

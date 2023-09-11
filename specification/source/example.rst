@@ -240,7 +240,7 @@ with their minimum and maximum values denoted by ``Min`` and ``Max``.
 .. figure:: img/case_study1/SystemRequests.*
 
    Composite block that implements the sequence for the VAV terminal units that output the system requests.
-   (`Browsable version <https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_PR1_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)
+   (`Browsable version <https://simulationresearch.lbl.gov/modelica/releases/v5.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_TerminalUnits_Reheat.html#Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.SystemRequests>`_.)
 
 
 .. _fig_dam_val_reh:
@@ -651,8 +651,8 @@ are also available at https://simulationresearch.lbl.gov/modelica/userGuide/best
   The large pressure drop also lead to large power consumption and hence unrealistic
   temperature increase across the fan.
 
-* *Fan with prescribed presssure head:* We also tried to use a fan with prescribed pressure head.
-  Similarly as above, the fan maintains the presssure head as obtained from its
+* *Fan with prescribed pressure head:* We also tried to use a fan with prescribed pressure head.
+  Similarly as above, the fan maintains the pressure head as obtained from its
   control signal, regardless of the volume flow rate.
   This caused unrealistic large flow rates in the return duct
   which has very small pressure drops. (Subsequently, we removed the return fan
@@ -708,10 +708,10 @@ implementations of the sequences published in Guideline 36.
 Such implementations would encapsulate the complexity and provide
 assurances that energy modeler and control providers have correct implementations.
 With the implementation in
-the Modelica package `Buildings.Controls.OBC.ASHRAE.G36_PR1`, we made a start
-on such an implementation and laid out the structure and conventions,
-but have not yet covered all of Guideline 36.
-Furthermore, conducting field validations would be useful too.
+the Modelica package 
+`Buildings.Controls.OBC.ASHRAE.G36 <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_ASHRAE_G36.html#Buildings.Controls.OBC.ASHRAE.G36>`_,
+we made
+such an implementation and laid out the structure and conventions.
 
 A key short-coming from an implementer point of view was that the
 sequence was only available in English language, and as an implementation

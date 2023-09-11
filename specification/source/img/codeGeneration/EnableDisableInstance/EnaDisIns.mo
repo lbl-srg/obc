@@ -5,10 +5,10 @@ block EnaDisIns "Model with conditional removable instances"
     "Conditional removable real-valued input"
     annotation (__cdl(default = 1.5));
   CDL.Interfaces.RealOutput y "Real-valued output";
-  CDL.Continuous.ConditionalMax conMax(
+  CDL.Reals.ConditionalMax conMax(
     final u2_present=u2_present) "Conditional maximum";
-  CDL.Continuous.Sqrt fixIns "Square root of the input";
-  CDL.Continuous.Log conIns
+  CDL.Reals.Sqrt fixIns "Square root of the input";
+  CDL.Reals.Log conIns
     if u2_present "Conditionally removable instance";
 equation
   connect(conMax.y, y);

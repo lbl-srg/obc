@@ -74,13 +74,13 @@ because they become legal documents.
 How to generate the sequence description that can be inserted into these construction
 documents is described using a small example.
 Consider the model
-`Buildings.ThermalZones.EnergyPlus.Examples.SingleFamilyHouse.RadiantHeatingCooling <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/ThermalZones/EnergyPlus/Examples/SingleFamilyHouse/RadiantHeatingCooling.mo>`_.
+`Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface <https://github.com/lbl-srg/modelica-buildings/blob/v10.0.0/Buildings/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingCooling_TSurface.mo>`_.
 This model has two sequences,
 one for the radiant heating and one for the radiant cooling. These two sequences
 are described in
-`Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.mo#L238>`_
+`Buildings.Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom <https://github.com/lbl-srg/modelica-buildings/blob/v10.0.0/Buildings/Controls/OBC/RadiantSystems/Heating/HighMassSupplyTemperature_TRoom.mo>`_
 and in
-`Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum <https://github.com/lbl-srg/modelica-buildings/blob/v8.1.0/Buildings/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.mo#L273>`_
+`Buildings.Controls.OBC.RadiantSystems.Cooling.HighMassSupplyTemperature_TRoomRelHum <https://github.com/lbl-srg/modelica-buildings/blob/v10.0.0/Buildings/Controls/OBC/RadiantSystems/Cooling/HighMassSupplyTemperature_TRoomRelHum.mo>`_
 using html format.
 
 To export sequences from these models, ``modelica-json`` will need to generate a
