@@ -261,6 +261,7 @@ the following Modelica keywords are not supported in CDL (except inside the exte
 
 #. ``extends``
 #. ``redeclare``
+#. ``replaceable``
 #. ``constrainedby``
 #. ``inner`` and ``outer``
 
