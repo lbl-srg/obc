@@ -1,0 +1,1556 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix s231: <https://data.ashrae.org/231P/> .
+
+s231:CXF.Constants rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Conversions.BooleanToInteger rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#integerFalse>,
+        <https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#integerTrue> .
+
+s231:CXF.Conversions.BooleanToReal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#realFalse>,
+        <https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#realTrue> .
+
+s231:CXF.Conversions.IntegerToReal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Conversions.IntegerToReal#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Conversions.IntegerToReal#y> .
+
+s231:CXF.Conversions.RealToInteger rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#y> .
+
+s231:CXF.Conversions.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.FirstOrderHold rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.Sampler rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.TriggeredMax rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.TriggeredMovingMean rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.TriggeredSampler rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.UnitDelay rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.Examples.ZeroOrderHold rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Discrete.FirstOrderHold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#samplePeriod>,
+        <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#t0> .
+
+s231:CXF.Discrete.Sampler rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.Sampler#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.Sampler#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.Sampler#samplePeriod>,
+        <https://data.ashrae.org/231P/CXF.Discrete.Sampler#t0> .
+
+s231:CXF.Discrete.TriggeredMax rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#trigger>,
+        <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#y> .
+
+s231:CXF.Discrete.TriggeredMovingMean rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#trigger>,
+        <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#n> .
+
+s231:CXF.Discrete.TriggeredSampler rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#trigger>,
+        <https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#y_start> .
+
+s231:CXF.Discrete.UnitDelay rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#samplePeriod>,
+        <https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#t0>,
+        <https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#y_start> .
+
+s231:CXF.Discrete.ZeroOrderHold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#samplePeriod>,
+        <https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#t0> .
+
+s231:CXF.Integers.Abs rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Abs#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Abs#y> .
+
+s231:CXF.Integers.Add rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Add#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Add#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Add#y> .
+
+s231:CXF.Integers.AddParameter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.AddParameter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.AddParameter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.AddParameter#p> .
+
+s231:CXF.Integers.Change rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Change#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Change#down>,
+        <https://data.ashrae.org/231P/CXF.Integers.Change#up>,
+        <https://data.ashrae.org/231P/CXF.Integers.Change#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.Change#pre_u_start> .
+
+s231:CXF.Integers.Equal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Equal#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Equal#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Equal#y> .
+
+s231:CXF.Integers.Greater rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Greater#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Greater#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Greater#y> .
+
+s231:CXF.Integers.GreaterEqual rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#y> .
+
+s231:CXF.Integers.GreaterEqualThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.GreaterEqualThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.GreaterEqualThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.GreaterEqualThreshold#t> .
+
+s231:CXF.Integers.GreaterThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.GreaterThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.GreaterThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.GreaterThreshold#t> .
+
+s231:CXF.Integers.Less rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Less#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Less#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Less#y> .
+
+s231:CXF.Integers.LessEqual rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.LessEqual#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.LessEqual#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.LessEqual#y> .
+
+s231:CXF.Integers.LessEqualThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.LessEqualThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.LessEqualThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.LessEqualThreshold#t> .
+
+s231:CXF.Integers.LessThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.LessThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.LessThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.LessThreshold#t> .
+
+s231:CXF.Integers.Max rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Max#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Max#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Max#y> .
+
+s231:CXF.Integers.Min rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Min#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Min#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Min#y> .
+
+s231:CXF.Integers.MultiSum rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.MultiSum#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.MultiSum#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.MultiSum#k>,
+        <https://data.ashrae.org/231P/CXF.Integers.MultiSum#nin> .
+
+s231:CXF.Integers.Multiply rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Multiply#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Multiply#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Multiply#y> .
+
+s231:CXF.Integers.OnCounter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.OnCounter#reset>,
+        <https://data.ashrae.org/231P/CXF.Integers.OnCounter#trigger> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.OnCounter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.OnCounter#y_start> .
+
+s231:CXF.Integers.Sources.Constant rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Sources.Constant#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.Sources.Constant#k> .
+
+s231:CXF.Integers.Sources.Pulse rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#amplitude>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#offset>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#period>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#shift>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#width> .
+
+s231:CXF.Integers.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#nT>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#nout>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#period>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#t0>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#table>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#timeScale>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#timeStamps>,
+        <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#val> .
+
+s231:CXF.Integers.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Integers.Stage rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Stage#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Stage#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Integers.Stage#h>,
+        <https://data.ashrae.org/231P/CXF.Integers.Stage#holdDuration>,
+        <https://data.ashrae.org/231P/CXF.Integers.Stage#n>,
+        <https://data.ashrae.org/231P/CXF.Integers.Stage#pre_y_start>,
+        <https://data.ashrae.org/231P/CXF.Integers.Stage#staThr> .
+
+s231:CXF.Integers.Subtract rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Subtract#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Subtract#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Subtract#y> .
+
+s231:CXF.Integers.Switch rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Switch#u1>,
+        <https://data.ashrae.org/231P/CXF.Integers.Switch#u2>,
+        <https://data.ashrae.org/231P/CXF.Integers.Switch#u3> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Switch#y> .
+
+s231:CXF.Integers.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.BooleanInput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.BooleanOutput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.IntegerInput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.IntegerOutput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.RealInput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Interfaces.RealOutput rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Logical.And rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.And#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.And#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.And#y> .
+
+s231:CXF.Logical.Change rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Change#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Change#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Change#pre_u_start> .
+
+s231:CXF.Logical.Edge rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Edge#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Edge#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Edge#pre_u_start> .
+
+s231:CXF.Logical.FallingEdge rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.FallingEdge#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.FallingEdge#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.FallingEdge#pre_u_start> .
+
+s231:CXF.Logical.Latch rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Latch#clr>,
+        <https://data.ashrae.org/231P/CXF.Logical.Latch#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Latch#y> .
+
+s231:CXF.Logical.MultiAnd rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.MultiAnd#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.MultiAnd#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.MultiAnd#nin> .
+
+s231:CXF.Logical.MultiOr rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.MultiOr#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.MultiOr#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.MultiOr#nin> .
+
+s231:CXF.Logical.Nand rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Nand#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Nand#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Nand#y> .
+
+s231:CXF.Logical.Nor rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Nor#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Nor#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Nor#y> .
+
+s231:CXF.Logical.Not rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Not#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Not#y> .
+
+s231:CXF.Logical.OnOffController rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.OnOffController#reference>,
+        <https://data.ashrae.org/231P/CXF.Logical.OnOffController#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.OnOffController#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.OnOffController#bandwidth>,
+        <https://data.ashrae.org/231P/CXF.Logical.OnOffController#pre_y_start> .
+
+s231:CXF.Logical.Or rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Or#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Or#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Or#y> .
+
+s231:CXF.Logical.Or3 rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Or3#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Or3#u2>,
+        <https://data.ashrae.org/231P/CXF.Logical.Or3#u3> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Or3#y> .
+
+s231:CXF.Logical.Pre rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Pre#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Pre#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Pre#pre_u_start> .
+
+s231:CXF.Logical.Proof rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Proof#u_m>,
+        <https://data.ashrae.org/231P/CXF.Logical.Proof#u_s> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Proof#yLocFal>,
+        <https://data.ashrae.org/231P/CXF.Logical.Proof#yLocTru> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Proof#debounce>,
+        <https://data.ashrae.org/231P/CXF.Logical.Proof#feedbackDelay> .
+
+s231:CXF.Logical.Sources.Constant rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Sources.Constant#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Sources.Constant#k> .
+
+s231:CXF.Logical.Sources.Pulse rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#period>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#shift>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#t0>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#t1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#width> .
+
+s231:CXF.Logical.Sources.SampleTrigger rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Sources.SampleTrigger#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Sources.SampleTrigger#period>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.SampleTrigger#shift>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.SampleTrigger#t0> .
+
+s231:CXF.Logical.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#nT>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#nout>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#period>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#table>,
+        <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#timeScale> .
+
+s231:CXF.Logical.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Logical.Switch rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Switch#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Switch#u2>,
+        <https://data.ashrae.org/231P/CXF.Logical.Switch#u3> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Switch#y> .
+
+s231:CXF.Logical.Timer rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Timer#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Timer#passed>,
+        <https://data.ashrae.org/231P/CXF.Logical.Timer#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.Timer#t> .
+
+s231:CXF.Logical.TimerAccumulating rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#reset>,
+        <https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#passed>,
+        <https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#t> .
+
+s231:CXF.Logical.Toggle rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Toggle#clr>,
+        <https://data.ashrae.org/231P/CXF.Logical.Toggle#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Toggle#y> .
+
+s231:CXF.Logical.TriggeredTrapezoid rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#amplitude>,
+        <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#falling>,
+        <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#offset>,
+        <https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#rising> .
+
+s231:CXF.Logical.TrueDelay rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.TrueDelay#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TrueDelay#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TrueDelay#delayOnInit>,
+        <https://data.ashrae.org/231P/CXF.Logical.TrueDelay#delayTime>,
+        <https://data.ashrae.org/231P/CXF.Logical.TrueDelay#t_past> .
+
+s231:CXF.Logical.TrueFalseHold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#falseHoldDuration>,
+        <https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#trueHoldDuration> .
+
+s231:CXF.Logical.TrueHoldWithReset rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#duration> .
+
+s231:CXF.Logical.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Logical.VariablePulse rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#adjustedPeriod>,
+        <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#deltaU>,
+        <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#minTruFalHol>,
+        <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#period> .
+
+s231:CXF.Logical.Xor rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Xor#u1>,
+        <https://data.ashrae.org/231P/CXF.Logical.Xor#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.Xor#y> .
+
+s231:CXF.Logical.ZeroCrossing rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#enable>,
+        <https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#y> .
+
+s231:CXF.Psychrometrics.DewPoint_TDryBulPhi rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#TDryBul>,
+        <https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#phi> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#TDewPoi> .
+
+s231:CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#TDryBul>,
+        <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#phi> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#h> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#pAtm> .
+
+s231:CXF.Psychrometrics.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Psychrometrics.WetBulb_TDryBulPhi rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#TDryBul>,
+        <https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#phi> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#TWetBul> .
+
+s231:CXF.Reals.Abs rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Abs#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Abs#y> .
+
+s231:CXF.Reals.Acos rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Acos#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Acos#y> .
+
+s231:CXF.Reals.Add rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Add#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Add#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Add#y> .
+
+s231:CXF.Reals.AddParameter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.AddParameter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.AddParameter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.AddParameter#p> .
+
+s231:CXF.Reals.Asin rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Asin#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Asin#y> .
+
+s231:CXF.Reals.Atan rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Atan#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Atan#y> .
+
+s231:CXF.Reals.Atan2 rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Atan2#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Atan2#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Atan2#y> .
+
+s231:CXF.Reals.Average rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Average#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Average#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Average#y> .
+
+s231:CXF.Reals.Cos rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Cos#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Cos#y> .
+
+s231:CXF.Reals.Derivative rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Derivative#T>,
+        <https://data.ashrae.org/231P/CXF.Reals.Derivative#k>,
+        <https://data.ashrae.org/231P/CXF.Reals.Derivative#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Derivative#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Derivative#y_start> .
+
+s231:CXF.Reals.Divide rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Divide#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Divide#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Divide#y> .
+
+s231:CXF.Reals.Exp rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Exp#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Exp#y> .
+
+s231:CXF.Reals.Greater rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Greater#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Greater#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Greater#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Greater#h>,
+        <https://data.ashrae.org/231P/CXF.Reals.Greater#have_hysteresis>,
+        <https://data.ashrae.org/231P/CXF.Reals.Greater#pre_y_start> .
+
+s231:CXF.Reals.GreaterThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#h>,
+        <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#have_hysteresis>,
+        <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#pre_y_start>,
+        <https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#t> .
+
+s231:CXF.Reals.Hysteresis rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Hysteresis#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Hysteresis#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Hysteresis#pre_y_start>,
+        <https://data.ashrae.org/231P/CXF.Reals.Hysteresis#uHigh>,
+        <https://data.ashrae.org/231P/CXF.Reals.Hysteresis#uLow> .
+
+s231:CXF.Reals.IntegratorWithReset rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#trigger>,
+        <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#u>,
+        <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#y_reset_in> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#k>,
+        <https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#y_start> .
+
+s231:CXF.Reals.Less rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Less#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Less#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Less#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Less#h>,
+        <https://data.ashrae.org/231P/CXF.Reals.Less#have_hysteresis>,
+        <https://data.ashrae.org/231P/CXF.Reals.Less#pre_y_start> .
+
+s231:CXF.Reals.LessThreshold rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#h>,
+        <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#have_hysteresis>,
+        <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#pre_y_start>,
+        <https://data.ashrae.org/231P/CXF.Reals.LessThreshold#t> .
+
+s231:CXF.Reals.LimitSlewRate rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#Td>,
+        <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#enable>,
+        <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#fallingSlewRate>,
+        <https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#raisingSlewRate> .
+
+s231:CXF.Reals.Limiter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Limiter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Limiter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Limiter#uMax>,
+        <https://data.ashrae.org/231P/CXF.Reals.Limiter#uMin> .
+
+s231:CXF.Reals.Line rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Line#f1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Line#f2>,
+        <https://data.ashrae.org/231P/CXF.Reals.Line#u>,
+        <https://data.ashrae.org/231P/CXF.Reals.Line#x1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Line#x2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Line#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Line#limitAbove>,
+        <https://data.ashrae.org/231P/CXF.Reals.Line#limitBelow> .
+
+s231:CXF.Reals.Log rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Log#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Log#y> .
+
+s231:CXF.Reals.Log10 rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Log10#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Log10#y> .
+
+s231:CXF.Reals.MatrixGain rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MatrixGain#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MatrixGain#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MatrixGain#K>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixGain#nin>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixGain#nout> .
+
+s231:CXF.Reals.MatrixMax rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MatrixMax#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MatrixMax#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MatrixMax#nCol>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixMax#nRow>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixMax#rowMax> .
+
+s231:CXF.Reals.MatrixMin rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MatrixMin#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MatrixMin#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MatrixMin#nCol>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixMin#nRow>,
+        <https://data.ashrae.org/231P/CXF.Reals.MatrixMin#rowMin> .
+
+s231:CXF.Reals.Max rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Max#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Max#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Max#y> .
+
+s231:CXF.Reals.Min rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Min#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Min#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Min#y> .
+
+s231:CXF.Reals.Modulo rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Modulo#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Modulo#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Modulo#y> .
+
+s231:CXF.Reals.MovingAverage rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MovingAverage#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MovingAverage#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MovingAverage#delta>,
+        <https://data.ashrae.org/231P/CXF.Reals.MovingAverage#tStart> .
+
+s231:CXF.Reals.MultiMax rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MultiMax#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MultiMax#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MultiMax#nin> .
+
+s231:CXF.Reals.MultiMin rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MultiMin#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MultiMin#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MultiMin#nin> .
+
+s231:CXF.Reals.MultiSum rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MultiSum#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MultiSum#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MultiSum#k>,
+        <https://data.ashrae.org/231P/CXF.Reals.MultiSum#nin> .
+
+s231:CXF.Reals.Multiply rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Multiply#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Multiply#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Multiply#y> .
+
+s231:CXF.Reals.MultiplyByParameter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.MultiplyByParameter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.MultiplyByParameter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.MultiplyByParameter#k> .
+
+s231:CXF.Reals.PID rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.PID#u_m>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#u_s> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.PID#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.PID#Nd>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#Ni>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#Td>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#Ti>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#controllerType>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#k>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#r>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#revAct>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#reverseActing>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#with_D>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#with_I>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#xi_start>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#yMax>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#yMin>,
+        <https://data.ashrae.org/231P/CXF.Reals.PID#yd_start> .
+
+s231:CXF.Reals.PIDWithReset rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#trigger>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#u_m>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#u_s> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#Nd>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#Ni>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#Td>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#Ti>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#controllerType>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#k>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#r>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#revAct>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#reverseActing>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#with_D>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#with_I>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#xi_start>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#yMax>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#yMin>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#y_reset>,
+        <https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#yd_start> .
+
+s231:CXF.Reals.Ramp rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Ramp#active>,
+        <https://data.ashrae.org/231P/CXF.Reals.Ramp#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Ramp#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Ramp#Td>,
+        <https://data.ashrae.org/231P/CXF.Reals.Ramp#fallingSlewRate>,
+        <https://data.ashrae.org/231P/CXF.Reals.Ramp#raisingSlewRate> .
+
+s231:CXF.Reals.Round rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Round#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Round#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Round#fac>,
+        <https://data.ashrae.org/231P/CXF.Reals.Round#n> .
+
+s231:CXF.Reals.Sin rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Sin#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sin#y> .
+
+s231:CXF.Reals.Sort rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Sort#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sort#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sort#ascending>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sort#nin> .
+
+s231:CXF.Reals.Sources.CalendarTime rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#day>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#hour>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#minute>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#weekDay> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#offset>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#yearRef>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#zerTim> .
+
+s231:CXF.Reals.Sources.Constant rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.Constant#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.Constant#k> .
+
+s231:CXF.Reals.Sources.ModelTime rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.ModelTime#y> .
+
+s231:CXF.Reals.Sources.Pulse rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#amplitude>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#offset>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#period>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#shift>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#width> .
+
+s231:CXF.Reals.Sources.Ramp rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#duration>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#height>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#offset>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#startTime> .
+
+s231:CXF.Reals.Sources.Sin rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#amplitude>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#freqHz>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#offset>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#phase>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#startTime> .
+
+s231:CXF.Reals.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#extrapolation>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#nT>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#nout>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#offset>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#smoothness>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#t0>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#table>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#timeRange>,
+        <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#timeScale> .
+
+s231:CXF.Reals.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Reals.Sqrt rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Sqrt#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sqrt#y> .
+
+s231:CXF.Reals.Subtract rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Subtract#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Subtract#u2> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Subtract#y> .
+
+s231:CXF.Reals.Switch rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Switch#u1>,
+        <https://data.ashrae.org/231P/CXF.Reals.Switch#u2>,
+        <https://data.ashrae.org/231P/CXF.Reals.Switch#u3> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Switch#y> .
+
+s231:CXF.Reals.Tan rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Tan#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Tan#y> .
+
+s231:CXF.Reals.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Routing.BooleanExtractSignal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#extract>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#nout> .
+
+s231:CXF.Routing.BooleanExtractor rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#index>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#nin> .
+
+s231:CXF.Routing.BooleanScalarReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanScalarReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.BooleanScalarReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.BooleanScalarReplicator#nout> .
+
+s231:CXF.Routing.BooleanVectorFilter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#msk>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#mskId>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#nout> .
+
+s231:CXF.Routing.BooleanVectorReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#nout> .
+
+s231:CXF.Routing.IntegerExtractSignal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#extract>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#nout> .
+
+s231:CXF.Routing.IntegerExtractor rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#index>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#nin> .
+
+s231:CXF.Routing.IntegerScalarReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.IntegerScalarReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.IntegerScalarReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.IntegerScalarReplicator#nout> .
+
+s231:CXF.Routing.IntegerVectorFilter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#msk>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#mskId>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#nout> .
+
+s231:CXF.Routing.IntegerVectorReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#nout> .
+
+s231:CXF.Routing.RealExtractSignal rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#extract>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#nout> .
+
+s231:CXF.Routing.RealExtractor rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.RealExtractor#index>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealExtractor#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.RealExtractor#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealExtractor#nin> .
+
+s231:CXF.Routing.RealScalarReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.RealScalarReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.RealScalarReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealScalarReplicator#nout> .
+
+s231:CXF.Routing.RealVectorFilter rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#msk>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#mskId>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#nout> .
+
+s231:CXF.Routing.RealVectorReplicator rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#u> ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#y> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#nin>,
+        <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#nout> .
+
+s231:CXF.Routing.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Types.Extrapolation rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Types.SimpleController rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Types.Smoothness rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Types.ZeroTime rdfs:subClassOf s231:ElementaryBlock .
+
+s231:CXF.Utilities.Assert rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasInput <https://data.ashrae.org/231P/CXF.Utilities.Assert#u> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Utilities.Assert#message> .
+
+s231:CXF.Utilities.SunRiseSet rdfs:subClassOf s231:ElementaryBlock ;
+    s231:hasOutput <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#nextSunRise>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#nextSunSet>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#sunUp> ;
+    s231:hasParameter <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#lat>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#lon>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#staTim>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#timDifLocCiv>,
+        <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#timZon> .
+
+s231:CXF.Utilities.Validation rdfs:subClassOf s231:ElementaryBlock .
+
+<https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.BooleanToReal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.IntegerToReal#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.IntegerToReal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.Sampler#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.Sampler#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMax#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredMovingMean#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.TriggeredSampler#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.UnitDelay#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Discrete.ZeroOrderHold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Abs#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Abs#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Add#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Add#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Add#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.AddParameter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.AddParameter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Change#down> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Change#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Change#up> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Change#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Equal#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Equal#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Equal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Greater#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Greater#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Greater#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterEqual#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterEqualThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterEqualThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.GreaterThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Less#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Less#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Less#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessEqual#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessEqual#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessEqual#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessEqualThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessEqualThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.LessThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Max#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Max#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Max#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Min#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Min#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Min#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.MultiSum#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.MultiSum#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Multiply#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Multiply#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Multiply#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.OnCounter#reset> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.OnCounter#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.OnCounter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Sources.Constant#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Sources.Pulse#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Stage#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Stage#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Subtract#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Subtract#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Subtract#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Switch#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Switch#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Switch#u3> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Integers.Switch#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.And#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.And#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.And#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Change#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Change#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Edge#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Edge#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.FallingEdge#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.FallingEdge#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Latch#clr> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Latch#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Latch#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.MultiAnd#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.MultiAnd#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.MultiOr#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.MultiOr#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nand#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nand#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nand#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nor#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nor#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Nor#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Not#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Not#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.OnOffController#reference> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.OnOffController#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.OnOffController#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or3#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or3#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or3#u3> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Or3#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Pre#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Pre#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Proof#u_m> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Proof#u_s> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Proof#yLocFal> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Proof#yLocTru> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Sources.Constant#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Sources.Pulse#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Sources.SampleTrigger#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Switch#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Switch#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Switch#u3> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Switch#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Timer#passed> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Timer#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Timer#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#passed> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#reset> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TimerAccumulating#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Toggle#clr> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Toggle#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Toggle#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TriggeredTrapezoid#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueDelay#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueDelay#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueFalseHold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.VariablePulse#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.VariablePulse#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Xor#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Xor#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.Xor#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#enable> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Logical.ZeroCrossing#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#TDewPoi> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#TDryBul> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.DewPoint_TDryBulPhi#phi> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#TDryBul> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#h> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#phi> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#TDryBul> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#TWetBul> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#phi> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Abs#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Abs#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Acos#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Acos#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Add#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Add#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Add#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.AddParameter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.AddParameter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Asin#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Asin#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Atan#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Atan#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Atan2#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Atan2#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Atan2#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Average#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Average#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Average#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Cos#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Cos#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Derivative#T> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Derivative#k> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Derivative#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Derivative#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Divide#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Divide#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Divide#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Exp#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Exp#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Greater#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Greater#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Greater#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.GreaterThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Hysteresis#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Hysteresis#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.IntegratorWithReset#y_reset_in> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Less#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Less#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Less#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.LessThreshold#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.LessThreshold#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.LimitSlewRate#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Limiter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Limiter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#f1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#f2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#x1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#x2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Line#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Log#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Log#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Log10#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Log10#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixGain#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixGain#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixMax#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixMax#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixMin#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MatrixMin#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Max#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Max#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Max#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Min#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Min#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Min#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Modulo#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Modulo#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Modulo#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MovingAverage#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MovingAverage#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiMax#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiMax#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiMin#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiMin#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiSum#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiSum#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Multiply#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Multiply#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Multiply#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiplyByParameter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.MultiplyByParameter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PID#u_m> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PID#u_s> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PID#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#trigger> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#u_m> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#u_s> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.PIDWithReset#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Ramp#active> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Ramp#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Ramp#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Round#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Round#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sin#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sin#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sort#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sort#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#day> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#hour> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#minute> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.CalendarTime#weekDay> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.Constant#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.ModelTime#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.Pulse#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.Ramp#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.Sin#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sqrt#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Sqrt#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Subtract#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Subtract#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Subtract#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Switch#u1> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Switch#u2> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Switch#u3> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Switch#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Tan#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Reals.Tan#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#index> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanExtractor#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanScalarReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanScalarReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanVectorFilter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.BooleanVectorReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerExtractSignal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#index> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerExtractor#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerScalarReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerScalarReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerVectorFilter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.IntegerVectorReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealExtractSignal#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealExtractor#index> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealExtractor#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealExtractor#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealScalarReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealScalarReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealVectorFilter#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#y> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Utilities.Assert#u> a s231:InputConnector .
+
+<https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#nextSunRise> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#nextSunSet> a s231:OutputConnector .
+
+<https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#sunUp> a s231:OutputConnector .
+
