@@ -23,22 +23,6 @@ s231:CXF.Conversions.RealToInteger rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Conversions.RealToInteger#y> .
 
-s231:CXF.Conversions.Validation rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.FirstOrderHold rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.Sampler rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.TriggeredMax rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.TriggeredMovingMean rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.TriggeredSampler rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.UnitDelay rdfs:subClassOf s231:ElementaryBlock .
-
-s231:CXF.Discrete.Examples.ZeroOrderHold rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Discrete.FirstOrderHold rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Discrete.FirstOrderHold#y> ;
@@ -197,8 +181,6 @@ s231:CXF.Integers.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
         <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#timeStamps>,
         <https://data.ashrae.org/231P/CXF.Integers.Sources.TimeTable#val> .
 
-s231:CXF.Integers.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Integers.Stage rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Integers.Stage#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Stage#y> ;
@@ -218,8 +200,6 @@ s231:CXF.Integers.Switch rdfs:subClassOf s231:ElementaryBlock ;
         <https://data.ashrae.org/231P/CXF.Integers.Switch#u2>,
         <https://data.ashrae.org/231P/CXF.Integers.Switch#u3> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Integers.Switch#y> .
-
-s231:CXF.Integers.Validation rdfs:subClassOf s231:ElementaryBlock .
 
 s231:CXF.Interfaces.BooleanInput rdfs:subClassOf s231:ElementaryBlock .
 
@@ -339,8 +319,6 @@ s231:CXF.Logical.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
         <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#table>,
         <https://data.ashrae.org/231P/CXF.Logical.Sources.TimeTable#timeScale> .
 
-s231:CXF.Logical.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Logical.Switch rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.Switch#u1>,
         <https://data.ashrae.org/231P/CXF.Logical.Switch#u2>,
@@ -391,8 +369,6 @@ s231:CXF.Logical.TrueHoldWithReset rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#y> ;
     s231:hasParameter <https://data.ashrae.org/231P/CXF.Logical.TrueHoldWithReset#duration> .
 
-s231:CXF.Logical.Validation rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Logical.VariablePulse rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Logical.VariablePulse#y> ;
@@ -421,8 +397,6 @@ s231:CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi rdfs:subClassOf s231:Element
         <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#phi> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#h> ;
     s231:hasParameter <https://data.ashrae.org/231P/CXF.Psychrometrics.SpecificEnthalpy_TDryBulPhi#pAtm> .
-
-s231:CXF.Psychrometrics.Validation rdfs:subClassOf s231:ElementaryBlock .
 
 s231:CXF.Psychrometrics.WetBulb_TDryBulPhi rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Psychrometrics.WetBulb_TDryBulPhi#TDryBul>,
@@ -749,8 +723,6 @@ s231:CXF.Reals.Sources.TimeTable rdfs:subClassOf s231:ElementaryBlock ;
         <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#timeRange>,
         <https://data.ashrae.org/231P/CXF.Reals.Sources.TimeTable#timeScale> .
 
-s231:CXF.Reals.Sources.Validation rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Reals.Sqrt rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Sqrt#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Sqrt#y> .
@@ -769,8 +741,6 @@ s231:CXF.Reals.Switch rdfs:subClassOf s231:ElementaryBlock ;
 s231:CXF.Reals.Tan rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Reals.Tan#u> ;
     s231:hasOutput <https://data.ashrae.org/231P/CXF.Reals.Tan#y> .
-
-s231:CXF.Reals.Validation rdfs:subClassOf s231:ElementaryBlock .
 
 s231:CXF.Routing.BooleanExtractSignal rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasInput <https://data.ashrae.org/231P/CXF.Routing.BooleanExtractSignal#u> ;
@@ -868,8 +838,6 @@ s231:CXF.Routing.RealVectorReplicator rdfs:subClassOf s231:ElementaryBlock ;
     s231:hasParameter <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#nin>,
         <https://data.ashrae.org/231P/CXF.Routing.RealVectorReplicator#nout> .
 
-s231:CXF.Routing.Validation rdfs:subClassOf s231:ElementaryBlock .
-
 s231:CXF.Types.Extrapolation rdfs:subClassOf s231:ElementaryBlock .
 
 s231:CXF.Types.SimpleController rdfs:subClassOf s231:ElementaryBlock .
@@ -891,8 +859,6 @@ s231:CXF.Utilities.SunRiseSet rdfs:subClassOf s231:ElementaryBlock ;
         <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#staTim>,
         <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#timDifLocCiv>,
         <https://data.ashrae.org/231P/CXF.Utilities.SunRiseSet#timZon> .
-
-s231:CXF.Utilities.Validation rdfs:subClassOf s231:ElementaryBlock .
 
 <https://data.ashrae.org/231P/CXF.Conversions.BooleanToInteger#u> a s231:InputConnector .
 
