@@ -1678,7 +1678,9 @@ Without the ``constrainedby CDL.Reals.Sources.CivilTime`` clause,
 ``Pulse`` could not have been used as it has no parameter ``k``.
 
 ]
-          
+
+When translating CDL to CXF, the keywords ``replaceable``, ``constrainedby`` and ``redeclare``
+need to be evaluated and removed. E.g., they are not present in ``CXF``.
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
