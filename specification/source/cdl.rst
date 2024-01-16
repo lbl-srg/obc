@@ -1610,7 +1610,8 @@ Replaceable Blocks
          It should be proposed for addition to the Standard.
 
 CDL allows the use of the Modelica ``replaceable``, ``constrainedby`` and ``redeclare`` keywords.
-The ``replaceable`` keyword allows to replace the block by another block when translating a composite block.
+
+The ``replaceable`` keyword allows to replace a block by another block when translating a composite block.
 
 To declare a block as ``replaceable``, the syntax is
 
@@ -1624,23 +1625,25 @@ where ``ClassName`` is the name of the class, ``instanceName`` is the name of th
 Optionally, the ``constrainedby`` keyword can be added after ``instanceName`` to constrain what blocks can be used when
 redeclaring the replaceable block. The declaration is then
 
-.. code-block:: modelica
+.. code-block::
 
-  replaceable ClassName instanceName constrainedby NameOfConstrainingClass comment annotation;
+  replaceable ClassName instanceName constrainedby NameOfConstrainingClass parameterBindings comment annotation;
 
-where ``NameOfConstrainingClass`` is the name of the constraining class.
+where ``NameOfConstrainingClass`` is the name of the constraining class, and
+``parameterBindings`` is optional and can be used to assign parameters,
+with or without the ``final`` keyword.
 
 [
 For example, consider a composite block that has a PID controller.
 Suppose the developer of the composite block
 uses its custom PID controller called ``MyPID``, and the developer
 wants to allow a user of the composite block to replace the PID controller with any custom PID controller,
-as long as it provides the inputs, outputs and parameters of the elementary block of the PID controller ``CDL.Reals.PID``.
+as long as it provides the inputs, outputs, and parameters of the elementary block of the PID controller ``CDL.Reals.PID``.
 
 Then, the composite block can be implemented as
 
 .. code-block:: modelica
-   
+
    block SomeCompositeBlock "A composite block in a library"
    ...
    parameter Real k = 2 "Proportional gain";
@@ -1650,10 +1653,13 @@ Then, the composite block can be implemented as
    ...
    end SomeCompositeBlock;
 
-This allows a user of the composite block to replace the controller ``MyPID`` with any other PID controller
-that provides the same inputs, outputs, and parameters as ``CDL.Reals.PID``. Moreover, the assignment
+Because of the ``constrainedby`` clause,
+a user of the composite block can replace the controller ``MyPID`` with any other PID controller
+that also provides the inputs, outputs, and parameters that are present in ``CDL.Reals.PID``.
+Moreover, the assignment
 ``k=k`` will also be applied when the controller is redeclared.
-Such an redeclaration in which a block ``MyPreferredPID`` is used for the instance ``con`` can be done using
+Such a redeclaration in which a block ``MyPreferredPID`` is used for the instance ``con``
+can be done using
 
 .. code-block:: modelica
 
@@ -1662,7 +1668,7 @@ Such an redeclaration in which a block ``MyPreferredPID`` is used for the instan
    );
 
 In a ``redeclare`` statement, any parameters can be assigned, for example by writing
-``redeclare MyPreferredPID con(Ti = 60)``, which sets the parameter ``Ti`` to ``60``.
+``redeclare MyPreferredPID con(Ti=60)``, which sets the parameter ``Ti`` to ``60``.
 
 The ``constrainedby`` keyword can also be used to allow use of a block that has other parameters
 or inputs. A simple examle is
