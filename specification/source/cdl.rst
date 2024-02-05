@@ -260,9 +260,6 @@ To simplify the support of CDL for tools and control systems,
 the following Modelica keywords are not supported in CDL (except inside the extension blocks, :numref:`sec_ext_blo`):
 
 #. ``extends``
-#. ``redeclare``
-#. ``replaceable``
-#. ``constrainedby``
 #. ``inner`` and ``outer``
 
 Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
@@ -1605,6 +1602,91 @@ Translation of an extension block to json must reproduce the following:
 
 
 
+
+Replaceable Blocks
+^^^^^^^^^^^^^^^^^^
+
+.. note: This section is not present in ASHRAE Standard 231P Public Review Draft 1.
+         It should be proposed for addition to the Standard.
+
+CDL allows the use of the Modelica ``replaceable``, ``constrainedby`` and ``redeclare`` keywords.
+
+The ``replaceable`` keyword allows to replace a block by another block when translating a composite block.
+
+To declare a block as ``replaceable``, the syntax is
+
+.. code-block:: modelica
+
+  replaceable ClassName instanceName comment annotation;
+
+where ``ClassName`` is the name of the class, ``instanceName`` is the name of the instance, and
+``comment`` and ``annotation`` are optional comments or annotations.
+
+Optionally, the ``constrainedby`` keyword can be added after ``instanceName`` to constrain what blocks can be used when
+redeclaring the replaceable block. The declaration is then
+
+.. code-block::
+
+  replaceable ClassName instanceName constrainedby NameOfConstrainingClass parameterBindings comment annotation;
+
+where ``NameOfConstrainingClass`` is the name of the constraining class, and
+``parameterBindings`` is optional and can be used to assign parameters,
+with or without the ``final`` keyword.
+
+[
+For example, consider a composite block that has a PID controller.
+Suppose the developer of the composite block
+uses its custom PID controller called ``MyPID``, and the developer
+wants to allow a user of the composite block to replace the PID controller with any custom PID controller,
+as long as it provides the inputs, outputs, and parameters of the elementary block of the PID controller ``CDL.Reals.PID``.
+
+Then, the composite block can be implemented as
+
+.. code-block:: modelica
+
+   block SomeCompositeBlock "A composite block in a library"
+   ...
+   parameter Real k = 2 "Proportional gain";
+   replaceable MyPID con constrainedby CDL.Reals.PID(
+    k=k)
+    "PID controller";
+   ...
+   end SomeCompositeBlock;
+
+Because of the ``constrainedby`` clause,
+a user of the composite block can replace the controller ``MyPID`` with any other PID controller
+that also provides the inputs, outputs, and parameters that are present in ``CDL.Reals.PID``.
+Moreover, the assignment
+``k=k`` will also be applied when the controller is redeclared.
+Such a redeclaration in which a block ``MyPreferredPID`` is used for the instance ``con``
+can be done using
+
+.. code-block:: modelica
+
+   SomeCompositeBlock con(
+    redeclare MyPreferredPID con
+   );
+
+In a ``redeclare`` statement, any parameters can be assigned, for example by writing
+``redeclare MyPreferredPID con(Ti=60)``, which sets the parameter ``Ti`` to ``60``.
+
+The ``constrainedby`` keyword can also be used to allow use of a block that has other parameters
+or inputs. A simple examle is
+
+.. literalinclude::  img/cdl/ReplaceableBlock.mo
+   :language: modelica
+
+In the above code, the ``constrainedby`` keyword specifies the block ``CivilTime``.
+As ``CivilTime`` has only a ``RealOutput`` called ``y``, but no parameters or inputs,
+the ``Constant`` block can be
+replaced by a ``Pulse`` block, although ``Pulse`` has no parameter ``k``.
+Without the ``constrainedby CDL.Reals.Sources.CivilTime`` clause,
+``Pulse`` could not have been used as it has no parameter ``k``.
+
+]
+
+When translating CDL to CXF, the keywords ``replaceable``, ``constrainedby`` and ``redeclare``
+need to be evaluated and removed. E.g., they are not present in ``CXF``.
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
