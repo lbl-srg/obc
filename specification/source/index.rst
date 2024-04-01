@@ -27,6 +27,7 @@ OpenBuildingControl (Working Draft)
    controlsLibrary
    codeGeneration
    verification
+   modelFromSemantic
    example
    glossary
    acknowledgments
