@@ -9,6 +9,7 @@ cache: pip
 
 env:
   global:
+    - DOCKER_REPONAME=lbnlblum
     - OMC_VERSION=ubuntu-2204-omc:1.22.0_dev-41-g8a5b18f-1
     - MODELICA_BUILDINGS_VERSION=9.1.0
     - MODELICA_JSON_VERSION=ac5580f720b553617cde76996d1d56d4b4e28cc0
@@ -30,7 +31,7 @@ addons:
 
 before_install:
   - chmod +x software/verification/travis/omc
-  - docker pull michaelwetter/${OMC_VERSION};
+  - docker pull ${DOCKER_REPONAME}/${OMC_VERSION};
     cp software/verification/travis/omc $HOME/bin/omc;
   -  wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
