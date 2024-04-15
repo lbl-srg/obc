@@ -1,0 +1,342 @@
+@prefix bldg: <urn:ex/> .
+@prefix s223: <http://data.ashrae.org/standard223#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix qudtqk: <http://qudt.org/vocab/quantitykind/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+
+
+bldg: a owl:Ontology .
+
+bldg:vav-501 a s223:SingleDuctTerminal,
+         <http://data.ashrae.org/standard223/1.0/extensions/g36#VAVWithReheat> ;
+    s223:cnx bldg:vav-501-air-in,
+        bldg:vav-501-air-out,
+        bldg:vav-501-hot-water-in,
+        bldg:vav-501-hot-water-out ;
+    s223:contains bldg:vav-501-damper,
+        bldg:vav-501-reheat-coil,
+        bldg:vav-501-reheat-coil-valve .
+
+bldg:vav-501-damper-actuator a s223:Actuator ;
+    s223:actuates bldg:vav-501-damper ;
+    s223:commandedByProperty bldg:vav-501-damper-command .
+
+bldg:vav-501-discharge-air-flow-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:vav-501-air-in ;
+    s223:observes bldg:vav-501-discharge-air-flow .
+
+bldg:vav-501-discharge-air-temp-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:vav-501-air-out ;
+    s223:observes bldg:vav-501-discharge-air-temp .
+
+bldg:vav-501-reheat-coil-valve-actuator a s223:Actuator ;
+    s223:actuates bldg:vav-501-reheat-coil-valve ;
+    s223:commandedByProperty bldg:vav-501-reheat-coil-valve-command .
+
+bldg:vav-501-colder-supply-air-requests a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-HVACOperatingMode .
+
+bldg:vav-501-cooling-pid-output a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Dimensionless ;
+    qudt:hasUnit unit:UNITLESS .
+
+bldg:vav-501-damper-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:mapsTo bldg:vav-501-air-in .
+
+bldg:vav-501-damper-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:vav-501-duct-after-damper ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:hasProperty bldg:vav-501-colder-supply-air-requests,
+        bldg:vav-501-cooling-pid-output .
+
+bldg:vav-501-damper-position a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:DimensionlessRatio ;
+    qudt:hasUnit unit:PERCENT .
+
+bldg:vav-501-discharge-air-flow-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:VolumeFlowRate ;
+    qudt:hasUnit unit:FT3-PER-MIN .
+
+bldg:vav-501-discharge-air-temp-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:vav-501-heating-pid-output a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Dimensionless ;
+    qudt:hasUnit unit:UNITLESS .
+
+bldg:vav-501-more-heat-requests a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-HVACOperatingMode .
+
+bldg:vav-501-reheat-coil a s223:HeatingCoil,
+        <http://data.ashrae.org/standard223/1.0/extensions/g36#HotWaterCoil> ;
+    s223:cnx bldg:vav-501-reheat-coil-air-in,
+        bldg:vav-501-reheat-coil-air-out,
+        bldg:vav-501-reheat-coil-water-in,
+        bldg:vav-501-reheat-coil-water-out ;
+    s223:hasRole s223:Role-Heating .
+
+bldg:vav-501-reheat-coil-air-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:vav-501-duct-after-damper ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:vav-501-reheat-coil-air-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:connection-to-room-102 ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:hasProperty bldg:vav-501-heating-pid-output,
+        bldg:vav-501-more-heat-requests ;
+    s223:mapsTo bldg:vav-501-air-out .
+
+bldg:vav-501-reheat-coil-valve-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:vav-501-pipe-hot-water-return-before-valve ;
+    s223:hasMedium s223:Medium-Water .
+
+bldg:vav-501-reheat-coil-valve-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:vav-501-hot-water-out-connection ;
+    s223:hasMedium s223:Medium-Water ;
+    s223:mapsTo bldg:vav-501-hot-water-out .
+
+bldg:vav-501-reheat-coil-valve-position a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:DimensionlessRatio ;
+    qudt:hasUnit unit:PERCENT .
+
+bldg:vav-501-reheat-coil-water-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:vav-501-hot-water-in-connection ;
+    s223:hasMedium s223:Medium-Water ;
+    s223:mapsTo bldg:vav-501-hot-water-in .
+
+bldg:vav-501-reheat-coil-water-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:vav-501-pipe-hot-water-return-before-valve ;
+    s223:hasMedium s223:Medium-Water .
+
+bldg:vav-501-air-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:vav-501-air-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:connection-to-room-102 ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:hasProperty bldg:vav-501-discharge-air-flow,
+        bldg:vav-501-discharge-air-flow-setpoint,
+        bldg:vav-501-discharge-air-temp,
+        bldg:vav-501-discharge-air-temp-setpoint .
+
+bldg:vav-501-air-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:room-102-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:connection-to-room-102 ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:connection-to-room-102 a s223:Connection,
+        s223:Duct ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:room-102 a s223:PhysicalSpace ;
+    s223:encloses bldg:room-102-hvac-domain .
+
+bldg:zone-102 a s223:Zone,
+        <http://data.ashrae.org/standard223/1.0/extensions/g36#Zone> ;
+    s223:contains bldg:room-102-hvac-domain ;
+    s223:hasDomain s223:Domain-HVAC ;
+    s223:hasProperty bldg:zone-102-cooling-setpoint,
+        bldg:zone-102-heating-setpoint,
+        bldg:zone-102-occupancy,
+        bldg:zone-102-occupancy-override,
+        bldg:zone-102-temp,
+        bldg:zone-102-window-switch-on-off .
+
+bldg:zone-102-occupancy-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:room-102-hvac-domain ;
+    s223:observes bldg:zone-102-occupancy .
+
+bldg:zone-102-temp-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:room-102-hvac-domain ;
+    s223:observes bldg:zone-102-temp .
+
+bldg:room-102-hvac-domain a s223:DomainSpace ;
+    s223:cnx bldg:room-102-in,
+        bldg:room-102-out ;
+    s223:hasDomain s223:Domain-HVAC .
+
+bldg:zone-102-cooling-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:zone-102-heating-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:zone-102-occupancy-override a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-Override .
+
+bldg:zone-102-window-switch-on-off a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-OnOff .
+
+bldg:zone-102-occupancy a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-Occupancy .
+
+bldg:zone-102-temp a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+
+
+
+
+bldg:vav-502 a s223:SingleDuctTerminal,
+        <http://data.ashrae.org/standard223/1.0/extensions/g36#VAVWithReheat> ;
+    s223:cnx bldg:vav-502-air-in,
+        bldg:vav-502-air-out ;
+    s223:contains bldg:vav-502-damper. 
+
+bldg:vav-502-damper-actuator a s223:Actuator ;
+    s223:actuates bldg:vav-502-damper ;
+    s223:commandedByProperty bldg:vav-502-damper-command .
+
+bldg:vav-502-discharge-air-flow-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:vav-502-air-in ;
+    s223:observes bldg:vav-502-discharge-air-flow .
+
+bldg:vav-502-discharge-air-temp-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:vav-502-air-out ;
+    s223:observes bldg:vav-502-discharge-air-temp .
+
+bldg:vav-502-colder-supply-air-requests a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-HVACOperatingMode .
+
+bldg:vav-502-cooling-pid-output a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Dimensionless ;
+    qudt:hasUnit unit:UNITLESS .
+
+bldg:vav-502-damper-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:mapsTo bldg:vav-502-air-in .
+
+bldg:vav-502-damper-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:vav-502-duct-after-damper ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:hasProperty bldg:vav-502-colder-supply-air-requests,
+        bldg:vav-502-cooling-pid-output .
+
+bldg:vav-502-damper-position a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:DimensionlessRatio ;
+    qudt:hasUnit unit:PERCENT .
+
+bldg:vav-502-discharge-air-flow-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:VolumeFlowRate ;
+    qudt:hasUnit unit:FT3-PER-MIN .
+
+bldg:vav-502-discharge-air-temp-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:vav-502-heating-pid-output a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Dimensionless ;
+    qudt:hasUnit unit:UNITLESS .
+
+bldg:vav-502-more-heat-requests a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-HVACOperatingMode .
+
+bldg:vav-502-air-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:vav-502-air-out a s223:OutletConnectionPoint ;
+    s223:cnx bldg:connection-to-room-101 ;
+    s223:hasMedium s223:Medium-Air ;
+    s223:hasProperty bldg:vav-502-discharge-air-flow,
+        bldg:vav-502-discharge-air-flow-setpoint,
+        bldg:vav-502-discharge-air-temp,
+        bldg:vav-502-discharge-air-temp-setpoint .
+
+bldg:vav-502-air-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:office-ahu-connection-to-vavs ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:connection-to-room-101 a s223:Connection,
+        s223:Duct ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:room-101 a s223:PhysicalSpace ;
+    s223:encloses bldg:room-101-hvac-domain .
+
+bldg:zone-101 a s223:Zone,
+        <http://data.ashrae.org/standard223/1.0/extensions/g36#Zone> ;
+    s223:contains bldg:room-101-hvac-domain ;
+    s223:hasDomain s223:Domain-HVAC ;
+    s223:hasProperty bldg:zone-101-building-static-pressure,
+        bldg:zone-101-building-static-pressure-setpoint,
+        bldg:zone-101-co2-concentration,
+        bldg:zone-101-co2-concentration-setpoint,
+        bldg:zone-101-cooling-setpoint,
+        bldg:zone-101-heating-setpoint,
+        bldg:zone-101-occupancy,
+        bldg:zone-101-occupancy-override,
+        bldg:zone-101-temp,
+        bldg:zone-101-window-switch-on-off .
+
+bldg:zone-101-co2-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:room-101-hvac-domain ;
+    s223:observes bldg:zone-101-co2-concentration .
+
+bldg:zone-101-occupancy-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:room-101-hvac-domain ;
+    s223:observes bldg:zone-101-occupancy .
+
+bldg:zone-101-temp-sensor a s223:Sensor ;
+    s223:hasObservationLocation bldg:room-101-hvac-domain ;
+    s223:observes bldg:zone-101-temp .
+
+bldg:zone-101-building-static-pressure a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Pressure ;
+    qudt:hasUnit unit:IN_H2O .
+
+bldg:zone-101-building-static-pressure-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Pressure ;
+    qudt:hasUnit unit:IN_H2O .
+
+bldg:zone-101-co2-concentration-setpoint a s223:QuantifiableActuatableProperty ;
+    s223:ofSubstance s223:Substance-CO2 ;
+    qudt:hasQuantityKind qudtqk:MoleFraction ;
+    qudt:hasUnit unit:PPM .
+
+bldg:zone-101-cooling-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:zone-101-heating-setpoint a s223:QuantifiableActuatableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:zone-101-occupancy-override a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-Override .
+
+bldg:zone-101-window-switch-on-off a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-OnOff .
+
+bldg:zone-101-co2-concentration a s223:QuantifiableObservableProperty ;
+    s223:ofSubstance s223:Substance-CO2 ;
+    qudt:hasQuantityKind qudtqk:MoleFraction ;
+    qudt:hasUnit unit:PPM .
+
+bldg:zone-101-occupancy a s223:EnumeratedObservableProperty ;
+    s223:hasEnumerationKind s223:EnumerationKind-Occupancy .
+
+bldg:zone-101-temp a s223:QuantifiableObservableProperty ;
+    qudt:hasQuantityKind qudtqk:Temperature ;
+    qudt:hasUnit unit:DEG_C .
+
+bldg:room-101-in a s223:InletConnectionPoint ;
+    s223:cnx bldg:connection-to-room-101 ;
+    s223:hasMedium s223:Medium-Air .
+
+bldg:room-101-hvac-domain a s223:DomainSpace ;
+    s223:cnx bldg:room-101-in,
+        bldg:room-101-out ;
+    s223:hasDomain s223:Domain-HVAC .

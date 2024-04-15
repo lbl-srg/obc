@@ -49,7 +49,7 @@ template from Modelica Buildings Library.
  
 .. _fig_s223ToVAVBox:
 
-.. figure:: img/s223ToVAV.*
+.. figure:: img/VAVworkflow.*
    :width: 700px
    :height: 1000px
 

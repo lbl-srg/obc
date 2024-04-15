@@ -1,0 +1,3 @@
+mblVersion: 10.0.0
+semanticModel: vavBoxModel.ttl
+templateFolder: moFileTemplates
