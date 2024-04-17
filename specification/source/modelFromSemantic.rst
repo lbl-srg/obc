@@ -40,6 +40,9 @@ The process is described in :numref:`fig_semanticToMo_flowchart`
    Modelica file from a semantic model of a HVAC 
    system.
 
+The software that implements this workflow is available at
+https://github.com/lbl-srg/obc/tree/master/software/s223ToMo
+
 Example
 ^^^^^^^
 
