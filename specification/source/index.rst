@@ -1,5 +1,5 @@
-OpenBuildingControl (Working Draft)
-===================================
+OpenBuildingControl
+===================
 
 .. only:: html
 
