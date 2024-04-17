@@ -41,7 +41,7 @@ The process is described in :numref:`fig_semanticToMo_flowchart`
    system.
 
 The software that implements this workflow is available at
-https://github.com/lbl-srg/obc/tree/master/software/s223ToMo
+https://github.com/lbl-srg/obc/tree/master/software/s223ToMo.
 
 Example
 ^^^^^^^
@@ -61,5 +61,5 @@ template from the Modelica Buildings Library.
 
    Flowchart describing the workflow of generating a
    Modelica model of two VAVBoxes described using the proposed
-   ASHRAE S223P semantic standard. 
+   ASHRAE Standard 223P.
 
