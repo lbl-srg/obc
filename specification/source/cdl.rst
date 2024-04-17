@@ -948,7 +948,7 @@ assumed as default:
 - For RealInput, the default values are:
 
   - If ``unit=K``: If ``quantity="TemperatureDifference"``, the default is :math:`0` K, otherwise it is :math:`293.15` K.
-  - If ``unit=Pa``: If ``quantity="PressureDifference"``, the default is :math:`0` K, otherwise it is :math:`101325` Pa.
+  - If ``unit=Pa``: If ``quantity="PressureDifference"``, the default is :math:`0` Pa, otherwise it is :math:`101325` Pa.
   - For all other units, the default value is :math:`0`.
 
 - For ``IntegerInput``, the default value is :math:`0`.
@@ -1390,7 +1390,7 @@ can be connected.
 Attributes of the variables that are connected are handled as follows:
 
 * If the ``quantity``, ``unit``, ``min`` or ``max`` attributes are set to a non-default value for both
-  connector variables, then they must be equal. Otherwise an error should be issued.
+  connector variables, then they must be equal.
 * If only one of the two connector variables declares the
   ``quantity``, ``unit``, ``min`` or ``max`` attribute, then this value is applied to both
   connector variables.
