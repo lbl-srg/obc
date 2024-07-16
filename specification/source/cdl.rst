@@ -1538,7 +1538,6 @@ declaration of the composite block shown in :numref:`fig_custom_control_block`
 Composite blocks are needed to preserve grouping of control blocks and their connections,
 and are needed for hierarchical composition of control sequences.]
 
-
 .. _sec_ext_blo:
 
 Extension Blocks
@@ -1601,7 +1600,7 @@ Translation of an extension block to json must reproduce the following:
           This will generate the fmu ``Buildings.Controls.OBC.CDL.Reals.PID.fmu``.
 
 
-
+.. _sec_rep_blo:
 
 Replaceable Blocks
 ^^^^^^^^^^^^^^^^^^
@@ -1661,17 +1660,14 @@ Moreover, the assignment
 Such a redeclaration in which a block ``MyPreferredPID`` is used for the instance ``con``
 can be done using
 
-.. code-block:: modelica
-
-   SomeCompositeBlock con(
-    redeclare MyPreferredPID con
-   );
+.. literalinclude::  img/cdl/SomeCompositeBlock.mo
+   :language: modelica
 
 In a ``redeclare`` statement, any parameters can be assigned, for example by writing
-``redeclare MyPreferredPID con(Ti=60)``, which sets the parameter ``Ti`` to ``60``.
+``redeclare MyPreferredPID conPID(Ti=60)``, which sets the parameter ``Ti`` to ``60``.
 
 The ``constrainedby`` keyword can also be used to allow use of a block that has other parameters
-or inputs. A simple examle is
+or inputs. A simple example is
 
 .. literalinclude::  img/cdl/ReplaceableBlock.mo
    :language: modelica
@@ -1687,6 +1683,48 @@ Without the ``constrainedby CDL.Reals.Sources.CivilTime`` clause,
 
 When translating CDL to CXF, the keywords ``replaceable``, ``constrainedby`` and ``redeclare``
 need to be evaluated and removed. E.g., they are not present in ``CXF``.
+
+Extension of a Composite Block
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A composite block can have a single ``extends`` statement.
+The ``extends`` statement must reference another composite block,
+but it cannot extend an elementary block or an extension block.
+The ``extends`` statement can have any number of declarations that assign
+a parameter value or parameter attributes.
+
+.. note:: There are two restrictions compared to the Modelica Language Specification 3.4:
+
+          1. Only a single ``extends`` statement is allowed.
+             This is for simplicity as two ``extends`` statements could different hierarchy trees
+             that ultimately extend from the same base class, but assign possibly different parameter values.
+          2. Modelica allows to assign a value to a variable declared as an ``input``.
+             This is not allowed in CDL.
+             This restriction avoids that input connectors can no longer be graphically connected
+             (as they then would have two bindings to a value, causing the block to be overdetermined).
+
+[
+A simple illustrative example of an ``extends`` statement would be to
+extends the block ``OBC.Utilities.PIDWithInputGains``,
+restricts its output to be always between ``0`` and ``1``,
+and adding an output connector that can be used to access the control error.
+
+This could be accomplished as
+
+.. literalinclude::  img/cdl/MyPID.mo
+   :language: modelica
+
+]
+
+The ``extends`` statement can also have any number of ``redeclare`` statements (:numref:`sec_rep_blo`).
+
+[For example, in the block below, the controller with name ``conPID`` is replaced
+with the block ``OBC.CDL.Reals.PIDWithReset``.
+
+.. literalinclude::  img/cdl/MyBlockWithRedeclare.mo
+   :language: modelica
+
+]
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
