@@ -110,7 +110,7 @@ simulate building energy and control systems.
 
 As the model of computation, CDL uses the synchronous data flow principle and
 single assignment rule, which is consistent with the
-Modelica 3.4 Language Specification :cite:`ModelicaSpecification2021`.
+Modelica Language Specification :cite:`ModelicaSpecification2023`.
 Therefore, all variables keep their value until the value is explicitly changed,
 values are always present (and hence can be accessed at any time instant),
 computation and communication at an event instant do not take time,
@@ -248,7 +248,7 @@ Syntax
 
 In order to use CDL with building energy simulation programs,
 and to not invent yet another language with new syntax,
-the CDL syntax conforms to a subset of the Modelica 3.6 specification :cite:`ModelicaSpecification2021`.
+the CDL syntax conforms to a subset of the Modelica Language Specification :cite:`ModelicaSpecification2023`.
 The selected subset is needed to instantiate
 classes, assign parameters, connect objects and document classes.
 This subset is fully compatible with Modelica, e.g., no construct that
@@ -259,16 +259,21 @@ Modelica-compliant simulation environment.
 To simplify the support of CDL for tools and control systems,
 the following Modelica keywords are not supported in CDL (except inside the extension blocks, :numref:`sec_ext_blo`):
 
-#. ``extends``
 #. ``inner`` and ``outer``
+   `for instance hierarchy lookup <https://specification.modelica.org/maint/3.6/scoping-name-lookup-and-flattening.html#inner-declarations-instance-hierarchy-name-lookup>`_
+#. ``break`` for
+   `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_.
 
 Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
-#. Clocks [which are used in Modelica for hybrid system modeling].
-#. ``algorithm`` sections [because the elementary blocks are black-box
+#. `Clocks <https://specification.modelica.org/maint/3.6/state-machines.html>`_ for
+   clocked state machines [which are used in Modelica for hybrid system modeling].
+#. ``algorithm`` sections
+   `for expressing sequences of statements <https://specification.modelica.org/maint/3.6/statements-and-algorithm-sections.html>`_ [because the elementary blocks are black-box
    models as far as CDL is concerned and thus CDL compliant tools
    do not parse the ``algorithm`` section.]
-#. ``initial equation`` and ``initial algorithm`` sections.
+#. ``initial equation`` and ``initial algorithm`` sections `for system initialization
+   <https://specification.modelica.org/maint/3.6/equations.html#initialization-initial-equation-and-initial-algorithm>`_.
 
 
 .. _sec_cld_per_typ:
@@ -1693,12 +1698,24 @@ but it cannot extend an elementary block or an extension block.
 The ``extends`` statement can have any number of declarations that assign
 a parameter value or parameter attributes.
 
-.. note:: There are two restrictions compared to the Modelica Language Specification 3.4:
+.. note:: There are three restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
 
           1. Only a single ``extends`` statement is allowed.
-             This is for simplicity as two ``extends`` statements could different hierarchy trees
-             that ultimately extend from the same base class, but assign possibly different parameter values.
-          2. Modelica allows to assign a value to a variable declared as an ``input``.
+             This is for simplicity because two ``extends`` statements could require having to reconcile two
+             different hierarchy trees that ultimately extend from the same base class,
+             but may assign different values to a parameter that is inherited from the common base class.
+             Such a case would be for example
+
+             .. literalinclude:: img/cdl/MultipleExtends.mo
+                :language: modelica
+
+             Note that in Modelica, multiple ``extends`` are allowed, but the block ``NotValid``
+             is not valid and tools will issue an error message.
+
+          2. The ``break`` keyword for
+             `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_
+             is not allowed.
+          3. Modelica allows to assign a value to a variable declared as an ``input``.
              This is not allowed in CDL.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
@@ -1730,7 +1747,7 @@ Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
 CDL uses the synchronous data flow principle and the single assignment rule,
-which are defined below. [The definition is adopted from and consistent with the Modelica 3.6 Specification, Section 8.4.]
+which are defined below. [The definition is adopted from and consistent with the Modelica Language Specification :cite:`ModelicaSpecification2023`.]
 
 #. All variables keep their actual values until these values
    are explicitly changed. Variable values can be accessed at any time instant.
