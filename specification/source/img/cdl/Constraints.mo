@@ -9,11 +9,13 @@ model Constraints
 
   model Model
     parameter Integer param=2;
-    // OpenModelica errors as param is declared final
+    // OpenModelica errors because param is declared final
     replaceable parameter BaseRecord rec constrainedby BaseRecord(param=param);
   end Model;
 
-  // Overriding by param=param from the constraining clause: Dymola errors, Modelon OPTIMICA evaluates to 2.
+  // Overriding by param=param from the constraining clause:
+  // OpenModelica and Dymola errors,
+  // Modelon OPTIMICA evaluates to 2.
   Model component1(redeclare Record rec);
 
    // Precedence of declaration over constraining clause from

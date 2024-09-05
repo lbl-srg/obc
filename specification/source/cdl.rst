@@ -1755,7 +1755,7 @@ then the following applies:
 - The modifiers for subsequent redeclarations and constraining type are the modifiers on the component
   or short-class-definition if that is used in the original declaration, otherwise empty.
 
-[ Consider the following example, and see also 
+[ Consider the following example, and see also
 `Section 7.3.2 <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#constraining-type>`_ in
 :cite:`ModelicaSpecification2023`:
 
