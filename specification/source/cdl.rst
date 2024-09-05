@@ -1743,6 +1743,27 @@ with the block ``OBC.CDL.Reals.PIDWithReset``.
 
 ]
 
+In a replaceable declaration, the optional constraining-clause defines a constraining type.
+Any modifications following the constraining type name are applied both for the purpose of
+defining the actual constraining type, and they are automatically applied in the declaration and in any subsequent redeclaration.
+The precedence order is that declaration modifiers override constraining type modifiers.
+
+If the constraining-clause is not present in the original declaration (i.e., the non-redeclared declaration),
+then the following applies:
+
+- The type of the declaration is also used as a constraining type.
+- The modifiers for subsequent redeclarations and constraining type are the modifiers on the component
+  or short-class-definition if that is used in the original declaration, otherwise empty.
+
+[ Consider the following example, and see also
+`Section 7.3.2 <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#constraining-type>`_ in
+:cite:`ModelicaSpecification2023`:
+
+.. literalinclude::  img/cdl/Constraints.mo
+   :language: modelica
+
+]
+
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
 
