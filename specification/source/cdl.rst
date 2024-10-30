@@ -1850,7 +1850,7 @@ Semantic Information
 
 The buildings industry has started to integrate different metadata languages such as
 `Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their
-control software and technology. `ASHRAE 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_
+control software and technology. `ASHRAE Standard 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_
 is another upcoming metadata language that will describe the equipment topology in buildings and also
 the flow of different media. This section specifies the syntax to support these metadata
 languages and include the semantic information represented using these languages in a CDL class.
@@ -1858,9 +1858,9 @@ languages and include the semantic information represented using these languages
 Semantic information shall be included within the ``annotation`` keyword, using the ``__Buildings`` or
 ``__cdl`` vendor annotation. ``__cdl`` shall be used when the semantic information is part of a control
 sequence and ``__Buildings`` shall be used for every other instance such as equipment or a zone.
-The following instances can optionally have annotations containing semantic information:
+The following instances shall optionally have annotations containing semantic information:
 
-* Input and output connectors (:numref:`sec_connectors`),
+* input and output connectors (:numref:`sec_connectors`),
 * parameters (:numref:`sec_par_typ`),
 * constants (:numref:`sec_con_typ`),
 * connections (:numref:`sec_connections`),
@@ -1879,13 +1879,13 @@ All semantic information shall be included under the ``semantic`` section within
 
 where ``<semantic information>`` is a place holder for the semantic information.
 
-The ``semantic`` annotation declared in the class definition should contain
-the ``metadataLanguageDefinition`` or the ``naturalLanguageDefinition`` for each of
-the languages used.
+The ``semantic`` annotation declared in the class definition shall 
+optionally contain the ``metadataLanguageDefinition`` or the 
+``naturalLanguageDefinition`` for each of the languages used.
 The ``metadataLanguageDefinition`` and ``naturalLanguageDefinition``
 are used to provide additional information about the different metadata
 languages and natural languages that are used throughout the class. The
-language definitions should contain information such as a short description
+language definitions contain information such as a short description
 of the language or the URL to the webpage of the language.
 
 The optional ``metadataLanguageDefinition`` shall have the following syntax:
@@ -1924,7 +1924,7 @@ codes and
 
 
 [Examples of the ``<metadataLanguageName>`` include web ontology languages (OWL) such as
-``Brick`` or  ``ASHRAE 223p``, and examples of ``<naturalLanguageName>``
+``Brick`` or  ``ASHRAE S223p``, and examples of ``<naturalLanguageName>``
 include ``en`` or ``es``. Below is an example of how to define multiple
 ``metadataLanguageDefinition`` and
 ``naturalLanguageDefinition`` in a class definition annotation.
@@ -1967,11 +1967,12 @@ language and
    Depending on the ``metadataLanguage`` (``"<metadataLanguageName> <version> <format>"``),
    the ``metadata`` can be represented in multiple formats. For example, ``text/turtle``
    and ``application/ld+json`` are a couple of formats to represent the ``metadata`` of web
-   ontology languages such as Brick and ASHRAE 223p. Project-Haystack ``metadata``
+   ontology languages such as Brick and ASHRAE S223p. Project-Haystack ``metadata``
    can also be represented in multiple formats such as ``text/zinc``,
    ``text/turtle`` and ``application/ld+json``.
 
-Semantic information in the class definition annotations shall also be used to define class
+Semantic information in the class definition annotations shall optionally be used to 
+define class
 level information about the metadata languages. These include, but are not restricted to,
 namespace definitions (namespaces in ontologies provide a means to unambiguously interpret
 identifiers and make the rest of the ontology presentation more readable) and prefixes
@@ -2003,15 +2004,13 @@ If an instance declaration contains semantic information, it overrides the seman
 of its class definition.
 If an instance declaration does not contain semantic information, it inherits the semantic information
 of its class definition.
-Parameter (or constant) bindings can also have semantic information, and they override the semantic
-information of the parameter (or constant) whose value is assigned.
 
 [
 Example:
 
   .. code-block:: modelica
 
-     CDL.Reals.MultiplyByParameter(k = 100000 annotation(__cdl(semantic(...))))
+     CDL.Reals.MultiplyByParameter gain(k = 100000 annotation(__cdl(semantic(...))))
        "My gain";
 
 ]
@@ -2066,18 +2065,23 @@ Example:
 
 ]
 
-The text ``<cdl_instance_name>`` (including the `<` and `>` characters) within
-the ``metadata`` shall be used for
-referring to the current instance (the instance that contains the semantic
-annotation), if the instance has the same name in semantic model.
-This avoids the user having to repeat the name of the instance and
+``<instanceName>``: The text ``<instanceName>`` (including the ``<`` 
+and ``>`` characters) within the metadata of an annotation containing semantic 
+information shall be replaced with the fully qualified path of the instance
+that contains the semantic annotation.  A fully qualified path to an instance
+refers to the complete hierarchical path that specifies the instance's 
+location within an object structure. This qualified path shall include all 
+parent instances leading up to the current instance, with each level of 
+instantiation separated by an underscore (“_”). If an instance is nested
+within multiple levels of instance definitions, the text that 
+replaces ``<instanceName>`` shall reflect the entire chain of instantiation. 
+This avoids the user having to repeat the name of the instance and 
 makes it less prone to errors and inconsistencies.
 
 [An example of CDL semantic information for an instance in a class with
 multiple ``metadataLanguage``/``metadata`` pair is shown below.
-We can see that ``<cdl_instance_name>`` has been used in the
-``metadata`` and Brick metadata will be inferred as
-``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .``
+We can see that ``<instanceName>`` has been used in the
+``metadata`` and Brick metadata will be inferred as ``bldg:THeaCoiSup_in a Brick:Hot_Water_Supply_Temperature_Sensor .``
 and the Project Haystack identifier as ``{"@id": "THeaCoiSup_in"}``.
 
 Example:
@@ -2089,10 +2093,10 @@ Example:
        annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
                    __cdl(semantic(
                    metadataLanguage="Brick 1.3 text/turtle"
-                     "bldg:<cdl_instance_name> a Brick:Hot_Water_Supply_Temperature_Sensor .",
+                     "bldg:<instanceName> a Brick:Hot_Water_Supply_Temperature_Sensor .",
                    metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
                      "{
-                        \"@id\": \"_:<cdl_instance_name>\",
+                        \"@id\": \"_:<instanceName>\",
                         \"ph:hasTag\": [
                             {\"@id\": \"phIoT:cur\"},
                             {\"@id\": \"phIoT:hot\"},
@@ -2105,7 +2109,39 @@ Example:
                         \"rdfs:label\": \" Heating Hot Water Supply Temperature\"
                      }",
                    metadataLanguage="en"
-                     "This is a temperature reading input that should be hardwired to heating coil temperature sensor")));
+                     "<instanceName> is a temperature reading input that should be hardwired to heating coil temperature sensor")));
+
+]
+
+``<parameter>``: This syntax allows for a value of a parameter to be used
+within an annotation containing semantic information where the ``parameter`` 
+shall refer to the name of a parameter instance within the 
+class. The text ``<parameter>`` (including the ``<`` and ``>`` characters) 
+shall be replaced by the value of the parameter. If the parameter does not 
+exist in the class, the ``<parameter>`` shall not be replaced. 
+
+[In the below example, if the fully qualified path of ``reaFloSup`` is
+``reaFloSup``, the ``<instanceName>`` will be replaced by ``reaFloSup``. 
+The location of the sensor, represented by the ``brick:hasLocation``
+relationship, after replacing ``<instanceName>`` will be ``bldg:<zon>``. 
+``<zon>`` refers to the value of the ``zon`` parameter within the instantiated
+``reaFloSup``, which is ``east``. Hence, the completely evaluated semantic 
+information becomes: 
+
+.. code-block:: modelica
+
+   bldg:reaFloSup a brick:Supply_Air_Flow_Sensor;
+            brick:hasLocation bldg:east .
+
+Example:
+
+.. code-block:: modelica
+
+    MyCompositeBlock.MyFlowSensor reaFloSup (zon="east") "Supply Air Flow Rate"
+        annotation ( __cdl(semantic(
+        metadataLanguage="Brick 1.3 text/turtle" 
+            "bldg:<instanceName> a brick:Supply_Air_Flow_Sensor;
+                   brick:hasLocation bldg:<zon> .")));
 
 ]
 
@@ -2124,7 +2160,7 @@ referring to the semantic information of the hot water supply temperature sensor
        annotation (Placement(transformation(extent={{-140,-180},{-100,-140}})),
                    __cdl(semantic(
                    metadataLanguage="Brick 1.3 text/turtle"
-                     "bldg:<cdl_instance_name> a Brick:Hot_Water_Supply_Temperature_Sensor ."
+                     "bldg:<instanceName> a Brick:Hot_Water_Supply_Temperature_Sensor ."
                   )));
 
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU heaCoi(
@@ -2135,20 +2171,20 @@ referring to the semantic information of the hot water supply temperature sensor
     annotation (Placement(transformation(extent={{118,-36},{98,-56}})),
                 __Buildings(semantic(
                    metadataLanguage="Brick 1.3 text/turtle"
-                     "bldg:<cdl_instance_name> a Brick:Heating_Coil ;
+                     "bldg:<instanceName> a Brick:Heating_Coil ;
                                  brick:hasPoint bldg:THeaCoiSup_in ."
                   )));
 
 ]
 
-The following part of the specification is only relevant to semantic information that uses
-the ``__Buildings`` annotation. If a class inherits one or more classes, all the semantic
-information in the classes is inherited.
+If a class inherits one or more classes (CDL only allows for inheriting one class), all
+the semantic information in the classes is inherited.
 However, if the classes being inherited and the class inheriting it contains different
 ``metadataLanguage`` or ``naturalLanguage`` due to differences in
 any of ``<metadataLanguageName>`` or ``<version>`` or ``<format>`` or
 ``<naturalLanguageName>`` parts of the
 syntax, they shall be treated as different languages.
+
 If an inherited ``replaceable`` instance has been replaced using the ``redeclare``
 keyword, the semantic information of the instance that replaced the original instance
 shall be used, and the semantic information of the replaced class shall
