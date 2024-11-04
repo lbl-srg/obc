@@ -165,6 +165,9 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
                                                      OutputConnector, block.
                                                      Parameter, 
                                                      Constant
+   hasFmuPath                      ExtensionBlock    String           Used to include (local or over network)
+                                                                      path to a Functional Mockup Unit
+                                                                      implementation of an extension block.
    isOfDataType                    InputConnector,   DataType         Used to define the data type for input 
                                    OutputConnector,                   connectors, output connectors, parameters,
                                    Parameter,                         and constants.
@@ -258,3 +261,10 @@ how the translation will handle:
   within assignment operations, conditional 
   assignments and arithmetic operations. 
 
+Extension Blocks
+^^^^^^^^^^^^^^^^
+Instances of extension blocks within a CDL classs
+shall contain the annotation ``__cdl(extenstion=true)``. 
+The location of the Functional Mockup Unit implementation
+of the extension block shall be included using the 
+property ``hasFmuPath``.
