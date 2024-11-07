@@ -250,16 +250,36 @@ how the translation will handle:
   from CDL shall optionally include a configuration
   indicating whether or not to flatten or 
   preserve the vector references. By default, 
-  vector references in CDL should be flattened 
-  in CXF. An index appearing within square 
+  vector references in CDL should be preserved 
+  in CXF. If vector references should be flattened, 
+  an index appearing within square 
   brackets (``[`` and ``]``) in CDL shall be 
   appended with the underscore (``_``) character. 
+  For matrices (two dimensions) and arrays with more than
+  two dimensions, each index shall be concatenated
+  with the underscore character (``_``).
+  
+  [For example, ``A[1]`` becomes ``A_1`` and ``B[1 ,2 ,3]``
+  becomes ``B_1_2_3``.
+  ]
 * Expressions: A tool that generates CXF translations 
   from CDL shall optionally include a configuration 
   indicating whether or not to evaluate all 
   expressions in the CDL sequence such as those 
   within assignment operations, conditional 
-  assignments and arithmetic operations. 
+  assignments and arithmetic operations. By default,
+  the expressions shall be preseved in CXF. If the 
+  expressions have to be evaluated and the expressions
+  contain references to a parameter the value of the 
+  parameter will be used in the expression. If the
+  expressions have to be evaluated and expressions 
+  contain references to parameter(s) that does not have 
+  a value binding, then the translation should exit
+  with an error. If there are parameters that do not 
+  have a value binding, the translation process 
+  shall require the user to input the value for
+  such parameters.
+
 
 Extension Blocks
 ^^^^^^^^^^^^^^^^
