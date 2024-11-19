@@ -2107,8 +2107,9 @@ Example:
 within an annotation containing semantic information where the ``parameter`` 
 shall refer to the name of a parameter instance within the 
 class. The text ``<parameter>`` (including the ``<`` and ``>`` characters) 
-shall be replaced by the value of the parameter. If the parameter does not 
-exist in the class, the ``<parameter>`` shall not be replaced. 
+shall be replaced by the value of the parameter. The class must have an 
+instance of a parameter with the name specified by ``<parameter>``, 
+otherwise the specification is not valid.
 
 [In the below example, if the fully qualified name of ``reaFloSup`` is
 ``reaFloSup``, the ``<instanceName>`` will be replaced by ``reaFloSup``. 
