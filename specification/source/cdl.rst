@@ -2005,16 +2005,6 @@ of its class definition.
 If an instance declaration does not contain semantic information, it inherits the semantic information
 of its class definition.
 
-[
-Example:
-
-  .. code-block:: modelica
-
-     CDL.Reals.MultiplyByParameter gain(k = 100000 annotation(__cdl(semantic(...))))
-       "My gain";
-
-]
-
 Additionally, if there already exists a semantic model for a particular class
 or for an instance,
 it shall be referred to in the annotation using the syntax
