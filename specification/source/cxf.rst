@@ -232,13 +232,16 @@ CDL:
 
     within ExamplePackage;
     block ExampleSeq
-    CDL.Reals.MultiplyByParameter gain(k = 100000 
+    CDL.Reals.MultiplyByParameter gain(k = 100000) 
         "My gain";
     end ExampleSeq;
 
 CXF reference to ``gain`` instance: ``ExamplePackage.ExampleSeq#gain``
+
 CXF reference to ``gain.k`` instance: ``ExamplePackage.ExampleSeq#gain.k``
+
 CXF property linking ``gain`` and ``gain.k``: ``ExamplePackage.ExampleSeq#gain S231:hasInstance ExamplePackage.ExampleSeq#gain.k .``
+]
 
 Handling Vectors and Expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -246,8 +249,9 @@ A CXF translation of a CDL sequence shall optionally
 include certain configuration options that specify 
 how the translation will handle:
 
-* Vectors: A tool that generates CXF translations 
-  from CDL shall optionally include a configuration
+* Vectors: A tool that generates 
+  CXF translations from CDL shall optionally 
+  include a configuration
   indicating whether or not to flatten or 
   preserve the vector references. By default, 
   vector references in CDL should be preserved 
@@ -255,12 +259,27 @@ how the translation will handle:
   an index appearing within square 
   brackets (``[`` and ``]``) in CDL shall be 
   appended with the underscore (``_``) character. 
-  For matrices (two dimensions) and arrays with more than
-  two dimensions, each index shall be concatenated
-  with the underscore character (``_``).
   
-  [For example, ``A[1]`` becomes ``A_1`` and ``B[1 ,2 ,3]``
-  becomes ``B_1_2_3``.
+  [For example, ``A[1]`` becomes ``A_1``.
+  ]
+* Matrices and arrays with more than
+  two dimensions: A tool that generates 
+  CXF translations from CDL shall optionally 
+  include a configuration
+  indicating whether or not to flatten or 
+  preserve the matrix and array references.
+  By default, the references to matrices and
+  arrays in CDL should be preserved 
+  in CXF. If the references should be flattened, 
+  the indices appearing within square 
+  brackets (``[`` and ``]``) in CDL shall be 
+  appended with the underscore (``_``) character
+  and each index shall be concatenated
+  with the underscore character (``_``). Matrices
+  and arrays shall be serialized as row major.
+  
+  [For example, ``B[1 ,2]`` becomes ``B_1_2`` 
+  and ``C[4, 5, 6]`` becomes ``C_4_5_6``.
   ]
 * Expressions: A tool that generates CXF translations 
   from CDL shall optionally include a configuration 
@@ -275,10 +294,7 @@ how the translation will handle:
   expressions have to be evaluated and expressions 
   contain references to parameter(s) that does not have 
   a value binding, then the translation should exit
-  with an error. If there are parameters that do not 
-  have a value binding, the translation process 
-  shall require the user to input the value for
-  such parameters.
+  with an error. 
 
 
 Extension Blocks

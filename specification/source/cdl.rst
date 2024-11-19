@@ -2067,10 +2067,10 @@ Example:
 
 ``<instanceName>``: The text ``<instanceName>`` (including the ``<`` 
 and ``>`` characters) within the metadata of an annotation containing semantic 
-information shall be replaced with the fully qualified path of the instance
-that contains the semantic annotation.  A fully qualified path to an instance
+information shall be replaced with the fully qualified name of the instance
+that contains the semantic annotation.  A fully qualified name to an instance
 refers to the complete hierarchical path that specifies the instance's 
-location within an object structure. This qualified path shall include all 
+location within an object structure. This qualified name shall include all 
 parent instances leading up to the current instance, with each level of 
 instantiation separated by an underscore (“_”). If an instance is nested
 within multiple levels of instance definitions, the text that 
@@ -2120,7 +2120,7 @@ class. The text ``<parameter>`` (including the ``<`` and ``>`` characters)
 shall be replaced by the value of the parameter. If the parameter does not 
 exist in the class, the ``<parameter>`` shall not be replaced. 
 
-[In the below example, if the fully qualified path of ``reaFloSup`` is
+[In the below example, if the fully qualified name of ``reaFloSup`` is
 ``reaFloSup``, the ``<instanceName>`` will be replaced by ``reaFloSup``. 
 The location of the sensor, represented by the ``brick:hasLocation``
 relationship, after replacing ``<instanceName>`` will be ``bldg:<zon>``. 
