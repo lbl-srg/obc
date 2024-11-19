@@ -43,14 +43,14 @@ But there are several key differences between CDL and CXF:
   type ``Real`` or ``Integer``. ``Real`` data are not allowed to be 
   tested for equality since computations are prone to rounding 
   errors. Many commercial control systems define continuous 
-  data types as ``analog``. 
+  data types as ``Analog``. 
   ]
 
 * Libraries which utilize matrices and vectors in CDL shall have
   the option to be modified (or "flattened") to result in an 
   instance of control logic which is then represented in CXF. 
-  [For example: A[1] and B[1,2] are elements of a matrix. Then, 
-  after flattening, their names are A_1 and B_1_2. A similar 
+  [For example: ``A[1]`` and ``B[1,2]`` after flattening
+  shall become `A_1` and `B_1_2`. A similar 
   pattern applies for higher dimensional matrices.  
   ]
 
@@ -60,9 +60,10 @@ But there are several key differences between CDL and CXF:
    
   * Blocks that utilize vectors and matrices. These blocks are 
     used for the development and support of control sequence 
-    libraries but are not easily utilized in graphical 
-    programming tools. 
-  * The “Pre” block which is used to break algebraic loops that
+    libraries but may not be supported by 
+    the commercial control product. 
+
+  * The ``Pre`` block which is used to break algebraic loops that
     involve Boolean variables during a simulation but is not 
     required in common building controllers.
 
@@ -92,56 +93,38 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    ============================  ===========================================================
    Class                         Description
    ============================  ===========================================================
-   Package						 
-   								 A package is a specialized class used to group multiple 
-   								 blocks.
-   Blocks   					 A block is the abstract interface of a control sequence.
-   ElementaryBlock 
-   								 An elementary block defined by ASHRAE S231P (subClassOf 
-   								 Block) (:numref:`sec_ele_blo`).
-   CompositeBlock 
-   								 A composite block is a collection of elementary blocks or 
-   								 other composite blocks (subclass of Block) and the 
-   								 connections through their inputs and outputs (:numref:`sec_com_blo`).
-   ExtensionBlock
-   								 An extension block supports functionalities that cannot, 
-   								 or are hard to, implement with a composite block (:numref:`sec_ext_blo`).
-   InputConnector
-   								 An input connector is a connector that provides an input to 
-   								 a block.
-   OutputConnector
-   								 An output connector is a connector that provides an output 
-   								 from a block.
-   Parameter
-   								 A parameter is a value that is time-invariant and cannot be changed 
-   								 based on an input signal. A block can have multiple parameters.
-   Constant
-   								 A constant is a value that is fixed at compilation time. A block can 
-   								 have multiple constants.
-   DataType
-   								 A data type description for function block connectors, parameters, 
-   								 and constants.
-   BooleanInput
-   								 An input connector for boolean data type.
-   BooleanOutput
-   								 An output connector for boolean data type.
-   IntegerInput
-   								 An input connector for integer data type.
-   IntegerOutput
-   								 An output connector for integer data type.
-   RealInput
-   								 An input connector for real data type.
-   RealOutput
-   								 An output connector for real data type.
-   EnumerationType
-   								 An Integer enumeration starting with the value 1, each element 
-   								 is mapped to a unique String.
-   AnalogInput
-   								 An input connector for analog data type.
-   AnalogOutput
-   								 An output connector for analog data type.
-   String
-   								 A data type to represent text.
+   Package                       A package is a specialized class used to group multiple 
+                                 Blocks.
+   Blocks                        A Block is the abstract interface of a control sequence.
+   ElementaryBlock               An Elementary Block defined by ASHRAE S231P (``subClassOf 
+                                 Block``) (:numref:`sec_ele_blo`).
+   CompositeBlock                A Composite Block is a collection of elementary blocks or 
+                                 other Composite Blocks (``subClassOf Block``) and the 
+                                 connections through their inputs and outputs (:numref:`sec_com_blo`).
+   ExtensionBlock                An Extension Block supports functionalities that cannot,
+                                 or are hard to, implement with a Composite Block
+                                 (``subClassOf Block``) (:numref:`sec_ext_blo`).
+   InputConnector                An Input Connector is a connector that provides an input to 
+                                 a Block.
+   OutputConnector               An Output Connector is a connector that provides an output 
+                                 from a Block.
+   Parameter                     A Parameter is a value that is time-invariant and cannot be changed 
+                                 based on an input signal. A Block can have multiple Parameters.
+   Constant                      A Constant is a value that is fixed at compilation time. A Block can 
+                                 have multiple Constants.
+   DataType                      A data type description for Block connectors, Parameters, 
+                                 and Constants.
+   BooleanInput                  An Input Connector for boolean data type.
+   BooleanOutput                 An Output Connector for boolean data type.
+   IntegerInput                  An Input Connector for integer data type.
+   IntegerOutput                 An Output Connector for integer data type.
+   RealInput                     An Input Connector for real data type.
+   RealOutput                    An Output Connector for real data type.
+   EnumerationType               An Integer enumeration starting with the value 1, each element 
+                                 is mapped to a unique String.
+   AnalogInput                   An Input Connector for analog data type.
+   AnalogOutput                  An Output Connector for analog data type.
+   String                        A data type to represent text.
    ============================  ===========================================================								 
 			 
 
@@ -154,28 +137,28 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    =============================== ================= ================ =========================================
    Property                        Domain            Range            Description
    =============================== ================= ================ =========================================
-   hasInput                        Block             InputConnector   Used to define an input connector for a 
-                                                                      block.
-   hasOutput                       Block             OutputConnector  Used to define an output connector for a 
-                                                                      block.
-   hasParameter                    Block             Parameter        Used to define a parameter for a block.
-   hasConstant                     Block             Constant         Used to define a constant for a block.
-   hasInstance                     Block             Block,           Used to define an instance (input, 
-                                                     InputConnector,  output, parameter or constant) of a 
-                                                     OutputConnector, block.
+   hasInput                        Block             InputConnector   Used to define an Input Connector for a 
+                                                                      Block.
+   hasOutput                       Block             OutputConnector  Used to define an Output Connector for a 
+                                                                      Block.
+   hasParameter                    Block             Parameter        Used to define a Parameter for a Block.
+   hasConstant                     Block             Constant         Used to define a Constant for a Block.
+   hasInstance                     Block             Block,           Used to define an instance (connector, 
+                                                     InputConnector,  Parameter or Constant) of a 
+                                                     OutputConnector, Block.
                                                      Parameter, 
                                                      Constant
    hasFmuPath                      ExtensionBlock    String           Used to include (local or over network)
                                                                       path to a Functional Mockup Unit
-                                                                      implementation of an extension block.
-   isOfDataType                    InputConnector,   DataType         Used to define the data type for input 
-                                   OutputConnector,                   connectors, output connectors, parameters,
-                                   Parameter,                         and constants.
+                                                                      implementation of an Extension Block.
+   isOfDataType                    InputConnector,   DataType         Used to define the data type for  
+                                   OutputConnector,                   connectors, Parameters and Constants.
+                                   Parameter,                         
                                    Constant
-   containsBlock                   Block             Block            Used in composite block to include other
-                                                                      blocks.
-   connectTo                       OutputConnector,  InputConnector,  Used to connect the output of one block
-                                   InputConnector    OutputConnector  to the input of a block. Only connectors
+   containsBlock                   Block             Block            Used in Composite Block to include other
+                                                                      Blocks.
+   connectTo                       OutputConnector,  InputConnector,  Used to connect the output of one Block
+                                   InputConnector    OutputConnector  to the input of a Block. Only connectors
                                                                       that carry the same data type can be
                                                                       connected.
    translationSoftware             Package, Block    String           Used to include the name of the software
@@ -186,7 +169,7 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
                                                                       the sequence.		
    =============================== ================= ================ =========================================
 
-All the ElementaryBlock within the standard have been 
+All the ``ElementaryBlock`` within the standard have been 
 defined and included in ``CXF-Core.jsonld``. However, CXF 
 representation of elementary blocks does not contain 
 the implementation details of the blocks. 
@@ -198,10 +181,9 @@ generated from a instance of a CDL class. When there
 are instances of a CDL class within a Modelica or 
 another CDL class, if the instance has the CDL 
 annotation ``__cdl(export=true)``, the corresponding CDL 
-class shall be translated to CXF. If there is no 
-``export`` annotation attached to the instance, the 
-default value would be false and no CXF will be 
-generated for the class of that instance. 
+class shall be translated to CXF. Specifying the ``export`` 
+annotation is optional, and if unspecified 
+``export=false`` is assumed.
 
 Source of CXF translation
 ^^^^^^^^^^^^^^^^^^^^^^^^^
