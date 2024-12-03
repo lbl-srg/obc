@@ -104,19 +104,25 @@ Translation of a Control Sequence using a JSON Intermediate Format
 
 Control companies that choose to not use C-code generation or the FMI standard to
 execute CDL-compliant control sequences can develop translators from
-CDL to their native language. To aid in this process, a CDL to JSON translator
-can be used. Such a translator is currently being developed at
-https://github.com/lbl-srg/modelica-json.
-This translator parses CDL-compliant control sequences to a JSON format.
-The parser generates the following output formats:
+CDL to their native language. To aid in this process, an intermediate 
+Control eXchange Format (CXF) can be used. CXF is a JSON-LD representation
+of a CDL sequence, serialized in JSON. `Modelica-json <https://github.com/lbl-srg/modelica-json>`_
+is a reference implementation of such a CDL to CXF translator. 
+This translator first parses CDL-compliant control sequences to a abstract 
+syntax tree in JSON format and then generates a CXF representation from it. 
+The ``modelica-json`` tool can also parse Modelica code and it
+can generate the following output formats:
 
-1. A JSON representation of the control sequence,
-2. a simplified version of this JSON representation, and
-3. an html-formated documentation of the control sequence.
+1. A JSON representation of the control sequence (CDL) or the Modelica 
+   file(``raw-json``),
+2. A simplified version of this JSON representation (``json``),
+3. A semantic model from the control sequnce or the Modelica file 
+   (``semantic``) and
+4. A CXF representation of the control sequence (``cxf``).
 
 To translate CDL-compliant control sequences to the language that is used
-by the target building automation system, the simplified JSON representation
-is most suited.
+by the target building automation system, the Control eXchange Format (CXF) 
+representation is most suited.
 
 As an illustrative example, consider the composite control block shown in
 :numref:`fig_custom_control_block` and reproduced in
@@ -142,17 +148,16 @@ Executing the command
 
 .. code-block:: bash
 
-   node modelica-json/app.js -f CustomPWithLimiter.mo -o json-simplified
+   node modelica-json/app.js -f CustomPWithLimiter.mo -o cxf
 
-will produce a file called ``CustomPWithLimiter-simplified.json`` that
+will produce a file called ``CustomPWithLimiter.jsonld`` that
 looks as follows:
 
-.. literalinclude:: img/codeGeneration/CustomPWithLimiter/CustomPWithLimiter-simplified.json
+.. literalinclude:: img/codeGeneration/CustomPWithLimiter/CustomPWithLimiter.jsonld
    :language: json
    :linenos:
 
-Note that the graphical annotations are not shown.
-The JSON representation can then be parsed and converted to another block-diagram
+The representation can then be parsed and converted to another block-diagram
 language.
 Note that ``CDL.Reals.MultiplyByParameter`` is an elementary CDL block
 (see :numref:`sec_ele_blo`).
