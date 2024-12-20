@@ -10,17 +10,18 @@ CXF is a representation of CDL in a format that is
 intended to be readily imported and exported into 
 building automation systems.  As an example, a commercial 
 control provider might utilize it to import control logic 
-from a design tool for use in a control sequence being 
+from a design tool for use in a control logic being 
 deployed on a project.  Structurally the content of a
-sequence in CDL and CXF are identical, in that both 
-utilize the same Elementary, Composite, and Extension 
-Blocks as well as constants, parameters, input, and 
-output connectors, although CDL has language constructs 
-that are used to build library of sequences, while CXF
-was designed to only represent a specifically configured
-sequence. The logic described in a CDL sequence is identical
-to the logic described in a CXF sequence. 
-But there are several key differences between CDL and CXF:
+logic in CDL and CXF are identical, in that both 
+utilize the same ElementaryBlocks, CompositeBlocks, and
+ExtensionBlocks as well as Constants, Parameters, 
+InputConnectors, and OutputConnectors, although CDL has 
+language constructs that are used to build library of 
+sequences, while CXF was designed to only represent a 
+specifically configured logic. The logic described in a 
+CDL implementation is identical to the logic described 
+in a CXF representation. But there are several key 
+differences between CDL and CXF:
 
 * CXF is defined utilizing the linked data format `JSON-LD <https://www.w3.org/TR/json-ld11/>`_, 
   while CDL utilizes the modeling language Modelica standard. 
@@ -29,22 +30,39 @@ But there are several key differences between CDL and CXF:
   programs than Modelica, which is designed to be human readable. 
 
 * There is a translation process required to convert a 
-  sequence from CDL to CXF. 
+  control sequence from CDL to CXF. 
 
-* For Elementary Blocks (:numref:`sec_ele_blo`), their
+* For ElementaryBlocks (:numref:`sec_ele_blo`), their
   CXF representation does not include the implementation 
   (``equation`` section).
 
 * Like many scientific modeling languages, Modelica requires 
-  tight casting of data types. Commercial control products are 
-  more flexible in the use of data types. 
+  tight casting of data types. 
   
   [For example, in Modelica, a data type needs to be declared as
   type ``Real`` or ``Integer``. ``Real`` data are not allowed to be 
   tested for equality since computations are prone to rounding 
-  errors. Many commercial control systems define continuous 
-  data types as ``Analog``. 
+  errors.
   ]
+
+  .. note::
+
+    When importing a CXF representation of a CDL logic
+    into a commercial control system that does not support 
+    ``Real`` or ``Integer`` data types, the commercial 
+    entity's "CDL import" software tool
+    for the commercial control system must  
+    make a decision on how to handle the ``Real`` and
+    ``Integer`` InputConnectors, OutputConnectors, 
+    Parameters and Constants. 
+    For example, the tool could change it
+    to ``Analog``. Similarly, while exporting a CXF representation
+    of a control logic implemented in a commercial control
+    system, the commercial entity's 
+    "CDL export" software tool must decide how
+    to translate unsupported data types such as ``Analog`` into 
+    ``Real`` or ``Integer`` InputConnectors, OutputConnectors, 
+    Parameters and Constants. 
 
 * Libraries which utilize matrices and vectors in CDL shall have
   the option to be modified (or "flattened") to result in an 
@@ -72,8 +90,8 @@ But there are several key differences between CDL and CXF:
 Classes and Properties
 ^^^^^^^^^^^^^^^^^^^^^^
 
-A valid CXF file contains Blocks (that is Elementary Blocks, 
-Composite Blocks, Extension Blocks or a combination of these) and
+A valid CXF file contains Blocks (that is ElementaryBlocks, 
+CompositeBlocks, ExtensionBlocks or a combination of these) and
 each instance of a block uses the set of input and output 
 connectors, parameters, and constants as defined within definition 
 of the Block. To support this process, a Resource Description 
@@ -96,17 +114,17 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    Package                       A package is a specialized class used to group multiple 
                                  Blocks.
    Blocks                        A Block is the abstract interface of a control sequence.
-   ElementaryBlock               An Elementary Block defined by ASHRAE S231P (``subClassOf 
+   ElementaryBlock               An ElementaryBlock defined by ASHRAE S231P (``subClassOf 
                                  Block``) (:numref:`sec_ele_blo`).
-   CompositeBlock                A Composite Block is a collection of elementary blocks or 
-                                 other Composite Blocks (``subClassOf Block``) and the 
+   CompositeBlock                A CompositeBlock is a collection of ElementaryBlocks or 
+                                 other CompositeBlocks (``subClassOf Block``) and the 
                                  connections through their inputs and outputs (:numref:`sec_com_blo`).
-   ExtensionBlock                An Extension Block supports functionalities that cannot,
-                                 or are hard to, implement with a Composite Block
+   ExtensionBlock                An ExtensionBlock supports functionalities that cannot,
+                                 or are hard to, implement with a CompositeBlock
                                  (``subClassOf Block``) (:numref:`sec_ext_blo`).
-   InputConnector                An Input Connector is a connector that provides an input to 
+   InputConnector                An InputConnector is a connector that provides an input to 
                                  a Block.
-   OutputConnector               An Output Connector is a connector that provides an output 
+   OutputConnector               An OutputConnector is a connector that provides an output 
                                  from a Block.
    Parameter                     A Parameter is a value that is time-invariant and cannot be changed 
                                  based on an input signal. A Block can have multiple Parameters.
@@ -114,16 +132,16 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
                                  have multiple Constants.
    DataType                      A data type description for Block connectors, Parameters, 
                                  and Constants.
-   BooleanInput                  An Input Connector for boolean data type.
-   BooleanOutput                 An Output Connector for boolean data type.
-   IntegerInput                  An Input Connector for integer data type.
-   IntegerOutput                 An Output Connector for integer data type.
-   RealInput                     An Input Connector for real data type.
-   RealOutput                    An Output Connector for real data type.
+   BooleanInput                  An InputConnector for boolean data type.
+   BooleanOutput                 An OutputConnector for boolean data type.
+   IntegerInput                  An InputConnector for integer data type.
+   IntegerOutput                 An OutputConnector for integer data type.
+   RealInput                     An InputConnector for real data type.
+   RealOutput                    An OutputConnector for real data type.
    EnumerationType               An Integer enumeration starting with the value 1, each element 
                                  is mapped to a unique String.
-   AnalogInput                   An Input Connector for analog data type.
-   AnalogOutput                  An Output Connector for analog data type.
+   AnalogInput                   An InputConnector for analog data type.
+   AnalogOutput                  An OutputConnector for analog data type.
    String                        A data type to represent text.
    ============================  ===========================================================								 
 			 
@@ -137,9 +155,9 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    =============================== ================= ================ =========================================
    Property                        Domain            Range            Description
    =============================== ================= ================ =========================================
-   hasInput                        Block             InputConnector   Used to define an Input Connector for a 
+   hasInput                        Block             InputConnector   Used to define an InputConnector for a 
                                                                       Block.
-   hasOutput                       Block             OutputConnector  Used to define an Output Connector for a 
+   hasOutput                       Block             OutputConnector  Used to define an OutputConnector for a 
                                                                       Block.
    hasParameter                    Block             Parameter        Used to define a Parameter for a Block.
    hasConstant                     Block             Constant         Used to define a Constant for a Block.
@@ -150,12 +168,12 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
                                                      Constant
    hasFmuPath                      ExtensionBlock    String           Used to include (local or over network)
                                                                       path to a Functional Mockup Unit
-                                                                      implementation of an Extension Block.
+                                                                      implementation of an ExtensionBlock.
    isOfDataType                    InputConnector,   DataType         Used to define the data type for  
                                    OutputConnector,                   connectors, Parameters and Constants.
                                    Parameter,                         
                                    Constant
-   containsBlock                   Block             Block            Used in Composite Block to include other
+   containsBlock                   Block             Block            Used in CompositeBlock to include other
                                                                       Blocks.
    connectTo                       OutputConnector,  InputConnector,  Used to connect the output of one Block
                                    InputConnector    OutputConnector  to the input of a Block. Only connectors
@@ -225,44 +243,51 @@ CXF reference to ``gain.k`` instance: ``ExamplePackage.ExampleSeq#gain.k``
 CXF property linking ``gain`` and ``gain.k``: ``ExamplePackage.ExampleSeq#gain S231:hasInstance ExamplePackage.ExampleSeq#gain.k .``
 ]
 
-Handling Vectors and Expressions
+Handling Arrays and Expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A CXF translation of a CDL sequence shall optionally 
 include certain configuration options that specify 
 how the translation will handle:
 
-* Vectors: A tool that generates 
+* Arrays (both one-dimensional (vectors) and 
+  multi-dimensional arrays): A tool that generates 
   CXF translations from CDL shall optionally 
   include a configuration
   indicating whether or not to flatten or 
-  preserve the vector references. By default, 
-  vector references in CDL should be preserved 
-  in CXF. If vector references should be flattened, 
-  an index appearing within square 
-  brackets (``[`` and ``]``) in CDL shall be 
-  appended with the underscore (``_``) character. 
-  
-  [For example, ``A[1]`` becomes ``A_1``.
-  ]
-* Matrices and arrays with more than
-  two dimensions: A tool that generates 
-  CXF translations from CDL shall optionally 
-  include a configuration
-  indicating whether or not to flatten or 
-  preserve the matrix and array references.
-  By default, the references to matrices and
-  arrays in CDL should be preserved 
-  in CXF. If the references should be flattened, 
+  preserve the array references. By default, 
+  array references in CDL should be preserved 
+  in CXF. If the aray references should be flattened, 
   the indices appearing within square 
   brackets (``[`` and ``]``) in CDL shall be 
   appended with the underscore (``_``) character
   and each index shall be concatenated
-  with the underscore character (``_``). Matrices
-  and arrays shall be serialized as row major.
+  with the underscore character (``_``).
   
-  [For example, ``B[1 ,2]`` becomes ``B_1_2`` 
+  [For example, ``A[1]`` becomes ``A_1``, 
+  ``B[1 ,2]`` becomes ``B_1_2`` 
   and ``C[4, 5, 6]`` becomes ``C_4_5_6``.
   ]
+
+  Flattened array variables shall be serialized
+  as row major: moving from left to
+  right in each row before moving to the next row.
+  Hence, the CDL statements where arrays
+  are referenced shall be flattened in the 
+  row-major approach.
+
+
+  If there already exists an instance in the CDL
+  logic with the same name as a flattened array
+  instance, then the translation process must raise
+  an error. 
+
+  [For example, if in a CDL class, there is a parameter 
+  instance ``A_1`` and a vector with 3 elements ``A[3]``, 
+  upon flattening, references to the first element of 
+  the vector (``A[1]``) would become ``A_1``. As this 
+  instance already exists and the tool will raise 
+  an error.]
+  
 * Expressions: A tool that generates CXF translations 
   from CDL shall optionally include a configuration 
   indicating whether or not to evaluate all 
@@ -279,10 +304,10 @@ how the translation will handle:
   with an error. 
 
 
-Extension Blocks
+ExtensionBlocks
 ^^^^^^^^^^^^^^^^
-Instances of extension blocks within a CDL classs
+Instances of ExtensionBlocks within a CDL classs
 shall contain the annotation ``__cdl(extenstion=true)``. 
 The location of the Functional Mockup Unit implementation
-of the extension block shall be included using the 
+of the ExtensionBlock shall be included using the 
 property ``hasFmuPath``.
