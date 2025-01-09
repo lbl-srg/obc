@@ -81,7 +81,7 @@ differences between CDL and CXF:
     libraries but may not be supported by 
     the commercial control product. 
 
-  * The ``Pre`` block which is used to break algebraic loops that
+  * The ``Pre`` Block which is used to break algebraic loops that
     involve Boolean variables during a simulation but is not 
     required in common building controllers.
 
@@ -92,12 +92,13 @@ Classes and Properties
 
 A valid CXF file contains Blocks (that is ElementaryBlocks, 
 CompositeBlocks, ExtensionBlocks or a combination of these) and
-each instance of a block uses the set of input and output 
-connectors, parameters, and constants as defined within definition 
-of the Block. To support this process, a Resource Description 
-Framework (RDF) graph representation of the standard has been 
-provided in a CXF-Core.jsonld file using the MIME type 
-``application/ld+json`` and it can be found `here <https://github.com/lbl-srg/modelica-json/blob/master/CXF-Core.jsonld>`_.
+each instance of a Block uses the set of InputConnectors and 
+OutputConnectors, Parameters, and Constants as defined within
+definition of the Block. To support this process, a Resource 
+Description Framework (RDF) graph representation of the 
+standard has been provided in a CXF-Core.jsonld file 
+using the MIME type ``application/ld+json`` and it can be found 
+`here <https://github.com/lbl-srg/modelica-json/blob/master/CXF-Core.jsonld>`_.
 The key classes and properties present in CXF-Core.jsonld 
 that can be used to created CXF classes are shown in
 Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively. 
@@ -111,7 +112,7 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    ============================  ===========================================================
    Class                         Description
    ============================  ===========================================================
-   Package                       A package is a specialized class used to group multiple 
+   Package                       A Package is a specialized class used to group multiple 
                                  Blocks.
    Blocks                        A Block is the abstract interface of a control sequence.
    ElementaryBlock               An ElementaryBlock defined by ASHRAE S231P (``subClassOf 
@@ -122,26 +123,22 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    ExtensionBlock                An ExtensionBlock supports functionalities that cannot,
                                  or are hard to, implement with a CompositeBlock
                                  (``subClassOf Block``) (:numref:`sec_ext_blo`).
-   InputConnector                An InputConnector is a connector that provides an input to 
-                                 a Block.
-   OutputConnector               An OutputConnector is a connector that provides an output 
-                                 from a Block.
+   InputConnector                An InputConnector provides an input to a Block.
+   OutputConnector               An OutputConnector provides an output from a Block.
    Parameter                     A Parameter is a value that is time-invariant and cannot be changed 
                                  based on an input signal. A Block can have multiple Parameters.
    Constant                      A Constant is a value that is fixed at compilation time. A Block can 
                                  have multiple Constants.
-   DataType                      A data type description for Block connectors, Parameters, 
-                                 and Constants.
-   BooleanInput                  An InputConnector for boolean data type.
-   BooleanOutput                 An OutputConnector for boolean data type.
-   IntegerInput                  An InputConnector for integer data type.
-   IntegerOutput                 An OutputConnector for integer data type.
-   RealInput                     An InputConnector for real data type.
-   RealOutput                    An OutputConnector for real data type.
+   DataType                      A data type description for InputConnectors,
+                                 OutputConnectors, Parameters and Constants.
+   BooleanInput                  An InputConnector of the Boolean data type.
+   BooleanOutput                 An OutputConnector of the Boolean data type.
+   IntegerInput                  An InputConnector of the Integer data type.
+   IntegerOutput                 An OutputConnector of the Integer data type.
+   RealInput                     An InputConnector of the Real data type.
+   RealOutput                    An OutputConnector of the Real data type.
    EnumerationType               An Integer enumeration starting with the value 1, each element 
                                  is mapped to a unique String.
-   AnalogInput                   An InputConnector for analog data type.
-   AnalogOutput                  An OutputConnector for analog data type.
    String                        A data type to represent text.
    ============================  ===========================================================								 
 			 
@@ -155,36 +152,40 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    =============================== ================= ================ =========================================
    Property                        Domain            Range            Description
    =============================== ================= ================ =========================================
-   hasInput                        Block             InputConnector   Used to define an InputConnector for a 
-                                                                      Block.
-   hasOutput                       Block             OutputConnector  Used to define an OutputConnector for a 
-                                                                      Block.
-   hasParameter                    Block             Parameter        Used to define a Parameter for a Block.
-   hasConstant                     Block             Constant         Used to define a Constant for a Block.
-   hasInstance                     Block             Block,           Used to define an instance (connector, 
-                                                     InputConnector,  Parameter or Constant) of a 
-                                                     OutputConnector, Block.
-                                                     Parameter, 
+   hasInput                        Block             InputConnector   A property that relates an instance of an
+                                                                      InputConnector with a Block.
+   hasOutput                       Block             OutputConnector  A property that relates an instance of an
+                                                                      OutputConnector with a Block.
+   hasParameter                    Block             Parameter        A property that relates an instance of a
+                                                                      Parameter with a Block.
+   hasConstant                     Block             Constant         A property that relates an instance of a
+                                                                      Constant with a Block.
+   hasInstance                     Block             Block,           A property that associates an 
+                                                     InputConnector,  InputConnector, OutputConnector, Parameter 
+                                                     OutputConnector, or Constant instance within a Block with
+                                                     Parameter,       the instance of the Block itself. 
                                                      Constant
-   hasFmuPath                      ExtensionBlock    String           Used to include (local or over network)
+   hasFmuPath                      ExtensionBlock    String           A property that specifies the (local 
+                                                                      or on the network)
                                                                       path to a Functional Mockup Unit
                                                                       implementation of an ExtensionBlock.
-   isOfDataType                    InputConnector,   DataType         Used to define the data type for  
-                                   OutputConnector,                   connectors, Parameters and Constants.
-                                   Parameter,                         
+   isOfDataType                    InputConnector,   DataType         A property that specifies the data type for 
+                                   OutputConnector,                   InputConnectors, OutputConnectors,
+                                   Parameter,                         Parameters and Constants.
                                    Constant
-   containsBlock                   Block             Block            Used in CompositeBlock to include other
-                                                                      Blocks.
-   connectTo                       OutputConnector,  InputConnector,  Used to connect the output of one Block
-                                   InputConnector    OutputConnector  to the input of a Block. Only connectors
-                                                                      that carry the same data type can be
-                                                                      connected.
-   translationSoftware             Package, Block    String           Used to include the name of the software
-                                                                      used to CXF representation of the
-                                                                      sequence.
-   translationSoftwareVersion      Package, Block    String           Used to include the version of the
-                                                                      software used to CXF representation of
-                                                                      the sequence.		
+   containsBlock                   Block   Block                      A property that specifies that an instance
+                                                                      of a Block (subject) is composed in part 
+                                                                      with an instance of another Block (object).
+   connectTo                       OutputConnector,  InputConnector,  A property that relates the output of one Block
+                                   InputConnector    OutputConnector  to the input of another Block (and vice-versa).
+                                                                      Only InputConnectors and OutputConnectors that
+                                                                      carry the same data type can be connected.
+   translationSoftware             Package, Block    String           A property that specifies the name of the software
+                                                                      used to generate the CXF representation of the
+                                                                      control logic.
+   translationSoftwareVersion      Package, Block    String           A property that specifies the version of the
+                                                                      software used to generate CXF representation of
+                                                                      the control logic.
    =============================== ================= ================ =========================================
 
 All the ``ElementaryBlock`` within the standard have been 
@@ -194,7 +195,7 @@ the implementation details of the blocks.
 
 Generating CXF from an instance of a CDL class
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-A CXF representation of a sequence will be able to be 
+A CXF representation of a control logic will be able to be 
 generated from a instance of a CDL class. When there 
 are instances of a CDL class within a Modelica or 
 another CDL class, if the instance has the CDL 
@@ -220,7 +221,7 @@ An instance ("child") of an instance ("parent") shall
 be referenced by the parent instance’s CXF 
 representation, followed by a period character (``.``)
 and then the child instance’s name. When such a child 
-instance is present in a CDL sequence, the CXF 
+instance is present in a CDL logic, the CXF 
 representation of the parent instance shall contain a 
 ``hasInstance`` property to the child instance. 
 
