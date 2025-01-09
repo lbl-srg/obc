@@ -246,7 +246,7 @@ CXF property linking ``gain`` and ``gain.k``: ``ExamplePackage.ExampleSeq#gain S
 
 Handling Arrays and Expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-A CXF translation of a CDL sequence shall optionally 
+A CXF translation of a CDL control logic shall optionally 
 include certain configuration options that specify 
 how the translation will handle:
 
@@ -292,7 +292,7 @@ how the translation will handle:
 * Expressions: A tool that generates CXF translations 
   from CDL shall optionally include a configuration 
   indicating whether or not to evaluate all 
-  expressions in the CDL sequence such as those 
+  expressions in the CDL control logic such as those 
   within assignment operations, conditional 
   assignments and arithmetic operations. By default,
   the expressions shall be preseved in CXF. If the 
