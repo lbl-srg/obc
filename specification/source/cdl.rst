@@ -1693,8 +1693,8 @@ Extension of a Composite Block
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A composite block can have a single ``extends`` statement.
-The ``extends`` statement must reference another composite block,
-but it cannot extend an elementary block or an extension block.
+The ``extends`` statement must reference another Composite Block,
+but it cannot extend an Elementary Block or an Extension Block.
 The ``extends`` statement can have any number of declarations that assign
 a parameter value or parameter attributes.
 
@@ -1702,8 +1702,8 @@ a parameter value or parameter attributes.
 
           1. Only a single ``extends`` statement is allowed.
              This is for simplicity because two ``extends`` statements could require having to reconcile two
-             different hierarchy trees that ultimately extend from the same base class,
-             but may assign different values to a parameter that is inherited from the common base class.
+             different hierarchy trees that ultimately extend from the same base block,
+             but may assign different values to a parameter that is inherited from the common base block.
              Such a case would be for example
 
              .. literalinclude:: img/cdl/MultipleExtends.mo

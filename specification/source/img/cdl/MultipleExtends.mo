@@ -17,7 +17,7 @@ package MultipleExtends
     uses(Buildings(version = "12.0.0")),
     Documentation(
       info = "<p>
-Package with a a block that is not valid CDL due to multiple extend statements.
+Package with a block that is not valid CDL due to multiple extends statements.
 </p>"));
 
 end MultipleExtends;
