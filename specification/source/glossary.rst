@@ -52,6 +52,12 @@ the Open Building Controls project.
      * export the control sequence and the verification test
        in the :term:`Control Description Language`.
 
+   Control eXchange Format
+     The Control eXchange Format (CXF) is a JSON-LD representation
+     of a CDL sequence that is intended to be readily imported
+     and exported to and from building automation systems. 
+     CXF specifications are in :numref:`sec_cxf`.
+
    Control Sequence Requirement
      A requirement is a condition that is tested and either passes, fails,
      or is untested. For example, a requirement would be that the actual

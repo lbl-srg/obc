@@ -23,6 +23,7 @@ OpenBuildingControl
    requirements
    softwareArchitecture
    cdl
+   cxf
    sequenceDocumentation
    controlsLibrary
    codeGeneration
