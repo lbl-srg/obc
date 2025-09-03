@@ -147,7 +147,7 @@ html_theme_options = {
 #    ],
 
     # Render the next and previous page links in navbar. (Default: true)
-    'navbar_sidebarrel': True,
+    'navbar_sidebarrel': False,
 
     # Render the current pages TOC in the navbar. (Default: true)
     'navbar_pagenav': True,
@@ -174,7 +174,7 @@ html_theme_options = {
 
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
-    'navbar_fixed_top': "false",
+    'navbar_fixed_top': "true",
 
     # Location of link to source.
     # Options are "nav" (default), "footer" or anything else to exclude.
@@ -340,7 +340,7 @@ latex_elements['maketitle'] = r'''
 \end{center}
 \hrule
 ~\\[2mm]
-Copyright (c) 2017-2023\\
+Copyright (c) 2017-2025\\
 The Regents of the University of California
 (through Lawrence Berkeley National Laboratory),\\
 subject to receipt of any required approvals from U.S. Department of Energy.\\
@@ -519,8 +519,8 @@ latex_elements['preamble'] = r'''
 %\hypersetup{hidelinks = true} % Makefile enables this for the 2 page printout
 
 % Set format of table of content. Otherwise, the titles stick to the page numbers in some cases
-\usepackage[tocgraduated]{tocstyle}
-\usetocstyle{nopagecolumn}
+%\usepackage[tocgraduated]{tocstyle}
+%\usetocstyle{nopagecolumn}
 \usepackage{pdfpages}
 
 \usepackage{tikz}

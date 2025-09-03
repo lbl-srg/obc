@@ -349,7 +349,7 @@ We configured the CDL PID controller parameters such that they correspond to the
 ALC PI controller. The ALC PID controller implementation is described
 in the ALC EIKON software help section, while the CDL PID
 controller is described in the info section of the model
-`Buildings.Controls.OBC.CDL.Reals.LimPID <https://simulationresearch.lbl.gov/modelica/releases/v7.0.2/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.LimPID>`_.
+`Buildings.Controls.OBC.CDL.Reals.PID <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.PID>`_.
 The ALC controller tracks the temperature in
 degree Fahrenheit, while CDL uses SI units.
 An additional implementation difference is that for cooling applications, the ALC
@@ -515,7 +515,7 @@ iii. Optionally, a boolean variable in the model that we call an indicator varia
      must not be tested at that time instant.
 
 For example, consider the validation test
-`OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_ASHRAE_G36_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
+`OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_ASHRAE_G36_AHUs_SingleZone_VAV_SetPoints_Validation.html#Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u>`_.
 and suppose we want to verify the sequences of its instances ``setPoiVAV`` and ``setPoiVAV1``.
 To do so, we first write a specification
 as shown in :numref:`sec_ver_spe_tes_set`.

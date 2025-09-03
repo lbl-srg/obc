@@ -244,7 +244,7 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
   * Dymola (https://www.3ds.com/products-services/catia/products/dymola/)
   * MapleSim (https://www.maplesoft.com/products/maplesim/)
   * SimulationX (https://www.esi-group.com/products/system-simulation)
-  * SystemModeler (https://www.wolfram.com/system-modeler/index.html)
+  * SystemModeler (https://www.wolfram.com/system-modeler/)
 
 See also https://fmi-standard.org/tools/ for other tools.
 
@@ -347,7 +347,7 @@ be replaced.
 
 Moreover, certain transformations that do not change the
 response of the block are permissible: For example, consider the
-`PID controller in the CDL library <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.PID>`_.
+`PID controller in the CDL library <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.PID>`_.
 The implementation has a parameter
 for the time constant of the integrator block.
 If a control vendor requires the specification of an integrator gain rather than
