@@ -729,6 +729,18 @@ inputs, and outputs.
                              ``u, ..., j in v: e(u[1], ... ,v[1]) + e(u[2], ... ,v[1])+... +e(u[end],... ,v[1])+...+e(u[end],... ,v[end])``
 
                              The type of ``sum(e(i, ..., j) for i in u, ..., j in v)`` is the same as the type of ``e(i,...j)``.
+   ``cat(k, A, B, C, ...)``  Returns an array that concatenates arrays ``A``, ``B``, ``C``, ...
+                             along dimension ``k``, according to the following rules:
+
+                               * Arrays ``A``, ``B``, ``C``, ... must have the same number of dimensions.
+                               * Arrays ``A``, ``B``, ``C``, ... must be type compatible
+                                 expressions giving the type of the elements of the results.
+                                 The maximally expanded types should be equivalent.
+                                 ``Real`` and ``Integer`` subtypes can be mixed resulting in a ``Real``
+                                 result array where the ``Integer`` numbers have been transformed to ``Real`` numbers.
+                               * ``k`` has to characterize an existing dimension; ``k`` shall be an integer number.
+                               * Size matching: Arrays ``A``, ``B``, ``C``, ... must have identical array sizes
+                                 with the exception of the size of dimension ``k``.
    ``fill(s, n1, n2, ...)``  Returns the :math:`n_1 \times n_2 \times n_3 \times \dots` array with all
                              elements equal to scalar or array
                              expression ``s`` (:math:`n_i \ge 0`).
