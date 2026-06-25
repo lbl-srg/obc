@@ -729,6 +729,18 @@ inputs, and outputs.
                              ``u, ..., j in v: e(u[1], ... ,v[1]) + e(u[2], ... ,v[1])+... +e(u[end],... ,v[1])+...+e(u[end],... ,v[end])``
 
                              The type of ``sum(e(i, ..., j) for i in u, ..., j in v)`` is the same as the type of ``e(i,...j)``.
+   ``cat(k, A, B, C, ...)``  Returns an array that concatenates arrays ``A``, ``B``, ``C``, ...
+                             along dimension ``k``, according to the following rules:
+
+                               * Arrays ``A``, ``B``, ``C``, ... must have the same number of dimensions.
+                               * Arrays ``A``, ``B``, ``C``, ... must be type compatible
+                                 expressions giving the type of the elements of the results.
+                                 The maximally expanded types should be equivalent.
+                                 ``Real`` and ``Integer`` subtypes can be mixed resulting in a ``Real``
+                                 result array where the ``Integer`` numbers have been transformed to ``Real`` numbers.
+                               * ``k`` has to characterize an existing dimension; ``k`` shall be an integer number.
+                               * Size matching: Arrays ``A``, ``B``, ``C``, ... must have identical array sizes
+                                 with the exception of the size of dimension ``k``.
    ``fill(s, n1, n2, ...)``  Returns the :math:`n_1 \times n_2 \times n_3 \times \dots` array with all
                              elements equal to scalar or array
                              expression ``s`` (:math:`n_i \ge 0`).
@@ -796,20 +808,20 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    Example 1: If a controller has two samplers called ``sam1`` and ``sam2`` and their parameter
    ``samplePeriod`` must satisfy ``sam1.samplePeriod = sam2.samplePeriod`` for the logic to work correctly,
    then the controller can be implemented using
-   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
+   `CDL.Logical.Sources.SampleTrigger <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Logical_Sources.html#Buildings.Controls.OBC.CDL.Logical.Sources.SampleTrigger>`_
    and connect its output to two instances of
-   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
+   `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
    that sample the corresponding signals.
 
    Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
    rather than using two instances of
-   `CDL.Reals.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter>`_
+   `CDL.Reals.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter>`_
    with parameter ``k = 1/k1``, one could use
    a constant source
-   `CDL.Reals.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals_Sources.html#Buildings.Controls.OBC.CDL.Reals.Sources.Constant>`_
+   `CDL.Reals.Sources.Constant <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals_Sources.html#Buildings.Controls.OBC.CDL.Reals.Sources.Constant>`_
    with parameter ``k=k1`` and
    two instances of
-   `CDL.Reals.Divide <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.Divide>`_,
+   `CDL.Reals.Divide <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.Divide>`_,
    and then connect
    the output of the constant source with the inputs of the division blocks.
 
@@ -1079,6 +1091,7 @@ Connectors can also have a vendor annotation of the form
    __cdl(trend(interval=Real, enable=Boolean))
 
 The field ``interval`` must be specified and its value is the trending interval in seconds.
+Set ``interval = 0`` to trend the value each time it changes.
 The field ``enable`` is optional, with default value of ``true``, and
 it can be used to overwrite the value used in the sequence declaration.
 
@@ -1582,10 +1595,10 @@ Thus, extension blocks can contain any declarations that are allowed in a Modeli
           - implement state machines.
 
           For example, the demand response client
-          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
+          `Buildings.Controls.DemandResponse.Client <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_DemandResponse.html#Buildings.Controls.DemandResponse.Client>`_
           would be an extension block if it were to contain the annotation ``__cdl(extensionBlock=true)``,
           as would the Kalman filter that is used in the Example
-          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v10.0.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
+          `Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Utilities_IO_Python_3_8_Examples.html#Buildings.Utilities.IO.Python_3_8.Examples.KalmanFilter>`_.
 
 Translation of an extension block to json must reproduce the following:
 
@@ -1850,7 +1863,7 @@ Semantic Information
 
 The buildings industry has started to integrate different metadata languages such as
 `Brick <https://brickschema.org/>`_ and `Project Haystack <https://project-haystack.org/>`_ into their
-control software and technology. `ASHRAE Standard 223p <https://www.ashrae.org/about/news/2018/ashrae-s-bacnet-committee-project-haystack-and-brick-schema-collaborating-to-provide-unified-data-semantic-modeling-solution>`_
+control software and technology. `ASHRAE Standard 223p <https://www.ashrae.org/news/esociety/ashrae-bacnet-committee-works-with-other-organizations-on-new-standard>`_
 is another upcoming metadata language that will describe the equipment topology in buildings and also
 the flow of different media. This section specifies the syntax to support these metadata
 languages and include the semantic information represented using these languages in a CDL class.
@@ -1879,8 +1892,8 @@ All semantic information shall be included under the ``semantic`` section within
 
 where ``<semantic information>`` is a place holder for the semantic information.
 
-The ``semantic`` annotation declared in the class definition shall 
-optionally contain the ``metadataLanguageDefinition`` or the 
+The ``semantic`` annotation declared in the class definition shall
+optionally contain the ``metadataLanguageDefinition`` or the
 ``naturalLanguageDefinition`` for each of the languages used.
 The ``metadataLanguageDefinition`` and ``naturalLanguageDefinition``
 are used to provide additional information about the different metadata
@@ -1971,7 +1984,7 @@ language and
    can also be represented in multiple formats such as ``text/zinc``,
    ``text/turtle`` and ``application/ld+json``.
 
-Semantic information in the class definition annotations shall optionally be used to 
+Semantic information in the class definition annotations shall optionally be used to
 define class
 level information about the metadata languages. These include, but are not restricted to,
 namespace definitions (namespaces in ontologies provide a means to unambiguously interpret
@@ -2055,17 +2068,17 @@ Example:
 
 ]
 
-``<instanceName>``: The text ``<instanceName>`` (including the ``<`` 
-and ``>`` characters) within the metadata of an annotation containing semantic 
+``<instanceName>``: The text ``<instanceName>`` (including the ``<``
+and ``>`` characters) within the metadata of an annotation containing semantic
 information shall be replaced with the fully qualified name of the instance
 that contains the semantic annotation.  A fully qualified name to an instance
-refers to the complete hierarchical path that specifies the instance's 
-location within an object structure. This qualified name shall include all 
-parent instances leading up to the current instance, with each level of 
+refers to the complete hierarchical path that specifies the instance's
+location within an object structure. This qualified name shall include all
+parent instances leading up to the current instance, with each level of
 instantiation separated by an underscore (“_”). If an instance is nested
-within multiple levels of instance definitions, the text that 
-replaces ``<instanceName>`` shall reflect the entire chain of instantiation. 
-This avoids the user having to repeat the name of the instance and 
+within multiple levels of instance definitions, the text that
+replaces ``<instanceName>`` shall reflect the entire chain of instantiation.
+This avoids the user having to repeat the name of the instance and
 makes it less prone to errors and inconsistencies.
 
 [An example of CDL semantic information for an instance in a class with
@@ -2104,20 +2117,20 @@ Example:
 ]
 
 ``<parameter>``: This syntax allows for a value of a parameter to be used
-within an annotation containing semantic information where the ``parameter`` 
-shall refer to the name of a parameter instance within the 
-class. The text ``<parameter>`` (including the ``<`` and ``>`` characters) 
-shall be replaced by the value of the parameter. The class must have an 
-instance of a parameter with the name specified by ``<parameter>``, 
+within an annotation containing semantic information where the ``parameter``
+shall refer to the name of a parameter instance within the
+class. The text ``<parameter>`` (including the ``<`` and ``>`` characters)
+shall be replaced by the value of the parameter. The class must have an
+instance of a parameter with the name specified by ``<parameter>``,
 otherwise the specification is not valid.
 
 [In the below example, if the fully qualified name of ``reaFloSup`` is
-``reaFloSup``, the ``<instanceName>`` will be replaced by ``reaFloSup``. 
+``reaFloSup``, the ``<instanceName>`` will be replaced by ``reaFloSup``.
 The location of the sensor, represented by the ``brick:hasLocation``
-relationship, after replacing ``<instanceName>`` will be ``bldg:<zon>``. 
+relationship, after replacing ``<instanceName>`` will be ``bldg:<zon>``.
 ``<zon>`` refers to the value of the ``zon`` parameter within the instantiated
-``reaFloSup``, which is ``east``. Hence, the completely evaluated semantic 
-information becomes: 
+``reaFloSup``, which is ``east``. Hence, the completely evaluated semantic
+information becomes:
 
 .. code-block:: modelica
 
@@ -2130,7 +2143,7 @@ Example:
 
     MyCompositeBlock.MyFlowSensor reaFloSup (zon="east") "Supply Air Flow Rate"
         annotation ( __cdl(semantic(
-        metadataLanguage="Brick 1.3 text/turtle" 
+        metadataLanguage="Brick 1.3 text/turtle"
             "bldg:<instanceName> a brick:Supply_Air_Flow_Sensor;
                    brick:hasLocation bldg:<zon> .")));
 

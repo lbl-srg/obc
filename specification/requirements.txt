@@ -1,0 +1,7 @@
+Sphinx==5.3.0
+sphinx-bootstrap-theme==0.8.1
+sphinxcontrib-bibtex==2.6.5
+sphinxcontrib-htmlhelp==2.1.0
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-plantuml==0.31
+pillow==12.2.0
