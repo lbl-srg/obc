@@ -7,10 +7,10 @@ Introduction
 ^^^^^^^^^^^^
 
 This section describes the translation of control sequences expressed
-in CDL to a building automation system. The translation needs to be
-done only if the target building automation system does not support CDL. 
+in CDL to a building automation system (BAS). The translation needs to be
+done only if the target BAS does not support CDL. 
 
-Translating the *CDL library* to a building automation system to make it
+Translating the *CDL library* to a BAS to make it
 available as part of a product line needs to be done only when
 the CDL library is updated, and hence only developers need
 to perform this step.
@@ -23,7 +23,7 @@ legacy building automation product lines is more difficult
 as they typically do not allow executing custom C code. Moreover,
 a building operator typically needs a graphical operator interface,
 which would not be supported if one were to simply upload compiled C code to
-a building automation system.
+a BAS.
 
 
 Use of CDL control sequences for building operation, or use of such sequences
@@ -36,19 +36,19 @@ in a verification test module, consists of the following steps:
 
 3. Import of the FMU-ME in the runtime environment, or translation of the
    CXF representation of the control sequence to the language used by the 
-   building automation system.
+   target BAS.
 
 
-:numref:`fig_cod_exp` shows the process of exporting and importing
-control sequences.
+:numref:`fig_cod_exp` shows the process of creating a CDL control sequence
+and translating it into different target platforms.
 
 .. _fig_cod_exp:
 
 .. figure:: img/codeExport.*
    :width: 700 px
 
-   Overview of the code export and import of control sequences and verification
-   tests.
+   Overview of CDL control sequence creation, verification and 
+   translation into differne target platforms.
 
 
 The next section describes three different approaches that can be used by control vendors
@@ -71,7 +71,7 @@ control product lines, the long term vision is that control product lines would
 directly compile CDL using option 2) or 3).
 Before explaining
 these three approaches, we first discuss challenges of translation
-of CDL sequences to building automation systems, as well as their implications.
+of CDL sequences to a BAS, as well as their implications.
 
 
 Challenges and Implications for Translation of Control Sequences from and to Building Control Product Lines
@@ -79,18 +79,18 @@ Challenges and Implications for Translation of Control Sequences from and to Bui
 
 This section discusses challenges and implications
 for translating CDL-conforming control
-sequences to the programming languages used by building automation system.
+sequences to the programming languages used by the target BAS.
 
 First, we note that simply generating C code is not viable
-for such applications because building automation systems generally do not
+for such applications because a BAS generally does not
 allow users to upload C code.
 Moreover, they also need to provide an interface
 for the building operator that allows editing the control parameters and control sequences.
 
 Second, we note that the translation will for most systems, if not all,
-only be possible from CDL to a building automation system,
+only be possible from CDL to a BAS,
 but not vice versa. This is due to specific constructs that may exist
-in building automation systems but not in CDL.  For example,
+in the BAS but not in CDL.  For example,
 if Sedona (`https://www.sedona-alliance.org/ <https://www.sedona-alliance.org/>`_)
 were the target platform, then
 translating from Sedona to CDL will not be possible
@@ -126,10 +126,10 @@ can generate the following output formats:
 Please refer to the ``modelica-json`` documentation for more information. 
 
 To translate CDL-compliant control sequences to the programming language that is 
-used by the target building automation system, ``cxf`` output format is most 
+used by the target BAS, ``cxf`` output format is most 
 suited. Developers can choose to treat the CXF representation as a 
 simple JSON file or as a linked-data Resource Description Framework (RDF) graph.
-The latter option is recommended if the target building automation system 
+The latter option is recommended if the target BAS
 supports RDF or other semantic web technologies. 
 
 
@@ -176,6 +176,12 @@ until only elementary CDL blocks are present in the CXF file.
 Various examples of CDL converted to CXF can be found at
 https://github.com/lbl-srg/modelica-json/tree/master/test/FromModelica.
 
+As shown in :numref:`fig_cod_exp`, the CXF representation has been used
+to translate a CDL sequence into different target BAS such as Automted Logic
+Corporation WebCTRL (CXF translated into ALC Eikon), Tridium Niagara,
+IEC 61131-10 programming logic controller (`CDL-PLC <https://github.com/lbl-srg/cdl-plc>`_) and Normal framework
+(CXF translated into JavaScript using `Modelica Translator <https://github.com/normalframework/obc>`_).
+
 The simplified JSON representation of a CDL sequence must be compliant with the
 corresponding JSON Schema. A JSON Schema describes the data format and file structure,
 lists the required or optional properties, and sets limitations on values such as
@@ -207,13 +213,14 @@ Export of a Control Sequence or a Verification Test using the FMI Standard
 This section describes how to export a control sequence, or a verification test,
 using the :term:`FMI standard<Functional Mockup Interface>`.
 In this workflow, the intermediate format
-that is used is FMI for model exchange, as it is an open standard, and because FMI
+that is used is FMI for model exchange or FMI for co-simulation, as it is an 
+open standard, and because FMI
 can easily be integrated into tools for controls or verification
 using a variety of languages.
 
 .. note:: Also possible, but outside of the scope
           of this project, is the translation of the control sequences to
-          JavaScript, which could then be executed in a building automation system.
+          JavaScript, which could then be executed in a BAS.
           For a Modelica to JavaScript converter,
           see https://github.com/tshort/openmodelica-javascript.
 
@@ -235,14 +242,12 @@ This will generate an FMU-ME.
 Finally, to import the FMU-ME in a runtime environment, various tools can be used, including:
 
 * Tools based on Python, which could be used to interface with
-  sMAP (https://pythonhosted.org/Smap/en/2.0/index.html) or
   Volttron (https://www.energy.gov/eere/buildings/volttron):
 
   * PyFMI (https://pypi.org/pypi/PyFMI)
 
 * Tools based on Java:
 
-  * Building Controls Virtual Test Bed (https://simulationresearch.lbl.gov/bcvtb)
   * JFMI (https://ptolemy.berkeley.edu/java/jfmi/)
   * JavaFMI (https://bitbucket.org/siani/javafmi/wiki/Home)
 
@@ -262,9 +267,9 @@ Finally, to import the FMU-ME in a runtime environment, various tools can be use
 
 See also https://fmi-standard.org/tools/ for other tools.
 
-Note that directly compiling Modelica models to building automation systems
-also allows leveraging the ongoing `EMPHYSIS <https://itea4.org/project/emphysis.html>`_
-project (2017-20, Euro 14M) that develops technologies
+Note that Modelica models could also be compiled directly to a BAS
+leveraging the FMI  for embedded systems `eFMI <https://www.efmi-standard.org/>`_
+that was developed technologies
 for running dynamic models on electronic control units (ECU),
 micro controllers or other embedded systems.
 This may be attractive for FDD and some advanced control sequences.
@@ -306,11 +311,11 @@ in :numref:`fig_cdl_ssp`.
 
      [CDL-compliant\nsequence]
 
-     [JSON-simplified\nrepresentation]
+     [FMU (ME or CS)]
 
-     [CDL-compliant\nsequence] -r-> [JSON-simplified\nrepresentation] : translate
+     [CDL-compliant\nsequence] -r-> [FMU (ME or CS)] : translate
 
-     [JSON-simplified\nrepresentation] -r-> [SSP-compliant\nspecification] : translate
+     [FMU (ME or CS)] -r-> [SSP-compliant\nspecification] : translate
 
      fmu_lib -> [FMI Composer] : uses
 
@@ -319,12 +324,12 @@ in :numref:`fig_cdl_ssp`.
 
 In such a workflow, a control vendor would translate the elementary CDL blocks
 (:numref:`sec_ele_blo`)
-to a repository of FMU-ME blocks. These blocks will then be used during operation.
+to a repository of FMU blocks. These blocks will then be used during operation.
 For each project, its CDL-compliant control sequence could be translated
-to the simplified JSON format, as described in :numref:`sec_cdl_to_json_simp`.
+to the CXF, as described in :numref:`sec_cdl_to_json_simp`.
 Using a template engine (similar as is used
-by ``modelica-json`` to translate the simplified JSON to html),
-the simplified JSON representation could then be converted to the xml syntax
+by ``modelica-json`` to translate the CDL sequence to html),
+the CXF representation could then be converted to the xml syntax
 specified in the SSP standard.
 Finally, a tool such as the FMI Composer could import the
 SSP-compliant specification, and execute the control sequence using
@@ -339,18 +344,14 @@ the elementary CDL block FMUs from the FMU repository.
 Replacement of Elementary CDL Blocks during Translation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When translating CDL to a control product lines, a translator may want to
+When translating CDL to a control product line, a translator may want to
 conduct certain substitutions. Some of these substitutions can change the
 control response, which can cause the verification that checks whether the
 actual implementation conforms to the specification to fail.
 
 This section therefore explains how certain substitutions can be performed
-in a way that allows formal verification to pass.
-(How verification tests will be conducted will be specified later in 2018, but
-essentially we will require that the control response from the actual control
-implementation is within a certain tolerance of the control response
-computed by the CDL specification, provided that both sequences receive
-the same input signals and use the same parameter values.)
+in a way that allows formal verification to pass. More details about
+how verification will be conducted can be found in :numref:`sec_verification`.
 
 Substitutions that Give Identical Control Response
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
