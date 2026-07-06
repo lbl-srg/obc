@@ -106,7 +106,7 @@ Translation of a Control Sequence using a Intermediate CXF (JSON-LD) Format
 
 Control companies that choose to not use the C-code generation approach or 
 the FMI standard to execute CDL-compliant control sequences can develop translators 
-from CDL to their native language. To aid in this process, an intermediate 
+from CDL to their BAS's programming language. To aid in this process, an intermediate 
 Control eXchange Format (CXF) can be used. As mentioned in :numref:`sec_cxf`
 CXF is a JSON-LD representation of a CDL sequence, serialized in JSON. 
 `Modelica-json <https://github.com/lbl-srg/modelica-json>`_
