@@ -924,7 +924,8 @@ accomodate the capabilities that are present in most of today's building control
 Conditionally Removing Instances
 ................................
 
-Instances can be conditionally removed by using an ``if`` clause.
+Instances of blocks, inputs, and outputs can be conditionally removed by using an ``if`` clause.
+Removing these instances also removes their connections between inputs and outputs.
 
 This allows, for example, to have an implementation of a controller that optionally
 takes as an input the number of occupants in a zone.
