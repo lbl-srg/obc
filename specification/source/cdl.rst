@@ -8,10 +8,17 @@ Introduction
 
 This section specifies the Control Description Language (CDL),
 a declarative language that can be used to express control sequences using block-diagrams.
-It is designed in such a way that it can be used to conveniently specify building control sequences
+CDL has been developed originally in the OpenBuildingControl project, and then
+underwent updates through the ASHRAE Standard 231 Committee and is now standardized as
+`ANSI/ASHRAE Standard 231 <https://store.accuristech.com/standards/ashrae-231-2026?product_id=3062190&srsltid=AfmBOor4LI6pHj69qLp_s89ODflZl9S2qy_MXsHK6w6ttJ8dlCPSVoaP>`_.
+This page gives an informal specification of CDL that is consistent with ANSI/ASHRAE Standard 231.
+A reference implementation of CDL as well as control sequences that were implemented using CDL are available
+from the `Modelica Buildings Library <https://simulationresearch.lbl.gov/modelica>`_.
+See https://obc.lbl.gov/overview.html for an overview.
+
+CDL was designed in such a way that it can be used to conveniently specify building control sequences
 in a vendor-independent format, use them within whole building energy simulation,
 and translate them for use in building control systems.
-
 A key technical challenge encountered when developing CDL was that existing control product lines are heterogeneous.
 They differ in their functionality for expressing control sequences,
 in their semantics of how control output gets updated, and in their syntax which ranges from graphical languages to textual languages.
