@@ -1719,7 +1719,7 @@ but it cannot extend an Elementary Block or an Extension Block.
 The ``extends`` statement can have any number of declarations that assign
 a parameter value or parameter attributes.
 
-.. note:: There are three restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
+.. note:: There are two restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
 
           1. Only a single ``extends`` statement is allowed.
              This is for simplicity because two ``extends`` statements could require having to reconcile two
@@ -1733,10 +1733,7 @@ a parameter value or parameter attributes.
              Note that in Modelica, multiple ``extends`` are allowed, but the block ``NotValid``
              is not valid and tools will issue an error message.
 
-          2. The ``break`` keyword for
-             `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_
-             is not allowed.
-          3. Modelica allows to assign a value to a variable declared as an ``input``.
+          2. Modelica allows to assign a value to a variable declared as an ``input``.
              This is not allowed in CDL.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
@@ -1784,6 +1781,37 @@ then the following applies:
    :language: modelica
 
 ]
+
+In the ``extends`` statement, the ``break`` keyword can be used to deselect connection, and deselect component.
+
+[For example, in block below, the connection ``connect(gai.y, conPID.u_m)`` in block ``TestBreak`` is deselected
+and a new instance ``abs1`` is added between the original connection.
+
+.. literalinclude::  img/cdl/BreakConnect.mo
+   :language: modelica
+
+.. _fig_break_connection_block:
+
+.. figure:: img/cdl/BreakConnect.*
+   :width: 500px
+
+   Example of a block that deselects original connection.
+
+In block below, the component ``conPID`` in block ``TestBreak`` is deselected and is replaced by a new class
+``conPID1``.
+
+.. literalinclude::  img/cdl/BreakComponent.mo
+   :language: modelica
+
+.. _fig_break_component_block:
+
+.. figure:: img/cdl/BreakComponent.*
+   :width: 500px
+
+   Example of a block that deselects original component.
+
+]
+
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
