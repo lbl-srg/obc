@@ -1801,7 +1801,7 @@ and a new instance ``abs1`` is added between the original connection.
 .. figure:: img/cdl/BreakConnect.*
    :width: 500px
 
-   Example of a block that deselects original connection.
+   Example of a block that deselects connection.
 
 In block below, the component ``conPID`` in block ``TestBreak`` is deselected and is replaced by a new class
 ``conPID1``.
@@ -1814,7 +1814,7 @@ In block below, the component ``conPID`` in block ``TestBreak`` is deselected an
 .. figure:: img/cdl/BreakComponent.*
    :width: 500px
 
-   Example of a block that deselects original component.
+   Example of a block that deselects component.
 
 ]
 
