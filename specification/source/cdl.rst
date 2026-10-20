@@ -1318,7 +1318,9 @@ For arrays, the connectors need to be explicitly declared as an array.
 
 ]
 
-The ``DataBus`` connector is the expandable connector (Sec. 9.1.3 in Modelica 3.6 Specification). It collects
+The ``DataBus`` connector is the expandable connector
+(`Section 9.1.3 <https://specification.modelica.org/maint/3.6/connectors-and-connections.html#expandable-connectors>`_
+in :cite:`ModelicaSpecification2023`). It collects
 block inputs and outputs by connecting the ``DataBus`` instance with the connectors of the instance in the block.
 
 .. note::
