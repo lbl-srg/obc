@@ -317,7 +317,7 @@ The following is the predefined ``Real`` type:
      parameter StringType unit        = "" "Unit used in equations";
      parameter StringType displayUnit = "" "Default display unit";
      parameter RealType min=-Inf, max=+Inf; // Inf denotes a large value
-     //-- parameter RealType start    = 0; // Initial value
+     parameter RealType start    = 0; // Initial value
      //-- parameter BooleanType fixed = true,   // default for parameter/constant;
      //--                             = false;  // default for other variables
      parameter RealType nominal = 1;            // Nominal value
@@ -379,7 +379,7 @@ The following is the predefined ``Integer`` type:
      IntegerType value; // Accessed without dot-notation
      //-- parameter StringType quantity = "";
      parameter IntegerType min=-Inf, max=+Inf;
-     //-- parameter IntegerType start = 0; // Initial value
+     parameter IntegerType start = 0; // Initial value
      //-- parameter BooleanType fixed = true,  // default for parameter/constant;
      //--                             = false; // default for other variables
    //-- equation
@@ -403,8 +403,8 @@ The following is the predefined ``Boolean`` type:
 
    type Boolean // Note: Defined with Modelica syntax although predefined
      BooleanType value; // Accessed without dot-notation
+     parameter BooleanType start = false; // Initial value
    //--  parameter StringType quantity = "";
-   //--  parameter BooleanType start = false; // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
    end Boolean;
@@ -420,8 +420,8 @@ The following is the predefined ``String`` type:
 
    type String // Note: Defined with Modelica syntax although predefined
      StringType value; // Accessed without dot-notation
+     parameter StringType start = ""; // Initial value
    //--  parameter StringType quantity = "";
-   //--  parameter StringType start = "";     // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
    end String;
@@ -1294,18 +1294,20 @@ Connectors
 ^^^^^^^^^^
 
 Blocks expose their inputs and outputs through input and output
-connectors.
+connectors, or collect the inputs and outputs using the databus connector.
 
 The permissible connectors are implemented in the package
 ``CDL.Interfaces``, and are
 ``BooleanInput``, ``BooleanOutput``,
 ``IntegerInput``, ``IntegerOutput``,
-``RealInput`` and ``RealOutput``.
+``RealInput`` and ``RealOutput``,
+and ``DataBus``.
 
-Connectors must be in a ``public`` section.
+The input and output connectors must be in a ``public`` section.
 
-Connectors can carry scalar variables, vectors or arrays of values (each having the same data type).
-For arrays, the connectors need to be explicitly declared as an array.
+The input and output connectors can carry scalar variables, vectors or arrays of values
+(each having the same data type). For arrays, the connectors need to be explicitly declared
+as an array.
 
 [ For example, to declare an array of ``nin`` input signals, use
 
@@ -1317,6 +1319,11 @@ For arrays, the connectors need to be explicitly declared as an array.
 
 ]
 
+The ``DataBus`` connector is the expandable connector
+(`Section 9.1.3 <https://specification.modelica.org/maint/3.6/connectors-and-connections.html#expandable-connectors>`_
+in :cite:`ModelicaSpecification2023`). It collects block inputs and outputs by connecting the ``DataBus``
+instance with the connectors of the instances in the block.
+
 .. note::
 
    In general, today's building control product lines only support scalar variables on graphical connections.
@@ -1324,7 +1331,7 @@ For arrays, the connectors need to be explicitly declared as an array.
    equipment. For example, if only scalars are allowed in connections, then a chiller plant with two chillers
    needs a different sequence than a chiller plant with three chillers. With vectors, however,
    one sequence can be implemented for chiller plants with any number of chillers. This is currently done
-   when implementing sequences from ASHRAE RP-1711 in CDL.
+   when implementing sequences from ASHRAE G36 in CDL.
 
    If control product lines do not support vectors on connections, then during translation from CDL to the
    control product line, the vectors (or arrays) can be flattened. For example, blocks of the form
@@ -1719,7 +1726,7 @@ but it cannot extend an Elementary Block or an Extension Block.
 The ``extends`` statement can have any number of declarations that assign
 a parameter value or parameter attributes.
 
-.. note:: There are three restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
+.. note:: There are two restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
 
           1. Only a single ``extends`` statement is allowed.
              This is for simplicity because two ``extends`` statements could require having to reconcile two
@@ -1733,10 +1740,7 @@ a parameter value or parameter attributes.
              Note that in Modelica, multiple ``extends`` are allowed, but the block ``NotValid``
              is not valid and tools will issue an error message.
 
-          2. The ``break`` keyword for
-             `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_
-             is not allowed.
-          3. Modelica allows to assign a value to a variable declared as an ``input``.
+          2. Modelica allows to assign a value to a variable declared as an ``input``.
              This is not allowed in CDL.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
@@ -1784,6 +1788,37 @@ then the following applies:
    :language: modelica
 
 ]
+
+In the ``extends`` statement, the ``break`` keyword can be used to deselect connection, and deselect component.
+
+[For example, in block below, the connection ``connect(gai.y, conPID.u_m)`` in block ``TestBreak`` is deselected
+and a new instance ``abs1`` is added between the original connection.
+
+.. literalinclude::  img/cdl/BreakConnect.mo
+   :language: modelica
+
+.. _fig_break_connection_block:
+
+.. figure:: img/cdl/BreakConnect.*
+   :width: 500px
+
+   Example of a block that deselects connection.
+
+In block below, the component ``conPID`` in block ``TestBreak`` is deselected and is replaced by a new class
+``conPID1``.
+
+.. literalinclude::  img/cdl/BreakComponent.mo
+   :language: modelica
+
+.. _fig_break_component_block:
+
+.. figure:: img/cdl/BreakComponent.*
+   :width: 500px
+
+   Example of a block that deselects component.
+
+]
+
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
