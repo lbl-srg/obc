@@ -1786,12 +1786,13 @@ then the following applies:
 
 ]
 
-In the ``extends`` statement, the ``break`` keyword can be used to deselect connection, and deselect component.
+In the ``extends`` statement, the ``break`` keyword can be used to
+`deselect connection and component <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`.
 
 [For example, in block below, the connection ``connect(gai.y, conPID.u_m)`` in block ``TestBreak`` is deselected
 and a new instance ``abs1`` is added between the original connection.
 
-.. literalinclude::  img/cdl/BreakConnect.mo
+.. literalinclude::  img/cdl/BreakConnect.m
    :language: modelica
 
 .. _fig_break_connection_block:
