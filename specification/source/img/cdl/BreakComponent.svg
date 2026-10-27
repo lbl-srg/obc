@@ -1,0 +1,79 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="-49.3 -49.3 1615.6 1084.6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="390.286" y="373.643" width="165.857" height="165.857"/>
+	<ellipse fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" cx="473.214" cy="456.571" rx="41.4643" ry="41.4643"/>
+	<text fill="rgb(0,0,255)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="473.214" y="348.764">div1</text>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="514.679,456.571 556.143,456.571"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="448.336,456.571 498.093,456.571"/>
+	<ellipse fill="black" stroke="rgb(0,0,0)" stroke-opacity="1" cx="473.214" cy="435.839" rx="4.14643" ry="4.14643"/>
+	<ellipse fill="black" stroke="rgb(0,0,0)" stroke-opacity="1" cx="473.214" cy="477.304" rx="4.14643" ry="4.14643"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="390.286,406.814 418.481,406.814 440.043,431.693"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="390.286,506.329 473.214,506.329 473.214,498.036"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="390.286,954.143 390.286,788.286 556.143,871.214 390.286,954.143"/>
+	<text fill="rgb(0,0,0)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="473.214" y="970.729">k=k</text>
+	<text fill="rgb(0,0,255)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="473.214" y="768.383">gai</text>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="373.7,406.814 307.357,406.814 307.357,290.714 58.5714,290.714"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="373.7,406.814 307.357,406.814 307.357,290.714 58.5714,290.714"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="58.5714,871.214 373.7,871.214"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="58.5714,871.214 373.7,871.214"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="58.5714,622.429 307.357,622.429 307.357,506.329 373.7,506.329"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="58.5714,622.429 307.357,622.429 307.357,506.329 373.7,506.329"/>
+	<text fill="rgb(0,0,255)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="473.214" y="17.05">con</text>
+	<rect fill="rgb(210,210,210)" stroke="rgb(0,0,0)" stroke-opacity="1" transform="translate(473.214, 124.857) translate(0, 0) scale(1,-1)" x="-82.9286" y="-82.9286" width="165.857" height="165.857"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="388.698" y="40.3406" width="1.588" height="167.445"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="388.698" y="207.786" width="167.445" height="1.588"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="556.143" y="41.9286" width="1.588" height="167.445"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="390.286" y="40.3406" width="167.445" height="1.588"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="390.286" y="41.9286" width="2.382" height="165.857"/>
+	<rect fill="rgb(255,255,255)" stroke="none" x="390.286" y="41.9286" width="165.857" height="2.382"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="554.555" y="41.9286" width="1.588" height="165.857"/>
+	<rect fill="rgb(113,111,100)" stroke="none" x="390.286" y="206.198" width="165.857" height="1.588"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="552.967" y="43.5166" width="1.588" height="162.681"/>
+	<rect fill="rgb(172,168,153)" stroke="none" x="391.874" y="204.61" width="162.681" height="1.588"/>
+	<ellipse fill="rgb(235,235,235)" stroke="rgb(235,235,235)" stroke-opacity="1" cx="537.899" cy="124.857" rx="5.805" ry="5.805"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="398.579,182.907 532.923,182.907"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="547.85,182.907 529.606,176.273 529.606,189.541 547.85,182.907"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="406.871,51.88 400.237,70.1243 413.506,70.1243 406.871,51.88"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="406.871,70.1243 406.871,192.859"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="406.871,124.857 526.289,124.857"/>
+	<text fill="rgb(0,0,0)" font-size="23" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="473.214" y="228.518">k</text>
+	<rect fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" x="887.857" y="373.643" width="165.857" height="165.857"/>
+	<rect fill="rgb(255,255,255)" stroke="rgb(255,255,255)" stroke-opacity="1" transform="translate(995.664, 492.231) translate(0, 0) scale(1,-1)" x="-29.8543" y="-19.0736" width="59.7086" height="38.1471"/>
+	<text fill="rgb(0,0,0)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="990.689" y="491.401">PI</text>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="904.443,388.57 897.809,406.814 911.077,406.814 904.443,388.57"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="904.443,400.18 904.443,539.5"/>
+	<polyline fill="none" stroke="rgb(192,192,192)" stroke-opacity="1" points="896.15,522.914 1028.84,522.914"/>
+	<polygon fill="rgb(192,192,192)" stroke="rgb(192,192,192)" stroke-opacity="1" points="1032.15,522.914 1013.91,516.28 1013.91,529.549 1032.15,522.914"/>
+	<text fill="rgb(0,0,255)" font-size="31" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="970.786" y="348.764">conPID1</text>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="904.443,522.914 904.443,474.816"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="904.443,474.816 975.761,410.131"/>
+	<polyline fill="none" stroke="rgb(0,0,0)" stroke-opacity="1" points="975.761,410.131 1027.18,410.131"/>
+	<rect fill="rgb(175,175,175)" stroke="none" stroke-opacity="1" transform="translate(1047.08, 539.5) translate(0, 0) scale(-1,1)" x="-6.63429" y="0" width="13.2686" height="0"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="572.729,456.571 871.271,456.571"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="572.729,456.571 871.271,456.571"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="572.729,871.214 970.786,871.214 970.786,556.086"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="572.729,871.214 970.786,871.214 970.786,556.086"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="572.729,124.857 722,124.857 722,622.429 921.029,622.429 921.029,556.086"/>
+	<polyline fill="none" stroke="rgb(255,0,255)" stroke-opacity="1" points="572.729,124.857 722,124.857 722,622.429 921.029,622.429 921.029,556.086"/>
+	<polyline fill="none" stroke="rgb(255,255,255)" stroke-width="10.37" stroke-opacity="1" points="1070.3,456.571 1385.43,456.571"/>
+	<polyline fill="none" stroke="rgb(0,0,127)" stroke-opacity="1" points="1070.3,456.571 1385.43,456.571"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="373.7,398.521 390.286,406.814 373.7,415.107 373.7,398.521"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="373.7,498.036 390.286,506.329 373.7,514.621 373.7,498.036"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="556.143,448.279 572.729,456.571 556.143,464.864 556.143,448.279"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="373.7,862.921 390.286,871.214 373.7,879.507 373.7,862.921"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="556.143,862.921 572.729,871.214 556.143,879.507 556.143,862.921"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="58.5714,207.786 224.429,290.714 58.5714,373.643 58.5714,207.786"/>
+	<text fill="rgb(0,0,127)" font-size="39" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="41.9857" y="170.468">u1</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="58.5714,539.5 224.429,622.429 58.5714,705.357 58.5714,539.5"/>
+	<text fill="rgb(0,0,127)" font-size="39" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="41.9857" y="502.182">u2</text>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="58.5714,788.286 224.429,871.214 58.5714,954.143 58.5714,788.286"/>
+	<text fill="rgb(0,0,127)" font-size="39" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="41.9857" y="750.968">u3</text>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1219.57,373.643 1385.43,456.571 1219.57,539.5 1219.57,373.643"/>
+	<text fill="rgb(0,0,127)" font-size="81" font-family="helvetica" text-anchor="middle" dominant-baseline="central" x="1435.19" y="315.593">y1</text>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="556.143,116.564 572.729,124.857 556.143,133.15 556.143,116.564"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="871.271,448.279 887.857,456.571 871.271,464.864 871.271,448.279"/>
+	<polygon fill="rgb(0,0,127)" stroke="rgb(0,0,127)" stroke-opacity="1" points="979.079,556.086 970.786,539.5 962.493,556.086 979.079,556.086"/>
+	<polygon fill="rgb(255,255,255)" stroke="rgb(0,0,127)" stroke-opacity="1" points="1053.71,448.279 1070.3,456.571 1053.71,464.864 1053.71,448.279"/>
+	<polygon fill="rgb(255,0,255)" stroke="rgb(255,0,255)" stroke-opacity="1" points="912.736,556.086 921.029,539.5 929.321,556.086 912.736,556.086"/>
+</svg>
