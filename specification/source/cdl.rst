@@ -298,8 +298,8 @@ in which we left out attributes that are not needed for CDL.
 
 The attributes that are present in Modelica but not in CDL are marked with ``//--``.
 
-[Note the following: The ``start`` attribute is not needed in CDL because the start value of states is
-declared through a `parameter`.
+[Note the following: The ``start`` attribute is not yet added to the ANSI/ASHRAE Standard 231
+and it is being reviewed by the standard Committee.
 The ``equation`` section has been removed because how to deal with variables that
 are out of limit should be left to the implementation of the control system.
 ]
@@ -317,7 +317,7 @@ The following is the predefined ``Real`` type:
      parameter StringType unit        = "" "Unit used in equations";
      parameter StringType displayUnit = "" "Default display unit";
      parameter RealType min=-Inf, max=+Inf; // Inf denotes a large value
-     //-- parameter RealType start    = 0; // Initial value
+     parameter RealType start    = 0; // Initial value
      //-- parameter BooleanType fixed = true,   // default for parameter/constant;
      //--                             = false;  // default for other variables
      parameter RealType nominal = 1;            // Nominal value
@@ -379,7 +379,7 @@ The following is the predefined ``Integer`` type:
      IntegerType value; // Accessed without dot-notation
      //-- parameter StringType quantity = "";
      parameter IntegerType min=-Inf, max=+Inf;
-     //-- parameter IntegerType start = 0; // Initial value
+     parameter IntegerType start = 0; // Initial value
      //-- parameter BooleanType fixed = true,  // default for parameter/constant;
      //--                             = false; // default for other variables
    //-- equation
@@ -404,7 +404,7 @@ The following is the predefined ``Boolean`` type:
    type Boolean // Note: Defined with Modelica syntax although predefined
      BooleanType value; // Accessed without dot-notation
    //--  parameter StringType quantity = "";
-   //--  parameter BooleanType start = false; // Initial value
+     parameter BooleanType start = false; // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
    end Boolean;
@@ -421,7 +421,7 @@ The following is the predefined ``String`` type:
    type String // Note: Defined with Modelica syntax although predefined
      StringType value; // Accessed without dot-notation
    //--  parameter StringType quantity = "";
-   //--  parameter StringType start = "";     // Initial value
+     parameter StringType start = "";     // Initial value
    //--  parameter BooleanType fixed = true,  // default for parameter/constant;
    //--                              = false, // default for other variables
    end String;
