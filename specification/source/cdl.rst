@@ -1294,18 +1294,20 @@ Connectors
 ^^^^^^^^^^
 
 Blocks expose their inputs and outputs through input and output
-connectors.
+connectors, or collect the inputs and outputs using the databus connector.
 
 The permissible connectors are implemented in the package
 ``CDL.Interfaces``, and are
 ``BooleanInput``, ``BooleanOutput``,
 ``IntegerInput``, ``IntegerOutput``,
-``RealInput`` and ``RealOutput``.
+``RealInput`` and ``RealOutput``,
+and ``DataBus``.
 
-Connectors must be in a ``public`` section.
+The input and output connectors must be in a ``public`` section.
 
-Connectors can carry scalar variables, vectors or arrays of values (each having the same data type).
-For arrays, the connectors need to be explicitly declared as an array.
+The input and output connectors can carry scalar variables, vectors or arrays of values
+(each having the same data type). For arrays, the connectors need to be explicitly declared
+as an array.
 
 [ For example, to declare an array of ``nin`` input signals, use
 
@@ -1317,6 +1319,11 @@ For arrays, the connectors need to be explicitly declared as an array.
 
 ]
 
+The ``DataBus`` connector is the expandable connector
+(`Section 9.1.3 <https://specification.modelica.org/maint/3.6/connectors-and-connections.html#expandable-connectors>`_
+in :cite:`ModelicaSpecification2023`). It collects block inputs and outputs by connecting the ``DataBus``
+instance with the connectors of the instances in the block.
+
 .. note::
 
    In general, today's building control product lines only support scalar variables on graphical connections.
@@ -1324,7 +1331,7 @@ For arrays, the connectors need to be explicitly declared as an array.
    equipment. For example, if only scalars are allowed in connections, then a chiller plant with two chillers
    needs a different sequence than a chiller plant with three chillers. With vectors, however,
    one sequence can be implemented for chiller plants with any number of chillers. This is currently done
-   when implementing sequences from ASHRAE RP-1711 in CDL.
+   when implementing sequences from ASHRAE Guideline 36 in CDL.
 
    If control product lines do not support vectors on connections, then during translation from CDL to the
    control product line, the vectors (or arrays) can be flattened. For example, blocks of the form
