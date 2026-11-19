@@ -35,7 +35,7 @@ while ensuring that as new product lines are being developed,
 the manufacturers can invert the paradigm and build controllers
 that conform to the models.
 We therefore selected the path of designing CDL in such a way
-that it provide a minimum set of capabilities that can be expected to be supported
+that it provides a minimum set of capabilities that can be expected to be supported
 by current control product lines,
 while allowing future control product lines to directly use CDL
 for the implementation of the control sequences.
@@ -84,7 +84,7 @@ Input into the translation is CDL. An open-source tool called ``modelica-json`` 
 translates CDL to an intermediate format that we call :term:`CDL-JSON`.
 From CDL-JSON, further translations can be done to a control product line, or to
 generate point lists, English language documentation or a semantic model of the control sequences.
-We anticipate that future control product lines use directly CDL as shown in the right of
+We anticipate that future control product lines will use CDL directly as shown in the right of
 :numref:`fig_cdl_pro_lin`. Such a translation can then be done using
 various existing Modelica tools to generate code for real-time simulation.
 
@@ -111,7 +111,7 @@ and to document control sequences.
 
 CDL uses a small subset of the Modelica language that is needed for declaration of block diagrams.
 We selected Modelica as it is an open standard, as it provides various open-source
-and commercial modeling and simulation environments, as it allows to generate
+and commercial modeling and simulation environments, as it allows generating
 highly efficient code for simulation, and because it is increasingly used to
 simulate building energy and control systems.
 
@@ -141,7 +141,7 @@ as functions that for given parameters :math:`p`, time :math:`t` and internal st
 map inputs :math:`u(t)` to new values for the outputs :math:`y(t)` and states :math:`x'(t)`, e.g.,
 :math:`(p, t, u(t), x(t)) \mapsto (y(t), x'(t))`.
 By the composition rules of composite blocks, composite blocks are also such functions.
-This abstraction is important as it allows to execute CDL sequences that are composed of
+This abstraction is important as it allows executing CDL sequences that are composed of
 composite blocks using a variety
 of programming languages, it guarantees that the elementary and composite blocks have a well-defined scope and
 it guarantees that the calculations of a block have no side effects on other blocks.
@@ -213,7 +213,7 @@ The CDL language consists of the following elements:
     extension block              An extension block (:numref:`sec_ext_blo`) is a block that conforms in CDL to the
                                  Modelica definition of a block (and thus can have textual equations,
                                  call C functions or functions in a dynamically linked library).
-                                 In CDL-json, the json specification declares its
+                                 In CDL-JSON, the json specification declares its
                                  constants, parameters, input connectors and output connectors,
                                  and it declares the file name of a Functional Mockup Unit for Model Exchange
                                  that can be used to compute its outputs.
@@ -283,7 +283,7 @@ Also, the following Modelica language features are not supported in CDL, except 
    <https://specification.modelica.org/maint/3.6/equations.html#initialization-initial-equation-and-initial-algorithm>`_.
 
 
-.. _sec_cld_per_typ:
+.. _sec_cdl_per_typ:
 
 Permissible Data Types
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -329,10 +329,10 @@ The following is the predefined ``Real`` type:
 
 ``Real Type/double`` matches the IEC 60559:1989 (ANSI/IEEE 754-1985) double format.
 
-The ``quantity`` attribute is optional, can take on the following values:
+The ``quantity`` attribute is optional and can take on the following values:
 
 - ``""``, which is the default, is considered as no quantity being specified.
-- ``Angle`` for area (such as used for sun position).
+- ``Angle`` for angle (such as used for sun position).
 - ``Area`` for area.
 - ``Energy`` for energy.
 - ``Frequency`` for frequency.
@@ -355,7 +355,7 @@ The ``quantity`` attribute is optional, can take on the following values:
 [These quantities are compatible with the quantities used in the Modelica Standard Library, to allow
 connecting CDL models to Modelica models, see also :numref:`sec_connections`.]
 
-[The `quantity` attribute could be used for example to declare in a sequence that a real signal is a ``AbsolutePressure``.
+[The `quantity` attribute could be used for example to declare in a sequence that a real signal is an ``AbsolutePressure``.
 This could be used to aid connecting signals or filtering data.
 Quantities serve a different purpose than tagged properties (:numref:`sec_tag_pro`).]
 
@@ -390,7 +390,7 @@ The minimal recommended number range for IntegerType is from
 :math:`-2147483648` to :math:`+2147483647`,
 corresponding to a two’s-complement 32-bit integer implementation.
 
-[The ``quantity`` attribute could be used for example to declare in a sequence that a integer signal is a ``NumberOfHeatingRequest``.
+[The ``quantity`` attribute could be used for example to declare in a sequence that an integer signal is a ``NumberOfHeatingRequest``.
 This could be used to aid connecting signals or filtering data.]
 
 
@@ -447,7 +447,7 @@ Each enumeration literal in the ``enumList`` has type ``E``.
 
    type SimpleController = enumeration(P, PI, PD, PID);
 
-   parameter SimpleController = SimpleController.P;
+   parameter SimpleController con = SimpleController.P;
 
 ]
 
@@ -466,7 +466,7 @@ An optional comment string can be specified with each enumeration literal.
 
 ]
 
-[Enumerations can for example be used to declare a list of mode of operations, such as ``on``, ``off``, ``startUp``, ``coolDown``.]
+[Enumerations can for example be used to declare a list of modes of operation, such as ``on``, ``off``, ``startUp``, ``coolDown``.]
 
 .. _sec_par_typ:
 
@@ -474,7 +474,7 @@ Parameters
 ..........
 
 A ``parameter`` is a value that does not change as time progresses, except through
-stopping the executation of the control sequence,
+stopping the execution of the control sequence,
 setting a new value through a user interaction or an API, and restarting the execution.
 In other words, the value of a ``parameter`` cannot be changed through an input connector (:numref:`sec_connectors`).
 Parameters are declared with the ``parameter`` prefix.
@@ -519,7 +519,7 @@ Values of arrays may be declared using
  - one or several iterators, for example ``parameter Real k[2,3] = {i*0.5+j for i in 1:3, j in 1:2}``,
  - a ``fill`` or ``cat`` function, see :numref:`sec_dec_par`.
 
-[For example, to following declarations all assign the array ``{1, 2, 3}`` to parameters:
+[For example, the following declarations all assign the array ``{1, 2, 3}`` to parameters:
 
 .. code-block::
 
@@ -659,7 +659,7 @@ for ``Boolean`` parameters, we allow expressions involving
 ``and``, ``or`` and ``not`` and the function ``fill(..)`` in :numref:`tab_par_fun`.
 For ``Real`` and ``Integer``, expressions are allowed that involve
 
-- the basic arithmetic functions ``+``, ``-``, ``*``, ``-``,
+- the basic arithmetic functions ``+``, ``-``, ``*``, ``/``,
 - the relations ``>``, ``>=``, ``<``, ``<=``, ``==``, ``<>``,
 - calls to the functions listed in :numref:`tab_par_fun`.
 
@@ -679,7 +679,7 @@ for the graphical positioning of the instance in a block diagram.]
 Functions
 .........
 
-CDL provide built-in functions that can be used when assigning
+CDL provides built-in functions that can be used when assigning
 values of parameters and attributes of constants, parameters,
 inputs, and outputs.
 :numref:`tab_par_fun` lists the supported functions.
@@ -820,7 +820,7 @@ a translator from ``CDL-JSON`` to a control product line is allowed to ignore th
    `CDL.Discrete.TriggeredSampler <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Discrete.html#Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler>`_
    that sample the corresponding signals.
 
-   Example 2: If a controller normalized two input signals by dividing it by a gain ``k1``, then
+   Example 2: If a controller normalizes two input signals by dividing them by a gain ``k1``, then
    rather than using two instances of
    `CDL.Reals.MultiplyByParameter <https://simulationresearch.lbl.gov/modelica/releases/v12.1.0/help/Buildings_Controls_OBC_CDL_Reals.html#Buildings.Controls.OBC.CDL.Reals.MultiplyByParameter>`_
    with parameter ``k = 1/k1``, one could use
@@ -889,7 +889,7 @@ leading to a CDL-JSON declaration that is equivalent to the CDL declaration
      uHigh = 75) "Hysteresis for fan control";
 
 If both ``evaluatePropagatedParameters`` and ``evaluateExpressions`` are set, the result would be
-equivalent of the declaration
+equivalent to the declaration
 
 .. code-block:: modelica
 
@@ -900,12 +900,12 @@ equivalent of the declaration
      uHigh = 75) "Hysteresis for fan control";
 
 Clearly, use of these flags is not preferred, but they have been introduced to
-accomodate the capabilities that are present in most of today's building control product lines.
+accommodate the capabilities that are present in most of today's building control product lines.
 
 .. note::
 
    A commonly used construct in control sequences is to declare a ``parameter`` and
-   then use the parameter once to assign the value of a block in this sequences.
+   then use the parameter once to assign the value of a block in this sequence.
    In CDL, this construct looks like
 
    .. code-block:: modelica
@@ -957,10 +957,10 @@ An example code snippet is
 By the Modelica language definition, all connections (:numref:`sec_connections`)
 to ``nOcc`` will be removed if ``have_occSen = false``.
 
-Some building automation systems do not allow to conditionally removing instances
+Some building automation systems do not allow conditionally removing instances
 of blocks, inputs and outputs, and their connections. Rather, these instances
 are always present, and a value for the input must be present.
-To accomodate this case, every input connector that can be conditionally removed
+To accommodate this case, every input connector that can be conditionally removed
 can declare a default value of the form ``__cdl(default = value)``,
 where ``value`` is the default value that will be used
 if the building automation system does not support conditionally removing instances.
@@ -1050,7 +1050,7 @@ Controllers deeper in the hierarchy are referred to using the dot notation, such
 
 The value of ``instance=`` must be an elementary block (see :numref:`sec_ele_blo`)
 or a composite block (see :numref:`sec_com_blo`). It
-must declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
+must be declared, but it can be conditionally removed (see :numref:`sec_con_rem_ins`),
 in which case the declaration can safely be ignored.
 
 Higher-level declarations override lower-level declarations.
@@ -1135,7 +1135,7 @@ These statements can also be combined into
 
 As in :numref:`sec_ann_cau_poi_lis`,
 
-- the value assigned to ``instance`` must be the name of an instance that exist, (but it can be conditionally removed in which case the annotation can be ignored),
+- the value assigned to ``instance`` must be the name of an instance that exists (but it can be conditionally removed in which case the annotation can be ignored),
 - higher-level declarations override lower-level declarations, and
 - any number of ``propagate(...)`` annotations can be present.
 
@@ -1182,9 +1182,9 @@ As in :numref:`sec_ann_cau_poi_lis`,
       annotation(__cdl(generatePointlist=true));
    end MyController;
 
-The translator will generate an annotation propagation list as shown below. There will be point
+The translator will generate an annotation propagation list as shown below. There will be a point
 list for ``Controller``, ``Controller.con1``, ``Controller.con2.subCon1`` and
-``Controller.con2.subCon1``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
+``Controller.con2.subCon2``. Also, the annotation ``connection(hardwired=true), trend(interval=60, enable=true)``
 of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interval=120, enable=true)``.
 
 .. code-block:: javascript
@@ -1253,7 +1253,7 @@ of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interv
 
 .. code-block:: modelica
 
-   within Buildings.Controls.OBC.ASHRAE.G36G36.TerminalUnits.Reheat
+   within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat
    block Controller "Controller for room VAV box with reheat"
       ...;
       CDL.Interfaces.BooleanInput uWin "Windows status"
@@ -1267,7 +1267,7 @@ of ``con1.u2`` will be overridden as ``connection(hardwired=false), trend(interv
 
 It specifies that a point list should be generated for the sequence that controls the
 system or equipment specified by ``controlledDevice``, that ``uWin`` is a
-digital input point that is hardwired,  and that ``yVal`` is an analog output point that
+digital input point that is hardwired, and that ``yVal`` is an analog output point that
 is not hardwired. Both of them can be trended with a time interval of 1 minute.
 The point list table will look as shown in :numref:`tab_sample_point_list`.
 
@@ -1313,7 +1313,7 @@ For arrays, the connectors need to be explicitly declared as an array.
 
    parameter Integer nin(min=1) "Number of inputs";
 
-   Interfaces.RealInput u[nin] "Connector for 2 Real input signals";
+   Interfaces.RealInput u[nin] "Connector for nin Real input signals";
 
 ]
 
@@ -1342,7 +1342,7 @@ For arrays, the connectors need to be explicitly declared as an array.
    .. code-block:: modelica
 
       CDL.Reals.Sources.Constant con_1(k=1);
-      CDL.Reals.Sources.Constant con_2(k=1);
+      CDL.Reals.Sources.Constant con_2(k=2);
       CDL.Reals.MultiSum mulSum(nin=2);
       equation
       connect(con_1.y, mulSum.u_1);
@@ -1370,7 +1370,7 @@ equations such as ``y=2*u;`` or commands such as ``for``, ``if``,
 
 Furthermore, unlike in Modelica, there shall not be an ``initial equation``,
 ``initial algorithm`` or ``algorithm``
-section. (They can however be part of a elementary block.)
+section. (They can however be part of an elementary block.)
 
 
 .. _sec_connections:
@@ -1526,7 +1526,7 @@ A composite block is a block that is composed of any number of instances of
  * other composite blocks.
 
 Composite blocks also contain an ``equation`` section
-in which connections are instantiated to connect inputs connectors and output connectors
+in which connections are instantiated to connect input connectors and output connectors
 of the composite block and its elementary and composite blocks.
 These rules allow the definition of composite blocks in a library,
 and the instantiation and possible configuration of these instances
@@ -1569,7 +1569,7 @@ and are needed for hierarchical composition of control sequences.]
 Extension Blocks
 ^^^^^^^^^^^^^^^^
 
-To support functionalities that cannot, or may be hard to, implement with a composite block,
+To support functionalities that cannot be implemented, or are hard to implement, with a composite block,
 *extension blocks* are introduced.
 
 .. note:: Extension blocks are introduced to allow implementation of blocks that contain statistical functions
@@ -1593,7 +1593,7 @@ Extension blocks are equivalent to the class ``block`` in Modelica.
 Thus, extension blocks can contain any declarations that are allowed in a Modelica ``block``.
 
 .. note:: The fact that extension blocks allow any declaration
-          that is allow in a Modelica ``block``
+          that is allowed in a Modelica ``block``
           implies that extension blocks can have any number of parameters, inputs and outputs,
           identical to composite blocks. It also implies that extension blocks can be used to
 
@@ -1631,12 +1631,12 @@ Translation of an extension block to json must reproduce the following:
 Replaceable Blocks
 ^^^^^^^^^^^^^^^^^^
 
-.. note: This section is not present in ASHRAE Standard 231P Public Review Draft 1.
-         It should be proposed for addition to the Standard.
+.. note:: This section is not present in ASHRAE Standard 231P Public Review Draft 1.
+          It should be proposed for addition to the Standard.
 
 CDL allows the use of the Modelica ``replaceable``, ``constrainedby`` and ``redeclare`` keywords.
 
-The ``replaceable`` keyword allows to replace a block by another block when translating a composite block.
+The ``replaceable`` keyword allows replacing a block by another block when translating a composite block.
 
 To declare a block as ``replaceable``, the syntax is
 
@@ -1708,7 +1708,7 @@ Without the ``constrainedby CDL.Reals.Sources.CivilTime`` clause,
 ]
 
 When translating CDL to CXF, the keywords ``replaceable``, ``constrainedby`` and ``redeclare``
-need to be evaluated and removed. E.g., they are not present in ``CXF``.
+need to be evaluated and removed. I.e., they are not present in ``CXF``.
 
 Extension of a Composite Block
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1736,16 +1736,16 @@ a parameter value or parameter attributes.
           2. The ``break`` keyword for
              `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_
              is not allowed.
-          3. Modelica allows to assign a value to a variable declared as an ``input``.
+          3. Modelica allows assigning a value to a variable declared as an ``input``.
              This is not allowed in CDL.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
 
 [
 A simple illustrative example of an ``extends`` statement would be to
-extends the block ``OBC.Utilities.PIDWithInputGains``,
-restricts its output to be always between ``0`` and ``1``,
-and adding an output connector that can be used to access the control error.
+extend the block ``OBC.Utilities.PIDWithInputGains``,
+restrict its output to be always between ``0`` and ``1``,
+and add an output connector that can be used to access the control error.
 
 This could be accomplished as
 
@@ -1793,7 +1793,7 @@ which are defined below. [The definition is adopted from and consistent with the
 
 #. All variables keep their actual values until these values
    are explicitly changed. Variable values can be accessed at any time instant.
-#. Computation and communication at an event instant does not take time.
+#. Computation and communication at an event instant do not take time.
    [If computation or communication time has to be simulated, this property has to be explicitly modeled.]
 #. Every input connector shall be connected to exactly one output connector.
 
@@ -1801,7 +1801,7 @@ In addition, the dependency graph from inputs to outputs that directly depend
 on inputs shall be directed and acyclic.
 I.e., connections that form an algebraic loop are not allowed.
 [To break an algebraic loop, one could place a delay block or an integrator
-in the loop, because the outputs of a delay or integrator does *not* depend
+in the loop, because the outputs of a delay or integrator do *not* depend
 directly on the input.]
 
 
@@ -1852,7 +1852,7 @@ Therefore, tools that process CDL can infer the following information:
   :term:`analog value <Analog Value>`,
   (which in CDL is represented by a ``Real`` data type)
   :term:`mode <Mode>`
-  (which in CDL is presented by an ``Integer`` data type or an enumeration,
+  (which in CDL is represented by an ``Integer`` data type or an enumeration,
   which allow for example encoding of the
   ASHRAE Guideline 36 Freeze Protection which has 4 stages).
 * Source: Hardware point or software point.
@@ -1898,7 +1898,7 @@ All semantic information shall be included under the ``semantic`` section within
    annotation (__cdl(      semantic(<semantic information>)));
    annotation (__Buildings(semantic(<semantic information>)));
 
-where ``<semantic information>`` is a place holder for the semantic information.
+where ``<semantic information>`` is a placeholder for the semantic information.
 
 The ``semantic`` annotation declared in the class definition shall
 optionally contain the ``metadataLanguageDefinition`` or the
@@ -1920,11 +1920,11 @@ The optional ``metadataLanguageDefinition`` shall have the following syntax:
 
 where ``<metadataLanguageName>`` shall be replaced with the name of the metadata language,
 ``<version>`` is the mandatory entry for the version,
-``<format>`` is the  mandatory field for format of the language, such as ``text/turtle``, and
+``<format>`` is the mandatory field for format of the language, such as ``text/turtle``, and
 ``["informative text"]`` is an optional description of the language, such as
 the URL to the language.
 The ``version`` represents the version of the
-``<metadataLanguageName>`` used  in a particular class. The ``format`` represents the
+``<metadataLanguageName>`` used in a particular class. The ``format`` represents the
 format that the semantic information is expressed in. The format shall be expressed using
 `MIME types <https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types>`_.
 
@@ -1963,7 +1963,7 @@ Example:
 
 The semantic
 information shall be included as a ``metadataLanguage``/``metadata`` or a
-``naturalLanguage``/``metadata`` pair  within the ``semantic`` section in the
+``naturalLanguage``/``metadata`` pair within the ``semantic`` section in the
 ``__cdl`` or ``__Buildings`` annotation using the following syntax:
 
 .. code-block:: modelica
@@ -2001,7 +2001,7 @@ identifiers and make the rest of the ontology presentation more readable) and pr
 readable).
 
 [In the example below, for the ``metadataLanguage`` ``"Brick 1.3 text/turtle"``, the class
-definition annotation has been  used to define the namespace prefixes and for
+definition annotation has been used to define the namespace prefixes and for
 ``"Project-Haystack 3.9.12 application/ld+json"``, it has been used to define namespaces,
 prefixes and contexts.
 
@@ -2043,7 +2043,7 @@ where ``<path>`` shall be either a URL for a model that is on the
 network or a model that is present on the file system. If the ``url=`` is
 included in the ``metadata``, the semantic model will be exported from
 ``<path>``. If ``url=`` is not included in the  ``metadata``,
-``<path>`` shall be the the ``metadata``.
+``<path>`` shall be the ``metadata``.
 
 If the metadata model is present on the file system
 as separate file, the following syntax shall be followed:
@@ -2105,7 +2105,7 @@ Example:
                    __cdl(semantic(
                    metadataLanguage="Brick 1.3 text/turtle"
                      "bldg:<instanceName> a Brick:Hot_Water_Supply_Temperature_Sensor .",
-                   metadataLanguage=" Project-Haystack 3.9.12 application/ld+json"
+                   metadataLanguage="Project-Haystack 3.9.12 application/ld+json"
                      "{
                         \"@id\": \"_:<instanceName>\",
                         \"ph:hasTag\": [
@@ -2117,9 +2117,9 @@ Example:
                             {\"@id\": \"phScience:temp\"},
                             {\"@id\": \"phScience:water\"}
                         ],
-                        \"rdfs:label\": \" Heating Hot Water Supply Temperature\"
+                        \"rdfs:label\": \"Heating Hot Water Supply Temperature\"
                      }",
-                   metadataLanguage="en"
+                   naturalLanguage="en"
                      "<instanceName> is a temperature reading input that should be hardwired to heating coil temperature sensor")));
 
 ]
