@@ -268,8 +268,6 @@ the following Modelica keywords are not supported in CDL (except inside the exte
 
 #. ``inner`` and ``outer``
    `for instance hierarchy lookup <https://specification.modelica.org/maint/3.6/scoping-name-lookup-and-flattening.html#inner-declarations-instance-hierarchy-name-lookup>`_
-#. ``break`` for
-   `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_.
 
 Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
@@ -1738,8 +1736,8 @@ a parameter value or parameter attributes.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
 
-[Note: The ``break`` keyword is not yet added to the ANSI/ASHRAE Standard 231
-and it is being reviewed by the standard Committee.
+[Note: The ``break`` keyword has not yet been added to the ANSI/ASHRAE Standard 231
+and it is being reviewed by the Standing Standard Project Committee.
 ]
 
 [
@@ -1757,7 +1755,7 @@ This could be accomplished as
 
 The ``extends`` statement can also have any number of ``redeclare`` statements (:numref:`sec_rep_blo`).
 
-[For example, in the block below, the controller with name ``conPID`` is replaced
+[For example, in the block below, the controller named ``conPID`` is replaced
 with the block ``OBC.CDL.Reals.PIDWithReset``.
 
 .. literalinclude::  img/cdl/MyBlockWithRedeclare.mo
@@ -1777,7 +1775,7 @@ then the following applies:
 - The modifiers for subsequent redeclarations and constraining type are the modifiers on the component
   or short-class-definition if that is used in the original declaration, otherwise empty.
 
-[ Consider the following example, and see also
+[ Consider the following example. See also
 `Section 7.3.2 <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#constraining-type>`_ in
 :cite:`ModelicaSpecification2023`:
 
@@ -1787,12 +1785,12 @@ then the following applies:
 ]
 
 In the ``extends`` statement, the ``break`` keyword can be used to
-`deselect connection and component <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`.
+`deselect connections and components <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_.
 
-[For example, in block below, the connection ``connect(gai.y, conPID.u_m)`` in block ``TestBreak`` is deselected
-and a new instance ``abs1`` is added between the original connection.
+[For example, in the block below, the connection ``connect(gai.y, conPID.u_m)`` in the block ``TestBreak`` is deselected
+and a new instance ``abs1`` is added between the original connectors.
 
-.. literalinclude::  img/cdl/BreakConnect.m
+.. literalinclude::  img/cdl/BreakConnect.mo
    :language: modelica
 
 .. _fig_break_connection_block:
@@ -1800,9 +1798,9 @@ and a new instance ``abs1`` is added between the original connection.
 .. figure:: img/cdl/BreakConnect.*
    :width: 500px
 
-   Example of a block that deselects connection.
+   Example of a block that deselects a connection.
 
-In block below, the component ``conPID`` in block ``TestBreak`` is deselected and is replaced by a new class
+In the block below, the component ``conPID`` in the block ``TestBreak`` is deselected and replaced by a new component
 ``conPID1``.
 
 .. literalinclude::  img/cdl/BreakComponent.mo
@@ -1813,7 +1811,7 @@ In block below, the component ``conPID`` in block ``TestBreak`` is deselected an
 .. figure:: img/cdl/BreakComponent.*
    :width: 500px
 
-   Example of a block that deselects component.
+   Example of a block that deselects a component.
 
 ]
 

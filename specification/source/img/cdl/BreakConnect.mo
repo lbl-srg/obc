@@ -1,4 +1,4 @@
-within TestBreakPacakge;
+within TestBreakPackage;
 model BreakConnect
   extends TestBreak(break connect(gai.y, conPID.u_m));
 
