@@ -52,12 +52,12 @@ install:
 # Execute tests
 script:
   - |
-    cd specification
+    cd ${TRAVIS_BUILD_DIR}/specification
     make clean html
     make latex
     make linkcheck SPHINXOPTS=-W
   - |
-    cd software/verification
+    cd ${TRAVIS_BUILD_DIR}/software/verification
     python -m venv venv
     source venv/bin/activate
     pip install -r ${TRAVIS_BUILD_DIR}/software/verification/requirements.txt
