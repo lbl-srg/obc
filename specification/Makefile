@@ -3,7 +3,8 @@
 
 # You can set these variables from the command line.
 #SPHINXOPTS    = -W
-SPHINXBUILD   = sphinx-build
+export UV_CACHE_DIR ?= $(HOME)/.cache/uv
+SPHINXBUILD   = uv run --python 3.12 --with-requirements requirements.txt sphinx-build
 PAPER         =
 BUILDDIR      = build
 # Bitbucket user name
