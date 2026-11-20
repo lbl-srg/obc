@@ -46,35 +46,10 @@ the barrier to translate CDL to the programming language of a current control pr
 
 .. _fig_cdl_pro_lin:
 
-.. uml::
-   :caption: Translation of CDL to the CDL-JSON intermediate format and to a product line, a semantic model or English language documentation.
-   :width: 550 px
+.. figure:: img/uml/cdl_01.*
+   :width: 550px
 
-   skinparam componentStyle uml2
-
-     [CDL]
-
-     [CDL-JSON]
-
-     [point list]
-
-     [English language documentation]
-
-     [current control\nproduct line]
-
-     [future control\nproduct line\nbased on CDL]
-
-     [CDL] -d-> [CDL-JSON]
-
-     [CDL-JSON] --> [current control\nproduct line]
-
-     [CDL-JSON] --> [English language documentation]
-
-     [CDL-JSON] --> [semantic model]
-
-     [CDL-JSON] --> [point list]
-
-     [CDL] ---> [future control\nproduct line\nbased on CDL]
+   Translation of CDL to the CDL-JSON intermediate format and to a product line, a semantic model or English language documentation.
 
 
 To put CDL in context, and to introduce terminology, :numref:`fig_cdl_pro_lin` shows the translation of CDL to a control product line

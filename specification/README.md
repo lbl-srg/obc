@@ -8,24 +8,21 @@ or
 make latex
 ```
 
-The compilation requires sphinx-doc (http://www.sphinx-doc.org)
-and a few contributions, which can be installed by running
+The compilation requires [uv](https://docs.astral.sh/uv/) for managing Python
+dependencies. Install `uv` following the instructions at
+https://docs.astral.sh/uv/getting-started/installation/, then run `make html` or
+`make latex`. Dependencies are resolved automatically and cached in `~/.cache/uv`
+(or the directory specified by `UV_CACHE_DIR`); no virtual environment is created
+in the project directory.
+
+To install `uv` on Linux or macOS:
 
 ```
-pip install Sphinx
-pip install sphinx_bootstrap_theme
-pip install sphinxcontrib-plantuml
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-UML graphics are drawn using https://pypi.org/pypi/sphinxcontrib-plantuml
-
-plantuml requires graphviz, which can be installed on OS X using
+or via pip:
 
 ```
-brew install graphviz
-```
-and on Ubuntu using
-
-```
-sudo apt-get install graphviz
+pip install uv
 ```

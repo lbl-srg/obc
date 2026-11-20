@@ -165,24 +165,9 @@ This use case describes how to connect a control sequence to a system model and 
 
 .. _fig_use_case_custom_vav:
 
-.. uml::
-   :caption: Customizing a control sequence for a VAV system.
+.. figure:: img/uml/useCases_01.*
 
-   title Customizing a control sequence for a VAV system
-
-   "User" -> "OpenStudio" : Open control design tool.
-   "OpenStudio" -> "Control Design Tool" : open()
-   "User" -> "Control Design Tool" : Open HVAC and building model.
-   "OpenStudio" <- "Control Design Tool" : Request HVAC and building model.
-   "User" -> "Control Design Tool" : Drag & drop pre-configured control sequence.
-   "User" -> "Control Design Tool" : Select to store the control sequence in the project library.
-   "Control Design Tool" -> "Control Design Tool" : Write the sequence to new file in the project library.
-   "User" -> "Control Design Tool" : Connect sensors and actuators to control inputs and outputs.
-   "User" -> "Control Design Tool" : Open new composite control block in the project library.
-   "User" -> "Control Design Tool" : Drag, drop and connect blocks from CDL library.
-   "User" -> "Control Design Tool" : Check model.
-   "OpenStudio" <- "Control Design Tool" : Invoke model check.
-   "User" <- "Control Design Tool" : Report info, warning and error.
+   Customizing a control sequence for a VAV system.
 
 
 Customizing and Configuring a Control Sequence for a Single-Zone VAV System

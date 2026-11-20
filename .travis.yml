@@ -5,7 +5,10 @@ language: python
 python:
   - "3.8"
 
-cache: pip
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/uv
 
 env:
   global:
@@ -21,13 +24,6 @@ notifications:
 
 git:
   depth: 10
-
-# Install dependencies
-# graphviz is required by plantuml
-addons:
-  apt:
-    packages:
-    - graphviz
 
 before_install:
   - chmod +x software/verification/travis/omc
@@ -51,22 +47,17 @@ before_install:
       echo "Set up modelica-buildings at ${MODELICAPATH}";
 
 install:
-  - pip3 install --upgrade pip wheel
+  - pip3 install uv
 
 # Execute tests
 script:
   - |
-    cd specification
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r ${TRAVIS_BUILD_DIR}/specification/requirements.txt
+    cd ${TRAVIS_BUILD_DIR}/specification
     make clean html
     make latex
     make linkcheck SPHINXOPTS=-W
-    deactivate
-    rm -rf venv
   - |
-    cd software/verification
+    cd ${TRAVIS_BUILD_DIR}/software/verification
     python -m venv venv
     source venv/bin/activate
     pip install -r ${TRAVIS_BUILD_DIR}/software/verification/requirements.txt

@@ -3,16 +3,12 @@
 
 # You can set these variables from the command line.
 #SPHINXOPTS    = -W
-SPHINXBUILD   = sphinx-build
+export UV_CACHE_DIR ?= $(HOME)/.cache/uv
+SPHINXBUILD   = uv run --python 3.12 --with-requirements requirements.txt sphinx-build
 PAPER         =
 BUILDDIR      = build
-TMP          := $(shell mktemp -u /tmp/sphinx.XXXXXX)
 # Bitbucket user name
 BITUSR        = $(USER)
-
-TEMPDIR := $(shell mktemp -d)
-
-found=${shell java -jar source/plantuml.jar -testdot | grep -c 'Installation seems OK. File generation OK'}
 
 #PYTHONPATH=`pwd`/..
 
@@ -72,7 +68,7 @@ copy_cdl_to_www:
 copy_case_study1_results:
 	cp ../examples/case_study_1/img/* source/img/case_study1/results/
 
-html:	test_installation
+html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	./fixHtml.py
 	@echo
@@ -80,7 +76,7 @@ html:	test_installation
 
 
 
-latex:	test_installation
+latex:
 	$(SPHINXBUILD) -b latex $(ALLSPHINXOPTS) $(BUILDDIR)/latex
 	@echo
 	@echo "Build finished; the LaTeX files are in $(BUILDDIR)/latex."
@@ -88,12 +84,6 @@ latex:	test_installation
 	      "run these through (pdf)latex."
 	./fixLatex.py
 	(cd $(BUILDDIR)/latex; make all-pdf)
-
-test_installation:
-ifneq "$(found)" "1"
-	@echo "*** Error: plantuml does not pass configuration test. Run 'java -jar source/plantuml.jar -testdot'"
-	exit 1
-endif
 
 linkcheck:
 	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
