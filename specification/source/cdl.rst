@@ -268,8 +268,6 @@ the following Modelica keywords are not supported in CDL (except inside the exte
 
 #. ``inner`` and ``outer``
    `for instance hierarchy lookup <https://specification.modelica.org/maint/3.6/scoping-name-lookup-and-flattening.html#inner-declarations-instance-hierarchy-name-lookup>`_
-#. ``break`` for
-   `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_.
 
 Also, the following Modelica language features are not supported in CDL, except inside extension blocks:
 
@@ -1719,7 +1717,7 @@ but it cannot extend an Elementary Block or an Extension Block.
 The ``extends`` statement can have any number of declarations that assign
 a parameter value or parameter attributes.
 
-.. note:: There are three restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
+.. note:: There are two restrictions compared to the Modelica Language Specification :cite:`ModelicaSpecification2023`:
 
           1. Only a single ``extends`` statement is allowed.
              This is for simplicity because two ``extends`` statements could require having to reconcile two
@@ -1733,13 +1731,14 @@ a parameter value or parameter attributes.
              Note that in Modelica, multiple ``extends`` are allowed, but the block ``NotValid``
              is not valid and tools will issue an error message.
 
-          2. The ``break`` keyword for
-             `component deselection <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_
-             is not allowed.
-          3. Modelica allows assigning a value to a variable declared as an ``input``.
+          2. Modelica allows assigning a value to a variable declared as an ``input``.
              This is not allowed in CDL.
              This restriction avoids that input connectors can no longer be graphically connected
              (as they then would have two bindings to a value, causing the block to be overdetermined).
+
+[Note: The ``break`` keyword has not yet been added to the ANSI/ASHRAE Standard 231
+and it is being reviewed by the Standing Standard Project Committee.
+]
 
 [
 A simple illustrative example of an ``extends`` statement would be to
@@ -1756,7 +1755,7 @@ This could be accomplished as
 
 The ``extends`` statement can also have any number of ``redeclare`` statements (:numref:`sec_rep_blo`).
 
-[For example, in the block below, the controller with name ``conPID`` is replaced
+[For example, in the block below, the controller named ``conPID`` is replaced
 with the block ``OBC.CDL.Reals.PIDWithReset``.
 
 .. literalinclude::  img/cdl/MyBlockWithRedeclare.mo
@@ -1776,7 +1775,7 @@ then the following applies:
 - The modifiers for subsequent redeclarations and constraining type are the modifiers on the component
   or short-class-definition if that is used in the original declaration, otherwise empty.
 
-[ Consider the following example, and see also
+[ Consider the following example. See also
 `Section 7.3.2 <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#constraining-type>`_ in
 :cite:`ModelicaSpecification2023`:
 
@@ -1784,6 +1783,38 @@ then the following applies:
    :language: modelica
 
 ]
+
+In the ``extends`` statement, the ``break`` keyword can be used to
+`deselect connections and components <https://specification.modelica.org/maint/3.6/inheritance-modification-and-redeclaration.html#S4.p5>`_.
+
+[For example, in the block below, the connection ``connect(gai.y, conPID.u_m)`` in the block ``TestBreak`` is deselected
+and a new instance ``abs1`` is added between the original connectors.
+
+.. literalinclude::  img/cdl/BreakConnect.mo
+   :language: modelica
+
+.. _fig_break_connection_block:
+
+.. figure:: img/cdl/BreakConnect.*
+   :width: 500px
+
+   Example of a block that deselects a connection.
+
+In the block below, the component ``conPID`` in the block ``TestBreak`` is deselected and replaced by a new component
+``conPID1``.
+
+.. literalinclude::  img/cdl/BreakComponent.mo
+   :language: modelica
+
+.. _fig_break_component_block:
+
+.. figure:: img/cdl/BreakComponent.*
+   :width: 500px
+
+   Example of a block that deselects a component.
+
+]
+
 
 Model of Computation
 ^^^^^^^^^^^^^^^^^^^^
