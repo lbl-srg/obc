@@ -294,32 +294,10 @@ in :numref:`fig_cdl_ssp`.
 
 .. _fig_cdl_ssp:
 
-.. uml::
-   :caption: Translation of CDL to SSP.
-   :width: 550 px
+.. figure:: img/uml/codeGeneration_01.*
+   :width: 550px
 
-   skinparam componentStyle uml2
-
-   scale 450 width
-
-     database "CDL library" as cdl_lib {
-     }
-     database "FMU repository" as fmu_lib {
-     }
-
-     cdl_lib -r-> fmu_lib: generate
-
-     [CDL-compliant\nsequence]
-
-     [FMU (ME or CS)]
-
-     [CDL-compliant\nsequence] -r-> [FMU (ME or CS)] : translate
-
-     [FMU (ME or CS)] -r-> [SSP-compliant\nspecification] : translate
-
-     fmu_lib -> [FMI Composer] : uses
-
-     [SSP-compliant\nspecification] -d-> [FMI Composer] : import
+   Translation of CDL to SSP.
 
 
 In such a workflow, a control vendor would translate the elementary CDL blocks

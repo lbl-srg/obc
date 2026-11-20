@@ -22,13 +22,6 @@ notifications:
 git:
   depth: 10
 
-# Install dependencies
-# graphviz is required by plantuml
-addons:
-  apt:
-    packages:
-    - graphviz
-
 before_install:
   - chmod +x software/verification/travis/omc
   - docker pull ${DOCKER_REPONAME}/${OMC_VERSION};

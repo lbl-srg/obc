@@ -14,18 +14,4 @@ and a few contributions, which can be installed by running
 ```
 pip install Sphinx
 pip install sphinx_bootstrap_theme
-pip install sphinxcontrib-plantuml
-```
-
-UML graphics are drawn using https://pypi.org/pypi/sphinxcontrib-plantuml
-
-plantuml requires graphviz, which can be installed on OS X using
-
-```
-brew install graphviz
-```
-and on Ubuntu using
-
-```
-sudo apt-get install graphviz
 ```

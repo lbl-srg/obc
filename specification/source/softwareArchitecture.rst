@@ -16,28 +16,10 @@ sending setpoints to PICs.
 
 .. _fig_architecture_overall_obc:
 
-.. uml::
-   :caption: Overall software architecture.
+.. figure:: img/uml/softwareArchitecture_01.*
    :width: 600px
 
-   skinparam componentStyle uml2
-
-     package "Controls Design Tool" as ctl_des {
-       [Sequence Generator]
-       [CDL Exporter]
-     }
-     package "Functional Verification Tool" as vt{
-       [I/O\nConfiguration]
-       [Engine]
-     }
-     [CDL Parser]
-     [CDL-compliant Control Sequence]
-     [CDL Library]
-
-   ctl_des -d-> [CDL Parser]: uses
-   vt -d-> [CDL Parser]: uses
-   [CDL Parser] -d-> [CDL-compliant Control Sequence]: reads
-   [CDL Parser] -d-> [CDL Library]: reads
+   Overall software architecture.
 
 :numref:`fig_architecture_overall_obc` shows the overall
 system with the `Controls Design Tool` and the
@@ -62,60 +44,10 @@ Controls Design Tool
 
 .. _fig_architecture_overall_ctrl_design:
 
-.. uml::
-   :caption: Overall software architecture of the Controls Design Tool.
+.. figure:: img/uml/softwareArchitecture_02.*
    :width: 600px
 
-   skinparam componentStyle uml2
-
-
-   package OpenStudio {
-   }
-
-   package "HVAC/controls tool" as edi {
-     [Web-based GUI]
-   }
-
-   interface json as mod_jso_par
-
-   database "Modelica libraries" as mod_lib
-
-   edi <-> mod_jso_par : reads/writes json
-
-   mod_jso_par <-> mod_lib
-
-   package OPTIMICA {
-   }
-
-   OpenStudio -d-> edi : invokes
-   OpenStudio -d-> OPTIMICA : invokes
-
-   OPTIMICA -u-> mod_lib: loads
-
-   interface FMUs
-
-   OPTIMICA -d-> FMUs : generates
-
-   package "Buildings Operating System" as BOS {
-     database "I/O drivers" as dri2
-     database "runtime environment" as rte2
-     database "operator interface" as opi2
-   }
-
-   package "Buildings Automation System" as BAS {
-     database "I/O drivers" as dri1
-     database "runtime environment" as rte1
-     database "operator interface" as opi1
-   }
-
-   BAS -u-> mod_jso_par : converts
-
-   BOS -u-> FMUs : imports
-
-   interface Hardware
-
-   BOS -d-> Hardware : I/O
-   BAS -d-> Hardware : I/O
+   Overall software architecture of the Controls Design Tool.
 
 :numref:`fig_architecture_overall_ctrl_design`
 shows the overall
@@ -162,33 +94,10 @@ Functional Verification Tool
 
 .. _fig_architecture_overall_verification:
 
-.. uml::
-   :caption: Overall software architecture of the Functional Verification Tool.
+.. figure:: img/uml/softwareArchitecture_03.*
    :width: 600px
 
-   skinparam componentStyle uml2
-
-   package "Functional Verification Tool" as vt{
-       [I/O\nConfiguration]
-       [Engine]
-       [Viewer]
-   }
-   [CDL Parser]
-   [OPTIMICA]
-   database "Modelica\nControl\nModel" as mod_ctl
-   [FMU-ME]
-   [Reports] <<htlm, json>>
-   [HIL Module]
-
-   vt -d-> [CDL Parser]: uses
-   [I/O\nConfiguration] -d-> mod_ctl : updates point list
-   [Engine] -> [FMU-ME] : inserts point list
-   [Engine] -d-> [OPTIMICA] : invokes FMU-ME export
-   [OPTIMICA] -d-> mod_ctl: imports
-   [Engine] -l-> [HIL Module]: connects
-   [OPTIMICA] -> [FMU-ME] : exports
-   [Engine] -d-> [Reports]: writes
-   [Viewer] -> [Reports]: imports
+   Overall software architecture of the Functional Verification Tool.
 
 The `Functional Verification Tool` consists of three modules:
 
