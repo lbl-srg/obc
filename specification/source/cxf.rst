@@ -117,8 +117,7 @@ Table :numref:`tab_cxf_cla` and Table :numref:`tab_cxf_rel` respectively.
    IntegerOutput                 An OutputConnector of the Integer data type.
    RealInput                     An InputConnector of the Real data type.
    RealOutput                    An OutputConnector of the Real data type.
-   EnumerationType               An Integer enumeration starting with the value 1, each element 
-                                 is mapped to a unique String.
+   EnumerationDataType           The base class of enumeration types (``subClassOf DataType``).
    String                        A data type to represent text.
    ============================  ===========================================================								 
 			 
@@ -222,6 +221,121 @@ CXF reference to ``gain.k`` instance: ``ExamplePackage.ExampleSeq#gain.k``
 
 CXF property linking ``gain`` and ``gain.k``: ``ExamplePackage.ExampleSeq#gain S231:hasInstance ExamplePackage.ExampleSeq#gain.k .``
 ]
+
+.. _sec_cxf_enu:
+
+Representing Enumerations in CXF
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+An enumeration type declared in CDL shall be represented 
+in CXF as a class that is an instance of ``EnumerationDataType``.
+The class shall be referenced by the entire package path 
+of the CDL enumeration type. Each element of the 
+enumeration shall be represented as an instance of its 
+enumeration type. An element shall be referenced by the CXF 
+representation of its enumeration type, followed by a 
+period character (``.``) and the name of the element. 
+
+The enumeration type and its elements shall be represented
+in the CXF representation of the enumeration type itself,
+and shall be referenced, not repeated, in the CXF 
+representation of a Block that uses the enumeration type.
+
+A Parameter or Constant whose data type is an enumeration
+shall be an instance of ``Parameter`` or ``Constant``, 
+respectively, and shall use the property ``isOfDataType`` 
+to reference its enumeration type.
+If the instance has a value binding, the property 
+``value`` shall contain the fully qualified name of an
+element of its enumeration type, as a string. The elements 
+of an enumeration shall only be stated by typing each element 
+as an instance of its enumeration type, and not on the 
+Parameter or Constant.
+
+[This allows a software tool that imports CXF to determine
+the data type of a Parameter, and the set of its admissible
+values, from the enumeration type alone, even if the Parameter
+has no value binding.
+
+Example of an enumeration Parameter in CXF
+
+CDL:
+
+.. code-block:: modelica
+
+    within ExamplePackage;
+    block ExampleSeq
+      parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=
+        Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+        "Ventilation standard, ASHRAE 62.1 or Title 24";
+    end ExampleSeq;
+
+CXF representation of ``ExamplePackage.ExampleSeq``:
+
+.. code-block:: json
+
+    {
+      "@context": {
+        "S231": "http://data.ashrae.org/S231#",
+        "ex": "http://example.org#"
+      },
+      "@graph": [
+        {
+          "@id": "ex:ExamplePackage.ExampleSeq",
+          "@type": "S231:Block",
+          "S231:hasParameter": {
+            "@id": "ex:ExamplePackage.ExampleSeq.venStd"
+          },
+          "S231:label": "ExampleSeq"
+        },
+        {
+          "@id": "ex:ExamplePackage.ExampleSeq.venStd",
+          "@type": "S231:Parameter",
+          "S231:accessSpecifier": "public",
+          "S231:description": "Ventilation standard, ASHRAE 62.1 or Title 24",
+          "S231:isOfDataType": {
+            "@id": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard"
+          },
+          "S231:label": "venStd",
+          "S231:value": "Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1"
+        }
+      ]
+    }
+
+CXF representation of ``Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard``:
+
+.. code-block:: json
+
+    {
+      "@context": {
+        "S231": "http://data.ashrae.org/S231#",
+        "ex": "http://example.org#"
+      },
+      "@graph": [
+        {
+          "@id": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard",
+          "@type": "S231:EnumerationDataType",
+          "S231:description": "Enumeration to define the ventilation standard",
+          "S231:label": "VentilationStandard"
+        },
+        {
+          "@id": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1",
+          "@type": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard",
+          "S231:description": "ASHRAE 62.1",
+          "S231:label": "ASHRAE62_1",
+          "S231:value": "ASHRAE62_1"
+        },
+        {
+          "@id": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24",
+          "@type": "ex:Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard",
+          "S231:description": "California Title 24",
+          "S231:label": "California_Title_24",
+          "S231:value": "California_Title_24"
+        }
+      ]
+    }
+    
+]
+
 
 Handling Arrays and Expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
